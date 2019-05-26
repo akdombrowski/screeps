@@ -4,6 +4,7 @@ var roleTower = {
   /** @param {Creep} creep **/
   run: function(creep) {
     let invader = Memory.invader;
+    let tower1 = Memory.tower1;
     if (invader) {
       tower1.attack(invader);
     }

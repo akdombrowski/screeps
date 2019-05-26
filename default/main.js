@@ -25,13 +25,15 @@ module.exports.loop = function() {
   let sourcePath1 = Memory.sourcePath1;
   let sourcePath2 = Memory.sourcePath2;
   let storagePath1 = Memory.storagePath1;
+  let tower1Id = Memory.towerId;
   let storagePath2 = Memory.storagePath2;
-  let tower1 = Game.getObjectById("5ce73685d7640d2de26e09bf");
+  let tower1 = Game.getObjectById(tower1Id);
   let invaderId = Memory.invaderId;
   let invader = Game.getObjectById(invaderId);
   let pathMainRmToNorthRm =
     Memory.pathMainRmToNorthRm || Game.map.findRoute("E35N31", "E35N31");
 
+  Memory.tower1Id = "5ce73685d7640d2de26e09bf";
   Memory.north = north;
   Memory.enAvail = enAvail;
   Memory.enCap = enCap;

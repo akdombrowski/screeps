@@ -86,7 +86,6 @@ function vest(creep, flag, path) {
 
   if (target) {
     if (creep.pos.isNearTo(target)) {
-      console.log(creep.name + " target " + target + " " );
       retval = creep.harvest(target);
 
       if (retval == OK) {

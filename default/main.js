@@ -2,6 +2,7 @@ var roleController = require("role.controller");
 var roleWorker = require("role.worker");
 var roleRepairer = require("role.repairer");
 let roleHarvester = require("role.harvester");
+let roleTower = require("role.tower");
 const hele = require("./action.hele");
 const upController = require("./action.upgradeController");
 

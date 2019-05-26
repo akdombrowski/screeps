@@ -3,6 +3,7 @@ const getEnergy = require("./action.getEnergy");
 var roleTower = {
   /** @param {Creep} creep **/
   run: function(creep) {
+    let invader = Memory.invader;
     if (invader) {
       tower1.attack(invader);
     }

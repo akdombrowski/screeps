@@ -43,12 +43,12 @@ function vest(creep, flag, path) {
     if (target) {
       if (creep.pos.isNearTo(eastSource)) {
         creep.harvest(eastSource);
-        creep.say("âï¸");
+        creep.say("best");
       }
 
       creep.memory.sourceId = target.id;
       if (creep.fatigue > 0) {
-        creep.say("ðð»." + creep.fatigue);
+        creep.say("f." + creep.fatigue);
         return;
       }
       creep.moveTo(target, {
@@ -65,7 +65,7 @@ function vest(creep, flag, path) {
     //       creep.pickup(target);
     //       return;
     //     } else {
-    //       creep.say("ðpickup");
+    //       creep.say("Ã°ÂÂÂpickup");
     //       creep.moveTo(target, {
     //         reusePath: 20,
     //         range: 1,

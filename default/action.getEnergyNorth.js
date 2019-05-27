@@ -43,12 +43,12 @@ function vest(creep, flag, path) {
     if (target) {
       if (creep.pos.isNearTo(northSource)) {
         creep.harvest(northSource);
-        creep.say("âï¸");
+        creep.say("h");
       }
 
       creep.memory.sourceId = target.id;
       if (creep.fatigue > 0) {
-        creep.say("ðð»." + creep.fatigue);
+        creep.say("f." + creep.fatigue);
         return;
       }
       creep.moveTo(target, {

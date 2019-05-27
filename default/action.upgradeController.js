@@ -36,7 +36,7 @@ function upController(creep, flag) {
     if (retval == OK) {
       creep.say("uc");
     } else if (retval == ERR_NOT_IN_RANGE) {
-      creep.say("ðuc" + target.pos.x + "," + target.pos.y);
+      creep.say("uc" + target.pos.x + "," + target.pos.y);
 
       let igCrps = false;
       if (creep.pos.getRangeTo(target) <= 10) {
@@ -52,15 +52,15 @@ function upController(creep, flag) {
 
       if (retval == ERR_TIRED) {
         
-        creep.say("ðð»." + creep.fatigue);
+        creep.say("f." + creep.fatigue);
       }
     } else if (retval == ERR_NOT_ENOUGH_RESOURCES) {
-      creep.say("â½uc");
+      creep.say("uc");
       creep.memory.getEnergy = true;
       getEnergy(creep);
     } else {
       creep.memory.controller = null;
-      creep.say("ðuc." + retval);
+      creep.say("uc." + retval);
     }
   } else {
     creep.say("ucGE");

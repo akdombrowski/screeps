@@ -9,7 +9,7 @@ const roleHarvester = {
     if (creep.memory.getEnergy || creep.carry.energy <= 0) {
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
-      creep.say("ð h");
+      creep.say("h");
       if(creep.memory.direction == "north") {
         getEnergyNorth(creep);
       } else if (creep.memory.direction == "east") {
@@ -23,7 +23,7 @@ const roleHarvester = {
     ) {
       creep.memory.getEnergy = false;
       creep.memory.transfer = true;
-      creep.say("â¡t");
+      creep.say("t");
       transferEnergy(creep);
     }
   }

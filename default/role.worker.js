@@ -12,7 +12,7 @@ var roleWorker = {
       (creep.carry.energy < creep.carryCapacity && !creep.memory.working)
     ) {
       creep.memory.working = false;
-      creep.say("ðh");
+      creep.say("h");
       creep.memory.getEnergy = true;
       getEnergy(creep);
       return;
@@ -59,7 +59,7 @@ var roleWorker = {
           creep.memory.b = targetId;
           creep.say("b");
         } else if (creep.fatigue > 0) {
-          creep.say("ðð»." + creep.fatigue);
+          creep.say("f." + creep.fatigue);
         } else {
           retval = creep.moveTo(target, {
             reUsePath: 20,
@@ -73,7 +73,7 @@ var roleWorker = {
             target = null;
             creep.memory.b = null;
           } else if (retval == OK) {
-            creep.say("ðw." + target.x + target.y);
+            creep.say("w." + target.x + target.y);
             creep.memory.b = targetId;
           } else {
             creep.say("w." + retval);

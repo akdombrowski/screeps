@@ -166,7 +166,7 @@ module.exports.loop = function() {
       chosenRole = "uc";
       name = chosenRole + t;
       upControllers.push(name);
-    } 
+    }
     // else if (eastHarvesters.length < numCrps / 3) {
     //   chosenRole = "h";
     //   name = chosenRole + t + "east";
@@ -176,7 +176,7 @@ module.exports.loop = function() {
     //   name = chosenRole + t + "north";
     //   direction = "north";
     //   eastHarvesters.push(name);
-    // } 
+    // }
     else {
       chosenRole = "w";
       name = chosenRole + t;
@@ -184,7 +184,20 @@ module.exports.loop = function() {
     }
 
     let retval = Game.spawns.Spawn1.spawnCreep(
-      [CARRY, CARRY, CARRY, MOVE, MOVE, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE],
+      [
+        CARRY,
+        CARRY,
+        CARRY,
+        MOVE,
+        MOVE,
+        WORK,
+        WORK,
+        WORK,
+        WORK,
+        MOVE,
+        MOVE,
+        MOVE
+      ],
       name,
       {
         memory: { role: chosenRole, direction: direction }
@@ -192,7 +205,29 @@ module.exports.loop = function() {
     );
 
     if (retval == OK) {
-      console.log("ð¶." + name);
+      console.log("spawned." + name);
+    }
+  } else if (numCrps < 5 && enAvail >= 300) {
+    let t = Game.time;
+    let name = "h" + t;
+    let chosenRole = "h";
+    let direction = "south";
+    let retval = Game.spawns.Spawn1.spawnCreep(
+      [
+        CARRY,
+        MOVE,
+        WORK,
+        MOVE,
+        MOVE
+      ],
+      name,
+      {
+        memory: { role: chosenRole, direction: direction }
+      }
+    );
+
+    if (retval == OK) {
+      console.log("spawned." + name);
     }
   }
 

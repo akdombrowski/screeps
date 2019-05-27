@@ -3,7 +3,7 @@ var roleController = {
   run: function(creep) {
     if (creep.memory.controlling && creep.carry.energy == 0) {
       creep.memory.controlling = false;
-      creep.say("🔄 harvest");
+      creep.say("ð harvest");
       getEnergy(creep, Game.getObject.byId("5bbcaefa9099fc012e639e8f"));
       return;
     }
@@ -13,12 +13,12 @@ var roleController = {
       creep.carry.energy == creep.carryCapacity
     ) {
       creep.memory.controlling = true;
-      creep.say("🚧 controlling");
+      creep.say("ð§ controlling");
     }
 
     if (creep.memory.controlling) {
       if (creep.fatigue > 0) {
-        creep.say("🛌🏻." + creep.fatigue);
+        creep.say("ðð»." + creep.fatigue);
       } else {
         var target = Game.getObjectById("5bbcaefa9099fc012e639e90");
         if (creep.pos.inRangeTo(target, 3) && creep.fatigue <= 0) {

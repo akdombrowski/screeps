@@ -69,7 +69,7 @@ function vest(creep, flag, path) {
         }
         return;
       } else {
-        creep.say("🚚wd");
+        creep.say("ðwd");
         creep.moveTo(target, {
           reusePath: 20,
           range: 1,
@@ -88,7 +88,7 @@ function vest(creep, flag, path) {
         creep.pickup(target);
         return;
       } else {
-        creep.say("🚚pickup");
+        creep.say("ðpickup");
         creep.moveTo(target, {
           reusePath: 20,
           range: 1,
@@ -111,20 +111,20 @@ function vest(creep, flag, path) {
     if (creep.pos.isNearTo(target)) {
       retval = creep.harvest(target);
       if (retval == OK) {
-        creep.say("⛏︎");
+        creep.say("âï¸");
         creep.memory.sourceId = target.id;
       } else {
-        creep.say("⛏︎.err." + retval);
+        creep.say("âï¸.err." + retval);
         creep.memory.sourceId = null;
       }
     } else if (creep.fatigue > 0) {
-      creep.say("🛌🏻." + creep.fatigue);
+      creep.say("ðð»." + creep.fatigue);
       return;
     } else if (path) {
-      creep.say("⛏︎." + target.pos.x + "," + target.pos.y);
+      creep.say("âï¸." + target.pos.x + "," + target.pos.y);
 
       if (creep.fatigue > 0) {
-        creep.say("🛌🏻." + creep.fatigue);
+        creep.say("ðð»." + creep.fatigue);
         return;
       }
 

@@ -8,9 +8,9 @@ var roleRepairer = {
     if (!repair && creep.carry.energy == creep.carryCapacity) {
       creep.memory.repair = true;
       creep.memory.getEnergy = false;
-      creep.say("👨🏽‍🏭");
+      creep.say("ð¨ð½âð­");
     } else if (!repair) {
-      creep.say("🔄");
+      creep.say("ð");
       creep.memory.getEnergy = true;
       getEnergy(creep);
       return;
@@ -67,13 +67,13 @@ var roleRepairer = {
           let retval = creep.repair(target);
 
           if (retval == OK) {
-            creep.say("👨🏽‍🏭");
+            creep.say("ð¨ð½âð­");
           } else if (retval == ERR_NOT_ENOUGH_ENERGY) {
             creep.memory.repair = false;
             getEnergy(creep);
-            creep.say("👨🏽‍🏭.En");
+            creep.say("ð¨ð½âð­.En");
           } else {
-            creep.say("👨🏽‍🏭.err");
+            creep.say("ð¨ð½âð­.err");
           }
         } else {
           retval = creep.moveTo(target, {
@@ -87,12 +87,12 @@ var roleRepairer = {
           });
           creep.memory.r = target.pos;
           if (creep.fatigue > 0) {
-            creep.say("🛌🏻." + creep.fatigue);
+            creep.say("ðð»." + creep.fatigue);
           } else if (retval == ERR_INVALID_TARGET){
-            creep.say("🛌🏻." +"inval");
+            creep.say("ðð»." +"inval");
             target = null;
           }else {
-            creep.say("👨🏽‍🏭" + target.pos.x + "," + target.pos.y);
+            creep.say("ð¨ð½âð­" + target.pos.x + "," + target.pos.y);
           }
         }
       } else if (creep.carry < creep.carryCapacity / 2) {

@@ -88,9 +88,9 @@ function tran(creep, flag, dest) {
       creep.memory.dest = target.pos;
     }
   } else if (creep.fatigue > 0) {
-    creep.say("🛌🏻." + creep.fatigue);
+    creep.say("ðð»." + creep.fatigue);
   } else if (target) {
-    creep.say("🚘t." + target.pos.x + "," + target.pos.y);
+    creep.say("ðt." + target.pos.x + "," + target.pos.y);
     let igCrps = true;
     if (creep.pos.getRangeTo(target) <= 5) {
       igCrps = false;
@@ -107,7 +107,7 @@ function tran(creep, flag, dest) {
     if (retval != OK) {
       creep.say("err." + retval);
     } else {
-      creep.say("🚘t");
+      creep.say("ðt");
     }
 
     creep.memory.dest = target.pos;

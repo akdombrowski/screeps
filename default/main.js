@@ -97,7 +97,7 @@ module.exports.loop = function() {
   for (let name in Memory.creeps) {
     if (!Game.creeps[name]) {
       delete Memory.creeps[name];
-      console.log("☠︎.", name);
+      console.log("â ï¸.", name);
     }
   }
 
@@ -134,7 +134,7 @@ module.exports.loop = function() {
   //   );
 
   //   if (retval == OK) {
-  //     console.log("👶." + name);
+  //     console.log("ð¶." + name);
   //   }
   // }
 
@@ -192,7 +192,7 @@ module.exports.loop = function() {
     );
 
     if (retval == OK) {
-      console.log("👶." + name);
+      console.log("ð¶." + name);
     }
   }
 

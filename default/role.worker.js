@@ -28,7 +28,6 @@ var roleWorker = {
       (creep.memory.working || !creep.memory.getEnergy) &&
       creep.room.name == "E35N31"
     ) {
-
       let retval;
       let targetId = creep.memory.b;
       let target = Game.getObjectById(targetId);
@@ -47,12 +46,7 @@ var roleWorker = {
       ) {
         target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
           filter: constructionSite => {
-            return (
-              constructionSite.progress < constructionSite.progressTotal 
-              // &&
-              // ter.get(constructionSite.pos.x, constructionSite.pos.y) !=
-              //   TERRAIN_MASK_WALL
-            );
+            return constructionSite.progress < constructionSite.progressTotal;
           }
         });
         targetId = target ? target.id : null;
@@ -68,7 +62,7 @@ var roleWorker = {
           creep.say("🛌🏻." + creep.fatigue);
         } else {
           retval = creep.moveTo(target, {
-            reUsePath: 0,
+            reUsePath: 20,
             range: 3,
             visualizePathStyle: { stroke: "#ffff0f" }
           });
@@ -88,7 +82,11 @@ var roleWorker = {
           }
         }
       } else if (creep.room.name == "E35N32") {
-        creep.moveTo(Game.flags.northEntrance1);
+        creep.moveTo(Game.flags.northEntrance1, {
+          reusePath: 20,
+          range: 1,
+          visualizePathStyle: { stroke: "#0f52ff" }
+        });
         creep.say("w.ne1");
       } else {
         creep.say("w.err");

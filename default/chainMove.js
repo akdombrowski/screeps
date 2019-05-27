@@ -1,9 +1,9 @@
-function changeRoleAssignments(creeps, role) {
-  /** spawn builder creep **/
+function chainMove(pullCreep, creeps) {
+  /** creep chain moving **/
   let creep;
   for (creep in creeps) {
-    creeps.memory.role = role;
+    
   }
 };
 
-module.exports = changeRoleAssignments;
+module.exports = chainMove;

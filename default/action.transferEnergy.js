@@ -1,15 +1,35 @@
 function tran(creep, flag, dest) {
   let target;
-  if (creep.memory.role == "h") {
+  if (creep.memory.role == "h" || creep.memory.role == "harvester") {
     if (creep.room.name == "E35N32") {
       if (
         creep.pos == Game.flags.northEntrance1 ||
         creep.pos.isNearTo(Game.flags.northEntrance1)
       ) {
         creep.move(BOTTOM);
-      } else {
-        creep.moveTo(Game.flags.northEntrance1);
+        creep.move(BOTTOM);
       }
+      creep.moveTo(Game.flags.northEntrance1, {
+        reusePath: 200,
+        range: 1,
+        visualizePathStyle: { stroke: "#0f52ff" }
+      });
+      creep.say("northEntrance");
+      return;
+    } else if (creep.room.name == "E36N31") {
+      if (
+        creep.pos == Game.flags.eastEntrance1 ||
+        creep.pos.isNearTo(Game.flags.eastEntrance1)
+      ) {
+        creep.move(LEFT);
+        creep.move(LEFT);
+      }
+      creep.moveTo(Game.flags.eastEntrance1, {
+        reusePath: 200,
+        range: 1,
+        visualizePathStyle: { stroke: "#0f52ff" }
+      });
+      creep.say("eastEntrance");
       return;
     }
   } else if (creep.memory.dest) {
@@ -23,16 +43,28 @@ function tran(creep, flag, dest) {
   }
 
   if (!target) {
+    let spawnNeedsEnergy = false;
+    let extensionNeedsEnergy = false;
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: structure => {
         if (
-          structure.structureType == STRUCTURE_SPAWN ||
-          structure.structureType == STRUCTURE_EXTENSION
+          structure.structureType == STRUCTURE_EXTENSION &&
+          structure.energy < structure.energyCapacity
         ) {
-          return structure.energy < structure.energyCapacity;
+          extensionNeedsEnergy = true;
+          return true;
         } else if (
-          structure.structureType == STRUCTURE_STORAGE ||
-          structure.structureType == STRUCTURE_CONTAINER
+          !extensionNeedsEnergy &&
+          structure.structureType == STRUCTURE_SPAWN &&
+          structure.energy < structure.energyCapacity
+        ) {
+          spawnNeedsEnergy = true;
+          return true;
+        } else if (
+          !extensionNeedsEnergy &&
+          !spawnNeedsEnergy &&
+          (structure.structureType == STRUCTURE_STORAGE ||
+            structure.structureType == STRUCTURE_CONTAINER)
         ) {
           return _.sum(structure.store) < structure.storeCapacity;
         }
@@ -42,9 +74,9 @@ function tran(creep, flag, dest) {
 
   let tower = Game.getObjectById("5ce73685d7640d2de26e09bf");
   if (
-    tower.energy < tower.energyCapacity &&
-    !creep.memory.goNorth &&
-    Object.keys(Game.creeps).length > 10
+    (tower.energy < tower.energyCapacity &&
+      Object.keys(Game.creeps).length > 10) ||
+    tower.energy < tower.energyCapacity / 2
   ) {
     target = tower;
   }
@@ -65,6 +97,7 @@ function tran(creep, flag, dest) {
     }
 
     retval = creep.moveTo(target, {
+      reusePath: 200,
       ignoreCreeps: igCrps,
       swampCost: 4,
       range: 1,

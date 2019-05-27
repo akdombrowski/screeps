@@ -1,9 +1,7 @@
 const transferEnergy = require("./action.transferEnergy");
 
 function vest(creep, flag, path) {
-  let goEast = Memory.goEast || true;
-  let goNorth = Memory.goNorth || false;
-  let stayCentral = Memory.stayCentral || false;
+  let retal;
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
     if (creep.memory.role == "harvester" || creep.memory.role == "h") {
@@ -24,37 +22,61 @@ function vest(creep, flag, path) {
   let target;
   if (flag) {
     target = creep.room.lookForAt(LOOK_SOURCES, flag);
-  } else if (creep.memory.sourceId) {
-    target = Game.getObjectById(creep.memory.sourceId);
+    creep.say("flag");
   } else if (creep.memory.flag) {
     target = creep.room.lookForAt(LOOK_SOURCES, creep.memory.flag);
-  } else if (creep.memory.role == "harvester" || creep.memory.role == "h") {
-    if (creep.pos.isNearTo(Game.flags.northExit)) {
-      creep.move(TOP);
-      return;
-    } else if (creep.room.name == "E35N32") {
-      target = creep.room.lookForAt(LOOK_SOURCES, Game.flags.north);
-    } else if (creep.room.name == "E36N31") {
-      target = creep.room.lookForAt(LOOK_SOURCES, Game.flags.east);
-    } else if (creep.memory.goNorth ? true : goNorth) {
-      creep.moveTo(Game.flags.northExit, {
-        visualizePathStyle: { stroke: "ffffff" }
-      });
-      creep.say("⛄north");
-      creep.memory.goNorth = true;
-      Memory.goNorth = true;
-      Memory.goEast = false;
-      Memory.stayCentral = false;
+  } else if (creep.memory.sourceId) {
+    target = Game.getObjectById(creep.memory.sourceId);
+    creep.say("sourceId");
+  }
 
-    } else if (creep.memory.goEast ? true : goEast) {
-      creep.moveTo(Game.flags.eastExit, {
-        visualizePathStyle: { stroke: "ffffff" }
+  // target = Game.getObjectById("5ceac0b813ec7a41194da0da");
+
+  // console.log("storage " + target);
+  if (creep.memory.role != "harvester") {
+    if (!target) {
+      target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: structure => {
+          if (
+            (structure.structureType == STRUCTURE_CONTAINER ||
+              structure.structureType == STRUCTURE_STORAGE) &&
+            _.sum(structure.store) >= creep.carryCapacity
+          ) {
+            return true;
+          }
+        }
       });
-      creep.say("🌝east");
-      creep.memory.goEast = true;
-      Memory.goNorth = false;
-      Memory.goEast = true;
-      Memory.stayCentral = false;
+    }
+
+    if (
+      target &&
+      (target.structureType == STRUCTURE_CONTAINER ||
+        target.structureType == STRUCTURE_STORAGE) &&
+      _.sum(target.store) >= creep.carryCapacity
+    ) {
+      creep.memory.sourceId = target.id;
+
+      if (creep.pos.isNearTo(target.pos)) {
+        retval = creep.withdraw(
+          target,
+          RESOURCE_ENERGY,
+          creep.carryCapacity - _.sum(creep.carry)
+        );
+        if (retval == OK) {
+          creep.say("wd." + target.pos.x + "," + target.pos.y);
+        } else {
+          creep.say("wd." + retval);
+        }
+        return;
+      } else {
+        creep.say("🚚wd");
+        creep.moveTo(target, {
+          reusePath: 20,
+          range: 1,
+          visualizePathStyle: { stroke: "#ffffff" }
+        });
+        return;
+      }
     }
   }
 
@@ -68,6 +90,7 @@ function vest(creep, flag, path) {
       } else {
         creep.say("🚚pickup");
         creep.moveTo(target, {
+          reusePath: 20,
           range: 1,
           visualizePathStyle: { stroke: "#ffffff" }
         });
@@ -87,12 +110,12 @@ function vest(creep, flag, path) {
   if (target) {
     if (creep.pos.isNearTo(target)) {
       retval = creep.harvest(target);
-
       if (retval == OK) {
         creep.say("⛏︎");
         creep.memory.sourceId = target.id;
       } else {
-        creep.say("⛏︎.err");
+        creep.say("⛏︎.err." + retval);
+        creep.memory.sourceId = null;
       }
     } else if (creep.fatigue > 0) {
       creep.say("🛌🏻." + creep.fatigue);
@@ -106,46 +129,14 @@ function vest(creep, flag, path) {
       }
 
       creep.moveByPath(path);
+    } else if (creep.room.name == "E35N31") {
+      creep.moveTo(target, {
+        reusePath: 20,
+        visualizePathStyle: { stroke: "#ffffff" }
+      });
     } else {
-      creep.moveTo(target, { range: 1 });
-      creep.memory.sourceId = target.id;
-    }
-  } else if (creep.room.name == "E35N31") {
-    creep.moveTo(Game.flags.northExit, {
-      visualizePathStyle: { stroke: "#ffffff" }
-    });
-    if (creep.pos == Game.flags.northExit.pos) {
-      creep.move(TOP);
-    }
-    creep.say("northExit");
-  } else if (creep.room.name == "E36N31") {
-    creep.moveTo(Game.flags.eastExit, {
-      visualizePathStyle: { stroke: "#ffffff" }
-    });
-    if (creep.pos == Game.flags.eastExit.pos) {
-      creep.move(RIGHT);
-    }
-    creep.say("eastExit");
-  } else {
-    if (creep.pos.isNearTo(Game.getObjectById("5bbcaefa9099fc012e639e8c"))) {
-      creep.harvest(Game.getObjectById("5bbcaefa9099fc012e639e8c"));
-      creep.say("⛏︎");
-    } else {
-      retval = creep.moveTo(
-        Game.getObjectById("5bbcaefa9099fc012e639e8c", {
-          visualizePathStyle: { stroke: "#ffff00" },
-          range: 1
-        })
-      );
-      if (retval == OK) {
-        creep.say(
-          Game.getObjectById("5bbcaefa9099fc012e639e8c").pos.x +
-            "," +
-            Game.getObjectById("5bbcaefa9099fc012e639e8c").pos.y
-        );
-      } else {
-        creep.say("err " + retval);
-      }
+      target = null;
+      creep.say("sad");
     }
   }
 }

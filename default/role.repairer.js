@@ -77,7 +77,7 @@ var roleRepairer = {
           }
         } else {
           retval = creep.moveTo(target, {
-            reusePath: 10,
+            reusePath: 20,
             ignoreCreeps: false,
             maxRooms: 1,
             maxOps: 3000,
@@ -96,7 +96,7 @@ var roleRepairer = {
           }
         }
       } else if (creep.carry < creep.carryCapacity / 2) {
-        console.log("ge");
+        
         creep.memory.repair = false;
         creep.memory.getEnergy = true;
         getEnergy(creep);

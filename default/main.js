@@ -1,10 +1,12 @@
-var roleController = require("role.controller");
-var roleWorker = require("role.worker");
-var roleRepairer = require("role.repairer");
-let roleHarvester = require("role.harvester");
-let roleTower = require("role.tower");
+const roleController = require("role.controller");
+const roleWorker = require("role.worker");
+const roleRepairer = require("role.repairer");
+const roleHarvester = require("role.harvester");
+const roleTower = require("role.tower");
 const hele = require("./action.hele");
 const upController = require("./action.upgradeController");
+const chainMove = require("./chainMove");
+const rezzyContr = require("action.reserveContr");
 
 module.exports.loop = function() {
   let lastEnAvail = Memory.enAvail || 0;
@@ -23,27 +25,29 @@ module.exports.loop = function() {
   let northHarvesters = Memory.northHarvesters || [];
   let east = Game.flags.east;
   let eastHarvesters = Memory.eastHarvesters || [];
+  let westHarvesters = Memory.westHarvesters || [];
   let south = "";
   let southHarvesters = Memory.southHarvesters || [];
+
+  let spawnChainHarvester = Memory.spawnChainHarvester;
+  let spawnChainTransferers = Memory.spawnChainHarvesters || [];
+  let spawnChainMover = Memory.spawnChainMover;
+
   let source1 = rm.lookForAt(LOOK_SOURCES, 41, 8);
   let source2 = rm.lookForAt(LOOK_SOURCES, 29, 15);
-  let sourcePath1 = Memory.sourcePath1;
-  let sourcePath2 = Memory.sourcePath2;
-  let storagePath1 = Memory.storagePath1;
-  let tower1Id = Memory.towerId;
-  let storagePath2 = Memory.storagePath2;
-  let tower1 = Game.getObjectById(tower1Id);
-  let invaderId = Game.getObjectById(Memory.invaderId)
-    ? Memory.invaderId
-    : null;
-  let invader = invaderId ? Game.getObjectById(invaderId) : null;
-  let pathMainRmToNorthRm =
-    Memory.pathMainRmToNorthRm || Game.map.findRoute("E35N31", "E35N31");
 
+  let tower1Id = Memory.towerId || "5cecf4602c0c2b401dc70bc6";
+
+  let tower1 = Game.getObjectById(tower1Id);
+  let invaderId = Memory.invaderId;
+  let invader = invaderId ? Game.getObjectById(invaderId) : null;
+
+  Memory.invaderId = invader ? invaderId : null;
   Memory.northHarvesters = northHarvesters;
   Memory.eastHarvesters = eastHarvesters;
+  Memory.westHarvesters = westHarvesters;
   Memory.southHarvesters = southHarvesters;
-  Memory.tower1Id = "5ce73685d7640d2de26e09bf";
+  Memory.tower1Id = "5cecf4602c0c2b401dc70bc6";
   Memory.north = north;
   Memory.east = east;
   Memory.enAvail = enAvail;
@@ -60,28 +64,8 @@ module.exports.loop = function() {
 
   if (attackEvent && attackEvent.event == EVENT_ATTACK) {
     let attacker = attackEvent.objectId;
-    invader = attacker;
+    invader = Game.getObjectById(attacker);
     Memory.invaderId = invader.id;
-  }
-
-  if (sourcePath1) {
-    sourcePath1 = rm.findPath(s1, source1);
-    Memory.sourcePath1 = sourcePath1;
-  }
-
-  if (storagePath1) {
-    storagePath1 = rm.findPath(source1, s1);
-    Memory.storagePath1 = storagePath1;
-  }
-
-  if (sourcePath2) {
-    sourcePath2 = rm.findPath(s1, source2);
-    Memory.sourcePath1 = sourcePath2;
-  }
-
-  if (storagePath2) {
-    Memory.storagePath1 = storagePath1;
-    storagePath2 = rm.findPath(source2, s1);
   }
 
   if (Math.abs(enAvail - lastEnAvail) > 10) {
@@ -97,7 +81,7 @@ module.exports.loop = function() {
   for (let name in Memory.creeps) {
     if (!Game.creeps[name]) {
       delete Memory.creeps[name];
-      console.log("â ï¸.", name);
+      console.log("del.", name);
     }
   }
 
@@ -134,92 +118,136 @@ module.exports.loop = function() {
   //   );
 
   //   if (retval == OK) {
-  //     console.log("ð¶." + name);
+  //     console.log("." + name);
   //   }
   // }
 
-  if (enAvail >= 800) {
+  // if(!spawnChainMover && enAvail >= 50) {
+  //   Memory.rebuildSpawnChain = true;
+  //   let name = "spawnChainMover";
+  //   s1.spawnCreep([MOVE], name, {role: "spawnChainMover", direction: [LEFT]});
+  // } else if(!spawnChainHarvester && enAvail >= 100) {
+  //   let name = "spawnChainHarvester";
+  //   s1.spawnCreep([WORK], name, {role: "spawnChainHarvester", direction: [LEFT]});
+  // } else if(spawnChainTransferers.length < 1) {
+  //   let name = "spawnChainTransferer1";
+  //   s1.spawnCreep([CARRY], name, {role: "spawnChainTransferer", direction: [TOP_LEFT]});
+  //   spawnChainTransferers = [name];
+  //   Memory.spawnChainTransferers = spawnChainTransferers;
+  // } else if(spawnChainTransferers.length < 2) {
+  //   let name = "spawnChainTransferer2";
+  //   s1.spawnCreep([CARRY], name, {role: "spawnChainTransferer", direction: [TOP]});
+  //   spawnChainTransferers = spawnChainTransferers.push(name);
+  //   Memory.spawnChainTransferers = spawnChainTransferers;
+  //   Memory.spawnChainSetup = true;
+  // } else {
+  //   Memory.rebuildSpawnChain = false;
+  // }
+
+  // if (Memory.spawnChainSetup) {
+
+  // }
+
+  if (enAvail >= 500) {
     let t = Game.time;
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
+    let parts = [CARRY, WORK, WORK, WORK, MOVE, MOVE, MOVE];
+    let waitForRezzy = false;
 
     if (southHarvesters.length < 1) {
       southHarvesters.push(name);
-    } else if (northHarvesters.length < 3) {
+    } else if (northHarvesters.length < 2) {
       name += "north";
       direction = "north";
       northHarvesters.push(name);
-    } else if (eastHarvesters.length < 3) {
+    } else if (eastHarvesters.length < 2) {
       name += "east";
       direction = "east";
       eastHarvesters.push(name);
+    } else if (westHarvesters.length < 2) {
+      name += "west";
+      direction = "west";
+      westHarvesters.push(name);
     } else if (roadRepairers.length < 1) {
       chosenRole = "r";
       name = chosenRole + t;
+      parts = [CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, MOVE];
       roadRepairers.push(name);
     } else if (workers.length < 1) {
       chosenRole = "w";
       name = chosenRole + t;
+      parts = [CARRY, CARRY, CARRY, WORK, WORK, WORK, MOVE];
       workers.push(name);
     } else if (upControllers.length < 1) {
       chosenRole = "uc";
       name = chosenRole + t;
+      parts = [CARRY, CARRY, CARRY, WORK, WORK, WORK, MOVE];
+      upControllers.push(name);
+    // } else if (!Game.creeps["northRezzy"]) {
+    //   console.log("northRezzy");
+    //   waitForRezzy = true;
+    //   if (enAvail >= 650) {
+    //     chosenRole = "northRezzy";
+    //     name = chosenRole;
+    //     direction = "north";
+    //     parts = [CLAIM, MOVE];
+    //   } 
+    // } else if (!Game.creeps["eastRezzy"]) {
+    //   waitForRezzy = true;
+    //   if (enAvail >= 650) {
+    //     chosenRole = "eastRezzy";
+    //     name = chosenRole;
+    //     direction = "east";
+    //     parts = [CLAIM, MOVE];
+    //   } 
+    // } else if (!Game.creeps["westRezzy"]) {
+    //   waitForRezzy = true;
+    //   if (enAvail >= 650) {
+    //     chosenRole = "westRezzy";
+    //     name = chosenRole;
+    //     direction = "west";
+    //     parts = [CLAIM, MOVE];
+    //   } 
+    } else if (northHarvesters.length < 5) {
+      name += "north";
+      direction = "north";
+      northHarvesters.push(name);
+    } else if (eastHarvesters.length < 5) {
+      name += "east";
+      direction = "east";
+      eastHarvesters.push(name);
+    } else if (westHarvesters.length < 5) {
+      name += "west";
+      direction = "west";
+      westHarvesters.push(name);
+    } else {
+      chosenRole = "uc";
+      parts = [CARRY, CARRY, WORK, WORK, WORK, MOVE, MOVE];
+      name = chosenRole + t;
       upControllers.push(name);
     }
-    // else if (eastHarvesters.length < numCrps / 3) {
-    //   chosenRole = "h";
-    //   name = chosenRole + t + "east";
-    //   eastHarvesters.push(name);
-    // } else if (northHarvesters.length < numCrps / 3) {
-    //   chosenRole = "h";
-    //   name = chosenRole + t + "north";
-    //   direction = "north";
-    //   eastHarvesters.push(name);
-    // }
-    else {
-      chosenRole = "w";
-      name = chosenRole + t;
-      workers.push(name);
-    }
 
-    let retval = Game.spawns.Spawn1.spawnCreep(
-      [
-        CARRY,
-        CARRY,
-        CARRY,
-        MOVE,
-        MOVE,
-        WORK,
-        WORK,
-        WORK,
-        WORK,
-        MOVE,
-        MOVE,
-        MOVE
-      ],
-      name,
-      {
+    if(!waitForRezzy || name.endsWith("Rezzy")) {
+
+      let retval = Game.spawns.Spawn1.spawnCreep(parts, name, {
         memory: { role: chosenRole, direction: direction }
+      });
+      
+      if (retval == OK) {
+        console.log("spawned." + name);
       }
-    );
-
-    if (retval == OK) {
-      console.log("spawned." + name);
+    } else {
+      console.log("wait for rezzy");
     }
-  } else if (numCrps < 5 && enAvail >= 300) {
+  } else if (numCrps < 12 && enAvail >= 300) {
     let t = Game.time;
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
     let retval = Game.spawns.Spawn1.spawnCreep(
-      [
-        CARRY,
-        MOVE,
-        WORK,
-        MOVE,
-        MOVE
-      ],
+      [CARRY, WORK, WORK, MOVE],
       name,
       {
         memory: { role: chosenRole, direction: direction }
@@ -243,6 +271,7 @@ module.exports.loop = function() {
   northHarvesters = [];
   eastHarvesters = [];
   southHarvesters = [];
+  westHarvesters = [];
 
   let i = 0;
   for (let name in crps) {
@@ -258,17 +287,60 @@ module.exports.loop = function() {
         northHarvesters.push(name);
       } else if (creep.memory.direction == "east") {
         eastHarvesters.push(name);
+      } else if (creep.memory.direction == "west") {
+        westHarvesters.push(name);
       } else {
         southHarvesters.push(name);
       }
       creep.memory.role = "harvester";
       harvesters.push(name);
       roleHarvester.run(creep);
+    } else if (roll == "northRezzy") {
+      rezzyContr(
+        creep,
+        "E35N32",
+        Game.flags.northExit,
+        TOP,
+        "northEntrance1",
+        "5bbcaefa9099fc012e639e8b"
+      );
+    } else if (roll == "eastRezzy") {
+      rezzyContr(
+        creep,
+        "E36N31",
+        Game.flags.eastExit,
+        RIGHT,
+        "eastEntrance1",
+        "5bbcaf0c9099fc012e63a0be"
+      );
+    } else if (roll == "westRezzy") {
+      rezzyContr(
+        creep,
+        "E34N31",
+        Game.flags.westExit,
+        LEFT,
+        "westEntrance1",
+        "5bbcaeeb9099fc012e639c4d"
+      );
     } else if (creep.memory.role == "uc" || name.startsWith("uc")) {
       upControllers.push(name);
       upController(creep);
     } else if (roll == "worker" || roll == "w" || name.startsWith("w")) {
       workers.push(name);
+
+
+
+
+
+
+      creep.memory.b = "5ce42248a830cb79fbbc0ac3";
+
+
+
+
+
+
+
       roleWorker.run(creep);
     } else if (creep.memory.role == "healer" || name.startsWith("he")) {
       hele(creep);
@@ -335,7 +407,7 @@ module.exports.loop = function() {
   }
 
   if (tower1) {
-    roleTower.run();
+    roleTower.run(tower1);
   }
 
   Memory.harvesters = harvesters;
@@ -346,4 +418,5 @@ module.exports.loop = function() {
   Memory.claimers = claimers;
   Memory.northHarvesters = northHarvesters;
   Memory.eastHarvesters = eastHarvesters;
+  Memory.westHarvesters = westHarvesters;
 };

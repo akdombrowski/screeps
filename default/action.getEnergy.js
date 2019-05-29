@@ -1,4 +1,5 @@
 const transferEnergy = require("./action.transferEnergy");
+const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 
 function vest(creep, flag, path) {
   let retal;
@@ -30,9 +31,6 @@ function vest(creep, flag, path) {
     creep.say("sourceId");
   }
 
-  // target = Game.getObjectById("5ceac0b813ec7a41194da0da");
-
-  // console.log("storage " + target);
   if (creep.memory.role != "harvester") {
     if (!target) {
       target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
@@ -70,8 +68,15 @@ function vest(creep, flag, path) {
         return;
       } else {
         creep.say("wd");
+        let pathMem = 200;
+    let igCreeps = true;
+    if (moveAwayFromCreep(creep)) {
+      pathMem = 0;
+      igCreeps = false;
+    }
         creep.moveTo(target, {
-          reusePath: 20,
+          reusePath: pathMem,
+          ignoreCreeps: igCreeps,
           range: 1,
           visualizePathStyle: { stroke: "#ffffff" }
         });

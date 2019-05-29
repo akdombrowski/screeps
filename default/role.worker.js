@@ -1,4 +1,5 @@
 const getEnergy = require("./action.getEnergy");
+const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 
 var roleWorker = {
   /** @param {Creep} creep **/
@@ -61,8 +62,15 @@ var roleWorker = {
         } else if (creep.fatigue > 0) {
           creep.say("f." + creep.fatigue);
         } else {
+          let pathMem = 200;
+          let igCreeps = true;
+          if (moveAwayFromCreep(creep)) {
+            pathMem = 0;
+            igCreeps = false;
+          }
           retval = creep.moveTo(target, {
-            reUsePath: 20,
+            reUsePath: pathMem,
+            ignoreCreeps: igCreeps,
             range: 3,
             visualizePathStyle: { stroke: "#ffff0f" }
           });
@@ -82,8 +90,15 @@ var roleWorker = {
           }
         }
       } else if (creep.room.name == "E35N32") {
+        let pathMem = 200;
+        let igCreeps = true;
+        if (moveAwayFromCreep(creep)) {
+          pathMem = 0;
+          igCreeps = false;
+        }
         creep.moveTo(Game.flags.northEntrance1, {
-          reusePath: 20,
+          reusePath: pathMem,
+          ignoreCreeps: igCreeps,
           range: 1,
           visualizePathStyle: { stroke: "#0f52ff" }
         });

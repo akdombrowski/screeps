@@ -2,6 +2,7 @@ const getEnergy = require("./action.getEnergy");
 const transferEnergy = require("./action.transferEnergy");
 const getEnergyNorth = require("./action.getEnergyNorth");
 const getEnergyEast = require("./action.getEnergyEast");
+const getEnergyWest = require("./action.getEnergyWest");
 
 const roleHarvester = {
   /** @param {Creep} creep **/
@@ -14,6 +15,8 @@ const roleHarvester = {
         getEnergyNorth(creep);
       } else if (creep.memory.direction == "east") {
         getEnergyEast(creep);
+      } else if (creep.memory.direction == "west") {
+        getEnergyWest(creep);
       } else if (creep.memory.direction == "central" || creep) {
         getEnergy(creep);
       }

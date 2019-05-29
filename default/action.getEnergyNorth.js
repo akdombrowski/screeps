@@ -1,4 +1,6 @@
 const transferEnergy = require("./action.transferEnergy");
+const moveAwayFromCreep = require("./action.moveAwayFromCreep");
+
 
 function vest(creep, flag, path) {
   creep.memory.direction = "north";
@@ -10,9 +12,16 @@ function vest(creep, flag, path) {
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
     if (creep.room.name == "E35N32") {
+      let pathMem = 200;
+      let igCreeps = true;
+      if (moveAwayFromCreep(creep)) {
+        pathMem = 0;
+        igCreeps = false;
+      }
       creep.moveTo(northEntrance, {
         range: 1,
-        reusePath: 200,
+        reusePath: pathMem,
+        ignoreCreeps: igCreeps,
         visualizePathStyle: { stroke: "ffffff" }
       });
     }
@@ -44,18 +53,24 @@ function vest(creep, flag, path) {
       if (creep.pos.isNearTo(northSource)) {
         creep.harvest(northSource);
         creep.say("h");
-      }
-
-      creep.memory.sourceId = target.id;
-      if (creep.fatigue > 0) {
+        creep.memory.sourceId = target.id;
+      } else if (creep.fatigue > 0) {
         creep.say("f." + creep.fatigue);
         return;
+      } else {
+        let pathMem = 200;
+        let igCreeps = true;
+        if (moveAwayFromCreep(creep)) {
+          pathMem = 0;
+          igCreeps = false;
+        }
+        creep.moveTo(target, {
+          reusePath: pathMem,
+          ignoreCreeps: igCreeps,
+          range: 1,
+          visualizePathStyle: { stroke: "ffffff" }
+        });
       }
-      creep.moveTo(target, {
-        reusePath: 200,
-        range: 1,
-        visualizePathStyle: { stroke: "ffffff" }
-      });
     }
     //  else if (!target) {
     //   target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
@@ -65,7 +80,7 @@ function vest(creep, flag, path) {
     //       creep.pickup(target);
     //       return;
     //     } else {
-    //       creep.say("ðpickup");
+    //       creep.say("pickup");
     //       creep.moveTo(target, {
     //         reusePath: 20,
     //         range: 1,
@@ -76,8 +91,16 @@ function vest(creep, flag, path) {
     //   }
     // }
   } else if (creep.room.name == "E35N31") {
+    let pathMem = 200;
+    let igCreeps = true;
+    if (moveAwayFromCreep(creep)) {
+      pathMem = 0;
+      igCreeps = false;
+    }
+
     creep.moveTo(northExit, {
-      reusePath: 200,
+      reusePath: pathMem,
+      ignoreCreeps: igCreeps,
       range: 1,
       visualizePathStyle: { stroke: "#ffffff" }
     });

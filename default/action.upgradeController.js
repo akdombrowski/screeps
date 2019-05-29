@@ -1,4 +1,5 @@
 const getEnergy = require("./action.getEnergy");
+const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 
 function upController(creep, flag) {
   if (_.sum(creep.carry) >= creep.carryCapacity) {
@@ -38,13 +39,15 @@ function upController(creep, flag) {
     } else if (retval == ERR_NOT_IN_RANGE) {
       creep.say("uc" + target.pos.x + "," + target.pos.y);
 
-      let igCrps = false;
-      if (creep.pos.getRangeTo(target) <= 10) {
-        igCrps = false;
+      let pathMem = 200;
+      let igCreeps = true;
+      if (moveAwayFromCreep(creep)) {
+        pathMem = 0;
+        igCreeps = false;
       }
-
       retval = creep.moveTo(target, {
-        ignoreCreeps: igCrps,
+        ignoreCreeps: igCreeps,
+        reusePath: pathMem,
         range: 3,
         swampCost: 7,
         visualizePathStyle: { stroke: "#ffff0f" }

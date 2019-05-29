@@ -1,3 +1,5 @@
+const moveAwayFromCreep = require("./action.moveAwayFromCreep");
+
 function tran(creep, flag, dest) {
   let target;
   if (creep.memory.role == "h" || creep.memory.role == "harvester") {
@@ -9,8 +11,15 @@ function tran(creep, flag, dest) {
         creep.move(BOTTOM);
         creep.move(BOTTOM);
       }
+      let pathMem = 200;
+      let igCreeps = true;
+      if (moveAwayFromCreep(creep)) {
+        pathMem = 0;
+        igCreeps = false;
+      }
       creep.moveTo(Game.flags.northEntrance1, {
-        reusePath: 200,
+        reusePath: pathMem,
+        ignoreCreeps: igCreeps,
         range: 1,
         visualizePathStyle: { stroke: "#0f52ff" }
       });
@@ -24,8 +33,15 @@ function tran(creep, flag, dest) {
         creep.move(LEFT);
         creep.move(LEFT);
       }
+      let pathMem = 200;
+      let igCreeps = true;
+      if (moveAwayFromCreep(creep)) {
+        pathMem = 0;
+        igCreeps = false;
+      }
       creep.moveTo(Game.flags.eastEntrance1, {
-        reusePath: 200,
+        reusePath: pathMem,
+        ignoreCreeps: igCreeps,
         range: 1,
         visualizePathStyle: { stroke: "#0f52ff" }
       });
@@ -72,11 +88,10 @@ function tran(creep, flag, dest) {
     });
   }
 
-  let tower = Game.getObjectById("5ce73685d7640d2de26e09bf");
-  if (
-    (tower.energy < tower.energyCapacity &&
-      Object.keys(Game.creeps).length > 10) ||
-    tower.energy < tower.energyCapacity / 2
+  let tower = Game.getObjectById(Memory.tower1Id);
+  if (tower &&
+    tower.energy < tower.energyCapacity &&
+    Object.keys(Game.creeps).length > 15
   ) {
     target = tower;
   }
@@ -91,14 +106,16 @@ function tran(creep, flag, dest) {
     creep.say("f." + creep.fatigue);
   } else if (target) {
     creep.say("m." + target.pos.x + "," + target.pos.y);
-    let igCrps = true;
-    if (creep.pos.getRangeTo(target) <= 5) {
-      igCrps = false;
+    
+    let pathMem = 200;
+    let igCreeps = true;
+    if (moveAwayFromCreep(creep)) {
+      pathMem = 0;
+      igCreeps = false;
     }
-
     retval = creep.moveTo(target, {
-      reusePath: 200,
-      ignoreCreeps: igCrps,
+      reusePath: pathMem,
+      ignoreCreeps: igCreeps,
       swampCost: 4,
       range: 1,
       visualizePathStyle: { stroke: "#ffffff" }

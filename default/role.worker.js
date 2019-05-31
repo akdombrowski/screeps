@@ -4,6 +4,7 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 var roleWorker = {
   /** @param {Creep} creep **/
   run: function(creep) {
+    
     if (!creep.memory.working) {
       creep.memory.working = false;
     }

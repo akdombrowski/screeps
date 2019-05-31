@@ -7,32 +7,45 @@
  * mod.thing == 'a thing'; // true
  */
 
-function supplyChain(creeps, creepSpawn, harvester, source, energyStoredPlace) {
+function supplyChain(creeps, harvester, source, energyStoredPlace) {
   let hv = Game.creeps[harvester];
-  hv.harvest(source);
-  console.log(
-    "creeps0 " +
-      hv.name +
-      " " +
-      Game.creeps[creeps[0]].room.lookForAt(LOOK_ENERGY, hv)
-  );
-  let energy = Game.creeps[creeps[0]].room.lookForAt(LOOK_ENERGY, hv.pos)[0];
-  Game.creeps[creeps[0]].pickup(energy);
+  let pickUpper = Game.creeps[creeps[0]];
+  let storer = Game.creeps[creeps[creeps.length - 1]];
+  let storeVal = -16;
+  let transferVal = -16;
+  let pickupVal = -16;
+  let harvestVal = -16;
+
+  if (!hv) {
+    console.log("Need harvester for supply chain. harvester:" + harvester);
+
+    return;
+  }
+  harvestVal = hv.harvest(source);
+  hv.say("h" + harvestVal);
+
+  let energy = pickUpper.room.lookForAt(LOOK_ENERGY, hv.pos)[0];
+  pickupVal = pickUpper.pickup(energy);
+  if (pickupVal === OK) {
+    pickUpper.say("p");
+  }
 
   for (let i = 0; i < creeps.length - 1; i++) {
     let creep = Game.creeps[creeps[i]];
+    let creepNext = Game.creeps[creeps[i + 1]];
 
     if (creep) {
-      console.log(
-        "transfer: " +
-          creep.transfer(Game.creeps[creeps[i + 1]], RESOURCE_ENERGY)
-      );
+      transferVal = creep.transfer(creepNext, RESOURCE_ENERGY);
+      if (transferVal === OK) {
+        creep.say("t");
+        creepNext.say("re");
+      }
     }
   }
-  console.log(
-    "to storage: " +
-      Game.creeps[creepSpawn].transfer(energyStoredPlace, RESOURCE_ENERGY)
-  );
+  storeVal = storer.transfer(energyStoredPlace, RESOURCE_ENERGY);
+  if (storeVal === OK) {
+    storer.say("s");
+  }
 }
 
 module.exports = supplyChain;

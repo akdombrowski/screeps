@@ -1,0 +1,8 @@
+{
+    "editor.tabSize": 2,
+    "editor.autoClosingBrackets": "always",
+    "editor.autoClosingQuotes": "beforeWhitespace",
+    "editor.foldingStrategy": "indentation",
+    "editor.hover.delay": 100,
+    "editor.mouseWheelZoom": true
+}

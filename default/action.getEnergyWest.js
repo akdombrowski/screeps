@@ -1,5 +1,6 @@
 const transferEnergy = require("./action.transferEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
+const buildRoad = require("./action.buildRoad");
 
 function vest(creep, flag, path) {
   creep.memory.direction = "west";
@@ -9,22 +10,25 @@ function vest(creep, flag, path) {
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
-    creep.memory.transfer = true;
-    if (creep.room.name == "E35N32") {
-      let pathMem = 200;
-      let igCreeps = true;
-      if (moveAwayFromCreep(creep)) {
-        pathMem = 0;
-        igCreeps = false;
-      }
-      creep.moveTo(westEntrance, {
-        range: 1,
-        ignoreCreeps: igCreeps,
-        reusePath: pathMem,
-        visualizePathStyle: { stroke: "ffffff" }
-      });
+    creep.memory.buildingRoad = true;
+    if (Memory.westHarvesters.length < 2) {
+      creep.memory.buildingRoad = false;
+      creep.memory.transfer = true;
     }
-    transferEnergy(creep);
+
+    if (creep.memory.buildingRoad) {
+      let retval = buildRoad(creep);
+      if (retval != OK) {
+        creep.memory.transfer = true;
+        transferEnergy(creep);
+      } else {
+        creep.memory.buildingRoad = true;
+      }
+    }
+
+    if (creep.memory.transfer) {
+      transferEnergy(creep);
+    }
 
     return;
   } else {
@@ -97,7 +101,7 @@ function vest(creep, flag, path) {
       igCreeps = false;
     }
     creep.moveTo(westExit, {
-      reusePath: pathmem,
+      reusePath: pathMem,
       ignoreCreeps: igCreeps,
       range: 1,
       visualizePathStyle: { stroke: "#ffffff" }

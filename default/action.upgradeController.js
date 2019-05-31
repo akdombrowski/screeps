@@ -2,6 +2,7 @@ const getEnergy = require("./action.getEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 
 function upController(creep, flag) {
+  
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.up = true;
   } else if (_.sum(creep.carry) == 0) {
@@ -15,8 +16,7 @@ function upController(creep, flag) {
   if (flag) {
     target = flag;
   } else if (creep.memory.controller) {
-    target = creep.room
-      .lookForAt(LOOK_STRUCTURES, creep.memory.controller)
+    target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.controller);
   } else if (creep.memory.flag) {
     target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
   }
@@ -54,7 +54,6 @@ function upController(creep, flag) {
       });
 
       if (retval == ERR_TIRED) {
-        
         creep.say("f." + creep.fatigue);
       }
     } else if (retval == ERR_NOT_ENOUGH_RESOURCES) {

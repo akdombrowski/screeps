@@ -3,6 +3,7 @@ const transferEnergy = require("./action.transferEnergy");
 const getEnergyNorth = require("./action.getEnergyNorth");
 const getEnergyEast = require("./action.getEnergyEast");
 const getEnergyWest = require("./action.getEnergyWest");
+const buildRoad = require("./action.buildRoad");
 
 const roleHarvester = {
   /** @param {Creep} creep **/
@@ -11,23 +12,30 @@ const roleHarvester = {
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
       creep.say("h");
-      if(creep.memory.direction == "north") {
+      if (creep.memory.direction == "north") {
         getEnergyNorth(creep);
       } else if (creep.memory.direction == "east") {
         getEnergyEast(creep);
       } else if (creep.memory.direction == "west") {
         getEnergyWest(creep);
-      } else if (creep.memory.direction == "central" || creep) {
+      } else if (creep.memory.direction == "south" || creep) {
         getEnergy(creep);
       }
     } else if (
       creep.memory.transfer ||
-      creep.carry.energy >= creep.carryCapacity
+      creep.carry.energy > 0
     ) {
       creep.memory.getEnergy = false;
-      creep.memory.transfer = true;
-      creep.say("t");
-      transferEnergy(creep);
+      
+      
+      if (creep.memory.buildingRoad) {
+        buildRoad(creep);
+        creep.say("road");
+      } else {
+        creep.memory.transfer = true;
+        creep.say("t");
+        transferEnergy(creep);
+      }
     }
   }
 };

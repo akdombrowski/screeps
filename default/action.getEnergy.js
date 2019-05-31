@@ -1,19 +1,16 @@
 const transferEnergy = require("./action.transferEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
+const smartMove = require("./action.smartMove");
+const buildRoad = require("./action.buildRoad");
 
 function vest(creep, flag, path) {
   let retal;
+
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
-    if (creep.memory.role == "harvester" || creep.memory.role == "h") {
-      creep.memory.transfer = true;
-      if (creep.room.name == "E35N32") {
-        creep.moveTo(Game.flags.northEntrance1);
-      } else if (creep.room.name == "E36N31") {
-        creep.moveTo(Game.flags.eastEntrance1);
-      }
-      transferEnergy(creep);
-    }
+    creep.memory.transfer = true;
+    transferEnergy(creep);
+
     return;
   } else {
     creep.memory.transfer = false;
@@ -69,11 +66,11 @@ function vest(creep, flag, path) {
       } else {
         creep.say("wd");
         let pathMem = 200;
-    let igCreeps = true;
-    if (moveAwayFromCreep(creep)) {
-      pathMem = 0;
-      igCreeps = false;
-    }
+        let igCreeps = true;
+        if (moveAwayFromCreep(creep)) {
+          pathMem = 0;
+          igCreeps = false;
+        }
         creep.moveTo(target, {
           reusePath: pathMem,
           ignoreCreeps: igCreeps,
@@ -86,7 +83,13 @@ function vest(creep, flag, path) {
   }
 
   if (!target) {
-    target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
+    target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
+      filter: source => {
+        if (source.pos.x < 41 && source.pos.y > 8) {
+          return source;
+        }
+      }
+    });
     if (target) {
       if (creep.pos.isNearTo(target.pos)) {
         creep.say("pickup");

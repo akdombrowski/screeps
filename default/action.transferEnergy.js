@@ -47,6 +47,30 @@ function tran(creep, flag, dest) {
       });
       creep.say("eastEntrance");
       return;
+    } else if (creep.room.name == "E34N31") {
+      if (
+        creep.pos.isEqualTo(Game.flags.westEntrance1.pos) ||
+        creep.pos.isNearTo(Game.flags.westEntrance1)
+      ) {
+        creep.move(RIGHT);
+        creep.move(RIGHT);
+        creep.say("RIGHT");
+      } else {
+        let pathMem = 200;
+        let igCreeps = true;
+        if (moveAwayFromCreep(creep)) {
+          pathMem = 0;
+          igCreeps = false;
+        }
+        creep.moveTo(Game.flags.westEntrance1, {
+          reusePath: pathMem,
+          ignoreCreeps: igCreeps,
+          range: 1,
+          visualizePathStyle: { stroke: "#0f52ff" }
+        });
+        creep.say("westEntrance");
+      }
+      return;
     }
   } else if (creep.memory.dest) {
     target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.dest).pop();
@@ -89,7 +113,8 @@ function tran(creep, flag, dest) {
   }
 
   let tower = Game.getObjectById(Memory.tower1Id);
-  if (tower &&
+  if (
+    tower &&
     tower.energy < tower.energyCapacity &&
     Object.keys(Game.creeps).length > 15
   ) {
@@ -106,7 +131,7 @@ function tran(creep, flag, dest) {
     creep.say("f." + creep.fatigue);
   } else if (target) {
     creep.say("m." + target.pos.x + "," + target.pos.y);
-    
+
     let pathMem = 200;
     let igCreeps = true;
     if (moveAwayFromCreep(creep)) {

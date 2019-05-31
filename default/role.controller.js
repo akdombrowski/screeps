@@ -20,7 +20,7 @@ var roleController = {
       if (creep.fatigue > 0) {
         creep.say("f." + creep.fatigue);
       } else {
-        var target = Game.getObjectById("5bbcaefa9099fc012e639e90");
+        let target = Game.getObjectById("5bbcaefa9099fc012e639e90");
         if (creep.pos.inRangeTo(target, 3) && creep.fatigue <= 0) {
           creep.moveTo(target, {
             range: 3,

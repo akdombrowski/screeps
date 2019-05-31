@@ -1,11 +1,25 @@
-function chainMove(puller, creeps, dest, rng) {
+const smartMove = require("./action.smartMove");
+function chainMove(pullerName, creepNames, destPos, rngToDest) {
   /** creep chain moving **/
-  let creep;
-  puller.moveTo(dest, {reusePath: 500, range: rng, visualize: {stroke: "#ffffff"}});
-  for (creep in creeps) {
-    puller.pull(creep);
-    creep.move(puller);
+  let puller = Game.creeps[pullerName];
+  let retVal = -16;
+
+  console.log("creepNames:\n" + creepNames);
+  if (!puller || puller.fatigue > 0) {
+    puller.say("puller.err");
+    return ERR_TIRED;
   }
-};
+
+  creepNames.forEach(element => {
+    let creep = Game.creeps[element];
+    let waterproof = 0;
+    console.log("n:" + element + "\ncreep:" + JSON.stringify(creep));
+    if (creep) {
+      puller.pull(creep);
+      creep.move(puller);
+    }
+  });
+  return smartMove(puller, destPos, rngToDest, false);
+}
 
 module.exports = chainMove;

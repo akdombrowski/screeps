@@ -46,6 +46,14 @@ function vest(creep, flag, path) {
   }
 
   if (creep.room.name == "E35N32") {
+    let eventLog = creep.room.getEventLog();
+    let attackEvents = _.filter(eventLog, { event: EVENT_ATTACK });
+    attackEvents.forEach(event => {
+      let target = Game.getObjectById(event.targetId);
+      if (target && target.my) {
+        console.log(event);
+      }
+    });
     if (northSource) {
       target = northSource;
     } else {

@@ -11,7 +11,7 @@ const chainMove = require("./chainMove");
 const smartMove = require("./action.smartMove");
 const supplyChain = require("./supplyChain");
 
-function spawnHarvester(name, direction, spawnDirection) {
+function spawnHarvester(name, direction, parts, spawn, spawnDirection) {
   let t = Game.time;
   if (!name || Game.creeps[name]) {
     name = name || "h" + t.slice(0, 2);
@@ -19,7 +19,9 @@ function spawnHarvester(name, direction, spawnDirection) {
   let chosenRole = "harvester";
   direction = direction || "south";
   spawnDirection = spawnDirection || "BOTTOM";
-  let parts = [
+  if (spawn.pos.findInRange(FIND_CREEPS, 1)) {
+  }
+  parts = [
     CARRY,
     CARRY,
     WORK,

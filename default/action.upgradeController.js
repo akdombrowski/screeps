@@ -1,8 +1,8 @@
 const getEnergy = require("./action.getEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
+const smartMove = require("./action.smartMove");
 
 function upController(creep, flag) {
-  
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.up = true;
   } else if (_.sum(creep.carry) == 0) {
@@ -39,19 +39,7 @@ function upController(creep, flag) {
     } else if (retval == ERR_NOT_IN_RANGE) {
       creep.say("uc" + target.pos.x + "," + target.pos.y);
 
-      let pathMem = 200;
-      let igCreeps = true;
-      if (moveAwayFromCreep(creep)) {
-        pathMem = 0;
-        igCreeps = false;
-      }
-      retval = creep.moveTo(target, {
-        ignoreCreeps: igCreeps,
-        reusePath: pathMem,
-        range: 3,
-        swampCost: 7,
-        visualizePathStyle: { stroke: "#ffff0f" }
-      });
+      smartMove(creep, target, 3);
 
       if (retval == ERR_TIRED) {
         creep.say("f." + creep.fatigue);
@@ -65,7 +53,7 @@ function upController(creep, flag) {
       creep.say("uc." + retval);
     }
   } else {
-    creep.say("ucGE");
+    creep.say("uchH");
     getEnergy(creep);
   }
 }

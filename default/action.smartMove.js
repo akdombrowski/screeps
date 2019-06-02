@@ -4,7 +4,7 @@ function smartMove(
   creep,
   dest,
   range,
-  ignoreCreeps = false,
+  ignoreCreeps = true,
   pathColor = "#ffffff",
   pathMem = 200
 ) {
@@ -17,7 +17,7 @@ function smartMove(
     return ERR_TIRED;
   }
 
-  if (moveAwayFromCreep(creep) || ignoreCreeps) {
+  if (moveAwayFromCreep(creep) || !ignoreCreeps) {
     pathMem = 0;
     igCreeps = false;
   }

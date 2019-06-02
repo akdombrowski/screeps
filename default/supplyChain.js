@@ -16,15 +16,19 @@ function supplyChain(creeps, harvester, source, energyStoredPlace) {
   let pickupVal = -16;
   let harvestVal = -16;
 
-  if (!hv) {
+  let energy;
+
+  if (hv) {
+    harvestVal = hv.harvest(source);
+    hv.say("h" + harvestVal);
+    energy = pickUpper.room.lookForAt(LOOK_ENERGY, hv.pos)[0];
+  } else {
     console.log("Need harvester for supply chain. harvester:" + harvester);
-
-    return;
   }
-  harvestVal = hv.harvest(source);
-  hv.say("h" + harvestVal);
 
-  let energy = pickUpper.room.lookForAt(LOOK_ENERGY, hv.pos)[0];
+  if (!energy) {
+    energy = pickUpper.pos.findInRange(FIND_DROPPED_RESOURCES, 1).pop();
+  }
   pickupVal = pickUpper.pickup(energy);
   if (pickupVal === OK) {
     pickUpper.say("p");

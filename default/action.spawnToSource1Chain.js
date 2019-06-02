@@ -13,28 +13,49 @@ const supplyChain = require("./supplyChain");
 
 function spawnToSource1Chain() {
   let hv = Game.creeps["harvester1"];
-  let tr1 = Game.creeps["transferer1"];
-  let tr2 = Game.creeps["transferer2"];
+  let tr1 = Game.creeps["tr1"];
+  let tr2 = Game.creeps["tr2"];
   let mv = Game.creeps["mover1"];
   // let movingChain = mv.memory ? mv.memory.movingChain : false;
   let hvNames = ["harvester1"];
-  let trNames = ["transferer1", "transferer2"];
+  let trNames = ["tr1", "tr2"];
   let source1 = Memory.source1;
   let s1 = Memory.s1;
   let energy;
   let needMover = false;
   let extension = Game.getObjectById("5ce6a1f809af315f015a8295");
-  if (!hv || !tr1 || !tr2) {
-    console.log(
-      "spawnToSource1Chain err. missing hr or tr" +
-        "\nhv: " +
-        JSON.stringify(hv) +
-        "\ntr1:" +
-        JSON.stringify(tr1) +
-        "\ntr2:" +
-        JSON.stringify(tr2)
-    );
+  let extension2 = Game.getObjectById("5ce6a1f809af315f015a8295");
+
+  try {
+    if (!hv) {
+      console.log("hv");
+      supplyChainRetVal = supplyChain([tr1.name, tr2.name], "", source1, s1);
+      return;
+    } else if (!tr1) {
+      console.log("tr1");
+      supplyChainRetVal = supplyChain([tr2.name], hv.name, source1, s1);
+      return;
+    } else if (!tr2) {
+      console.log("tr2");
+      supplyChainRetVal = supplyChain([tr1.name], hv.name, source1, s1);
+      return;
+    }
+  } catch (e) {
+    console.log(e.message);
     return;
+  }
+
+  if (
+    hv.pos.isNearTo(tr1) &&
+    tr1.pos.isNearTo(tr2) &&
+    !hv.pos.isNearTo(source1)
+  ) {
+    chainMove(
+      hv.name,
+      [tr1.name, tr2.name],
+      (Memory.source1.pos.x + 1, source1.pos.y),
+      0
+    );
   }
 
   needMover = !hv.pos.isNearTo(source1);
@@ -43,67 +64,78 @@ function spawnToSource1Chain() {
 
   if (needMover && !mv) {
     console.log("need mover for supply chain");
+    let direction = LEFT;
+    if (
+      Memory.s1.room.lookForAt(
+        LOOK_CREEPS,
+        Memory.s1.pos.x - 1,
+        Memory.s1.pos.y
+      )
+    ) {
+      direction = "";
+    }
     if (Memory.enAvail >= 250) {
       Game.spawns.Spawn1.spawnCreep([MOVE, MOVE, MOVE, MOVE, MOVE], "mover1", {
         memory: {
           role: "mover",
-          directions: LEFT
+          directions: ""
         }
       });
     }
   } else if (needMover) {
-    console.log("Need to move some creeps into place.");
     // we have a mover, let's check if everyone is in the right spot
     if (!hv.pos.isNearTo(source1)) {
       console.log("hv isn't in place.");
       // we need to pull hv into place next to the source to harvest
-      if (mv.pos.isNearTo(hv)) {
-        console.log(
-          "Our puller is next to hv, but hv isnt in next to the source yet." +
-            "Help pull her into place."
-        );
-        if (hv.pos.y < source1.pos.y) {
+      if (!mv.pos.isNearTo(hv)) {
+        console.log("mv: tow hv:" + smartMove(mv, tr1, 1));
+      } else {
+        if (
+          !mv.pos.isEqualTo(
+            new RoomPosition(
+              source1.pos.x + 1,
+              source1.pos.y,
+              source1.room.name
+            )
+          )
+        ) {
           console.log(
-            "chainMove:" +
+            "chainMove hv:" +
               chainMove(
                 mv.name,
                 hvNames,
-                new RoomPosition(
-                  source1.pos.x + 1,
-                  source1.pos.y + 1,
-                  source1.room.name
-                ),
+                new RoomPosition(hv.pos.x + 1, hv.pos.y, source1.room.name),
                 0
               )
           );
         } else {
-          console.log(
-            "chainMove:" +
-              chainMove(
-                mv.name,
-                hvNames,
-                new RoomPosition(
-                  source1.pos.x + 1,
-                  source1.pos.y - 1,
-                  source1.room.name
-                ),
-                0
-              )
-          );
+          try {
+            let posTr2 = tr2.pos;
+            console.log("chainMove hv:" + chainMove(mv.name, hvNames, hv, 0));
+          } catch (e) {
+            console.log(
+              "chainMove hv:" +
+                chainMove(
+                  mv.name,
+                  hvNames,
+                  new RoomPosition(45, 5, hv.room.name),
+                  0
+                )
+            );
+          }
         }
-      } else {
-        console.log("moving to tow position:" + smartMove(mv, hv, 1));
       }
-    } else if (!tr1.pos.isNearTo(hv)) {
+    } else if (!tr1.pos.isNearTo(hv) || tr1.pos.x <= hv.pos.x) {
       console.log("Need to pull tr1 into place next to hv.");
       if (!mv.pos.isNearTo(tr1)) {
         console.log("moving to tow position:" + smartMove(mv, tr1, 1));
-      } else if (tr1.pos.y > hv.pos.y) {
+      } else if (
+        !mv.pos.isEqualTo(
+          new RoomPosition(hv.pos.x + 1, hv.pos.y - 1, hv.room.name)
+        )
+      ) {
         console.log(
-          "Tr1 isn't in the right spot. Help pull her into in place."
-        );
-        console.log(
-          "pulling tr1 up." +
+          "pulling tr1." +
             chainMove(
               mv.name,
               [tr1.name],
@@ -112,73 +144,58 @@ function spawnToSource1Chain() {
             )
         );
       } else {
-        console.log(
-          "pulling tr1 down." +
-            chainMove(
-              mv.name,
-              [tr1.name],
-              new RoomPosition(hv.pos.x + 1, hv.pos.y + 1, hv.room.name),
-              0
-            )
-        );
+        try {
+          console.log(
+            "pulling tr1  . " + chainMove(mv.name, [tr1.name], tr1, 0)
+          );
+        } catch (e) {
+          console.log(e.message);
+          console.log(
+            "pulling tr1." +
+              chainMove(
+                mv.name,
+                [tr1.name],
+                new RoomPosition(45, 5, hv.room.name),
+                0
+              )
+          );
+        }
       }
     } else if (!tr2.pos.isNearTo(tr1) || !tr2.pos.isNearTo(s1)) {
       console.log("need to move tr1 or tr2");
       if (!mv.pos.isNearTo(tr2)) {
         console.log("Mover not next to tr2. Moving," + smartMove(mv, tr2, 1));
+      } else if (mv.pos.x != 45 && mv.pos.y != 5) {
+        console.log(
+          "pulling tr2 reset spot . " +
+            chainMove(
+              mv.name,
+              [tr2.name],
+              new RoomPosition(45, 5, source1.room.name),
+              0
+            )
+        );
       } else if (tr2.pos.x <= tr1.pos.x) {
         console.log(
-          "Pulling tr2 next right, up:" +
+          "pulling tr2 reset spot. " +
             chainMove(
               mv.name,
               [tr2.name],
-              new RoomPosition(tr1.pos.x + 1, tr1.pos.y - 1, tr1.room.name),
-              0
-            )
-        );
-      } else if (tr2.pos.y < tr1.pos.y) {
-        console.log(
-          "Pulling tr2 down:" +
-            chainMove(
-              mv.name,
-              [tr2.name],
-              new RoomPosition(tr1.pos.x + 1, tr1.pos.y + 1, tr1.room.name),
-              0
-            )
-        );
-      } else if (tr2.pos.y < tr1.pos.y) {
-        console.log(
-          "Pulling tr2 down:" +
-            chainMove(
-              mv.name,
-              [tr2.name],
-              new RoomPosition(tr1.pos.x + 1, tr1.pos.y + 1, tr1.room.name),
-              0
-            )
-        );
-      } else if (!tr2.pos.isNearTo(s1)) {
-        let y = s1.pos.y + 1;
-        let dir = "down";
-        if (tr2.pos.y > s1.pos.y) {
-          y = s1.pos.y - 1;
-          dir = "up";
-        }
-        console.log(
-          "Pulling tr2:" +
-            chainMove(
-              mv.name,
-              [tr2.name],
-              new RoomPosition(tr1.pos.x + 1, y, tr1.room.name),
+              new RoomPosition(45, 5, source1.room.name),
               0
             )
         );
       } else {
         console.log(
-          "Pulling tr2 up:" +
+          "pulling tr2." +
             chainMove(
               mv.name,
               [tr2.name],
-              new RoomPosition(tr1.pos.x + 1, source1.pos.y - 1, tr1.room.name),
+              new RoomPosition(
+                source1.pos.x + 3,
+                source1.pos.y,
+                source1.room.name
+              ),
               0
             )
         );

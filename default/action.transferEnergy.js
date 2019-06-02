@@ -95,14 +95,6 @@ function tran(creep, flag, dest) {
           return true;
         } else if (
           !extensionNeedsEnergy &&
-          structure.structureType == STRUCTURE_SPAWN &&
-          structure.energy < structure.energyCapacity
-        ) {
-          spawnNeedsEnergy = true;
-          return true;
-        } else if (
-          !extensionNeedsEnergy &&
-          !spawnNeedsEnergy &&
           (structure.structureType == STRUCTURE_STORAGE ||
             structure.structureType == STRUCTURE_CONTAINER)
         ) {

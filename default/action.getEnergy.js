@@ -4,7 +4,7 @@ const smartMove = require("./action.smartMove");
 const buildRoad = require("./action.buildRoad");
 
 function vest(creep, flag, path) {
-  let retal;
+  let retval;
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
@@ -17,16 +17,19 @@ function vest(creep, flag, path) {
     creep.memory.getEnergy = true;
   }
 
-  let target;
+  creep.memory.sourceId = Memory.source2.id;
+  let target = Game.getObjectById(creep.memory.sourceId);
+  creep.say("sID");
   if (flag) {
     target = creep.room.lookForAt(LOOK_SOURCES, flag);
     creep.say("flag");
   } else if (creep.memory.flag) {
     target = creep.room.lookForAt(LOOK_SOURCES, creep.memory.flag);
-  } else if (creep.memory.sourceId) {
-    target = Game.getObjectById(creep.memory.sourceId);
-    creep.say("sourceId");
   }
+  // else if (creep.memory.sourceId) {
+  //   target = Game.getObjectById(creep.memory.sourceId);
+  //   creep.say("sID");
+  // }
 
   if (creep.memory.role != "harvester") {
     if (!target) {
@@ -37,7 +40,7 @@ function vest(creep, flag, path) {
               structure.structureType == STRUCTURE_STORAGE) &&
             _.sum(structure.store) >= creep.carryCapacity
           ) {
-            return true;
+            return structure;
           }
         }
       });
@@ -65,18 +68,7 @@ function vest(creep, flag, path) {
         return;
       } else {
         creep.say("wd");
-        let pathMem = 200;
-        let igCreeps = true;
-        if (moveAwayFromCreep(creep)) {
-          pathMem = 0;
-          igCreeps = false;
-        }
-        creep.moveTo(target, {
-          reusePath: pathMem,
-          ignoreCreeps: igCreeps,
-          range: 1,
-          visualizePathStyle: { stroke: "#ffffff" }
-        });
+        smartMove(creep, target, 1);
         return;
       }
     }
@@ -85,7 +77,7 @@ function vest(creep, flag, path) {
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
       filter: source => {
-        if (source.pos.x < 41 && source.pos.y > 8) {
+        if (!Memory.source1.pos.isNearTo(source)) {
           return source;
         }
       }
@@ -97,11 +89,7 @@ function vest(creep, flag, path) {
         return;
       } else {
         creep.say("pickup");
-        creep.moveTo(target, {
-          reusePath: 20,
-          range: 1,
-          visualizePathStyle: { stroke: "#ffffff" }
-        });
+        smartMove(creep, target, 1);
         return;
       }
     }
@@ -138,10 +126,7 @@ function vest(creep, flag, path) {
 
       creep.moveByPath(path);
     } else if (creep.room.name == "E35N31") {
-      creep.moveTo(target, {
-        reusePath: 20,
-        visualizePathStyle: { stroke: "#ffffff" }
-      });
+      smartMove(creep, target, 1);
     } else {
       target = null;
       creep.say("sad");

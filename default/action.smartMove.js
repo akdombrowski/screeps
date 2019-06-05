@@ -20,6 +20,7 @@ function smartMove(
   if (moveAwayFromCreep(creep) || !ignoreCreeps) {
     pathMem = 0;
     igCreeps = false;
+    creep.say("out of my way creep");
   }
 
   retval = creep.moveTo(dest, {
@@ -28,6 +29,7 @@ function smartMove(
     range: range,
     visualizePathStyle: { stroke: pathColor }
   });
+  creep.say("m." + retval);
   return retval;
 }
 

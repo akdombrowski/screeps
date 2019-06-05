@@ -32,26 +32,19 @@ function vest(creep, flag, path) {
   // }
 
   if (creep.memory.role != "harvester") {
-    if (!target) {
-      target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        filter: structure => {
-          if (
-            (structure.structureType == STRUCTURE_CONTAINER ||
-              structure.structureType == STRUCTURE_STORAGE) &&
-            _.sum(structure.store) >= creep.carryCapacity
-          ) {
-            return structure;
-          }
+    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+      filter: structure => {
+        if (
+          (structure.structureType == STRUCTURE_CONTAINER ||
+            structure.structureType == STRUCTURE_STORAGE) &&
+          _.sum(structure.store) >= creep.carryCapacity
+        ) {
+          return structure;
         }
-      });
-    }
+      }
+    });
 
-    if (
-      target &&
-      (target.structureType == STRUCTURE_CONTAINER ||
-        target.structureType == STRUCTURE_STORAGE) &&
-      _.sum(target.store) >= creep.carryCapacity
-    ) {
+    if (target) {
       creep.memory.sourceId = target.id;
 
       if (creep.pos.isNearTo(target.pos)) {
@@ -61,41 +54,40 @@ function vest(creep, flag, path) {
           creep.carryCapacity - _.sum(creep.carry)
         );
         if (retval == OK) {
-          creep.say("wd." + target.pos.x + "," + target.pos.y);
+          creep.say("wd.");
         } else {
           creep.say("wd." + retval);
         }
         return;
       } else {
-        creep.say("wd");
+        creep.say("wd." + target.pos.x + "," + target.pos.y);
         smartMove(creep, target, 1);
         return;
       }
     }
   }
 
-  if (!target) {
-    target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
-      filter: source => {
-        if (!Memory.source1.pos.isNearTo(source)) {
-          return source;
-        }
+  let dropped = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
+    filter: source => {
+      if (!Memory.source1.pos.isNearTo(source)) {
+        return source;
       }
-    });
-    if (target) {
-      if (creep.pos.isNearTo(target.pos)) {
-        creep.say("pickup");
-        creep.pickup(target);
-        return;
-      } else {
-        creep.say("pickup");
-        smartMove(creep, target, 1);
-        return;
-      }
+    }
+  });
+  if (dropped) {
+    target = dropped;
+    if (creep.pos.isNearTo(target.pos)) {
+      creep.say("pickup");
+      creep.pickup(target);
+      return;
+    } else {
+      creep.say("pickup");
+      smartMove(creep, target, 1);
+      return;
     }
   }
 
-  if (!target) {
+  if (!target || target.energy <= 0) {
     target = creep.pos.findClosestByPath(FIND_SOURCES, {
       filter: source => {
         return source.energy > 0;

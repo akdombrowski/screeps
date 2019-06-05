@@ -45,18 +45,19 @@ function spawnToSource1Chain() {
     return;
   }
 
-  if (
-    hv.pos.isNearTo(tr1) &&
-    tr1.pos.isNearTo(tr2) &&
-    !hv.pos.isNearTo(source1)
-  ) {
-    chainMove(
-      hv.name,
-      [tr1.name, tr2.name],
-      (Memory.source1.pos.x + 1, source1.pos.y),
-      0
-    );
-  }
+  // if (
+  //   hv.pos.isNearTo(tr1) &&
+  //   tr1.pos.isNearTo(tr2) &&
+  //   !hv.pos.isNearTo(source1)
+  // ) {
+  //   chainMove(
+  //     mv.name,
+  //     [hv.name, tr1.name, tr2.name],
+  //     new RoomPosition(source1.pos.x + 1, source1.pos.y, source1.room.name),
+  //     0
+  //   );
+  //   return;
+  // }
 
   needMover = !hv.pos.isNearTo(source1);
   needMover = needMover || !tr1.pos.isNearTo(tr2) || !tr1.pos.isNearTo(hv);
@@ -72,13 +73,18 @@ function spawnToSource1Chain() {
         Memory.s1.pos.y
       )
     ) {
-      direction = "";
-    }
-    if (Memory.enAvail >= 250) {
-      Game.spawns.Spawn1.spawnCreep([MOVE, MOVE, MOVE, MOVE, MOVE], "mover1", {
+      if (Memory.enAvail >= 50) {
+        Game.spawns.Spawn1.spawnCreep([MOVE], "mover1", {
+          memory: {
+            role: "mover"
+          }
+        });
+      }
+    } else {
+      Game.spawns.Spawn1.spawnCreep([MOVE], "mover1", {
         memory: {
           role: "mover",
-          directions: ""
+          directions: direction
         }
       });
     }
@@ -88,7 +94,7 @@ function spawnToSource1Chain() {
       console.log("hv isn't in place.");
       // we need to pull hv into place next to the source to harvest
       if (!mv.pos.isNearTo(hv)) {
-        console.log("mv: tow hv:" + smartMove(mv, tr1, 1));
+        console.log("mv: tow hv:" + smartMove(mv, hv, 1));
       } else {
         if (
           !mv.pos.isEqualTo(
@@ -104,13 +110,16 @@ function spawnToSource1Chain() {
               chainMove(
                 mv.name,
                 hvNames,
-                new RoomPosition(hv.pos.x + 1, hv.pos.y, source1.room.name),
+                new RoomPosition(
+                  source1.pos.x + 1,
+                  source1.pos.y,
+                  source1.room.name
+                ),
                 0
               )
           );
         } else {
           try {
-            let posTr2 = tr2.pos;
             console.log("chainMove hv:" + chainMove(mv.name, hvNames, hv, 0));
           } catch (e) {
             console.log(
@@ -131,7 +140,7 @@ function spawnToSource1Chain() {
         console.log("moving to tow position:" + smartMove(mv, tr1, 1));
       } else if (
         !mv.pos.isEqualTo(
-          new RoomPosition(hv.pos.x + 1, hv.pos.y - 1, hv.room.name)
+          new RoomPosition(hv.pos.x + 1, source1.pos.y - 1, hv.room.name)
         )
       ) {
         console.log(
@@ -139,15 +148,13 @@ function spawnToSource1Chain() {
             chainMove(
               mv.name,
               [tr1.name],
-              new RoomPosition(hv.pos.x + 1, hv.pos.y - 1, hv.room.name),
+              new RoomPosition(hv.pos.x + 1, source1.pos.y - 1, hv.room.name),
               0
             )
         );
       } else {
         try {
-          console.log(
-            "pulling tr1  . " + chainMove(mv.name, [tr1.name], tr1, 0)
-          );
+          console.log("pulling tr1. " + chainMove(mv.name, [tr1.name], tr1, 0));
         } catch (e) {
           console.log(e.message);
           console.log(
@@ -155,7 +162,7 @@ function spawnToSource1Chain() {
               chainMove(
                 mv.name,
                 [tr1.name],
-                new RoomPosition(45, 5, hv.room.name),
+                new RoomPosition(43, 7, hv.room.name),
                 0
               )
           );
@@ -208,6 +215,10 @@ function spawnToSource1Chain() {
       if (extension.energy < extension.energyCapacity && _.sum(tr1.carry) > 0) {
         supplyChainRetVal = tr1.transfer(extension, RESOURCE_ENERGY);
         if (supplyChainRetVal === OK) tr1.say("s");
+      }
+      if (extension.energy < extension.energyCapacity && _.sum(tr2.carry) > 0) {
+        supplyChainRetVal = tr2.transfer(extension, RESOURCE_ENERGY);
+        if (supplyChainRetVal === OK) tr2.say("s");
       }
 
       supplyChainRetVal = supplyChain(

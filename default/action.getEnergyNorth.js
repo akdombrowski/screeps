@@ -2,6 +2,7 @@ const transferEnergy = require("./action.transferEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const buildRoad = require("./action.buildRoad");
 
+const smartMove = require("./action.smartMove");
 function vest(creep, flag, path) {
   creep.memory.direction = "north";
   const northSource = Game.getObjectById("5bbcaefa9099fc012e639e8c");
@@ -69,18 +70,7 @@ function vest(creep, flag, path) {
         creep.say("f." + creep.fatigue);
         return;
       } else {
-        let pathMem = 200;
-        let igCreeps = true;
-        if (moveAwayFromCreep(creep)) {
-          pathMem = 0;
-          igCreeps = false;
-        }
-        creep.moveTo(target, {
-          reusePath: pathMem,
-          ignoreCreeps: igCreeps,
-          range: 1,
-          visualizePathStyle: { stroke: "ffffff" }
-        });
+        smartMove(creep, target, 1);
       }
     }
     //  else if (!target) {
@@ -102,19 +92,7 @@ function vest(creep, flag, path) {
     //   }
     // }
   } else if (creep.room.name == "E35N31") {
-    let pathMem = 200;
-    let igCreeps = true;
-    if (moveAwayFromCreep(creep)) {
-      pathMem = 0;
-      igCreeps = false;
-    }
-
-    creep.moveTo(northExit, {
-      reusePath: pathMem,
-      ignoreCreeps: igCreeps,
-      range: 1,
-      visualizePathStyle: { stroke: "#ffffff" }
-    });
+    smartMove(creep, northExit, 1);
 
     if (creep.pos == northExit.pos) {
       creep.move(TOP);

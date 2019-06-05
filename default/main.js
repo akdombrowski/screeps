@@ -64,7 +64,10 @@ module.exports.loop = function() {
   let tower1 = Game.getObjectById(tower1Id);
   let invaderId = Memory.invaderId;
   let invader = invaderId ? Game.getObjectById(invaderId) : null;
+  let rmControllerId = Memory.rmControllerId || "5bbcaefa9099fc012e639e90";
+  let rmController = Game.getObjectById(rmControllerId);
 
+  Memory.rmControllerId = rmControllerId;
   Memory.invaderId = invader ? invaderId : null;
   Memory.northHarvesters = northHarvesters;
   Memory.eastHarvesters = eastHarvesters;
@@ -470,6 +473,13 @@ module.exports.loop = function() {
 
   if (Game.time % 10 == 0) {
     console.log("Creeps:" + numCrps);
+    console.log(
+      rmController.level +
+        ":" +
+        rmController.progress / 1000 +
+        "/" +
+        rmController.progressTotal / 1000
+    );
   }
   Memory.harvesters = harvesters;
   Memory.workers = workers;

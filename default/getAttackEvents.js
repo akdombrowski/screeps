@@ -9,7 +9,8 @@ function getAttackEvents(room) {
   if (attackEvents) {
     attackEvents.forEach(event => {
       let target = Game.getObjectById(event.objectId);
-      attackerId = event.bjectId;
+      attackerId = event.ObjectId;
+      console.log("attacker: " + target.name);
     });
   }
   return attackerId;

@@ -22,8 +22,8 @@ function moveAwayFromCreep(creep) {
   try {
     let creepsFound = creep.room.lookForAt(LOOK_CREEPS, x0, y0);
 
-    if (creepsFound) {
-      return creepsFound.length >= 1;
+    if (creepsFound && creepsFound[0]) {
+      return creepsFound[0].fatigue <= 0;
     }
   } catch (e) {
     console.log(e.message);

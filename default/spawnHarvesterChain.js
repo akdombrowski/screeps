@@ -56,4 +56,4 @@ function spawnHarvesterChain(enAvail, rm, s1, harvesters) {
     harvesters.push(name);
   }
 }
-exports.spawnHarvesterChain = spawnHarvesterChain;
+module.exports = spawnHarvesterChain;

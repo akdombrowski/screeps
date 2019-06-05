@@ -1,3 +1,5 @@
+const checkForAttackers = require("./checkForAttackers");
+
 const spawnHarvesterChain = require("./spawnHarvesterChain");
 
 const getAttackEvents = require("./getAttackEvents");
@@ -21,8 +23,8 @@ module.exports.loop = function() {
   let nRm = Game.rooms.E35N32;
   let wRm = Game.rooms.E34N31;
   let eRm = Game.rooms.E36N31;
-  let enAvail = Game.rooms.E35N31.energyAvailable;
-  let enCap = Game.rooms.E35N31.energyCapacityAvailable;
+  let enAvail = rm.energyAvailable;
+  let enCap = rm.energyCapacityAvailable;
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
   let harvesters = Memory.harvesters || [];
@@ -52,15 +54,12 @@ module.exports.loop = function() {
   let northAttackerId = Memory.northAttackerId || null;
   let eastAttackerId = Memory.eastAttackerId || null;
   let westAttackerId = Memory.westAttackerId || null;
-
-  let spawnChainHarvester = Memory.spawnChainHarvester;
-  let spawnChainTransferers = Memory.spawnChainHarvesters || [];
-  let spawnChainMover = Memory.spawnChainMover;
+  let southAttackerId = Memory.southAttackerId || null;
 
   let source1 = rm.lookForAt(LOOK_SOURCES, 41, 8).pop();
   let source2 = rm.lookForAt(LOOK_SOURCES, 29, 15).pop();
 
-  let tower1Id = Memory.towerId || "5cf3b09b75f7e26764ee4276";
+  let tower1Id = Memory.tower1Id || "5cf3b09b75f7e26764ee4276";
 
   let tower1 = Game.getObjectById(tower1Id);
   let invaderId = Memory.invaderId;
@@ -84,42 +83,21 @@ module.exports.loop = function() {
   if (invader) {
     tower1.attack(invader);
   }
-  if (nRm && (!northAttack || Game.time >= wAttackDurationSafeCheck)) {
-    northAttackerId = getAttackEvents(nRm);
-    Memory.northAttackerId = northAttackerId;
-    if (northAttackerId) {
-      nAttackDurationSafeCheck = Game.time + 1000;
-      console.log("nAttacker:" + northAttackerId);
-    }
-  }
-  if (eRm && (!eastAttack || Game.time >= wAttackDurationSafeCheck)) {
-    eastAttackerId = getAttackEvents(eRm);
-    Memory.eastAttackerId = eastAttackerId;
 
-    if (eastAttackerId) {
-      eAttackDurationSafeCheck = Game.time + 1000;
-      console.log("eAttacker:" + eastAttackerId);
-    }
-  }
-  if (wRm && (!westAttack || Game.time >= wAttackDurationSafeCheck)) {
-    westAttackerId = getAttackEvents(wRm);
-    Memory.westAttackerId = westAttackerId;
-
-    if (westAttackerId) {
-      wAttackDurationSafeCheck = Game.time + 1000;
-      console.log("wAttacker:" + westAttackerId);
-    }
-  }
-
-  if (rm && (!invader || Game.time >= sAttackDurationSafeCheck)) {
-    invaderId = getAttackEvents(rm);
-    Memory.invaderId = invaderId;
-    if (invaderId) {
-      sAttackDurationSafeCheck = Game.time + 1000;
-      sAttackDurationSafeCheck = Game.time + 1000;
-      console.log("invader:" + invaderId);
-    }
-  }
+  checkForAttackers(
+    Game,
+    wAttackDurationSafeCheck,
+    nRm,
+    Memory,
+    northAttackerId,
+    eRm,
+    eastAttackerId,
+    wRm,
+    westAttackerId,
+    sAttackDurationSafeCheck,
+    rm,
+    invaderId
+  );
   let attackEvent = Object.values(Game.rooms)[0].getEventLog()[0];
   //   console.log(Object.values(Game.rooms)[0])
 
@@ -499,7 +477,7 @@ module.exports.loop = function() {
     roleTower.run(tower1);
   }
 
-  if (Game.time % 0 == 0) {
+  if (Game.time % 10 == 0) {
     console.log("Creeps:" + numCrps);
   }
   Memory.harvesters = harvesters;

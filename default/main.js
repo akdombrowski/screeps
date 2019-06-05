@@ -98,15 +98,6 @@ module.exports.loop = function() {
     rm,
     invaderId
   );
-  let attackEvent = Object.values(Game.rooms)[0].getEventLog()[0];
-  //   console.log(Object.values(Game.rooms)[0])
-
-  if (attackEvent && attackEvent.event == EVENT_ATTACK) {
-    let attacker = attackEvent.objectId;
-    invader = Game.getObjectById(attacker);
-
-    Memory.invaderId = invader ? invader.id : null;
-  }
 
   if (Math.abs(enAvail - lastEnAvail) > 10) {
     console.log(enAvail + "," + enCap);

@@ -42,7 +42,6 @@ function checkForAttackers(
     Memory.invaderId = invaderId;
     if (invaderId) {
       sAttackDurationSafeCheck = Game.time + 1000;
-      sAttackDurationSafeCheck = Game.time + 1000;
       console.log("invader:" + invaderId);
     }
   }

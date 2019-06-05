@@ -1,3 +1,5 @@
+const getAttackEvents = require("./getAttackEvents");
+const lookForInvaders = require("./lookForInvaders");
 const roleController = require("role.controller");
 const roleWorker = require("role.worker");
 const roleRepairer = require("role.repairer");
@@ -9,114 +11,6 @@ const chainMove = require("./chainMove");
 const rezzyContr = require("./action.reserveContr");
 const spawnToSource1Chain = require("./action.spawnToSource1Chain");
 const smartMove = require("./action.smartMove");
-
-function getAttackEvents(room) {
-  let eventLog;
-  let attackEvents;
-  let attackerId;
-
-  if (room) {
-    eventLog = room.getEventLog();
-    attackEvents = _.filter(eventLog, { event: EVENT_ATTACK });
-  }
-
-  if (attackEvents) {
-    attackEvents.forEach(event => {
-      let target = Game.getObjectById(event.objectId);
-      attackerId = event.bjectId;
-    });
-  }
-  return attackerId;
-}
-
-function lookForInvaders(
-  Game,
-  wAttackDurationSafeCheck,
-  nRm,
-  Memory,
-  northAttackerId,
-  eRm,
-  eastAttackerId,
-  wRm,
-  westAttackerId,
-  sAttackDurationSafeCheck,
-  rm,
-  invaderId,
-  getEventLog,
-  EVENT_ATTACK,
-  invader,
-  enAvail,
-  Spawn1,
-  spawnCreep,
-  ATTACK,
-  MOVE,
-  BOTTOM,
-  BOTTOM_RIGHT
-) {
-  if (nRm && (!northAttack || Game.time >= wAttackDurationSafeCheck)) {
-    northAttackerId = getAttackEvents(nRm);
-    Memory.northAttackerId = northAttackerId;
-    if (northAttackerId) {
-      nAttackDurationSafeCheck = Game.time + 1000;
-      console.log("nAttacker:" + northAttackerId);
-    }
-  }
-  if (eRm && (!eastAttack || Game.time >= wAttackDurationSafeCheck)) {
-    eastAttackerId = getAttackEvents(eRm);
-    Memory.eastAttackerId = eastAttackerId;
-
-    if (eastAttackerId) {
-      eAttackDurationSafeCheck = Game.time + 1000;
-      console.log("eAttacker:" + eastAttackerId);
-    }
-  }
-  if (wRm && (!westAttack || Game.time >= wAttackDurationSafeCheck)) {
-    westAttackerId = getAttackEvents(wRm);
-    Memory.westAttackerId = westAttackerId;
-
-    if (westAttackerId) {
-      wAttackDurationSafeCheck = Game.time + 1000;
-      console.log("wAttacker:" + westAttackerId);
-    }
-  }
-
-  if (rm && (!invader || Game.time >= sAttackDurationSafeCheck)) {
-    invaderId = getAttackEvents(rm);
-    Memory.invaderId = invaderId;
-
-    if (invaderId) {
-      sAttackDurationSafeCheck = Game.time + 1000;
-      sAttackDurationSafeCheck = Game.time + 1000;
-      console.log("invader:" + invaderId);
-    }
-  }
-  let attackEvent = Object.values(Game.rooms)[0].getEventLog()[0];
-  //   console.log(Object.values(Game.rooms)[0])
-
-  if (attackEvent && attackEvent.event == EVENT_ATTACK) {
-    let attacker = attackEvent.objectId;
-    invader = Game.getObjectById(attacker);
-    Memory.invaderId = invader.id;
-  }
-
-  if (invader) {
-    let attackers = Memory.attackers || [];
-    if (enAvail >= 260) {
-      let kreep;
-      let t = Game.time;
-      let name = "a" + t;
-      let chosenRole = "a";
-
-      Game.spawns.Spawn1.spawnCreep([ATTACK, ATTACK, MOVE, MOVE], name, {
-        memory: { role: chosenRole },
-        directions: [BOTTOM, BOTTOM_RIGHT]
-      });
-      attackers.push(name);
-    }
-
-    Memory.attackers = attackers;
-  }
-}
 
 module.exports.loop = function() {
   let lastEnAvail = Memory.enAvail || 0;
@@ -258,62 +152,7 @@ module.exports.loop = function() {
     }
   }
 
-  let harvester1 = Game.creeps.harvester1;
-  if (!harvester1 && enAvail >= 500) {
-    let name = "harvester1";
-    let parts = [WORK, WORK, WORK, WORK, WORK];
-    let chosenRole = "hChain";
-    let direction = TOP;
-    let retval;
-    if (rm.lookForAt(LOOK_CREEPS, s1.pos.x, s1.pos.y - 1)) {
-      retval = s1.spawnCreep(parts, name, {
-        memory: { role: chosenRole }
-      });
-    } else {
-      retval = s1.spawnCreep(parts, name, {
-        memory: { role: chosenRole },
-        directions: [direction]
-      });
-    }
-    console.log("spawning harvester1:" + retval);
-    harvesters.push(name);
-  } else if (harvester1 && !Game.creeps["tr1"] && enAvail >= 200) {
-    let name = "tr1";
-    let parts = [CARRY, CARRY, CARRY, CARRY];
-    let chosenRole = "transferer";
-    let direction = TOP_RIGHT;
-    let retval;
-    if (rm.lookForAt(LOOK_CREEPS, s1.pos.x + 1, s1.pos.y - 1)) {
-      retval = s1.spawnCreep(parts, name, {
-        memory: { role: chosenRole }
-      });
-    } else {
-      retval = s1.spawnCreep(parts, name, {
-        memory: { role: chosenRole },
-        directions: [direction]
-      });
-    }
-    console.log("spawning transferer1:" + retval);
-    harvesters.push(name);
-  } else if (harvester1 && !Game.creeps["tr2"] && enAvail >= 200) {
-    let name = "tr2";
-    let parts = [CARRY, CARRY, CARRY, CARRY];
-    let chosenRole = "transferer";
-    let direction = RIGHT;
-    let retval;
-    if (rm.lookForAt(LOOK_CREEPS, s1.pos.x + 1, s1.pos.y)) {
-      retval = s1.spawnCreep(parts, name, {
-        memory: { role: chosenRole }
-      });
-    } else {
-      retval = s1.spawnCreep(parts, name, {
-        memory: { role: chosenRole },
-        directions: [direction]
-      });
-    }
-    console.log("spawning transferer1:" + retval);
-    harvesters.push(name);
-  }
+  spawnHarvesterChain(enAvail, rm, s1, harvesters);
 
   spawnToSource1Chain();
 
@@ -458,7 +297,7 @@ module.exports.loop = function() {
       upControllers.push(name);
     }
 
-    if (!waitForRezzy || name.endsWith("Rezzy")) {
+    if (!waitForRezzy || numCrps > 10 || name.endsWith("Rezzy")) {
       let retval = Game.spawns.Spawn1.spawnCreep(parts, name, {
         memory: { role: chosenRole, direction: direction, sourceId: sourceId }
       });
@@ -497,7 +336,7 @@ module.exports.loop = function() {
         name,
         {
           memory: { role: chosenRole, direction: direction },
-          directions: [spawnDirection, BOTTOM_RIGHT]
+          directions: [spawnDirection]
         }
       );
     } else {
@@ -672,3 +511,61 @@ module.exports.loop = function() {
   Memory.westHarvesters = westHarvesters;
   Memory.southHarvesters = southHarvesters;
 };
+function spawnHarvesterChain(enAvail, rm, s1, harvesters) {
+  let harvester1 = Game.creeps.harvester1;
+  if (!harvester1 && enAvail >= 500) {
+    let name = "harvester1";
+    let parts = [WORK, WORK, WORK, WORK, WORK];
+    let chosenRole = "hChain";
+    let direction = TOP;
+    let retval;
+    if (rm.lookForAt(LOOK_CREEPS, s1.pos.x, s1.pos.y - 1)) {
+      retval = s1.spawnCreep(parts, name, {
+        memory: { role: chosenRole }
+      });
+    } else {
+      retval = s1.spawnCreep(parts, name, {
+        memory: { role: chosenRole },
+        directions: [direction]
+      });
+    }
+    console.log("spawning harvester1:" + retval);
+    harvesters.push(name);
+  } else if (harvester1 && !Game.creeps["tr1"] && enAvail >= 200) {
+    let name = "tr1";
+    let parts = [CARRY, CARRY, CARRY, CARRY];
+    let chosenRole = "transferer";
+    let direction = TOP_RIGHT;
+    let retval;
+    if (rm.lookForAt(LOOK_CREEPS, s1.pos.x + 1, s1.pos.y - 1)) {
+      retval = s1.spawnCreep(parts, name, {
+        memory: { role: chosenRole }
+      });
+    } else {
+      retval = s1.spawnCreep(parts, name, {
+        memory: { role: chosenRole },
+        directions: [direction]
+      });
+    }
+    console.log("spawning transferer1:" + retval);
+    harvesters.push(name);
+  } else if (harvester1 && !Game.creeps["tr2"] && enAvail >= 200) {
+    let name = "tr2";
+    let parts = [CARRY, CARRY, CARRY, CARRY];
+    let chosenRole = "transferer";
+    let direction = RIGHT;
+    let retval;
+    if (rm.lookForAt(LOOK_CREEPS, s1.pos.x + 1, s1.pos.y)) {
+      retval = s1.spawnCreep(parts, name, {
+        memory: { role: chosenRole }
+      });
+    } else {
+      retval = s1.spawnCreep(parts, name, {
+        memory: { role: chosenRole },
+        directions: [direction]
+      });
+    }
+    console.log("spawning transferer1:" + retval);
+    harvesters.push(name);
+  }
+}

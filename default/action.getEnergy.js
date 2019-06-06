@@ -31,39 +31,37 @@ function vest(creep, flag, path) {
   //   creep.say("sID");
   // }
 
-  if (creep.memory.role != "harvester") {
-    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: structure => {
-        if (
-          (structure.structureType == STRUCTURE_CONTAINER ||
-            structure.structureType == STRUCTURE_STORAGE) &&
-          _.sum(structure.store) >= creep.carryCapacity
-        ) {
-          return structure;
-        }
+  target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+    filter: structure => {
+      if (
+        (structure.structureType == STRUCTURE_CONTAINER ||
+          structure.structureType == STRUCTURE_STORAGE) &&
+        _.sum(structure.store) >= creep.carryCapacity
+      ) {
+        return structure;
       }
-    });
+    }
+  });
 
-    if (target) {
-      creep.memory.sourceId = target.id;
+  if (target) {
+    creep.memory.sourceId = target.id;
 
-      if (creep.pos.isNearTo(target.pos)) {
-        retval = creep.withdraw(
-          target,
-          RESOURCE_ENERGY,
-          creep.carryCapacity - _.sum(creep.carry)
-        );
-        if (retval == OK) {
-          creep.say("wd.");
-        } else {
-          creep.say("wd." + retval);
-        }
-        return;
+    if (creep.pos.isNearTo(target.pos)) {
+      retval = creep.withdraw(
+        target,
+        RESOURCE_ENERGY,
+        creep.carryCapacity - _.sum(creep.carry)
+      );
+      if (retval == OK) {
+        creep.say("wd.");
       } else {
-        creep.say("wd." + target.pos.x + "," + target.pos.y);
-        smartMove(creep, target, 1);
-        return;
+        creep.say("wd." + retval);
       }
+      return;
+    } else {
+      creep.say("wd." + target.pos.x + "," + target.pos.y);
+      smartMove(creep, target, 1);
+      return;
     }
   }
 

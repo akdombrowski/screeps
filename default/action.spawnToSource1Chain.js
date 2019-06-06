@@ -24,8 +24,9 @@ function spawnToSource1Chain() {
   let energy;
   let needMover = false;
   let extension = Game.getObjectById("5ce6a1f809af315f015a8295");
-  let extension2 = Game.getObjectById("5ce6a1f809af315f015a8295");
-
+  let extension2 = Game.getObjectById("5cf714bb21281831d9ecd4c0");
+  let extension3 = Game.getObjectById("5cf733caf7020f7e680e392f");
+  let extensions = [extension, extension2, extension3];
   try {
     if (!hv) {
       console.log("hv");
@@ -44,20 +45,6 @@ function spawnToSource1Chain() {
     console.log(e.message);
     return;
   }
-
-  // if (
-  //   hv.pos.isNearTo(tr1) &&
-  //   tr1.pos.isNearTo(tr2) &&
-  //   !hv.pos.isNearTo(source1)
-  // ) {
-  //   chainMove(
-  //     mv.name,
-  //     [hv.name, tr1.name, tr2.name],
-  //     new RoomPosition(source1.pos.x + 1, source1.pos.y, source1.room.name),
-  //     0
-  //   );
-  //   return;
-  // }
 
   needMover = !hv.pos.isNearTo(source1);
   needMover = needMover || !tr1.pos.isNearTo(tr2) || !tr1.pos.isNearTo(hv);
@@ -212,14 +199,18 @@ function spawnToSource1Chain() {
     let supplyChainRetVal = -16;
     try {
       let hvVal = hv.harvest(source1);
-      if (extension.energy < extension.energyCapacity && _.sum(tr1.carry) > 0) {
-        supplyChainRetVal = tr1.transfer(extension, RESOURCE_ENERGY);
-        if (supplyChainRetVal === OK) tr1.say("s");
-      }
-      if (extension.energy < extension.energyCapacity && _.sum(tr2.carry) > 0) {
-        supplyChainRetVal = tr2.transfer(extension, RESOURCE_ENERGY);
-        if (supplyChainRetVal === OK) tr2.say("s");
-      }
+
+      _.forEach(extensions, ext => {
+        if (ext.energy < ext.energyCapacity) {
+          if (_.sum(tr1.carry) > 0) {
+            supplyChainRetVal = tr1.transfer(ext, RESOURCE_ENERGY);
+            if (supplyChainRetVal === OK) tr1.say("s");
+          } else if (_.sum(tr2.carry) > 0) {
+            supplyChainRetVal = tr2.transfer(ext, RESOURCE_ENERGY);
+            if (supplyChainRetVal === OK) tr2.say("s");
+          }
+        }
+      });
 
       supplyChainRetVal = supplyChain(
         [tr1.name, tr2.name],

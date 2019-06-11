@@ -21,30 +21,41 @@ const linkTran = require("./action.linkTran");
 
 module.exports.loop = function() {
   let lastEnAvail = Memory.enAvail || 0;
+
   let s1 = Game.spawns.Spawn1;
   let rm = Game.rooms.E35N31;
   let nRm = Game.rooms.E35N32;
   let wRm = Game.rooms.E34N31;
   let eRm = Game.rooms.E36N31;
+
   let enAvail = rm.energyAvailable;
   let enCap = rm.energyCapacityAvailable;
+
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
+
   let harvesters = Memory.harvesters || [];
   let upControllers = Memory.upControllers || [];
   let workers = Memory.workers || [];
   let roadRepairers = Memory.roadRepairers || [];
   let claimers = Memory.claimers || [];
+
   let north = Game.flags.north1;
-  let northHarvesters = Memory.northHarvesters || [];
   let east = Game.flags.east;
+  let south = "";
+
+  let northHarvesters = Memory.northHarvesters || [];
   let eastHarvesters = Memory.eastHarvesters || [];
   let westHarvesters = Memory.westHarvesters || [];
-  let south = "";
   let southHarvesters = Memory.southHarvesters || [];
+
   let northAttack = Memory.northAttack || null;
   let eastAttack = Memory.eastAttack || null;
   let westAttack = Memory.westAttack || null;
+
+  let invaderId = Memory.invaderId;
+  let invader = invaderId ? Game.getObjectById(invaderId) : null;
+
   let nAttackDurationSafeCheck =
     Memory.nAttackDurationSafeCheck || Game.time + 100;
   let eAttackDurationSafeCheck =
@@ -61,8 +72,6 @@ module.exports.loop = function() {
   let tower2Id = Memory.tower2Id || "5cfd5e7adee9d942d5155ed6";
   let tower1 = Game.getObjectById(tower1Id);
   let tower2 = Game.getObjectById(tower2Id);
-  let invaderId = Memory.invaderId;
-  let invader = invaderId ? Game.getObjectById(invaderId) : null;
 
   let rmControllerId = Memory.rmControllerId || "5bbcaefa9099fc012e639e90";
   let rmController = Game.getObjectById(rmControllerId);

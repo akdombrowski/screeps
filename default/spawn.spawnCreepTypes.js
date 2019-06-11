@@ -176,6 +176,7 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
+  // Roster
   if (enAvail >= 1100) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t;
@@ -199,11 +200,6 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = linkGetsParts;
       linkGets.push(name);
-    } else if (upControllers.length < 1) {
-      chosenRole = "uc";
-      name = chosenRole + t;
-      parts = upContrParts;
-      upControllers.push(name);
     } else if (
       eastHarvesters.length < 3 &&
       (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
@@ -310,11 +306,16 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = repairerParts;
       roadRepairers.push(name);
-    } else {
+    } else if (upControllers.length < 6) {
       chosenRole = "uc";
       parts = upContrParts;
       name = chosenRole + t;
       upControllers.push(name);
+    } else {
+      chosenRole = "w";
+      parts = workerParts;
+      name = chosenRole + t;
+      workers.push(name);
     }
 
     if (!waitForRezzy || numCrps < 10 || name.endsWith("Rezzy")) {

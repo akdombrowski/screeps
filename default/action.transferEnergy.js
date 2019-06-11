@@ -1,4 +1,5 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
+const smartMove = require("./action.smartMove");
 
 function tran(creep, flag, dest) {
   let target;
@@ -11,18 +12,7 @@ function tran(creep, flag, dest) {
         creep.move(BOTTOM);
         creep.move(BOTTOM);
       }
-      let pathMem = 200;
-      let igCreeps = true;
-      if (moveAwayFromCreep(creep)) {
-        pathMem = 0;
-        igCreeps = false;
-      }
-      creep.moveTo(Game.flags.northEntrance1, {
-        reusePath: pathMem,
-        ignoreCreeps: igCreeps,
-        range: 1,
-        visualizePathStyle: { stroke: "#0f52ff" }
-      });
+      smartMove(creep, Game.flags.northEntrance1, 1);
       creep.say("northEntrance");
       return;
     } else if (creep.room.name == "E36N31") {
@@ -33,18 +23,8 @@ function tran(creep, flag, dest) {
         creep.move(LEFT);
         creep.move(LEFT);
       }
-      let pathMem = 200;
-      let igCreeps = true;
-      if (moveAwayFromCreep(creep)) {
-        pathMem = 0;
-        igCreeps = false;
-      }
-      creep.moveTo(Game.flags.eastEntrance1, {
-        reusePath: pathMem,
-        ignoreCreeps: igCreeps,
-        range: 1,
-        visualizePathStyle: { stroke: "#0f52ff" }
-      });
+
+      smartMove(creep, Game.flags.eastEntrance1, 1);
       creep.say("eastEntrance");
       return;
     } else if (creep.room.name == "E34N31") {
@@ -56,18 +36,7 @@ function tran(creep, flag, dest) {
         creep.move(RIGHT);
         creep.say("RIGHT");
       } else {
-        let pathMem = 200;
-        let igCreeps = true;
-        if (moveAwayFromCreep(creep)) {
-          pathMem = 0;
-          igCreeps = false;
-        }
-        creep.moveTo(Game.flags.westEntrance1, {
-          reusePath: pathMem,
-          ignoreCreeps: igCreeps,
-          range: 1,
-          visualizePathStyle: { stroke: "#0f52ff" }
-        });
+        smartMove(creep, Game.flags.westEntrance1, 1);
         creep.say("westEntrance");
       }
       return;
@@ -82,21 +51,27 @@ function tran(creep, flag, dest) {
     target = null;
   }
 
-  if (!target) {
-    let spawnNeedsEnergy = false;
-    let extensionNeedsEnergy = false;
+  if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: structure => {
+        let type = structure.structureType;
         if (
-          structure.structureType == STRUCTURE_EXTENSION &&
+          (type === STRUCTURE_EXTENSION || type === STRUCTURE_SPAWN) &&
           structure.energy < structure.energyCapacity
         ) {
           extensionNeedsEnergy = true;
           return true;
-        } else if (
-          !extensionNeedsEnergy &&
-          (structure.structureType == STRUCTURE_STORAGE ||
-            structure.structureType == STRUCTURE_CONTAINER)
+        }
+      }
+    });
+  }
+
+  if (!target) {
+    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+      filter: structure => {
+        if (
+          structure.structureType == STRUCTURE_STORAGE ||
+          structure.structureType == STRUCTURE_CONTAINER
         ) {
           return _.sum(structure.store) < structure.storeCapacity;
         }
@@ -105,12 +80,18 @@ function tran(creep, flag, dest) {
   }
 
   let tower = Game.getObjectById(Memory.tower1Id);
-  if (
-    tower &&
-    tower.energy < tower.energyCapacity &&
-    Object.keys(Game.creeps).length > 15
-  ) {
-    target = tower;
+  let tower2 = Game.getObjectById(Memory.tower2Id);
+  let towers = [tower, tower2];
+  if (!target) {
+    _.forEach(towers, tor => {
+      if (
+        tor &&
+        tor.energy < tor.energyCapacity &&
+        (Object.keys(Game.creeps).length > 15 || tor.energy <= 50)
+      ) {
+        target = tor;
+      }
+    });
   }
 
   if (target && creep.pos.isNearTo(target.pos)) {
@@ -124,19 +105,7 @@ function tran(creep, flag, dest) {
   } else if (target) {
     creep.say("m." + target.pos.x + "," + target.pos.y);
 
-    let pathMem = 200;
-    let igCreeps = true;
-    if (moveAwayFromCreep(creep)) {
-      pathMem = 0;
-      igCreeps = false;
-    }
-    retval = creep.moveTo(target, {
-      reusePath: pathMem,
-      ignoreCreeps: igCreeps,
-      swampCost: 4,
-      range: 1,
-      visualizePathStyle: { stroke: "#ffffff" }
-    });
+    retval = smartMove(creep, target, 1);
 
     if (retval != OK) {
       creep.say("err." + retval);

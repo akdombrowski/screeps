@@ -23,18 +23,15 @@ function spawnToSource1Chain() {
   let s1 = Memory.s1;
   let energy;
   let needMover = false;
-  let extension = Game.getObjectById("5ce6a1f809af315f015a8295");
-  let extension2 = Game.getObjectById("5cf714bb21281831d9ecd4c0");
-  let extension3 = Game.getObjectById("5cf733caf7020f7e680e392f");
-  let extensions = [extension, extension2, extension3];
+  let exts = Memory.spawnExts;
+  let linkEntrance = Game.getObjectById(Memory.linkEntranceId);
+
   try {
     if (!hv) {
       console.log("hv");
-      supplyChainRetVal = supplyChain([tr1.name, tr2.name], "", source1, s1);
       return;
     } else if (!tr1) {
       console.log("tr1");
-      supplyChainRetVal = supplyChain([tr2.name], hv.name, source1, s1);
       return;
     } else if (!tr2) {
       console.log("tr2");
@@ -60,15 +57,15 @@ function spawnToSource1Chain() {
         Memory.s1.pos.y
       )
     ) {
-      if (Memory.enAvail >= 50) {
-        Game.spawns.Spawn1.spawnCreep([MOVE], "mover1", {
+      if (Memory.enAvail >= 100) {
+        Game.spawns.Spawn1.spawnCreep([MOVE, MOVE], "mover1", {
           memory: {
             role: "mover"
           }
         });
       }
     } else {
-      Game.spawns.Spawn1.spawnCreep([MOVE], "mover1", {
+      Game.spawns.Spawn1.spawnCreep([MOVE, MOVE], "mover1", {
         memory: {
           role: "mover",
           directions: direction
@@ -199,15 +196,26 @@ function spawnToSource1Chain() {
     let supplyChainRetVal = -16;
     try {
       let hvVal = hv.harvest(source1);
+      let extRetVal = -16;
 
-      _.forEach(extensions, ext => {
-        if (ext.energy < ext.energyCapacity) {
-          if (_.sum(tr1.carry) > 0) {
-            supplyChainRetVal = tr1.transfer(ext, RESOURCE_ENERGY);
-            if (supplyChainRetVal === OK) tr1.say("s");
-          } else if (_.sum(tr2.carry) > 0) {
-            supplyChainRetVal = tr2.transfer(ext, RESOURCE_ENERGY);
-            if (supplyChainRetVal === OK) tr2.say("s");
+      _.forEach(exts, ext => {
+        let e = Game.getObjectById(ext);
+
+        if (e.energy < e.energyCapacity) {
+          if (tr1.pos.isNearTo(e) && _.sum(tr1.carry) > 0) {
+            extRetVal = tr1.transfer(e, RESOURCE_ENERGY);
+            if (extRetVal === OK) {
+              tr1.say("s");
+            } else {
+              console.log("tr1 fail ext: " + extChainRetVal);
+            }
+          } else if (tr2.pos.isNearTo(e) && _.sum(tr2.carry) > 0) {
+            extRetVal = tr2.transfer(e, RESOURCE_ENERGY);
+            if (extRetVal === OK) {
+              tr2.say("s");
+            } else {
+              console.log("tr2 fail ext: " + e.pos + " " + extRetVal);
+            }
           }
         }
       });
@@ -218,6 +226,17 @@ function spawnToSource1Chain() {
         source1,
         s1
       );
+
+      if (Memory.linkGets.length > 0 && _.sum(tr1.carry) > 0) {
+        let retval = tr1.transfer(linkEntrance, RESOURCE_ENERGY);
+        tr1.say("l." + retval);
+      } else if (
+        Object.keys(Game.creeps).length < 10 &&
+        linkEntrance.energy > 0
+      ) {
+        let retval = tr1.withdraw(linkEntrance, RESOURCE_ENERGY);
+        tr1.say("wdL." + retval);
+      }
     } catch (e) {
       console.log(e + "\nstart supply chain err:" + supplyChainRetVal);
       // ignore

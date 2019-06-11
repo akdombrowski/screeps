@@ -1,29 +1,6 @@
-const { getAttackEvents } = require("./getAttackEvents");
-function lookForInvaders(
-  Game,
-  wAttackDurationSafeCheck,
-  nRm,
-  Memory,
-  northAttackerId,
-  eRm,
-  eastAttackerId,
-  wRm,
-  westAttackerId,
-  sAttackDurationSafeCheck,
-  rm,
-  invaderId,
-  getEventLog,
-  EVENT_ATTACK,
-  invader,
-  enAvail,
-  Spawn1,
-  spawnCreep,
-  ATTACK,
-  MOVE,
-  BOTTOM,
-  BOTTOM_RIGHT
-) {
-  if (nRm && (!northAttack || Game.time >= wAttackDurationSafeCheck)) {
+const { getAttackEvents } = require("./invasion.getAttackEvents");
+function lookForInvaders(invader) {
+  if (nRm && (!northAttackerId || Game.time >= wAttackDurationSafeCheck)) {
     northAttackerId = getAttackEvents(nRm);
     Memory.northAttackerId = northAttackerId;
     if (northAttackerId) {
@@ -31,7 +8,7 @@ function lookForInvaders(
       console.log("nAttacker:" + northAttackerId);
     }
   }
-  if (eRm && (!eastAttack || Game.time >= wAttackDurationSafeCheck)) {
+  if (eRm && (!eastAttackerId || Game.time >= wAttackDurationSafeCheck)) {
     eastAttackerId = getAttackEvents(eRm);
     Memory.eastAttackerId = eastAttackerId;
     if (eastAttackerId) {
@@ -39,7 +16,7 @@ function lookForInvaders(
       console.log("eAttacker:" + eastAttackerId);
     }
   }
-  if (wRm && (!westAttack || Game.time >= wAttackDurationSafeCheck)) {
+  if (wRm && (!westAttackerId || Game.time >= wAttackDurationSafeCheck)) {
     westAttackerId = getAttackEvents(wRm);
     Memory.westAttackerId = westAttackerId;
     if (westAttackerId) {

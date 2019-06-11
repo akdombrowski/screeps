@@ -12,22 +12,29 @@ const roleHarvester = {
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
       creep.say("h");
-      if (creep.memory.direction == "north") {
+      if (
+        creep.memory.direction == "north" &&
+        (!Memory.northAttackerId || Game.time >= Memory.nAtackDurationSafeCheck)
+      ) {
         getEnergyNorth(creep);
-      } else if (creep.memory.direction == "east") {
+      } else if (
+        creep.memory.direction == "east" &&
+        (!Memory.eastAttackerId || Game.time >= Memory.eAttackDurationSafeCheck)
+      ) {
         getEnergyEast(creep);
-      } else if (creep.memory.direction == "west") {
+      } else if (
+        creep.memory.direction == "west" &&
+        (!Memory.westAttackerId || Game.time >= Memory.wAttackDurationSafeCheck)
+      ) {
         getEnergyWest(creep);
       } else if (creep.memory.direction == "south" || creep) {
         getEnergy(creep);
+      } else {
+        getEnergy(creep);
       }
-    } else if (
-      creep.memory.transfer ||
-      creep.carry.energy > 0
-    ) {
+    } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.getEnergy = false;
-      
-      
+
       if (creep.memory.buildingRoad) {
         buildRoad(creep);
         creep.say("road");

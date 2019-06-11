@@ -4,7 +4,6 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 var roleWorker = {
   /** @param {Creep} creep **/
   run: function(creep) {
-    
     if (!creep.memory.working) {
       creep.memory.working = false;
     }
@@ -27,8 +26,8 @@ var roleWorker = {
     }
 
     if (
-      (creep.memory.working || !creep.memory.getEnergy) &&
-      creep.room.name == "E35N31"
+      creep.memory.working ||
+      (!creep.memory.getEnergy && creep.room.name == "E35N31")
     ) {
       let retval;
       let targetId = creep.memory.b;
@@ -46,9 +45,26 @@ var roleWorker = {
         creep.room.lookAt(target).progress >=
           creep.room.lookAt(target).progressTotal
       ) {
+        let linkFound = false;
+        let extFound = false;
         target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
-          filter: constructionSite => {
-            return constructionSite.progress < constructionSite.progressTotal;
+          filter: site => {
+            if (site.progress >= site.progressTotal) {
+              return false;
+            }
+
+            const type = site.structureType;
+
+            if (type === STRUCTURE_LINK) {
+              linkFound = true;
+            }
+
+            if (!linkFound && type === STRUCTURE_EXTENSION) {
+              extFound = true;
+              return site;
+            } else if (!extFound && !linkFound) {
+              return site;
+            }
           }
         });
         targetId = target ? target.id : null;

@@ -5,7 +5,7 @@ var roleRepairer = {
   /** @param {Creep} creep **/
   run: function(creep) {
     let repair = creep.memory.repair;
-    
+
     if (!repair && creep.carry.energy == creep.carryCapacity) {
       creep.memory.repair = true;
       creep.memory.getEnergy = false;
@@ -20,24 +20,50 @@ var roleRepairer = {
     if (repair) {
       let struct;
       let target;
+      let targetObj;
       if (creep.memory.r) {
         target = creep.memory.r;
+        targetObj = Game.getObjectById(target);
       }
 
-      target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        filter: structure => {
-          if (
-            (structure.structureType == STRUCTURE_ROAD ||
-              structure.structureType == STRUCTURE_CONTAINER) &&
-            Game.flags.Flag1.pos.inRangeTo(structure.pos, 9)
-          ) {
-            return structure.hits < structure.hitsMax;
+      if (target === STRUCTURE_RAMPART) {
+        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+          filter: structure => {
+            if (structure.structureType == STRUCTURE_RAMPART) {
+              return structure.hits < structure.hitsMax;
+            }
           }
-        }
-      });
+        });
+      } else if (target === STRUCTURE_ROAD) {
+        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+          filter: structure => {
+            if (structure.structureType == STRUCTURE_ROAD) {
+              return structure.hits < structure.hitsMax;
+            }
+          }
+        });
+      } else if (targetObj && targetObj.hits < targetObj.hitsMax) {
+        target = targetObj;
+      } else {
+        target = null;
+      }
+
+      if (!target || target.hits >= target.hitsMax) {
+        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+          filter: structure => {
+            if (
+              (structure.structureType == STRUCTURE_ROAD ||
+                structure.structureType == STRUCTURE_CONTAINER) &&
+              Game.flags.Flag1.pos.inRangeTo(structure.pos, 9)
+            ) {
+              return structure.hits < structure.hitsMax;
+            }
+          }
+        });
+      }
 
       let mostRepairNeeded;
-      if (!target) {
+      if (!target || target.hits >= target.hitsMax) {
         target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
           filter: structure => {
             if (!mostRepairNeeded) {

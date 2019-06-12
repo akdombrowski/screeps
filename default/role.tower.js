@@ -2,9 +2,10 @@ const roleTower = {
   /** **/
   run: function(tower) {
     let invader = Game.getObjectById(Memory.invaderId);
+    let ramp = tower.pos.lookFor(LOOK_STRUCTURES).pop();
     if (invader) {
       console.log("tower attack: " + tower.attack(invader));
-    } else if (tower && tower.energy > tower.energyCapacity - 50) {
+    } else if (tower && tower.energy > tower.energyCapacity - 100) {
       let struct = Game.getObjectById(Memory.towerRepairTarget);
       if (!struct || struct.hitsMax <= struct.hits) {
         struct = tower.pos.findClosestByRange(FIND_STRUCTURES, {
@@ -31,6 +32,11 @@ const roleTower = {
           console.log(tower.heal(healee[0]) + "." + healee[0].name);
         }
       }
+    } else if (
+      ramp.structureType === STRUCTURE_RAMPART &&
+      ramp.hits < ramp.hitsMax
+    ) {
+      tower.repair(ramp);
     }
   }
 };

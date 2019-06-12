@@ -102,11 +102,7 @@ function runRoles() {
       roleController.run(creep);
     } else if (roll == "upgrader" || name.startsWith("up")) {
       roleUpgrader.run(creep);
-    } else if (
-      roll == "roadRepairer" ||
-      roll == "r" //||
-      // name.startsWith("r")
-    ) {
+    } else if (roll == "roadRepairer" || roll == "r") {
       if (creep.name.charAt(creep.name.length - 1) % 2 == 0) {
         creep.memory.r = Memory.tower1Id;
       } else if (creep.name.charAt(creep.name.length - 1) % 3 == 0) {

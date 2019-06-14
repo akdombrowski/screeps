@@ -1,5 +1,6 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
+const traneRm = require("./action.transferEnergyeRm");
 
 function tran(creep, flag, dest) {
   let target;
@@ -16,17 +17,7 @@ function tran(creep, flag, dest) {
       creep.say("northEntrance");
       return;
     } else if (creep.room.name == "E36N31") {
-      if (
-        creep.pos == Game.flags.eastEntrance1 ||
-        creep.pos.isNearTo(Game.flags.eastEntrance1)
-      ) {
-        creep.move(LEFT);
-        creep.move(LEFT);
-      }
-
-      smartMove(creep, Game.flags.eastEntrance1, 1);
-      creep.say("eastEntrance");
-      return;
+      traneRm;
     } else if (creep.room.name == "E34N31") {
       if (
         creep.pos.isEqualTo(Game.flags.westEntrance1.pos) ||

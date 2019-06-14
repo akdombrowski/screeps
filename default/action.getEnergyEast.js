@@ -17,6 +17,15 @@ function vest(creep, flag, path) {
       creep.memory.buildingRoad = false;
       creep.memory.transfer = true;
     }
+    if (creep.memory.buildSpawn) {
+      let kreep = creep;
+      let s2 = Game.getObjectById("5d036fd6ac95ba2196cc5353");
+      if (kreep.pos.inRangeTo(s2, 3)) {
+        kreep.build(s2);
+      } else {
+        smartMove(kreep, s2, 3);
+      }
+    }
 
     if (creep.memory.buildingRoad) {
       let retval = buildRoad(creep);

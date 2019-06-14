@@ -23,13 +23,18 @@ module.exports.loop = function() {
   let lastEnAvail = Memory.enAvail || 0;
 
   let s1 = Game.spawns.Spawn1;
+  let s2 = Game.spawns.s2;
   let rm = Game.rooms.E35N31;
   let nRm = Game.rooms.E35N32;
   let wRm = Game.rooms.E34N31;
   let eRm = Game.rooms.E36N31;
+  let enRm = Game.rooms.E36N32;
 
   let enAvail = rm.energyAvailable;
   let enCap = rm.energyCapacityAvailable;
+
+  let enAvails2 = eRm.energyAvailable;
+  let enCaps2 = eRm.energyCapacityAvailable;
 
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
@@ -67,6 +72,7 @@ module.exports.loop = function() {
 
   let source1 = rm.lookForAt(LOOK_SOURCES, 41, 8).pop();
   let source2 = rm.lookForAt(LOOK_SOURCES, 29, 15).pop();
+  let source1eRm = eRm.lookForAt(LOOK_SOURCES, 9, 10).pop();
 
   let tower1Id = Memory.tower1Id || "5cf3b09b75f7e26764ee4276";
   let tower2Id = Memory.tower2Id || "5cfd5e7adee9d942d5155ed6";
@@ -196,6 +202,14 @@ module.exports.loop = function() {
   southHarvesters = [];
   westHarvesters = [];
   linkGets = [];
+
+  let kreep = Game.creeps.h430east;
+  s2 = Game.getObjectById("5d036fd6ac95ba2196cc5353");
+  if (kreep.pos.inRangeTo(s2, 3)) {
+    kreep.build(s2);
+  } else {
+    smartMove(kreep, s2, 3);
+  }
 
   runRoles();
 

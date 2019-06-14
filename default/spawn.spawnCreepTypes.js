@@ -165,17 +165,6 @@ function spawnCreepTypes(enAvail) {
       southHarvesters.push(name);
       parts = southHvParts;
     } else if (
-      !Game.creeps.eastRezzy &&
-      (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
-    ) {
-      waitForRezzy = true;
-      if (enAvail >= 650) {
-        chosenRole = "eastRezzy";
-        name = chosenRole;
-        direction = "east";
-        parts = rezzyParts;
-      }
-    } else if (
       !Game.creeps.northRezzy &&
       (!nAttackerId || Game.time >= eAttackDurationSafeCheck)
     ) {

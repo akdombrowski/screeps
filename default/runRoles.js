@@ -9,6 +9,7 @@ const upController = require("./action.upgradeController");
 const rezzyContr = require("./action.reserveContr");
 const smartMove = require("./action.smartMove");
 const deepSouthScout = require("./action.deepSouthScout");
+const claimContr = require("./action.claimContr");
 
 function runRoles() {
   let i = 0;
@@ -35,6 +36,7 @@ function runRoles() {
       if (creep.memory.direction == "north") {
         northHarvesters.push(name);
       } else if (creep.memory.direction == "east") {
+        creep.memory.buildSpawn = true;
         eastHarvesters.push(name);
       } else if (creep.memory.direction == "west") {
         westHarvesters.push(name);
@@ -64,9 +66,9 @@ function runRoles() {
         "5bbcaefa9099fc012e639e8b"
       );
     } else if (roll == "eastRezzy") {
-      rezzyContr(
+      claimContr(
         creep,
-        "E36N31",
+        "E36N32",
         Game.flags.eastExit,
         RIGHT,
         "eastEntrance1",

@@ -4,6 +4,7 @@ const getEnergyNorth = require("./action.getEnergyNorth");
 const getEnergyEast = require("./action.getEnergyEast");
 const getEnergyWest = require("./action.getEnergyWest");
 const buildRoad = require("./action.buildRoad");
+const smartMove = require("./action.smartMove");
 
 const roleHarvester = {
   /** @param {Creep} creep **/
@@ -31,6 +32,15 @@ const roleHarvester = {
         getEnergy(creep);
       } else {
         getEnergy(creep);
+      }
+    } else if (creep.memory.buildSpawn) {
+      creep.memory.getEnergy = false;
+
+      let s2 = Game.getObjectById("5d036fd6ac95ba2196cc5353");
+      if (creep.pos.inRangeTo(s2, 3)) {
+        creep.build(s2);
+      } else {
+        smartMove(creep, s2, 3);
       }
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.getEnergy = false;

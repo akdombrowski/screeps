@@ -10,7 +10,7 @@ function smartMove(
 ) {
   let retVal = -16;
   let igCreeps = ignoreCreeps;
-  pathMem = pathMem || 200;
+  pathMem = pathMem || 2000;
 
   if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);

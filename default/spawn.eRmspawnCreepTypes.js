@@ -7,7 +7,7 @@ function addPart(arr, count, part) {
 }
 
 function birthCreep(
-  s1,
+  s2,
   parts,
   name,
   chosenRole,
@@ -16,8 +16,9 @@ function birthCreep(
   spawnDirection
 ) {
   let retval;
-  if (s1.room.lookForAt(LOOK_CREEPS, s1.pos.x + 1, s1.pos.y + 1)) {
-    retval = Game.spawns.Spawn1.spawnCreep(parts, name, {
+  s2 = Game.getObjectById(Memory.s2);
+  if (s2.room.lookForAt(LOOK_CREEPS, s2.pos.x + 1, s2.pos.y + 1)) {
+    retval = s2.spawnCreep(parts, name, {
       memory: {
         role: chosenRole,
         direction: direction,
@@ -26,7 +27,7 @@ function birthCreep(
       directions: spawnDirection
     });
   } else {
-    retval = Game.spawns.Spawn1.spawnCreep(parts, name, {
+    retval = s2.spawnCreep(parts, name, {
       memory: { role: chosenRole, direction: direction, sourceId: sourceId }
     });
   }
@@ -55,15 +56,15 @@ function spawnCreepTypes(enAvail) {
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
 
-  let s1 = Game.spawns.Spawn1;
+  let s2 = Game.spawns.s2;
 
   let attackers = Memory.attackers || [];
 
-  // 1100
+  // 300
   let upContrParts = [];
   addPart(upContrParts, 1, CARRY);
-  addPart(upContrParts, 7, WORK);
-  addPart(upContrParts, 7, MOVE);
+  addPart(upContrParts, 2, WORK);
+  addPart(upContrParts, 1, MOVE);
 
   // 1100
   let southHvParts = [];
@@ -104,43 +105,27 @@ function spawnCreepTypes(enAvail) {
   let nAttackerId = Memory.nAttackerId;
   let invaderId = Memory.invaderId;
 
-  if (enAvail >= 300 && Memory.harvesters.length < 5) {
+  if (enAvail >= 300) {
     let t = Game.time.toString().slice(4);
-    let name = "h" + t;
+    let name = "h" + t + "east";
     let chosenRole = "h";
-    let direction = "south";
-    let sourceId = Memory.source2;
+    let direction = "east";
+    let sourceId = Memory.source2eRm;
     let parts = simpleParts;
-    let spawnDirection = [BOTTOM_RIGHT];
+    let spawnDirection = [TOP];
 
-    if (southHarvesters.length < 2) {
+    if (Game.time % 600 === 0) {
       southHarvesters.push(name);
       parts = simpleParts;
-    } else if (
-      eastHarvesters.length < 2 &&
-      (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
-    ) {
-      name += "east";
+    } else {
+      chosenRole = "eastRezzy";
+      name = chosenRole + t;
       direction = "east";
-      eastHarvesters.push(name);
-    } else if (
-      northHarvesters.length < 2 &&
-      (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
-    ) {
-      name += "north";
-      direction = "north";
-      northHarvesters.push(name);
-    } else if (
-      westHarvesters.length < 2 &&
-      (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
-    ) {
-      name += "west";
-      direction = "west";
-      westHarvesters.push(name);
+      parts = upContrParts;
     }
 
     birthCreep(
-      s1,
+      s2,
       parts,
       name,
       chosenRole,
@@ -165,15 +150,6 @@ function spawnCreepTypes(enAvail) {
       southHarvesters.push(name);
       parts = southHvParts;
     } else if (
-      !Game.creeps.eastRezzy &&
-      (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
-    ) {
-      waitForRezzy = true;
-      chosenRole = "eastRezzy";
-      name = chosenRole;
-      direction = "east";
-      parts = upContrParts;
-    } else if (
       !Game.creeps.northRezzy &&
       (!nAttackerId || Game.time >= eAttackDurationSafeCheck)
     ) {
@@ -189,11 +165,13 @@ function spawnCreepTypes(enAvail) {
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
       waitForRezzy = true;
-      chosenRole = "westRezzy";
-      name = chosenRole;
-      direction = "west";
-      parts = rezzyParts;
-    } else if (linkGets.length < 2) {
+      if (enAvail >= 650) {
+        chosenRole = "westRezzy";
+        name = chosenRole;
+        direction = "west";
+        parts = rezzyParts;
+      }
+    } else if (linkGets.length < 3) {
       chosenRole = "linkGet";
       name = chosenRole + t;
       parts = linkGetsParts;
@@ -264,7 +242,7 @@ function spawnCreepTypes(enAvail) {
 
     if (!waitForRezzy || numCrps < 10 || name.endsWith("Rezzy")) {
       birthCreep(
-        s1,
+        s2,
         parts,
         name,
         chosenRole,

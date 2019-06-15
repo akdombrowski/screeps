@@ -3,7 +3,7 @@ const smartMove = require("./action.smartMove");
 
 function traneRm(creep, flag, dest) {
   let target;
-  let s2 = Memory.s2;
+  let s2 = Game.getObjectById(Memory.s2);
   if (creep.memory.role == "h" || creep.memory.role == "harvester") {
     if (creep.room.name == "E36N31") {
       if (creep.pos.isNearTo(s2)) {

@@ -73,7 +73,7 @@ function tran(creep, flag, dest) {
   let tower = Game.getObjectById(Memory.tower1Id);
   let tower2 = Game.getObjectById(Memory.tower2Id);
   let towers = [tower, tower2];
-  if (!target) {
+  
     _.forEach(towers, tor => {
       if (
         tor &&
@@ -83,7 +83,7 @@ function tran(creep, flag, dest) {
         target = tor;
       }
     });
-  }
+  
 
   if (target && creep.pos.isNearTo(target.pos)) {
     retval = creep.transfer(target, RESOURCE_ENERGY);

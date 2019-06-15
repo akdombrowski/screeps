@@ -16,6 +16,7 @@ const rezzyContr = require("./action.reserveContr");
 const spawnToSource1Chain = require("./action.spawnToSource1Chain");
 const smartMove = require("./action.smartMove");
 const spawnCreepTypes = require("./spawn.spawnCreepTypes");
+const spawnCreepTypeseRm = require("./spawn.eRmspawnCreepTypes");
 const runRoles = require("./runRoles");
 const linkTran = require("./action.linkTran");
 
@@ -33,8 +34,8 @@ module.exports.loop = function() {
   let enAvail = rm.energyAvailable;
   let enCap = rm.energyCapacityAvailable;
 
-  let enAvails2 = eRm.energyAvailable;
-  let enCaps2 = eRm.energyCapacityAvailable;
+  let enAvaileRm = eRm.energyAvailable;
+  let enCapeRm = eRm.energyCapacityAvailable;
 
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
@@ -120,6 +121,7 @@ module.exports.loop = function() {
 
   Memory.source1 = source1;
   Memory.source2 = source2;
+  Memory.source1eRm = source1eRm.id;
 
   Memory.s1 = s1;
 
@@ -129,11 +131,14 @@ module.exports.loop = function() {
   Memory.enAvail = enAvail;
   Memory.enCap = enCap;
   Memory.numCrps = numCrps;
+  Memory.enAvaileRm = enAvaileRm;
+  Memory.enCapeRm = enCapeRm;
 
   Memory.rm = rm;
   Memory.nRm = nRm;
   Memory.wRm = wRm;
   Memory.eRm = eRm;
+  Memory.s2 = s2.id;
 
   if (invader) {
     if (tower1) {
@@ -170,6 +175,22 @@ module.exports.loop = function() {
   spawnHarvesterChain(enAvail, rm, s1, harvesters);
 
   spawnToSource1Chain();
+  spawnCreepTypeseRm(
+    enAvaileRm,
+    southHarvesters,
+    workers,
+    upControllers,
+    eastHarvesters,
+    eAttackDurationSafeCheck,
+    northHarvesters,
+    nAttackDurationSafeCheck,
+    westHarvesters,
+    wAttackDurationSafeCheck,
+    roadRepairers,
+    numCrps,
+    s2,
+    harvesters
+  );
 
   spawnCreepTypes(
     enAvail,
@@ -202,14 +223,6 @@ module.exports.loop = function() {
   southHarvesters = [];
   westHarvesters = [];
   linkGets = [];
-
-  let kreep = Game.creeps.h430east;
-  s2 = Game.getObjectById("5d036fd6ac95ba2196cc5353");
-  if (kreep.pos.inRangeTo(s2, 3)) {
-    kreep.build(s2);
-  } else {
-    smartMove(kreep, s2, 3);
-  }
 
   runRoles();
 

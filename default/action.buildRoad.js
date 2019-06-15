@@ -10,6 +10,7 @@ function buildRoad(creep) {
     buildingRoad = true;
     creep.memory.buildingRoad = buildingRoad;
   }
+
   if (buildingRoad && _.sum(creep.carry) > 0) {
     if (
       !target ||
@@ -17,7 +18,7 @@ function buildRoad(creep) {
       creep.room.lookAt(target).progress >=
         creep.room.lookAt(target).progressTotal
     ) {
-      target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+      target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
         filter: constructionSite => {
           return (
             constructionSite.progress < constructionSite.progressTotal &&
@@ -36,8 +37,23 @@ function buildRoad(creep) {
       return retval;
     }
     if (creep.pos.inRangeTo(target, 3)) {
-      retval = creep.build(target);
-      creep.memory.b = targetId;
+      if (
+        creep.pos.findInRange(FIND_CREEPS, 1).pop().name != creep.name &&
+        creep.pos.isNearTo(Game.getObjectById(Memory.source1eRm))
+      ) {
+        console.log(
+          creep.name +
+            " " +
+            JSON.stringify(creep.pos.findInRange(FIND_CREEPS, 1).pop().name)
+        );
+        creep.move(LEFT);
+        creep.move(TOP_LEFT);
+        creep.say("pass");
+      } else {
+        retval = creep.build(target);
+        creep.memory.b = targetId;
+        creep.say("rd");
+      }
     } else {
       retval = smartMove(creep, target.pos, 3, "#ffff0f");
       if (retval != OK) {
@@ -46,7 +62,7 @@ function buildRoad(creep) {
         creep.say("f" + creep.fatigue);
         return ERR_TIRED;
       } else {
-        creep.say("road");
+        creep.say("m");
       }
     }
 

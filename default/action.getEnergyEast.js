@@ -1,6 +1,7 @@
 const transferEnergy = require("./action.transferEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const buildRoad = require("./action.buildRoad");
+const transferEnergyeRm = require("./action.transferEnergyeRm");
 
 const smartMove = require("./action.smartMove");
 
@@ -9,6 +10,7 @@ function vest(creep, flag, path) {
   const eastSource = Game.getObjectById("5bbcaf0c9099fc012e63a0bd");
   const eastExit = Game.flags.eastExit;
   const eastEntrance = Game.flags.eastEntrance1;
+  let s2 = Game.getObjectById(Memory.s2);
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
@@ -17,21 +19,16 @@ function vest(creep, flag, path) {
       creep.memory.buildingRoad = false;
       creep.memory.transfer = true;
     }
-    if (creep.memory.buildSpawn) {
-      let kreep = creep;
-      let s2 = Game.getObjectById("5d036fd6ac95ba2196cc5353");
-      if (kreep.pos.inRangeTo(s2, 3)) {
-        kreep.build(s2);
-      } else {
-        smartMove(kreep, s2, 3);
-      }
-    }
 
     if (creep.memory.buildingRoad) {
       let retval = buildRoad(creep);
       if (retval != OK) {
         creep.memory.transfer = true;
-        transferEnergy(creep);
+        if (creep.name.endsWith("east")) {
+          transferEnergyeRm(creep);
+        } else {
+          transferEnergy(creep);
+        }
       } else {
         creep.memory.buildingRoad = true;
       }
@@ -60,7 +57,7 @@ function vest(creep, flag, path) {
     if (eastSource) {
       target = eastSource;
     } else {
-      target = creep.room.lookForAt(LOOK_SOURCES, Game.flags.east1);
+      target = creep.room.lookForAt(LOOK_SOURCES, Game.flags.east);
     }
 
     if (target) {

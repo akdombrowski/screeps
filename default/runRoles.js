@@ -68,7 +68,7 @@ function runRoles() {
     } else if (roll == "eastRezzy") {
       claimContr(
         creep,
-        "E36N32",
+        "E36N31",
         Game.flags.eastExit,
         RIGHT,
         "eastEntrance1",

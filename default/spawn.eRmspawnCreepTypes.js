@@ -105,6 +105,10 @@ function spawnCreepTypes(enAvail) {
   let nAttackerId = Memory.nAttackerId;
   let invaderId = Memory.invaderId;
 
+  let ermharvesters = [];
+  let ermworkers = [];
+  let ermcontrollers = [];
+
   if (enAvail >= 300) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "east";
@@ -114,14 +118,18 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts;
     let spawnDirection = [TOP];
 
-    if (Game.creeps.eastRezzy) {
-      southHarvesters.push(name);
+    if (ermharvesters.length < 2) {
+      ermharvesters.push(name);
+      parts = simpleParts;
+    } else if (ermworkers.length < 2) {
+      ermworkers.push(name);
       parts = simpleParts;
     } else {
       chosenRole = "eastRezzy";
       name = chosenRole + t;
       direction = "east";
       parts = upContrParts;
+      ermcontrollers.push(name);
     }
 
     birthCreep(

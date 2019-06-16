@@ -25,10 +25,7 @@ var roleWorker = {
       creep.memory.getEnergy = false;
     }
 
-    if (
-      creep.memory.working ||
-      (!creep.memory.getEnergy && creep.room.name == "E35N31")
-    ) {
+    if (creep.memory.working) {
       let retval;
       let targetId = creep.memory.b;
       let target = Game.getObjectById(targetId);

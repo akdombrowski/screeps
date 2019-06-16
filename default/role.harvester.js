@@ -59,7 +59,7 @@ const roleHarvester = {
         creep.room.energyAvailable >=
         creep.room.energyCapacityAvailable - 700
       ) {
-        buildRoad(creep);
+        // buildRoad(creep);
       } else {
         creep.memory.transfer = true;
 

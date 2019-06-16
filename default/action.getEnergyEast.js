@@ -19,19 +19,19 @@ function vest(creep, flag, path) {
       creep.memory.transfer = true;
     }
 
-    if (creep.memory.buildingRoad) {
-      let retval = buildRoad(creep);
-      if (retval != OK) {
-        creep.memory.transfer = true;
-        if (creep.name.endsWith("east")) {
-          transferEnergyeRm(creep);
-        } else {
-          transferEnergy(creep);
-        }
-      } else {
-        creep.memory.buildingRoad = true;
-      }
-    }
+    // if (creep.memory.buildingRoad) {
+    //   let retval = buildRoad(creep);
+    //   if (retval != OK) {
+    //     creep.memory.transfer = true;
+    //     if (creep.name.endsWith("east")) {
+    //       transferEnergyeRm(creep);
+    //     } else {
+    //       transferEnergy(creep);
+    //     }
+    //   } else {
+    //     creep.memory.buildingRoad = true;
+    //   }
+    // }
 
     if (creep.memory.transfer) {
       transferEnergy(creep);

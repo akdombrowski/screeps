@@ -95,7 +95,6 @@ function tran(creep, flag, dest) {
   } else if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
   } else if (target) {
-    console.log("targ" + target);
     creep.say("m." + target.pos.x + "," + target.pos.y);
 
     retval = smartMove(creep, target, 1);

@@ -114,7 +114,7 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts;
     let spawnDirection = [TOP];
 
-    if (Game.time % 2 === 0 || Game.creeps.eastRezzy) {
+    if (Game.creeps.eastRezzy) {
       southHarvesters.push(name);
       parts = simpleParts;
     } else {

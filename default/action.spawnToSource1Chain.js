@@ -28,13 +28,13 @@ function spawnToSource1Chain() {
 
   try {
     if (!hv) {
-      console.log("hv");
+      // console.log("hv");
       return;
     } else if (!tr1) {
-      console.log("tr1");
+      // console.log("tr1");
       return;
     } else if (!tr2) {
-      console.log("tr2");
+      // console.log("tr2");
       supplyChainRetVal = supplyChain([tr1.name], hv.name, source1, s1);
       return;
     }

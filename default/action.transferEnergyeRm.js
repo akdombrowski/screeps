@@ -16,7 +16,7 @@ function traneRm(creep, flag, dest) {
 
       return;
     } else if (creep.memory.dest) {
-      target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.dest).pop();
+      target = Game.getObjectById(creep.memory.dest);
     } else if (creep.memory.flag) {
       target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
     }
@@ -24,7 +24,21 @@ function traneRm(creep, flag, dest) {
     if (target && target.energy >= target.energyCapacity) {
       target = null;
     }
+    let tower = Game.getObjectById(Memory.tower1Id);
+    let tower2 = Game.getObjectById(Memory.tower2Id);
+    let towers = [tower, tower2];
 
+    _.forEach(towers, tor => {
+      if (tor) {
+        if (
+          (tor.energy < tor.energyCapacity &&
+            Object.keys(Game.creeps).length > 10) ||
+          tor.energy <= 50
+        ) {
+          target = tor;
+        }
+      }
+    });
     if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
       target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
         filter: structure => {
@@ -53,26 +67,11 @@ function traneRm(creep, flag, dest) {
       });
     }
 
-    let tower = Game.getObjectById(Memory.tower1Id);
-    let tower2 = Game.getObjectById(Memory.tower2Id);
-    let towers = [tower, tower2];
-    if (!target) {
-      _.forEach(towers, tor => {
-        if (
-          tor &&
-          tor.energy < tor.energyCapacity &&
-          (Object.keys(Game.creeps).length > 15 || tor.energy <= 50)
-        ) {
-          target = tor;
-        }
-      });
-    }
-
     if (target && creep.pos.isNearTo(target.pos)) {
       retval = creep.transfer(target, RESOURCE_ENERGY);
       if (retval == OK) {
         creep.say("t");
-        creep.memory.dest = target.pos;
+        creep.memory.dest = target.id;
       }
     } else if (creep.fatigue > 0) {
       creep.say("f." + creep.fatigue);
@@ -87,7 +86,7 @@ function traneRm(creep, flag, dest) {
         creep.say("m");
       }
 
-      creep.memory.dest = target.pos;
+      creep.memory.dest = target.id;
     } else {
       creep.memory.dest = null;
       creep.say("t.err");

@@ -104,7 +104,7 @@ function spawnCreepTypes(enAvail) {
   let nAttackerId = Memory.nAttackerId;
   let invaderId = Memory.invaderId;
 
-  if (enAvail >= 300 && Memory.harvesters.length < 5) {
+  if (enAvail >= 300 && Memory.harvesters.length < 10) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t;
     let chosenRole = "h";
@@ -113,25 +113,25 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts;
     let spawnDirection = [BOTTOM_RIGHT];
 
-    if (southHarvesters.length < 2) {
+    if (southHarvesters.length < 3) {
       southHarvesters.push(name);
       parts = simpleParts;
     } else if (
-      eastHarvesters.length < 2 &&
+      eastHarvesters.length < 1 &&
       (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
     ) {
       name += "east";
       direction = "east";
       eastHarvesters.push(name);
     } else if (
-      northHarvesters.length < 2 &&
+      northHarvesters.length < 1 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {
       name += "north";
       direction = "north";
       northHarvesters.push(name);
     } else if (
-      westHarvesters.length < 2 &&
+      westHarvesters.length < 1 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
       name += "west";
@@ -164,6 +164,54 @@ function spawnCreepTypes(enAvail) {
     if (southHarvesters.length < 2) {
       southHarvesters.push(name);
       parts = southHvParts;
+    } else if (roadRepairers.length < 1) {
+      chosenRole = "r";
+      name = chosenRole + t;
+      parts = repairerParts;
+      roadRepairers.push(name);
+    } else if (workers.length < 4) {
+      chosenRole = "w";
+      name = chosenRole + t;
+      parts = workerParts;
+      workers.push(name);
+    } else if (linkGets.length < 2) {
+      chosenRole = "linkGet";
+      name = chosenRole + t;
+      parts = linkGetsParts;
+      linkGets.push(name);
+    } else if (
+      northHarvesters.length < 2 &&
+      (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
+    ) {
+      name += "north";
+      direction = "north";
+      northHarvesters.push(name);
+    } else if (
+      westHarvesters.length < 2 &&
+      (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
+    ) {
+      name += "west";
+      direction = "west";
+      westHarvesters.push(name);
+    } else if (
+      northHarvesters.length < 4 &&
+      (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
+    ) {
+      name += "north";
+      direction = "north";
+      northHarvesters.push(name);
+    } else if (
+      westHarvesters.length < 4 &&
+      (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
+    ) {
+      name += "west";
+      direction = "west";
+      westHarvesters.push(name);
+    } else if (roadRepairers.length < 3) {
+      chosenRole = "r";
+      name = chosenRole + t;
+      parts = repairerParts;
+      roadRepairers.push(name);
     } else if (
       !Game.creeps.eastRezzy &&
       (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
@@ -193,68 +241,6 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole;
       direction = "west";
       parts = rezzyParts;
-    } else if (linkGets.length < 2) {
-      chosenRole = "linkGet";
-      name = chosenRole + t;
-      parts = linkGetsParts;
-      linkGets.push(name);
-    } else if (
-      eastHarvesters.length < 3 &&
-      (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
-    ) {
-      name += "east";
-      direction = "east";
-      eastHarvesters.push(name);
-    } else if (
-      northHarvesters.length < 3 &&
-      (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
-    ) {
-      name += "north";
-      direction = "north";
-      northHarvesters.push(name);
-    } else if (
-      westHarvesters.length < 3 &&
-      (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
-    ) {
-      name += "west";
-      direction = "west";
-      westHarvesters.push(name);
-    } else if (roadRepairers.length < 1) {
-      chosenRole = "r";
-      name = chosenRole + t;
-      parts = repairerParts;
-      roadRepairers.push(name);
-    } else if (workers.length < 4) {
-      chosenRole = "w";
-      name = chosenRole + t;
-      parts = workerParts;
-      workers.push(name);
-    } else if (
-      eastHarvesters.length < 9 &&
-      (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
-    ) {
-      name += "east";
-      direction = "east";
-      eastHarvesters.push(name);
-    } else if (
-      northHarvesters.length < 9 &&
-      (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
-    ) {
-      name += "north";
-      direction = "north";
-      northHarvesters.push(name);
-    } else if (
-      westHarvesters.length < 9 &&
-      (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
-    ) {
-      name += "west";
-      direction = "west";
-      westHarvesters.push(name);
-    } else if (roadRepairers.length < 3) {
-      chosenRole = "r";
-      name = chosenRole + t;
-      parts = repairerParts;
-      roadRepairers.push(name);
     } else {
       chosenRole = "w";
       parts = workerParts;

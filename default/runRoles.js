@@ -1,7 +1,7 @@
 const roleController = require("role.controller");
 const roleWorker = require("role.worker");
 const roleRepairer = require("role.repairer");
-const roleHarvester = require("role.harvester");
+const roleHarvester = require("role.harvester.1");
 
 const roleLinkGet = require("role.linkGet");
 const hele = require("./action.hele");
@@ -44,7 +44,6 @@ function runRoles() {
         southHarvesters.push(name);
       }
 
-      roll = "harvester";
       harvesters.push(name);
       roleHarvester.run(creep);
     } else if (roll.startsWith("linkGet")) {

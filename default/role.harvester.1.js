@@ -6,6 +6,7 @@ const getEnergyEast = require("./action.getEnergyEast");
 const getEnergyWest = require("./action.getEnergyWest");
 const buildRoad = require("./action.buildRoad");
 const smartMove = require("./action.smartMove");
+const build = require("./action.build");
 
 const roleHarvester = {
   /** @param {Creep} creep **/
@@ -14,12 +15,18 @@ const roleHarvester = {
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
 
-      if (
-        creep.memory.direction === "north" &&
-        (!Memory.northAttackerId || Game.time >= Memory.nAtackDurationSafeCheck)
-      ) {
-        getEnergyNorth(creep);
-      } else if (creep.memory.direction === "east") {
+      if (creep.memory.direction == "north") {
+        if (
+          !Memory.northAttackerId ||
+          Game.time >= Memory.nAtackDurationSafeCheck
+        ) {
+          getEnergyNorth(creep);
+        } else {
+          Memory.northAttackerId = creep.room.find(FIND_HOSTILE_CREEPS).pop()
+            ? Memory.northAttackerId
+            : null;
+        }
+      } else if (creep.memory.direction == "east") {
         if (
           !Memory.eastAttackerId ||
           Game.time >= Memory.eAttackDurationSafeCheck
@@ -30,40 +37,34 @@ const roleHarvester = {
             ? Memory.eastAttackerId
             : null;
         }
-      } else if (creep.memory.direction === "west") {
+      } else if (creep.memory.direction == "west") {
         if (
           !Memory.westAttackerId ||
           Game.time >= Memory.wAttackDurationSafeCheck
         ) {
           getEnergyWest(creep);
         } else {
-          console.log("Memory.westAttack " + Memory.westAttackerId);
           Memory.westAttackerId = creep.room.find(FIND_HOSTILE_CREEPS).pop()
             ? Memory.westAttackerId
             : null;
         }
-      } else if (creep.memory.direction === "south" || creep) {
+      } else if (creep.memory.direction == "south" || creep) {
         getEnergy(creep);
       } else {
         getEnergy(creep);
       }
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.getEnergy = false;
-      console.log(
-        creep.room.energyAvailable +
-          "/" +
-          creep.room.energyCapacityAvailable -
-          700
-      );
-      if (
-        creep.room.energyAvailable >=
-        creep.room.energyCapacityAvailable - 700
-      ) {
-        buildRoad(creep);
-      } else {
-        creep.memory.transfer = true;
+      retval = -16;
+      if (creep.memory.buildingRoad) {
+        retval = buildRoad(creep);
+      } else if (creep.room.energyAvailable >= 300) {
+        retval = build(creep);
+      }
 
-        transferEnergy(creep);
+      if (retval != OK) {
+        creep.memory.transfer = true;
+        retval = transferEnergy(creep);
       }
     }
   }

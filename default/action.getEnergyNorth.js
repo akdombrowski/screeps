@@ -11,7 +11,6 @@ function vest(creep, flag, path) {
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
-    creep.memory.buildingRoad = true;
     if (Memory.northHarvesters.length < 2) {
       creep.memory.buildingRoad = false;
       creep.memory.transfer = true;

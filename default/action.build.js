@@ -1,17 +1,17 @@
 const smartMove = require("./action.smartMove");
 
-function buildRoad(creep) {
+function build(creep) {
   let targetId = creep.memory.targetId;
-  let target = null;
-  let buildingRoad = creep.memory.buildingRoad || true;
+  let target = Game.getObjectById(targetId);
+  let building = creep.memory.building || true;
   let retval = -16;
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
-    buildingRoad = true;
-    creep.memory.buildingRoad = buildingRoad;
+    building = true;
+    creep.memory.building = building;
   }
 
-  if (buildingRoad && _.sum(creep.carry) > 0) {
+  if (building && _.sum(creep.carry) > 0) {
     if (
       !target ||
       !CONSTRUCTION_COST[target.structureType] ||
@@ -20,10 +20,7 @@ function buildRoad(creep) {
     ) {
       target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
         filter: constructionSite => {
-          return (
-            constructionSite.progress < constructionSite.progressTotal &&
-            constructionSite.structureType == STRUCTURE_ROAD
-          );
+          return constructionSite.progress < constructionSite.progressTotal;
         }
       });
       targetId = target ? target.id : null;
@@ -32,7 +29,7 @@ function buildRoad(creep) {
     target = Game.getObjectById(targetId);
 
     if (target == null) {
-      creep.memory.buildingRoad = false;
+      creep.memory.building = false;
       creep.memory.transfer = true;
       return retval;
     }
@@ -47,7 +44,7 @@ function buildRoad(creep) {
       } else {
         retval = creep.build(target);
         creep.memory.b = targetId;
-        creep.say("rd");
+        creep.say("build");
       }
     } else {
       retval = smartMove(creep, target.pos, 3, "#ffff0f");
@@ -62,7 +59,7 @@ function buildRoad(creep) {
     }
 
     if (creep.carry.energy <= 0) {
-      creep.memory.buildingRoad = false;
+      creep.memory.building = false;
       creep.memory.getEnergy = true;
     }
   } else {
@@ -71,4 +68,4 @@ function buildRoad(creep) {
   return retval;
 }
 
-module.exports = buildRoad;
+module.exports = build;

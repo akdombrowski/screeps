@@ -49,7 +49,7 @@ function tran(creep, flag, dest) {
   _.forEach(towers, tor => {
     if (tor) {
       if (
-        (tor.energy < (tor.energyCapacity * 3) / 4 &&
+        (tor.energy < tor.energyCapacity - 250 &&
           Object.keys(Game.creeps).length > 10) ||
         tor.energy <= 50
       ) {

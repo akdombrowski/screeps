@@ -10,6 +10,8 @@ function vest(creep, flag, path) {
   const eastSource = Game.getObjectById("5bbcaf0c9099fc012e63a0bd");
   const eastExit = Game.flags.eastExit;
   const eastEntrance = Game.flags.eastEntrance1;
+  const neSource1 = Game.flags.neSource1;
+  const neSource2 = Game.flags.neSource2;
   let s2 = Game.getObjectById(Memory.s2);
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
@@ -53,8 +55,8 @@ function vest(creep, flag, path) {
   }
 
   if (creep.room.name == "E36N31") {
-    if (eastSource) {
-      target = eastSource;
+    if (neSource1) {
+      target = neSource1;
     } else {
       target = creep.room.lookForAt(LOOK_SOURCES, Game.flags.east);
     }

@@ -49,12 +49,7 @@ const roleHarvester = {
       }
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.getEnergy = false;
-      console.log(
-        creep.room.energyAvailable +
-          "/" +
-          creep.room.energyCapacityAvailable -
-          700
-      );
+
       if (
         creep.room.energyAvailable >=
         creep.room.energyCapacityAvailable - 700

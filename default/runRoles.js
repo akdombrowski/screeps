@@ -21,10 +21,13 @@ function runRoles() {
   let attackers = [];
   let claimers = [];
   let northHarvesters = [];
-  let eastHarvesters = [];
   let southHarvesters = [];
   let westHarvesters = [];
   let linkGets = [];
+  let eastHarvesters = [];
+  let eastUpControllers = [];
+  let eastWorkers = [];
+
   for (let name in crps) {
     let creep = crps[name];
     let roll = creep.memory.role;
@@ -65,6 +68,8 @@ function runRoles() {
         "5bbcaefa9099fc012e639e8b"
       );
     } else if (roll == "eastRezzy") {
+      eastUpControllers.push(name);
+
       claimContr(
         creep,
         "E36N31",
@@ -88,14 +93,11 @@ function runRoles() {
       upControllers.push(name);
       upController(creep);
     } else if (roll == "worker" || roll == "w" || name.startsWith("w")) {
-      if (name.charAt(name.length - 1) % 2 === 0) {
-        // new tower2
-        creep.memory.b = "5cfd459e7ce9da6cbae21ac1";
+      if (creep.memory.direction === "east") {
+        eastWorkers.push(name);
       } else {
-        // contr link
-        creep.memory.b = "5cfd1e2d6ccdc90ec20870cb";
+        workers.push(name);
       }
-      workers.push(name);
       roleWorker.run(creep);
     } else if (roll == "healer" || name.startsWith("he")) {
       hele(creep);
@@ -168,10 +170,12 @@ function runRoles() {
   Memory.attackers = attackers;
   Memory.claimers = claimers;
   Memory.northHarvesters = northHarvesters;
-  Memory.eastHarvesters = eastHarvesters;
   Memory.westHarvesters = westHarvesters;
   Memory.southHarvesters = southHarvesters;
   Memory.linkGets = linkGets;
+  Memory.eastHarvesters = eastHarvesters;
+  Memory.eastUpControllers = eastUpControllers;
+  Memory.eastWorkers = eastWorkers;
 }
 
 module.exports = runRoles;

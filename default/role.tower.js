@@ -35,7 +35,7 @@ const roleTower = {
     } else if (
       ramp.structureType === STRUCTURE_RAMPART &&
       ramp.hits < ramp.hitsMax &&
-      (tower.energy > tower.energyCapacity - 200 || ramp.hits <= 600)
+      (tower.energy > tower.energyCapacity - 100 || ramp.hits <= 600)
     ) {
       tower.repair(ramp);
     }

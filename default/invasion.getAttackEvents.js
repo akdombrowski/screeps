@@ -9,7 +9,7 @@ function getAttackEvents(room) {
   if (attackEvents) {
     attackEvents.forEach(event => {
       let target = Game.getObjectById(event.objectId);
-      if (target) {
+      if (target && !target.my) {
         attackerId = target.id;
         Game.notify("attack event: " + attackerId + " in " + room);
       }

@@ -1,9 +1,10 @@
-const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 
-function goAnotherRm(creep, otherRmMarker, range) {
+function goAnotherRm(creep, otherRoomFlag, range) {
   let dest;
-  smartMove(creep, otherRmMarker, range);
+  let currRoom = creep.room;
+  let exit;
+  smartMove(creep, otherRmFlag, range);
 }
 
 module.exports = goAnotherRm;

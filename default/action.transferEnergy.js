@@ -46,6 +46,9 @@ function tran(creep, flag, dest) {
     target = null;
   }
 
+  if (target && target.structureType === STRUCTURE_TOWER) {
+    target = null;
+  }
   _.forEach(towers, tor => {
     if (tor) {
       if (

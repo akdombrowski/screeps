@@ -1,18 +1,6 @@
 const checkForAttackers = require("./invasion.checkForAttackers");
-
 const spawnHarvesterChain = require("./spawnHarvesterChain");
-
-const getAttackEvents = require("./invasion.getAttackEvents");
-const lookForInvaders = require("./lookForInvaders");
-const roleController = require("role.controller");
-const roleWorker = require("role.worker");
-const roleRepairer = require("role.repairer");
-const roleHarvester = require("role.harvester");
 const roleTower = require("role.tower");
-const hele = require("./action.hele");
-const upController = require("./action.upgradeController");
-const chainMove = require("./chainMove");
-const rezzyContr = require("./action.reserveContr");
 const spawnToSource1Chain = require("./action.spawnToSource1Chain");
 const smartMove = require("./action.smartMove");
 const spawnCreepTypes = require("./spawn.spawnCreepTypes");

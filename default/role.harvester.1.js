@@ -56,11 +56,6 @@ const roleHarvester = {
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.getEnergy = false;
       retval = -16;
-      if (creep.memory.buildingRoad) {
-        retval = buildRoad(creep);
-      } else if (creep.room.energyAvailable >= 300) {
-        retval = build(creep);
-      }
 
       if (retval != OK) {
         creep.memory.transfer = true;

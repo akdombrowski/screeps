@@ -6,12 +6,27 @@ function traneRm(creep, flag, dest) {
   let s2 = Game.getObjectById(Memory.s2);
   if (creep.memory.role == "h" || creep.memory.role == "h") {
     if (creep.room.name == "E36N31") {
-      if (creep.pos.isNearTo(s2)) {
-        creep.transfer(s2, RESOURCE_ENERGY);
+      if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
+        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+          filter: structure => {
+            let type = structure.structureType;
+            if (
+              (type === STRUCTURE_EXTENSION || type === STRUCTURE_SPAWN) &&
+              structure.energy < structure.energyCapacity
+            ) {
+              extensionNeedsEnergy = true;
+              return true;
+            }
+          }
+        });
+      }
+
+      if (creep.pos.isNearTo(target)) {
+        creep.transfer(target, RESOURCE_ENERGY);
         creep.say("t");
       } else {
-        smartMove(creep, s2, 1);
-        creep.say("m.s2");
+        smartMove(creep, target, 1);
+        creep.say("m");
       }
 
       return;

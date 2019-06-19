@@ -130,7 +130,7 @@ function spawnCreepTypes(enAvail) {
   addPart(linkGetsParts, 2, MOVE);
 
   let rezzyParts = [CLAIM, MOVE];
-  let basicHv = [CARRY, WORK, MOVE];
+  let basicHv = [CARRY, WORK, MOVE, MOVE, MOVE];
   let simpleParts = [CARRY, WORK, WORK, MOVE];
 
   let eAttackerId = Memory.eAttackerId;
@@ -138,7 +138,7 @@ function spawnCreepTypes(enAvail) {
   let nAttackerId = Memory.nAttackerId;
   let invaderId = Memory.invaderId;
 
-  if (enAvail >= 300 && eastUpControllers.length < 4) {
+  if (enAvail >= 300 && eastWorkers.length < 2) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "east";
     let chosenRole = "h";
@@ -147,22 +147,22 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts;
     let spawnDirection = [TOP];
 
-    if (eastHarvesters.length < 2) {
+    if (eastHarvesters.length < 4) {
       eastHarvesters.push(name);
-      parts = simpleParts;
-    } else if (eastUpControllers.length < 4) {
+      parts = basicHv;
+    } else if (eastUpControllers.length < 2) {
       chosenRole = "eastRezzy";
       name = chosenRole + t;
       direction = "east";
       parts = upContrParts;
       eastUpControllers.push(name);
-    } else if (eastWorkers.length < 4) {
-      chosenRole = "worker";
+    } else if (eastWorkers.length < 1) {
+      chosenRole = "w";
       name = chosenRole + t;
       eastWorkers.push(name);
       parts = simpleParts;
     } else {
-      chosenRole = "worker";
+      chosenRole = "w";
       name = chosenRole + t;
       eastWorkers.push(name);
       parts = simpleParts;

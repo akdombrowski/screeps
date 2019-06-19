@@ -56,10 +56,13 @@ const roleHarvester = {
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.getEnergy = false;
       retval = -16;
-
-      if (retval != OK) {
-        creep.memory.transfer = true;
-        retval = transferEnergy(creep);
+      if (creep.memory.direction === "east") {
+        retval = transferEnergyeRm(creep);
+      } else {
+        if (retval != OK) {
+          creep.memory.transfer = true;
+          retval = transferEnergy(creep);
+        }
       }
     }
   }

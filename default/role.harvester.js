@@ -50,11 +50,8 @@ const roleHarvester = {
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.getEnergy = false;
 
-      if (
-        creep.room.energyAvailable >=
-        creep.room.energyCapacityAvailable - 700
-      ) {
-        // buildRoad(creep);
+      if (creep.room.name === "E36N32") {
+        buildRoad(creep);
       } else {
         creep.memory.transfer = true;
 

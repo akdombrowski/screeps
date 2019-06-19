@@ -66,6 +66,8 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
         }
       }
     }
+  } else if (creep.room.name === "E36N32") {
+    getEnergyEast(creep);
   }
 }
 

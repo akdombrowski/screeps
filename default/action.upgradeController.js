@@ -33,24 +33,28 @@ function upController(creep, flag) {
   }
 
   if (creep.memory.up) {
-    retval = creep.upgradeController(target);
-    if (retval == OK) {
-      creep.say("uc");
-    } else if (retval == ERR_NOT_IN_RANGE) {
-      creep.say("uc" + target.pos.x + "," + target.pos.y);
-
-      smartMove(creep, target, 3);
-
-      if (retval == ERR_TIRED) {
-        creep.say("f." + creep.fatigue);
-      }
-    } else if (retval == ERR_NOT_ENOUGH_RESOURCES) {
-      creep.say("uc");
-      creep.memory.getEnergy = true;
-      getEnergy(creep);
+    if (creep.room.name === "E36N32") {
+      smartMove(creep, Game.getObjectById("5bbcaf0c9099fc012e63a0be"), 3);
     } else {
-      creep.memory.controller = null;
-      creep.say("uc." + retval);
+      retval = creep.upgradeController(target);
+      if (retval == OK) {
+        creep.say("uc");
+      } else if (retval == ERR_NOT_IN_RANGE) {
+        creep.say("uc" + target.pos.x + "," + target.pos.y);
+
+        smartMove(creep, target, 3);
+
+        if (retval == ERR_TIRED) {
+          creep.say("f." + creep.fatigue);
+        }
+      } else if (retval == ERR_NOT_ENOUGH_RESOURCES) {
+        creep.say("uc");
+        creep.memory.getEnergy = true;
+        getEnergy(creep);
+      } else {
+        creep.memory.controller = null;
+        creep.say("uc." + retval);
+      }
     }
   } else {
     creep.say("uchH");

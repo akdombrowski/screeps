@@ -1,5 +1,6 @@
 const getEnergy = require("./action.getEnergy");
-const moveAwayFromCreep = require("./action.moveAwayFromCreep");
+const getEnergyEast = require("./action.getEnergyEast");
+const smartMove = require("./action.smartMove");
 
 var roleWorker = {
   /** @param {Creep} creep **/
@@ -15,7 +16,11 @@ var roleWorker = {
       creep.memory.working = false;
       creep.say("h");
       creep.memory.getEnergy = true;
-      getEnergy(creep);
+      if (creep.room.name === "E36N31" || creep.room.name === "E36N32") {
+        getEnergyEast(creep);
+      } else {
+        getEnergy(creep);
+      }
       return;
     } else if (
       !creep.memory.working &&
@@ -76,18 +81,7 @@ var roleWorker = {
         } else if (creep.fatigue > 0) {
           creep.say("f." + creep.fatigue);
         } else {
-          let pathMem = 200;
-          let igCreeps = true;
-          if (moveAwayFromCreep(creep)) {
-            pathMem = 0;
-            igCreeps = false;
-          }
-          retval = creep.moveTo(target, {
-            reUsePath: pathMem,
-            ignoreCreeps: igCreeps,
-            range: 3,
-            visualizePathStyle: { stroke: "#ffff0f" }
-          });
+          smartMove(creep, target, 3);
 
           // Couldn't move towards construction target
           if (retval == ERR_INVALID_TARGET) {
@@ -106,16 +100,7 @@ var roleWorker = {
       } else if (creep.room.name == "E35N32") {
         let pathMem = 200;
         let igCreeps = true;
-        if (moveAwayFromCreep(creep)) {
-          pathMem = 0;
-          igCreeps = false;
-        }
-        creep.moveTo(Game.flags.northEntrance1, {
-          reusePath: pathMem,
-          ignoreCreeps: igCreeps,
-          range: 1,
-          visualizePathStyle: { stroke: "#0f52ff" }
-        });
+        smartMove(creep, Game.flags.northEntrance1, 1);
         creep.say("w.ne1");
       } else {
         creep.say("w.err");

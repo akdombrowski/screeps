@@ -69,6 +69,35 @@ function spawnCreepTypes(enAvail) {
   addPart(upContrParts, 1, CARRY);
   addPart(upContrParts, 2, WORK);
   addPart(upContrParts, 1, MOVE);
+  // 500
+  let medsouthHvParts = [];
+  addPart(medsouthHvParts, 1, CARRY);
+  addPart(medsouthHvParts, 6, WORK);
+  addPart(medsouthHvParts, 9, MOVE);
+
+  // 500
+  let mednewhvParts = [];
+  addPart(mednewhvParts, 1, CARRY);
+  addPart(mednewhvParts, 2, WORK);
+  addPart(mednewhvParts, 5, MOVE);
+
+  // 500
+  let medworkerParts = [];
+  addPart(medworkerParts, 2, CARRY);
+  addPart(medworkerParts, 6, WORK);
+  addPart(medworkerParts, 8, MOVE);
+
+  // 500
+  let medrepairerParts = [];
+  addPart(medrepairerParts, 2, CARRY);
+  addPart(medrepairerParts, 5, WORK);
+  addPart(medrepairerParts, 10, MOVE);
+
+  // 500
+  let medlinkGetsParts = [];
+  addPart(medlinkGetsParts, 1, CARRY);
+  addPart(medlinkGetsParts, 2, WORK);
+  addPart(medlinkGetsParts, 5, MOVE);
 
   // 1100
   let southHvParts = [];
@@ -109,7 +138,7 @@ function spawnCreepTypes(enAvail) {
   let nAttackerId = Memory.nAttackerId;
   let invaderId = Memory.invaderId;
 
-  if (enAvail >= 300) {
+  if (enAvail >= 300 && eastUpControllers.length < 4) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "east";
     let chosenRole = "h";
@@ -137,6 +166,47 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       eastWorkers.push(name);
       parts = simpleParts;
+    }
+
+    birthCreep(
+      s2,
+      parts,
+      name,
+      chosenRole,
+      direction,
+      sourceId,
+      spawnDirection
+    );
+  }
+
+  if (enAvail >= 500) {
+    let t = Game.time.toString().slice(4);
+    let name = "h" + t + "east";
+    let chosenRole = "h";
+    let direction = "east";
+    let sourceId = Memory.source2eRm;
+    let parts = mednewhvParts;
+    let spawnDirection = [TOP];
+
+    if (eastHarvesters.length < 2) {
+      eastHarvesters.push(name);
+      parts = simpleParts;
+    } else if (eastUpControllers.length < 4) {
+      chosenRole = "eastRezzy";
+      name = chosenRole + t;
+      direction = "east";
+      parts = medworkerParts;
+      eastUpControllers.push(name);
+    } else if (eastWorkers.length < 4) {
+      chosenRole = "worker";
+      name = chosenRole + t;
+      eastWorkers.push(name);
+      parts = medworkerParts;
+    } else {
+      chosenRole = "worker";
+      name = chosenRole + t;
+      eastWorkers.push(name);
+      parts = medworkerParts;
     }
 
     birthCreep(

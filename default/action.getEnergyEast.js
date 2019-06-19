@@ -55,10 +55,17 @@ function vest(creep, flag, path) {
   }
 
   if (creep.room.name == "E36N31") {
-    if (neSource1) {
-      target = neSource1;
+    if (neSource1 && creep.memory.role === "h") {
+      source1 = creep.room.lookForAt(LOOK_SOURCES, neSource1).pop();
+      if (source1 && source1.pos.findInRange(FIND_CREEPS, 2).pop()) {
+        target = neSource2;
+        creep.memory.nesource = 2;
+      } else {
+        target = neSource1;
+        creep.memory.nesource = 1;
+      }
     } else {
-      target = creep.room.lookForAt(LOOK_SOURCES, Game.flags.east);
+      target = creep.room.lookForAt(LOOK_SOURCES, Game.flags.east).pop();
     }
 
     if (target) {
@@ -70,7 +77,9 @@ function vest(creep, flag, path) {
         creep.say("f." + creep.fatigue);
         return;
       } else {
-        smartMove(creep, target, 1);
+        if (smartMove(creep, target, false, 0) === -2) {
+          smartMove(creep, target, 1, false, 0);
+        }
       }
     }
     // else if (!target) {
@@ -98,7 +107,27 @@ function vest(creep, flag, path) {
       creep.move(TOP);
       creep.move(TOP);
     }
+  } else if (creep.room.name === "E36N32") {
+    // target = source1;
+    if (creep.memory.neSource === 1) {
+      target = neSource1;
+    } else {
+      target = neSource2;
+    }
+    // if (source1) {
+    //   target = source1;
+    // }
+    if (creep.pos.isNearTo(target)) {
+      let retval;
+      source = creep.room.lookForAt(LOOK_SOURCES, target).pop();
+      target = source;
+      retval = creep.harvest(target);
+      creep.say("h." + retval);
+    } else {
+      smartMove(creep, target, 1, false, 0);
+    }
   } else {
+    console.log("creep.name " + creep.name);
     creep.say("sad");
   }
 }

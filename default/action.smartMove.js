@@ -10,6 +10,9 @@ function smartMove(
 ) {
   let retVal = -16;
   let igCreeps = ignoreCreeps;
+  // if (!startingRm) {
+  //   startingRm = creep.room.name;
+  // }
   pathMem = pathMem || 2000;
 
   if (creep.fatigue > 0) {
@@ -17,7 +20,11 @@ function smartMove(
     return ERR_TIRED;
   }
 
-  if (moveAwayFromCreep(creep) || !ignoreCreeps) {
+  if (
+    moveAwayFromCreep(creep) ||
+    !ignoreCreeps //||
+    // creep.room.name != startingRm
+  ) {
     pathMem = 0;
     igCreeps = false;
     creep.say("out of my way creep");

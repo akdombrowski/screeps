@@ -1,6 +1,6 @@
 const getEnergy = require("./action.getEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
-
+const smartMove = require("./action.smartMove");
 var roleRepairer = {
   /** @param {Creep} creep **/
   run: function(creep) {
@@ -104,21 +104,7 @@ var roleRepairer = {
             creep.say("r.err");
           }
         } else {
-          let pathMem = 200;
-          let igCreeps = true;
-          if (moveAwayFromCreep(creep)) {
-            pathMem = 0;
-            igCreeps = false;
-          }
-          retval = creep.moveTo(target, {
-            reusePath: pathMem,
-            ignoreCreeps: igCreeps,
-            maxRooms: 1,
-            maxOps: 3000,
-            range: 3,
-            swampCost: 10,
-            visualizePathStyle: { stroke: "#ff00ff" }
-          });
+          smartMove(creep, target, 1);
           creep.memory.r = target.pos;
           if (creep.fatigue > 0) {
             creep.say("f." + creep.fatigue);

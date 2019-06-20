@@ -127,10 +127,10 @@ function runRoles() {
               )
             );
           } else {
-            creep.moveTo(Game.flags.eastController);
+            smartMove(creep, Game.flags.eastController, 1);
           }
         } else {
-          creep.moveTo(Game.flags.eastExit);
+          smartMove(creep, Game.flags.eastExit, 1);
         }
       } else {
         if (creep.pos.isNearTo(Game.flags.northExit)) {
@@ -143,10 +143,10 @@ function runRoles() {
               )
             );
           } else {
-            creep.moveTo(Game.flags.northController);
+            creep.moveTo(creep, Game.flags.northController, 1);
           }
         } else {
-          creep.moveTo(Game.flags.northController);
+          creep.moveTo(creep, Game.flags.northController, 1);
         }
       }
     } else if (roll == "a" || name.startsWith("a")) {
@@ -156,7 +156,7 @@ function runRoles() {
       } else if (invader) {
         creep.moveTo(invader, { range: 1 });
       } else {
-        creep.moveTo(Game.spawns.Spawn1, { range: 1 });
+        smartMove(creep, Game.spawns.Spawn1, 1);
         if (Game.spawns.Spawn1.pos.isNearTo(creep)) {
           Game.spawns.Spawn1.recycleCreep(creep);
         }

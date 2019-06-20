@@ -1,3 +1,5 @@
+const smartMove = require("./action.smartMove");
+
 var roleController = {
   /** @param {Creep} creep **/
   run: function(creep) {
@@ -22,10 +24,7 @@ var roleController = {
       } else {
         let target = Game.getObjectById("5bbcaefa9099fc012e639e90");
         if (creep.pos.inRangeTo(target, 3) && creep.fatigue <= 0) {
-          creep.moveTo(target, {
-            range: 3,
-            visualizePathStyle: { stroke: "#ffffff" }
-          });
+          smartMove(creep, target, 3);
         } else {
           creep.upgradeController(target);
           creep.say("u");

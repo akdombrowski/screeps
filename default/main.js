@@ -93,7 +93,7 @@ module.exports.loop = function() {
 
   Memory.rmControllerId = rmControllerId;
 
-  Memory.store1 = "5cebff7d396a7f7297d784b1";
+  Memory.store1 = "5d0178505a74ac0a0094daab";
   Memory.link1 = linkEntranceId;
   Memory.eAttackDurationSafeCheck = eAttackDurationSafeCheck;
   Memory.nAttackDurationSafeCheck = nAttackDurationSafeCheck;

@@ -169,7 +169,7 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = repairerParts;
       roadRepairers.push(name);
-    } else if (workers.length < 4) {
+    } else if (workers.length < 1) {
       chosenRole = "w";
       name = chosenRole + t;
       parts = workerParts;
@@ -242,10 +242,9 @@ function spawnCreepTypes(enAvail) {
       direction = "west";
       parts = rezzyParts;
     } else {
-      chosenRole = "w";
-      parts = workerParts;
-      name = chosenRole + t;
-      workers.push(name);
+      name += "E";
+      direction = "east";
+      eastHarvesters.push(name);
     }
 
     if (!waitForRezzy || numCrps < 10 || name.endsWith("Rezzy")) {

@@ -138,13 +138,13 @@ function spawnCreepTypes(enAvail) {
   let nAttackerId = Memory.nAttackerId;
   let invaderId = Memory.invaderId;
 
-  if (enAvail >= 300 && eastWorkers.length < 2) {
+  if ((enAvail >= 300 && eastWorkers.length < 2) || enAvail < 500) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "east";
     let chosenRole = "h";
     let direction = "east";
     let sourceId = Memory.source2eRm;
-    let parts = simpleParts;
+    let parts = mednewhvParts;
     let spawnDirection = [TOP];
 
     if (eastHarvesters.length < 4) {
@@ -162,10 +162,8 @@ function spawnCreepTypes(enAvail) {
       eastWorkers.push(name);
       parts = simpleParts;
     } else {
-      chosenRole = "w";
-      name = chosenRole + t;
-      eastWorkers.push(name);
-      parts = simpleParts;
+      eastHarvesters.push(name);
+      parts = basicHv;
     }
 
     birthCreep(
@@ -188,10 +186,10 @@ function spawnCreepTypes(enAvail) {
     let parts = mednewhvParts;
     let spawnDirection = [TOP];
 
-    if (eastHarvesters.length < 2) {
+    if (eastHarvesters.length < 3) {
       eastHarvesters.push(name);
-      parts = simpleParts;
-    } else if (eastUpControllers.length < 4) {
+      parts = mednewhvParts;
+    } else if (eastUpControllers.length < 5) {
       chosenRole = "eastRezzy";
       name = chosenRole + t;
       direction = "east";
@@ -203,10 +201,8 @@ function spawnCreepTypes(enAvail) {
       eastWorkers.push(name);
       parts = medworkerParts;
     } else {
-      chosenRole = "worker";
-      name = chosenRole + t;
-      eastWorkers.push(name);
-      parts = medworkerParts;
+      eastHarvesters.push(name);
+      parts = mednewhvParts;
     }
 
     birthCreep(

@@ -104,6 +104,7 @@ var roleWorker = {
         creep.say("w.ne1");
       } else {
         creep.memory.role = "r";
+        creep.memory.working = false;
         creep.say("w.err");
         target = null;
         creep.memory.b = target;

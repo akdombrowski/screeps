@@ -92,7 +92,7 @@ function runRoles() {
     } else if (roll == "uc" || name.startsWith("uc")) {
       upControllers.push(name);
       upController(creep);
-    } else if (roll == "worker" || roll == "w" || name.startsWith("w")) {
+    } else if (roll == "worker" || roll == "w") {
       if (creep.memory.direction === "east") {
         eastWorkers.push(name);
       } else {

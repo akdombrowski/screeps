@@ -41,9 +41,6 @@ const roleHarvester = {
           let foundNe = ermNeHarvesters.find(n => {
             return n === creep.name;
           });
-          console.log("here:" + JSON.stringify(Memory.ermNeHarvesters));
-          console.log("harvester" + found + " " + foundNe);
-          console.log(creep.name);
           if (found || foundNe) {
             ermgetEnergyEast(creep);
           } else {

@@ -16,18 +16,24 @@ function vest(creep, flag, path) {
 
   let target = sourceId ? Game.getObjectById(sourceId) : null;
   let retval = -16;
-  console.log("source1:" + target);
+  let harvey = ermHarvesters.find(function(element) {
+    return element === name;
+  });
+  let harveyNe = ermNeHarvesters.find(n => {
+    return n === name;
+  });
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
 
-    if (ermHarvesters[name]) {
+    if (harvey) {
       creep.memory.sourceDir = "east";
       if (ermHarvesters.length < 2) {
         creep.memory.buildingRoad = false;
         creep.memory.transfer = true;
       }
-    } else if (ermNeHarvesters[name]) {
+    } else if (harveyNe) {
+      console.log("source1:" + target);
       creep.memory.sourceDir = "north";
       if (ermNeHarvesters.length < 2) {
         creep.memory.buildingRoad = false;
@@ -57,7 +63,7 @@ function vest(creep, flag, path) {
   }
 
   if (!target) {
-    if (ermNeHarvesters[name]) {
+    if (harveyNe) {
       if (creep.memory.nesource === 1) {
         target = neSource1;
       } else {
@@ -80,7 +86,7 @@ function vest(creep, flag, path) {
           creep.memory.nesource = 2;
         }
       }
-    } else if (ermHarvesters[name]) {
+    } else if (harvey) {
       target = eastSource;
     }
   }

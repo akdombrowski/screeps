@@ -3,6 +3,7 @@ const transferEnergy = require("./action.transferEnergy");
 const transferEnergyeRm = require("./action.transferEnergyeRm");
 const getEnergyNorth = require("./action.getEnergyNorth");
 const getEnergyEast = require("./action.getEnergyEast");
+const ermgetEnergyEast = require("./action.erm.getEnergyEast");
 const getEnergyWest = require("./action.getEnergyWest");
 const buildRoad = require("./action.buildRoad");
 const smartMove = require("./action.smartMove");
@@ -31,11 +32,20 @@ const roleHarvester = {
           !Memory.eastAttackerId ||
           Game.time >= Memory.eAttackDurationSafeCheck
         ) {
-          getEnergyEast(creep);
+          if (
+            Memory.ermHarvesters[creep.name] ||
+            Memory.ermNeHarvesters[creep.name]
+          ) {
+            console.log("here:" + JSON.stringify(Memory.ermNeHarvesters));
+            ermgetEnergyEast(creep);
+          } else {
+            getEnergyEast(creep);
+          }
         } else {
           Memory.eastAttackerId = creep.room.find(FIND_HOSTILE_CREEPS).pop()
             ? Memory.eastAttackerId
             : null;
+          console.log("East attacker");
         }
       } else if (creep.memory.direction == "west") {
         if (

@@ -4,15 +4,12 @@ function smartMove(
   creep,
   dest,
   range,
-  ignoreCreeps = true,
-  pathColor = "#ffffff",
-  pathMem = 200
+  ignoreCreeps=true,
+  pathColor="#ffffff",
+  pathMem=2000
 ) {
   let retVal = -16;
   let igCreeps = ignoreCreeps;
-  // if (!startingRm) {
-  //   startingRm = creep.room.name;
-  // }
   pathMem = pathMem || 2000;
 
   if (creep.fatigue > 0) {
@@ -23,7 +20,6 @@ function smartMove(
   if (
     moveAwayFromCreep(creep) ||
     !ignoreCreeps //||
-    // creep.room.name != startingRm
   ) {
     pathMem = 0;
     igCreeps = false;
@@ -34,6 +30,8 @@ function smartMove(
     reusePath: pathMem,
     ignoreCreeps: igCreeps,
     range: range,
+    maxOps: 1000,
+    serializeMemory: true,
     visualizePathStyle: { stroke: pathColor }
   });
   creep.say("m." + retval);

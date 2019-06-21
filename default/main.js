@@ -200,18 +200,6 @@ module.exports.loop = function() {
   crps = Game.creeps;
   numCrps = Object.keys(crps).length;
 
-  harvesters = [];
-  workers = [];
-  upControllers = [];
-  roadRepairers = [];
-  attackers = [];
-  claimers = [];
-  northHarvesters = [];
-  eastHarvesters = [];
-  southHarvesters = [];
-  westHarvesters = [];
-  linkGets = [];
-
   runRoles();
 
   if (tower1) {

@@ -108,11 +108,26 @@ function vest(creep, flag, path) {
       creep.move(TOP);
     }
   } else if (creep.room.name === "E36N32") {
-    // target = source1;
-    if (creep.memory.neSource === 1) {
-      target = neSource1;
+    if (neSource1 && creep.memory.role === "h" && !creep.memory.nesource) {
+      source1 = creep.room.lookForAt(LOOK_SOURCES, neSource1).pop();
+      console.log("source1:" + source1.pos.findInRange(FIND_CREEPS, 2).pop());
+      if (source1 && source1.pos.findInRange(FIND_CREEPS, 2).pop()) {
+        target = neSource2;
+        creep.memory.nesource = 2;
+      } else {
+        target = neSource1;
+        creep.memory.nesource = 1;
+      }
+    } else if (creep.memory.nesource) {
+        if(creep.memory.nesource === 1) {
+            
+        target = neSource1;
+        } else {
+            target=neSource2;
+            creep.memory.nesource = 2;
+        }
     } else {
-      target = neSource2;
+      target = creep.room.lookForAt(LOOK_SOURCES, Game.flags.east).pop();
     }
     // if (source1) {
     //   target = source1;

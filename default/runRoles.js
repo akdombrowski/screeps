@@ -2,7 +2,6 @@ const roleController = require("role.controller");
 const roleWorker = require("role.worker");
 const roleRepairer = require("role.repairer");
 const roleHarvester = require("role.harvester.1");
-
 const roleLinkGet = require("role.linkGet");
 const hele = require("./action.hele");
 const upController = require("./action.upgradeController");
@@ -27,19 +26,26 @@ function runRoles() {
   let eastHarvesters = [];
   let eastUpControllers = [];
   let eastWorkers = [];
+  let ermNeHarvesters = [];
+  let ermHarvesters = [];
 
   for (let name in crps) {
     let creep = crps[name];
     let roll = creep.memory.role;
 
-    if (Game.cpu.getUsed() > Game.cpu.tickLimit - Game.cpu.tickLimit / 10) {
+    if (Game.cpu.getUsed() > Game.cpu.tickLimit - Game.cpu.tickLimit / 3) {
       return;
     }
     if (roll == "h" || roll == "harvester") {
       if (creep.memory.direction == "north") {
         northHarvesters.push(name);
       } else if (creep.memory.direction == "east") {
-        creep.memory.buildSpawn = true;
+        creep.memory.sourceDir = "north";
+        if (creep.memory.sourceDir === "east") {
+          ermHarvesters.push(name);
+        } else if (creep.memory.sourceDir === "north") {
+          ermNeHarvesters.push(name);
+        }
         eastHarvesters.push(name);
       } else if (creep.memory.direction == "west") {
         westHarvesters.push(name);
@@ -89,7 +95,7 @@ function runRoles() {
       );
     } else if (roll == "deepSouthRezzy") {
       deepSouthScout(creep);
-    } else if (roll == "uc" || name.startsWith("uc")) {
+    } else if (roll == "uc") {
       upControllers.push(name);
       upController(creep);
     } else if (roll == "worker" || roll == "w") {
@@ -99,11 +105,11 @@ function runRoles() {
         workers.push(name);
       }
       roleWorker.run(creep);
-    } else if (roll == "healer" || name.startsWith("he")) {
+    } else if (roll == "healer") {
       hele(creep);
-    } else if (roll == "controller" || name.startsWith("co")) {
+    } else if (roll == "controller") {
       roleController.run(creep);
-    } else if (roll == "upgrader" || name.startsWith("up")) {
+    } else if (roll == "upgrader") {
       roleUpgrader.run(creep);
     } else if (roll == "roadRepairer" || roll == "r") {
       if (creep.name.charAt(creep.name.length - 1) % 2 == 0) {
@@ -163,6 +169,7 @@ function runRoles() {
       }
     }
   }
+
   Memory.harvesters = harvesters;
   Memory.workers = workers;
   Memory.upControllers = upControllers;
@@ -176,6 +183,8 @@ function runRoles() {
   Memory.eastHarvesters = eastHarvesters;
   Memory.eastUpControllers = eastUpControllers;
   Memory.eastWorkers = eastWorkers;
+  Memory.ermNeHarvesters = ermNeHarvesters;
+  Memory.ermHarvesters = ermHarvesters;
 }
 
 module.exports = runRoles;

@@ -31,8 +31,9 @@ function moveAwayFromCreep(creep) {
     let creeps = creep.room.getPositionAt(x0, y0).findInRange(FIND_CREEPS, 1);
 
     if (creepsFound && creepsFound[0]) {
-      if (creepsFound[0].fatigue > 0) {
+      if (creepsFound[0].fatigue > 0 || !creepsFound.memory_move) {
         Memory.gameTicksToMove = 0;
+        console.log("movetime:0");
         return true;
       }
     }

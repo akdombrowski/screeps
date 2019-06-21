@@ -4,9 +4,9 @@ function smartMove(
   creep,
   dest,
   range,
-  ignoreCreeps=true,
-  pathColor="#ffffff",
-  pathMem=2000
+  ignoreCreeps = true,
+  pathColor = "#ffffff",
+  pathMem = 2000
 ) {
   let retVal = -16;
   let igCreeps = ignoreCreeps;
@@ -26,6 +26,7 @@ function smartMove(
     creep.say("out of my way creep");
   }
 
+  console.log(creep.name + "-moveaway" + igCreeps);
   retval = creep.moveTo(dest, {
     reusePath: pathMem,
     ignoreCreeps: igCreeps,

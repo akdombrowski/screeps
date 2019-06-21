@@ -18,13 +18,23 @@ function moveAwayFromCreep(creep) {
   let y0 = path0.y;
   let dx = path0.dx;
   let dy = path0.dy;
-  let nextDirection = path.direction;
+  let nextDirection = path0.direction;
   try {
     let creepsFound = creep.room.lookForAt(LOOK_CREEPS, x0, y0);
+    let creeps = creep.room.getPositionAt(x0, y0).findInRange(FIND_CREEPS, 1);
 
     if (creepsFound && creepsFound[0]) {
-      return creepsFound[0].fatigue <= 0;
+      if (creepsFound[0].fatigue > 0) {
+        return true;
+      }
     }
+
+    _.forEach(creeps, c => {
+      p = c.memory._move.path;
+      p = Room.deserializePath(p);
+
+      if ((p[0].x === x0 || p[0].y === y0) && c.fatigue > 0);
+    });
   } catch (e) {
     console.log(e.message);
   }

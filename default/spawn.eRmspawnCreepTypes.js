@@ -75,9 +75,9 @@ function spawnCreepTypes(enAvail) {
 
   // 750
   let medupContrParts = [];
-  addPart(upContrParts, 1, CARRY);
-  addPart(upContrParts, 5, WORK);
-  addPart(upContrParts, 4, MOVE);
+  addPart(medupContrParts, 1, CARRY);
+  addPart(medupContrParts, 5, WORK);
+  addPart(medupContrParts, 4, MOVE);
 
   // 750
   let medsouthHvParts = [];
@@ -148,6 +148,7 @@ function spawnCreepTypes(enAvail) {
   let nAttackerId = Memory.nAttackerId;
   let invaderId = Memory.invaderId;
 
+console.log(enAvail + " " + JSON.stringify(eastUpControllers.length))
   if (enAvail >= 300 && eastUpControllers.length < 1) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "east";
@@ -156,7 +157,6 @@ function spawnCreepTypes(enAvail) {
     let parts = upContrParts;
     let spawnDirection = [TOP];
     let sourceId = "";
-    console.log("ermenavail:" + enAvail);
 
     if (ermHarvesters.length < 1) {
       ermHarvesters.push(name);
@@ -172,7 +172,7 @@ function spawnCreepTypes(enAvail) {
       parts = basicHv;
     }
 
-    birthCreep(
+   console.log(chosenRole + " role birth" +  birthCreep(
       s2,
       parts,
       name,
@@ -180,7 +180,7 @@ function spawnCreepTypes(enAvail) {
       direction,
       sourceId,
       spawnDirection
-    );
+    ));
   }
 
   if (enAvail >= 750) {
@@ -214,8 +214,8 @@ function spawnCreepTypes(enAvail) {
       parts = mednewhvParts;
     }
 
-    console.log(
-      "birth:" +
+    console.log(chosenRole +
+      " role birth:" +
         birthCreep(
           s2,
           parts,

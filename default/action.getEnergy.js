@@ -31,39 +31,18 @@ function vest(creep, flag, path) {
   //   creep.say("sID");
   // }
 
-  target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-    filter: structure => {
-      if (
-        (structure.structureType == STRUCTURE_CONTAINER ||
-          structure.structureType == STRUCTURE_STORAGE) &&
-        _.sum(structure.store) >= creep.carryCapacity
-      ) {
-        return structure;
-      }
-    }
-  });
+//   target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+//     filter: structure => {
+//       if (
+//         (structure.structureType == STRUCTURE_CONTAINER ||
+//           structure.structureType == STRUCTURE_STORAGE) &&
+//         _.sum(structure.store) >= creep.carryCapacity
+//       ) {
+//         return structure;
+//       }
+//     }
+//   });
 
-  if (target) {
-    creep.memory.sourceId = target.id;
-
-    if (creep.pos.isNearTo(target.pos)) {
-      retval = creep.withdraw(
-        target,
-        RESOURCE_ENERGY,
-        creep.carryCapacity - _.sum(creep.carry)
-      );
-      if (retval == OK) {
-        creep.say("wd.");
-      } else {
-        creep.say("wd." + retval);
-      }
-      return;
-    } else {
-      creep.say("wd." + target.pos.x + "," + target.pos.y);
-      smartMove(creep, target, 1);
-      return;
-    }
-  }
 
   let dropped = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
     filter: source => {

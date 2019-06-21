@@ -81,7 +81,7 @@ var roleWorker = {
         } else if (creep.fatigue > 0) {
           creep.say("f." + creep.fatigue);
         } else {
-          smartMove(creep, target, 3);
+          retval = smartMove(creep, target, 3);
 
           // Couldn't move towards construction target
           if (retval == ERR_INVALID_TARGET) {

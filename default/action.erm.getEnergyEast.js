@@ -68,6 +68,8 @@ function vest(creep, flag, path) {
         target = neSource2;
       }
       if (creep.memory.role === "h") {
+          if(neSource1 && neSource2) {
+              
         let creepsAroundSource1 = neSource1.pos.findInRange(FIND_CREEPS, 2);
         let creepsAroundSource2 = neSource2.pos.findInRange(FIND_CREEPS, 2);
         if (neSource1 && creepsAroundSource1.length < 1) {
@@ -84,6 +86,9 @@ function vest(creep, flag, path) {
           creep.memory.nesource = 2;
         }
         creep.memory.sourceId = target.id;
+          } else {
+            target = Game.flags.neSource1;   
+          }
       }
     } else if (harvey) {
       target = eastSource;

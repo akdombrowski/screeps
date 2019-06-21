@@ -33,18 +33,22 @@ function runRoles() {
     let creep = crps[name];
     let roll = creep.memory.role;
 
-    if (Game.cpu.getUsed() > Game.cpu.tickLimit - Game.cpu.tickLimit / 3) {
+    if (!roll) {
+      continue;
+    }
+
+    if (Game.cpu.getUsed() > Game.cpu.tickLimit - Game.cpu.tickLimit / 5) {
       return;
     }
     if (roll == "h" || roll == "harvester") {
       if (creep.memory.direction == "north") {
         northHarvesters.push(name);
       } else if (creep.memory.direction == "east") {
-        creep.memory.sourceDir = "north";
-        if (creep.memory.sourceDir === "east") {
-          ermHarvesters.push(name);
-        } else if (creep.memory.sourceDir === "north") {
+        if (creep.memory.sourceDir === "north") {
           ermNeHarvesters.push(name);
+        } else {
+          creep.memory.sourceDir = "east";
+          ermHarvesters.push(name);
         }
         eastHarvesters.push(name);
       } else if (creep.memory.direction == "west") {

@@ -26,7 +26,6 @@ function smartMove(
     creep.say("out of my way creep");
   }
 
-  console.log(creep.name + "-moveaway" + igCreeps);
   retval = creep.moveTo(dest, {
     reusePath: pathMem,
     ignoreCreeps: igCreeps,

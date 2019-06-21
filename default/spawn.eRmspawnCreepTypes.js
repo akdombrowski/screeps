@@ -17,7 +17,7 @@ function birthCreep(
 ) {
   let retval;
   s2 = Game.getObjectById(Memory.s2);
-  if (s2.room.lookForAt(LOOK_CREEPS, s2.pos.x + 1, s2.pos.y + 1)) {
+  if (!s2.room.lookForAt(LOOK_CREEPS, s2.pos.x, s2.pos.y - 1).pop()) {
     retval = s2.spawnCreep(parts, name, {
       memory: {
         role: chosenRole,
@@ -35,6 +35,7 @@ function birthCreep(
   if (retval == OK) {
     console.log("spawned." + name);
   }
+  return retval;
 }
 
 function spawnCreepTypes(enAvail) {
@@ -72,40 +73,40 @@ function spawnCreepTypes(enAvail) {
   addPart(upContrParts, 2, WORK);
   addPart(upContrParts, 1, MOVE);
 
-  // 800
+  // 750
   let medupContrParts = [];
   addPart(upContrParts, 1, CARRY);
   addPart(upContrParts, 5, WORK);
-  addPart(upContrParts, 5, MOVE);
+  addPart(upContrParts, 4, MOVE);
 
-  // 800
+  // 750
   let medsouthHvParts = [];
   addPart(medsouthHvParts, 1, CARRY);
   addPart(medsouthHvParts, 4, WORK);
-  addPart(medsouthHvParts, 7, MOVE);
+  addPart(medsouthHvParts, 6, MOVE);
 
-  // 800
+  // 750
   let mednewhvParts = [];
   addPart(mednewhvParts, 1, CARRY);
   addPart(mednewhvParts, 3, WORK);
-  addPart(mednewhvParts, 9, MOVE);
+  addPart(mednewhvParts, 8, MOVE);
 
-  // 800
+  // 750
   let medworkerParts = [];
   addPart(medworkerParts, 1, CARRY);
   addPart(medworkerParts, 5, WORK);
-  addPart(medworkerParts, 5, MOVE);
+  addPart(medworkerParts, 4, MOVE);
 
-  // 800
+  // 750
   let medrepairerParts = [];
   addPart(medrepairerParts, 1, CARRY);
   addPart(medrepairerParts, 4, WORK);
-  addPart(medrepairerParts, 7, MOVE);
+  addPart(medrepairerParts, 6, MOVE);
 
-  // 800
+  // 700
   let medlinkGetsParts = [];
   addPart(medlinkGetsParts, 1, CARRY);
-  addPart(medlinkGetsParts, 7, WORK);
+  addPart(medlinkGetsParts, 6, WORK);
   addPart(medlinkGetsParts, 1, MOVE);
 
   // 1100
@@ -155,6 +156,7 @@ function spawnCreepTypes(enAvail) {
     let parts = upContrParts;
     let spawnDirection = [TOP];
     let sourceId = "";
+    console.log("ermenavail:" + enAvail);
 
     if (ermHarvesters.length < 1) {
       ermHarvesters.push(name);
@@ -179,13 +181,16 @@ function spawnCreepTypes(enAvail) {
       sourceId,
       spawnDirection
     );
-  } else if (enAvail >= 800) {
+  }
+
+  if (enAvail >= 750) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "NE";
     let chosenRole = "h";
     let direction = "east";
     let parts = mednewhvParts;
     let spawnDirection = [TOP];
+    let sourceId = "";
 
     if (ermNeHarvesters.length < 3) {
       ermNeHarvesters.push(name);
@@ -209,14 +214,17 @@ function spawnCreepTypes(enAvail) {
       parts = mednewhvParts;
     }
 
-    birthCreep(
-      s2,
-      parts,
-      name,
-      chosenRole,
-      direction,
-      sourceId,
-      spawnDirection
+    console.log(
+      "birth:" +
+        birthCreep(
+          s2,
+          parts,
+          name,
+          chosenRole,
+          direction,
+          sourceId,
+          spawnDirection
+        )
     );
   }
 

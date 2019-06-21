@@ -22,18 +22,17 @@ function vest(creep, flag, path) {
   let harveyNe = ermNeHarvesters.find(n => {
     return n === name;
   });
+  creep.memory.sourceDir = harvey ? "east" : "north";
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
 
     if (harvey) {
-      creep.memory.sourceDir = "east";
       if (ermHarvesters.length < 2) {
         creep.memory.buildingRoad = false;
         creep.memory.transfer = true;
       }
     } else if (harveyNe) {
-      creep.memory.sourceDir = "north";
       if (ermNeHarvesters.length < 2) {
         creep.memory.buildingRoad = false;
         creep.memory.transfer = true;
@@ -71,8 +70,6 @@ function vest(creep, flag, path) {
       if (creep.memory.role === "h") {
         let creepsAroundSource1 = neSource1.pos.findInRange(FIND_CREEPS, 2);
         let creepsAroundSource2 = neSource2.pos.findInRange(FIND_CREEPS, 2);
-        console.log(JSON.stringify("1:" + creepsAroundSource1));
-        console.log(JSON.stringify("2:" + creepsAroundSource2));
         if (neSource1 && creepsAroundSource1.length < 1) {
           target = neSource1;
           creep.memory.nesource = 1;
@@ -86,7 +83,6 @@ function vest(creep, flag, path) {
           target = neSource2;
           creep.memory.nesource = 2;
         }
-        console.log("source1:" + target);
         creep.memory.sourceId = target.id;
       }
     } else if (harvey) {
@@ -95,7 +91,6 @@ function vest(creep, flag, path) {
   }
 
   if (target) {
-    console.log(JSON.stringify(creep.pos.inRangeTo(target, 3)));
     if (creep.pos.isNearTo(target)) {
       retval = creep.harvest(target);
       creep.say("h");
@@ -116,7 +111,6 @@ function vest(creep, flag, path) {
           creep.memory.nesource = creep.memory.nesource === 1 ? 2 : 1;
         }
         Memory.waitTime = waitTime;
-        console.log("wait:" + waitTime);
         creep.say("change");
       }
       return retval;

@@ -33,7 +33,6 @@ function moveAwayFromCreep(creep) {
     if (creepsFound && creepsFound[0]) {
       if (creepsFound[0].fatigue > 0 || !creepsFound.memory_move) {
         Memory.gameTicksToMove = 0;
-        console.log("movetime:0");
         return true;
       }
     }

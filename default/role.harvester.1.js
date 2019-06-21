@@ -12,6 +12,9 @@ const build = require("./action.build");
 const roleHarvester = {
   /** @param {Creep} creep **/
   run: function(creep) {
+    let ermHarvesters = Memory.ermHarvesters;
+    let ermNeHarvesters = Memory.ermNeHarvesters;
+
     if (creep.memory.getEnergy || creep.carry.energy <= 0) {
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
@@ -32,11 +35,16 @@ const roleHarvester = {
           !Memory.eastAttackerId ||
           Game.time >= Memory.eAttackDurationSafeCheck
         ) {
-          if (
-            Memory.ermHarvesters[creep.name] ||
-            Memory.ermNeHarvesters[creep.name]
-          ) {
-            console.log("here:" + JSON.stringify(Memory.ermNeHarvesters));
+          let found = ermHarvesters.find(function(element) {
+            return element === creep.name;
+          });
+          let foundNe = ermNeHarvesters.find(n => {
+            return n === creep.name;
+          });
+          console.log("here:" + JSON.stringify(Memory.ermNeHarvesters));
+          console.log("harvester" + found + " " + foundNe);
+          console.log(creep.name);
+          if (found || foundNe) {
             ermgetEnergyEast(creep);
           } else {
             getEnergyEast(creep);

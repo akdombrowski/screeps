@@ -72,10 +72,10 @@ function vest(creep, flag, path) {
       if (creep.memory.role === "h") {
         let creepsAroundSource1 = neSource1.pos.findInRange(FIND_CREEPS, 1);
         let creepsAroundSource2 = neSource2.pos.findInRange(FIND_CREEPS, 1);
-        if (neSource1 && !creepsAroundSource1.length > 1) {
+        if (neSource1 && creepsAroundSource1.length <= 1) {
           target = neSource1;
           creep.memory.nesource = 1;
-        } else if (neSource2 && !creepsAroundSource2 > 1) {
+        } else if (neSource2 && creepsAroundSource2 > 1) {
           target = neSource2;
           creep.memory.nesource = 2;
         } else if (creepsAroundSource1.length < creepsAroundSource2.length) {
@@ -85,6 +85,7 @@ function vest(creep, flag, path) {
           target = neSource2;
           creep.memory.nesource = 2;
         }
+        creep.memory.sourceId = target.id;
       }
     } else if (harvey) {
       target = eastSource;
@@ -95,9 +96,8 @@ function vest(creep, flag, path) {
     if (creep.pos.isNearTo(target)) {
       retval = creep.harvest(target);
       creep.say("h");
-      if (retval === OK) {
-        creep.memory.sourceId = target.id;
-      }
+      creep.memory.sourceId = target.id;
+
       return retval;
     } else if (creep.fatigue > 0) {
       creep.say("f." + creep.fatigue);

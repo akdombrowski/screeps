@@ -2,6 +2,13 @@ function moveAwayFromCreep(creep) {
   /** creep chain moving **/
   let move = creep.memory._move;
   let path;
+  let gameTicksToMove = Memory.gameTicksToMove || 0;
+  gameTicksToMove += 1;
+  Memory.gameTicksToMove = gameTicksToMove;
+  if (gameTicksToMove >= 5) {
+    Memory.gameTicksToMove = 0;
+    return true;
+  }
   if (!move) {
     return false;
   }
@@ -25,6 +32,7 @@ function moveAwayFromCreep(creep) {
 
     if (creepsFound && creepsFound[0]) {
       if (creepsFound[0].fatigue > 0) {
+        Memory.gameTicksToMove = 0;
         return true;
       }
     }
@@ -33,7 +41,10 @@ function moveAwayFromCreep(creep) {
       p = c.memory._move.path;
       p = Room.deserializePath(p);
 
-      if ((p[0].x === x0 || p[0].y === y0) && c.fatigue > 0);
+      if ((p[0].x === x0 || p[0].y === y0) && c.fatigue > 0) {
+        Memory.gameTicksToMove = 0;
+        return true;
+      }
     });
   } catch (e) {
     console.log(e.message);

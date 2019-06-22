@@ -30,7 +30,7 @@ function smartMove(
     reusePath: pathMem,
     ignoreCreeps: igCreeps,
     range: range,
-    maxOps: 100,
+    maxOps: 200,
     serializeMemory: true,
     visualizePathStyle: { stroke: pathColor }
   });

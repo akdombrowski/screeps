@@ -85,16 +85,16 @@ var roleWorker = {
 
           // Couldn't move towards construction target
           if (retval == ERR_INVALID_TARGET) {
-            creep.say("w.inval");
+            creep.say("m.inval");
             target = null;
             creep.memory.b = null;
           } else if (retval == OK) {
-            creep.say("w." + target.x + target.y);
+            creep.say("m." + target.x + target.y);
             creep.memory.b = targetId;
           } else {
-            creep.say("w." + retval);
+            creep.say("m." + retval);
             target = null;
-            creep.memory.b = targetId;
+            creep.memory.b = null;
           }
         }
       } else if (creep.room.name == "E35N32") {

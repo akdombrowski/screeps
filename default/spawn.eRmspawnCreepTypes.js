@@ -13,6 +13,7 @@ function birthCreep(
   chosenRole,
   direction,
   sourceId,
+  sourceDir,
   spawnDirection
 ) {
   let retval;
@@ -22,13 +23,19 @@ function birthCreep(
       memory: {
         role: chosenRole,
         direction: direction,
-        sourceId: sourceId
+        sourceId: sourceId,
+        sourceDir: sourceDir
       },
       directions: spawnDirection
     });
   } else {
     retval = s2.spawnCreep(parts, name, {
-      memory: { role: chosenRole, direction: direction, sourceId: sourceId }
+      memory: {
+        role: chosenRole,
+        direction: direction,
+        sourceId: sourceId,
+        sourceDir: sourceDir
+      }
     });
   }
 
@@ -148,7 +155,6 @@ function spawnCreepTypes(enAvail) {
   let nAttackerId = Memory.nAttackerId;
   let invaderId = Memory.invaderId;
 
-console.log(enAvail + " " + JSON.stringify(eastUpControllers.length))
   if (enAvail >= 300 && eastUpControllers.length < 1) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "east";
@@ -157,10 +163,12 @@ console.log(enAvail + " " + JSON.stringify(eastUpControllers.length))
     let parts = upContrParts;
     let spawnDirection = [TOP];
     let sourceId = "";
+    let sourceDir = "";
 
     if (ermHarvesters.length < 1) {
       ermHarvesters.push(name);
       parts = basicHv;
+      sourceDir = "east";
     } else if (eastUpControllers.length < 1) {
       chosenRole = "eastRezzy";
       name = chosenRole + t;
@@ -170,17 +178,23 @@ console.log(enAvail + " " + JSON.stringify(eastUpControllers.length))
     } else {
       ermHarvesters.push(name);
       parts = basicHv;
+      sourceDir = "east";
     }
 
-   console.log(chosenRole + " role birth" +  birthCreep(
-      s2,
-      parts,
-      name,
-      chosenRole,
-      direction,
-      sourceId,
-      spawnDirection
-    ));
+    console.log(
+      chosenRole +
+        " role birth" +
+        birthCreep(
+          s2,
+          parts,
+          name,
+          chosenRole,
+          direction,
+          sourceId,
+          sourceDir,
+          spawnDirection
+        )
+    );
   }
 
   if (enAvail >= 750) {
@@ -191,10 +205,12 @@ console.log(enAvail + " " + JSON.stringify(eastUpControllers.length))
     let parts = mednewhvParts;
     let spawnDirection = [TOP];
     let sourceId = "";
+    let sourceDir = "";
 
     if (ermNeHarvesters.length < 3) {
       ermNeHarvesters.push(name);
       parts = mednewhvParts;
+      sourceDir = "north";
     } else if (eastUpControllers.length < 3) {
       chosenRole = "eastRezzy";
       name = chosenRole + t;
@@ -209,13 +225,16 @@ console.log(enAvail + " " + JSON.stringify(eastUpControllers.length))
     } else if (ermHarvesters.length < 2) {
       name = "h" + t + "E";
       ermHarvesters.push(name);
+      sourceDir = "east";
     } else {
       ermNeHarvesters.push(name);
       parts = mednewhvParts;
+      sourceDir = "north";
     }
 
-    console.log(chosenRole +
-      " role birth:" +
+    console.log(
+      chosenRole +
+        " role birth:" +
         birthCreep(
           s2,
           parts,
@@ -223,6 +242,7 @@ console.log(enAvail + " " + JSON.stringify(eastUpControllers.length))
           chosenRole,
           direction,
           sourceId,
+          sourceDir,
           spawnDirection
         )
     );

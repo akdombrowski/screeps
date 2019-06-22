@@ -42,6 +42,7 @@ const roleHarvester = {
             return n === creep.name;
           });
           if (found || foundNe) {
+            // console.log("erm");
             ermgetEnergyEast(creep);
           } else {
             getEnergyEast(creep);

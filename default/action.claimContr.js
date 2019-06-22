@@ -1,5 +1,6 @@
 const smartMove = require("./action.smartMove");
 const getEnergyEast = require("./action.getEnergyEast");
+const ermgetEnergyEast = require("./action.erm.getEnergyEast");
 
 function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
   /** creep controller reserve**/
@@ -23,7 +24,6 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
       }
     } else {
       creep.move(exitDirection);
-      creep.move(exitDirection);
       creep.say(exitDirection);
     }
   } else if (creep.pos.isNearTo(entrance)) {
@@ -39,9 +39,9 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
 
     creep.moveByPath(path2);
     creep.say("p2");
-  } else if (creep.room.name == rm) {
+  } else if (creep.room.name === rm) {
     if (_.sum(creep.carry) <= 0 || creep.memory.getEnergy) {
-      getEnergyEast(creep);
+      ermgetEnergyEast(creep);
     } else {
       let contr = Game.getObjectById(controller);
       if (creep.pos.isNearTo(contr)) {

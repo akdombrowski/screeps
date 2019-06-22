@@ -2,7 +2,7 @@ function reserveContr(creep, rm, exit, exitDirection, entrance, controller) {
   /** creep controller reserve**/
   let path1 = creep.memory.path1;
   let path2 = creep.memory.path2;
-  if (creep.room.name == "E35N31") {
+  if (creep.room.name === "E35N31") {
     if (!creep.pos.isNearTo(exit)) {
       if (!path1) {
         path1 = creep.room.findPath(creep.pos, exit.pos, {
@@ -21,7 +21,7 @@ function reserveContr(creep, rm, exit, exitDirection, entrance, controller) {
       creep.move(exitDirection);
       creep.say(exitDirection);
     }
-  } else if (creep.room.name == rm) {
+  } else if (creep.room.name === rm) {
     let contr = Game.getObjectById(controller);
     if (creep.pos.isNearTo(contr)) {
       creep.reserveController(contr);

@@ -46,9 +46,11 @@ function runRoles() {
       } else if (creep.memory.direction == "east") {
         if (creep.memory.sourceDir === "north") {
           ermNeHarvesters.push(name);
-        } else {
-          creep.memory.sourceDir = "east";
+        } else if (creep.memory.sourceDir === "east") {
           ermHarvesters.push(name);
+        } else {
+          ermNeHarvesters.push(name);
+          creep.memory.sourceDir = "north";
         }
         eastHarvesters.push(name);
       } else if (creep.memory.direction == "west") {

@@ -48,10 +48,7 @@ function runRoles() {
           ermNeHarvesters.push(name);
         } else if (creep.memory.sourceDir === "east") {
           ermHarvesters.push(name);
-        } else {
-          ermNeHarvesters.push(name);
-          creep.memory.sourceDir = "north";
-        }
+        } 
         eastHarvesters.push(name);
       } else if (creep.memory.direction == "west") {
         westHarvesters.push(name);

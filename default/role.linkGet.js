@@ -32,7 +32,7 @@ const linkGet = {
       } else if (target) {
         creep.say("m." + target.pos.x + "," + target.pos.y);
 
-        retval = smartMove(creep, target, 1);
+        retval = smartMove(creep, target, 1, true, "#00ffff", 2000, 1000);
 
         if (retval != OK) {
           creep.say("m." + retval);
@@ -64,7 +64,7 @@ const linkGet = {
         creep.upgradeController(contr);
         creep.say("ucl");
       } else {
-        smartMove(creep, contr, 3, true, "#fff00f", 2000, 1000);
+        smartMove(creep, contr, 3, true, "#fff00f", 0, 2000);
         creep.say("m");
       }
 

@@ -9,6 +9,7 @@ function smartMove(
     pathMem = 2000,
     maxOps = 100
 ) {
+    let s;
     let retVal = -16;
     ignoreCreeps = ignoreCreeps;
     pathColor = pathColor || "#ffffff";

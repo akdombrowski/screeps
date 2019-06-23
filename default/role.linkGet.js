@@ -64,7 +64,7 @@ const linkGet = {
         creep.upgradeController(contr);
         creep.say("ucl");
       } else {
-        smartMove(creep, contr, 3);
+        smartMove(creep, contr, 3, true, "#fff00f", 2000, 1000);
         creep.say("m");
       }
 

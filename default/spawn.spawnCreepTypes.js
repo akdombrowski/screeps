@@ -104,7 +104,7 @@ function spawnCreepTypes(enAvail) {
   let nAttackerId = Memory.nAttackerId;
   let invaderId = Memory.invaderId;
 
-  if (enAvail >= 300 && Memory.harvesters.length < 10) {
+  if (enAvail >= 300 && southHarvesters.length < 1) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t;
     let chosenRole = "h";
@@ -113,7 +113,7 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts;
     let spawnDirection = [BOTTOM_RIGHT];
 
-    if (southHarvesters.length < 3) {
+    if (southHarvesters.length < 1) {
       southHarvesters.push(name);
       parts = simpleParts;
     } else if (
@@ -161,7 +161,7 @@ function spawnCreepTypes(enAvail) {
     let parts = newhvParts;
     let spawnDirection = [BOTTOM_RIGHT];
 
-    if (southHarvesters.length < 2) {
+    if (southHarvesters.length < 1) {
       southHarvesters.push(name);
       parts = southHvParts;
     } else if (roadRepairers.length < 1) {
@@ -169,7 +169,7 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = repairerParts;
       roadRepairers.push(name);
-    } else if (workers.length < 1) {
+    } else if (workers.length < 2) {
       chosenRole = "w";
       name = chosenRole + t;
       parts = workerParts;
@@ -207,6 +207,11 @@ function spawnCreepTypes(enAvail) {
       name += "west";
       direction = "west";
       westHarvesters.push(name);
+    } else if (workers.length < 3) {
+      chosenRole = "w";
+      name = chosenRole + t;
+      parts = workerParts;
+      workers.push(name);
     } else if (roadRepairers.length < 3) {
       chosenRole = "r";
       name = chosenRole + t;

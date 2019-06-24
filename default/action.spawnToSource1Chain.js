@@ -60,16 +60,16 @@ function spawnToSource1Chain() {
       if (Memory.enAvail >= 100) {
         Game.spawns.Spawn1.spawnCreep([MOVE, MOVE], "mover1", {
           memory: {
-            role: "mover"
-          }
+            role: "mover",
+          },
         });
       }
     } else {
       Game.spawns.Spawn1.spawnCreep([MOVE, MOVE], "mover1", {
         memory: {
           role: "mover",
-          directions: direction
-        }
+          directions: direction,
+        },
       });
     }
   } else if (needMover) {
@@ -197,13 +197,24 @@ function spawnToSource1Chain() {
     try {
       let hvVal = hv.harvest(source1);
       let extRetVal = -16;
+      supplyChainRetVal = supplyChain(
+        [tr1.name, tr2.name],
+        hv.name,
+        source1,
+        s1
+      );
 
-      _.forEach(exts, ext => {
+      console.log("exts: " + exts);
+      _.forEach(exts, (ext) => {
         let e = Game.getObjectById(ext);
+        console.log("e: " + e);
 
         if (e.energy < e.energyCapacity) {
+          console.log("e.energy: " + e.energy);
           if (tr1.pos.isNearTo(e) && _.sum(tr1.carry) > 0) {
             extRetVal = tr1.transfer(e, RESOURCE_ENERGY);
+            console.log("tr1.transfer: " + extRetVal);
+            console.log("e.en: " + e.energy);
             if (extRetVal === OK) {
               tr1.say("s");
             } else {
@@ -220,22 +231,17 @@ function spawnToSource1Chain() {
         }
       });
 
-      supplyChainRetVal = supplyChain(
-        [tr1.name, tr2.name],
-        hv.name,
-        source1,
-        s1
-      );
-
-      if (Memory.linkGets.length > 0 && _.sum(tr1.carry) > 0) {
-        let retval = tr1.transfer(linkEntrance, RESOURCE_ENERGY);
-        tr1.say("l." + retval);
-      } else if (
-        Object.keys(Game.creeps).length < 10 &&
-        linkEntrance.energy > 0
-      ) {
-        let retval = tr1.withdraw(linkEntrance, RESOURCE_ENERGY);
-        tr1.say("wdL." + retval);
+      if (extRetVal != OK) {
+        if (Memory.linkGets.length > 0 && _.sum(tr1.carry) > 0) {
+          let retval = tr1.transfer(linkEntrance, RESOURCE_ENERGY);
+          tr1.say("l." + retval);
+        } else if (
+          Object.keys(Game.creeps).length < 10 &&
+          linkEntrance.energy > 0
+        ) {
+          let retval = tr1.withdraw(linkEntrance, RESOURCE_ENERGY);
+          tr1.say("wdL." + retval);
+        }
       }
     } catch (e) {
       console.log(e + "\nstart supply chain err:" + supplyChainRetVal);

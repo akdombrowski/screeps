@@ -47,32 +47,29 @@ var roleWorker = {
         creep.room.lookAt(target).progress >=
           creep.room.lookAt(target).progressTotal
       ) {
-        let linkFound = false;
         let extFound = false;
         target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
           filter: site => {
-            if (site.progress >= site.progressTotal) {
+            let prog = site.progress;
+            let progTot = site.progressTotal;
+            let progLeft = progTot - prog;
+            let type = site.structureType;
+            if (prog >= progTot) {
               return false;
             }
 
-            const type = site.structureType;
 
-            if (type === STRUCTURE_LINK) {
-              linkFound = true;
-            }
-
-            if (!linkFound && type === STRUCTURE_EXTENSION) {
+            if (type === STRUCTURE_EXTENSION) {
               extFound = true;
               return site;
-            } else if (!extFound && !linkFound) {
-              return site;
+            } else {
+              target = site;
             }
           }
         });
         targetId = target ? target.id : null;
       }
 
-      target = Game.getObjectById(targetId);
       if (target) {
         if (creep.pos.inRangeTo(target, 3)) {
           retval = creep.build(target);
@@ -98,10 +95,8 @@ var roleWorker = {
           }
         }
       } else if (creep.room.name == "E35N32") {
-        let pathMem = 200;
-        let igCreeps = true;
         smartMove(creep, Game.flags.northEntrance1, 1);
-        creep.say("w.ne1");
+        creep.say("w.n");
       } else {
         creep.memory.role = "r";
         creep.memory.working = false;

@@ -204,17 +204,12 @@ function spawnToSource1Chain() {
         s1
       );
 
-      console.log("exts: " + exts);
       _.forEach(exts, (ext) => {
         let e = Game.getObjectById(ext);
-        console.log("e: " + e);
 
         if (e.energy < e.energyCapacity) {
-          console.log("e.energy: " + e.energy);
           if (tr1.pos.isNearTo(e) && _.sum(tr1.carry) > 0) {
             extRetVal = tr1.transfer(e, RESOURCE_ENERGY);
-            console.log("tr1.transfer: " + extRetVal);
-            console.log("e.en: " + e.energy);
             if (extRetVal === OK) {
               tr1.say("s");
             } else {

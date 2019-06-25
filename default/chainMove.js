@@ -5,8 +5,10 @@ function chainMove(pullerName, creepNames, destPos, rngToDest) {
   let retVal = -16;
 
   // console.log("creepNames:\n" + creepNames);
-  if (!puller || puller.fatigue > 0) {
-    puller.say("puller.err");
+  if (!puller){
+    return -16;
+  } else if (puller.fatigue > 0) {
+    puller.say("f." + puller.fatigue);
     return ERR_TIRED;
   }
 

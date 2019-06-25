@@ -7,7 +7,7 @@ function smartMove(
     ignoreCreeps = true,
     pathColor = "#ffffff",
     pathMem = 2000,
-    maxOps = 100
+    maxOps = 300
 ) {
     let s;
     let retVal = -16;
@@ -25,7 +25,6 @@ function smartMove(
         moveAwayFromCreep(creep) ||
         !ignoreCreeps //||
     ) {
-        pathMem = 0;
         ignoreCreeps = false;
         creep.say("out of my way creep");
     }
@@ -36,17 +35,29 @@ function smartMove(
         range: range,
         maxOps: maxOps,
         serializeMemory: true,
+        noPathFinding: true,
         visualizePathStyle: { stroke: pathColor }
     });
-    if (retval === ERR_NO_PATH) {
+    if (retval === ERR_INVALID_TARGET|| retval === ERR_NOT_FOUND) {
         retval = creep.moveTo(dest, {
-            reusePath: 0,
+            reusePath: pathMem,
             ignoreCreeps: ignoreCreeps,
             range: range,
             maxOps: maxOps,
             serializeMemory: true,
+            noPathFinding: false,
             visualizePathStyle: { stroke: pathColor }
         });
+    } else if (retval === ERR_NO_PATH) {
+      retval = creep.moveTo(dest, {
+        reusePath: 0,
+        ignoreCreeps: ignoreCreeps,
+        range: range,
+        maxOps: maxOps * 10,
+        serializeMemory: true,
+        noPathFinding: false,
+        visualizePathStyle: { stroke: pathColor }
+    });
     }
     creep.say("m." + retval);
     return retval;

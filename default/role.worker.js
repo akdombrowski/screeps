@@ -47,7 +47,6 @@ var roleWorker = {
         target.progress >=
           target.progressTotal
       ) {
-        console.log("find target" + creep.name);
         let extFound = false;
         let t;
         target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
@@ -66,12 +65,10 @@ var roleWorker = {
               return site;
             } else {
               t = site;
-              console.log(site + " " + creep.name + " target = " + target);
             }
           }
         });
         target = !target ? t : target; 
-        console.log( creep.name + " targetO = " + target);
         targetId = target ? target.id : null;
       }
 

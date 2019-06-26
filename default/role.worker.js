@@ -92,7 +92,7 @@ var roleWorker = {
             target = null;
             creep.memory.b = null;
           } else if (retval === OK) {
-            creep.say("m." + target.pos.x + target.pos.y);
+            creep.say("m." + target.pos.x +  "," + target.pos.y);
             creep.memory.b = targetId;
           } else {
             creep.say("m.  " + retval);

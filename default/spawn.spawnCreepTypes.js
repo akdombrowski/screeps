@@ -123,7 +123,7 @@ function spawnCreepTypes(enAvail) {
     if (southHarvesters.length < 1) {
       southHarvesters.push(name);
       parts = simpleParts;
-    }  else if (linkGets.length < 2) {
+    } else if (linkGets.length < 2) {
       chosenRole = "linkGet";
       name = chosenRole + t;
       parts = linkGetsParts;

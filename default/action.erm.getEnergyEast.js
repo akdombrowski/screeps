@@ -144,7 +144,7 @@ function vest(creep, flag, path) {
                     creep.memory.nesource = creep.memory.nesource === 1 ? 2 : 1;
                 }
                 Memory.waitTime = waitTime;
-                creep.say("change");
+                creep.say("ch");
             }
 
             return retval;

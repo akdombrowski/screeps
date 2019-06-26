@@ -44,10 +44,12 @@ var roleWorker = {
       if (
         !target ||
         !CONSTRUCTION_COST[target.structureType] ||
-        creep.room.lookAt(target).progress >=
-          creep.room.lookAt(target).progressTotal
+        target.progress >=
+          target.progressTotal
       ) {
+        console.log("find target" + creep.name);
         let extFound = false;
+        let t;
         target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
           filter: site => {
             let prog = site.progress;
@@ -57,16 +59,19 @@ var roleWorker = {
             if (prog >= progTot) {
               return false;
             }
-
-
+            
+            
             if (type === STRUCTURE_EXTENSION) {
               extFound = true;
               return site;
             } else {
-              target = site;
+              t = site;
+              console.log(site + " " + creep.name + " target = " + target);
             }
           }
         });
+        target = !target ? t : target; 
+        console.log( creep.name + " targetO = " + target);
         targetId = target ? target.id : null;
       }
 
@@ -98,8 +103,8 @@ var roleWorker = {
         smartMove(creep, Game.flags.northEntrance1, 1);
         creep.say("w.n");
       } else {
-        creep.memory.role = "r";
-        creep.memory.working = false;
+        // creep.memory.role = "r";
+        // creep.memory.working = false;
         creep.say("w.err");
         target = null;
         creep.memory.b = target;

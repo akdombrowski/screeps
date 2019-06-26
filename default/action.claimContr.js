@@ -7,6 +7,7 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
   controller = "5bbcaf0c9099fc012e63a0be";
   let path1 = creep.memory.path1;
   let path2 = creep.memory.path2;
+  let retval;
   if (creep.room.name == "E35N31") {
     if (!creep.pos.isNearTo(exit)) {
       if (!path1) {
@@ -15,10 +16,14 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
           range: 1
         });
       }
-      if (creep.moveByPath(path1) != OK) {
+      retval = creep.moveByPath(path1);
+      if (retval === ERR_NO_PATH || retval === ERR_NOT_FOUND) {
         path = null;
         creep.say("err");
-      } else {
+      } else if(retval === ERR_TIRED) {
+        creep.memory.path1 = path1;
+        creep.say("m." + creep.fatigue);
+      }else {
         creep.memory.path1 = path1;
         creep.say(rm);
       }
@@ -26,43 +31,30 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
       creep.move(exitDirection);
       creep.say(exitDirection);
     }
-  } else if (creep.pos.isNearTo(entrance)) {
-    let contr = Game.getObjectById(controller);
-
-    if (!path2) {
-      path2 = creep.room.findPath(creep.pos, contr.pos, {
-        range: 1,
-        serialize: true
-      });
-      creep.memory.path2 = path2;
-    }
-
-    creep.moveByPath(path2);
-    creep.say("p2");
   } else if (creep.room.name === rm) {
     if (_.sum(creep.carry) <= 0 || creep.memory.getEnergy) {
       ermgetEnergyEast(creep);
     } else {
       let contr = Game.getObjectById(controller);
-      if (creep.pos.isNearTo(contr)) {
+      if (creep.pos.inRangeTo(contr, 3)) {
         creep.upgradeController(contr);
       } else {
         if (!path2) {
           path2 = creep.room.findPath(creep.pos, contr.pos, {
-            range: 1,
+            range: 3,
             serialize: true
           });
           creep.memory.path2 = path2;
         }
-
-        if (creep.moveByPath(path2) != OK) {
-          path2 = creep.room.findPath(creep.pos, contr.pos, {
-            range: 1,
-            serialize: true
-          });
+        retval = creep.moveByPath(path2);
+        if (retval  === ERR_NO_PATH || retval === ERR_NOT_FOUND) {
+          path2 = null;
           creep.memory.path2 = path2;
-        } else {
-          creep.say("p2");
+          creep.say("reset")
+        } else if (retval === ERR_TIRED) {
+          creep.say("f." + creep.fatigue);
+        }else {
+          creep.say("p2up." + retval);
         }
       }
     }

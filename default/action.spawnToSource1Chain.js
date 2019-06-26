@@ -24,6 +24,7 @@ function spawnToSource1Chain() {
   let energy;
   let needMover = false;
   let exts = Memory.spawnExts;
+  let stor1 = Game.getObjectById(Memory.store1);
   let linkEntrance = Game.getObjectById(Memory.linkEntranceId);
 
   try {
@@ -225,17 +226,29 @@ function spawnToSource1Chain() {
           }
         }
       });
-
+      let retval;
       if (extRetVal != OK) {
         if (Memory.linkGets.length > 0 && _.sum(tr1.carry) > 0) {
-          let retval = tr1.transfer(linkEntrance, RESOURCE_ENERGY);
+          retval = tr1.transfer(linkEntrance, RESOURCE_ENERGY);
           tr1.say("l." + retval);
         } else if (
           Object.keys(Game.creeps).length < 10 &&
           linkEntrance.energy > 0
         ) {
-          let retval = tr1.withdraw(linkEntrance, RESOURCE_ENERGY);
+          retval = tr1.withdraw(linkEntrance, RESOURCE_ENERGY);
           tr1.say("wdL." + retval);
+        }
+
+        if (extRetVal != OK && retval != OK) {
+          if (tr1.pos.isNearTo(stor1)) {
+            retval = tr1.transfer(stor1, RESOURCE_ENERGY);
+            tr1.say("st1");
+          }
+
+          if (tr2.pos.isNearTo(stor1)) {
+            retval = tr2.transfer(stor1, RESOURCE_ENERGY);
+            tr2.say("st1");
+          }
         }
       }
     } catch (e) {

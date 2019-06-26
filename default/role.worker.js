@@ -10,7 +10,7 @@ var roleWorker = {
     }
 
     if (
-      creep.carry.energy == 0 ||
+      creep.carry.energy <= 0 ||
       (creep.carry.energy < creep.carryCapacity && !creep.memory.working)
     ) {
       creep.memory.working = false;
@@ -24,7 +24,7 @@ var roleWorker = {
       return;
     } else if (
       !creep.memory.working &&
-      creep.carry.energy == creep.carryCapacity
+      creep.carry.energy >= creep.carryCapacity
     ) {
       creep.memory.working = true;
       creep.memory.getEnergy = false;
@@ -81,20 +81,20 @@ var roleWorker = {
           retval = smartMove(creep, target, 3);
 
           // Couldn't move towards construction target
-          if (retval == ERR_INVALID_TARGET) {
+          if (retval === ERR_INVALID_TARGET) {
             creep.say("m.inval");
             target = null;
             creep.memory.b = null;
-          } else if (retval == OK) {
-            creep.say("m." + target.x + target.y);
+          } else if (retval === OK) {
+            creep.say("m." + target.pos.x + target.pos.y);
             creep.memory.b = targetId;
           } else {
-            creep.say("m." + retval);
+            creep.say("m.  " + retval);
             target = null;
             creep.memory.b = null;
           }
         }
-      } else if (creep.room.name == "E35N32") {
+      } else if (creep.room.name === "E35N32") {
         smartMove(creep, Game.flags.northEntrance1, 1);
         creep.say("w.n");
       } else {

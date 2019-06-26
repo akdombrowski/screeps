@@ -31,25 +31,12 @@ function vest(creep, flag, path) {
   //   creep.say("sID");
   // }
 
-//   target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-//     filter: structure => {
-//       if (
-//         (structure.structureType == STRUCTURE_CONTAINER ||
-//           structure.structureType == STRUCTURE_STORAGE) &&
-//         _.sum(structure.store) >= creep.carryCapacity
-//       ) {
-//         return structure;
-//       }
-//     }
-//   });
-
-
   let dropped = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
-    filter: source => {
+    filter: (source) => {
       if (!Memory.source1.pos.isNearTo(source)) {
         return source;
       }
-    }
+    },
   });
   if (dropped) {
     target = dropped;
@@ -66,12 +53,26 @@ function vest(creep, flag, path) {
 
   if (!target || target.energy <= 0) {
     target = creep.pos.findClosestByPath(FIND_SOURCES, {
-      filter: source => {
+      filter: (source) => {
         return source.energy > 0;
-      }
+      },
     });
   }
 
+  if (!target) {
+    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+      filter: (structure) => {
+        if (
+          (structure.structureType == STRUCTURE_CONTAINER ||
+            structure.structureType == STRUCTURE_STORAGE) &&
+          _.sum(structure.store) >= creep.carryCapacity
+        ) {
+          return structure;
+        }
+      },
+    });
+  }
+  
   if (target) {
     if (creep.pos.isNearTo(target)) {
       retval = creep.harvest(target);

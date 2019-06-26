@@ -1,8 +1,8 @@
 function spawnHarvesterChain(enAvail, rm, s1, harvesters) {
   let harvester1 = Game.creeps.harvester1;
-  if (!harvester1 && enAvail >= 500) {
+  if (!harvester1 && enAvail >= 300) {
     let name = "harvester1";
-    let parts = [WORK, WORK, WORK, WORK, WORK];
+    let parts = [ WORK, WORK];
     let chosenRole = "hChain";
     let direction = TOP;
     let retval;

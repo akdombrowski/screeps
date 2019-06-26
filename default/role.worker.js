@@ -1,10 +1,12 @@
 const getEnergy = require("./action.getEnergy");
 const getEnergyEast = require("./action.getEnergyEast");
 const smartMove = require("./action.smartMove");
+const yucreepin = require("./action.checkForAnotherCreepNearMe");
 
 var roleWorker = {
   /** @param {Creep} creep **/
   run: function(creep) {
+    let s2 = Memory.s2;
     if (!creep.memory.working) {
       creep.memory.working = false;
     }
@@ -44,13 +46,12 @@ var roleWorker = {
       if (
         !target ||
         !CONSTRUCTION_COST[target.structureType] ||
-        target.progress >=
-          target.progressTotal
+        target.progress >= target.progressTotal
       ) {
         let extFound = false;
         let t;
         target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
-          filter: site => {
+          filter: (site) => {
             let prog = site.progress;
             let progTot = site.progressTotal;
             let progLeft = progTot - prog;
@@ -58,25 +59,28 @@ var roleWorker = {
             if (prog >= progTot) {
               return false;
             }
-            
-            
+
             if (type === STRUCTURE_EXTENSION) {
               extFound = true;
               return site;
             } else {
               t = site;
             }
-          }
+          },
         });
-        target = !target ? t : target; 
+        target = !target ? t : target;
         targetId = target ? target.id : null;
       }
 
       if (target) {
         if (creep.pos.inRangeTo(target, 3)) {
-          retval = creep.build(target);
-          creep.memory.b = targetId;
-          creep.say("b");
+          if (yucreepin(creep)) {
+            smartMove(creep, s2, 5);
+          } else {
+            retval = creep.build(target);
+            creep.memory.b = targetId;
+            creep.say("b");
+          }
         } else if (creep.fatigue > 0) {
           creep.say("f." + creep.fatigue);
         } else {
@@ -107,7 +111,7 @@ var roleWorker = {
         creep.memory.b = target;
       }
     }
-  }
+  },
 };
 
 module.exports = roleWorker;

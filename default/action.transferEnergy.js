@@ -6,7 +6,8 @@ function tran(creep, flag, dest) {
   let target;
   let tower = Game.getObjectById(Memory.tower1Id);
   let tower2 = Game.getObjectById(Memory.tower2Id);
-  let towers = [tower, tower2];
+  let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
+  let towers = [tower, tower2, ermtower1];
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {
     if (creep.room.name === "E35N32") {
@@ -14,7 +15,6 @@ function tran(creep, flag, dest) {
         creep.pos == Game.flags.northEntrance1 ||
         creep.pos.isNearTo(Game.flags.northEntrance1)
       ) {
-        creep.move(BOTTOM);
         creep.move(BOTTOM);
       }
       smartMove(creep, Game.flags.northEntrance1, 1);
@@ -27,7 +27,6 @@ function tran(creep, flag, dest) {
         creep.pos.isEqualTo(Game.flags.westEntrance1.pos) ||
         creep.pos.isNearTo(Game.flags.westEntrance1)
       ) {
-        creep.move(RIGHT);
         creep.move(RIGHT);
         creep.say("RIGHT");
       } else {
@@ -49,6 +48,9 @@ function tran(creep, flag, dest) {
   if (target && target.structureType === STRUCTURE_TOWER) {
     target = null;
   }
+  
+  if(creep.memory.direction === "south" || creep.memory.direction === "east") {
+      
   _.forEach(towers, tor => {
     if (tor) {
       if (
@@ -61,6 +63,7 @@ function tran(creep, flag, dest) {
     }
   });
 
+  }
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: structure => {

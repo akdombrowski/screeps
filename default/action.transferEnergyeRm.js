@@ -4,6 +4,7 @@ const smartMove = require("./action.smartMove");
 function traneRm(creep, flag, dest) {
   let target;
   let s2 = Game.getObjectById(Memory.s2);
+  
   if (creep.memory.role == "h" || creep.memory.role == "h") {
     if (creep.room.name == "E36N31") {
       if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
@@ -41,9 +42,13 @@ function traneRm(creep, flag, dest) {
     if (target && target.energy >= target.energyCapacity) {
       target = null;
     }
+    
+    if (creep.memory.direction === "south" || creep.memory.direction === "east") {
+        
     let tower = Game.getObjectById(Memory.tower1Id);
     let tower2 = Game.getObjectById(Memory.tower2Id);
-    let towers = [tower, tower2];
+    let tower1 = Game.getObjectById(Memory.ermtowerId);
+    let towers = [tower, tower2, tower1];
 
     _.forEach(towers, tor => {
       if (tor) {
@@ -69,6 +74,7 @@ function traneRm(creep, flag, dest) {
           }
         }
       });
+    }
     }
 
     if (!target) {

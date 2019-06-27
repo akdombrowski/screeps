@@ -72,34 +72,35 @@ var roleRepairer = {
         target = !target ? t : target;
       }
 
-      let mostRepairNeeded;
-      if (!target || target.hits >= target.hitsMax) {
-        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-          filter: (structure) => {
-            if (!mostRepairNeeded) {
-              mostRepairNeeded = structure;
-            } else {
-              let highestRepair =
-                mostRepairNeeded.hitsMax - mostRepairNeeded.hits;
-              let structRepair = structure.hitsMax - structure.hits;
+    //   let mostRepairNeeded;
+    //   if (!target || target.hits >= target.hitsMax) {
+    //     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+    //       filter: (structure) => {
+              
+    //         if (!mostRepairNeeded) {
+    //           mostRepairNeeded = structure;
+    //         } else {
+    //           let highestRepair =
+    //             mostRepairNeeded.hitsMax - mostRepairNeeded.hits;
+    //           let structRepair = structure.hitsMax - structure.hits;
 
-              if (highestRepair < structRepair) {
-                Memory.towerRepairTarget = mostRepairNeeded;
-                mostRepairNeeded = structure;
-              }
-            }
-            return structure.hits <= structure.hitsMax / 2;
-          },
-        });
+    //           if (highestRepair < structRepair) {
+    //             Memory.towerRepairTarget = mostRepairNeeded;
+    //             mostRepairNeeded = structure;
+    //           }
+    //         }
+    //         return structure.hits <= structure.hitsMax / 2;
+    //       },
+    //     });
 
-        if (
-          target &&
-          mostRepairNeeded.hitsMax - mostRepairNeeded.hits >
-            target.hitsMax - target.hits
-        ) {
-          target = mostRepairNeeded;
-        }
-      }
+    //     if (
+    //       target &&
+    //       mostRepairNeeded.hitsMax - mostRepairNeeded.hits >
+    //         target.hitsMax - target.hits
+    //     ) {
+    //       target = mostRepairNeeded;
+    //     }
+    //   }
 
       if (target) {
         if (creep.pos.inRangeTo(target, 3)) {

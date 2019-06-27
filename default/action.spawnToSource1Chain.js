@@ -157,19 +157,9 @@ function spawnToSource1Chain() {
       console.log("need to move tr1 or tr2");
       if (!mv.pos.isNearTo(tr2)) {
         console.log("Mover not next to tr2. Moving," + smartMove(mv, tr2, 1));
-      } else if (mv.pos.x != 45 && mv.pos.y != 5) {
+      } else if ((mv.pos.x != 45 && mv.pos.y != 5) ||(tr2.pos.x <= tr1.pos.x)) {
         console.log(
           "pulling tr2 reset spot . " +
-            chainMove(
-              mv.name,
-              [tr2.name],
-              new RoomPosition(45, 5, source1.room.name),
-              0
-            )
-        );
-      } else if (tr2.pos.x <= tr1.pos.x) {
-        console.log(
-          "pulling tr2 reset spot. " +
             chainMove(
               mv.name,
               [tr2.name],
@@ -185,7 +175,7 @@ function spawnToSource1Chain() {
               [tr2.name],
               new RoomPosition(
                 source1.pos.x + 3,
-                source1.pos.y,
+                source1.pos.y - 1,
                 source1.room.name
               ),
               0

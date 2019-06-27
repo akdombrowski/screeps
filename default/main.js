@@ -15,6 +15,7 @@ module.exports.loop = function() {
   profiler.wrap(function() {
     let lastEnAvail = Memory.enAvail || 0;
 
+    
     let s1 = Game.spawns.Spawn1;
     let s2 = Game.spawns.s2;
     let rm = Game.rooms.E35N31;
@@ -69,11 +70,15 @@ module.exports.loop = function() {
 
     let tower1Id = Memory.tower1Id || "5cf3b09b75f7e26764ee4276";
     let tower2Id = Memory.tower2Id || "5cfd5e7adee9d942d5155ed6";
+    let etower1Id = Memory.etower1Id || "5d0f99d929c9cb5363cba23d";
     let tower1 = Game.getObjectById(tower1Id);
     let tower2 = Game.getObjectById(tower2Id);
+    let etower1 = Game.getObjectById(etower1Id);
 
     let rmControllerId = Memory.rmControllerId || "5bbcaefa9099fc012e639e90";
     let rmController = Game.getObjectById(rmControllerId);
+    let ermControllerId = Memory.ermControllerId || "5bbcaf0c9099fc012e63a0be";
+    let ermController = Game.getObjectById(ermControllerId);
     let e1 = Memory.extension1;
     let e2 = Memory.extension2;
     let e3 = Memory.extension3;
@@ -96,6 +101,7 @@ module.exports.loop = function() {
     Memory.stor1 = "";
 
     Memory.rmControllerId = rmControllerId;
+    Memory.ermControllerId = ermControllerId;
 
     Memory.store1 = "5d0178505a74ac0a0094daab";
     Memory.link1 = linkEntranceId;
@@ -215,7 +221,7 @@ module.exports.loop = function() {
 
     linkTran(linkEntrance, linkExit);
 
-    if (Game.time % 10 == 0) {
+    if (Game.time % 1000 == 0) {
       console.log("Creeps:" + numCrps);
       console.log(
         rmController.level +
@@ -225,11 +231,22 @@ module.exports.loop = function() {
           rmController.progressTotal / 1000
       );
       console.log(enAvail + "," + enCap);
+      Game.notify(rmController.level +
+          ":" +
+          rmController.progress / 1000 +
+          "/" +
+          rmController.progressTotal / 1000 + "\n" + ermController.level +
+          ":" +
+          ermController.progress / 1000 +
+          "/" +
+          ermController.progressTotal / 1000 + "\n" +
+          enAvail + "," + enCap + "\n" + 
+          enAvaileRm + "," + enCapeRm);
     }
   });
   let pTime = Memory.profilerTime;
-  let profilerDur = 10;
-  if(!pTime || Memory.profilerTime - Game.time > profilerDur * 1.1) {
+  let profilerDur = 1000;
+  if(!pTime || Game.time - Memory.profilerTime > profilerDur * 1.1) {
     Memory.profilerTime = Game.time;
     Game.profiler.email(profilerDur);
   };

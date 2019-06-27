@@ -4,7 +4,10 @@ function goAnotherRm(creep, otherRoomFlag, range) {
   let dest;
   let currRoom = creep.room;
   let exit;
-  smartMove(creep, otherRmFlag, range);
+  let retval;
+
+  retval = smartMove(creep, otherRmFlag, range);
+  return retval;
 }
 
 module.exports = goAnotherRm;

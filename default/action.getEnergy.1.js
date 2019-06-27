@@ -5,7 +5,7 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const buildRoad = require("./action.buildRoad");
 
-function vest(creep, sourceTargeted, taskRm, flag, path) {
+function vest(creep, sourceRmTargeted, taskRm, flag, path) {
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
     return;
@@ -20,6 +20,20 @@ function vest(creep, sourceTargeted, taskRm, flag, path) {
   let rm = creep.rm;
   let lastSourceId = creep.memory.lastSourceId;
   let numCrps = Object.keys(crps).length;
+
+  const targetedrm = Game.rooms[sourceRmTargeted];
+
+  if (targetedrm != creep.rm.name) {
+    target = targetedrm.find(FIND_SOURCES_ACTIVE, {
+      filter: (source) => {
+        if (source.pos.findInRange(FIND_CREEPS, 2).length <= 4) {
+          return source;
+        }
+      },
+    });
+
+    smartMove(creep, target, 10);
+  }
 
   // Do I need to pick up some dropped energy somewhere?
   retval = droppedDuty(creep);
@@ -102,7 +116,7 @@ function vest(creep, sourceTargeted, taskRm, flag, path) {
     creep.memory.lastSourceId = target;
     creep.say("sad");
   }
-   
+
   return retval;
 }
 

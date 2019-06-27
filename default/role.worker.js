@@ -6,7 +6,7 @@ const yucreepin = require("./action.checkForAnotherCreepNearMe");
 var roleWorker = {
   /** @param {Creep} creep **/
   run: function(creep) {
-    let s2 = Memory.s2;
+    let s2 = Game.getObjectById(Memory.s2);
     if (!creep.memory.working) {
       creep.memory.working = false;
     }
@@ -75,7 +75,23 @@ var roleWorker = {
       if (target) {
         if (creep.pos.inRangeTo(target, 3)) {
           if (yucreepin(creep)) {
-            smartMove(creep, s2, 5);
+            retval = smartMove(creep, s2, 5);
+            
+            // Couldn't move towards construction target
+            if (
+              retval === ERR_INVALID_TARGET
+            ) {
+              creep.say("m.inval");
+              target = null;
+              creep.memory.b = null;
+            } else if (retval === OK && target) {
+              creep.say("m." + target.pos.x + "," + target.pos.y);
+              creep.memory.b = targetId;
+            } else {
+              creep.say("m." + retval);
+              target = null;
+              creep.memory.b = null;
+            }
           } else {
             retval = creep.build(target);
             creep.memory.b = targetId;
@@ -85,23 +101,22 @@ var roleWorker = {
           creep.say("f." + creep.fatigue);
         } else {
           retval = smartMove(creep, target, 3);
-
           // Couldn't move towards construction target
-          if (retval === ERR_INVALID_TARGET) {
+          if (retval === ERR_INVALID_TARGET || retval === ERR_INVALID_TARGET) {
             creep.say("m.inval");
             target = null;
             creep.memory.b = null;
-          } else if (retval === OK) {
-            creep.say("m." + target.pos.x +  "," + target.pos.y);
+          } else if (retval === OK && target) {
+            creep.say("m." + target.pos.x + "," + target.pos.y);
             creep.memory.b = targetId;
           } else {
-            creep.say("m.  " + retval);
+            creep.say("m." + retval);
             target = null;
             creep.memory.b = null;
           }
         }
       } else if (creep.room.name === "E35N32") {
-        smartMove(creep, Game.flags.northEntrance1, 1);
+        retval = smartMove(creep, Game.flags.northEntrance1, 1);
         creep.say("w.n");
       } else {
         // creep.memory.role = "r";

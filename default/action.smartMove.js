@@ -39,15 +39,15 @@ function smartMove(
         visualizePathStyle: { stroke: pathColor }
     });
     if (retval === ERR_INVALID_TARGET|| retval === ERR_NOT_FOUND) {
-        retval = creep.moveTo(dest, {
-            reusePath: pathMem,
-            ignoreCreeps: ignoreCreeps,
-            range: range,
-            maxOps: maxOps,
-            serializeMemory: true,
-            noPathFinding: false,
-            visualizePathStyle: { stroke: pathColor }
-        });
+      retval = creep.moveTo(dest, {
+        reusePath: pathMem,
+        ignoreCreeps: ignoreCreeps,
+        range: range,
+        maxOps: maxOps,
+        serializeMemory: true,
+        noPathFinding: false,
+        visualizePathStyle: { stroke: pathColor }
+      });
     } else if (retval === ERR_NO_PATH) {
       retval = creep.moveTo(dest, {
         reusePath: 0,
@@ -57,7 +57,7 @@ function smartMove(
         serializeMemory: true,
         noPathFinding: false,
         visualizePathStyle: { stroke: pathColor }
-    });
+      });
     }
     creep.say("m." + retval);
     return retval;

@@ -227,5 +227,11 @@ module.exports.loop = function() {
       console.log(enAvail + "," + enCap);
     }
   });
+  let pTime = Memory.profilerTime;
+  let profilerDur = 10;
+  if(!pTime || Memory.profilerTime - Game.time > profilerDur * 1.1) {
+    Memory.profilerTime = Game.time;
+    Game.profiler.email(profilerDur);
+  };
 };
 module.exports.spawnCreepTypes = spawnCreepTypes;

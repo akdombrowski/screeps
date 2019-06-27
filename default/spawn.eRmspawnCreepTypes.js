@@ -157,7 +157,9 @@ function spawnCreepTypes(enAvail) {
 
   if (
     enAvail >= 300 &&
-    (eastUpControllers.length < 1 || ermHarvesters.length < 1)
+    (eastUpControllers.length < 1 ||
+      ermHarvesters.length < 1 ||
+      ermNeHarvesters.length < 2)
   ) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "east";
@@ -178,6 +180,10 @@ function spawnCreepTypes(enAvail) {
       direction = "east";
       parts = upContrParts;
       eastUpControllers.push(name);
+    } else if (ermNeHarvesters.length < 2) {
+      ermNeHarvesters.push(name);
+      parts = basicHv;
+      sourceDir = "north";
     } else {
       ermHarvesters.push(name);
       parts = basicHv;
@@ -210,7 +216,7 @@ function spawnCreepTypes(enAvail) {
     let sourceId = "";
     let sourceDir = "";
 
-    if (ermNeHarvesters.length < 1) {
+    if (ermNeHarvesters.length < 2) {
       ermNeHarvesters.push(name);
       parts = mednewhvParts;
       sourceDir = "north";

@@ -42,7 +42,6 @@ function buildRoad(creep) {
         creep.pos.isNearTo(Game.getObjectById(Memory.source1eRm))
       ) {
         creep.move(LEFT);
-        creep.move(TOP_LEFT);
         creep.say("pass");
       } else {
         retval = creep.build(target);

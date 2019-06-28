@@ -80,37 +80,37 @@ function spawnCreepTypes(enAvail) {
   addPart(upContrParts, 1, WORK);
   addPart(upContrParts, 1, MOVE);
 
-  // 750
+  // 800
   let medupContrParts = [];
-  addPart(medupContrParts, 8, CARRY);
-  addPart(medupContrParts, 3, WORK);
-  addPart(medupContrParts, 1, MOVE);
+  addPart(medupContrParts, 2, CARRY);
+  addPart(medupContrParts, 4, WORK);
+  addPart(medupContrParts, 6, MOVE);
 
-  // 750
+  // 800
   let medsouthHvParts = [];
-  addPart(medsouthHvParts, 6, CARRY);
-  addPart(medsouthHvParts, 4, WORK);
-  addPart(medsouthHvParts, 1, MOVE);
+  addPart(medsouthHvParts, 2, CARRY);
+  addPart(medsouthHvParts, 5, WORK);
+  addPart(medsouthHvParts, 4, MOVE);
 
-  // 750
+  // 800
   let mednewhvParts = [];
-  addPart(mednewhvParts, 8, CARRY);
-  addPart(mednewhvParts, 3, WORK);
-  addPart(mednewhvParts, 1, MOVE);
+  addPart(mednewhvParts, 1, CARRY);
+  addPart(mednewhvParts, 5, WORK);
+  addPart(mednewhvParts, 5, MOVE);
 
-  // 750
+  // 800
   let medworkerParts = [];
-  addPart(medworkerParts, 6, CARRY);
-  addPart(medworkerParts, 4, WORK);
-  addPart(medworkerParts, 1, MOVE);
+  addPart(medworkerParts, 3, CARRY);
+  addPart(medworkerParts, 5, WORK);
+  addPart(medworkerParts, 3, MOVE);
 
-  // 750
+  // 800
   let medrepairerParts = [];
-  addPart(medrepairerParts, 6, CARRY);
-  addPart(medrepairerParts, 4, WORK);
-  addPart(medrepairerParts, 1, MOVE);
+  addPart(medrepairerParts, 1, CARRY);
+  addPart(medrepairerParts, 6, WORK);
+  addPart(medrepairerParts, 3, MOVE);
 
-  // 700
+  // 
   let medlinkGetsParts = [];
   addPart(medlinkGetsParts, 1, CARRY);
   addPart(medlinkGetsParts, 6, WORK);
@@ -118,27 +118,27 @@ function spawnCreepTypes(enAvail) {
 
   // 1100
   let southHvParts = [];
-  addPart(southHvParts, 9, CARRY);
-  addPart(southHvParts, 6, WORK);
-  addPart(southHvParts, 1, MOVE);
+  addPart(southHvParts, 1, CARRY);
+  addPart(southHvParts, 7, WORK);
+  addPart(southHvParts, 7, MOVE);
 
   // 1100
   let newhvParts = [];
-  addPart(newhvParts, 7, CARRY);
+  addPart(newhvParts, 2, CARRY);
   addPart(newhvParts, 7, WORK);
-  addPart(newhvParts, 1, MOVE);
+  addPart(newhvParts, 6, MOVE);
 
   // 1100
   let workerParts = [];
-  addPart(workerParts, 9, CARRY);
-  addPart(workerParts, 6, WORK);
-  addPart(workerParts, 1, MOVE);
+  addPart(workerParts, 1, CARRY);
+  addPart(workerParts, 9, WORK);
+  addPart(workerParts, 3, MOVE);
 
   // 1100
   let repairerParts = [];
-  addPart(repairerParts, 2, CARRY);
-  addPart(repairerParts, 5, WORK);
-  addPart(repairerParts, 10, MOVE);
+  addPart(repairerParts, 4, CARRY);
+  addPart(repairerParts, 7, WORK);
+  addPart(repairerParts, 4, MOVE);
 
   // 1100
   let linkGetsParts = [];
@@ -156,10 +156,7 @@ function spawnCreepTypes(enAvail) {
   let invaderId = Memory.invaderId;
 
   if (
-    enAvail >= 300 &&
-    (eastUpControllers.length < 1 ||
-      ermHarvesters.length < 1 ||
-      ermNeHarvesters.length < 2)
+    enAvail >= 300
   ) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "E";
@@ -202,7 +199,7 @@ function spawnCreepTypes(enAvail) {
     );
   }
 
-  if (enAvail >= 750) {
+  if (enAvail >= 800) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "NE";
     let chosenRole = "h";
@@ -212,11 +209,44 @@ function spawnCreepTypes(enAvail) {
     let sourceId = "";
     let sourceDir = "";
 
-    if (ermNeHarvesters.length < 2) {
+    if (eastWorkers.length < 2) {
+      chosenRole = "worker";
+      name = chosenRole + t;
+      eastWorkers.push(name);
+      parts = medworkerParts;
+    } 
+
+    console.log(
+      chosenRole +
+        " role birth:" +
+        birthCreep(
+          s2,
+          parts,
+          name,
+          chosenRole,
+          direction,
+          sourceId,
+          sourceDir,
+          spawnDirection
+        )
+    );
+  }
+  
+  if (enAvail >= 1100) {
+    let t = Game.time.toString().slice(4);
+    let name = "h" + t + "NE";
+    let chosenRole = "h";
+    let direction = "east";
+    let parts = mednewhvParts;
+    let spawnDirection = [TOP];
+    let sourceId = "";
+    let sourceDir = "";
+
+    if(ermNeHarvesters.length < 5) {
       ermNeHarvesters.push(name);
       parts = mednewhvParts;
       sourceDir = "north";
-    } else if (eastUpControllers.length < 1) {
+    } else if(eastUpControllers.length < 3) {
       chosenRole = "eRezzy";
       name = chosenRole + t;
       parts = medworkerParts;
@@ -226,11 +256,7 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       eastWorkers.push(name);
       parts = medworkerParts;
-    } if (ermNeHarvesters.length < 4) {
-      ermNeHarvesters.push(name);
-      parts = mednewhvParts;
-      sourceDir = "north";
-    }
+    } 
 
     console.log(
       chosenRole +

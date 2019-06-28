@@ -10,16 +10,16 @@ function moveAwayFromCreep(creep) {
     return true;
   }
   if (!move) {
-    return false;
+    return true;
   }
   path = Room.deserializePath(move.path);
 
   if (!path) {
-    return false;
+    return true;
   }
   let path0 = path[0];
   if (!path0) {
-    return false;
+    return true;
   }
   let x0 = path0.x;
   let y0 = path0.y;

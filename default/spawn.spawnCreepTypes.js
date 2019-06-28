@@ -59,35 +59,35 @@ function spawnCreepTypes(enAvail) {
 
   let attackers = Memory.attackers || [];
 
-  // 1100
+  // 1200
   let upContrParts = [];
   addPart(upContrParts, 10, CARRY);
-  addPart(upContrParts, 4, WORK);
+  addPart(upContrParts, 5, WORK);
   addPart(upContrParts, 4, MOVE);
 
   // 1200
   let southHvParts = [];
-  addPart(southHvParts, 14, CARRY);
-  addPart(southHvParts, 4, WORK);
-  addPart(southHvParts, 2, MOVE);
+  addPart(southHvParts, 1, CARRY);
+  addPart(southHvParts, 8, WORK);
+  addPart(southHvParts, 7, MOVE);
 
   // 1200
   let newhvParts = [];
-  addPart(newhvParts, 10, CARRY);
-  addPart(newhvParts, 5, WORK);
-  addPart(newhvParts, 4, MOVE);
+  addPart(newhvParts, 3, CARRY);
+  addPart(newhvParts, 7, WORK);
+  addPart(newhvParts, 7, MOVE);
 
   // 1200
   let workerParts = [];
-  addPart(workerParts, 9, CARRY);
-  addPart(workerParts, 5, WORK);
-  addPart(workerParts, 5, MOVE);
+  addPart(workerParts, 4, CARRY);
+  addPart(workerParts, 6, WORK);
+  addPart(workerParts, 8, MOVE);
 
   // 1200
   let repairerParts = [];
-  addPart(repairerParts, 12, CARRY);
-  addPart(repairerParts, 4, WORK);
-  addPart(repairerParts, 4, MOVE);
+  addPart(repairerParts, 4, CARRY);
+  addPart(repairerParts, 7, WORK);
+  addPart(repairerParts, 6, MOVE);
 
   // 300
   let linkGetsParts = [];
@@ -105,12 +105,7 @@ function spawnCreepTypes(enAvail) {
   let invaderId = Memory.invaderId;
 
   if (
-    enAvail >= 300 &&
-    (southHarvesters.length < 1 ||
-      northHarvesters.length < 2 ||
-      westHarvesters.length < 2 ||
-      eastHarvesters.length < 1 ||
-      linkGets.length < 2)
+    enAvail >= 300
   ) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t;
@@ -129,13 +124,6 @@ function spawnCreepTypes(enAvail) {
       parts = linkGetsParts;
       linkGets.push(name);
     } else if (
-      eastHarvesters.length < 1 &&
-      (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
-    ) {
-      name += "E";
-      direction = "east";
-      eastHarvesters.push(name);
-    } else if (
       northHarvesters.length < 2 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {
@@ -149,6 +137,13 @@ function spawnCreepTypes(enAvail) {
       name += "west";
       direction = "west";
       westHarvesters.push(name);
+    } else if (
+      eastHarvesters.length < 1 &&
+      (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
+    ) {
+      name += "E";
+      direction = "east";
+      eastHarvesters.push(name);
     }
 
     birthCreep(
@@ -258,10 +253,6 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole;
       direction = "west";
       parts = rezzyParts;
-    } else {
-      name += "E";
-      direction = "east";
-      eastHarvesters.push(name);
     }
 
     if (!waitForRezzy || numCrps < 10 || name.endsWith("Rezzy")) {

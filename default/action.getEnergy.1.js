@@ -12,7 +12,9 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
   }
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
-    if (creep.memory.role === "h" &&
+    if (
+      creep.memory.role === "h" &&
+      creep.room.energyAvailable > 300 &&
       creep.room.find(FIND_CONSTRUCTION_SITES, {
         filter: (site) => {
           return site.structureType === STRUCTURE_ROAD;
@@ -39,22 +41,64 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
   let rm = creep.rm;
   let lastSourceId = creep.memory.lastSourceId;
   let numCrps = Object.keys(Game.creeps).length;
-  const targetedRm = Game.rooms[sourceRmTargeted];
+  let targetedRm = Game.rooms[sourceRmTargeted];
+  let isTargetStructure = false;
 
-  target = Game.getObjectById(lastSourceId);
+  if (creep.room.name === "E35N31") {
+    console.log(creep.name + " " + targetedRm + " " + rmName);
+  }
 
-  if (targetedRm && sourceRmTargeted != rmName) {
+  if (!targetedRm) {
+    switch (sourceRmTargeted) {
+      case "E34N31":
+        targetedRm = Game.flags.west.room;
+        break;
+      case "E36N31":
+        targetedRm = Game.flags.east.room;
+        break;
+      case "E36N32":
+        targetedRm = Game.flags.neSource1.room;
+        break;
+      case "E35N32":
+        targetedRm = Game.flags.north1.room;
+        break;
+      default:
+        targetedRm = Memory.s1.room;
+        break;
+    }
+  }
+
+  // target = Game.getObjectById(lastSourceId);
+
+  if (targetedRm) {
     target =
       target ||
       targetedRm
         .find(FIND_SOURCES_ACTIVE, {
           filter: (source) => {
-            if (source.pos.findInRange(FIND_CREEPS, 2).length <= 4) {
+            if (creep.room.name === "E35N31") {
+              console.log(
+                source.pos +
+                  " " +
+                  creep.room.getPositionAt(41, 8) +
+                  " " +
+                  source.pos.isEqualTo(41, 8)
+              );
+            }
+            if (
+              source.pos.findInRange(FIND_CREEPS, 2).length <= 6 &&
+              !(
+                creep.room.name === "E35N31" &&
+                source.pos.isEqualTo(41, 8)
+              )
+            ) {
               return source;
             }
           },
         })
         .pop();
+
+    // console.log("target:" + target);
 
     creep.memory.lastSourceId = target.id;
 
@@ -77,17 +121,17 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
     target = creep.room.lookForAt(LOOK_SOURCES, creep.memory.flag);
   }
 
-  // If I don't have a target yet or the target has no energy look for a \
-  // new source
-  if (!target || target.energy <= 0) {
-    target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
-      filter: (structure) => {
-        if (structure.pos.findInRange(FIND_CREEPS, 2).length <= 4) {
-          return structure;
-        }
-      },
-    });
-  }
+  // // If I don't have a target yet or the target has no energy look for a \
+  // // new source
+  // if (!target || target.energy <= 0) {
+  //   target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
+  //     filter: (structure) => {
+  //       if (structure.pos.findInRange(FIND_CREEPS, 2).length <= 6) {
+  //         return structure;
+  //       }
+  //     },
+  //   });
+  // }
 
   // If i don't have a target yet. Check containers and storage units
   //  for energy.
@@ -98,20 +142,25 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
           (structure.structureType == STRUCTURE_CONTAINER ||
             structure.structureType == STRUCTURE_STORAGE) &&
           _.sum(structure.store) >= creep.carryCapacity &&
-          structure.pos.findInRange(FIND_CREEPS, 2).length <= 4
+          structure.pos.findInRange(FIND_CREEPS, 2).length <= 6
         ) {
           return structure;
         }
       },
     });
+    isTargetStructure = target ? true : false;
   }
 
   // If I have a target, go harvest it.
   if (target) {
+    creep.memory.lastSourceId = target.id;
     // I'm right next to the target. Harvest.
     if (creep.pos.isNearTo(target)) {
-      creep.memory.lastSourceId = target.id;
-      retval = creep.harvest(target);
+      if (isTargetStructure) {
+        retval = creep.withdraw(target, RESOURCE_ENERGY);
+      } else {
+        retval = creep.harvest(target);
+      }
       if (retval === OK) {
         creep.say("v");
       } else {

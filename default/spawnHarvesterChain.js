@@ -18,7 +18,7 @@ function spawnHarvesterChain(enAvail, rm, s1, harvesters) {
     }
     console.log("spawning harvester1:" + retval);
     harvesters.push(name);
-  } else if (harvester1 && !Game.creeps["tr1"] && enAvail >= 200) {
+  } else if (!Game.creeps["tr1"] && enAvail >= 200) {
     let name = "tr1";
     let parts = [CARRY, CARRY, CARRY, CARRY];
     let chosenRole = "transferer";
@@ -36,7 +36,7 @@ function spawnHarvesterChain(enAvail, rm, s1, harvesters) {
     }
     console.log("spawning transferer1:" + retval);
     harvesters.push(name);
-  } else if (harvester1 && !Game.creeps["tr2"] && enAvail >= 200) {
+  } else if (!Game.creeps["tr2"] && enAvail >= 200) {
     let name = "tr2";
     let parts = [CARRY, CARRY, CARRY, CARRY];
     let chosenRole = "transferer";
@@ -52,7 +52,7 @@ function spawnHarvesterChain(enAvail, rm, s1, harvesters) {
         directions: [direction]
       });
     }
-    console.log("spawning transferer1:" + retval);
+    console.log("spawning transferer2:" + retval);
     harvesters.push(name);
   }
 }

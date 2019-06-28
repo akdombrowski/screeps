@@ -11,6 +11,7 @@ function smartMove(
 ) {
     let s;
     let retVal = -16;
+    let blockage;
     ignoreCreeps = ignoreCreeps;
     pathColor = pathColor || "#ffffff";
     pathMem = pathMem || 2000;
@@ -22,7 +23,7 @@ function smartMove(
     }
 
     if (
-        moveAwayFromCreep(creep) ||
+        blockage ||
         !ignoreCreeps //||
     ) {
         ignoreCreeps = false;
@@ -38,6 +39,7 @@ function smartMove(
         noPathFinding: true,
         visualizePathStyle: { stroke: pathColor }
     });
+    
     if (retval === ERR_INVALID_TARGET|| retval === ERR_NOT_FOUND) {
       retval = creep.moveTo(dest, {
         reusePath: pathMem,

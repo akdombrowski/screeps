@@ -1,6 +1,7 @@
 const smartMove = require("./action.smartMove");
 function droppedDuty(creep) {
   let retval = -16;
+  let name = creep.name;
   let droppedTarget = Game.getObjectById(creep.memory.droppedTargetId);
   let droppedPickerUpper = Memory.droppedPickerUpperName;
   let tombstoneHunter = Memory.tombstoneHunterName;

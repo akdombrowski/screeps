@@ -1,6 +1,6 @@
 const smartMove = require("./action.smartMove");
-const getEnergyEast = require("./action.getEnergyEast");
-const ermgetEnergyEast = require("./action.erm.getEnergyEast");
+const getEnergyEast = require("./action.getEnergy.1");
+const ermgetEnergyEast = require("./action.getEnergy.1");
 
 function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
   /** creep controller reserve**/
@@ -59,6 +59,8 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
       }
     }
   } else if (creep.room.name === "E36N32") {
+    getEnergyEast(creep);
+  } else {
     getEnergyEast(creep);
   }
 }

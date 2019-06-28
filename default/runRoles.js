@@ -76,7 +76,7 @@ function runRoles() {
         "northEntrance1",
         "5bbcaefa9099fc012e639e8b"
       );
-    } else if (roll == "eastRezzy") {
+    } else if (roll == "eRezzy") {
       eastUpControllers.push(name);
 
       claimContr(

@@ -132,7 +132,7 @@ function spawnCreepTypes(enAvail) {
       eastHarvesters.length < 1 &&
       (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
     ) {
-      name += "east";
+      name += "E";
       direction = "east";
       eastHarvesters.push(name);
     } else if (

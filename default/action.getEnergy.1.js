@@ -12,7 +12,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
   }
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
-    if (
+    if (creep.memory.role === "h" &&
       creep.room.find(FIND_CONSTRUCTION_SITES, {
         filter: (site) => {
           return site.structureType === STRUCTURE_ROAD;
@@ -44,9 +44,8 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
   target = Game.getObjectById(lastSourceId);
 
   if (targetedRm && sourceRmTargeted != rmName) {
-    
     target =
-     target ||
+      target ||
       targetedRm
         .find(FIND_SOURCES_ACTIVE, {
           filter: (source) => {
@@ -59,7 +58,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
 
     creep.memory.lastSourceId = target.id;
 
-    retval = smartMove(creep, target, 10, true, "#FFA11A", 2000, 2000);
+    retval = smartMove(creep, target, 5, true, "#00A11A", 2000, 2000);
     return retval;
   }
 
@@ -123,8 +122,10 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
       creep.say("f." + creep.fatigue);
       return;
     } else if (path) {
-      // There's already a found path I can take
-      retval = creep.moveByPath(path);
+      // There's already a found path I can taked
+      if (creep.pos.isNearTo(creep.room.getPositionAt(path[0].x, path[0].y))) {
+        retval = creep.moveByPath(path);
+      }
       if (retval === OK) {
         creep.say("m." + target.pos.x + "," + target.pos.y);
       } else {

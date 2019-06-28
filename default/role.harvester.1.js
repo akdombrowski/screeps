@@ -43,8 +43,7 @@ const roleHarvester = {
           });
           if (found) {
             ermgetEnergyEast(creep, "E36N31");
-          }
-          if (foundNe) {
+          } else if (foundNe) {
             // console.log("erm");
             ermgetEnergyEast(creep, "E36N32");
           } else {

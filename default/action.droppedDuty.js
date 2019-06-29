@@ -2,6 +2,7 @@ const smartMove = require("./action.smartMove");
 function droppedDuty(creep) {
   let retval = -16;
   let name = creep.name;
+  let cRm = creep.room;
   let droppedTarget = Game.getObjectById(creep.memory.droppedTargetId);
   let droppedPickerUpper = Memory.droppedPickerUpperName;
   let tombstoneHunter = Memory.tombstoneHunterName;
@@ -14,7 +15,8 @@ function droppedDuty(creep) {
         if (
           source.resourceType === RESOURCE_ENERGY &&
           source.pos.x < 41 &&
-          source.pos.y > 8
+          source.pos.y > 8 &&
+          source.room === cRm
         ) {
           return source;
         }

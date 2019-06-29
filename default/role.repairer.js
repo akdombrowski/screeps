@@ -73,7 +73,6 @@ var roleRepairer = {
             }
           },
         });
-        console.log("repairer:" + creep.name + " " + target);
       }
 
       if (target) {

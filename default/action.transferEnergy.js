@@ -4,16 +4,15 @@ const traneRm = require("./action.transferEnergyeRm");
 
 function tran(creep, flag, dest) {
   let target;
-  let tower = Game.getObjectById(Memory.tower1Id);
+  let rm = creep.room;
+  let name = creep.name;
+  let direction = creep.memory.direction;
+  let sourceDir = creep.memory.sourceDir;
+  let tower1 = Game.getObjectById(Memory.tower1Id);
   let tower2 = Game.getObjectById(Memory.tower2Id);
   let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
-  let towers = [tower, tower2, ermtower1];
-  let enAvail;
-  if (creep.memory.direction === "east") {
-    enAvail = Memory.s2.energyAvailable;
-  } else {
-    enAvail = Memory.s1.energyAvailable;
-  }
+  let towers = [tower1, tower2, ermtower1];
+  let enAvail = rm.energyAvailable;
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {
     if (creep.room.name === "E35N32") {
@@ -54,8 +53,7 @@ function tran(creep, flag, dest) {
   if (
     target &&
     target.structureType === STRUCTURE_TOWER &&
-    Memory.s1.room.energyAvailable <= 300 &&
-    (creep.memory.direction === "south" || enAvail < 1200)
+    rm.energyAvailable <= 300
   ) {
     target = null;
   }

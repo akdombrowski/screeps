@@ -170,42 +170,19 @@ module.exports.loop = function() {
       }
     }
 
-    spawnHarvesterChain(enAvail, rm, s1, harvesters);
+    if(spawnHarvesterChain(enAvail, rm, s1, harvesters) != OK) {
+    
+      spawnCreepTypes(
+        enAvail
+      );
+    }
 
     spawnToSource1Chain();
+
     spawnCreepTypeseRm(
-      enAvaileRm,
-      southHarvesters,
-      workers,
-      upControllers,
-      eastHarvesters,
-      eAttackDurationSafeCheck,
-      northHarvesters,
-      nAttackDurationSafeCheck,
-      westHarvesters,
-      wAttackDurationSafeCheck,
-      roadRepairers,
-      numCrps,
-      s2,
-      harvesters
+      enAvaileRm
     );
 
-    spawnCreepTypes(
-      enAvail,
-      southHarvesters,
-      workers,
-      upControllers,
-      eastHarvesters,
-      eAttackDurationSafeCheck,
-      northHarvesters,
-      nAttackDurationSafeCheck,
-      westHarvesters,
-      wAttackDurationSafeCheck,
-      roadRepairers,
-      numCrps,
-      s1,
-      harvesters
-    );
 
     crps = Game.creeps;
     numCrps = Object.keys(crps).length;
@@ -251,4 +228,3 @@ module.exports.loop = function() {
     Game.profiler.email(profilerDur);
   };
 };
-module.exports.spawnCreepTypes = spawnCreepTypes;

@@ -6,6 +6,10 @@ const smartMove = require("./action.smartMove");
 const buildRoad = require("./action.buildRoad");
 
 function vest(creep, sourceRmTargeted, taskRm, flag, path) {
+  let tower = Game.getObjectById(Memory.tower1Id);
+  let tower2 = Game.getObjectById(Memory.tower2Id);
+  let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
+  let towers = [tower, tower2];
   if (creep.memory.buildroad && _.sum(creep.carry) > 0) {
     buildRoad(creep);
     return;
@@ -14,12 +18,18 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     if (
       creep.memory.role === "h" &&
-      Memory.s1.room.energyAvailable > 300 &&
+      Memory.s1.room.energyAvailable > 1200 &&
       creep.room.find(FIND_CONSTRUCTION_SITES, {
         filter: (site) => {
           return site.structureType === STRUCTURE_ROAD;
         },
-      })
+      }) &&
+      (_.forEach(towers, (tor) => {
+        if (tor) {
+          return tor.energy >= tor.energyCapacity;
+        }
+      }).pop() &&
+        creep.room.name === "E35N31")
     ) {
       buildRoad(creep);
       creep.memory.buildroad = true;
@@ -106,10 +116,10 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
   // See if there's a particular target from a previous trip
   // or one that's been specified.
   if (flag) {
-    target = creep.room.lookForAt(LOOK_SOURCES, flag);
+    target = creep.room.lookForAt(LOOK_SOURCES, flag).pop();
     creep.say("flag");
   } else if (creep.memory.flag) {
-    target = creep.room.lookForAt(LOOK_SOURCES, creep.memory.flag);
+    target = creep.room.lookForAt(LOOK_SOURCES, creep.memory.flag).pop();
   }
 
   // // If I don't have a target yet or the target has no energy look for a \

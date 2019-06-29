@@ -44,11 +44,15 @@ function runRoles() {
       if (creep.memory.direction == "north") {
         northHarvesters.push(name);
       } else if (creep.memory.direction == "east") {
-        if (creep.memory.sourceDir === "north") {
+        if (creep.memory.sourceDir === "north1") {
           ermNeHarvesters.push(name);
-        } else if (creep.memory.sourceDir === "east") {
+        } else if (creep.memory.sourceDir === "north2") {
+          ermNeHarvesters.push(name);
+        } else if (creep.memory.sourceDir === "east1") {
           ermHarvesters.push(name);
-        } 
+        } else if (creep.memory.sourceDir === "east2") {
+          ermHarvesters.push(name);
+        }
         eastHarvesters.push(name);
       } else if (creep.memory.direction == "west") {
         westHarvesters.push(name);
@@ -170,6 +174,10 @@ function runRoles() {
           Game.spawns.Spawn1.recycleCreep(creep);
         }
       }
+    } else if (roll == "hChain") {
+    } else if (roll == "transferer") {
+    } else {
+      creep.memory.role = "h";
     }
   }
 

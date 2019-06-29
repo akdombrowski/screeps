@@ -27,22 +27,22 @@ function spawnToSource1Chain() {
   let stor1 = Game.getObjectById(Memory.store1);
   let linkEntrance = Game.getObjectById(Memory.linkEntranceId);
 
-  try {
-    if (!hv) {
-      // console.log("hv");
-      return;
-    } else if (!tr1) {
-      // console.log("tr1");
-      return;
-    } else if (!tr2) {
-      // console.log("tr2");
-      supplyChainRetVal = supplyChain([tr1.name], hv.name, source1, s1);
-      return;
-    }
-  } catch (e) {
-    console.log(e.message);
-    return;
-  }
+  // try {
+  //   if (!hv) {
+  //     // console.log("hv");
+  //     return;
+  //   } else if (!tr1) {
+  //     // console.log("tr1");
+  //     return;
+  //   } else if (!tr2 && hv.pos.isNearTo(source1)) {
+  //     // console.log("tr2");
+  //     supplyChainRetVal = supplyChain([tr1.name], hv.name, source1, s1);
+  //     // return;
+  //   }
+  // } catch (e) {
+  //   console.log(e.message);
+  //   return;
+  // }
 
   needMover = !hv.pos.isNearTo(source1);
   needMover = needMover || !tr1.pos.isNearTo(tr2) || !tr1.pos.isNearTo(hv);
@@ -75,7 +75,7 @@ function spawnToSource1Chain() {
     }
   } else if (needMover) {
     // we have a mover, let's check if everyone is in the right spot
-    if (!hv.pos.isNearTo(source1)) {
+    if (hv && !hv.pos.isNearTo(source1)) {
       console.log("hv isn't in place.");
       // we need to pull hv into place next to the source to harvest
       if (!mv.pos.isNearTo(hv)) {
@@ -119,7 +119,7 @@ function spawnToSource1Chain() {
           }
         }
       }
-    } else if (!tr1.pos.isNearTo(hv) || tr1.pos.x <= hv.pos.x) {
+    } else if (tr1 && (!tr1.pos.isNearTo(hv) || tr1.pos.x <= hv.pos.x)) {
       console.log("Need to pull tr1 into place next to hv.");
       if (!mv.pos.isNearTo(tr1)) {
         console.log("moving to tow position:" + smartMove(mv, tr1, 1));
@@ -153,7 +153,7 @@ function spawnToSource1Chain() {
           );
         }
       }
-    } else if (!tr2.pos.isNearTo(tr1) || !tr2.pos.isNearTo(s1)) {
+    } else if (tr2 && (!tr2.pos.isNearTo(tr1) || !tr2.pos.isNearTo(s1))) {
       console.log("need to move tr1 or tr2");
       if (!mv.pos.isNearTo(tr2)) {
         console.log("Mover not next to tr2. Moving," + smartMove(mv, tr2, 1));

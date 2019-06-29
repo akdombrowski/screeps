@@ -41,14 +41,22 @@ const roleHarvester = {
           let foundNe = ermNeHarvesters.find((n) => {
             return n === creep.name;
           });
-          if (found) {
-            ermgetEnergyEast(creep, "E36N32"); // yes i want e36n32
-          } else if (foundNe) {
-            // console.log("erm");
-            ermgetEnergyEast(creep, "E36N32");
+          if (creep.name[1] % 2 === 0) {
+            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource1); // yes i
           } else {
-            getEnergyEast(creep, "E36N32");
+            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource2); // yes
           }
+          // if ((creep.memory.sourceDir = "east1")) {
+          //   // ermgetEnergyEast(creep, "E36N32", Game.flags.neSource1); // yes i want e36n32
+          // } else if ((creep.memory.sourceDir = "east2")){
+          //   ermgetEnergyEast(creep, "E36N32", Game.flags.neSource2); // yes i
+          // } else if ((creep.memory.sourceDir = "north1")){
+          //   ermgetEnergyEast(creep, "E36N32", Game.flags.neSource1); // yes i
+          // } else if ((creep.memory.sourceDir = "north2")){
+          //   ermgetEnergyEast(creep, "E36N32", Game.flags.neSource2); // yes i
+          // } else {
+          //   ermgetEnergyEast(creep, "E36N32"); // yes i
+          // }
         } else {
           Memory.eastAttackerId = creep.room.find(FIND_HOSTILE_CREEPS).pop()
             ? Memory.eastAttackerId

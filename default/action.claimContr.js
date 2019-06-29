@@ -28,12 +28,13 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
         creep.say(rm);
       }
     } else {
+      console.log(exitDirection);
       creep.move(exitDirection);
       creep.say(exitDirection);
     }
   } else if (creep.room.name === rm) {
     if (_.sum(creep.carry) <= 0 || creep.memory.getEnergy) {
-      ermgetEnergyEast(creep);
+      ermgetEnergyEast(creep, "E36N31");
     } else {
       let contr = Game.getObjectById(controller);
       if (creep.pos.inRangeTo(contr, 3)) {
@@ -59,9 +60,9 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
       }
     }
   } else if (creep.room.name === "E36N32") {
-    getEnergyEast(creep);
+    getEnergyEast(creep, "E36N31");
   } else {
-    getEnergyEast(creep);
+    getEnergyEast(creep, "E36N31");
   }
 }
 

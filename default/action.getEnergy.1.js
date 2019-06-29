@@ -14,7 +14,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     if (
       creep.memory.role === "h" &&
-      creep.room.energyAvailable > 300 &&
+      Memory.s1.room.energyAvailable > 300 &&
       creep.room.find(FIND_CONSTRUCTION_SITES, {
         filter: (site) => {
           return site.structureType === STRUCTURE_ROAD;
@@ -44,31 +44,33 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
   let targetedRm = Game.rooms[sourceRmTargeted];
   let isTargetStructure = false;
 
-  if (creep.room.name === "E35N31") {
-    console.log(creep.name + " " + targetedRm + " " + rmName);
-  }
-
   if (!targetedRm) {
     switch (sourceRmTargeted) {
       case "E34N31":
+        target = creep.room.name != sourceRmTargeted ? Game.flags.west : null;
         targetedRm = Game.flags.west.room;
         break;
       case "E36N31":
+        target = creep.room.name != sourceRmTargeted ? Game.flags.east : null;
         targetedRm = Game.flags.east.room;
         break;
       case "E36N32":
+        target =
+          creep.room.name != sourceRmTargeted ? Game.flags.neSource1 : null;
         targetedRm = Game.flags.neSource1.room;
         break;
       case "E35N32":
+        target = creep.room.name != sourceRmTargeted ? Game.flags.north1 : null;
         targetedRm = Game.flags.north1.room;
         break;
       default:
+        target = creep.room.name != sourceRmTargeted ? Memory.s1 : null;
         targetedRm = Memory.s1.room;
         break;
     }
   }
 
-  // target = Game.getObjectById(lastSourceId);
+  target = target || Game.getObjectById(lastSourceId);
 
   if (targetedRm) {
     target =
@@ -76,21 +78,8 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
       targetedRm
         .find(FIND_SOURCES_ACTIVE, {
           filter: (source) => {
-            if (creep.room.name === "E35N31") {
-              console.log(
-                source.pos +
-                  " " +
-                  creep.room.getPositionAt(41, 8) +
-                  " " +
-                  source.pos.isEqualTo(41, 8)
-              );
-            }
             if (
-              source.pos.findInRange(FIND_CREEPS, 2).length <= 6 &&
-              !(
-                creep.room.name === "E35N31" &&
-                source.pos.isEqualTo(41, 8)
-              )
+              !(creep.room.name === "E35N31" && source.pos.isEqualTo(41, 8))
             ) {
               return source;
             }
@@ -98,17 +87,19 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
         })
         .pop();
 
-    // console.log("target:" + target);
-
-    creep.memory.lastSourceId = target.id;
-
-    retval = smartMove(creep, target, 5, true, "#00A11A", 2000, 2000);
-    return retval;
+    if (target) {
+      creep.memory.lastSourceId = target.id;
+      if (!creep.pos.isNearTo(target)) {
+        retval = smartMove(creep, target, 1, true, "#00A11A", 2000, 1000);
+        return retval;
+      }
+    }
   }
 
   // Do I need to pick up some dropped energy somewhere?
   retval = droppedDuty(creep);
   if (retval === OK) {
+    console.log("droppedDuty");
     return retval;
   }
 
@@ -141,8 +132,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
         if (
           (structure.structureType == STRUCTURE_CONTAINER ||
             structure.structureType == STRUCTURE_STORAGE) &&
-          _.sum(structure.store) >= creep.carryCapacity &&
-          structure.pos.findInRange(FIND_CREEPS, 2).length <= 6
+          _.sum(structure.store) >= creep.carryCapacity
         ) {
           return structure;
         }
@@ -154,10 +144,17 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
   // If I have a target, go harvest it.
   if (target) {
     creep.memory.lastSourceId = target.id;
+    if (target.structureType) {
+      isTargetStructure = true;
+    }
     // I'm right next to the target. Harvest.
     if (creep.pos.isNearTo(target)) {
       if (isTargetStructure) {
         retval = creep.withdraw(target, RESOURCE_ENERGY);
+        if (retval != OK) {
+          creep.say("w." + retval);
+          creep.memory.lastSourceId = null;
+        }
       } else {
         retval = creep.harvest(target);
       }
@@ -165,22 +162,25 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
         creep.say("v");
       } else {
         creep.say("v." + retval);
+        creep.memory.lastSourceId = null;
       }
     } else if (creep.fatigue > 0) {
       // Still tired
       creep.say("f." + creep.fatigue);
       return;
-    } else if (path) {
-      // There's already a found path I can taked
-      if (creep.pos.isNearTo(creep.room.getPositionAt(path[0].x, path[0].y))) {
-        retval = creep.moveByPath(path);
-      }
-      if (retval === OK) {
-        creep.say("m." + target.pos.x + "," + target.pos.y);
-      } else {
-        creep.say("mp." + retval);
-      }
-    } else {
+    }
+    // else if (path) {
+    //   // There's already a found path I can taked
+    //   if (creep.pos.isNearTo(creep.room.getPositionAt(path[0].x, path[0].y))) {
+    //     retval = creep.moveByPath(path);
+    //   }
+    //   if (retval === OK) {
+    //     creep.say("m." + target.pos.x + "," + target.pos.y);
+    //   } else {
+    //     creep.say("mp." + retval);
+    //   }
+    // }
+    else {
       retval = smartMove(creep, target, 1, true, "#FF32F1", 2000, 1000);
       creep.say("m." + target.pos.x + "," + target.pos.y);
     }

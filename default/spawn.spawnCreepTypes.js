@@ -268,7 +268,7 @@ function spawnCreepTypes(enAvail) {
     } else {
       console.log("wait for rezzy");
     }
-  } else spawnBackupCreeps(harvesters, enAvail, basicHv);
+  }
 
   Memory.harvesters = harvesters;
   Memory.workers = workers;

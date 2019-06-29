@@ -21,7 +21,7 @@ function tran(creep, flag, dest) {
       creep.say("northEntrance");
       return;
     } else if (creep.room.name === "E36N31") {
-      traneRm;
+      traneRm(creep);
     } else if (creep.room.name === "E34N31") {
       if (
         creep.pos.isEqualTo(Game.flags.westEntrance1.pos) ||
@@ -45,28 +45,30 @@ function tran(creep, flag, dest) {
     target = null;
   }
 
-  if (target && target.structureType === STRUCTURE_TOWER) {
+  if (
+    target &&
+    target.structureType === STRUCTURE_TOWER &&
+    Memory.s1.room.energyAvailable <= 300
+  ) {
     target = null;
   }
-  
-  if(creep.memory.direction === "south" || creep.memory.direction === "east") {
-      
-  _.forEach(towers, tor => {
-    if (tor) {
-      if (
-        (tor.energy < tor.energyCapacity - 250 &&
-          Object.keys(Game.creeps).length > 10) ||
-        tor.energy <= 50
-      ) {
-        target = tor;
-      }
-    }
-  });
 
+  if ((creep.memory.direction === "south" || creep.memory.direction === "east")&& Memory.s1.room.energyAvailable > 300) {
+    _.forEach(towers, (tor) => {
+      if (tor) {
+        if (
+          (tor.energy < tor.energyCapacity - 250 &&
+            Object.keys(Game.creeps).length > 10) ||
+          tor.energy <= 50
+        ) {
+          target = tor;
+        }
+      }
+    });
   }
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: structure => {
+      filter: (structure) => {
         let type = structure.structureType;
         if (
           (type === STRUCTURE_EXTENSION || type === STRUCTURE_SPAWN) &&
@@ -75,20 +77,20 @@ function tran(creep, flag, dest) {
           extensionNeedsEnergy = true;
           return true;
         }
-      }
+      },
     });
   }
 
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: structure => {
+      filter: (structure) => {
         if (
           structure.structureType == STRUCTURE_STORAGE ||
           structure.structureType == STRUCTURE_CONTAINER
         ) {
           return _.sum(structure.store) < structure.storeCapacity;
         }
-      }
+      },
     });
   }
 

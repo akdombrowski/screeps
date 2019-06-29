@@ -12,7 +12,12 @@ function moveAwayFromCreep(creep) {
   if (!move) {
     return true;
   }
-  path = Room.deserializePath(move.path);
+  
+  try {
+    path = Room.deserializePath(move.path);
+  } catch(e) {
+    // 
+  }
 
   if (!path) {
     return true;

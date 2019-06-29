@@ -6,6 +6,7 @@ var roleRepairer = {
   /** @param {Creep} creep **/
   run: function(creep) {
     let repair = creep.memory.repair;
+    let retval = -16;
 
     if (!repair && creep.carry.energy == creep.carryCapacity) {
       creep.memory.repair = true;
@@ -104,6 +105,7 @@ var roleRepairer = {
         getEnergy(creep);
       } else {
         build(creep);
+        creep.say("r.b");
         console.log(creep.name + ":repair target is null");
       }
     }

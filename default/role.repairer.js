@@ -1,6 +1,7 @@
 const getEnergy = require("./action.getEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
+const build = require("./action.build");
 var roleRepairer = {
   /** @param {Creep} creep **/
   run: function(creep) {
@@ -102,7 +103,7 @@ var roleRepairer = {
         creep.memory.getEnergy = true;
         getEnergy(creep);
       } else {
-        creep.memory.role = "w";
+        build(creep);
         console.log(creep.name + ":repair target is null");
       }
     }

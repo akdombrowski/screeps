@@ -27,22 +27,27 @@ function spawnToSource1Chain() {
   let stor1 = Game.getObjectById(Memory.store1);
   let linkEntrance = Game.getObjectById(Memory.linkEntranceId);
 
-  // try {
-  //   if (!hv) {
-  //     // console.log("hv");
-  //     return;
-  //   } else if (!tr1) {
-  //     // console.log("tr1");
-  //     return;
-  //   } else if (!tr2 && hv.pos.isNearTo(source1)) {
-  //     // console.log("tr2");
-  //     supplyChainRetVal = supplyChain([tr1.name], hv.name, source1, s1);
-  //     // return;
-  //   }
-  // } catch (e) {
-  //   console.log(e.message);
-  //   return;
-  // }
+  try {
+    if (!hv) {
+      // console.log("hv");
+
+      return;
+    } else if (!tr1 && hv.pos.isNearTo(source1)) {
+      hv.harvest(source1);
+      // console.log("tr1");
+      return;
+    } else if (!tr2 && hv.pos.isNearTo(source1)) {
+      // console.log("tr2");
+      hv.harvest(source1);
+      if (tr1) {
+        supplyChainRetVal = supplyChain([tr1.name], hv.name, source1, s1);
+      }
+      return;
+    }
+  } catch (e) {
+    console.log(e.message);
+    return;
+  }
 
   needMover = !hv.pos.isNearTo(source1);
   needMover = needMover || !tr1.pos.isNearTo(tr2) || !tr1.pos.isNearTo(hv);
@@ -157,7 +162,7 @@ function spawnToSource1Chain() {
       console.log("need to move tr1 or tr2");
       if (!mv.pos.isNearTo(tr2)) {
         console.log("Mover not next to tr2. Moving," + smartMove(mv, tr2, 1));
-      } else if ((mv.pos.x != 45 && mv.pos.y != 5) ||(tr2.pos.x <= tr1.pos.x)) {
+      } else if ((mv.pos.x != 45 && mv.pos.y != 5) || tr2.pos.x <= tr1.pos.x) {
         console.log(
           "pulling tr2 reset spot . " +
             chainMove(

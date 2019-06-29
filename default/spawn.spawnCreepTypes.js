@@ -205,7 +205,7 @@ function spawnCreepTypes(enAvail) {
     let spawnDirection = [BOTTOM_RIGHT];
     let birth = false;
 
-    if (southHarvesters.length < 1) {
+    if (southHarvesters.length < 2) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;

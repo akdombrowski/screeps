@@ -55,7 +55,7 @@ function tran(creep, flag, dest) {
     target &&
     target.structureType === STRUCTURE_TOWER &&
     Memory.s1.room.energyAvailable <= 300 &&
-    (creep.memory.direction === "south" || enAvail > 1200)
+    (creep.memory.direction === "south" || enAvail < 1200)
   ) {
     target = null;
   }
@@ -69,7 +69,7 @@ function tran(creep, flag, dest) {
         if (
           (tor.energy < tor.energyCapacity - 250 &&
             Object.keys(Game.creeps).length > 10) ||
-          tor.energy <= 50
+          tor.energy <= 300
         ) {
           target = tor;
         }

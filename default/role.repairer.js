@@ -1,4 +1,4 @@
-const getEnergy = require("./action.getEnergy");
+const getEnergy = require("./action.getEnergy.1");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const build = require("./action.build");
@@ -8,14 +8,18 @@ var roleRepairer = {
     let repair = creep.memory.repair;
     let retval = -16;
 
-    if (!repair && creep.carry.energy == creep.carryCapacity) {
+    if (!repair && creep.carry.energy >= creep.carryCapacity) {
       creep.memory.repair = true;
       creep.memory.getEnergy = false;
       creep.say("r");
-    } else if (!repair) {
+    } else if (!repair || creep.memory.getEnergy) {
       creep.say("h");
       creep.memory.getEnergy = true;
-      getEnergy(creep);
+      if (creep.memory.direction === "east") {
+        getEnergy(creep, "E36N31");
+      } else {
+        getEnergy(creep, "E35N31");
+      }
       return;
     }
 

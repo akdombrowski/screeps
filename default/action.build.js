@@ -9,6 +9,7 @@ function build(creep) {
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     building = true;
     creep.memory.building = building;
+  } else if (_.sum(creep.carry) <= 0) {
   }
 
   if (building && _.sum(creep.carry) > 0) {
@@ -19,9 +20,9 @@ function build(creep) {
         creep.room.lookAt(target).progressTotal
     ) {
       target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
-        filter: constructionSite => {
+        filter: (constructionSite) => {
           return constructionSite.progress < constructionSite.progressTotal;
-        }
+        },
       });
       targetId = target ? target.id : null;
     }

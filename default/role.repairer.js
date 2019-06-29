@@ -12,8 +12,9 @@ var roleRepairer = {
       creep.memory.repair = true;
       creep.memory.getEnergy = false;
       creep.say("r");
-    } else if (!repair || creep.memory.getEnergy) {
+    } else if (!repair || creep.memory.getEnergy || _.sum(creep.carry) <= 0) {
       creep.say("h");
+      creep.memory.repair = false;
       creep.memory.getEnergy = true;
       if (creep.memory.direction === "east") {
         getEnergy(creep, "E36N31");
@@ -27,12 +28,13 @@ var roleRepairer = {
       let struct;
       let target;
       let targetObj;
+      let targetType = creep.memory.targetType;
       if (creep.memory.r) {
         target = Game.getObjectById(creep.memory.r);
         targetObj = Game.getObjectById(target);
       }
 
-      if (target === STRUCTURE_RAMPART) {
+      if (targetType === STRUCTURE_RAMPART) {
         target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
           filter: (structure) => {
             if (structure.structureType == STRUCTURE_RAMPART) {
@@ -40,7 +42,7 @@ var roleRepairer = {
             }
           },
         });
-      } else if (target === STRUCTURE_ROAD) {
+      } else if (targetType === STRUCTURE_ROAD) {
         target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
           filter: (structure) => {
             if (structure.structureType == STRUCTURE_ROAD) {
@@ -54,14 +56,10 @@ var roleRepairer = {
         target = null;
       }
 
-      if (!target || target.hits >= target.hitsMax) {
-        let t;
+      if (!target) {
         target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
           filter: (structure) => {
-            if (
-              !structure.progress ||
-              structure.progress >= structure.progressTotal
-            ) {
+            if (!structure.hits || structure.hits >= structure.hitsMax) {
               return false;
             }
 
@@ -71,11 +69,11 @@ var roleRepairer = {
               structure.structureType === STRUCTURE_ROAD ||
               structure.structureType === STRUCTURE_CONTAINER
             ) {
-              t = structure;
+              target = structure;
             }
           },
         });
-        target = !target ? t : target;
+        console.log("repairer:" + creep.name + " " + target);
       }
 
       if (target) {

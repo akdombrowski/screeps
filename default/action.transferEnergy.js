@@ -8,6 +8,12 @@ function tran(creep, flag, dest) {
   let tower2 = Game.getObjectById(Memory.tower2Id);
   let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
   let towers = [tower, tower2, ermtower1];
+  let enAvail;
+  if (creep.memory.direction === "east") {
+    enAvail = Memory.s2.energyAvailable;
+  } else {
+    enAvail = Memory.s1.energyAvailable;
+  }
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {
     if (creep.room.name === "E35N32") {
@@ -49,14 +55,14 @@ function tran(creep, flag, dest) {
     target &&
     target.structureType === STRUCTURE_TOWER &&
     Memory.s1.room.energyAvailable <= 300 &&
-    creep.memory.direction === "south"
+    (creep.memory.direction === "south" || enAvail > 1200)
   ) {
     target = null;
   }
 
   if (
     (creep.memory.direction === "south" || creep.memory.direction === "east") &&
-    Memory.s1.room.energyAvailable > 300
+    enAvail > 300
   ) {
     _.forEach(towers, (tor) => {
       if (tor) {

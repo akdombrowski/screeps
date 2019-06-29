@@ -176,6 +176,7 @@ function runRoles() {
       }
     } else if (roll == "hChain") {
     } else if (roll == "transferer") {
+    }  else if (roll == "mover") {
     } else {
       creep.memory.role = "h";
     }

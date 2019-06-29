@@ -48,12 +48,16 @@ function tran(creep, flag, dest) {
   if (
     target &&
     target.structureType === STRUCTURE_TOWER &&
-    Memory.s1.room.energyAvailable <= 300
+    Memory.s1.room.energyAvailable <= 300 &&
+    creep.memory.direction === "south"
   ) {
     target = null;
   }
 
-  if ((creep.memory.direction === "south" || creep.memory.direction === "east")&& Memory.s1.room.energyAvailable > 300) {
+  if (
+    (creep.memory.direction === "south" || creep.memory.direction === "east") &&
+    Memory.s1.room.energyAvailable > 300
+  ) {
     _.forEach(towers, (tor) => {
       if (tor) {
         if (

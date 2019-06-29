@@ -10,10 +10,6 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
   let tower2 = Game.getObjectById(Memory.tower2Id);
   let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
   let towers = [tower, tower2];
-  if (creep.memory.buildroad && _.sum(creep.carry) > 0) {
-    buildRoad(creep);
-    return;
-  }
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     if (
@@ -31,6 +27,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
       }).pop() &&
         creep.room.name === "E35N31")
     ) {
+      console.log("build");
       buildRoad(creep);
       creep.memory.buildroad = true;
       creep.memory.getEnergy = true;

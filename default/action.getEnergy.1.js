@@ -106,7 +106,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
   // Do I need to pick up some dropped energy somewhere?
   retval = droppedDuty(creep);
   if (retval === OK) {
-    console.log("droppedDuty");
+    console.log(name + "droppedDuty");
     return retval;
   }
 

@@ -28,6 +28,9 @@ function runRoles() {
   let eastWorkers = [];
   let ermNeHarvesters = [];
   let ermHarvesters = [];
+  Memory.nesource1Creeps = [];
+  Memory.nesource2Creeps = [];
+
 
   for (let name in crps) {
     let creep = crps[name];
@@ -52,6 +55,12 @@ function runRoles() {
           ermHarvesters.push(name);
         } else if (creep.memory.sourceDir === "east2") {
           ermHarvesters.push(name);
+        }
+
+        if(creep.memory.nesourceNumber === 1) {
+          Memory.nesource1Creeps.push(name);
+        } else if (creep.memory.nesourceNumber === 2) {
+          Memory.nesource2Creeps.push(name);
         }
         eastHarvesters.push(name);
       } else if (creep.memory.direction == "west") {

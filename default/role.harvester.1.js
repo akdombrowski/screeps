@@ -14,6 +14,7 @@ const roleHarvester = {
   run: function(creep) {
     let ermHarvesters = Memory.ermHarvesters;
     let ermNeHarvesters = Memory.ermNeHarvesters;
+    let name = creep.name;
 
     if (creep.memory.getEnergy || creep.carry.energy <= 0) {
       creep.memory.getEnergy = true;
@@ -34,17 +35,29 @@ const roleHarvester = {
         if (
           !Memory.eastAttackerId ||
           Game.time >= Memory.eAttackDurationSafeCheck
-        ) {
+        ) {ener
           let found = ermHarvesters.find(function(element) {
             return element === creep.name;
           });
           let foundNe = ermNeHarvesters.find((n) => {
             return n === creep.name;
           });
-          if (creep.name[1] % 2 === 0) {
-            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource1); // yes i
+          let nesource1Creeps = Memory.nesource1Creeps || [];
+          let nesource2Creeps = Memory.nesource2Creeps || [];
+          if(creep.memory.nesourceNumber) {
+            ermgetEnergyEast(creep, "E36N32", "E36N31", creep.memory.nesourceNumber);
+          } else if (nesource1Creeps.length < nesource2Creeps.length) {
+            // go to energy source 1
+            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource1); 
+            creep.memory.nesourceNumber = 1;
           } else {
-            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource2); // yes
+            // go to energy source 2
+            creep.memory.nesourceNumber = 2;
+            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource2); 
+          }
+      
+          if (creep.name[3] % 2 === 0) {
+          } else {
           }
           // if ((creep.memory.sourceDir = "east1")) {
           //   // ermgetEnergyEast(creep, "E36N32", Game.flags.neSource1); // yes i want e36n32

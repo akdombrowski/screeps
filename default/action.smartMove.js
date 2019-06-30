@@ -39,10 +39,6 @@ function smartMove(
     path = null;
   }
 
-
-  if(name === "h077E") {
-    console.log(name + " dest:   " + dest);
-  }
   let destPos = dest;
   if (dest.pos) {
     destPos = dest.pos;

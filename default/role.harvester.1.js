@@ -35,7 +35,7 @@ const roleHarvester = {
         if (
           !Memory.eastAttackerId ||
           Game.time >= Memory.eAttackDurationSafeCheck
-        ) {ener
+        ) {
           let found = ermHarvesters.find(function(element) {
             return element === creep.name;
           });

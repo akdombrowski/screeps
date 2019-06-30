@@ -44,8 +44,10 @@ const roleHarvester = {
           });
           let nesource1Creeps = Memory.nesource1Creeps || [];
           let nesource2Creeps = Memory.nesource2Creeps || [];
-          if(creep.memory.nesourceNumber) {
-            ermgetEnergyEast(creep, "E36N32", "E36N31", creep.memory.nesourceNumber);
+          if(creep.memory.nesourceNumber === 1) {
+            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource1);
+          } else if(creep.memory.nesourceNumber === 2){
+            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource2);
           } else if (nesource1Creeps.length < nesource2Creeps.length) {
             // go to energy source 1
             ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource1); 

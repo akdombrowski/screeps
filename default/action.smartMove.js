@@ -52,6 +52,8 @@ function smartMove(
     });
   }
 
+
+  // TODO: movebyPath not being used
   let lastStop = path[path.length - 1];
   if (path &&
     lastStop &&

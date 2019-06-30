@@ -111,6 +111,10 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
   // or one that's been specified.
   if (flag) {
     target = creep.room.lookForAt(LOOK_SOURCES, flag).pop();
+    if(!target) {
+      retval = smartMove(creep, flag, 3);
+      return retval;
+    }
     creep.say("flag");
   } else if (creep.memory.flag) {
     target = creep.room.lookForAt(LOOK_SOURCES, creep.memory.flag).pop();

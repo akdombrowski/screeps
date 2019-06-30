@@ -27,29 +27,6 @@ function smartMove(
     return ERR_TIRED;
   }
 
-  if (!path) {
-    console.log("dest" + dest.pos + " " +dest);
-    let destPos = dest;
-    if(dest.pos) {
-      destPos = dest.pos;
-    }
-        path = rm.findPath(pos, destPos, {
-          ignoreCreeps: ignoreCreeps,
-          range: range,
-          maxOps: maxOps,
-          serialize: true,
-        });
-    creep.memory.path = path;
-  }
-
-  retval = creep.moveByPath(Room.deserializePath(path));
-  if (retval === OK) {
-    if(creep.pos.inRangeTo(dest, range)) {
-      creep.memory.path = null;
-    }
-    return retval;
-  }
-
   blockage = moveAwayFromCreep(creep);
   if (
     blockage ||
@@ -59,6 +36,44 @@ function smartMove(
     pathMem = 0;
     noPathFinding = false;
     creep.say("out of my way creep");
+    path = null;
+  }
+
+
+  if(name === "h077E") {
+    console.log(name + " dest:   " + dest);
+  }
+  let destPos = dest;
+  if (dest.pos) {
+    destPos = dest.pos;
+  }
+  if (!path) {
+    path = rm.findPath(pos, destPos, {
+      ignoreCreeps: ignoreCreeps,
+      range: range,
+      maxOps: maxOps,
+      serialize: true,
+    });
+  }
+
+  let lastStop = path[path.length - 1];
+  if (path &&
+    lastStop &&
+    lastStop.x <= destPos.x + range &&
+    lastStop.y <= destPos.y + range &&
+    lastStop.x <= destPos.x - range &&
+    lastStop.y <= destPos.y - range
+  ) {
+    creep.memory.path = path;
+    retval = creep.moveByPath(Room.deserializePath(path));
+    if (retval === OK) {
+      if (creep.pos.inRangeTo(dest, range)) {
+        creep.memory.path = null;
+      }
+      return retval;
+    }
+  } else {
+    maxOps *= 5;
   }
 
   retval = creep.moveTo(dest, {

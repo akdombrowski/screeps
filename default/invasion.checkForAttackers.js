@@ -35,12 +35,21 @@ function checkForAttackers() {
     }
   }
   if (rm && (!Memory.invader || Game.time >= sAttackDurationSafeCheck)) {
-    attackerId = getAttackEvents(rm);
-    Memory.invaderId = attackerId;
-    if (attackerId) {
-      Memory.sAttackDurationSafeCheck = Game.time + 1000;
-      console.log("invader:" + attackerId);
-    }
+    // attackerId = getAttackEvents(rm);
+    // Memory.invaderId = attackerId;
+    // if (attackerId) {
+    //   Memory.sAttackDurationSafeCheck = Game.time + 1000;
+    //   console.log("invader:" + attackerId);
+    // }
+    let enemyCreeps = rm.find(FIND_CREEPS, {
+      filter: (creep) => {
+        return !creep.my;
+      },
+    });
+
+    invader = enemyCreeps.pop();
+    
+    Memory.invaderId = invader ? invader.id : null;
   }
 }
 module.exports = checkForAttackers;

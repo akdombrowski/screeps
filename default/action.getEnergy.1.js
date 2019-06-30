@@ -1,5 +1,5 @@
 const { droppedDuty } = require("./action.droppedDuty");
-
+const transferEnToTower = require("action.transferEnergyToTower");
 const transferEnergy = require("./action.transferEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
@@ -12,9 +12,10 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
   let towers = [tower, tower2];
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
+    transferEnToTower(creep, 300);
     if (
       creep.memory.role === "h" &&
-      Memory.s1.room.energyAvailable > 1200 &&
+      Memory.s1.room.energyAvailable > 300 &&
       creep.room.find(FIND_CONSTRUCTION_SITES, {
         filter: (site) => {
           return site.structureType === STRUCTURE_ROAD;
@@ -22,12 +23,11 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
       }) &&
       (_.forEach(towers, (tor) => {
         if (tor) {
-          return tor.energy >= tor.energyCapacity;
+          return tor.energy > 300;
         }
       }).pop() &&
         creep.room.name === "E35N31")
     ) {
-      console.log("build");
       buildRoad(creep);
       creep.memory.buildroad = true;
       creep.memory.getEnergy = true;

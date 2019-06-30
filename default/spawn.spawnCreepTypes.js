@@ -116,7 +116,7 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts;
     let spawnDirection = [BOTTOM_RIGHT];
 
-    if (southHarvesters.length < 1) {
+    if (southHarvesters.length < 2) {
       southHarvesters.push(name);
       parts = simpleParts;
       birthCreep(
@@ -205,7 +205,7 @@ function spawnCreepTypes(enAvail) {
     let spawnDirection = [BOTTOM_RIGHT];
     let birth = false;
 
-    if (southHarvesters.length < 2) {
+    if (southHarvesters.length < 3) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
@@ -228,22 +228,6 @@ function spawnCreepTypes(enAvail) {
       workers.push(name);
       birth = true;
     } else if (
-      northHarvesters.length < 2 &&
-      (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
-    ) {
-      name += "N";
-      direction = "north";
-      northHarvesters.push(name);
-      birth = true;
-    } else if (
-      westHarvesters.length < 2 &&
-      (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
-    ) {
-      name += "west";
-      direction = "west";
-      westHarvesters.push(name);
-      birth = true;
-    } else if (
       northHarvesters.length < 4 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {
@@ -253,6 +237,22 @@ function spawnCreepTypes(enAvail) {
       birth = true;
     } else if (
       westHarvesters.length < 4 &&
+      (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
+    ) {
+      name += "west";
+      direction = "west";
+      westHarvesters.push(name);
+      birth = true;
+    } else if (
+      northHarvesters.length < 6 &&
+      (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
+    ) {
+      name += "N";
+      direction = "north";
+      northHarvesters.push(name);
+      birth = true;
+    } else if (
+      westHarvesters.length < 6 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
       name += "W";

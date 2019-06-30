@@ -77,7 +77,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
     }
   }
 
-  target = target || Game.getObjectById(lastSourceId);
+  // target = target || Game.getObjectById(lastSourceId);
 
   if (targetedRm) {
     target =
@@ -97,7 +97,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
     if (target) {
       creep.memory.lastSourceId = target.id;
       if (!creep.pos.isNearTo(target)) {
-        retval = smartMove(creep, target, 1, true, "#00A11A", 2000, 1000);
+        retval = smartMove(creep, target, 1, true, "#00A11A", 2000, 200);
         return retval;
       }
     }
@@ -121,15 +121,16 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
 
   // // If I don't have a target yet or the target has no energy look for a \
   // // new source
-  // if (!target || target.energy <= 0) {
-  //   target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
-  //     filter: (structure) => {
-  //       if (structure.pos.findInRange(FIND_CREEPS, 2).length <= 6) {
-  //         return structure;
-  //       }
-  //     },
-  //   });
-  // }
+  if (!target || target.energy <= 0) {
+   creep.memory.path = null;
+    target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
+      filter: (structure) => {
+        if (structure.pos.findInRange(FIND_CREEPS, 2).length <= 6) {
+          return structure;
+        }
+      },
+    });
+  }
 
   // If i don't have a target yet. Check containers and storage units
   //  for energy.
@@ -188,7 +189,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, path) {
     //   }
     // }
     else {
-      retval = smartMove(creep, target, 1, true, "#FF32F1", 2000, 1000);
+      retval = smartMove(creep, target, 1, true, "#FF32F1", 2000, 100);
       creep.say("m." + target.pos.x + "," + target.pos.y);
     }
   } else {

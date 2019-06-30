@@ -17,6 +17,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   let myTowers = creep.memory.myTowers || [];
   let towers4En = [];
   let minEnergy = -Infinity;
+  let towerId;
 
   if(myTowers.length <= 0) {
     rm.find(FIND_STRUCTURES, {
@@ -29,7 +30,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
     })
   }
 
-  target = _.forEach(myTowers, (id) => {
+  towerId = _.find(myTowers, (id) => {
     tower = Game.getObjectById(id);
     if (tower.energy < 300) {
       return tower;
@@ -41,24 +42,32 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
 
     if(target.energy === tower.energy &&
       creep.pos.getRangeTo(tower) < creep.pos.getRangeTo(target)) {
-        return target;
+        return tower;
     }
   });
 
-  if (target && (target.energy >= target.energyCapacity || target.energy < minRmEnAvail)) {
+  target = Game.getObjectById(towerId);
+
+  
+  console.log("wut:" + target);
+  if (target && (target.energy >= target.energyCapacity || target.energy > minRmEnAvail)) {
     target = null;
   }
 
   if(!target) {
+    console.log("wut:" );
     creep.say("wut tower?")
     return ERR_NOT_FOUND;
   }
+
+  console.log("tower target: " + target);
   if (target && creep.pos.isNearTo(target.pos)) {
     retval = creep.transfer(target, RESOURCE_ENERGY);
     if (retval == OK) {
       creep.say("t");
       creep.memory.dest = target.id;
     }
+    creep.memory.path = null;
   } else if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
   } else if (target) {
@@ -80,6 +89,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
 
   if (_.sum(creep.carry) === 0) {
     creep.memory.transfer = false;
+    creep.memory.path = null;
   }
 }
 

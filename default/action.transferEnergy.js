@@ -8,6 +8,7 @@ function tran(creep, flag, dest) {
   let name = creep.name;
   let direction = creep.memory.direction;
   let sourceDir = creep.memory.sourceDir;
+  let s1 = Memory.s1;
   let tower1 = Game.getObjectById(Memory.tower1Id);
   let tower2 = Game.getObjectById(Memory.tower2Id);
   let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
@@ -79,7 +80,7 @@ function tran(creep, flag, dest) {
       filter: (structure) => {
         let type = structure.structureType;
         if (
-          (type === STRUCTURE_EXTENSION || type === STRUCTURE_SPAWN) &&
+          (type === STRUCTURE_EXTENSION && structure != Memory.spawnExts[1]) &&
           structure.energy < structure.energyCapacity
         ) {
           extensionNeedsEnergy = true;
@@ -103,6 +104,7 @@ function tran(creep, flag, dest) {
   }
 
   if (target && creep.pos.isNearTo(target.pos)) {
+    creep.memory.path = null;
     retval = creep.transfer(target, RESOURCE_ENERGY);
     if (retval == OK) {
       creep.say("t");
@@ -124,10 +126,12 @@ function tran(creep, flag, dest) {
     creep.memory.dest = target.id;
   } else {
     creep.memory.dest = null;
+    creep.memory.path = null;
     creep.say("t.err");
   }
 
   if (_.sum(creep.carry) == 0) {
+    creep.memory.path = null;
     creep.memory.transfer = false;
   }
 }

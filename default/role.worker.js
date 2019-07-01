@@ -1,5 +1,4 @@
 const getEnergy = require("./action.getEnergy.1");
-const getEnergyEast = require("./action.getEnergy.1");
 const smartMove = require("./action.smartMove");
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
 
@@ -18,10 +17,32 @@ var roleWorker = {
       creep.memory.working = false;
       creep.say("h");
       creep.memory.getEnergy = true;
+
       if (creep.room.name === "E36N31" || creep.room.name === "E36N32") {
-        getEnergyEast(creep);
+        getEnergy(creep, "E35N31");
+      } else if (creep.memory.direction) {
+        switch (creep.memory.direction) {
+          case "east":
+            if (creep.memory.sourceDir === "north") {
+              getEnergy(creep, "E36N32");
+            } else if (creep.memory.sourceDir === "east") {
+              getEnergy(creep, "E36N31");
+            } else {
+              getEnergy(creep, "E36N31");
+            }
+            break;
+          case "west":
+            getEnergy(creep, "E34N31");
+            break;
+          case "north":
+            getEnergy(creep, "E35N32");
+            break;
+          default:
+            getEnergy(creep, "E35N31");
+            break;
+        }
       } else {
-        getEnergy(creep);
+        getEnergy(creep, "E35N31");
       }
       return;
     } else if (
@@ -58,17 +79,15 @@ var roleWorker = {
             let type = site.structureType;
             if (prog >= progTot) {
               return false;
-            }
-
-            if (type === STRUCTURE_EXTENSION) {
+            } else if (type === STRUCTURE_EXTENSION) {
               extFound = true;
-              return site;
-            } else {
               t = site;
+            } else {
+              return site;
             }
           },
         });
-        target = !target ? t : target;
+        target = t || target;
         targetId = target ? target.id : null;
       }
 
@@ -76,11 +95,9 @@ var roleWorker = {
         if (creep.pos.inRangeTo(target, 3)) {
           if (yucreepin(creep)) {
             retval = smartMove(creep, s2, 5);
-            
+
             // Couldn't move towards construction target
-            if (
-              retval === ERR_INVALID_TARGET
-            ) {
+            if (retval === ERR_INVALID_TARGET) {
               creep.say("m.inval");
               target = null;
               creep.memory.b = null;

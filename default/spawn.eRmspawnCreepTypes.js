@@ -18,7 +18,7 @@ function birthCreep(
 ) {
   let retval;
   s2 = Game.getObjectById(Memory.s2);
-  if (!s2.room.lookForAt(LOOK_CREEPS, s2.pos.x, s2.pos.y - 1).pop()) {
+  if (!s2.room.lookForAt(LOOK_CREEPS, s2.pos.x, s2.pos.y - 1)) {
     retval = s2.spawnCreep(parts, name, {
       memory: {
         role: chosenRole,

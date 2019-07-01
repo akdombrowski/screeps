@@ -19,7 +19,7 @@ function birthCreep(
 
   console.log("Birthing in spawncreeptypes");
 
-  if (!s1.room.lookForAt(LOOK_CREEPS, s1.pos.x + 1, s1.pos.y + 1).pop()) {
+  if (!s1.room.lookForAt(LOOK_CREEPS, s1.pos.x + 1, s1.pos.y + 1)) {
     retval = Game.spawns.Spawn1.spawnCreep(parts, name, {
       memory: {
         role: chosenRole,

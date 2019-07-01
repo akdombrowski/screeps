@@ -1,5 +1,5 @@
 const { droppedDuty } = require("./action.droppedDuty");
-const transferEnToTower = require("action.transferEnergyToTower");
+const transferEnToTower = require("./action.transEnTower");
 const transferEnergy = require("./action.transferEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");

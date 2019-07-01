@@ -17,8 +17,6 @@ function birthCreep(
 ) {
   let retval;
 
-  console.log("Birthing in spawncreeptypes");
-
   if (!s1.room.lookForAt(LOOK_CREEPS, s1.pos.x + 1, s1.pos.y + 1)) {
     retval = Game.spawns.Spawn1.spawnCreep(parts, name, {
       memory: {
@@ -97,6 +95,12 @@ function spawnCreepTypes(enAvail) {
   addPart(linkGetsParts, 1, CARRY);
   addPart(linkGetsParts, 2, WORK);
   addPart(linkGetsParts, 1, MOVE);
+  
+  // 1200
+  let largeLinkGetsParts = [];
+  addPart(largeLinkGetsParts, 3, CARRY);
+  addPart(largeLinkGetsParts, 7, WORK);
+  addPart(largeLinkGetsParts, 7, MOVE);
 
   let rezzyParts = [CLAIM, MOVE];
   let basicHv = [CARRY, WORK, MOVE];
@@ -116,7 +120,7 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts;
     let spawnDirection = [BOTTOM_RIGHT];
 
-    if (southHarvesters.length < 2) {
+    if (southHarvesters.length < 3) {
       southHarvesters.push(name);
       parts = simpleParts;
       birthCreep(
@@ -143,7 +147,7 @@ function spawnCreepTypes(enAvail) {
         spawnDirection
       );
     } else if (
-      northHarvesters.length < 2 &&
+      northHarvesters.length < 4 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {
       name += "N";
@@ -159,7 +163,7 @@ function spawnCreepTypes(enAvail) {
         spawnDirection
       );
     } else if (
-      westHarvesters.length < 2 &&
+      westHarvesters.length < 4 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
       name += "W";
@@ -205,14 +209,14 @@ function spawnCreepTypes(enAvail) {
     let spawnDirection = [BOTTOM_RIGHT];
     let birth = false;
 
-    if (southHarvesters.length < 3) {
+    if (southHarvesters.length < 4) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
-    } else if (linkGets.length < 2 && Game.creeps.harvester1) {
+    } else if (linkGets.length < 3 && Game.creeps.harvester1) {
       chosenRole = "linkGet";
-      name = "link" + t;
-      parts = linkGetsParts;
+      name = "XLlink" + t;
+      parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
     } else if (roadRepairers.length < 1) {

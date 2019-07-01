@@ -28,7 +28,7 @@ var roleWorker = {
             } else if (creep.memory.sourceDir === "east") {
               getEnergy(creep, "E36N31");
             } else {
-              getEnergy(creep, "E36N31");
+              getEnergy(creep, "E35N31");
             }
             break;
           case "west":

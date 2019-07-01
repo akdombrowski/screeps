@@ -75,12 +75,17 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
         case "E35N32":
           target = creep.room.name != sourceRmTargeted ? Game.flags.north1 : null;
           targetedRm = Game.flags.north1.room;
+  console.log(name + " " + targetedRm)
           break;
           default:
             target = creep.room.name != sourceRmTargeted ? Game.flags.Flag1 : null;
             targetedRm = Memory.s1.room;
             break;
           }
+        }
+        if(target && !target.energy && !targetedRm) {
+            retval = smartMove(creep, target, 3);
+            return retval;
         }
         
         // target = target || Game.getObjectById(lastSourceId);
@@ -92,7 +97,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
             .find(FIND_SOURCES_ACTIVE, {
               filter: source => {
               if (
-                !(creep.room.name === "E35N31" && source.pos.isEqualTo(41, 8))
+                !(targetedRm.name === "E35N31" && source.pos.isEqualTo(41, 8))
               ) {
                 // console.log("name2: " + creep.name + " "  + source)
   

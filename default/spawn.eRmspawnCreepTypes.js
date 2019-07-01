@@ -175,7 +175,7 @@ function spawnCreepTypes(enAvail) {
       parts = basicHv;
       sourceDir = "east2";
       birth = true;
-    } else if (eastUpControllers.length < 1) {
+    } else if (eastUpControllers.length < 2) {
       chosenRole = "eRezzy";
       name = chosenRole + t;
       direction = "east";

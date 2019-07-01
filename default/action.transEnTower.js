@@ -48,6 +48,9 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   towerId = _.find(myTowers, (id) => {
     tower = Game.getObjectById(id);
     target = Game.getObjectById(towerId);
+    if(!tower || !tower.energy) {
+        return false;
+    }
     if (tower.energy < 300) {
       return tower;
     }

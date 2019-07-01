@@ -23,13 +23,14 @@ function tran(creep, flag, dest) {
       ) {
         creep.move(BOTTOM);
       }
-      smartMove(creep, Game.flags.northEntrance1, 1);
       creep.say("northEntrance");
       return;
     } else if (creep.room.name === "E36N31") {
       traneRm(creep);
     } else if (creep.room.name === "E34N31") {
       smartMove(creep, Game.getObjectById("5d1330677594977c6d3f49ad"), 3);
+    } else if (creep.room.name === "E36N31") {
+      target = Game.getObjectById("5bbcaf0c9099fc012e63a0bd");
     } else if (creep.memory.dest) {
       target = Game.getObjectById(creep.memory.dest);
     } else if (creep.memory.flag) {
@@ -43,7 +44,8 @@ function tran(creep, flag, dest) {
 
   if (
     target &&
-    target.structureType === STRUCTURE_TOWER &&
+    target.structureType === STRUCTURE_TOWER && rm &&
+    rm.energyAvailable &&
     rm.energyAvailable <= 300
   ) {
     target = null;
@@ -65,13 +67,15 @@ function tran(creep, flag, dest) {
       }
     });
   }
+  
+  
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: structure => {
         let type = structure.structureType;
         if (
           type === STRUCTURE_EXTENSION &&
-          structure != Memory.spawnExts[1] &&
+          structure != Memory.spawnExts[0] && structure != Memory.spawnExts[1] &&
           structure.energy < structure.energyCapacity
         ) {
           extensionNeedsEnergy = true;

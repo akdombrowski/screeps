@@ -37,7 +37,7 @@ function supplyChain(creeps, harvester, source, energyStoredPlace) {
   _.each(creeps, (name, i, c) => {
     let creep = Game.creeps[name];
     let creepNext = Game.creeps[creeps[i + 1]];
-    console.log("creep:" + c + " i:" + i + " next:" + creepNext);
+    // console.log("creep:" + c + " i:" + i + " next:" + creepNext);
     if (creepNext) {
       if (creep) {
         transferVal = creep.transfer(creepNext, RESOURCE_ENERGY);
@@ -50,7 +50,6 @@ function supplyChain(creeps, harvester, source, energyStoredPlace) {
   });
 
   storeVal = storer.transfer(energyStoredPlace, RESOURCE_ENERGY);
-  console.log("transferval: " + transferVal);
   if (storeVal === OK) {
     storer.say("s");
   }

@@ -72,6 +72,8 @@ function smartMove(
   // console.log(name + " myPos " + JSON.stringify(myPos));
   // console.log(name + " lastStop " + JSON.stringify(lastStop) + " " + destPos)
 
+  // console.log(name + " " + JSON.stringify(desPath));
+  console.log(name + " " + JSON.stringify(lastStop) + " " + myPos);
   // Check if 1st path try, or path from memory, gets us where we want to go.
   if (
     path &&
@@ -79,10 +81,11 @@ function smartMove(
     myPos// &&
     // (Math.abs(lastStop.x - destPos.x) <= range &&
     //   Math.abs(lastStop.y - destPos.y) <= range)
-  ) {
+  ) { 
     // Yes.
     creep.memory.path = path;
     retval = creep.moveByPath(path);
+    console.log(name + " movebypath: " + retval);
     if (retval === OK) {
       if (creep.pos.inRangeTo(dest, range)) {
         creep.memory.path = null;
@@ -94,6 +97,9 @@ function smartMove(
       creep.memory.path = null;
       // second chance path was also out of range
     }
+  } else {
+    path = null;
+    creep.memory.path = null;
   }
 
   // retval = creep.moveTo(dest, {

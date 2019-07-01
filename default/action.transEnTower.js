@@ -19,20 +19,30 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   let minEnergy = -Infinity;
   let towerId;
 
-
-  if(rm.energyAvailable < minRmEnAvail) {
+  if (rm.energyAvailable < minRmEnAvail) {
     return retval;
   }
 
-  if(myTowers.length <= 0) {
-    rm.find(FIND_STRUCTURES, {
-      filter: (struct) => {
-        let type = struct.structureType;
-        if(type === STRUCTURE_TOWER) {
-          myTowers.push(struct.id);
-        }
-      }
-    })
+  if (myTowers.length <= 0) {
+    if (direction === "east") {
+      myTowers.push(towers[2]);
+    } else if (direction === "south") {
+      myTowers.push(towers[0]);
+      myTowers.push(towers[1]);
+    } else if (direction) {
+      myTowers.push(towers[0]);
+      myTowers.push(towers[1]);
+    } else {
+      rm.find(FIND_STRUCTURES, {
+        filter: (struct) => {
+          let type = struct.structureType;
+          if (type === STRUCTURE_TOWER) {
+            myTowers.push(struct.id);
+          }
+        },
+      });
+    }
+    creep.memory.myTowers = myTowers;
   }
 
   towerId = _.find(myTowers, (id) => {
@@ -42,38 +52,40 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
       return tower;
     }
 
-    if(!target && tower) {
+    if (!target && tower) {
       towerId = id;
       return;
     }
 
-    if(!towerId) {
+    if (!towerId) {
       towerId = id;
     }
 
-    if(target.energy < tower.energy ) {
-        return id;
+    if (target.energy < tower.energy) {
+      return id;
     }
 
-    if(target.energy === tower.energy &&
-      creep.pos.getRangeTo(tower) < creep.pos.getRangeTo(target)) {
-        return id;
+    if (
+      target.energy === tower.energy &&
+      creep.pos.getRangeTo(tower) < creep.pos.getRangeTo(target)
+    ) {
+      return id;
     }
   });
 
   target = Game.getObjectById(towerId);
 
-  
-  if (target && (target.energy >= target.energyCapacity || target.energy > minRmEnAvail)) {
+  if (
+    target &&
+    (target.energy >= target.energyCapacity || target.energy > minRmEnAvail)
+  ) {
     target = null;
   }
 
-  if(!target) {
-
-    creep.say("wut tower?")
+  if (!target) {
+    creep.say("wut tower?");
     return ERR_NOT_FOUND;
   }
-
 
   if (target && creep.pos.isNearTo(target.pos)) {
     retval = creep.transfer(target, RESOURCE_ENERGY);

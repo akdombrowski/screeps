@@ -66,16 +66,16 @@ function spawnToSource1Chain() {
       if (Memory.enAvail >= 100) {
         Game.spawns.Spawn1.spawnCreep([MOVE, MOVE], "mover1", {
           memory: {
-            role: "mover",
-          },
+            role: "mover"
+          }
         });
       }
     } else {
       Game.spawns.Spawn1.spawnCreep([MOVE, MOVE], "mover1", {
         memory: {
           role: "mover",
-          directions: direction,
-        },
+          directions: direction
+        }
       });
     }
   } else if (needMover) {
@@ -190,39 +190,43 @@ function spawnToSource1Chain() {
     }
   } else {
     let supplyChainRetVal = -16;
+
     try {
       let hvVal = hv.harvest(source1);
       let extRetVal = -16;
-      supplyChainRetVal = supplyChain(
-        [tr1.name, tr2.name],
-        hv.name,
-        source1,
-        s1
-      );
+      let transferVal = supplyChain([tr1.name, tr2.name], hv.name, source1, s1);
 
-      _.forEach(exts, (ext) => {
-        let e = Game.getObjectById(ext);
+      if (transferVal != OK || !hv) {
+        extRetVal = -17;
+        _.forEach(exts, ext => {
+          let e = Game.getObjectById(ext);
 
-        if (e.energy < e.energyCapacity) {
-          if (tr1.pos.isNearTo(e) && _.sum(tr1.carry) > 0) {
-            extRetVal = tr1.transfer(e, RESOURCE_ENERGY);
-            if (extRetVal === OK) {
-              tr1.say("s");
-            } else {
-              console.log("tr1 fail ext: " + extChainRetVal);
-            }
-          } else if (tr2.pos.isNearTo(e) && _.sum(tr2.carry) > 0) {
-            extRetVal = tr2.transfer(e, RESOURCE_ENERGY);
-            if (extRetVal === OK) {
-              tr2.say("s");
-            } else {
-              console.log("tr2 fail ext: " + e.pos + " " + extRetVal);
+          if (e.energy < e.energyCapacity) {
+            if (tr1.pos.isNearTo(e) && _.sum(tr1.carry) > 0) {
+              extRetVal = tr1.transfer(e, RESOURCE_ENERGY);
+
+              if (extRetVal === OK) {
+                tr1.say("s");
+              } else {
+                console.log("tr1 fail ext: " + extChainRetVal);
+              }
+
+              if (tr2.pos.isNearTo(e) && _.sum(tr2.carry) > 0) {
+                extRetVal = tr2.transfer(e, RESOURCE_ENERGY);
+
+                if (extRetVal === OK) {
+                  tr2.say("s");
+                } else {
+                  console.log("tr2 fail ext: " + e.pos + " " + extRetVal);
+                }
+              }
             }
           }
-        }
-      });
+        });
+      }
+
       let retval;
-      if (extRetVal != OK) {
+      if (extRetVal != OK && extRetVal != -16) {
         if (Memory.linkGets.length > 0 && _.sum(tr1.carry) > 0) {
           retval = tr1.transfer(linkEntrance, RESOURCE_ENERGY);
           tr1.say("l." + retval);

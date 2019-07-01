@@ -34,22 +34,27 @@ function supplyChain(creeps, harvester, source, energyStoredPlace) {
     pickUpper.say("p");
   }
 
-  for (let i = 0; i < creeps.length - 1; i++) {
-    let creep = Game.creeps[creeps[i]];
+  _.each(creeps, (name, i, c) => {
+    let creep = Game.creeps[name];
     let creepNext = Game.creeps[creeps[i + 1]];
-
-    if (creep) {
-      transferVal = creep.transfer(creepNext, RESOURCE_ENERGY);
-      if (transferVal === OK) {
-        creep.say("t");
-        creepNext.say("re");
+    console.log("creep:" + c + " i:" + i + " next:" + creepNext);
+    if (creepNext) {
+      if (creep) {
+        transferVal = creep.transfer(creepNext, RESOURCE_ENERGY);
+        if (transferVal === OK) {
+          creep.say("t");
+          creepNext.say("re");
+        }
       }
     }
-  }
+  });
+
   storeVal = storer.transfer(energyStoredPlace, RESOURCE_ENERGY);
+  console.log("transferval: " + transferVal);
   if (storeVal === OK) {
     storer.say("s");
   }
+  return transferVal;
 }
 
 module.exports = supplyChain;

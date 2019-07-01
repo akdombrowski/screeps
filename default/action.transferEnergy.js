@@ -29,17 +29,7 @@ function tran(creep, flag, dest) {
     } else if (creep.room.name === "E36N31") {
       traneRm(creep);
     } else if (creep.room.name === "E34N31") {
-      if (
-        creep.pos.isEqualTo(Game.flags.westEntrance1.pos) ||
-        creep.pos.isNearTo(Game.flags.westEntrance1)
-      ) {
-        creep.move(RIGHT);
-        creep.say("RIGHT");
-      } else {
-        smartMove(creep, Game.flags.westEntrance1, 1);
-        creep.say("westEntrance");
-      }
-      return;
+      smartMove(creep, Game.getObjectById("5d1330677594977c6d3f49ad"), 3);
     } else if (creep.memory.dest) {
       target = Game.getObjectById(creep.memory.dest);
     } else if (creep.memory.flag) {
@@ -63,7 +53,7 @@ function tran(creep, flag, dest) {
     (creep.memory.direction === "south" || creep.memory.direction === "east") &&
     enAvail > 300
   ) {
-    _.forEach(towers, (tor) => {
+    _.forEach(towers, tor => {
       if (tor) {
         if (
           (tor.energy < tor.energyCapacity - 250 &&
@@ -77,29 +67,30 @@ function tran(creep, flag, dest) {
   }
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: (structure) => {
+      filter: structure => {
         let type = structure.structureType;
         if (
-          (type === STRUCTURE_EXTENSION && structure != Memory.spawnExts[1]) &&
+          type === STRUCTURE_EXTENSION &&
+          structure != Memory.spawnExts[1] &&
           structure.energy < structure.energyCapacity
         ) {
           extensionNeedsEnergy = true;
           return true;
         }
-      },
+      }
     });
   }
 
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: (structure) => {
+      filter: structure => {
         if (
           structure.structureType == STRUCTURE_STORAGE ||
           structure.structureType == STRUCTURE_CONTAINER
         ) {
           return _.sum(structure.store) < structure.storeCapacity;
         }
-      },
+      }
     });
   }
 

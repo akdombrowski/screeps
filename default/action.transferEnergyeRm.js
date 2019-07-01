@@ -33,6 +33,8 @@ function traneRm(creep, flag, dest) {
       return;
     } else if (creep.room.name === "E36N32") {
       smartMove(creep, Game.getObjectById("5d08fb955b3e13339b877c65"), 5);
+    } else if (creep.room.name === "E34N31") {
+      smartMove(creep, Game.getObjectById("5d1330677594977c6d3f49ad"), 3);
     } else if (creep.memory.dest) {
       target = Game.getObjectById(creep.memory.dest);
     } else if (creep.memory.flag) {

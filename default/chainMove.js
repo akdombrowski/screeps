@@ -21,7 +21,7 @@ function chainMove(pullerName, creepNames, destPos, rngToDest) {
       creep.move(puller);
     }
   });
-  return smartMove(puller, destPos, rngToDest, false);
+  return smartMove(puller, destPos, rngToDest);
 }
 
 module.exports = chainMove;

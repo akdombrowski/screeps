@@ -15,7 +15,6 @@ module.exports.loop = function() {
   profiler.wrap(function() {
     let lastEnAvail = Memory.enAvail || 0;
 
-    
     let s1 = Game.spawns.Spawn1;
     let s2 = Game.spawns.s2;
     let rm = Game.rooms.E35N31;
@@ -170,19 +169,13 @@ module.exports.loop = function() {
       }
     }
 
-    if(spawnHarvesterChain(enAvail, rm, s1, harvesters) != OK) {
-    
-      spawnCreepTypes(
-        enAvail
-      );
+    if (spawnHarvesterChain(enAvail, rm, s1, harvesters) != OK) {
+      spawnCreepTypes(enAvail);
     }
 
     spawnToSource1Chain();
 
-    spawnCreepTypeseRm(
-      enAvaileRm
-    );
-
+    spawnCreepTypeseRm(enAvaileRm);
 
     crps = Game.creeps;
     numCrps = Object.keys(crps).length;
@@ -199,32 +192,91 @@ module.exports.loop = function() {
     linkTran(linkEntrance, linkExit);
 
     if (Game.time % 1000 == 0) {
-      console.log("Creeps:" + numCrps);
+      if (!Memory.rmProg) {
+        Memory.rmProg = 0;
+      }
+
+      if (!Memory.ermProg) {
+        Memory.ermProg = 0;
+      }
+
+      let rmLvl = rmController.level;
+      let rmProg = rmController.progress;
+      let rmProgTot = rmController.progressTotal;
+      const ermLvl = ermController.level;
+      const ermProg = ermController.progress;
+      const ermProgTot = ermController.progressTotal;
+      let rmProgRate = (Memory.rmProg - rmProg) / Memory.rmProg;
+      let ermProgRate = (Memory.ermProg - ermProg) / Memory.ermProg;
+      let rmProgPerc = rmProgRate * 100;
+      let ermProgPerc = ermProgRate * 100;
+
+      console.log("Creeps: " + numCrps);
+
       console.log(
-        rmController.level +
+        "S: " +
+          rmLvl +
           ":" +
-          rmController.progress / 1000 +
+          rmProg / 1000 +
           "/" +
-          rmController.progressTotal / 1000
+          rmProgTot / 1000 +
+          " - " +
+          rmProgPerc +
+          "%"
       );
-      console.log(enAvail + "," + enCap);
-      Game.notify(rmController.level +
+      console.log(
+        "E: " +
+          ermLvl +
           ":" +
-          rmController.progress / 1000 +
+          ermProg / 1000 +
           "/" +
-          rmController.progressTotal / 1000 + "\n" + ermController.level +
+          ermProgTot / 1000 +
+          " - " +
+          ermProgPerc +
+          "%"
+      );
+
+      console.log("S:" + enAvail + "," + enCap);
+      console.log("E:" + enAvaileRm + "," + enCapeRm);
+
+      Game.notify(
+        "S: " +
+          rmLvl +
           ":" +
-          ermController.progress / 1000 +
+          rmProg / 1000 +
           "/" +
-          ermController.progressTotal / 1000 + "\n" +
-          enAvail + "," + enCap + "\n" + 
-          enAvaileRm + "," + enCapeRm);
+          rmProgTot / 1000 +
+          "\n" +
+          rmProgRate +
+          "\n" +
+          "E: " +
+          ermLvl +
+          ":" +
+          ermProg / 1000 +
+          "/" +
+          ermProgTot / 1000 +
+          "\n" +
+          ermProgRate +
+          "\n" +
+          enAvail +
+          "," +
+          enCap +
+          "\n" +
+          enAvaileRm +
+          "," +
+          enCapeRm
+      );
+
+      Memory.rmProg = rmProg;
+      Memory.ermProg = ermProg;
     }
   });
+
+  // Profiler stats
   let pTime = Memory.profilerTime;
   let profilerDur = 1000;
-  if(!pTime || Game.time - Memory.profilerTime > profilerDur * 1.1) {
+  if (!pTime || Game.time - Memory.profilerTime > profilerDur * 1.1) {
     Memory.profilerTime = Game.time;
     Game.profiler.email(profilerDur);
-  };
+  }
 };

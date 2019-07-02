@@ -5,7 +5,7 @@ const roleTower = {
     let ramp = tower.pos.lookFor(LOOK_STRUCTURES).pop();
     if (invader) {
       console.log("tower attack: " + tower.attack(invader));
-    } else if (tower && tower.energy > 300) {
+    } else if (tower && tower.energy > 350) {
       let struct = Game.getObjectById(Memory.towerRepairTarget);
       if (!struct || struct.hitsMax <= struct.hits) {
         struct = tower.pos.findClosestByRange(FIND_STRUCTURES, {

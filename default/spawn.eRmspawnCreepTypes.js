@@ -175,23 +175,6 @@ function spawnCreepTypes(enAvail) {
       parts = basicHv;
       sourceDir = "east2";
       birth = true;
-    } else if (eastUpControllers.length < 2) {
-      chosenRole = "eRezzy";
-      name = chosenRole + t;
-      direction = "east";
-      parts = upContrParts;
-      eastUpControllers.push(name);
-      birth = true;
-    } else if (ermNeHarvesters.length < 1) {
-      ermNeHarvesters.push(name);
-      parts = basicHv;
-      sourceDir = "north1";
-      birth = true;
-    } else if (ermNeHarvesters.length < 2) {
-      ermNeHarvesters.push(name);
-      parts = basicHv;
-      sourceDir = "north2";
-      birth = true;
     }
 
     if (birth) {
@@ -223,11 +206,28 @@ function spawnCreepTypes(enAvail) {
     let sourceDir = "";
     let birth = false;
 
-    if (eastWorkers.length < 2) {
+    if (eastUpControllers.length < 3) {
+      chosenRole = "eRezzy";
+      name = chosenRole + t;
+      direction = "east";
+      parts = medupContrParts;
+      eastUpControllers.push(name);
+      birth = true;
+    } else if (eastWorkers.length < 2) {
       chosenRole = "worker";
       name = chosenRole + t;
       eastWorkers.push(name);
       parts = medworkerParts;
+      birth = true;
+    } else if (ermNeHarvesters.length < 1) {
+      ermNeHarvesters.push(name);
+      parts = mednewhvParts;
+      sourceDir = "north1";
+      birth = true;
+    } else if (ermNeHarvesters.length < 2) {
+      ermNeHarvesters.push(name);
+      parts = mednewhvParts;
+      sourceDir = "north2";
       birth = true;
     }
 

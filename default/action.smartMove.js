@@ -29,16 +29,17 @@ function smartMove(
 
   // console.log(name + " path " + path);
 
-  console.log(name + " " + path);
+  // console.log(name + " " + path);
   blockage = moveAwayFromCreep(creep);
   if (blockage || !ignoreCreeps) {
-    console.log(name + " blockage " + blockage);
+    // console.log(name + " blockage " + blockage);
 
     ignoreCreeps = false;
     pathMem = 0;
     noPathFinding = false;
     creep.say("out of my way creep");
     path = null;
+    creep.memory.path = null;
     return;
   }
 

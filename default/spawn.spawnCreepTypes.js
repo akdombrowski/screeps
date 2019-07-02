@@ -16,8 +16,8 @@ function birthCreep(
   spawnDirection
 ) {
   let retval;
-
-  if (!s1.room.lookForAt(LOOK_CREEPS, s1.pos.x + 1, s1.pos.y + 1)) {
+  let spawningPositionBlocked = s1.room.lookForAt(LOOK_CREEPS, s1.pos.x + 1, s1.pos.y + 1)
+  if (!spawningPositionBlocked || spawningPositionBlocked.length <= 0 ) {
     retval = Game.spawns.Spawn1.spawnCreep(parts, name, {
       memory: {
         role: chosenRole,

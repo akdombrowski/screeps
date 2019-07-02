@@ -16,19 +16,21 @@ function moveAwayFromCreep(creep) {
     return true;
   }
 
+  console.log(name + " move " + move);
   // I have no move. Am I moving somewhere?
-  if (!move) {
+  if (!move && !creep.memory.path) {
     Memory.gameTicksToMove = 0;
     return false;
   }
 
   try {
-    path = Room.deserializePath(move.path);
+    path = Room.deserializePath(move.path) || Room.deserializePath(creep.memory.path);
   } catch (e) {
     //
     Memory.gameTicksToMove = 0;
   }
 
+  console.log(name + " path " + path);
   // I have no path. Am i going somewhere?
   if (!path || path.length) {
     Memory.gameTicksToMove = 0;
@@ -37,6 +39,7 @@ function moveAwayFromCreep(creep) {
 
   // Check if first step in path exists. The array could exist but be empty.
   let path0 = path[1];
+  console.log(name + " path0 " + path0);
   if (!path0) {
     console.log(name);
     Memory.gameTicksToMove = 0;

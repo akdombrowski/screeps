@@ -29,6 +29,7 @@ function smartMove(
 
   // console.log(name + " path " + path);
 
+  console.log(name + " " + path);
   blockage = moveAwayFromCreep(creep);
   if (blockage || !ignoreCreeps) {
     console.log(name + " blockage " + blockage);

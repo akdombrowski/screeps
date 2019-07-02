@@ -16,8 +16,12 @@ function birthCreep(
   spawnDirection
 ) {
   let retval;
-  let spawningPositionBlocked = s1.room.lookForAt(LOOK_CREEPS, s1.pos.x + 1, s1.pos.y + 1)
-  if (!spawningPositionBlocked || spawningPositionBlocked.length <= 0 ) {
+  let spawningPositionBlocked = s1.room.lookForAt(
+    LOOK_CREEPS,
+    s1.pos.x + 1,
+    s1.pos.y + 1
+  );
+  if (!spawningPositionBlocked || spawningPositionBlocked.length <= 0) {
     retval = Game.spawns.Spawn1.spawnCreep(parts, name, {
       memory: {
         role: chosenRole,
@@ -95,7 +99,7 @@ function spawnCreepTypes(enAvail) {
   addPart(linkGetsParts, 1, CARRY);
   addPart(linkGetsParts, 2, WORK);
   addPart(linkGetsParts, 1, MOVE);
-  
+
   // 1200
   let largeLinkGetsParts = [];
   addPart(largeLinkGetsParts, 3, CARRY);
@@ -132,7 +136,7 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    }  else if (
+    } else if (
       northHarvesters.length < 3 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {
@@ -164,22 +168,6 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (
-      eastHarvesters.length < 1 &&
-      (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
-    ) {
-      name += "E";
-      direction = "east";
-      eastHarvesters.push(name);
-      birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
     }
   }
 
@@ -201,21 +189,15 @@ function spawnCreepTypes(enAvail) {
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
-    }  else if (southHarvesters.length < 4) {
+    } else if (southHarvesters.length < 4) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
-    } else if (roadRepairers.length < 1) {
+    } else if (roadRepairers.length < 2) {
       chosenRole = "r";
       name = chosenRole + t;
       parts = repairerParts;
       roadRepairers.push(name);
-      birth = true;
-    } else if (workers.length < 2) {
-      chosenRole = "w";
-      name = chosenRole + t;
-      parts = workerParts;
-      workers.push(name);
       birth = true;
     } else if (
       northHarvesters.length < 4 &&
@@ -249,17 +231,17 @@ function spawnCreepTypes(enAvail) {
       direction = "west";
       westHarvesters.push(name);
       birth = true;
-    } else if (workers.length < 3) {
-      chosenRole = "w";
-      name = chosenRole + t;
-      parts = workerParts;
-      workers.push(name);
-      birth = true;
-    } else if (roadRepairers.length < 3) {
+    } else if (roadRepairers.length < 4) {
       chosenRole = "r";
       name = chosenRole + t;
       parts = repairerParts;
       roadRepairers.push(name);
+      birth = true;
+    } else if (workers.length < 2) {
+      chosenRole = "w";
+      name = chosenRole + t;
+      parts = workerParts;
+      workers.push(name);
       birth = true;
     } else if (
       !Game.creeps.eastRezzy &&

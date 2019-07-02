@@ -24,78 +24,73 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   if (rm.energyAvailable < minRmEnAvail && !transfering) {
     return retval;
   }
-  
-  if(_.sum(creep.carry) > 0) {
-      creep.memory.transferTower = true;
-  }
-  
-  if(creep.memory.transferTower && creep.memory.dest) {
-      target = Game.getObjectById(creep.memory.destId);
+
+
+
+  if (creep.memory.transferTower && creep.memory.dest) {
+    target = Game.getObjectById(creep.memory.destId);
   } else {
-      
-
-  if (myTowers.length <= 0) {
-    if (direction === "east") {
-      myTowers.push(towers[2]);
-    } else if (direction === "south") {
-      myTowers.push(towers[0]);
-      myTowers.push(towers[1]);
-    } else if (direction) {
-      myTowers.push(towers[0]);
-      myTowers.push(towers[1]);
-    } else {
-      rm.find(FIND_STRUCTURES, {
-        filter: (struct) => {
-          let type = struct.structureType;
-          if (type === STRUCTURE_TOWER) {
-            myTowers.push(struct.id);
-          }
-        },
-      });
+    if (myTowers.length <= 0) {
+      if (direction === "east") {
+        myTowers.push(towers[2]);
+      } else if (direction === "south") {
+        myTowers.push(towers[0]);
+        myTowers.push(towers[1]);
+      } else if (direction) {
+        myTowers.push(towers[0]);
+        myTowers.push(towers[1]);
+      } else {
+        rm.find(FIND_STRUCTURES, {
+          filter: (struct) => {
+            let type = struct.structureType;
+            if (type === STRUCTURE_TOWER) {
+              myTowers.push(struct.id);
+            }
+          },
+        });
+      }
+      creep.memory.myTowers = myTowers;
     }
-    creep.memory.myTowers = myTowers;
-  }
-
     
+    if (_.sum(creep.carry) > 0) {
+      creep.memory.transferTower = true;
+    }
+
     target = myTowers[0];
-  target = _.find(myTowers, (tower) => {
-    // tower doesn't exist or doesn't have an energy component
-    if (!tower) {
-      return false;
-    }
+    target = _.find(myTowers, (tower) => {
+      // tower doesn't exist or doesn't have an energy component
+      if (!tower) {
+        return false;
+      }
 
-    // tower has less than 300 energy units
-    if (tower.energy < 300) {
-      return tower;
-    }
+      // tower has less than 300 energy units
+      if (tower.energy < 300) {
+        return tower;
+      }
 
-    // current target tower has more energy than this tower, switch to this tower
-    if (tower.energy < target.energy) {
-      return tower;
-    }
-  });
-  
+      // current target tower has more energy than this tower, switch to this tower
+      if (tower.energy < target.energy) {
+        return tower;
+      }
+    });
 
-  if (
-    target &&
-    (target.energy >= target.energyCapacity)
-  ) {
-    target = null;
+    if (target && target.energy >= target.energyCapacity) {
+      target = null;
+    }
   }
 
-  }
-  
   if (!target) {
     creep.say("wut tower?");
+    creep.memory.transferTower = false;
     return ERR_NOT_FOUND;
   }
 
-console.log(JSON.stringify(target.pos) + " " + creep.pos.isNearTo(target));
+  console.log(JSON.stringify(target.pos) + " " + creep.pos.isNearTo(target));
   if (target && creep.pos.isNearTo(target.pos)) {
-      console.log("going to transfer to tower")
-      creep.memory.path = null;
+    console.log("going to transfer to tower");
+    creep.memory.path = null;
     retval = creep.transfer(target, RESOURCE_ENERGY);
-  console.log(name + " transfer to target val " + retval);
+    console.log(name + " transfer to target val " + retval);
     if (retval === OK) {
       creep.say("t");
       creep.memory.dest = target.id;
@@ -105,11 +100,10 @@ console.log(JSON.stringify(target.pos) + " " + creep.pos.isNearTo(target));
     creep.say("f." + creep.fatigue);
   } else if (target) {
     // creep.say("m." + target.pos.x + "," + target.pos.y);
-    
 
     retval = smartMove(creep, target, 1);
-    if(retval === ERR_NOT_FOUND) {
-        retval = smartMove(creep, target, 1);
+    if (retval === ERR_NOT_FOUND) {
+      retval = smartMove(creep, target, 1);
     } else if (retval != OK) {
       creep.say("m." + retval);
     } else {

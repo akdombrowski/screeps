@@ -45,34 +45,19 @@ const roleHarvester = {
           });
           let nesource1Creeps = Memory.nesource1Creeps || [];
           let nesource2Creeps = Memory.nesource2Creeps || [];
-          if(creep.memory.nesourceNumber === 1) {
+          if (creep.memory.nesourceNumber === 1) {
             ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource1);
-          } else if(creep.memory.nesourceNumber === 2){
+          } else if (creep.memory.nesourceNumber === 2) {
             ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource2);
           } else if (nesource1Creeps.length < nesource2Creeps.length) {
             // go to energy source 1
-            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource1); 
+            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource1);
             creep.memory.nesourceNumber = 1;
           } else {
             // go to energy source 2
             creep.memory.nesourceNumber = 2;
-            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource2); 
+            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource2);
           }
-      
-          if (creep.name[3] % 2 === 0) {
-          } else {
-          }
-          // if ((creep.memory.sourceDir = "east1")) {
-          //   // ermgetEnergyEast(creep, "E36N32", Game.flags.neSource1); // yes i want e36n32
-          // } else if ((creep.memory.sourceDir = "east2")){
-          //   ermgetEnergyEast(creep, "E36N32", Game.flags.neSource2); // yes i
-          // } else if ((creep.memory.sourceDir = "north1")){
-          //   ermgetEnergyEast(creep, "E36N32", Game.flags.neSource1); // yes i
-          // } else if ((creep.memory.sourceDir = "north2")){
-          //   ermgetEnergyEast(creep, "E36N32", Game.flags.neSource2); // yes i
-          // } else {
-          //   ermgetEnergyEast(creep, "E36N32"); // yes i
-          // }
         } else {
           Memory.eastAttackerId = creep.room.find(FIND_HOSTILE_CREEPS).pop()
             ? Memory.eastAttackerId
@@ -101,28 +86,34 @@ const roleHarvester = {
       if (creep.memory.direction === "east") {
         retval = transferEnergyeRm(creep);
       } else {
-                  if (creep.room.name === "E35N31") {
-            retval = transEnTower(creep, 500);
-          }
+        if (creep.room.name === "E35N31" && !creep.memory.buildRoad) {
+          retval = transEnTower(creep, 500);
+        }
 
-          // didn't give energy to tower. build road.
-          if (
-            retval != OK  &&
+        // didn't give energy to tower. build road.
+        if (
+          (retval != OK &&
             !creep.memory.transfer &&
+            !creep.memory.transferTower &&
             creep.room.find(FIND_CONSTRUCTION_SITES, {
               filter: (site) => {
                 return site.structureType === STRUCTURE_ROAD;
               },
-            })
-          ) {
-            buildRoad(creep);
-      
-            } else if (retval === OK) {
-              creep.say("tower");
-              creep.memory.transferTower = true;
-            } else {
-              creep.memory.buildroad = false;
-            }
+            })) ||
+          creep.memory.buildRoad
+        ) {
+          retval = buildRoad(creep);
+          if(retval === OK) {
+            creep.memory.buildRoad = true;
+          }
+        } else if (retval === OK) {
+          creep.say("tower");
+          creep.memory.transferTower = true;
+        } else {
+          creep.memory.buildroad = false;
+        }
+
+        // didn't build road and didn't transto tower
         if (retval != OK) {
           creep.memory.transfer = true;
           retval = transferEnergy(creep);

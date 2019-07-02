@@ -23,6 +23,8 @@ function tran(creep, flag, dest) {
         creep.pos.isNearTo(Game.flags.northEntrance1)
       ) {
         creep.move(BOTTOM);
+      } else {
+        smartMove(creep, Game.flags.northEntrance1, 0);
       }
       creep.say("northEntrance");
       return;

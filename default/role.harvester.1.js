@@ -8,6 +8,7 @@ const getEnergyWest = require("./action.getEnergy.1");
 const buildRoad = require("./action.buildRoad");
 const smartMove = require("./action.smartMove");
 const build = require("./action.build");
+const transEnTower = require("./action.transEnTower");
 
 const roleHarvester = {
   /** @param {Creep} creep **/
@@ -100,6 +101,28 @@ const roleHarvester = {
       if (creep.memory.direction === "east") {
         retval = transferEnergyeRm(creep);
       } else {
+                  if (creep.room.name === "E35N31") {
+            retval = transEnTower(creep, 500);
+          }
+
+          // didn't give energy to tower. build road.
+          if (
+            retval != OK  &&
+            !creep.memory.transfer &&
+            creep.room.find(FIND_CONSTRUCTION_SITES, {
+              filter: (site) => {
+                return site.structureType === STRUCTURE_ROAD;
+              },
+            })
+          ) {
+            buildRoad(creep);
+      
+            } else if (retval === OK) {
+              creep.say("tower");
+              creep.memory.transferTower = true;
+            } else {
+              creep.memory.buildroad = false;
+            }
         if (retval != OK) {
           creep.memory.transfer = true;
           retval = transferEnergy(creep);

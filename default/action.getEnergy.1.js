@@ -17,8 +17,6 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   let roll = creep.memory.role;
   let s1RmEnAvail = Memory.s1.room.energyAvailable;
 
-  
-  
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
     if (roll === "h") {
@@ -32,126 +30,127 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
         retval != OK &&
         s1RmEnAvail > 500 &&
         creep.room.find(FIND_CONSTRUCTION_SITES, {
-          filter: site => {
+          filter: (site) => {
             return site.structureType === STRUCTURE_ROAD;
-          }
-        })
-        ) {
-          buildRoad(creep);
-        }
-      } else if (retval === OK) {
-        creep.say("tower");
-      } else {
-        creep.memory.buildroad = false;
-      }
-      return;
+          },
+        }) &&
+        !creep.memory.transfer
+      ) {
+        buildRoad(creep);
+      
+    } else if (retval === OK) {
+      creep.say("tower");
+      creep.memory.transferTower = true;
     } else {
       creep.memory.buildroad = false;
-      creep.memory.getEnergy = true;
     }
-    
-    let target;
-    let lastSourceId = creep.memory.lastSourceId;
-    let numCrps = Object.keys(Game.creeps).length;
-    let targetedRm = Game.rooms[sourceRmTargeted];
-    let isTargetStructure = false;
-    
-    
-    if (!targetedRm) {
-      switch (sourceRmTargeted) {
-        case "E34N31":
+    return retval;
+    }
+  } else {
+    creep.memory.buildroad = false;
+    creep.memory.getEnergy = true;
+  }
+
+  let target;
+  let lastSourceId = creep.memory.lastSourceId;
+  let numCrps = Object.keys(Game.creeps).length;
+  let targetedRm = Game.rooms[sourceRmTargeted];
+  let isTargetStructure = false;
+
+  if (!targetedRm) {
+    switch (sourceRmTargeted) {
+      case "E34N31":
         target = creep.room.name != sourceRmTargeted ? Game.flags.west : null;
         targetedRm = Game.flags.west.room;
         break;
-        case "E36N31":
-          target = creep.room.name != sourceRmTargeted ? Game.flags.east : null;
+      case "E36N31":
+        target = creep.room.name != sourceRmTargeted ? Game.flags.east : null;
         targetedRm = Game.flags.east.room;
         break;
-        case "E36N32":
+      case "E36N32":
         target =
-        creep.room.name != sourceRmTargeted ? Game.flags.neSource1 : null;
+          creep.room.name != sourceRmTargeted ? Game.flags.neSource1 : null;
         targetedRm = Game.flags.neSource1.room;
         break;
-        case "E35N32":
-          target = creep.room.name != sourceRmTargeted ? Game.flags.north1 : null;
-          targetedRm = Game.flags.north1.room;
-  console.log(name + " " + targetedRm)
-          break;
-          default:
-            target = creep.room.name != sourceRmTargeted ? Game.flags.Flag1 : null;
-            targetedRm = Memory.s1.room;
-            break;
-          }
-        }
-        if(target && !target.energy && !targetedRm) {
-            retval = smartMove(creep, target, 3);
-            return retval;
-        }
-        
-        // target = target || Game.getObjectById(lastSourceId);
-        
-        // console.log("name: " + name + " " + target)
-        if (targetedRm) {
-          if(!target || target.energy <= 0) {
-            target = targetedRm
-            .find(FIND_SOURCES_ACTIVE, {
-              filter: source => {
-              if (
-                !(targetedRm.name === "E35N31" && source.pos.isEqualTo(41, 8))
-              ) {
-                // console.log("name2: " + creep.name + " "  + source)
-  
-                return source;
-              }
-            }
-          })
-          .pop();
-          }          
-        
-        if (target) {
-          creep.memory.lastSourceId = target.id;
-        }
-      }
-      
-      // Do I need to pick up some dropped energy somewhere?
-      retval = droppedDuty(creep);
-      if (retval === OK) {
-        console.log(name + "droppedDuty");
-        return retval;
-      }
-      
-      // See if there's a particular target from a previous trip
-      // or one that's been specified.
-      if (flag) {
-        target = creep.room.lookForAt(LOOK_SOURCES, flag).pop();
-        
-        // Can't find sources, probably in a different room. Just head that way.
-        if (!target) {
-          retval = smartMove(creep, flag, 1);
-          return retval;
-        }
-        creep.say("flag");
-      } else if (creep.memory.flag) {
-        target = creep.room.lookForAt(LOOK_SOURCES, creep.memory.flag).pop();
-      }
-      
-      
-      // console.log("name2: " + creep.name + " "  + target)
-      
-      // If i don't have a target yet. Check containers and storage units
-      //  for energy.
-      if (!target || !target.energy || target.energy <= 0) {
-        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-          filter: structure => {
+      case "E35N32":
+        target = creep.room.name != sourceRmTargeted ? Game.flags.north1 : null;
+        targetedRm = Game.flags.north1.room;
+
+        break;
+      default:
+        target = creep.room.name != sourceRmTargeted ? Game.flags.Flag1 : null;
+        targetedRm = Memory.s1.room;
+        break;
+    }
+  }
+  if (target && !target.energy && !targetedRm) {
+    retval = smartMove(creep, target, 3);
+    return retval;
+  }
+
+  // target = target || Game.getObjectById(lastSourceId);
+
+  // console.log("name: " + name + " " + target)
+  if (targetedRm) {
+    if (!target || target.energy <= 0) {
+      target = targetedRm
+        .find(FIND_SOURCES_ACTIVE, {
+          filter: (source) => {
             if (
-              (structure.structureType == STRUCTURE_CONTAINER ||
-                structure.structureType == STRUCTURE_STORAGE) &&
-                _.sum(structure.store) >= creep.carryCapacity
-                ) {
-                  // console.log("name: " + structure)
-                  return structure;
+              !(targetedRm.name === "E35N31" && source.pos.isEqualTo(41, 8))
+            ) {
+              // console.log("name2: " + creep.name + " "  + source)
+
+              return source;
+            }
+          },
+        })
+        .pop();
+    }
+
+    if (target) {
+      creep.memory.lastSourceId = target.id;
+    }
+  }
+
+  // Do I need to pick up some dropped energy somewhere?
+  retval = droppedDuty(creep);
+  if (retval === OK) {
+    console.log(name + "droppedDuty");
+    return retval;
+  }
+
+  // See if there's a particular target from a previous trip
+  // or one that's been specified.
+  if (flag) {
+    target = creep.room.lookForAt(LOOK_SOURCES, flag).pop();
+
+    // Can't find sources, probably in a different room. Just head that way.
+    if (!target) {
+      retval = smartMove(creep, flag, 1);
+      return retval;
+    }
+    creep.say("flag");
+  } else if (creep.memory.flag) {
+    target = creep.room.lookForAt(LOOK_SOURCES, creep.memory.flag).pop();
+  }
+
+  // console.log("name2: " + creep.name + " "  + target)
+
+  // If i don't have a target yet. Check containers and storage units
+  //  for energy.
+  if (!target || !target.energy || target.energy <= 0) {
+    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+      filter: (structure) => {
+        if (
+          (structure.structureType == STRUCTURE_CONTAINER ||
+            structure.structureType == STRUCTURE_STORAGE) &&
+          _.sum(structure.store) >= creep.carryCapacity
+        ) {
+          // console.log("name: " + structure)
+          return structure;
         }
-      }
+      },
     });
 
     isTargetStructure = target ? true : false;
@@ -160,11 +159,11 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     if (!target || target.energy <= 0) {
       creep.memory.path = null;
       target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
-        filter: structure => {
+        filter: (structure) => {
           if (structure.pos.findInRange(FIND_CREEPS, 2).length <= 6) {
             return structure;
           }
-        }
+        },
       });
     }
   }

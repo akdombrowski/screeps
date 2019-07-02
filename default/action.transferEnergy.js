@@ -1,6 +1,7 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const traneRm = require("./action.transferEnergyeRm");
+const transEnTower = require("./action.transEnTower");
 
 function tran(creep, flag, dest) {
   let target;
@@ -55,19 +56,25 @@ function tran(creep, flag, dest) {
     (creep.memory.direction === "south" || creep.memory.direction === "east") &&
     enAvail > 300
   ) {
-    _.forEach(towers, tor => {
-      if (tor) {
-        if (
-          (tor.energy < tor.energyCapacity - 250 &&
-            Object.keys(Game.creeps).length > 10) ||
-          tor.energy <= 300
-        ) {
-          target = tor;
-        }
-      }
-    });
+     target = towers[0];
+  target = _.find(towers, (tower) => {
+    // tower doesn't exist or doesn't have an energy component
+    if (!tower) {
+      return false;
+    }
+
+    // tower has less than 300 energy units
+    if (tower.energy < 300) {
+      return tower;
+    }
+
+    // current target tower has more energy than this tower, switch to this tower
+    if (tower.energy < target.energy) {
+      return tower;
+    }
+  });
   }
-  
+
   
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {

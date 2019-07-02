@@ -67,8 +67,8 @@ module.exports.loop = function() {
     let source2 = rm.lookForAt(LOOK_SOURCES, 29, 15).pop();
     let source1eRm = eRm.lookForAt(LOOK_SOURCES, 9, 10).pop();
 
-    let tower1Id = Memory.tower1Id || "5cf3b09b75f7e26764ee4276";
-    let tower2Id = Memory.tower2Id || "5cfd5e7adee9d942d5155ed6";
+    let tower1Id = "5cf3b09b75f7e26764ee4276";
+    let tower2Id =  "5d0182c6667a4642d4259e3f";
     let etower1Id = Memory.etower1Id || "5d0f99d929c9cb5363cba23d";
     let tower1 = Game.getObjectById(tower1Id);
     let tower2 = Game.getObjectById(tower2Id);
@@ -206,8 +206,8 @@ module.exports.loop = function() {
       const ermLvl = ermController.level;
       const ermProg = ermController.progress;
       const ermProgTot = ermController.progressTotal;
-      let rmProgRate = (Memory.rmProg - rmProg) / Memory.rmProg;
-      let ermProgRate = (Memory.ermProg - ermProg) / Memory.ermProg;
+      let rmProgRate = (rmProg - Memory.rmProg) / Memory.rmProg;
+      let ermProgRate = (ermProg - Memory.ermProg) / Memory.ermProg;
       let rmProgPerc = rmProgRate * 100;
       let ermProgPerc = ermProgRate * 100;
 
@@ -247,7 +247,7 @@ module.exports.loop = function() {
           "/" +
           rmProgTot / 1000 +
           "\n" +
-          rmProgRate +
+          rmProgPerc + "%" +
           "\n" +
           "E: " +
           ermLvl +
@@ -256,7 +256,7 @@ module.exports.loop = function() {
           "/" +
           ermProgTot / 1000 +
           "\n" +
-          ermProgRate +
+          ermProgPerc + "%" + 
           "\n" +
           enAvail +
           "," +

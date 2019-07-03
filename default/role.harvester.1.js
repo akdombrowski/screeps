@@ -18,6 +18,8 @@ const roleHarvester = {
     let name = creep.name;
 
     if (creep.memory.getEnergy || creep.carry.energy <= 0) {
+      creep.memory.buildRoad = false;
+      creep.memory.transferTower = false;
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
 
@@ -83,38 +85,42 @@ const roleHarvester = {
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.getEnergy = false;
       retval = -16;
-      if (creep.memory.direction === "east") {
-        retval = transferEnergyeRm(creep);
+
+      if (creep.room.name === "E35N31") {
+        creep.memory.transferTower = true;
+        creep.memory.buildRoad = false;
+        retval = transEnTower(creep, 500);
+      }
+
+      // didn't give energy to tower. build road.
+      if (
+        (retval != OK &&
+          !creep.memory.transfer &&
+          !creep.memory.transferTower &&
+          creep.room.find(FIND_CONSTRUCTION_SITES, {
+            filter: (site) => {
+              return site.structureType === STRUCTURE_ROAD;
+            },
+          })) ||
+        creep.memory.buildRoad
+      ) {
+        console.log(name + " build road inside role harvester")
+        retval = buildRoad(creep);
+        if (retval === OK) {
+          creep.memory.buildRoad = true;
+        }
+      } else if (retval === OK) {
+        creep.say("tower");
+        creep.memory.transferTower = true;
       } else {
-        if (creep.room.name === "E35N31" && !creep.memory.buildRoad) {
-          retval = transEnTower(creep, 500);
-        }
+        creep.memory.buildroad = false;
+      }
 
-        // didn't give energy to tower. build road.
-        if (
-          (retval != OK &&
-            !creep.memory.transfer &&
-            !creep.memory.transferTower &&
-            creep.room.find(FIND_CONSTRUCTION_SITES, {
-              filter: (site) => {
-                return site.structureType === STRUCTURE_ROAD;
-              },
-            })) ||
-          creep.memory.buildRoad
-        ) {
-          retval = buildRoad(creep);
-          if(retval === OK) {
-            creep.memory.buildRoad = true;
-          }
-        } else if (retval === OK) {
-          creep.say("tower");
-          creep.memory.transferTower = true;
+      // didn't build road and didn't transto tower
+      if (retval != OK) {
+        if (creep.memory.direction === "east") {
+          retval = transferEnergyeRm(creep);
         } else {
-          creep.memory.buildroad = false;
-        }
-
-        // didn't build road and didn't transto tower
-        if (retval != OK) {
           creep.memory.transfer = true;
           retval = transferEnergy(creep);
         }

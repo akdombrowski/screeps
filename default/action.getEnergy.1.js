@@ -22,6 +22,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     if (roll === "h") {
       // if we are in room e35n31 then give energy to tower
       if (rmName === "E35N31") {
+        creep.memory.transferTower;
         retval = transferEnToTower(creep, 500);
       }
 
@@ -36,6 +37,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
         }) &&
         !creep.memory.transfer
       ) {
+        console.log("build road inside get energy")
         buildRoad(creep);
       
     } else if (retval === OK) {

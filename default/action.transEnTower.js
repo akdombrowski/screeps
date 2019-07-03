@@ -22,13 +22,16 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   let transfering = creep.memory.transferTower;
 
   if (rm.energyAvailable < minRmEnAvail && !transfering) {
+    console.log(name + " rm energy too high or not transfertower");
     return retval;
   }
 
-
-
-  if (creep.memory.transferTower && creep.memory.dest) {
-    target = Game.getObjectById(creep.memory.destId);
+  if (
+    creep.memory.dest &&
+    creep.memory.dest.structureType === STRUCTURE_TOWER
+  ) {
+    target = Game.getObjectById(creep.memory.dest);
+    console.log(name + " reuse target " + JSON.stringify(target));
   } else {
     if (myTowers.length <= 0) {
       if (direction === "east") {
@@ -51,12 +54,15 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
       }
       creep.memory.myTowers = myTowers;
     }
-    
+
     if (_.sum(creep.carry) > 0) {
       creep.memory.transferTower = true;
     }
 
     target = myTowers[0];
+
+    console.log(name + " starting tower " + JSON.stringify(target));
+
     target = _.find(myTowers, (tower) => {
       // tower doesn't exist or doesn't have an energy component
       if (!tower) {
@@ -64,7 +70,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
       }
 
       // tower has less than 300 energy units
-      if (tower.energy < 300) {
+      if (tower.energy < 1000) {
         return tower;
       }
 
@@ -82,15 +88,18 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   if (!target) {
     creep.say("wut tower?");
     creep.memory.transferTower = false;
+    console.log(name + " no tower");
     return ERR_NOT_FOUND;
   }
 
-  console.log(JSON.stringify(target.pos) + " " + creep.pos.isNearTo(target));
   if (target && creep.pos.isNearTo(target.pos)) {
     console.log("going to transfer to tower");
+
     creep.memory.path = null;
     retval = creep.transfer(target, RESOURCE_ENERGY);
+
     console.log(name + " transfer to target val " + retval);
+
     if (retval === OK) {
       creep.say("t");
       creep.memory.dest = target.id;
@@ -101,6 +110,8 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   } else if (target) {
     // creep.say("m." + target.pos.x + "," + target.pos.y);
 
+    console.log("moving to tower " + JSON.stringify(target));
+
     retval = smartMove(creep, target, 1);
     if (retval === ERR_NOT_FOUND) {
       retval = smartMove(creep, target, 1);
@@ -108,6 +119,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
       creep.say("m." + retval);
     } else {
       creep.say("m");
+      creep.memory.dest = target.id;
     }
 
     creep.memory.dest = target.id;

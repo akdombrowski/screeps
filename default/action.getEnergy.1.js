@@ -19,17 +19,18 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
+    creep.memory.transfer = true;
     if (roll === "h") {
       // if we are in room e35n31 then give energy to tower
       if (rmName === "E35N31") {
-        creep.memory.transferTower;
+        creep.memory.transferTower = true;
         retval = transferEnToTower(creep, 500);
       }
 
       // didn't give energy to tower. build road.
       if (
         retval != OK &&
-        s1RmEnAvail > 500 &&
+        s1RmEnAvail > 700 &&
         creep.room.find(FIND_CONSTRUCTION_SITES, {
           filter: (site) => {
             return site.structureType === STRUCTURE_ROAD;
@@ -49,6 +50,9 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     return retval;
     }
   } else {
+    creep.memory.transferTower = false;
+    creep.memory.transfer = false;
+
     creep.memory.buildroad = false;
     creep.memory.getEnergy = true;
   }
@@ -85,6 +89,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
         break;
     }
   }
+  
   if (target && !target.energy && !targetedRm) {
     retval = smartMove(creep, target, 3);
     return retval;

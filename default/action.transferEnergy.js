@@ -114,6 +114,7 @@ function tran(creep, flag, dest) {
       creep.say("t");
       creep.memory.dest = target.id;
     }
+    console.log(name + " transfer to " + JSON.stringify(target.pos))
   } else if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
   } else if (target) {

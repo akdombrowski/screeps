@@ -16,6 +16,8 @@ const roleHarvester = {
     let ermHarvesters = Memory.ermHarvesters;
     let ermNeHarvesters = Memory.ermNeHarvesters;
     let name = creep.name;
+    let direction = creep.memory.direction;
+    let sourceDir = creep.memory.sourceDir;
 
     if (creep.memory.getEnergy || creep.carry.energy <= 0) {
       creep.memory.buildRoad = false;
@@ -86,10 +88,10 @@ const roleHarvester = {
       creep.memory.getEnergy = false;
       retval = -16;
 
-      if (creep.room.name === "E35N31") {
+      if (direction === "south" || direction === "east") {
         creep.memory.transferTower = true;
         creep.memory.buildRoad = false;
-        retval = transEnTower(creep, 500);
+        retval = transEnTower(creep, 700);
       }
 
       // didn't give energy to tower. build road.

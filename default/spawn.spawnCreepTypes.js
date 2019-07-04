@@ -124,7 +124,7 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts;
     let spawnDirection = [BOTTOM_RIGHT];
 
-    if (southHarvesters.length < 3) {
+    if (southHarvesters.length < 2) {
       southHarvesters.push(name);
       parts = simpleParts;
       birthCreep(
@@ -183,13 +183,13 @@ function spawnCreepTypes(enAvail) {
     let spawnDirection = [BOTTOM_RIGHT];
     let birth = false;
 
-    if (linkGets.length < 4 && Game.creeps.harvester1) {
+    if (linkGets.length < 3 && Game.creeps.harvester1) {
       chosenRole = "linkGet";
       name = "XLlink" + t;
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
-    } else if (southHarvesters.length < 4) {
+    } else if (southHarvesters.length < 3) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;

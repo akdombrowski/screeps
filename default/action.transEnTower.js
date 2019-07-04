@@ -92,8 +92,8 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
     return ERR_NOT_FOUND;
   }
 
+  console.log(name + " going to transfer to tower, isnearto " + creep.pos.isNearTo(target.pos));
   if (target && creep.pos.isNearTo(target.pos)) {
-    console.log("going to transfer to tower");
 
     creep.memory.path = null;
     retval = creep.transfer(target, RESOURCE_ENERGY);
@@ -110,7 +110,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   } else if (target) {
     // creep.say("m." + target.pos.x + "," + target.pos.y);
 
-    console.log("moving to tower " + JSON.stringify(target));
+    console.log(name + " moving to tower " + JSON.stringify(target));
 
     retval = smartMove(creep, target, 1);
     if (retval === ERR_NOT_FOUND) {
@@ -124,6 +124,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
 
     creep.memory.dest = target.id;
   } else {
+    console.log(name + " no target switching off of transentower")
     creep.memory.dest = null;
     creep.say("t.err");
   }

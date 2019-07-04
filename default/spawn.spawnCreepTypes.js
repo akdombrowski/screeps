@@ -66,33 +66,33 @@ function spawnCreepTypes(enAvail) {
 
   // 1200
   let upContrParts = [];
-  addPart(upContrParts, 10, CARRY);
-  addPart(upContrParts, 5, WORK);
-  addPart(upContrParts, 4, MOVE);
+  addPart(upContrParts, 20, CARRY);
+  addPart(upContrParts, 6, WORK);
+  addPart(upContrParts, 8, MOVE);
 
   // 1200
   let southHvParts = [];
-  addPart(southHvParts, 1, CARRY);
-  addPart(southHvParts, 8, WORK);
-  addPart(southHvParts, 7, MOVE);
+  addPart(southHvParts, 3, CARRY);
+  addPart(southHvParts, 14, WORK);
+  addPart(southHvParts, 9, MOVE);
 
-  // 1200
+  // 2000
   let newhvParts = [];
-  addPart(newhvParts, 3, CARRY);
-  addPart(newhvParts, 7, WORK);
-  addPart(newhvParts, 7, MOVE);
+  addPart(newhvParts, 4, CARRY);
+  addPart(newhvParts, 12, WORK);
+  addPart(newhvParts, 12, MOVE);
 
-  // 1200
+  // 2000
   let workerParts = [];
   addPart(workerParts, 4, CARRY);
-  addPart(workerParts, 6, WORK);
+  addPart(workerParts, 14, WORK);
   addPart(workerParts, 8, MOVE);
 
-  // 1200
+  // 2000
   let repairerParts = [];
-  addPart(repairerParts, 4, CARRY);
-  addPart(repairerParts, 7, WORK);
-  addPart(repairerParts, 6, MOVE);
+  addPart(repairerParts, 10, CARRY);
+  addPart(repairerParts, 8, WORK);
+  addPart(repairerParts, 14, MOVE);
 
   // 300
   let linkGetsParts = [];
@@ -172,7 +172,7 @@ function spawnCreepTypes(enAvail) {
   }
 
   // Roster
-  if (enAvail >= 1200) {
+  if (enAvail >= 2000) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t;
     let chosenRole = "h";
@@ -189,7 +189,7 @@ function spawnCreepTypes(enAvail) {
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
-    } else if (southHarvesters.length < 3) {
+    } else if (southHarvesters.length < 2) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
@@ -244,16 +244,6 @@ function spawnCreepTypes(enAvail) {
       workers.push(name);
       birth = true;
     } else if (
-      !Game.creeps.eastRezzy &&
-      (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
-    ) {
-      waitForRezzy = true;
-      chosenRole = "eastRezzy";
-      name = chosenRole;
-      direction = "east";
-      parts = upContrParts;
-      birth = true;
-    } else if (
       !Game.creeps.northRezzy &&
       (!nAttackerId || Game.time >= eAttackDurationSafeCheck)
     ) {
@@ -274,6 +264,16 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole;
       direction = "west";
       parts = rezzyParts;
+      birth = true;
+    } else if (
+      !Game.creeps.eastRezzy &&
+      (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
+    ) {
+      waitForRezzy = true;
+      chosenRole = "eastRezzy";
+      name = chosenRole;
+      direction = "east";
+      parts = upContrParts;
       birth = true;
     }
 

@@ -1,3 +1,5 @@
+const findRepairable = require("./action.findRepairableStruct");
+
 const roleTower = {
   /** **/
   run: function(tower) {
@@ -5,20 +7,8 @@ const roleTower = {
     let ramp = tower.pos.lookFor(LOOK_STRUCTURES).pop();
     if (invader) {
       console.log("tower attack: " + tower.attack(invader));
-    } else if (tower && tower.energy > 900) {
-      let struct = Game.getObjectById(Memory.towerRepairTarget);
-      if (!struct || struct.hitsMax <= struct.hits) {
-        struct = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-          filter: structure => {
-            return (
-              structure.structureType != STRUCTURE_WALL &&
-              structure.hits < structure.hitsMax
-            );
-          }
-        });
-      }
-
-      Memory.towerRepairTarget = struct ? struct.id : null;
+    } else if (tower && tower.energy > 200 && Game.time % 10 === 0) {
+      let struct = findRepairable(tower);
 
       if (struct) {
         tower.repair(struct);

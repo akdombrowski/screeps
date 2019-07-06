@@ -8,6 +8,7 @@ const spawnCreepTypeseRm = require("./spawn.eRmspawnCreepTypes");
 const runRoles = require("./runRoles");
 const linkTran = require("./action.linkTran");
 const profiler = require("./screeps-profiler");
+const findDecayed = require("./action.findDecayed");
 
 // This line monkey patches the global prototypes.
 profiler.enable();
@@ -68,7 +69,7 @@ module.exports.loop = function() {
     let source1eRm = eRm.lookForAt(LOOK_SOURCES, 9, 10).pop();
 
     let tower1Id = "5cf3b09b75f7e26764ee4276";
-    let tower2Id =  "5d0182c6667a4642d4259e3f";
+    let tower2Id = "5d0182c6667a4642d4259e3f";
     let etower1Id = Memory.etower1Id || "5d0f99d929c9cb5363cba23d";
     let tower1 = Game.getObjectById(tower1Id);
     let tower2 = Game.getObjectById(tower2Id);
@@ -191,6 +192,10 @@ module.exports.loop = function() {
 
     linkTran(linkEntrance, linkExit);
 
+    if (!Memory.fixables || Memory.fixables.length < 10) {
+      Memory.fixables = findDecayed();
+    }
+
     if (Game.time % 1000 == 0) {
       if (!Memory.rmProg) {
         Memory.rmProg = 0;
@@ -247,7 +252,8 @@ module.exports.loop = function() {
           "/" +
           rmProgTot / 1000 +
           "\n" +
-          rmProgPerc + "%" +
+          rmProgPerc +
+          "%" +
           "\n" +
           "E: " +
           ermLvl +
@@ -256,7 +262,8 @@ module.exports.loop = function() {
           "/" +
           ermProgTot / 1000 +
           "\n" +
-          ermProgPerc + "%" + 
+          ermProgPerc +
+          "%" +
           "\n" +
           enAvail +
           "," +
@@ -274,7 +281,7 @@ module.exports.loop = function() {
 
   // Profiler stats
   let pTime = Memory.profilerTime;
-  let profilerDur = 1000;
+  let profilerDur = 5000;
   if (!pTime || Game.time - Memory.profilerTime > profilerDur * 1.1) {
     Memory.profilerTime = Game.time;
     Game.profiler.email(profilerDur);

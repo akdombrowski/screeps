@@ -20,41 +20,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
-    if (roll === "h") {
-      // if we are in room e35n31 then give energy to tower
-      if (rmName === "E35N31") {
-        creep.memory.transferTower = true;
-        retval = transferEnToTower(creep, 500);
-      }
-
-      // didn't give energy to tower. build road.
-      if (
-        retval != OK &&
-        s1RmEnAvail > 700 &&
-        creep.room.find(FIND_CONSTRUCTION_SITES, {
-          filter: (site) => {
-            return site.structureType === STRUCTURE_ROAD;
-          },
-        }) &&
-        !creep.memory.transfer
-      ) {
-        console.log("build road inside get energy")
-        buildRoad(creep);
-      
-    } else if (retval === OK) {
-      creep.say("tower");
-      creep.memory.transferTower = true;
-    } else {
-      creep.memory.buildroad = false;
-    }
-    return retval;
-    }
-  } else {
-    creep.memory.transferTower = false;
-    creep.memory.transfer = false;
-
-    creep.memory.buildroad = false;
-    creep.memory.getEnergy = true;
+    return OK;
   }
 
   let target;
@@ -89,7 +55,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
         break;
     }
   }
-  
+
   if (target && !target.energy && !targetedRm) {
     retval = smartMove(creep, target, 3);
     return retval;
@@ -102,7 +68,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     if (!target || target.energy <= 0) {
       target = targetedRm
         .find(FIND_SOURCES_ACTIVE, {
-          filter: (source) => {
+          filter: source => {
             if (
               !(targetedRm.name === "E35N31" && source.pos.isEqualTo(41, 8))
             ) {
@@ -110,7 +76,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
               return source;
             }
-          },
+          }
         })
         .pop();
     }
@@ -148,7 +114,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   //  for energy.
   if (!target || !target.energy || target.energy <= 0) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: (structure) => {
+      filter: structure => {
         if (
           (structure.structureType == STRUCTURE_CONTAINER ||
             structure.structureType == STRUCTURE_STORAGE) &&
@@ -157,7 +123,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
           // console.log("name: " + structure)
           return structure;
         }
-      },
+      }
     });
 
     isTargetStructure = target ? true : false;
@@ -166,11 +132,11 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     if (!target || target.energy <= 0) {
       creep.memory.path = null;
       target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
-        filter: (structure) => {
+        filter: structure => {
           if (structure.pos.findInRange(FIND_CREEPS, 2).length <= 6) {
             return structure;
           }
-        },
+        }
       });
     }
   }

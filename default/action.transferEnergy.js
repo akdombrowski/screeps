@@ -47,7 +47,8 @@ function tran(creep, flag, dest) {
 
   if (
     target &&
-    target.structureType === STRUCTURE_TOWER && rm &&
+    target.structureType === STRUCTURE_TOWER &&
+    rm &&
     rm.energyAvailable &&
     rm.energyAvailable <= 300
   ) {
@@ -58,33 +59,33 @@ function tran(creep, flag, dest) {
     (creep.memory.direction === "south" || creep.memory.direction === "east") &&
     enAvail > 300
   ) {
-     target = towers[0];
-  target = _.find(towers, (tower) => {
-    // tower doesn't exist or doesn't have an energy component
-    if (!tower) {
-      return false;
-    }
+    target = towers[0];
+    target = _.find(towers, tower => {
+      // tower doesn't exist or doesn't have an energy component
+      if (!tower) {
+        return false;
+      }
 
-    // tower has less than 300 energy units
-    if (tower.energy < 300) {
-      return tower;
-    }
+      // tower has less than 300 energy units
+      if (tower.energy < 900) {
+        return tower;
+      }
 
-    // current target tower has more energy than this tower, switch to this tower
-    if (tower.energy < target.energy) {
-      return tower;
-    }
-  });
+      // current target tower has more energy than this tower, switch to this tower
+      if (tower.energy < target.energy) {
+        return tower;
+      }
+    });
   }
 
-  
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: structure => {
         let type = structure.structureType;
         if (
           type === STRUCTURE_EXTENSION &&
-          structure != Memory.spawnExts[0] && structure != Memory.spawnExts[1] &&
+          structure != Memory.spawnExts[0] &&
+          structure != Memory.spawnExts[1] &&
           structure.energy < structure.energyCapacity
         ) {
           extensionNeedsEnergy = true;
@@ -114,7 +115,12 @@ function tran(creep, flag, dest) {
       creep.say("t");
       creep.memory.dest = target.id;
     }
-    console.log(name + " transfer to " + JSON.stringify(target.pos))
+
+    if (creep.memory.direction === "south") {
+      console.log(name + " transfer to " + JSON.stringify(target.pos));
+    }
+
+    
   } else if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
   } else if (target) {

@@ -2,6 +2,9 @@ const getEnergy = require("./action.getEnergy.1");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const build = require("./action.build");
+const findRepairable = require("./action.findRepairableStruct");
+
+
 var roleRepairer = {
   /** @param {Creep} creep **/
   run: function(creep) {
@@ -29,51 +32,8 @@ var roleRepairer = {
       let target;
       let targetObj;
       let targetType = creep.memory.targetType;
-      if (creep.memory.r) {
-        target = Game.getObjectById(creep.memory.r);
-        targetObj = Game.getObjectById(target);
-      }
-
-      if (targetType === STRUCTURE_RAMPART) {
-        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-          filter: (structure) => {
-            if (structure.structureType == STRUCTURE_RAMPART) {
-              return structure.hits < structure.hitsMax;
-            }
-          },
-        });
-      } else if (targetType === STRUCTURE_ROAD) {
-        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-          filter: (structure) => {
-            if (structure.structureType == STRUCTURE_ROAD) {
-              return structure.hits < structure.hitsMax;
-            }
-          },
-        });
-      } else if (target && target.hits >= target.hitsMax) {
-        target = null;
-      } else {
-        target = null;
-      }
-
-      if (!target) {
-        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-          filter: (structure) => {
-            if (!structure.hits || structure.hits >= structure.hitsMax) {
-              return false;
-            }
-
-            if (structure.structureType === STRUCTURE_RAMPART) {
-              return structure.hits < structure.hitsMax;
-            } else if (
-              structure.structureType === STRUCTURE_ROAD ||
-              structure.structureType === STRUCTURE_CONTAINER
-            ) {
-              target = structure;
-            }
-          },
-        });
-      }
+      
+      target = findRepairable(creep);
 
       if (target) {
         if (creep.pos.inRangeTo(target, 3)) {
@@ -110,7 +70,7 @@ var roleRepairer = {
         console.log(creep.name + ":repair target is null");
       }
     }
-  },
+  }
 };
 
 module.exports = roleRepairer;

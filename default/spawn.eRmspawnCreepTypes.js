@@ -170,7 +170,7 @@ function spawnCreepTypes(enAvail) {
       parts = basicHv;
       sourceDir = "east1";
       birth = true;
-    } else if (ermHarvesters.length < 3) {
+    } else if (ermHarvesters.length < 6) {
       ermHarvesters.push(name);
       parts = basicHv;
       sourceDir = "east2";

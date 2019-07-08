@@ -21,6 +21,9 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
     return OK;
+  } else {
+    creep.memory.getEnergy = true;
+    creep.memory.transfer = false;
   }
 
   let target;

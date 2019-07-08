@@ -13,17 +13,17 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
       if (!path1) {
         path1 = creep.room.findPath(creep.pos, exit.pos, {
           serialize: true,
-          range: 1
+          range: 1,
         });
       }
       retval = creep.moveByPath(path1);
       if (retval === ERR_NO_PATH || retval === ERR_NOT_FOUND) {
         path = null;
         creep.say("err");
-      } else if(retval === ERR_TIRED) {
+      } else if (retval === ERR_TIRED) {
         creep.memory.path1 = path1;
         creep.say("m." + creep.fatigue);
-      }else {
+      } else {
         creep.memory.path1 = path1;
         creep.say(rm);
       }
@@ -40,21 +40,11 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
       if (creep.pos.inRangeTo(contr, 3)) {
         creep.upgradeController(contr);
       } else {
-        if (!path2) {
-          path2 = creep.room.findPath(creep.pos, contr.pos, {
-            range: 3,
-            serialize: true
-          });
-          creep.memory.path2 = path2;
-        }
-        retval = creep.moveByPath(path2);
-        if (retval  === ERR_NO_PATH || retval === ERR_NOT_FOUND) {
-          path2 = null;
-          creep.memory.path2 = path2;
-          creep.say("reset")
-        } else if (retval === ERR_TIRED) {
+        retval = smartMove(creep, contr, 3);
+
+        if (retval === ERR_TIRED) {
           creep.say("f." + creep.fatigue);
-        }else {
+        } else {
           creep.say("p2up." + retval);
         }
       }

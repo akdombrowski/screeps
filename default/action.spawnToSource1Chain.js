@@ -48,13 +48,14 @@ function spawnToSource1Chain() {
     console.log(e.message);
     return;
   }
-
+  // harvester not next to source to harvest
   needMover = !hv.pos.isNearTo(source1);
+  // is chain broken
   needMover = needMover || !tr1.pos.isNearTo(tr2) || !tr1.pos.isNearTo(hv);
+  // is chain connected to spawn1
   needMover = needMover || !tr2.pos.isNearTo(tr1) || !tr2.pos.isNearTo(s1);
 
   if (needMover && !mv) {
-    console.log("need mover for supply chain");
     let direction = LEFT;
     if (
       Memory.s1.room.lookForAt(
@@ -66,25 +67,24 @@ function spawnToSource1Chain() {
       if (Memory.enAvail >= 100) {
         Game.spawns.Spawn1.spawnCreep([MOVE, MOVE], "mover1", {
           memory: {
-            role: "mover"
-          }
+            role: "mover",
+          },
         });
       }
     } else {
       Game.spawns.Spawn1.spawnCreep([MOVE, MOVE], "mover1", {
         memory: {
           role: "mover",
-          directions: direction
-        }
+          directions: direction,
+        },
       });
     }
   } else if (needMover) {
     // we have a mover, let's check if everyone is in the right spot
     if (hv && !hv.pos.isNearTo(source1)) {
-      console.log("hv isn't in place.");
       // we need to pull hv into place next to the source to harvest
       if (!mv.pos.isNearTo(hv)) {
-        console.log("mv: tow hv:" + smartMove(mv, hv, 1));
+        smartMove(mv, hv, 1);
       } else {
         if (
           !mv.pos.isEqualTo(
@@ -95,97 +95,139 @@ function spawnToSource1Chain() {
             )
           )
         ) {
-          console.log(
-            "chainMove hv:" +
-              chainMove(
-                mv.name,
-                hvNames,
-                new RoomPosition(
-                  source1.pos.x + 1,
-                  source1.pos.y,
-                  source1.room.name
-                ),
-                0
-              )
+          chainMove(
+            mv.name,
+            hvNames,
+            new RoomPosition(
+              source1.pos.x + 1,
+              source1.pos.y,
+              source1.room.name
+            ),
+            0
           );
+          // console.log(
+          //   "chainMove hv:" +
+          //     chainMove(
+          //       mv.name,
+          //       hvNames,
+          //       new RoomPosition(
+          //         source1.pos.x + 1,
+          //         source1.pos.y,
+          //         source1.room.name
+          //       ),
+          //       0
+          //     )
+          // );
         } else {
           try {
-            console.log("chainMove hv:" + chainMove(mv.name, hvNames, hv, 0));
+            chainMove(mv.name, hvNames, hv, 0);
           } catch (e) {
-            console.log(
-              "chainMove hv:" +
-                chainMove(
-                  mv.name,
-                  hvNames,
-                  new RoomPosition(45, 5, hv.room.name),
-                  0
-                )
+            chainMove(
+              mv.name,
+              hvNames,
+              new RoomPosition(45, 5, hv.room.name),
+              0
             );
+            // console.log(
+            //   "chainMove hv:" +
+            //     chainMove(
+            //       mv.name,
+            //       hvNames,
+            //       new RoomPosition(45, 5, hv.room.name),
+            //       0
+            //     )
+            // );
           }
         }
       }
     } else if (tr1 && (!tr1.pos.isNearTo(hv) || tr1.pos.x <= hv.pos.x)) {
-      console.log("Need to pull tr1 into place next to hv.");
       if (!mv.pos.isNearTo(tr1)) {
-        console.log("moving to tow position:" + smartMove(mv, tr1, 1));
+        smartMove(mv, tr1, 1);
       } else if (
         !mv.pos.isEqualTo(
           new RoomPosition(hv.pos.x + 1, source1.pos.y - 1, hv.room.name)
         )
       ) {
-        console.log(
-          "pulling tr1." +
-            chainMove(
-              mv.name,
-              [tr1.name],
-              new RoomPosition(hv.pos.x + 1, source1.pos.y - 1, hv.room.name),
-              0
-            )
+        chainMove(
+          mv.name,
+          [tr1.name],
+          new RoomPosition(hv.pos.x + 1, source1.pos.y - 1, hv.room.name),
+          0
         );
+        // console.log(
+        //   "pulling tr1." +
+        //     chainMove(
+        //       mv.name,
+        //       [tr1.name],
+        //       new RoomPosition(hv.pos.x + 1, source1.pos.y - 1, hv.room.name),
+        //       0
+        //     )
+        // );
       } else {
         try {
-          console.log("pulling tr1. " + chainMove(mv.name, [tr1.name], tr1, 0));
+          chainMove(mv.name, [tr1.name], tr1, 0);
         } catch (e) {
           console.log(e.message);
-          console.log(
-            "pulling tr1." +
-              chainMove(
-                mv.name,
-                [tr1.name],
-                new RoomPosition(43, 7, hv.room.name),
-                0
-              )
+          chainMove(
+            mv.name,
+            [tr1.name],
+            new RoomPosition(43, 7, hv.room.name),
+            0
           );
+          // console.log(
+          //   "pulling tr1." +
+          //     chainMove(
+          //       mv.name,
+          //       [tr1.name],
+          //       new RoomPosition(43, 7, hv.room.name),
+          //       0
+          //     )
+          // );
         }
       }
     } else if (tr2 && (!tr2.pos.isNearTo(tr1) || !tr2.pos.isNearTo(s1))) {
-      console.log("need to move tr1 or tr2");
       if (!mv.pos.isNearTo(tr2)) {
-        console.log("Mover not next to tr2. Moving," + smartMove(mv, tr2, 1));
+        smartMove(mv, tr2, 1);
       } else if ((mv.pos.x != 45 && mv.pos.y != 5) || tr2.pos.x <= tr1.pos.x) {
-        console.log(
-          "pulling tr2 reset spot . " +
-            chainMove(
-              mv.name,
-              [tr2.name],
-              new RoomPosition(45, 5, source1.room.name),
-              0
-            )
+        chainMove(
+          mv.name,
+          [tr2.name],
+          new RoomPosition(45, 5, source1.room.name),
+          0
         );
+        // console.log(
+        //   "pulling tr2 reset spot . " +
+        //     chainMove(
+        //       mv.name,
+        //       [tr2.name],
+        //       new RoomPosition(45, 5, source1.room.name),
+        //       0
+        //     )
+        // );
       } else {
-        console.log(
-          "pulling tr2." +
-            chainMove(
-              mv.name,
-              [tr2.name],
-              new RoomPosition(
-                source1.pos.x + 3,
-                source1.pos.y - 1,
-                source1.room.name
-              ),
-              0
-            )
+        chainMove(
+          mv.name,
+          [tr2.name],
+          new RoomPosition(
+            source1.pos.x + 3,
+            source1.pos.y - 1,
+            source1.room.name
+          ),
+          0
         );
+        // console.log(
+        //   "pulling tr2." +
+        //     chainMove(
+        //       mv.name,
+        //       [tr2.name],
+        //       new RoomPosition(
+        //         source1.pos.x + 3,
+        //         source1.pos.y - 1,
+        //         source1.room.name
+        //       ),
+        //       0
+        //     )
+        // );
       }
     }
   } else {
@@ -194,58 +236,77 @@ function spawnToSource1Chain() {
     try {
       let hvVal = hv.harvest(source1);
       let extRetVal = -16;
-      let transferVal = supplyChain([tr1.name, tr2.name], hv.name, source1, s1);
+      let extretval1 = -16;
+      let extretval2 = -16;
+      let chainval = supplyChain([tr1.name, tr2.name], hv.name, source1, s1);
 
-      if (transferVal != OK || !hv) {
+      console.log("chainval: " + JSON.stringify(chainval));
+      if (chainval[0] != OK && _.sum(tr1.carry) > 0) {
         extRetVal = -17;
-        _.forEach(exts, ext => {
+        _.forEach(exts, (ext) => {
           let e = Game.getObjectById(ext);
 
-          if (e.energy < e.energyCapacity) {
-            if (tr1.pos.isNearTo(e) && _.sum(tr1.carry) > 0) {
-              extRetVal = tr1.transfer(e, RESOURCE_ENERGY);
+          if (tr1.pos.isNearTo(e) && e.energy < e.energyCapacity) {
+            extretval1 = tr1.transfer(e, RESOURCE_ENERGY);
+            if (extretval1 === OK) {
+              tr1.say("se");
+            } else {
+              console.log("tr1 fail ext: " + extChainRetVal);
+            }
+          }
+        });
+      }
+      if (chainval[1] != OK && _.sum(tr2.carry) > 0 && chainval[1] != OK) {
+        extRetVal = -17;
+        _.forEach(exts, (ext) => {
+          let e = Game.getObjectById(ext);
+          if (tr2.pos.isNearTo(e) && e.energy < e.energyCapacity) {
+            extretval2 = tr2.transfer(e, RESOURCE_ENERGY);
 
-              if (extRetVal === OK) {
-                tr1.say("s");
-              } else {
-                console.log("tr1 fail ext: " + extChainRetVal);
-              }
-
-              if (tr2.pos.isNearTo(e) && _.sum(tr2.carry) > 0) {
-                extRetVal = tr2.transfer(e, RESOURCE_ENERGY);
-
-                if (extRetVal === OK) {
-                  tr2.say("s");
-                } else {
-                  console.log("tr2 fail ext: " + e.pos + " " + extRetVal);
-                }
-              }
+            if (extretval2 === OK) {
+              tr2.say("se");
+            } else {
+              console.log("tr2 fail ext: " + e.pos + " " + extRetVal);
             }
           }
         });
       }
 
-      let retval;
-      if (extRetVal != OK && extRetVal != -16) {
-        if (Memory.linkGets.length > 0 && _.sum(tr1.carry) > 0) {
-          retval = tr1.transfer(linkEntrance, RESOURCE_ENERGY);
-          tr1.say("l." + retval);
-        } else if (
-          Object.keys(Game.creeps).length < 10 &&
-          linkEntrance.energy > 0
+      let retval1 = -16;
+      let retval2 = -16;
+      if (extRetVal === -17) {
+        if (
+          extretval1 != OK &&
+          Memory.linkGets.length > 0 &&
+          _.sum(tr1.carry) > 0
         ) {
-          retval = tr1.withdraw(linkEntrance, RESOURCE_ENERGY);
-          tr1.say("wdL." + retval);
+          retval1 = tr1.transfer(linkEntrance, RESOURCE_ENERGY);
+          if (retval1 === OK) {
+            tr1.say("l." + retval);
+          }
         }
 
-        if (extRetVal != OK && retval != OK) {
-          if (tr1.pos.isNearTo(stor1)) {
-            retval = tr1.transfer(stor1, RESOURCE_ENERGY);
+        if (
+          extretval2 != OK &&
+          Memory.linkGets.length > 0 &&
+          tr2.pos.isNearTo(linkEntrance)
+        ) {
+          retval2 = tr2.transfer(linkEntrance, RESOURCE_ENERGY);
+          if (retval2 === OK) {
+            tr2.say("l." + retval2);
+          }
+        }
+
+        if (retval1 != OK && tr1.pos.isNearTo(stor1)) {
+          retval1 = tr1.transfer(stor1, RESOURCE_ENERGY);
+          if (retval1 === OK) {
             tr1.say("st1");
           }
+        }
 
-          if (tr2.pos.isNearTo(stor1)) {
-            retval = tr2.transfer(stor1, RESOURCE_ENERGY);
+        if (retval2 != OK && tr2.pos.isNearTo(stor1)) {
+          retval2 = tr2.transfer(stor1, RESOURCE_ENERGY);
+          if (retval === OK) {
             tr2.say("st1");
           }
         }

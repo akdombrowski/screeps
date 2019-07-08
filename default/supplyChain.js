@@ -15,6 +15,7 @@ function supplyChain(creeps, harvester, source, energyStoredPlace) {
   let transferVal = -16;
   let pickupVal = -16;
   let harvestVal = -16;
+  let retval = -16;
 
   let energy;
 
@@ -53,7 +54,8 @@ function supplyChain(creeps, harvester, source, energyStoredPlace) {
   if (storeVal === OK) {
     storer.say("s");
   }
-  return transferVal;
+
+  return [transferVal, storeVal];
 }
 
 module.exports = supplyChain;

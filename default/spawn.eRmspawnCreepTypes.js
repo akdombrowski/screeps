@@ -206,25 +206,39 @@ function spawnCreepTypes(enAvail) {
     let sourceDir = "";
     let birth = false;
 
-    if (eastUpControllers.length < 3) {
+    if (eastUpControllers.length < 1) {
       chosenRole = "eRezzy";
       name = chosenRole + t;
       direction = "east";
       parts = medupContrParts;
       eastUpControllers.push(name);
       birth = true;
-    } else if (eastWorkers.length < 2) {
+    } else if (eastWorkers.length < 1) {
       chosenRole = "worker";
       name = chosenRole + t;
       eastWorkers.push(name);
       parts = medworkerParts;
       birth = true;
-    } else if (ermNeHarvesters.length < 1) {
+    } else if (eastUpControllers.length < 2) {
+      chosenRole = "eRezzy";
+      name = chosenRole + t;
+      direction = "east";
+      parts = medupContrParts;
+      eastUpControllers.push(name);
+      birth = true;
+    } else if (ermNeHarvesters.length < 8) {
       ermNeHarvesters.push(name);
       parts = mednewhvParts;
       sourceDir = "north1";
       birth = true;
-    } else if (ermNeHarvesters.length < 2) {
+    } else if (eastUpControllers.length < 3) {
+      chosenRole = "eRezzy";
+      name = chosenRole + t;
+      direction = "east";
+      parts = medupContrParts;
+      eastUpControllers.push(name);
+      birth = true;
+    } else if (ermNeHarvesters.length < 15) {
       ermNeHarvesters.push(name);
       parts = mednewhvParts;
       sourceDir = "north2";

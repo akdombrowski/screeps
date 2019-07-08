@@ -196,7 +196,7 @@ module.exports.loop = function() {
       Memory.fixables = findDecayed();
     }
 
-    if (Game.time % 1000 == 0) {
+    if (Game.time % 10000 == 0) {
       if (!Memory.rmProg) {
         Memory.rmProg = 0;
       }
@@ -281,7 +281,7 @@ module.exports.loop = function() {
 
   // Profiler stats
   let pTime = Memory.profilerTime;
-  let profilerDur = 5000;
+  let profilerDur = 15000;
   if (!pTime || Game.time - Memory.profilerTime > profilerDur * 1.1) {
     Memory.profilerTime = Game.time;
     Game.profiler.email(profilerDur);

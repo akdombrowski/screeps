@@ -31,14 +31,19 @@ const roleHarvesterToTower = {
       creep.memory.getEnergy = false;
       creep.memory.transfer = true;
       retval = -16;
-      let etower1Id = Memory.etower1Id;
-      let target = Game.getObjectById(etower1Id);
-
+      let tower1Id = Memory.tower1Id;
+      let tower2Id = Memory.tower2Id;
+      let tower1 = Game.getObjectById(tower1Id);
+      let tower2 = Game.getObjectById(tower2Id);
+      let target = tower1;
       
+      if(tower2.energy < tower1.energy) {
+        target = tower2;
+      }
+
       if(target.energy <= 0) {
         target = creep.room.storage;
       }
-      
       if(creep.pos.isNearTo(target)) {
         creep.transfer(target,RESOURCE_ENERGY);
       } else {

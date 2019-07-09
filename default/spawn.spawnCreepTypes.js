@@ -51,6 +51,7 @@ function spawnCreepTypes(enAvail) {
   let westHarvesters = Memory.westHarvesters || [];
   let southHarvesters = Memory.southHarvesters || [];
   let eastHarvesters = Memory.eastHarvesters || [];
+  let southtowerHarvesters = Memory.southtowerHarvesters || [];
   let claimers = Memory.claimers || [];
   let eAttackDurationSafeCheck = Memory.eAttackDurationSafeCheck;
   let nAttackDurationSafeCheck = Memory.nAttackDurationSafeCheck;
@@ -193,6 +194,13 @@ function spawnCreepTypes(enAvail) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
+    } else if (southtowerHarvesters.length < 2) {
+      chosenRole = "southtowerHarvester";
+      name = chosenRole + t;
+      harvesters.push(name);
+      southtowerHarvesters.push(name);
+      parts = southHvParts;
+      birth = true;
     } else if (roadRepairers.length < 2) {
       chosenRole = "r";
       name = chosenRole + t;
@@ -303,6 +311,7 @@ function spawnCreepTypes(enAvail) {
   Memory.westHarvesters = westHarvesters;
   Memory.southHarvesters = southHarvesters;
   Memory.linkGets = linkGets;
+  Memory.southtowerHarvesters = southtowerHarvesters;
 }
 
 module.exports = spawnCreepTypes;

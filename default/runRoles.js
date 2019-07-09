@@ -10,6 +10,7 @@ const smartMove = require("./action.smartMove");
 const deepSouthScout = require("./action.deepSouthScout");
 const claimContr = require("./action.claimContr");
 const roleHarvesterToTower = require("./role.harvester.ToTower");
+const roleHarvesterToSouthTower = require("./role.harvester.SouthTower");
 
 function runRoles() {
   let i = 0;
@@ -30,6 +31,7 @@ function runRoles() {
   let ermNeHarvesters = [];
   let ermHarvesters = [];
   let etowerHarvesters = [];
+  let southtowerHarvesters = [];
   Memory.nesource1Creeps = [];
   Memory.nesource2Creeps = [];
 
@@ -77,6 +79,10 @@ function runRoles() {
       harvesters.push(name);
       etowerHarvesters.push(name);
       roleHarvesterToTower.run(creep);
+    }  else if (roll.startsWith("southtowerHarvester")) {
+      harvesters.push(name);
+      southtowerHarvesters.push(name);
+      roleHarvesterToSouthTower.run(creep);
     } else if (roll.startsWith("linkGet")) {
       linkGets.push(name);
       roleLinkGet.run(creep);
@@ -213,6 +219,7 @@ function runRoles() {
   Memory.ermNeHarvesters = ermNeHarvesters;
   Memory.ermHarvesters = ermHarvesters;
   Memory.etowerHarvesters = etowerHarvesters;
+  Memory.southtowerHarvesters = southtowerHarvesters;
 }
 
 module.exports = runRoles;

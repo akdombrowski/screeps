@@ -25,8 +25,6 @@ const roleHarvesterToTower = {
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
       ermgetEnergyEast(creep, "E35N31", "E35N31", Game.flags.source1);
-
-      
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.getEnergy = false;
       creep.memory.transfer = true;
@@ -36,16 +34,16 @@ const roleHarvesterToTower = {
       let tower1 = Game.getObjectById(tower1Id);
       let tower2 = Game.getObjectById(tower2Id);
       let target = tower1;
-      
-      if(tower2.energy < tower1.energy) {
+
+      if (tower2.energy < 1000) {
         target = tower2;
       }
 
-      if(target.energy <= 0) {
+      if (target.energy >= 1000) {
         target = creep.room.storage;
       }
-      if(creep.pos.isNearTo(target)) {
-        creep.transfer(target,RESOURCE_ENERGY);
+      if (creep.pos.isNearTo(target)) {
+        creep.transfer(target, RESOURCE_ENERGY);
       } else {
         smartMove(creep, target, 1);
       }

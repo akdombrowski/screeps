@@ -240,7 +240,6 @@ function spawnToSource1Chain() {
       let extretval2 = -16;
       let chainval = supplyChain([tr1.name, tr2.name], hv.name, source1, s1);
 
-      console.log("chainval: " + JSON.stringify(chainval));
       if (chainval[0] != OK && _.sum(tr1.carry) > 0) {
         extRetVal = -17;
         _.forEach(exts, (ext) => {

@@ -7,7 +7,7 @@ const roleTower = {
     let ramp = tower.pos.lookFor(LOOK_STRUCTURES).pop();
     if (invader) {
       console.log("tower attack: " + tower.attack(invader));
-    } else if (tower && tower.energy > 200 && Game.time % 10 === 0) {
+    } else if (tower && tower.energy > 300) {
       let struct = findRepairable(tower);
 
       if (struct) {

@@ -125,6 +125,7 @@ module.exports.loop = function() {
 
     Memory.tower1Id = tower1Id;
     Memory.tower2Id = tower2Id;
+    Memory.etower1Id = etower1Id;
 
     Memory.enAvail = enAvail;
     Memory.enCap = enCap;

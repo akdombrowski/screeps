@@ -22,7 +22,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   let transfering = creep.memory.transferTower;
 
   if (rm.energyAvailable < minRmEnAvail && !transfering) {
-    console.log(name + " rm energy too high or not transfertower");
+    console.log(name + " rm energy too low or not transfertower");
     return retval;
   }
 
@@ -75,8 +75,8 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
         return false;
       }
 
-      // tower has less than 300 energy units
-      if (tower.energy < 1000) {
+      // tower has less than 900 energy units
+      if (tower.energy < 900) {
         return tower;
       }
 
@@ -102,6 +102,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
 
     console.log(name + " going to transfer to tower, isnearto " + creep.pos.isNearTo(target.pos));
   }
+
   if (target && creep.pos.isNearTo(target.pos)) {
 
     creep.memory.path = null;

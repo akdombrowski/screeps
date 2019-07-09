@@ -118,7 +118,7 @@ function spawnCreepTypes(enAvail) {
 
   if (enAvail >= 300) {
     let t = Game.time.toString().slice(4);
-    let name = "h" + t;
+    let name = "harvester" + t;
     let chosenRole = "h";
     let direction = "south";
     let sourceId = Memory.source2;
@@ -175,7 +175,7 @@ function spawnCreepTypes(enAvail) {
   // Roster
   if (enAvail >= 2000) {
     let t = Game.time.toString().slice(4);
-    let name = "h" + t;
+    let name = "harvester" + t;
     let chosenRole = "h";
     let direction = "south";
     let waitForRezzy = false;

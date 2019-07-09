@@ -1,9 +1,22 @@
 function spawnHarvesterChain(enAvail, rm, s1, harvesters) {
   let harvester1 = Game.creeps.harvester1;
   let retval = -16;
-  if (!harvester1 && enAvail >= 700) {
+  if (!harvester1 && enAvail >= 1200) {
     let name = "harvester1";
-    let parts = [WORK, WORK, WORK, WORK, WORK, WORK, WORK];
+    let parts = [
+      WORK,
+      WORK,
+      WORK,
+      WORK,
+      WORK,
+      WORK,
+      WORK,
+      WORK,
+      WORK,
+      WORK,
+      WORK,
+      WORK,
+    ];
     let chosenRole = "hChain";
     let direction = TOP;
     if (rm.lookForAt(LOOK_CREEPS, s1.pos.x, s1.pos.y - 1)) {

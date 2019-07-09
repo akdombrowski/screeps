@@ -26,7 +26,7 @@ var roleWorker = {
             if (creep.memory.sourceDir === "north") {
               getEnergy(creep, "E36N32");
             } else if (creep.memory.sourceDir === "east") {
-              getEnergy(creep, "E36N31");
+              getEnergy(creep, "E36N31", "E36N31", Game.flags.east);
             } else {
               getEnergy(creep, "E35N31");
             }

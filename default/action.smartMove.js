@@ -43,8 +43,42 @@ function smartMove(
   let destPos = dest;
   if (dest.pos) {
     destPos = dest.pos;
+    if(!(destPos instanceof RoomPosition)) {
+      destPos = new RoomPosition(dest.pos.x, dest.pos.y, dest.room.name);
+    }
+
   }
 
+  let lastStop;
+  let desPath;
+  let myPos;
+  let checkLastStop;
+
+  if (!path) {
+    let ops = 500;
+    path = rm.findPath(pos, destPos, {
+      ignoreCreeps: false,
+      range: range,
+      maxOps: ops,
+      serialize: true
+    });
+
+    desPath = Room.deserializePath(path);
+    lastStop = desPath[desPath.length - 1];
+    myPos = _.find(desPath, step => {
+      return creep.pos.isNearTo(step.x, step.y);
+    });
+
+    checkLastStop = false;
+
+    if (lastStop && destPos.inRangeTo(lastStop.x, lastStop.y, range)) {
+      checkLastStop = true;
+    }
+
+    if (!myPos || !checkLastStop) {
+      path = null;
+    }
+  }
 
   // No path. Try finding path using maxOps.
   if (!path) {
@@ -53,27 +87,24 @@ function smartMove(
       ignoreCreeps: false,
       range: range,
       maxOps: ops,
-      serialize: true,
+      serialize: true
+    });
+
+    desPath = Room.deserializePath(path);
+    lastStop = desPath[desPath.length - 1];
+    myPos = _.find(desPath, step => {
+      return creep.pos.isNearTo(step.x, step.y);
     });
   }
 
-
-  let desPath = Room.deserializePath(path);
-  let lastStop = desPath[desPath.length - 1];
-  let myPos = _.find(desPath, (step) => {
-    return creep.pos.isNearTo(step.x, step.y);
-  });
+  
+// TODO: check if next move is walkable. ie, is there a wall, object, creep
 
 
   // Check if 1st path try, or path from memory, gets us where we want to go.
-  if (
-    path &&
-    lastStop &&
-    myPos
-  ) {
+  if (path && lastStop && myPos) {
     creep.memory.path = path;
     retval = creep.moveByPath(path);
-
 
     if (retval === OK) {
       if (creep.pos.inRangeTo(dest, range)) {

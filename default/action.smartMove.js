@@ -27,9 +27,6 @@ function smartMove(
     return ERR_TIRED;
   }
 
-  // console.log(name + " path " + path);
-
-  // console.log(name + " " + path);
   blockage = moveAwayFromCreep(creep);
   if (blockage || !ignoreCreeps) {
     // console.log(name + " blockage " + blockage);
@@ -48,7 +45,6 @@ function smartMove(
     destPos = dest.pos;
   }
 
-  // console.log(name + " destPos " + destPos);
 
   // No path. Try finding path using maxOps.
   if (!path) {
@@ -61,44 +57,23 @@ function smartMove(
     });
   }
 
-  // console.log(name + " path " + path);
 
-  // TODO: movebyPath not being used
   let desPath = Room.deserializePath(path);
   let lastStop = desPath[desPath.length - 1];
   let myPos = _.find(desPath, (step) => {
     return creep.pos.isNearTo(step.x, step.y);
   });
 
-  // console.log(name + " lastStop " + lastStop);
-  // console.log(name + " myPos " + JSON.stringify(myPos));
-  // console.log(name + " lastStop " + JSON.stringify(lastStop) + " " + destPos)
-
-  // console.log(name + " " + JSON.stringify(desPath));
-  // console.log(
-  //   name +
-  //     " " +
-  //     JSON.stringify(lastStop) +
-  //     " " +
-  //     JSON.stringify(myPos) +
-  //     " " +
-  //     JSON.stringify(lastStop)
-  // );
-
 
   // Check if 1st path try, or path from memory, gets us where we want to go.
   if (
     path &&
     lastStop &&
-    myPos // &&
-    // (Math.abs(lastStop.x - destPos.x) <= range &&
-    //   Math.abs(lastStop.y - destPos.y) <= range)
+    myPos
   ) {
-    // Yes.
     creep.memory.path = path;
     retval = creep.moveByPath(path);
 
-    // console.log(name + " movebypath: " + retval);
 
     if (retval === OK) {
       if (creep.pos.inRangeTo(dest, range)) {

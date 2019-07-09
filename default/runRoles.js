@@ -9,6 +9,7 @@ const rezzyContr = require("./action.reserveContr");
 const smartMove = require("./action.smartMove");
 const deepSouthScout = require("./action.deepSouthScout");
 const claimContr = require("./action.claimContr");
+const roleHarvesterToTower = require("./role.harvester.ToTower");
 
 function runRoles() {
   let i = 0;
@@ -28,6 +29,7 @@ function runRoles() {
   let eastWorkers = [];
   let ermNeHarvesters = [];
   let ermHarvesters = [];
+  let etowerHarvesters = [];
   Memory.nesource1Creeps = [];
   Memory.nesource2Creeps = [];
 
@@ -71,6 +73,10 @@ function runRoles() {
 
       harvesters.push(name);
       roleHarvester.run(creep);
+    } else if (roll.startsWith("etowerHarvester")) {
+      harvesters.push(name);
+      etowerHarvesters.push(name);
+      roleHarvesterToTower.run(creep);
     } else if (roll.startsWith("linkGet")) {
       linkGets.push(name);
       roleLinkGet.run(creep);
@@ -206,6 +212,7 @@ function runRoles() {
   Memory.eastWorkers = eastWorkers;
   Memory.ermNeHarvesters = ermNeHarvesters;
   Memory.ermHarvesters = ermHarvesters;
+  Memory.etowerHarvesters = etowerHarvesters;
 }
 
 module.exports = runRoles;

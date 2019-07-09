@@ -70,7 +70,7 @@ module.exports.loop = function() {
 
     let tower1Id = "5cf3b09b75f7e26764ee4276";
     let tower2Id = "5d0182c6667a4642d4259e3f";
-    let etower1Id = Memory.etower1Id || "5d0f99d929c9cb5363cba23d";
+    let etower1Id = "5d0f99d929c9cb5363cba23d";
     let tower1 = Game.getObjectById(tower1Id);
     let tower2 = Game.getObjectById(tower2Id);
     let etower1 = Game.getObjectById(etower1Id);

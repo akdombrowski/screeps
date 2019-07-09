@@ -59,6 +59,7 @@ function spawnCreepTypes(enAvail) {
   let eastUpControllers = Memory.eastUpControllers || [];
   let ermHarvesters = Memory.ermHarvesters || [];
   let ermNeHarvesters = Memory.ermNeHarvesters || [];
+  let etowerHarvesters = Memory.etowerHarvesters || [];
 
   let claimers = Memory.claimers || [];
   let eAttackDurationSafeCheck = Memory.eAttackDurationSafeCheck;
@@ -213,6 +214,15 @@ function spawnCreepTypes(enAvail) {
       parts = medupContrParts;
       eastUpControllers.push(name);
       birth = true;
+    } else if (etowerHarvesters.length < 1) {
+      chosenRole = "etowerHarvester";
+      name = chosenRole + t;
+      etowerHarvesters.push(name);
+      harvesters.push(name);
+      parts = mednewhvParts;
+      sourceDir = "east1";
+      birth = true;
+    
     } else if (eastWorkers.length < 1) {
       chosenRole = "worker";
       name = chosenRole + t;
@@ -320,6 +330,7 @@ function spawnCreepTypes(enAvail) {
   Memory.eastUpControllers = eastUpControllers;
   Memory.ermHarvesters = ermHarvesters;
   Memory.ermNeHarvesters = ermNeHarvesters;
+  Memory.etowerHarvesters = etowerHarvesters;
 }
 
 module.exports = spawnCreepTypes;

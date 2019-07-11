@@ -138,7 +138,7 @@ function spawnCreepTypes(enAvail) {
         spawnDirection
       );
     } else if (
-      northHarvesters.length < 3 &&
+      northHarvesters.length < 7 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {
       name += "N";
@@ -154,7 +154,7 @@ function spawnCreepTypes(enAvail) {
         spawnDirection
       );
     } else if (
-      westHarvesters.length < 3 &&
+      westHarvesters.length < 7 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
       name += "W";
@@ -184,13 +184,13 @@ function spawnCreepTypes(enAvail) {
     let spawnDirection = [BOTTOM_RIGHT];
     let birth = false;
 
-    if (linkGets.length < 3 && Game.creeps.harvester1) {
+    if (linkGets.length < 2 && Game.creeps.harvester1) {
       chosenRole = "linkGet";
       name = "XLlink" + t;
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
-    } else if (southHarvesters.length < 2) {
+    } else if (southHarvesters.length < 3) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
@@ -208,7 +208,7 @@ function spawnCreepTypes(enAvail) {
       roadRepairers.push(name);
       birth = true;
     } else if (
-      northHarvesters.length < 4 &&
+      northHarvesters.length < 8 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {
       name += "N";
@@ -216,7 +216,7 @@ function spawnCreepTypes(enAvail) {
       northHarvesters.push(name);
       birth = true;
     } else if (
-      westHarvesters.length < 4 &&
+      westHarvesters.length < 8 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
       name += "west";
@@ -224,7 +224,7 @@ function spawnCreepTypes(enAvail) {
       westHarvesters.push(name);
       birth = true;
     } else if (
-      northHarvesters.length < 6 &&
+      northHarvesters.length < 9 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {
       name += "N";
@@ -232,7 +232,7 @@ function spawnCreepTypes(enAvail) {
       northHarvesters.push(name);
       birth = true;
     } else if (
-      westHarvesters.length < 6 &&
+      westHarvesters.length < 9 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
       name += "W";

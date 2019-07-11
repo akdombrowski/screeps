@@ -24,9 +24,9 @@ function birthCreep(
         role: chosenRole,
         direction: direction,
         sourceId: sourceId,
-        sourceDir: sourceDir,
+        sourceDir: sourceDir
       },
-      directions: spawnDirection,
+      directions: spawnDirection
     });
   } else {
     retval = s2.spawnCreep(parts, name, {
@@ -34,8 +34,8 @@ function birthCreep(
         role: chosenRole,
         direction: direction,
         sourceId: sourceId,
-        sourceDir: sourceDir,
-      },
+        sourceDir: sourceDir
+      }
     });
   }
 
@@ -48,6 +48,9 @@ function birthCreep(
 function spawnCreepTypes(enAvail) {
   let linkGets = Memory.linkGets || [];
   let workers = Memory.workers || [];
+  let eworkers = Memory.eworkers || [];
+  let neworkers = Memory.neworkers || [];
+
   let harvesters = Memory.harvesters || [];
   let upControllers = Memory.upControllers || [];
   let roadRepairers = Memory.roadRepairers || [];
@@ -169,19 +172,38 @@ function spawnCreepTypes(enAvail) {
     if (ermHarvesters.length < 1) {
       ermHarvesters.push(name);
       parts = basicHv;
-      sourceDir = "east1";
+      sourceDir = "east";
       birth = true;
-    } else if (ermHarvesters.length < 6) {
+    } else if (ermNeHarvesters.length < 4) {
       ermHarvesters.push(name);
       parts = basicHv;
-      sourceDir = "east2";
+      sourceDir = "north2";
       birth = true;
     } else if (eastUpControllers.length < 1) {
       chosenRole = "eRezzy";
       name = chosenRole + t;
       direction = "east";
-      parts = basicHv;
+      parts = simpleParts;
       eastUpControllers.push(name);
+      birth = true;
+    } else if (eworkers.length < 1) {
+      eworkers.push(name);
+      chosenRole = "eBuilder";
+      buildRoom = "E36N31";
+      name = chosenRole + t;
+      parts = simpleParts;
+      birth = true;
+    } else if (neworkers.length < 1) {
+      eworkers.push(name);
+      chosenRole = "neBuilder";
+      buildRoom = "E36N32";
+      name = chosenRole + t;
+      parts = simpleParts;
+      birth = true;
+    } else if (ermHarvesters.length < 3) {
+      ermHarvesters.push(name);
+      parts = basicHv;
+      sourceDir = "north1";
       birth = true;
     }
 
@@ -229,7 +251,6 @@ function spawnCreepTypes(enAvail) {
       parts = mednewhvParts;
       sourceDir = "east1";
       birth = true;
-    
     } else if (eastWorkers.length < 1) {
       chosenRole = "worker";
       name = chosenRole + t;
@@ -324,6 +345,8 @@ function spawnCreepTypes(enAvail) {
 
   Memory.harvesters = harvesters;
   Memory.workers = workers;
+  Memory.eworkers = eworkers;
+  Memory.neworkers = neworkers;
   Memory.upControllers = upControllers;
   Memory.roadRepairers = roadRepairers;
   Memory.attackers = attackers;

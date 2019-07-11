@@ -55,7 +55,7 @@ function smartMove(
   let checkLastStop;
 
   if (!path) {
-    let ops = 500;
+    let ops = 100;
     path = rm.findPath(pos, destPos, {
       ignoreCreeps: false,
       range: range,

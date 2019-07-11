@@ -44,23 +44,27 @@ const roleHarvester = {
           let found = ermHarvesters.find(function(element) {
             return element === creep.name;
           });
-          let foundNe = ermNeHarvesters.find((n) => {
+          let foundNe = ermNeHarvesters.find(n => {
             return n === creep.name;
           });
-          let nesource1Creeps = Memory.nesource1Creeps || [];
-          let nesource2Creeps = Memory.nesource2Creeps || [];
-          if (creep.memory.nesourceNumber === 1) {
-            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource1);
-          } else if (creep.memory.nesourceNumber === 2) {
-            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource2);
-          } else if (nesource1Creeps.length < nesource2Creeps.length) {
-            // go to energy source 1
-            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource1);
-            creep.memory.nesourceNumber = 1;
-          } else {
-            // go to energy source 2
-            creep.memory.nesourceNumber = 2;
-            ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource2);
+          if (found) {
+            ermgetEnergyEast(creep, "E36N31");
+          } else if (foundNe) {
+            let nesource1Creeps = Memory.nesource1Creeps || [];
+            let nesource2Creeps = Memory.nesource2Creeps || [];
+            if (creep.memory.nesourceNumber === 1) {
+              ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource1);
+            } else if (creep.memory.nesourceNumber === 2) {
+              ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource2);
+            } else if (nesource1Creeps.length < nesource2Creeps.length) {
+              // go to energy source 1
+              ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource1);
+              creep.memory.nesourceNumber = 1;
+            } else {
+              // go to energy source 2
+              creep.memory.nesourceNumber = 2;
+              ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource2);
+            }
           }
         } else {
           Memory.eastAttackerId = creep.room.find(FIND_HOSTILE_CREEPS).pop()
@@ -100,13 +104,13 @@ const roleHarvester = {
           !creep.memory.transfer &&
           !creep.memory.transferTower &&
           creep.room.find(FIND_CONSTRUCTION_SITES, {
-            filter: (site) => {
+            filter: site => {
               return site.structureType === STRUCTURE_ROAD;
-            },
+            }
           })) ||
         creep.memory.buildRoad
       ) {
-        console.log(name + " build road inside role harvester")
+        console.log(name + " build road inside role harvester");
         retval = buildRoad(creep);
         if (retval === OK) {
           creep.memory.buildRoad = true;
@@ -128,7 +132,7 @@ const roleHarvester = {
         }
       }
     }
-  },
+  }
 };
 
 module.exports = roleHarvester;

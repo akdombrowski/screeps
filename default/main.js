@@ -193,8 +193,14 @@ module.exports.loop = function() {
 
     linkTran(linkEntrance, linkExit);
 
-    if (!Memory.fixables || Memory.fixables.length < 10) {
-      Memory.fixables = findDecayed();
+    if (!Memory.e35n31fixables || Memory.e35n31fixables.length < 10) {
+      Memory.e35n31fixables = findDecayed("E35N31");
+    }
+    if (!Memory.e36n31fixables || Memory.e36n31fixables.length < 10) {
+      Memory.e36n31fixables = findDecayed("E36N31");
+    }
+    if (!Memory.e36n32fixables || Memory.e36n32fixables.length < 10) {
+      Memory.e36n32fixables = findDecayed("E36N32");
     }
 
     if (Game.time % 10000 == 0) {

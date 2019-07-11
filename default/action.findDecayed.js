@@ -1,12 +1,13 @@
-function findDecayed() {
+function findDecayed(roomName) {
   let fixables = [];
   let lessThan10Perc = [];
   let lessThan50Perc = [];
   let lessThan90Perc = [];
   let weakest;
   let target;
+  let rm = Game.rooms[roomName];
 
-  fixables = Game.rooms.E35N31.find(FIND_STRUCTURES, {
+  fixables = rm.find(FIND_STRUCTURES, {
     filter: struct => {
       if (struct.structureType === STRUCTURE_WALL) {
         return false;

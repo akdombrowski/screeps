@@ -126,7 +126,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
 
     if(creep.memory.direction === "south") {
 
-      console.log(name + " moving to tower " + JSON.stringify(target));
+      // console.log(name + " moving to tower " + JSON.stringify(target));
     }
 
     retval = smartMove(creep, target, 1);

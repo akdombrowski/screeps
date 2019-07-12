@@ -60,7 +60,7 @@ function tran(creep, flag, dest) {
     enAvail > 300
   ) {
     target = towers[0];
-    target = _.find(towers, tower => {
+    target = _.find(towers, (tower) => {
       // tower doesn't exist or doesn't have an energy component
       if (!tower) {
         return false;
@@ -80,7 +80,7 @@ function tran(creep, flag, dest) {
 
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: structure => {
+      filter: (structure) => {
         let type = structure.structureType;
         if (
           type === STRUCTURE_EXTENSION &&
@@ -91,20 +91,20 @@ function tran(creep, flag, dest) {
           extensionNeedsEnergy = true;
           return true;
         }
-      }
+      },
     });
   }
 
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: structure => {
+      filter: (structure) => {
         if (
           structure.structureType == STRUCTURE_STORAGE ||
           structure.structureType == STRUCTURE_CONTAINER
         ) {
           return _.sum(structure.store) < structure.storeCapacity;
         }
-      }
+      },
     });
   }
 
@@ -115,12 +115,6 @@ function tran(creep, flag, dest) {
       creep.say("t");
       creep.memory.dest = target.id;
     }
-
-    if (creep.memory.direction === "south") {
-      console.log(name + " transfer to " + JSON.stringify(target.pos));
-    }
-
-    
   } else if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
   } else if (target) {

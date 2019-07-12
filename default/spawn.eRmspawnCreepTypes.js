@@ -14,6 +14,7 @@ function birthCreep(
   direction,
   sourceId,
   sourceDir,
+  buildRoom,
   spawnDirection
 ) {
   let retval;
@@ -24,7 +25,8 @@ function birthCreep(
         role: chosenRole,
         direction: direction,
         sourceId: sourceId,
-        sourceDir: sourceDir
+        sourceDir: sourceDir,
+        buildRoom: buildRoom
       },
       directions: spawnDirection
     });
@@ -34,7 +36,8 @@ function birthCreep(
         role: chosenRole,
         direction: direction,
         sourceId: sourceId,
-        sourceDir: sourceDir
+        sourceDir: sourceDir,
+        buildRoom: buildRoom
       }
     });
   }
@@ -168,6 +171,7 @@ function spawnCreepTypes(enAvail) {
     let sourceId = "";
     let sourceDir = "";
     let birth = false;
+    let buildRoom = "";
 
     if (ermHarvesters.length < 1) {
       ermHarvesters.push(name);
@@ -219,6 +223,7 @@ function spawnCreepTypes(enAvail) {
             direction,
             sourceId,
             sourceDir,
+            buildRoom,
             spawnDirection
           )
       );
@@ -235,6 +240,7 @@ function spawnCreepTypes(enAvail) {
     let sourceId = "";
     let sourceDir = "";
     let birth = false;
+    let buildRoom = "";
 
     if (eastUpControllers.length < 2) {
       chosenRole = "eRezzy";
@@ -295,6 +301,7 @@ function spawnCreepTypes(enAvail) {
             direction,
             sourceId,
             sourceDir,
+            buildRoom,
             spawnDirection
           )
       );

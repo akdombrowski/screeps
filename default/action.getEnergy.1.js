@@ -130,8 +130,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     });
 
     isTargetStructure = target ? true : false;
-    // // If I don't have a target yet or the target has no energy look for a \
-    // // new source
+    
     if (!target || target.energy <= 0) {
       creep.memory.path = null;
       target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {

@@ -137,7 +137,9 @@ function runRoles() {
       roleWorker.run(creep);
     } else if (roll == "eBuilder") {
       eworkers.push(name);
-      creep.memory.buildRoom = "E36N31";
+      if(!creep.memory.buildRoom) {
+        creep.memory.buildRoom = "E36N31";
+      }
       roleHarvesterBuilder.run(creep);
     } else if (roll == "neBuilder") {
       neworkers.push(name);

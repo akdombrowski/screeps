@@ -43,8 +43,8 @@ const roleHarvester = {
         ) {
           
           if (creep.memory.sourceDir === "east") {
-            ermgetEnergyEast(creep, "E36N31");
-          } else if (creep.memory.sourceDir === "north") {
+            ermgetEnergyEast(creep, "E36N32");
+          } else {
             let nesource1Creeps = Memory.nesource1Creeps || [];
             let nesource2Creeps = Memory.nesource2Creeps || [];
             if (creep.memory.nesourceNumber === 1) {

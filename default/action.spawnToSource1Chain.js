@@ -28,12 +28,21 @@ function spawnToSource1Chain() {
   let linkEntrance = Game.getObjectById(Memory.linkEntranceId);
 
   try {
+    if (tr1 && source1.energy <= 0) {
+      console.log(
+        "tr1 withdrawing stor1:" + tr1.withdraw(stor1, RESOURCE_ENERGY)
+      );
+      tr1.transfer(linkEntrance, RESOURCE_ENERGY);
+
+      return;
+    }
     if (!hv) {
       // console.log("hv");
 
       return;
     } else if (!tr1 && hv.pos.isNearTo(source1)) {
-      hv.harvest(source1);
+      let val = hv.harvest(source1);
+
       // console.log("tr1");
       return;
     } else if (!tr2 && hv.pos.isNearTo(source1)) {
@@ -42,7 +51,6 @@ function spawnToSource1Chain() {
       if (tr1) {
         supplyChainRetVal = supplyChain([tr1.name], hv.name, source1, s1);
       }
-      return;
     }
   } catch (e) {
     console.log(e.message);
@@ -67,16 +75,16 @@ function spawnToSource1Chain() {
       if (Memory.enAvail >= 100) {
         Game.spawns.Spawn1.spawnCreep([MOVE, MOVE], "mover1", {
           memory: {
-            role: "mover",
-          },
+            role: "mover"
+          }
         });
       }
     } else {
       Game.spawns.Spawn1.spawnCreep([MOVE, MOVE], "mover1", {
         memory: {
           role: "mover",
-          directions: direction,
-        },
+          directions: direction
+        }
       });
     }
   } else if (needMover) {
@@ -242,7 +250,7 @@ function spawnToSource1Chain() {
 
       if (chainval[0] != OK && _.sum(tr1.carry) > 0) {
         extRetVal = -17;
-        _.forEach(exts, (ext) => {
+        _.forEach(exts, ext => {
           let e = Game.getObjectById(ext);
 
           if (tr1.pos.isNearTo(e) && e.energy < e.energyCapacity) {
@@ -257,7 +265,7 @@ function spawnToSource1Chain() {
       }
       if (chainval[1] != OK && _.sum(tr2.carry) > 0 && chainval[1] != OK) {
         extRetVal = -17;
-        _.forEach(exts, (ext) => {
+        _.forEach(exts, ext => {
           let e = Game.getObjectById(ext);
           if (tr2.pos.isNearTo(e) && e.energy < e.energyCapacity) {
             extretval2 = tr2.transfer(e, RESOURCE_ENERGY);

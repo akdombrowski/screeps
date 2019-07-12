@@ -12,6 +12,7 @@ const claimContr = require("./action.claimContr");
 const roleHarvesterToTower = require("./role.harvester.ToTower");
 const roleHarvesterToSouthTower = require("./role.harvester.SouthTower");
 const roleHarvesterBuilder = require("./role.harvester.builder");
+const claim = require("./action.claimIt");
 
 function runRoles() {
   let i = 0;
@@ -162,39 +163,7 @@ function runRoles() {
     } else if (roll == "c" || name.startsWith("c")) {
       claimers.push(name);
       roll = "c";
-      if (creep.memory.east) {
-        if (creep.pos.isNearTo(Game.flags.eastExit)) {
-          creep.move(RIGHT);
-        } else if (creep.room.name == "E36N31") {
-          if (creep.pos.isNearTo(Game.flags.eastController)) {
-            creep.say(
-              creep.reserveController(
-                Game.getObjectById("5bbcaf0c9099fc012e63a0be")
-              )
-            );
-          } else {
-            smartMove(creep, Game.flags.eastController, 1);
-          }
-        } else {
-          smartMove(creep, Game.flags.eastExit, 1);
-        }
-      } else {
-        if (creep.pos.isNearTo(Game.flags.northExit)) {
-          creep.move(RIGHT);
-        } else if (creep.room.name == "E35N32") {
-          if (creep.pos.isNearTo(Game.flags.northController)) {
-            creep.say(
-              creep.reserveController(
-                Game.getObjectById("5bbcaefa9099fc012e639e8b")
-              )
-            );
-          } else {
-            creep.moveTo(creep, Game.flags.northController, 1);
-          }
-        } else {
-          creep.moveTo(creep, Game.flags.northController, 1);
-        }
-      }
+      claim(creep, "E37N31", "", "", "", "5bbcaf1b9099fc012e63a2dd");
     } else if (roll == "a" || name.startsWith("a")) {
       attackers.push(creep);
       if (creep.pos.isNearTo(invader)) {

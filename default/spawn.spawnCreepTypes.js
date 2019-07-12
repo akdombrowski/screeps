@@ -26,13 +26,13 @@ function birthCreep(
       memory: {
         role: chosenRole,
         direction: direction,
-        sourceId: sourceId,
+        sourceId: sourceId
       },
-      directions: spawnDirection,
+      directions: spawnDirection
     });
   } else {
     retval = Game.spawns.Spawn1.spawnCreep(parts, name, {
-      memory: { role: chosenRole, direction: direction, sourceId: sourceId },
+      memory: { role: chosenRole, direction: direction, sourceId: sourceId }
     });
   }
 
@@ -78,6 +78,11 @@ function spawnCreepTypes(enAvail) {
   addPart(southHvParts, 9, MOVE);
 
   // 2000
+  let claimerParts = [];
+  addPart(claimerParts, 3, CLAIM);
+  addPart(claimerParts, 2, ATTACK);
+
+  // 2000
   let newhvParts = [];
   addPart(newhvParts, 4, CARRY);
   addPart(newhvParts, 12, WORK);
@@ -115,6 +120,27 @@ function spawnCreepTypes(enAvail) {
   let wAttackerId = Memory.wAttackerId;
   let nAttackerId = Memory.nAttackerId;
   let invaderId = Memory.invaderId;
+
+  if (enAvail > 2000) {
+    if (claimers.length < 3) {
+      chosenRole = "c";
+      name = "claimer" + Game.time;
+      direction = "ee";
+      parts = claimerParts;
+      sourceId = "";
+      spawnDirection = [BOTTOM_RIGHT];
+      claimers.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    }
+  }
 
   if (enAvail >= 300) {
     let t = Game.time.toString().slice(4);

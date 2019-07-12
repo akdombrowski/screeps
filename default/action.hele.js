@@ -1,4 +1,4 @@
-const getEnergy = require("./action.getEnergy");
+const getEnergy = require("./action.getEnergy.1");
 
 function hele(creep, flag) {
   let target;

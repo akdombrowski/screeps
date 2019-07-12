@@ -204,7 +204,7 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = simpleParts;
       birth = true;
-    } else if (ermHarvesters.length < 3) {
+    } else if (ermNeHarvesters.length < 5) {
       ermHarvesters.push(name);
       parts = basicHv;
       sourceDir = "north1";

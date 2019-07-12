@@ -66,7 +66,6 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
   // target = target || Game.getObjectById(lastSourceId);
 
-  // console.log("name: " + name + " " + target)
   if (targetedRm) {
     if (!target || target.energy <= 0) {
       target = targetedRm

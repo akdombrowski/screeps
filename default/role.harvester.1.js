@@ -41,15 +41,10 @@ const roleHarvester = {
           !Memory.eastAttackerId ||
           Game.time >= Memory.eAttackDurationSafeCheck
         ) {
-          let found = ermHarvesters.find(function(element) {
-            return element === creep.name;
-          });
-          let foundNe = ermNeHarvesters.find(n => {
-            return n === creep.name;
-          });
-          if (found) {
+          
+          if (creep.memory.sourceDir === "east") {
             ermgetEnergyEast(creep, "E36N31");
-          } else if (foundNe) {
+          } else if (creep.memory.sourceDir === "north") {
             let nesource1Creeps = Memory.nesource1Creeps || [];
             let nesource2Creeps = Memory.nesource2Creeps || [];
             if (creep.memory.nesourceNumber === 1) {

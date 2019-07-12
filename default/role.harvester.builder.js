@@ -24,7 +24,7 @@ const roleHarvesterBuilder = {
       creep.memory.transferTower = false;
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
-      ermgetEnergyEast(creep, creep.buildRoom, creep.buildRoom, Game.flags.nesource2);
+      ermgetEnergyEast(creep, creep.buildRoom, creep.buildRoom, Game.flags.neSource2);
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.getEnergy = false;
       creep.memory.transfer = true;

@@ -178,17 +178,17 @@ function spawnCreepTypes(enAvail) {
       parts = basicHv;
       sourceDir = "east";
       birth = true;
-    } else if (ermNeHarvesters.length < 4) {
-      ermHarvesters.push(name);
-      parts = basicHv;
-      sourceDir = "north2";
-      birth = true;
     } else if (eastUpControllers.length < 1) {
       chosenRole = "eRezzy";
       name = chosenRole + t;
       direction = "east";
       parts = simpleParts;
       eastUpControllers.push(name);
+      birth = true;
+    } else if (ermNeHarvesters.length < 4) {
+      ermHarvesters.push(name);
+      parts = basicHv;
+      sourceDir = "north2";
       birth = true;
     } else if (eworkers.length < 1) {
       eworkers.push(name);

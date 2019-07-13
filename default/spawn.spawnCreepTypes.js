@@ -130,6 +130,9 @@ function spawnCreepTypes(enAvail) {
       sourceId = "";
       spawnDirection = [BOTTOM_RIGHT];
       claimers.push(name);
+
+      console.log("claimers");
+ 
       birthCreep(
         s1,
         parts,

@@ -29,9 +29,7 @@ function spawnToSource1Chain() {
 
   try {
     if (tr1 && source1.energy <= 0) {
-      console.log(
-        "tr1 withdrawing stor1:" + tr1.withdraw(stor1, RESOURCE_ENERGY)
-      );
+      tr1.withdraw(stor1, RESOURCE_ENERGY);
       tr1.transfer(linkEntrance, RESOURCE_ENERGY);
 
       return;
@@ -113,19 +111,6 @@ function spawnToSource1Chain() {
             ),
             0
           );
-          // console.log(
-          //   "chainMove hv:" +
-          //     chainMove(
-          //       mv.name,
-          //       hvNames,
-          //       new RoomPosition(
-          //         source1.pos.x + 1,
-          //         source1.pos.y,
-          //         source1.room.name
-          //       ),
-          //       0
-          //     )
-          // );
         } else {
           try {
             chainMove(mv.name, hvNames, hv, 0);
@@ -136,15 +121,6 @@ function spawnToSource1Chain() {
               new RoomPosition(45, 5, hv.room.name),
               0
             );
-            // console.log(
-            //   "chainMove hv:" +
-            //     chainMove(
-            //       mv.name,
-            //       hvNames,
-            //       new RoomPosition(45, 5, hv.room.name),
-            //       0
-            //     )
-            // );
           }
         }
       }
@@ -162,15 +138,6 @@ function spawnToSource1Chain() {
           new RoomPosition(hv.pos.x + 1, source1.pos.y - 1, hv.room.name),
           0
         );
-        // console.log(
-        //   "pulling tr1." +
-        //     chainMove(
-        //       mv.name,
-        //       [tr1.name],
-        //       new RoomPosition(hv.pos.x + 1, source1.pos.y - 1, hv.room.name),
-        //       0
-        //     )
-        // );
       } else {
         try {
           chainMove(mv.name, [tr1.name], tr1, 0);
@@ -182,15 +149,6 @@ function spawnToSource1Chain() {
             new RoomPosition(43, 7, hv.room.name),
             0
           );
-          // console.log(
-          //   "pulling tr1." +
-          //     chainMove(
-          //       mv.name,
-          //       [tr1.name],
-          //       new RoomPosition(43, 7, hv.room.name),
-          //       0
-          //     )
-          // );
         }
       }
     } else if (tr2 && (!tr2.pos.isNearTo(tr1) || !tr2.pos.isNearTo(s1))) {
@@ -203,15 +161,6 @@ function spawnToSource1Chain() {
           new RoomPosition(45, 5, source1.room.name),
           0
         );
-        // console.log(
-        //   "pulling tr2 reset spot . " +
-        //     chainMove(
-        //       mv.name,
-        //       [tr2.name],
-        //       new RoomPosition(45, 5, source1.room.name),
-        //       0
-        //     )
-        // );
       } else {
         chainMove(
           mv.name,
@@ -223,19 +172,6 @@ function spawnToSource1Chain() {
           ),
           0
         );
-        // console.log(
-        //   "pulling tr2." +
-        //     chainMove(
-        //       mv.name,
-        //       [tr2.name],
-        //       new RoomPosition(
-        //         source1.pos.x + 3,
-        //         source1.pos.y - 1,
-        //         source1.room.name
-        //       ),
-        //       0
-        //     )
-        // );
       }
     }
   } else {

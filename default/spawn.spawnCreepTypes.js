@@ -121,7 +121,7 @@ function spawnCreepTypes(enAvail) {
   let nAttackerId = Memory.nAttackerId;
   let invaderId = Memory.invaderId;
 
-  if (enAvail > 2000) {
+  if (enAvail >= 2000) {
     if (claimers.length < 3) {
       chosenRole = "c";
       name = "claimer" + Game.time;
@@ -167,7 +167,7 @@ function spawnCreepTypes(enAvail) {
         spawnDirection
       );
     } else if (
-      northHarvesters.length < 7 &&
+      northHarvesters.length < 5 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {
       name += "N";
@@ -183,7 +183,7 @@ function spawnCreepTypes(enAvail) {
         spawnDirection
       );
     } else if (
-      westHarvesters.length < 7 &&
+      westHarvesters.length < 5 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
       name += "W";

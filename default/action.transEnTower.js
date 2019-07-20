@@ -94,7 +94,6 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   if (!target) {
     creep.say("wut tower?");
     creep.memory.transferTower = false;
-    console.log(name + " no tower");
     return ERR_NOT_FOUND;
   }
 

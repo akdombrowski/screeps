@@ -13,6 +13,7 @@ const roleHarvesterToTower = require("./role.harvester.ToTower");
 const roleHarvesterToSouthTower = require("./role.harvester.SouthTower");
 const roleHarvesterBuilder = require("./role.harvester.builder");
 const claim = require("./action.claimIt");
+const roleEEUp = require("./role.eeUpgradeController");
 
 function runRoles() {
   let i = 0;
@@ -36,6 +37,7 @@ function runRoles() {
   let ermHarvesters = [];
   let etowerHarvesters = [];
   let southtowerHarvesters = [];
+  let eeUps = [];
   Memory.nesource1Creeps = [];
   Memory.nesource2Creeps = [];
 
@@ -58,7 +60,7 @@ function runRoles() {
           ermNeHarvesters.push(name);
         } else if (creep.memory.sourceDir === "north2") {
           ermNeHarvesters.push(name);
-        } else if (creep.memory.sourceDir === "east1") {
+        } else if (creep.memory.sourceDir === "east") {
           ermHarvesters.push(name);
         } else if (creep.memory.sourceDir === "east2") {
           ermHarvesters.push(name);
@@ -95,7 +97,10 @@ function runRoles() {
       } else {
         creep.harvest(source2);
       }
-    } else if (roll == "northRezzy") {
+     } else if (roll == "eeUp") {
+        roleEEUp(creep);
+      } 
+    else if (roll == "northRezzy") {
       rezzyContr(
         creep,
         "E35N32",
@@ -203,6 +208,7 @@ function runRoles() {
   Memory.ermHarvesters = ermHarvesters;
   Memory.etowerHarvesters = etowerHarvesters;
   Memory.southtowerHarvesters = southtowerHarvesters;
+  Memory.eeUps = eeUps;
 }
 
 module.exports = runRoles;

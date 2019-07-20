@@ -24,7 +24,9 @@ const roleHarvesterBuilder = {
       creep.memory.transferTower = false;
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
-      console.log("buildRoom:" + creep.memory.buildRoom)
+      
+      // console.log("buildRoom:" + creep.memory.buildRoom)
+
       ermgetEnergyEast(creep, creep.memory.buildRoom, creep.memory.buildRoom);
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.getEnergy = false;

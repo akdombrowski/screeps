@@ -199,6 +199,11 @@ function spawnCreepTypes(enAvail) {
       parts = basicHv;
       sourceDir = "north2";
       birth = true;
+    } else if (ermNeHarvesters.length < 4) {
+      ermHarvesters.push(name);
+      parts = basicHv;
+      sourceDir = "north2";
+      birth = true;
     } else if (eworkers.length < 1) {
       eworkers.push(name);
       chosenRole = "eBuilder";

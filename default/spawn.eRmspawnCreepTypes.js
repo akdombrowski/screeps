@@ -154,7 +154,7 @@ function spawnCreepTypes(enAvail) {
   addPart(linkGetsParts, 2, MOVE);
 
   let rezzyParts = [CLAIM, MOVE];
-  let basicHv = [CARRY, WORK, CARRY, CARRY, MOVE];
+  let basicHv = [CARRY, WORK, CARRY, MOVE, MOVE];
   let simpleParts = [CARRY, WORK, WORK, MOVE];
 
   let eAttackerId = Memory.eAttackerId;
@@ -174,7 +174,7 @@ function spawnCreepTypes(enAvail) {
     let birth = false;
     let buildRoom = "";
 
-    if (ermHarvesters.length < 1) {
+    if (ermHarvesters.length < 2) {
       ermHarvesters.push(name);
       parts = basicHv;
       sourceDir = "east";
@@ -194,7 +194,12 @@ function spawnCreepTypes(enAvail) {
     //   eeUps.push(name);
     //   birth = true;
     // } 
-    else if (ermNeHarvesters.length < 4) {
+    else if (ermNeHarvesters.length < 2) {
+      ermHarvesters.push(name);
+      parts = basicHv;
+      sourceDir = "north2";
+      birth = true;
+    } else if (ermHarvesters.length < 4) {
       ermHarvesters.push(name);
       parts = basicHv;
       sourceDir = "north2";

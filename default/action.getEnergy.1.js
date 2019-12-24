@@ -21,10 +21,10 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
     return OK;
-  } else {
-    creep.memory.getEnergy = true;
-    creep.memory.transfer = false;
   }
+
+  creep.memory.getEnergy = true;
+  creep.memory.transfer = false;
 
   let target;
   let lastSourceId = creep.memory.lastSourceId;
@@ -129,7 +129,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     });
 
     isTargetStructure = target ? true : false;
-    
+
     if (!target || target.energy <= 0) {
       creep.memory.path = null;
       target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {

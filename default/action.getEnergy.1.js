@@ -44,7 +44,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
         break;
       case "E36N32":
         target =
-          creep.room.name != sourceRmTargeted ? Game.flags.neSource1 : null;
+          creep.room.name != sourceRmTargeted ? Game.flags.neSource1 : creep.room.name;
         targetedRm = Game.flags.neSource1.room;
         break;
       case "E35N32":

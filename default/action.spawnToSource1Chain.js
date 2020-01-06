@@ -201,18 +201,21 @@ function spawnToSource1Chain() {
       }
       if (chainval[1] != OK && _.sum(tr2.carry) > 0 && chainval[1] != OK) {
         extRetVal = -17;
-        _.forEach(exts, ext => {
-          let e = Game.getObjectById(ext);
-          if (tr2.pos.isNearTo(e) && e.energy < e.energyCapacity) {
-            extretval2 = tr2.transfer(e, RESOURCE_ENERGY);
+        if (_.sum(exts) < 50) {
 
-            if (extretval2 === OK) {
-              tr2.say("se");
-            } else {
-              console.log("tr2 fail ext: " + e.pos + " " + extRetVal);
+          _.forEach(exts, ext => {
+            let e = Game.getObjectById(ext);
+            if (tr2.pos.isNearTo(e) && e.energy < e.energyCapacity) {
+              extretval2 = tr2.transfer(e, RESOURCE_ENERGY);
+              
+              if (extretval2 === OK) {
+                tr2.say("se");
+              } else {
+                console.log("tr2 fail ext: " + e.pos + " " + extRetVal);
+              }
             }
-          }
-        });
+          });
+        }
       }
 
       let retval1 = -16;
@@ -253,6 +256,7 @@ function spawnToSource1Chain() {
             tr2.say("st1");
           }
         }
+
       }
     } catch (e) {
       console.log(e + "\nstart supply chain err:" + supplyChainRetVal);

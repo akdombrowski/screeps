@@ -5,6 +5,7 @@ const spawnToSource1Chain = require("./action.spawnToSource1Chain");
 const smartMove = require("./action.smartMove");
 const spawnCreepTypes = require("./spawn.spawnCreepTypes");
 const spawnCreepTypeseRm = require("./spawn.eRmspawnCreepTypes");
+const spawnCreepTypeseeRm = require("./spawn.eeRmspawnCreepTypes");
 const runRoles = require("./runRoles");
 const linkTran = require("./action.linkTran");
 const profiler = require("./screeps-profiler");
@@ -18,17 +19,22 @@ module.exports.loop = function() {
 
     let s1 = Game.spawns.Spawn1;
     let s2 = Game.spawns.s2;
+    let eespawn = Game.spawns.eespawn;
     let rm = Game.rooms.E35N31;
     let nRm = Game.rooms.E35N32;
     let wRm = Game.rooms.E34N31;
     let eRm = Game.rooms.E36N31;
     let enRm = Game.rooms.E36N32;
+    let eeRm = Game.rooms.E37N31;
 
     let enAvail = rm.energyAvailable;
     let enCap = rm.energyCapacityAvailable;
 
     let enAvaileRm = eRm.energyAvailable;
     let enCapeRm = eRm.energyCapacityAvailable;
+    
+    let enAvaileeRm = eeRm.energyAvailable;
+    let enCapeeRm = eeRm.energyCapacityAvailable;
 
     let crps = Game.creeps;
     let numCrps = Object.keys(crps).length;
@@ -138,6 +144,8 @@ module.exports.loop = function() {
     Memory.wRm = wRm;
     Memory.eRm = eRm;
     Memory.s2 = s2.id;
+    Memory.eespawn = eespawn.id;
+
 
     if (invader) {
       if (tower1) {
@@ -178,6 +186,7 @@ module.exports.loop = function() {
     spawnToSource1Chain();
 
     spawnCreepTypeseRm(enAvaileRm);
+    spawnCreepTypeseeRm(enAvaileeRm);
 
     crps = Game.creeps;
     numCrps = Object.keys(crps).length;

@@ -59,7 +59,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     }
   }
 
-  if (target && !target.energy && !targetedRm) {
+  if (target && target.pos.room && !target.energy && !targetedRm) {
     retval = smartMove(creep, target, 3);
     return retval;
   }
@@ -168,10 +168,9 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     } else if (creep.fatigue > 0) {
       // Still tired
       creep.say("f." + creep.fatigue);
-      return;
     }
     // else if (path) {
-    //   // There's already a found path I can taked
+    //   // There's already a found path I can take
     //   if (creep.pos.isNearTo(creep.room.getPositionAt(path[0].x, path[0].y))) {
     //     retval = creep.moveByPath(path);
     //   }

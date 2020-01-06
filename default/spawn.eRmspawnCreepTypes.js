@@ -196,6 +196,7 @@ function spawnCreepTypes(enAvail) {
     // } 
     else if (ermNeHarvesters.length < 2) {
       ermHarvesters.push(name);
+      name = "h" + t + "NE";
       parts = basicHv;
       sourceDir = "north2";
       birth = true;
@@ -220,6 +221,7 @@ function spawnCreepTypes(enAvail) {
       birth = true;
     } else if (ermNeHarvesters.length < 5) {
       ermHarvesters.push(name);
+      name = "h" + t + "NE";
       parts = basicHv;
       sourceDir = "north1";
       birth = true;
@@ -227,8 +229,8 @@ function spawnCreepTypes(enAvail) {
 
     if (birth) {
       console.log(
-        chosenRole +
-          " role birth" +
+        name +
+          " role birth: " +
           birthCreep(
             s2,
             parts,
@@ -246,7 +248,7 @@ function spawnCreepTypes(enAvail) {
 
   if (enAvail >= 800) {
     let t = Game.time.toString().slice(4);
-    let name = "h" + t + "NE";
+    let name = "h" + t + "E";
     let chosenRole = "h";
     let direction = "east";
     let parts = mednewhvParts;
@@ -286,6 +288,7 @@ function spawnCreepTypes(enAvail) {
       birth = true;
     } else if (ermNeHarvesters.length < 8) {
       ermNeHarvesters.push(name);
+      name = "h" + t + "NE";
       parts = mednewhvParts;
       sourceDir = "north1";
       birth = true;
@@ -297,6 +300,7 @@ function spawnCreepTypes(enAvail) {
       eastUpControllers.push(name);
       birth = true;
     } else if (ermNeHarvesters.length < 15) {
+      name = "h" + t + "NE";
       ermNeHarvesters.push(name);
       parts = mednewhvParts;
       sourceDir = "north2";
@@ -305,8 +309,8 @@ function spawnCreepTypes(enAvail) {
 
     if (birth) {
       console.log(
-        chosenRole +
-          " role birth:" +
+        name +
+          " role birth: " +
           birthCreep(
             s2,
             parts,
@@ -349,8 +353,8 @@ function spawnCreepTypes(enAvail) {
     }
 
     console.log(
-      chosenRole +
-        " role birth:" +
+      name +
+        " role birth: " +
         birthCreep(
           s2,
           parts,

@@ -49,7 +49,8 @@ function runRoles() {
       continue;
     }
 
-    if (Game.cpu.getUsed() > Game.cpu.tickLimit - Game.cpu.tickLimit / 2) {
+    if (Game.cpu.getUsed() > Game.cpu.tickLimit / 20) {
+      // console.log("cpu needs a breather: " + Game.cpu.getUsed() + "/" + Game.cpu.tickLimit);
       return;
     }
     if (roll == "h" || roll == "harvester") {

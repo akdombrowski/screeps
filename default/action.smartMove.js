@@ -28,7 +28,7 @@ function smartMove(
   }
 
   blockage = moveAwayFromCreep(creep);
-  if (blockage || !ignoreCreeps) {
+  if (blockage) {
     // console.log(name + " blockage " + blockage);
 
     ignoreCreeps = false;
@@ -51,11 +51,11 @@ function smartMove(
 
   let lastStop;
   let desPath;
-  let myPos;
+  let isOnPath;
   let checkLastStop;
 
   if (!path) {
-    let ops = 100;
+    let ops = 10;
     path = rm.findPath(pos, destPos, {
       ignoreCreeps: false,
       range: range,
@@ -65,7 +65,7 @@ function smartMove(
 
     desPath = Room.deserializePath(path);
     lastStop = desPath[desPath.length - 1];
-    myPos = _.find(desPath, step => {
+    isOnPath = _.find(desPath, step => {
       return creep.pos.isNearTo(step.x, step.y);
     });
 
@@ -75,14 +75,14 @@ function smartMove(
       checkLastStop = true;
     }
 
-    if (!myPos || !checkLastStop) {
+    if (!isOnPath || !checkLastStop) {
       path = null;
     }
   }
 
   // No path. Try finding path using maxOps.
   if (!path) {
-    let ops = 1500;
+    let ops = 500;
     path = rm.findPath(pos, destPos, {
       ignoreCreeps: false,
       range: range,
@@ -92,17 +92,15 @@ function smartMove(
 
     desPath = Room.deserializePath(path);
     lastStop = desPath[desPath.length - 1];
-    myPos = _.find(desPath, step => {
+    isOnPath = _.find(desPath, step => {
       return creep.pos.isNearTo(step.x, step.y);
     });
   }
 
-  
-// TODO: check if next move is walkable. ie, is there a wall, object, creep
-
+  // TODO: check if next move is walkable. ie, is there a wall, object, creep
 
   // Check if 1st path try, or path from memory, gets us where we want to go.
-  if (path && lastStop && myPos) {
+  if (path && lastStop && isOnPath) {
     creep.memory.path = path;
     retval = creep.moveByPath(path);
 

@@ -4,6 +4,7 @@ const transferEnergyeRm = require("./action.transferEnergyeRm");
 const getEnergyNorth = require("./action.getEnergy.1");
 const getEnergyEast = require("./action.getEnergy.1");
 const ermgetEnergyEast = require("./action.getEnergy.1");
+const getEnergyEEast = require("./action.getEnergyEEast");
 const getEnergyWest = require("./action.getEnergy.1");
 const buildRoad = require("./action.buildRoad");
 const smartMove = require("./action.smartMove");
@@ -67,6 +68,8 @@ const roleHarvester = {
             : null;
           console.log("East attacker");
         }
+      } else if(creep.memory.direction === "eeast") {
+        getEnergyEEast(creep, "E37N31");
       } else if (creep.memory.direction == "west") {
         if (
           !Memory.westAttackerId ||

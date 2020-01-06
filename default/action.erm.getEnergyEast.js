@@ -29,6 +29,8 @@ function vest(creep, flag, path) {
         ermNeHarvesters.push(name);
         Memory.ermNeHarvesters = ermNeHarvesters;
     }
+
+    
     if (creep.room.name === "E35N31") {
         if (creep.pos.isNearTo(Game.flags.eastExit)) {
             creep.move(RIGHT);

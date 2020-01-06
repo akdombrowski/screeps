@@ -21,6 +21,7 @@ const linkGet = {
       } else {
         target = null;
         creep.say("linkSad");
+        return;
       }
 
       if (target && creep.pos.isNearTo(target.pos)) {

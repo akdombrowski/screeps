@@ -67,7 +67,6 @@ var roleRepairer = {
       } else {
         build(creep);
         creep.say("r.b");
-        console.log(creep.name + ":repair target is null");
       }
     }
   }

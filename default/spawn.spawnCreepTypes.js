@@ -342,73 +342,73 @@ function spawnCreepTypes(enAvail) {
         } else {
             console.log("wait for rezzy");
         }
-    } else if (enAvail >= 300) {
-        let t = Game.time.toString().slice(4);
-        let name = "h" + t;
-        let chosenRole = "h";
-        let direction = "south";
-        let sourceId = Memory.source2;
-        let parts = simpleParts;
-        let spawnDirection = [BOTTOM_RIGHT];
+    } //else if (enAvail >= 300) {
+    //     let t = Game.time.toString().slice(4);
+    //     let name = "h" + t;
+    //     let chosenRole = "h";
+    //     let direction = "south";
+    //     let sourceId = Memory.source2;
+    //     let parts = simpleParts;
+    //     let spawnDirection = [BOTTOM_RIGHT];
 
-        if (southHarvesters.length < 4) {
-            southHarvesters.push(name);
-            parts = simpleParts;
-            birthCreep(
-                s1,
-                parts,
-                name,
-                chosenRole,
-                direction,
-                sourceId,
-                spawnDirection
-            );
-        } else if (
-            northHarvesters.length < 2 &&
-            (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
-        ) {
-            name += "N";
-            direction = "north";
-            northHarvesters.push(name);
-            birthCreep(
-                s1,
-                parts,
-                name,
-                chosenRole,
-                direction,
-                sourceId,
-                spawnDirection
-            );
-        } else if (
-            westHarvesters.length < 2 &&
-            (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
-        ) {
-            name += "W";
-            direction = "west";
-            westHarvesters.push(name);
-            birthCreep(
-                s1,
-                parts,
-                name,
-                chosenRole,
-                direction,
-                sourceId,
-                spawnDirection
-            );
-        } else {
-            southHarvesters.push(name);
-            parts = simpleParts;
-            birthCreep(
-                s1,
-                parts,
-                name,
-                chosenRole,
-                direction,
-                sourceId,
-                spawnDirection
-            );
-        }
-    }
+    //     if (southHarvesters.length < 4) {
+    //         southHarvesters.push(name);
+    //         parts = simpleParts;
+    //         birthCreep(
+    //             s1,
+    //             parts,
+    //             name,
+    //             chosenRole,
+    //             direction,
+    //             sourceId,
+    //             spawnDirection
+    //         );
+    //     } else if (
+    //         northHarvesters.length < 2 &&
+    //         (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
+    //     ) {
+    //         name += "N";
+    //         direction = "north";
+    //         northHarvesters.push(name);
+    //         birthCreep(
+    //             s1,
+    //             parts,
+    //             name,
+    //             chosenRole,
+    //             direction,
+    //             sourceId,
+    //             spawnDirection
+    //         );
+    //     } else if (
+    //         westHarvesters.length < 2 &&
+    //         (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
+    //     ) {
+    //         name += "W";
+    //         direction = "west";
+    //         westHarvesters.push(name);
+    //         birthCreep(
+    //             s1,
+    //             parts,
+    //             name,
+    //             chosenRole,
+    //             direction,
+    //             sourceId,
+    //             spawnDirection
+    //         );
+    //     } else {
+    //         southHarvesters.push(name);
+    //         parts = simpleParts;
+    //         birthCreep(
+    //             s1,
+    //             parts,
+    //             name,
+    //             chosenRole,
+    //             direction,
+    //             sourceId,
+    //             spawnDirection
+    //         );
+    //     }
+    // }
 
     Memory.harvesters = harvesters;
     Memory.workers = workers;

@@ -146,7 +146,7 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  if (numCrps < 6) {
+  if (numCrps < 15) {
     if (enAvail >= 300) {
       let t = Game.time.toString().slice(4);
       let name = "h" + t;
@@ -345,7 +345,7 @@ function spawnCreepTypes(enAvail) {
     } else {
       console.log("wait for rezzy");
     }
-  
+
   }
 
   Memory.harvesters = harvesters;

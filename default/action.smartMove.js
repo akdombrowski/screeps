@@ -1,4 +1,5 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
+const getAPath = require("./getAPath");
 
 function smartMove(
   creep,
@@ -19,88 +20,53 @@ function smartMove(
   let pos = creep.pos;
   ignoreCreeps = ignoreCreeps;
   pathColor = pathColor || "#ffffff";
-  pathMem = pathMem || Math.random() * 2000;
-  maxOps = maxOps || Math.random() * 1000;
+  pathMem = pathMem || Math.random() * 10 - 1;
+  maxOps = maxOps || Math.random() * 100000 + 1000;
 
   if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
     return ERR_TIRED;
   }
 
-  blockage = moveAwayFromCreep(creep);
-  if (blockage) {
-    // console.log(name + " blockage " + blockage);
-
-    ignoreCreeps = false;
-    pathMem = 0;
-    noPathFinding = false;
-    creep.say("out of my way creep");
-    path = null;
-    creep.memory.path = null;
-    return;
-  }
-
-  let destPos = dest;
-  if (dest.pos) {
-    destPos = dest.pos;
-    if(!(destPos instanceof RoomPosition)) {
-      destPos = new RoomPosition(dest.pos.x, dest.pos.y, dest.room.name);
-    }
-
-  }
-
-  let lastStop;
-  let desPath;
-  let isOnPath;
-  let checkLastStop;
-
   if (!path) {
-    path = rm.findPath(pos, destPos, {
-      ignoreCreeps: false,
-      range: range,
-      maxOps: maxOps,
-      serialize: true
-    });
-
-    desPath = Room.deserializePath(path);
-    lastStop = desPath[desPath.length - 1];
-    isOnPath = _.find(desPath, step => {
-      return creep.pos.isNearTo(step.x, step.y);
-    });
-
-    checkLastStop = false;
-
-    if (lastStop && destPos.inRangeTo(lastStop.x, lastStop.y, range)) {
-      checkLastStop = true;
-    }
-
-    if (!isOnPath || !checkLastStop) {
-      path = null;
-    }
+    path = getAPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
   }
 
   // No path. Try finding path using maxOps.
   if (!path) {
+    let ops = maxOps;
     path = rm.findPath(pos, destPos, {
       ignoreCreeps: false,
       range: range,
-      maxOps: maxOps,
-      serialize: true
+      maxOps: ops,
+      serialize: true,
     });
+  }
 
-    desPath = Room.deserializePath(path);
+  if (path) {
+    if(path instanceof String) {
+      desPath = Room.deserializePath(path);
+    } else {
+      desPath = path
+    }
     lastStop = desPath[desPath.length - 1];
     isOnPath = _.find(desPath, step => {
       return creep.pos.isNearTo(step.x, step.y);
     });
   }
 
-  // TODO: check if next move is walkable. ie, is there a wall, object, creep
-
   // Check if 1st path try, or path from memory, gets us where we want to go.
   if (path && lastStop && isOnPath) {
     creep.memory.path = path;
-    retval = creep.moveByPath(path);
+    retval = creep.moveByPath(path, {
+      visualizePathStyle: {
+        fill: "transparent",
+        stroke: "#fff",
+        lineStyle: "dashed",
+        strokeWidth: 0.15,
+        opacity: 0.1,
+      },
+    });
 
     if (retval === OK) {
       if (creep.pos.inRangeTo(dest, range)) {
@@ -110,12 +76,12 @@ function smartMove(
       // return retval;
     } else {
       path = null;
-      creep.memory.path = null;
+      creep.memory.path = path;
       // second chance path was also out of range
     }
   } else {
     path = null;
-    creep.memory.path = null;
+    creep.memory.path = path;
   }
 
   // retval = creep.moveTo(dest, {

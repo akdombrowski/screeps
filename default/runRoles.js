@@ -98,10 +98,9 @@ function runRoles() {
       } else {
         creep.harvest(source2);
       }
-     } else if (roll == "eeUp") {
-        roleEEUp(creep);
-      } 
-    else if (roll == "northRezzy") {
+    } else if (roll == "eeUp") {
+      roleEEUp(creep);
+    } else if (roll == "northRezzy") {
       rezzyContr(
         creep,
         "E35N32",
@@ -144,7 +143,7 @@ function runRoles() {
       roleWorker.run(creep);
     } else if (roll == "eBuilder") {
       eworkers.push(name);
-      if(!creep.memory.buildRoom) {
+      if (!creep.memory.buildRoom) {
         creep.memory.buildRoom = "E36N31";
       }
       roleHarvesterBuilder.run(creep);

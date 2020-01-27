@@ -32,8 +32,10 @@ module.exports.loop = function() {
 
     let enAvaileRm = eRm.energyAvailable;
     let enCapeRm = eRm.energyCapacityAvailable;
-    
-    let enAvaileeRm = eeRm.energyAvailable;
+
+    let enAvaileeRm =
+      eeRm.energyAvailable +
+      Game.spawns.eespawn.store.getUsedCapacity(RESOURCE_ENERGY);
     let enCapeeRm = eeRm.energyCapacityAvailable;
 
     let crps = Game.creeps;
@@ -146,7 +148,6 @@ module.exports.loop = function() {
     Memory.s2 = s2.id;
     Memory.eespawn = eespawn.id;
 
-
     if (invader) {
       if (tower1) {
         tower1.attack(invader);
@@ -160,7 +161,7 @@ module.exports.loop = function() {
     checkForAttackers();
 
     if (numCrps < 4 && Object.keys(Memory.creeps).length >= 4) {
-      Game.notify("Creeps are dying.");
+      Game.notify("Creeps are dying. " + numCrps + " left.");
     } else if (numCrps < 10 && Object.keys(Memory.creeps).length >= 10) {
       Game.notify("Less than 10 creeps left.");
     }
@@ -178,20 +179,22 @@ module.exports.loop = function() {
         }
       }
     }
-
-    if (spawnHarvesterChain(enAvail, rm, s1, harvesters) != OK) {
-      spawnCreepTypes(enAvail);
-    }
-
-    spawnToSource1Chain();
-
-    spawnCreepTypeseRm(enAvaileRm);
-    spawnCreepTypeseeRm(enAvaileeRm);
-
     crps = Game.creeps;
     numCrps = Object.keys(crps).length;
 
-    runRoles();
+    if (Game.cpu.bucket > 0) {
+      if (spawnHarvesterChain(enAvail, rm, s1, harvesters) != OK) {
+        spawnCreepTypes(enAvail);
+      }
+
+      spawnToSource1Chain();
+
+      spawnCreepTypeseRm(enAvaileRm);
+      spawnCreepTypeseeRm(enAvaileeRm);
+
+      runRoles();
+      linkTran(linkEntrance, linkExit);
+    }
 
     if (tower1) {
       roleTower.run(tower1);
@@ -199,8 +202,6 @@ module.exports.loop = function() {
     if (tower2) {
       roleTower.run(tower2);
     }
-
-    linkTran(linkEntrance, linkExit);
 
     if (!Memory.e35n31fixables || Memory.e35n31fixables.length < 4) {
       Memory.e35n31fixables = findDecayed("E35N31");
@@ -212,7 +213,7 @@ module.exports.loop = function() {
       Memory.e36n32fixables = findDecayed("E36N32");
     }
 
-    if (Game.time % 10000 == 0) {
+    if (Game.time % 3600 == 0) {
       if (!Memory.rmProg) {
         Memory.rmProg = 0;
       }

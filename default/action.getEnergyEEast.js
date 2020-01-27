@@ -137,6 +137,9 @@ function vest(creep, flag, path) {
         }
     }
 
+    console.log(name + " " + target);
+
+
     if (target) {
         let waitTime = Memory.waitTime || 0;
         if (creep.pos.isNearTo(target)) {
@@ -151,7 +154,7 @@ function vest(creep, flag, path) {
             return retval;
         } else {
             retval = smartMove(creep, target, 1, true, "#000fff", 2000, 1000);
-            if (creep.pos.inRangeTo(target, 3)) {
+            if (creep.pos.inRangeTo(target, 3) && !creep.pos.isNearTo(target)) {
                 waitTime += 1;
                 if (waitTime > 10) {
                     waitTime = 0;

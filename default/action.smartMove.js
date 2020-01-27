@@ -6,8 +6,8 @@ function smartMove(
   range,
   ignoreCreeps = true,
   pathColor = "#ffffff",
-  pathMem = 2000,
-  maxOps = 10000
+  pathMem,
+  maxOps
 ) {
   let s;
   let retval = -16;
@@ -19,8 +19,8 @@ function smartMove(
   let pos = creep.pos;
   ignoreCreeps = ignoreCreeps;
   pathColor = pathColor || "#ffffff";
-  pathMem = pathMem || 2000;
-  maxOps = maxOps || 1000;
+  pathMem = pathMem || Math.random() * 2000;
+  maxOps = maxOps || Math.random() * 1000;
 
   if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
@@ -55,11 +55,10 @@ function smartMove(
   let checkLastStop;
 
   if (!path) {
-    let ops = 1000;
     path = rm.findPath(pos, destPos, {
       ignoreCreeps: false,
       range: range,
-      maxOps: ops,
+      maxOps: maxOps,
       serialize: true
     });
 
@@ -82,11 +81,10 @@ function smartMove(
 
   // No path. Try finding path using maxOps.
   if (!path) {
-    let ops = 1000;
     path = rm.findPath(pos, destPos, {
       ignoreCreeps: false,
       range: range,
-      maxOps: ops,
+      maxOps: maxOps,
       serialize: true
     });
 

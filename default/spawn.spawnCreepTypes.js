@@ -158,7 +158,7 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  if (southHarvesters.length < 2) {
+  if (southHarvesters.length < 3) {
     if (enAvail >= 300) {
       let t = Game.time.toString().slice(4);
       let name = "h" + t;

@@ -29,7 +29,6 @@ function smartMove(
   }
 
   if (!path) {
-    console.log(name + " getting a path " + dest);
     path = getAPath(
       creep,
       dest,
@@ -39,7 +38,6 @@ function smartMove(
       pathMem,
       maxOps
     );
-    console.log(name + " " + path[path.length - 1]);
     creep.memory.path = path;
   }
 
@@ -66,8 +64,6 @@ function smartMove(
     desPath2 = Array.from(desPath);
     desPath2.unshift(creep.pos);
     retval = creep.moveByPath(desPath);
-
-    console.log(name + " " + retval + " m" + " " + range + " " + desPath[0]);
 
     if (retval === OK) {
       if (creep.pos.inRangeTo(dest, range)) {

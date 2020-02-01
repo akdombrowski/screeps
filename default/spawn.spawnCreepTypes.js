@@ -50,7 +50,6 @@ function birthCreep(
       directions: spawnDirection,
     });
     console.log("spawn2 failed: " + retval);
-
   }
 }
 
@@ -159,11 +158,8 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  console.log("numcrps: " + numCrps);
   if (southHarvesters.length < 2) {
     if (enAvail >= 300) {
-      console.log("rm: " + enAvail);
-
       let t = Game.time.toString().slice(4);
       let name = "h" + t;
       let chosenRole = "h";

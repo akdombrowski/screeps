@@ -48,8 +48,6 @@ function getAPath(
     }
   }
 
-  console.log(name + " " + destPos);
-
   let costMatrix;
 
   if (!costMatrix) {
@@ -57,7 +55,7 @@ function getAPath(
       // We need to set the defaults costs higher so that we
       // can set the road cost lower in `roomCallback`
       plainCost: 1,
-      swampCost: 5,
+      swampCost: 3,
 
       roomCallback: function(roomName) {
         let room = Game.rooms[roomName];
@@ -77,14 +75,12 @@ function getAPath(
           ) {
             // Can't walk through non-walkable buildings
             costs.set(struct.pos.x, struct.pos.y, 0xff);
-          } else {
-            costs.set(struct.pos.x, struct.pos.y, 0xff);
           }
         });
 
         // Avoid creeps in the room
         room.find(FIND_CREEPS).forEach(function(creep) {
-          costs.set(creep.pos.x, creep.pos.y, 2);
+          costs.set(creep.pos.x, creep.pos.y, 100);
         });
 
         return costs;
@@ -130,8 +126,6 @@ function getAPath(
 
   // No path. Try finding path using maxOps.
   if (!path) {
-    console.log(name + " path searching2 ");
-
     let ops = maxOps * 2;
     path = rm.findPath(pos, destPos, {
       ignoreCreeps: false,
@@ -153,14 +147,12 @@ function getAPath(
 
     if (lastStop && destPos.inRangeTo(lastStop.x, lastStop.y, range)) {
       checkLastStop = true;
-      console.log(name + " " + path);
     }
   }
 
   // Check if 1st path try, or path from memory, gets us where we want to go.
   if (desPath && checkLastStop && isOnPath) {
     creep.memory.path = path;
-    console.log(name + " " + " return path " + desPath[desPath.length - 1]);
     return desPath;
 
     retval = creep.moveByPath(path, {

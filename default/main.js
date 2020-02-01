@@ -27,7 +27,9 @@ module.exports.loop = function() {
     let enRm = Game.rooms.E36N32;
     let eeRm = Game.rooms.E37N31;
 
-    let enAvail = rm.energyAvailable;
+    let enAvail =
+      rm.energyAvailable +
+      Game.spawns.Spawn1.store.getUsedCapacity(RESOURCE_ENERGY);
     let enCap = rm.energyCapacityAvailable;
 
     let enAvaileRm = eRm.energyAvailable;
@@ -182,7 +184,7 @@ module.exports.loop = function() {
     crps = Game.creeps;
     numCrps = Object.keys(crps).length;
 
-    if (Game.cpu.bucket > 0) {
+    if (Game.cpu.bucket > 200) {
       if (spawnHarvesterChain(enAvail, rm, s1, harvesters) != OK) {
         spawnCreepTypes(enAvail);
       }
@@ -191,7 +193,9 @@ module.exports.loop = function() {
 
       spawnCreepTypeseRm(enAvaileRm);
       spawnCreepTypeseeRm(enAvaileeRm);
+    }
 
+    if (Game.cpu.bucket > 200) {
       runRoles();
       linkTran(linkEntrance, linkExit);
     }

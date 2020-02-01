@@ -23,8 +23,8 @@ function getAPath(
   let checkLastStop;
   ignoreCreeps = ignoreCreeps;
   pathColor = pathColor || "#ffffff";
-  pathMem = pathMem || Math.random() * 10 - 1;
-  maxOps = maxOps || Math.random() * 100000 + 1000;
+  pathMem = Math.random() * 100 - 1;
+  maxOps = Math.random() * 4000;
 
   blockage = moveAwayFromCreep(creep);
   if (blockage) {
@@ -48,10 +48,12 @@ function getAPath(
     }
   }
 
-  if (!path) {
-    let goals = destPos;
+  console.log(name + " " + destPos);
 
-    let ret = PathFinder.search(creep.pos, goals, {
+  let costMatrix;
+
+  if (!costMatrix) {
+    costMatrix = {
       // We need to set the defaults costs higher so that we
       // can set the road cost lower in `roomCallback`
       plainCost: 1,
@@ -75,17 +77,26 @@ function getAPath(
           ) {
             // Can't walk through non-walkable buildings
             costs.set(struct.pos.x, struct.pos.y, 0xff);
+          } else {
+            costs.set(struct.pos.x, struct.pos.y, 0xff);
           }
         });
 
         // Avoid creeps in the room
         room.find(FIND_CREEPS).forEach(function(creep) {
-          costs.set(creep.pos.x, creep.pos.y, 6);
+          costs.set(creep.pos.x, creep.pos.y, 2);
         });
 
         return costs;
       },
-    });
+    };
+    creep.memory.costMatrix = costMatrix;
+  }
+
+  if (!path || pathMem === 0) {
+    let goals = destPos;
+
+    let ret = PathFinder.search(creep.pos, goals, costMatrix);
 
     path = ret.path;
   }
@@ -104,6 +115,10 @@ function getAPath(
 
     checkLastStop = false;
 
+    if (creep.room !== destPos.roomName) {
+      checkLastStop = true;
+    }
+
     if (lastStop && destPos.inRangeTo(lastStop.x, lastStop.y, range)) {
       checkLastStop = true;
     }
@@ -115,7 +130,9 @@ function getAPath(
 
   // No path. Try finding path using maxOps.
   if (!path) {
-    let ops = maxOps;
+    console.log(name + " path searching2 ");
+
+    let ops = maxOps * 2;
     path = rm.findPath(pos, destPos, {
       ignoreCreeps: false,
       range: range,
@@ -123,17 +140,29 @@ function getAPath(
       serialize: true,
     });
 
-    desPath = Room.deserializePath(path);
+    if (path instanceof String) {
+      desPath = Room.deserializePath(path);
+    } else {
+      desPath = path;
+    }
+
     lastStop = desPath[desPath.length - 1];
     isOnPath = _.find(desPath, step => {
       return creep.pos.isNearTo(step.x, step.y);
     });
+
+    if (lastStop && destPos.inRangeTo(lastStop.x, lastStop.y, range)) {
+      checkLastStop = true;
+      console.log(name + " " + path);
+    }
   }
 
   // Check if 1st path try, or path from memory, gets us where we want to go.
-  if (path && lastStop && isOnPath) {
-    return path;
+  if (desPath && checkLastStop && isOnPath) {
     creep.memory.path = path;
+    console.log(name + " " + " return path " + desPath[desPath.length - 1]);
+    return desPath;
+
     retval = creep.moveByPath(path, {
       visualizePathStyle: {
         fill: "transparent",

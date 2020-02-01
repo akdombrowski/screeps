@@ -26,18 +26,31 @@ function birthCreep(
       memory: {
         role: chosenRole,
         direction: direction,
-        sourceId: sourceId
+        sourceId: sourceId,
       },
-      directions: spawnDirection
+      directions: spawnDirection,
     });
   } else {
     retval = Game.spawns.Spawn1.spawnCreep(parts, name, {
-      memory: { role: chosenRole, direction: direction, sourceId: sourceId }
+      memory: { role: chosenRole, direction: direction, sourceId: sourceId },
     });
   }
 
   if (retval == OK) {
     console.log("spawned." + name);
+  } else {
+    console.log("spawn1 failed: " + retval);
+
+    retval = Game.spawns.spawn2.spawnCreep(parts, name, {
+      memory: {
+        role: chosenRole,
+        direction: direction,
+        sourceId: sourceId,
+      },
+      directions: spawnDirection,
+    });
+    console.log("spawn2 failed: " + retval);
+
   }
 }
 
@@ -146,8 +159,11 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  if (numCrps < 15) {
+  console.log("numcrps: " + numCrps);
+  if (southHarvesters.length < 2) {
     if (enAvail >= 300) {
+      console.log("rm: " + enAvail);
+
       let t = Game.time.toString().slice(4);
       let name = "h" + t;
       let chosenRole = "h";
@@ -345,7 +361,6 @@ function spawnCreepTypes(enAvail) {
     } else {
       console.log("wait for rezzy");
     }
-
   }
 
   Memory.harvesters = harvesters;

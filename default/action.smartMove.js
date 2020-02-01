@@ -20,8 +20,8 @@ function smartMove(
   let pos = creep.pos;
   ignoreCreeps = ignoreCreeps;
   pathColor = pathColor || "#ffffff";
-  pathMem = pathMem || Math.random() * 10 - 1;
-  maxOps = maxOps || Math.random() * 100000 + 1000;
+  pathMem = Math.random() * 10 - 1;
+  maxOps = Math.random() * 100000;
 
   if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
@@ -29,7 +29,18 @@ function smartMove(
   }
 
   if (!path) {
-    path = getAPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
+    console.log(name + " getting a path " + dest);
+    path = getAPath(
+      creep,
+      dest,
+      range,
+      ignoreCreeps,
+      pathColor,
+      pathMem,
+      maxOps
+    );
+    console.log(name + " " + path[path.length - 1]);
+    creep.memory.path = path;
   }
 
   // No path. Try finding path using maxOps.
@@ -43,37 +54,27 @@ function smartMove(
     });
   }
 
-  if (path) {
-    if(path instanceof String) {
-      desPath = Room.deserializePath(path);
-    } else {
-      desPath = path
-    }
-    lastStop = desPath[desPath.length - 1];
-    isOnPath = _.find(desPath, step => {
-      return creep.pos.isNearTo(step.x, step.y);
-    });
-  }
+  let desPath = path;
 
   // Check if 1st path try, or path from memory, gets us where we want to go.
-  if (path && lastStop && isOnPath) {
+  if (desPath) {
+    if (desPath instanceof String) {
+      desPath = Room.deserializePath(desPath);
+    }
+
     creep.memory.path = path;
-    retval = creep.moveByPath(path, {
-      visualizePathStyle: {
-        fill: "transparent",
-        stroke: "#fff",
-        lineStyle: "dashed",
-        strokeWidth: 0.15,
-        opacity: 0.1,
-      },
-    });
+    desPath2 = Array.from(desPath);
+    desPath2.unshift(creep.pos);
+    retval = creep.moveByPath(desPath);
+
+    console.log(name + " " + retval + " m" + " " + range + " " + desPath[0]);
 
     if (retval === OK) {
       if (creep.pos.inRangeTo(dest, range)) {
         creep.memory.path = null;
       }
-
-      // return retval;
+      creep.say("m");
+      return retval;
     } else {
       path = null;
       creep.memory.path = path;

@@ -44,7 +44,9 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
         break;
       case "E36N32":
         target =
-          creep.room.name != sourceRmTargeted ? Game.flags.neSource1 : creep.room.name;
+          creep.room.name != sourceRmTargeted
+            ? Game.flags.neSource1
+            : creep.room.name;
         targetedRm = Game.flags.neSource1.room;
         break;
       case "E35N32":
@@ -61,6 +63,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
   if (target && target.pos.room && !target.energy && !targetedRm) {
     retval = smartMove(creep, target, 3);
+    creep.say("ge.m." + retval);
     return retval;
   }
 
@@ -78,7 +81,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
               return source;
             }
-          }
+          },
         })
         .pop();
     }
@@ -125,7 +128,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
           // console.log("name: " + structure)
           return structure;
         }
-      }
+      },
     });
 
     isTargetStructure = target ? true : false;
@@ -137,7 +140,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
           if (structure.pos.findInRange(FIND_CREEPS, 2).length <= 6) {
             return structure;
           }
-        }
+        },
       });
     }
   }

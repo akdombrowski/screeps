@@ -48,7 +48,7 @@ function getAPath(
     }
   }
 
-  let costMatrix;
+  let costMatrix = Memory.costMatrix;
 
   if (!path || pathMem === 0) {
     if (!costMatrix) {

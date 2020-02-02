@@ -39,7 +39,6 @@ const roleHarvesterBuilder = {
         return site.room.name === creep.memory.buildRoom && site.my;
       });
 
-      console.log(name + " builder " + target);
       if (creep.pos.inRangeTo(target, 3)) {
         creep.build(target);
       } else {

@@ -43,7 +43,7 @@ function smartMove(
 
   // No path. Try finding path using maxOps.
   if (!path) {
-    creep.say("nopath")
+    creep.say("nopath");
     retval = ERR_NO_PATH;
   }
 
@@ -89,7 +89,7 @@ function smartMove(
 
   if (retval === ERR_INVALID_TARGET || retval === ERR_NOT_FOUND) {
     retval = creep.moveTo(dest, {
-      reusePath: pathMem,
+      reusePath: 0,
       ignoreCreeps: false,
       range: range,
       maxOps: maxOps * 10,

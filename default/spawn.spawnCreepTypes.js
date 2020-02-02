@@ -49,7 +49,8 @@ function birthCreep(
       },
       directions: spawnDirection,
     });
-    console.log("spawn2 failed: " + retval);
+
+    console.log("spawn2: " + retval);
   }
 }
 
@@ -183,6 +184,8 @@ function spawnCreepTypes(enAvail) {
       } else if(upControllers.length < 4) {
         upControllers.push(name);
         parts = upContrParts;
+        name = "upc" + t;
+        chosenRole = "upController";
         birthCreep(
           s1,
           parts,
@@ -258,6 +261,8 @@ function spawnCreepTypes(enAvail) {
     } else if (upControllers.length < 4) {
       upControllers.push(name);
       parts = upContrParts;
+      name = "upc" + t;
+      chosenRole = "upController";
       birthCreep(
         s1,
         parts,

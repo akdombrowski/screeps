@@ -80,8 +80,8 @@ function spawnCreepTypes(enAvail) {
 
   // 1000
   let upContrParts = [];
-  addPart(upContrParts, 10, CARRY);
-  addPart(upContrParts, 4, WORK);
+  addPart(upContrParts, 6, CARRY);
+  addPart(upContrParts, 6, WORK);
   addPart(upContrParts, 2, MOVE);
 
   // 1000
@@ -97,9 +97,9 @@ function spawnCreepTypes(enAvail) {
 
   // 1000
   let newhvParts = [];
-  addPart(newhvParts, 6, CARRY);
-  addPart(newhvParts, 6, WORK);
-  addPart(newhvParts, 2, MOVE);
+  addPart(newhvParts, 5, CARRY);
+  addPart(newhvParts, 7, WORK);
+  addPart(newhvParts, 1, MOVE);
 
   // 1000
   let workerParts = [];
@@ -127,7 +127,7 @@ function spawnCreepTypes(enAvail) {
 
   let rezzyParts = [CLAIM, MOVE];
   let basicHv = [CARRY, WORK, MOVE];
-  let simpleParts = [CARRY, CARRY, CARRY, WORK, MOVE];
+  let simpleParts = [CARRY, WORK, WORK, MOVE];
 
   let eAttackerId = Memory.eAttackerId;
   let wAttackerId = Memory.wAttackerId;
@@ -136,8 +136,9 @@ function spawnCreepTypes(enAvail) {
 
   if (enAvail >= 650) {
     if (claimers.length < 1) {
+      let t = Game.time.toString().slice(4);
       chosenRole = "c";
-      name = "claimer" + Game.time;
+      name = "claimer" + t;
       direction = "ee";
       parts = claimerParts;
       sourceId = "";
@@ -159,7 +160,7 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  if (southHarvesters.length < 3) {
+  if (southHarvesters.length < 3 && !invaderId) {
     if (enAvail >= 300) {
       let t = Game.time.toString().slice(4);
       let name = "h" + t;
@@ -181,7 +182,7 @@ function spawnCreepTypes(enAvail) {
           sourceId,
           spawnDirection
         );
-      } else if(upControllers.length < 4) {
+      } else if (upControllers.length < 4) {
         upControllers.push(name);
         parts = upContrParts;
         name = "upc" + t;
@@ -241,7 +242,7 @@ function spawnCreepTypes(enAvail) {
         );
       }
     }
-  } else if (enAvail >= 1000) {
+  } else if (enAvail >= 1000 && !invaderId) {
     let t = Game.time.toString().slice(4);
     let name = "harvester" + t;
     let chosenRole = "h";
@@ -263,15 +264,7 @@ function spawnCreepTypes(enAvail) {
       parts = upContrParts;
       name = "upc" + t;
       chosenRole = "upController";
-      birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
+      birth = true;
     } else if (southHarvesters.length < 3) {
       southHarvesters.push(name);
       parts = southHvParts;

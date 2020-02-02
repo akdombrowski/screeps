@@ -144,6 +144,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
           }
         },
       });
+      creep.memory.flag = target;
     }
   }
 

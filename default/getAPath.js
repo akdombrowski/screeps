@@ -24,7 +24,7 @@ function getAPath(
   ignoreCreeps = ignoreCreeps;
   pathColor = pathColor || "#ffffff";
   pathMem = Math.random() * 100 - 1;
-  maxOps = Math.random() * 10000;
+  maxOps = Math.random() * 5000;
 
   blockage = moveAwayFromCreep(creep);
   if (blockage) {
@@ -48,7 +48,7 @@ function getAPath(
     }
   }
 
-  let costMatrix = Memory.costMatrix;
+  let costMatrix;
 
   if (!path || pathMem === 0) {
     if (!costMatrix) {
@@ -97,6 +97,8 @@ function getAPath(
     let ret = PathFinder.search(creep.pos, goals, costMatrix);
 
     path = ret.path;
+
+
   }
 
   if (path instanceof String) {
@@ -128,7 +130,7 @@ function getAPath(
 
   // No path. Try finding path using maxOps.
   if (!path) {
-    let ops = maxOps * 2;
+    let ops = maxOps * 10;
     path = rm.findPath(pos, destPos, {
       ignoreCreeps: false,
       range: range,

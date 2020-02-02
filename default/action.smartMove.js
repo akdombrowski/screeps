@@ -21,7 +21,7 @@ function smartMove(
   ignoreCreeps = ignoreCreeps;
   pathColor = pathColor || "#ffffff";
   pathMem = Math.random() * 10 - 1;
-  maxOps = Math.random() * 100000;
+  maxOps = Math.random() * 10000;
 
   if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
@@ -88,27 +88,10 @@ function smartMove(
   // });
 
   if (retval === ERR_INVALID_TARGET || retval === ERR_NOT_FOUND) {
-    path = getAPath(
-      creep,
-      dest,
-      range,
-      ignoreCreeps,
-      pathColor,
-      pathMem,
-      maxOps
-    );
-    creep.memory.path = path;
+    creep.memory.path = null;
   } else if (retval === ERR_NO_PATH) {
-    path = getAPath(
-      creep,
-      dest,
-      range,
-      ignoreCreeps,
-      pathColor,
-      pathMem,
-      maxOps
-    );
-    creep.memory.path = path;
+
+    creep.memory.path = null;
   }
 
   creep.say("m." + retval);

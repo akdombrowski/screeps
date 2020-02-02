@@ -80,9 +80,11 @@ module.exports.loop = function() {
 
     let tower1Id = "5cf3b09b75f7e26764ee4276";
     let tower2Id = "5d0182c6667a4642d4259e3f";
+    let tower3Id = "5d55c927ea104379d90d9176";
     let etower1Id = "5d0f99d929c9cb5363cba23d";
     let tower1 = Game.getObjectById(tower1Id);
     let tower2 = Game.getObjectById(tower2Id);
+    let tower3 = Game.getObjectById(tower3Id);
     let etower1 = Game.getObjectById(etower1Id);
 
     let rmControllerId = Memory.rmControllerId || "5bbcaefa9099fc012e639e90";
@@ -135,6 +137,7 @@ module.exports.loop = function() {
 
     Memory.tower1Id = tower1Id;
     Memory.tower2Id = tower2Id;
+    Memory.tower3Id = tower3Id;
     Memory.etower1Id = etower1Id;
 
     Memory.enAvail = enAvail;
@@ -184,7 +187,7 @@ module.exports.loop = function() {
     crps = Game.creeps;
     numCrps = Object.keys(crps).length;
 
-    if (Game.cpu.bucket > 200) {
+    if (Game.cpu.bucket > 400) {
       if (spawnHarvesterChain(enAvail, rm, s1, harvesters) != OK) {
         spawnCreepTypes(enAvail);
       }
@@ -195,7 +198,7 @@ module.exports.loop = function() {
       spawnCreepTypeseeRm(enAvaileeRm);
     }
 
-    if (Game.cpu.bucket > 200) {
+    if (Game.cpu.bucket > 100) {
       runRoles();
       linkTran(linkEntrance, linkExit);
     }

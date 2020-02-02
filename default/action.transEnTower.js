@@ -11,8 +11,9 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   let sourceDir = creep.memory.sourceDir;
   let tower1 = Game.getObjectById(Memory.tower1Id);
   let tower2 = Game.getObjectById(Memory.tower2Id);
+  let tower3 = Game.getObjectById(Memory.tower3Id);
   let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
-  let towers = [tower1, tower2, ermtower1];
+  let towers = [tower1, tower2, tower3, ermtower1];
   let enAvail = rm.energyAvailable;
   let myTowers = creep.memory.myTowers || [];
   let towers4En = [];

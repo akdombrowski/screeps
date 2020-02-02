@@ -29,7 +29,7 @@ module.exports.loop = function() {
 
     let enAvail =
       rm.energyAvailable +
-      Game.spawns.Spawn1.store.getUsedCapacity(RESOURCE_ENERGY);
+      Game.spawns.spawn2.store.getUsedCapacity(RESOURCE_ENERGY);
     let enCap = rm.energyCapacityAvailable;
 
     let enAvaileRm = eRm.energyAvailable;

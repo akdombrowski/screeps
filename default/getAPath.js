@@ -213,7 +213,7 @@ function getAPath(
   //   });
   // }
 
-  creep.say("m." + retval);
+  creep.say("gap." + retval);
   return retval;
 }
 

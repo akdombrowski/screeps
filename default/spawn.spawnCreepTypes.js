@@ -89,28 +89,28 @@ function spawnCreepTypes(enAvail) {
   addPart(southHvParts, 14, WORK);
   addPart(southHvParts, 9, MOVE);
 
-  // 2000
+  // 650
   let claimerParts = [];
-  addPart(claimerParts, 4, MOVE);
-  addPart(claimerParts, 3, CLAIM);
+  addPart(claimerParts, 1, MOVE);
+  addPart(claimerParts, 1, CLAIM);
 
-  // 2000
+  // 1000
   let newhvParts = [];
   addPart(newhvParts, 4, CARRY);
-  addPart(newhvParts, 12, WORK);
-  addPart(newhvParts, 12, MOVE);
+  addPart(newhvParts, 6, WORK);
+  addPart(newhvParts, 4, MOVE);
 
-  // 2000
+  // 1000
   let workerParts = [];
-  addPart(workerParts, 4, CARRY);
-  addPart(workerParts, 14, WORK);
-  addPart(workerParts, 8, MOVE);
+  addPart(workerParts, 2, CARRY);
+  addPart(workerParts, 6, WORK);
+  addPart(workerParts, 6, MOVE);
 
-  // 2000
+  // 1000
   let repairerParts = [];
-  addPart(repairerParts, 10, CARRY);
-  addPart(repairerParts, 8, WORK);
-  addPart(repairerParts, 14, MOVE);
+  addPart(repairerParts, 4, CARRY);
+  addPart(repairerParts, 4, WORK);
+  addPart(repairerParts, 8, MOVE);
 
   // 300
   let linkGetsParts = [];
@@ -120,9 +120,9 @@ function spawnCreepTypes(enAvail) {
 
   // 1200
   let largeLinkGetsParts = [];
-  addPart(largeLinkGetsParts, 3, CARRY);
+  addPart(largeLinkGetsParts, 2, CARRY);
   addPart(largeLinkGetsParts, 8, WORK);
-  addPart(largeLinkGetsParts, 5, MOVE);
+  addPart(largeLinkGetsParts, 2, MOVE);
 
   let rezzyParts = [CLAIM, MOVE];
   let basicHv = [CARRY, WORK, MOVE];
@@ -133,7 +133,7 @@ function spawnCreepTypes(enAvail) {
   let nAttackerId = Memory.nAttackerId;
   let invaderId = Memory.invaderId;
 
-  if (enAvail >= 2000) {
+  if (enAvail >= 650) {
     if (claimers.length < 1) {
       chosenRole = "c";
       name = "claimer" + Game.time;
@@ -226,7 +226,7 @@ function spawnCreepTypes(enAvail) {
         );
       }
     }
-  } else if (enAvail >= 2000) {
+  } else if (enAvail >= 1000) {
     let t = Game.time.toString().slice(4);
     let name = "harvester" + t;
     let chosenRole = "h";
@@ -237,7 +237,7 @@ function spawnCreepTypes(enAvail) {
     let spawnDirection = [BOTTOM_RIGHT];
     let birth = false;
 
-    if (linkGets.length < 1 && Game.creeps.harvester1) {
+    if (linkGets.length < 1) {
       chosenRole = "linkGet";
       name = "XLlink" + t;
       parts = largeLinkGetsParts;

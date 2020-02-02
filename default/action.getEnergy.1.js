@@ -35,27 +35,27 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   if (!targetedRm) {
     switch (sourceRmTargeted) {
       case "E34N31":
-        target = creep.room.name != sourceRmTargeted ? Game.flags.west : null;
+        target = creep.room.name !== sourceRmTargeted ? Game.flags.westExit : null;
         targetedRm = Game.flags.west.room;
         break;
       case "E36N31":
-        target = creep.room.name != sourceRmTargeted ? Game.flags.east : null;
+        target = creep.room.name !== sourceRmTargeted ? Game.flags.east : null;
         targetedRm = Game.flags.east.room;
         break;
       case "E36N32":
         target =
-          creep.room.name != sourceRmTargeted
+          creep.room.name !== sourceRmTargeted
             ? Game.flags.neSource1
             : creep.room.name;
         targetedRm = Game.flags.neSource1.room;
         break;
       case "E35N32":
-        target = creep.room.name != sourceRmTargeted ? Game.flags.north1 : null;
+        target = creep.room.name !== sourceRmTargeted ? Game.flags.north1 : null;
         targetedRm = Game.flags.north1.room;
 
         break;
       default:
-        target = creep.room.name != sourceRmTargeted ? Game.flags.Flag1 : null;
+        target = creep.room.name !== sourceRmTargeted ? Game.flags.Flag1 : null;
         targetedRm = Memory.s1.room;
         break;
     }
@@ -64,6 +64,8 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   if (target && target.pos.room && !target.energy && !targetedRm) {
     retval = smartMove(creep, target, 3);
     creep.say("ge.m." + retval);
+
+    console.log(name + " " + target)
     return retval;
   }
 

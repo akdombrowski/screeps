@@ -43,13 +43,8 @@ function smartMove(
 
   // No path. Try finding path using maxOps.
   if (!path) {
-    let ops = maxOps;
-    path = rm.findPath(pos, destPos, {
-      ignoreCreeps: false,
-      range: range,
-      maxOps: ops,
-      serialize: true,
-    });
+    creep.say("nopath");
+    return ERR_NO_PATH;
   }
 
   let desPath = path;
@@ -79,6 +74,7 @@ function smartMove(
   } else {
     path = null;
     creep.memory.path = path;
+    retval = ERR_NO_PATH;
   }
 
   // retval = creep.moveTo(dest, {
@@ -91,27 +87,27 @@ function smartMove(
   //   visualizePathStyle: { stroke: pathColor },
   // });
 
-  // if (retval === ERR_INVALID_TARGET || retval === ERR_NOT_FOUND) {
-  //   retval = creep.moveTo(dest, {
-  //     reusePath: pathMem,
-  //     ignoreCreeps: ignoreCreeps,
-  //     range: range,
-  //     maxOps: maxOps,
-  //     serializeMemory: true,
-  //     noPathFinding: false,
-  //     visualizePathStyle: { stroke: "#000000" },
-  //   });
-  // } else if (retval === ERR_NO_PATH) {
-  //   retval = creep.moveTo(dest, {
-  //     reusePath: 0,
-  //     ignoreCreeps: ignoreCreeps,
-  //     range: range,
-  //     maxOps: maxOps * 2,
-  //     serializeMemory: false,
-  //     noPathFinding: false,
-  //     visualizePathStyle: { stroke: "#0FFFFF" },
-  //   });
-  // }
+  if (retval === ERR_INVALID_TARGET || retval === ERR_NOT_FOUND) {
+    retval = creep.moveTo(dest, {
+      reusePath: pathMem,
+      ignoreCreeps: ignoreCreeps,
+      range: range,
+      maxOps: maxOps,
+      serializeMemory: true,
+      noPathFinding: false,
+      visualizePathStyle: { stroke: "#000000" },
+    });
+  } else if (retval === ERR_NO_PATH) {
+    retval = creep.moveTo(dest, {
+      reusePath: 0,
+      ignoreCreeps: ignoreCreeps,
+      range: range,
+      maxOps: maxOps * 2,
+      serializeMemory: false,
+      noPathFinding: false,
+      visualizePathStyle: { stroke: "#0FFFFF" },
+    });
+  }
 
   creep.say("m." + retval);
   return retval;

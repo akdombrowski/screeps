@@ -43,8 +43,8 @@ function smartMove(
 
   // No path. Try finding path using maxOps.
   if (!path) {
-    creep.say("nopath");
-    return ERR_NO_PATH;
+    creep.say("nopath")
+    retval = ERR_NO_PATH;
   }
 
   let desPath = path;

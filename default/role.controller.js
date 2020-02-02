@@ -3,7 +3,7 @@ const smartMove = require("./action.smartMove");
 var roleController = {
   /** @param {Creep} creep **/
   run: function(creep) {
-    if (creep.memory.controlling && creep.carry.energy == 0) {
+    if (creep.memory.controlling && creep.carry.energy === 0) {
       creep.memory.controlling = false;
       creep.say("harvest");
       getEnergy(creep, Game.getObject.byId("5bbcaefa9099fc012e639e8f"));
@@ -12,7 +12,7 @@ var roleController = {
 
     if (
       !creep.memory.controlling &&
-      creep.carry.energy == creep.carryCapacity
+      creep.carry.energy === creep.carryCapacity
     ) {
       creep.memory.controlling = true;
       creep.say("controlling");

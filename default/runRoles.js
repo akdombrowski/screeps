@@ -53,7 +53,9 @@ function runRoles() {
       // console.log("cpu needs a breather: " + Game.cpu.getUsed() + "/" + Game.cpu.tickLimit);
       return;
     }
-    if (roll == "h" || roll == "harvester") {
+
+    console.log("role: " + roll);
+    if (roll === "h" || roll === "harvester") {
       if (creep.memory.direction == "north") {
         northHarvesters.push(name);
       } else if (creep.memory.direction == "east") {
@@ -73,7 +75,7 @@ function runRoles() {
           Memory.nesource2Creeps.push(name);
         }
         eastHarvesters.push(name);
-      } else if (creep.memory.direction == "west") {
+      } else if (creep.memory.direction === "west") {
         westHarvesters.push(name);
       } else {
         southHarvesters.push(name);
@@ -92,15 +94,15 @@ function runRoles() {
     } else if (roll.startsWith("linkGet")) {
       linkGets.push(name);
       roleLinkGet.run(creep);
-    } else if (roll == "newharvester") {
+    } else if (roll === "newharvester") {
       if (!creep.pos.isNearTo(source2)) {
         smartMove(creep, source2, 1);
       } else {
         creep.harvest(source2);
       }
-    } else if (roll == "eeUp") {
+    } else if (roll === "eeUp") {
       roleEEUp(creep);
-    } else if (roll == "northRezzy") {
+    } else if (roll === "northRezzy") {
       rezzyContr(
         creep,
         "E35N32",
@@ -109,7 +111,7 @@ function runRoles() {
         "northEntrance1",
         "5bbcaefa9099fc012e639e8b"
       );
-    } else if (roll == "eRezzy") {
+    } else if (roll === "eRezzy") {
       eastUpControllers.push(name);
 
       claimContr(
@@ -120,7 +122,7 @@ function runRoles() {
         "eastEntrance1",
         "5bbcaf0c9099fc012e63a0be"
       );
-    } else if (roll == "westRezzy") {
+    } else if (roll === "westRezzy") {
       rezzyContr(
         creep,
         "E34N31",
@@ -129,47 +131,47 @@ function runRoles() {
         "westEntrance1",
         "5bbcaeeb9099fc012e639c4d"
       );
-    } else if (roll == "deepSouthRezzy") {
+    } else if (roll === "deepSouthRezzy") {
       deepSouthScout(creep);
-    } else if (roll == "uc") {
+    } else if (roll === "uc" || roll === "upController") {
       upControllers.push(name);
       upController(creep);
-    } else if (roll == "worker" || roll == "w") {
+    } else if (roll === "worker" || roll === "w") {
       if (creep.memory.direction === "east") {
         eastWorkers.push(name);
       } else {
         workers.push(name);
       }
       roleWorker.run(creep);
-    } else if (roll == "eBuilder") {
+    } else if (roll === "eBuilder") {
       eworkers.push(name);
       if (!creep.memory.buildRoom) {
         creep.memory.buildRoom = "E36N31";
       }
       roleHarvesterBuilder.run(creep);
-    } else if (roll == "neBuilder") {
+    } else if (roll === "neBuilder") {
       neworkers.push(name);
       creep.memory.buildRoom = "E36N32";
       roleHarvesterBuilder.run(creep);
-    } else if (roll == "healer") {
+    } else if (roll === "healer") {
       hele(creep);
-    } else if (roll == "controller") {
+    } else if (roll === "controller") {
       roleController.run(creep);
-    } else if (roll == "upgrader") {
+    } else if (roll === "upgrader") {
       roleUpgrader.run(creep);
-    } else if (roll == "roadRepairer" || roll == "r") {
-      if (creep.name.charAt(creep.name.length - 1) % 2 == 0) {
+    } else if (roll === "roadRepairer" || roll === "r") {
+      if (creep.name.charAt(creep.name.length - 1) % 2 === 0) {
         creep.memory.r = Memory.tower1Id;
-      } else if (creep.name.charAt(creep.name.length - 1) % 3 == 0) {
+      } else if (creep.name.charAt(creep.name.length - 1) % 3 === 0) {
         creep.memory.r = STRUCTURE_RAMPART;
       }
       roadRepairers.push(name);
       roleRepairer.run(creep);
-    } else if (roll == "c" || name.startsWith("c")) {
+    } else if (roll === "c" || name.startsWith("c")) {
       claimers.push(name);
       roll = "c";
       claim(creep, "E37N31", "", "", "", "5bbcaf1b9099fc012e63a2dd");
-    } else if (roll == "a" || name.startsWith("a")) {
+    } else if (roll === "a" || name.startsWith("a")) {
       attackers.push(creep);
       if (creep.pos.isNearTo(invader)) {
         creep.attack(invader);

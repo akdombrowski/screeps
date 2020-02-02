@@ -260,10 +260,10 @@ function spawnCreepTypes(enAvail) {
       linkGets.push(name);
       birth = true;
     } else if (upControllers.length < 4) {
-      upControllers.push(name);
       parts = upContrParts;
       name = "upc" + t;
       chosenRole = "upController";
+      upControllers.push(name);
       birth = true;
     } else if (southHarvesters.length < 3) {
       southHarvesters.push(name);

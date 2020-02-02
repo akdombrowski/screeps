@@ -66,6 +66,11 @@ function smartMove(
       }
       creep.say("m");
       return retval;
+    } else if (retval === ERR_NOT_FOUND) {
+      // path doesn't match creep's location
+      path = null;
+
+      creep.memory.path = getAPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
     } else {
       path = null;
       creep.memory.path = path;
@@ -90,7 +95,6 @@ function smartMove(
   if (retval === ERR_INVALID_TARGET || retval === ERR_NOT_FOUND) {
     creep.memory.path = null;
   } else if (retval === ERR_NO_PATH) {
-
     creep.memory.path = null;
   }
 

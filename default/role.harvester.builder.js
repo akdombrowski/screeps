@@ -19,12 +19,14 @@ const roleHarvesterBuilder = {
     let direction = creep.memory.direction;
     let sourceDir = creep.memory.sourceDir;
 
+
+
     if (creep.memory.getEnergy || creep.carry.energy <= 0) {
       creep.memory.buildRoad = false;
       creep.memory.transferTower = false;
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
-      
+
       // console.log("buildRoom:" + creep.memory.buildRoom)
 
       ermgetEnergyEast(creep, creep.memory.buildRoom, creep.memory.buildRoom);
@@ -37,10 +39,11 @@ const roleHarvesterBuilder = {
         return site.room.name === creep.memory.buildRoom && site.my;
       });
 
-      if (creep.pos.isNearTo(target)) {
+      console.log(name + " builder " + target);
+      if (creep.pos.inRangeTo(target, 3)) {
         creep.build(target);
       } else {
-        smartMove(creep, target, 1);
+        smartMove(creep, target, 3);
       }
     }
   },

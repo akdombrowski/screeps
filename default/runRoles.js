@@ -54,7 +54,6 @@ function runRoles() {
       return;
     }
 
-    console.log("role: " + roll);
     if (roll === "h" || roll === "harvester") {
       if (creep.memory.direction == "north") {
         northHarvesters.push(name);
@@ -145,9 +144,9 @@ function runRoles() {
       roleWorker.run(creep);
     } else if (roll === "eBuilder") {
       eworkers.push(name);
-      if (!creep.memory.buildRoom) {
-        creep.memory.buildRoom = "E36N31";
-      }
+
+      creep.memory.buildRoom = "E36N31";
+
       roleHarvesterBuilder.run(creep);
     } else if (roll === "neBuilder") {
       neworkers.push(name);

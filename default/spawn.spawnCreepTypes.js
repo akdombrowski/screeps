@@ -77,17 +77,17 @@ function spawnCreepTypes(enAvail) {
 
   let attackers = Memory.attackers || [];
 
-  // 1200
+  // 1000
   let upContrParts = [];
-  addPart(upContrParts, 20, CARRY);
-  addPart(upContrParts, 6, WORK);
-  addPart(upContrParts, 8, MOVE);
+  addPart(upContrParts, 10, CARRY);
+  addPart(upContrParts, 4, WORK);
+  addPart(upContrParts, 2, MOVE);
 
-  // 1200
+  // 1000
   let southHvParts = [];
-  addPart(southHvParts, 3, CARRY);
-  addPart(southHvParts, 14, WORK);
-  addPart(southHvParts, 9, MOVE);
+  addPart(southHvParts, 1, CARRY);
+  addPart(southHvParts, 9, WORK);
+  addPart(southHvParts, 1, MOVE);
 
   // 650
   let claimerParts = [];
@@ -96,21 +96,21 @@ function spawnCreepTypes(enAvail) {
 
   // 1000
   let newhvParts = [];
-  addPart(newhvParts, 4, CARRY);
+  addPart(newhvParts, 6, CARRY);
   addPart(newhvParts, 6, WORK);
-  addPart(newhvParts, 4, MOVE);
+  addPart(newhvParts, 2, MOVE);
 
   // 1000
   let workerParts = [];
   addPart(workerParts, 2, CARRY);
-  addPart(workerParts, 6, WORK);
-  addPart(workerParts, 6, MOVE);
+  addPart(workerParts, 8, WORK);
+  addPart(workerParts, 2, MOVE);
 
   // 1000
   let repairerParts = [];
   addPart(repairerParts, 4, CARRY);
-  addPart(repairerParts, 4, WORK);
-  addPart(repairerParts, 8, MOVE);
+  addPart(repairerParts, 7, WORK);
+  addPart(repairerParts, 2, MOVE);
 
   // 300
   let linkGetsParts = [];
@@ -118,7 +118,7 @@ function spawnCreepTypes(enAvail) {
   addPart(linkGetsParts, 2, WORK);
   addPart(linkGetsParts, 1, MOVE);
 
-  // 1200
+  // 1000
   let largeLinkGetsParts = [];
   addPart(largeLinkGetsParts, 2, CARRY);
   addPart(largeLinkGetsParts, 8, WORK);
@@ -171,6 +171,18 @@ function spawnCreepTypes(enAvail) {
       if (southHarvesters.length < 2) {
         southHarvesters.push(name);
         parts = simpleParts;
+        birthCreep(
+          s1,
+          parts,
+          name,
+          chosenRole,
+          direction,
+          sourceId,
+          spawnDirection
+        );
+      } else if(upControllers.length < 4) {
+        upControllers.push(name);
+        parts = upContrParts;
         birthCreep(
           s1,
           parts,
@@ -237,12 +249,24 @@ function spawnCreepTypes(enAvail) {
     let spawnDirection = [BOTTOM_RIGHT];
     let birth = false;
 
-    if (linkGets.length < 1) {
+    if (linkGets.length < 1 && Memory.harvester1) {
       chosenRole = "linkGet";
       name = "XLlink" + t;
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
+    } else if (upControllers.length < 4) {
+      upControllers.push(name);
+      parts = upContrParts;
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
     } else if (southHarvesters.length < 3) {
       southHarvesters.push(name);
       parts = southHvParts;

@@ -90,9 +90,9 @@ function smartMove(
   if (retval === ERR_INVALID_TARGET || retval === ERR_NOT_FOUND) {
     retval = creep.moveTo(dest, {
       reusePath: pathMem,
-      ignoreCreeps: ignoreCreeps,
+      ignoreCreeps: false,
       range: range,
-      maxOps: maxOps,
+      maxOps: maxOps * 10,
       serializeMemory: true,
       noPathFinding: false,
       visualizePathStyle: { stroke: "#000000" },
@@ -100,9 +100,9 @@ function smartMove(
   } else if (retval === ERR_NO_PATH) {
     retval = creep.moveTo(dest, {
       reusePath: 0,
-      ignoreCreeps: ignoreCreeps,
+      ignoreCreeps: false,
       range: range,
-      maxOps: maxOps * 2,
+      maxOps: maxOps * 10,
       serializeMemory: false,
       noPathFinding: false,
       visualizePathStyle: { stroke: "#0FFFFF" },

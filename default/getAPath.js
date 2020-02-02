@@ -24,7 +24,7 @@ function getAPath(
   ignoreCreeps = ignoreCreeps;
   pathColor = pathColor || "#ffffff";
   pathMem = Math.random() * 100 - 1;
-  maxOps = Math.random() * 4000;
+  maxOps = Math.random() * 10000;
 
   blockage = moveAwayFromCreep(creep);
   if (blockage) {
@@ -55,7 +55,7 @@ function getAPath(
       // We need to set the defaults costs higher so that we
       // can set the road cost lower in `roomCallback`
       plainCost: 1,
-      swampCost: 3,
+      swampCost: 2,
 
       roomCallback: function(roomName) {
         let room = Game.rooms[roomName];
@@ -80,12 +80,13 @@ function getAPath(
 
         // Avoid creeps in the room
         room.find(FIND_CREEPS).forEach(function(creep) {
-          costs.set(creep.pos.x, creep.pos.y, 100);
+          costs.set(creep.pos.x, creep.pos.y, 0xff);
         });
 
         return costs;
       },
     };
+    Memory.costMatrix = costMatrix;
     creep.memory.costMatrix = costMatrix;
   }
 

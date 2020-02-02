@@ -19,7 +19,7 @@ function birthCreep(
   let spawningPositionBlocked = s1.room.lookForAt(
     LOOK_CREEPS,
     s1.pos.x + 1,
-    s1.pos.y + 1
+    s1.pos.y - 1
   );
   if (!spawningPositionBlocked || spawningPositionBlocked.length <= 0) {
     retval = Game.spawns.Spawn1.spawnCreep(parts, name, {
@@ -142,7 +142,7 @@ function spawnCreepTypes(enAvail) {
       direction = "ee";
       parts = claimerParts;
       sourceId = "";
-      spawnDirection = [BOTTOM_RIGHT];
+      spawnDirection = [TOP_RIGHT];
       claimers.push(name);
 
       console.log("claimers");
@@ -168,7 +168,7 @@ function spawnCreepTypes(enAvail) {
       let direction = "south";
       let sourceId = Memory.source2;
       let parts = simpleParts;
-      let spawnDirection = [BOTTOM_RIGHT];
+      let spawnDirection = [TOP_RIGHT];
 
       if (southHarvesters.length < 2) {
         southHarvesters.push(name);
@@ -250,7 +250,7 @@ function spawnCreepTypes(enAvail) {
     let waitForRezzy = false;
     let sourceId = Memory.source2;
     let parts = newhvParts;
-    let spawnDirection = [BOTTOM_RIGHT];
+    let spawnDirection = [TOP_RIGHT];
     let birth = false;
 
     if (linkGets.length < 1 && Memory.harvester1) {

@@ -137,8 +137,6 @@ function vest(creep, flag, path) {
         }
     }
 
-    console.log(name + " " + target);
-
 
     if (target) {
         let waitTime = Memory.waitTime || 0;

@@ -56,8 +56,6 @@ function smartMove(
     }
 
     creep.memory.path = path;
-    desPath2 = Array.from(desPath);
-    desPath2.unshift(creep.pos);
     retval = creep.moveByPath(desPath);
 
     if (retval === OK) {

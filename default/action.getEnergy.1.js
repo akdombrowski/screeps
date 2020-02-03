@@ -64,8 +64,6 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   if (target && target.pos.room && !target.energy && !targetedRm) {
     retval = smartMove(creep, target, 3);
     creep.say("ge.m." + retval);
-
-    console.log(name + " " + target)
     return retval;
   }
 

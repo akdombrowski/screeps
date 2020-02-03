@@ -1,14 +1,12 @@
 function spawnHarvesterChain(enAvail, rm, spawn, target, chainGang, harvesters, transporters, transportersPath) {
-  for(let h in harvesters) {
-    if(Game.creeps[h]) {
-      continue;
-    }
+  // for(let h in harvesters) {
+  //   if(Game.creeps[h]) {
+  //     continue;
+  //   }
+  // }
 
-
-  }
   let harvester1 = Game.creeps.harvester1;
-  let s = Game.spawns.spawn2;
-  console.log(s);
+  let s = Game.spawns.Spawn1;
   if (!harvester1 && enAvail >= 300) {
     let name = "harvester1";
     let parts = [WORK, WORK];

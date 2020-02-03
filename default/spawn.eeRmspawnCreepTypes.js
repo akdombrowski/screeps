@@ -65,7 +65,7 @@ function spawnCreepTypes(enAvail) {
 
   let eeastWorkers = Memory.eeastWorkers || [];
   let eeastUpControllers = Memory.eeastUpControllers || [];
-  let eeHarvesters = Memory.eeHarvesters || [];
+  let eeRmHarvesters = Memory.eeRmHarvesters || [];
   let eeNeHarvesters = Memory.eeNeHarvesters || [];
   let eetowerHarvesters = Memory.eetowerHarvesters || [];
   let eeUps = Memory.eeUps || [];
@@ -178,7 +178,7 @@ function spawnCreepTypes(enAvail) {
     let buildRoom = "";
 
     if (eeharvesters.length < 2) {
-      eeHarvesters.push(name);
+      eeRmHarvesters.push(name);
       parts = basicHv;
       sourceDir = "eeast";
       birth = true;
@@ -197,8 +197,8 @@ function spawnCreepTypes(enAvail) {
     //   eeUps.push(name);
     //   birth = true;
     // }
-     else if (eeHarvesters.length < 4) {
-      eeHarvesters.push(name);
+     else if (eeRmHarvesters.length < 4) {
+      eeRmHarvesters.push(name);
       parts = basicHv;
       sourceDir = "north2";
       birth = true;
@@ -343,7 +343,7 @@ function spawnCreepTypes(enAvail) {
 
   Memory.eeastWorkers = eeastWorkers;
   Memory.eeastUpControllers = eeastUpControllers;
-  Memory.eeHarvesters = eeHarvesters;
+  Memory.eeRmHarvesters = eeRmHarvesters;
   Memory.eeNeHarvesters = eeNeHarvesters;
   Memory.eetowerHarvesters = eetowerHarvesters;
   Memory.eeUps = eeUps;

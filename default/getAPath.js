@@ -41,11 +41,13 @@ function getAPath(
   }
 
   let destPos = dest;
-  if (dest.pos) {
+  if (dest && dest.pos) {
     destPos = dest.pos;
     if (!(destPos instanceof RoomPosition)) {
       destPos = new RoomPosition(dest.pos.x, dest.pos.y, dest.room.name);
     }
+  } else {
+    return;
   }
 
   let costMatrix;
@@ -97,8 +99,6 @@ function getAPath(
     let ret = PathFinder.search(creep.pos, goals, costMatrix);
 
     path = ret.path;
-
-
   }
 
   if (path instanceof String) {
@@ -115,7 +115,7 @@ function getAPath(
 
     checkLastStop = false;
 
-    if (creep.room !== destPos.roomName) {
+    if (destPos && creep.room !== destPos.roomName) {
       checkLastStop = true;
     }
 

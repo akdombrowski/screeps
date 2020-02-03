@@ -4,7 +4,7 @@ const smartMove = require("./action.smartMove");
 function traneRm(creep, flag, dest) {
   let target;
   let s2 = Game.getObjectById(Memory.s2);
-  
+
   if (creep.memory.role == "h" || creep.memory.role == "h") {
     if (creep.room.name == "E36N31") {
       if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
@@ -18,7 +18,7 @@ function traneRm(creep, flag, dest) {
               extensionNeedsEnergy = true;
               return true;
             }
-          }
+          },
         });
       }
 
@@ -32,9 +32,15 @@ function traneRm(creep, flag, dest) {
 
       return;
     } else if (creep.room.name === "E36N32") {
-      smartMove(creep, Game.getObjectById("5d08fb955b3e13339b877c65"), 5);
+      smartMove(creep, Game.flags["ne-e"], 1);
     } else if (creep.room.name === "E34N31") {
       smartMove(creep, Game.getObjectById("5d1330677594977c6d3f49ad"), 3);
+    } else if (creep.room.name === "E35N32") {
+      if (creep.pos.y >= 49) {
+        creep.move(BOTTOM);
+      } else {
+        smartMove(creep, Game.flags.northEntrance1, 1);
+      }
     } else if (creep.memory.dest) {
       target = Game.getObjectById(creep.memory.dest);
     } else if (creep.memory.flag) {
@@ -44,39 +50,41 @@ function traneRm(creep, flag, dest) {
     if (target && target.energy >= target.energyCapacity) {
       target = null;
     }
-    
-    if (creep.memory.direction === "south" || creep.memory.direction === "east") {
-        
-    let tower = Game.getObjectById(Memory.tower1Id);
-    let tower2 = Game.getObjectById(Memory.tower2Id);
-    let tower1 = Game.getObjectById(Memory.ermtowerId);
-    let towers = [tower, tower2, tower1];
 
-    _.forEach(towers, tor => {
-      if (tor) {
-        if (
-          (tor.energy < tor.energyCapacity &&
-            Object.keys(Game.creeps).length > 10) ||
-          tor.energy <= 50
-        ) {
-          target = tor;
-        }
-      }
-    });
-    if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
-      target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        filter: structure => {
-          let type = structure.structureType;
+    if (
+      creep.memory.direction === "south" ||
+      creep.memory.direction === "east"
+    ) {
+      let tower = Game.getObjectById(Memory.tower1Id);
+      let tower2 = Game.getObjectById(Memory.tower2Id);
+      let tower1 = Game.getObjectById(Memory.ermtowerId);
+      let towers = [tower, tower2, tower1];
+
+      _.forEach(towers, tor => {
+        if (tor) {
           if (
-            (type === STRUCTURE_EXTENSION || type === STRUCTURE_SPAWN) &&
-            structure.energy < structure.energyCapacity
+            (tor.energy < tor.energyCapacity &&
+              Object.keys(Game.creeps).length > 10) ||
+            tor.energy <= 50
           ) {
-            extensionNeedsEnergy = true;
-            return true;
+            target = tor;
           }
         }
       });
-    }
+      if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
+        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+          filter: structure => {
+            let type = structure.structureType;
+            if (
+              (type === STRUCTURE_EXTENSION || type === STRUCTURE_SPAWN) &&
+              structure.energy < structure.energyCapacity
+            ) {
+              extensionNeedsEnergy = true;
+              return true;
+            }
+          },
+        });
+      }
     }
 
     if (!target) {
@@ -88,7 +96,7 @@ function traneRm(creep, flag, dest) {
           ) {
             return _.sum(structure.store) < structure.storeCapacity;
           }
-        }
+        },
       });
     }
 

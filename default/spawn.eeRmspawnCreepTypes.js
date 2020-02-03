@@ -20,7 +20,7 @@ function birthCreep(
   let retval;
   eespawn = Game.spawns.eespawn;
   if (!eespawn.room.lookForAt(LOOK_CREEPS, eespawn.pos.x, eespawn.pos.y - 1)) {
-    console.log("birthing: " + name);
+        console.log("birthing: " + name);
 
     retval = eespawn.spawnCreep(parts, name, {
       memory: {
@@ -28,9 +28,9 @@ function birthCreep(
         direction: direction,
         sourceId: sourceId,
         sourceDir: sourceDir,
-        buildRoom: buildRoom,
+        buildRoom: buildRoom
       },
-      directions: spawnDirection,
+      directions: spawnDirection
     });
   } else {
     retval = eespawn.spawnCreep(parts, name, {
@@ -39,8 +39,8 @@ function birthCreep(
         direction: direction,
         sourceId: sourceId,
         sourceDir: sourceDir,
-        buildRoom: buildRoom,
-      },
+        buildRoom: buildRoom
+      }
     });
   }
 
@@ -61,7 +61,7 @@ function spawnCreepTypes(enAvail) {
   let eenorthHarvesters = Memory.eenorthHarvesters || [];
   let eewestHarvesters = Memory.eewestHarvesters || [];
 
-  let harvesters = Memory.harvesters;
+    let harvesters = Memory.harvesters;
 
   let eeastWorkers = Memory.eeastWorkers || [];
   let eeastUpControllers = Memory.eeastUpControllers || [];
@@ -164,6 +164,7 @@ function spawnCreepTypes(enAvail) {
   let nAttackerId = Memory.nAttackerId;
   let invaderId = Memory.invaderId;
 
+
   if (enAvail >= 300) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "EE";
@@ -196,8 +197,8 @@ function spawnCreepTypes(enAvail) {
     //   parts = simpleParts;
     //   eeUps.push(name);
     //   birth = true;
-    // }
-    else if (eeHarvesters.length < 4) {
+    // } 
+     else if (eeHarvesters.length < 4) {
       eeHarvesters.push(name);
       parts = basicHv;
       sourceDir = "north2";

@@ -130,7 +130,7 @@ function getAPath(
 
   // No path. Try finding path using maxOps.
   if (!path) {
-    let ops = maxOps * 10;
+    let ops = maxOps * 2;
     path = rm.findPath(pos, destPos, {
       ignoreCreeps: false,
       range: range,

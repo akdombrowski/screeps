@@ -9,16 +9,16 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
   let path2 = creep.memory.path2;
   let retval;
   if (creep.room.name == "E35N31") {
+
     if (!creep.pos.isNearTo(exit)) {
-      if (!path1) {
-        path1 = creep.room.findPath(creep.pos, exit.pos, {
-          serialize: true,
-          range: 1,
-        });
-      }
-      retval = creep.moveByPath(path1);
+        
+        
+    console.log(creep.name + " me")
+    
+        retval = smartMove(creep, exit.pos, 1);
+        
       if (retval === ERR_NO_PATH || retval === ERR_NOT_FOUND) {
-        path = null;
+        creep.memory.path = null;
         creep.say("err");
       } else if (retval === ERR_TIRED) {
         creep.memory.path1 = path1;

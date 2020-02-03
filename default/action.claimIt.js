@@ -17,7 +17,12 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
   
   // smartMove(creep, Game.flags.Flag1);
   if (creep.room.name == "E35N31") {
-    smartMove(creep, Game.flags.eastExit, 2);
+      if(creep.pos.isNearTo(Game.flags.eastExit)) {
+          creep.move(RIGHT);
+      } else {
+          
+    smartMove(creep, Game.flags.eastExit, 1);
+      }
   } else if (creep.room.name == "E36N31") {
     smartMove(creep, Game.flags.eeEntrance1, 2);
   } else if (creep.room.name === rm && creep.pos.x < Game.flags.eeEntrance1.pos.x) {

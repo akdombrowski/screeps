@@ -4,7 +4,7 @@ const transferEnergyeRm = require("./action.transferEnergyeRm");
 const smartMove = require("./action.smartMove");
 
 function vest(creep, flag, path) {
-    creep.memory.direction = "east";
+    creep.memory.direction = "eeast";
     const eastSource1 = Game.getObjectById("5bbcaf1b9099fc012e63a2dc");
     const eastSource2 = Game.getObjectById("5bbcaf1b9099fc012e63a2de");
     const neSource1 = Game.getObjectById("5bbcaf0c9099fc012e63a0ba");

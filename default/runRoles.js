@@ -77,7 +77,8 @@ function runRoles() {
         eastHarvesters.push(name);
       } else if (creep.memory.direction === "west") {
         westHarvesters.push(name);
-      } else if (creep.memory.direction === "eeast" && name.endsWith("EE")) {
+      } else if (creep.memory.direction === "eeast" || name.endsWith("EE")) {
+        creep.memory.direction = "eeast";
         eeRmHarvesters.push(name);
       } else {
         southHarvesters.push(name);

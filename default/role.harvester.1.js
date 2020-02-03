@@ -1,6 +1,7 @@
 const getEnergy = require("./action.getEnergy.1");
 const transferEnergy = require("./action.transferEnergy");
 const transferEnergyeRm = require("./action.transferEnergyeRm");
+const transferEnergyeeRm = require("./action.transferEnergyeeRm");
 const getEnergyNorth = require("./action.getEnergy.1");
 const getEnergyEast = require("./action.getEnergy.1");
 const ermgetEnergyEast = require("./action.getEnergy.1");
@@ -124,6 +125,8 @@ const roleHarvester = {
       if (retval != OK) {
         if (creep.memory.direction === "east") {
           retval = transferEnergyeRm(creep);
+        } else if (creep.memory.direction === "eeast") {
+          retval = transferEnergyeeRm(creep);
         } else {
           creep.memory.transfer = true;
           retval = transferEnergy(creep);

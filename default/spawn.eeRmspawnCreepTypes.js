@@ -156,7 +156,7 @@ function spawnCreepTypes(enAvail) {
   addPart(linkGetsParts, 2, MOVE);
 
   let rezzyParts = [CLAIM, MOVE];
-  let basicHv = [CARRY, WORK, CARRY, MOVE, MOVE];
+  let basicHv = [CARRY, WORK, WORK, MOVE];
   let simpleParts = [CARRY, WORK, WORK, MOVE];
 
   let eAttackerId = Memory.eAttackerId;
@@ -177,7 +177,7 @@ function spawnCreepTypes(enAvail) {
     let birth = false;
     let buildRoom = "";
 
-    if (harvesters.length < 25) {
+    if (eeharvesters.length < 2) {
       eeHarvesters.push(name);
       parts = basicHv;
       sourceDir = "eeast";
@@ -185,7 +185,6 @@ function spawnCreepTypes(enAvail) {
     } else if (eeastUpControllers.length < 1) {
       chosenRole = "eeRezzy";
       name = chosenRole + t;
-      direction = "eeast";
       parts = simpleParts;
       eeastUpControllers.push(name);
       birth = true;
@@ -197,7 +196,7 @@ function spawnCreepTypes(enAvail) {
     //   parts = simpleParts;
     //   eeUps.push(name);
     //   birth = true;
-    // } 
+    // }
      else if (eeHarvesters.length < 4) {
       eeHarvesters.push(name);
       parts = basicHv;
@@ -215,7 +214,7 @@ function spawnCreepTypes(enAvail) {
     if (birth) {
       console.log(
         chosenRole +
-          " role birth" +
+          " basic role birth " +
           birthCreep(
             Game.spawns.eespawn,
             parts,
@@ -233,7 +232,7 @@ function spawnCreepTypes(enAvail) {
 
   if (enAvail >= 800) {
     let t = Game.time.toString().slice(4);
-    let name = "h" + t + "NE";
+    let name = "h" + t + "EE";
     let chosenRole = "h";
     let direction = "eeast";
     let parts = mednewhvParts;
@@ -276,7 +275,7 @@ function spawnCreepTypes(enAvail) {
     if (birth) {
       console.log(
         chosenRole +
-          " role birth:" +
+          " role birth: " +
           birthCreep(
             Game.spawns.eespawn,
             parts,

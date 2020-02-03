@@ -42,7 +42,7 @@ const roleHarvester = {
           !Memory.eastAttackerId ||
           Game.time >= Memory.eAttackDurationSafeCheck
         ) {
-          
+
           if (creep.memory.sourceDir === "east") {
             ermgetEnergyEast(creep, "E36N32");
           } else {
@@ -69,7 +69,7 @@ const roleHarvester = {
           console.log("East attacker");
         }
       } else if(creep.memory.direction === "eeast") {
-        getEnergyEEast(creep, "E37N31");
+        getEnergyEEast(creep, "E37N31", Game.flags.eesource1);
       } else if (creep.memory.direction == "west") {
         if (
           !Memory.westAttackerId ||

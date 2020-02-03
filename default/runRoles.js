@@ -35,6 +35,7 @@ function runRoles() {
   let eastWorkers = [];
   let ermNeHarvesters = [];
   let ermHarvesters = [];
+  let eeRmHarvesters = [];
   let etowerHarvesters = [];
   let southtowerHarvesters = [];
   let eeUps = [];
@@ -57,7 +58,7 @@ function runRoles() {
     if (roll === "h" || roll === "harvester") {
       if (creep.memory.direction == "north") {
         northHarvesters.push(name);
-      } else if (creep.memory.direction == "east") {
+      } else if (creep.memory.direction == "east" && !name.endsWith("EE")) {
         if (creep.memory.sourceDir === "north1") {
           ermNeHarvesters.push(name);
         } else if (creep.memory.sourceDir === "north2") {
@@ -76,6 +77,8 @@ function runRoles() {
         eastHarvesters.push(name);
       } else if (creep.memory.direction === "west") {
         westHarvesters.push(name);
+      } else if (creep.memory.direction === "eeast" && name.endsWith("EE")) {
+        eeRmHarvesters.push(name);
       } else {
         southHarvesters.push(name);
       }
@@ -207,6 +210,7 @@ function runRoles() {
   Memory.eastWorkers = eastWorkers;
   Memory.ermNeHarvesters = ermNeHarvesters;
   Memory.ermHarvesters = ermHarvesters;
+  Memory.eeRmHarvesters = eeRmHarvesters;
   Memory.etowerHarvesters = etowerHarvesters;
   Memory.southtowerHarvesters = southtowerHarvesters;
   Memory.eeUps = eeUps;

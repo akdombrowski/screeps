@@ -135,7 +135,11 @@ function spawnCreepTypes(enAvail) {
   let invaderId = Memory.invaderId;
 
   if (enAvail >= 650) {
-    if (claimers.length < 1) {
+    if (
+      claimers.length < 1 &&
+      !Game.getObjectById("5bbcaf1b9099fc012e63a2dd") &&
+      !Game.getObjectById("5bbcaf1b9099fc012e63a2dd").my
+    ) {
       let t = Game.time.toString().slice(4);
       chosenRole = "c";
       name = "claimer" + t;

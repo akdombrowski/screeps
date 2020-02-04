@@ -177,7 +177,7 @@ function spawnCreepTypes(enAvail) {
     let birth = false;
     let buildRoom = "";
 
-    if (eeharvesters.length < 2) {
+    if (eeRmHarvesters.length < 2) {
       eeRmHarvesters.push(name);
       parts = basicHv;
       sourceDir = "eeast";

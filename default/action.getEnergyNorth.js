@@ -4,7 +4,7 @@ const transferEnergyeRm = require("./action.transferEnergyeRm");
 const smartMove = require("./action.smartMove");
 
 function vest(creep, flag, path) {
-  creep.memory.direction = "west";
+  creep.memory.direction = "north";
   const northSource1 = Game.getObjectById("5bbcaefa9099fc012e639e8c");
   const name = creep.name;
   const sourceId = creep.memory.sourceId;
@@ -14,11 +14,11 @@ function vest(creep, flag, path) {
 
   if (creep.room.name === "E35N31") {
     if (creep.pos.isNearTo(Game.flags.northExit)) {
-      creep.move(TOP);
+      retval = creep.move(TOP);
     } else {
-      smartMove(creep, Game.flags.northExit, 1);
+      retval = smartMove(creep, Game.flags.northExit, 1);
     }
-    return;
+    return retval;
   }
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {

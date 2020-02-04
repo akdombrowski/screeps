@@ -47,6 +47,7 @@ function vest(creep, flag, path) {
 
   if (!target) {
       target = westSource1;
+      creep.memory.sourceId = target.id;
   }
 
   if (target) {
@@ -59,7 +60,7 @@ function vest(creep, flag, path) {
     } else if (creep.fatigue > 0) {
       creep.say("f." + creep.fatigue);
     } else {
-      retval = smartMove(creep, target, 1, true, "#000fff", 2000, 1000);
+        retval = smartMove(creep, target, 1, true, "#000fff", 2000, 1000);
     }
     return retval;
   } else if (!target) {

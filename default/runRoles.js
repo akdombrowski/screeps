@@ -56,9 +56,10 @@ function runRoles() {
     }
 
     if (roll === "h" || roll === "harvester") {
-      if (creep.memory.direction == "north") {
+      if (creep.memory.direction === "north" || name.endsWith("N")) {
+        creep.memory.direction = "north";
         northHarvesters.push(name);
-      } else if (creep.memory.direction == "east" && !name.endsWith("EE")) {
+      } else if (creep.memory.direction === "east" && !name.endsWith("EE")) {
         if (creep.memory.sourceDir === "north1") {
           ermNeHarvesters.push(name);
         } else if (creep.memory.sourceDir === "north2") {
@@ -104,6 +105,8 @@ function runRoles() {
         creep.harvest(source2);
       }
     } else if (roll === "eeUp") {
+      roleEEUp(creep);
+    } else if (roll === "eeRezzy") {
       roleEEUp(creep);
     } else if (roll === "northRezzy") {
       rezzyContr(

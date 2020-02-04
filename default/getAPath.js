@@ -24,7 +24,7 @@ function getAPath(
   ignoreCreeps = ignoreCreeps;
   pathColor = pathColor || "#ffffff";
   pathMem = Math.random() * 100 - 1;
-  maxOps = Math.random() * 5000;
+  maxOps = Math.random() * 2000;
 
   blockage = moveAwayFromCreep(creep);
   if (blockage) {
@@ -50,11 +50,11 @@ function getAPath(
     return;
   }
 
-  let costMatrix;
+  let opts;
 
   if (!path || pathMem === 0) {
-    if (!costMatrix) {
-      costMatrix = {
+    if (!opts) {
+      opts = {
         // We need to set the defaults costs higher so that we
         // can set the road cost lower in `roomCallback`
         plainCost: 1,
@@ -90,13 +90,13 @@ function getAPath(
           return costs;
         },
       };
-      Memory.costMatrix = costMatrix;
-      creep.memory.costMatrix = costMatrix;
+      Memory.costMatrix = opts;
+      creep.memory.costMatrix = opts;
     }
 
     let goals = destPos;
 
-    let ret = PathFinder.search(creep.pos, goals, costMatrix);
+    let ret = PathFinder.search(creep.pos, goals, opts);
 
     path = ret.path;
   }

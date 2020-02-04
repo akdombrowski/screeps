@@ -21,7 +21,7 @@ const roleHarvester = {
     let direction = creep.memory.direction;
     let sourceDir = creep.memory.sourceDir;
 
-    if (creep.memory.getEnergy || creep.carry.energy < 50) {
+    if (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] < 50) {
       creep.memory.buildRoad = false;
       creep.memory.transferTower = false;
       creep.memory.getEnergy = true;

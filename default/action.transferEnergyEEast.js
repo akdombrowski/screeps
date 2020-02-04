@@ -106,7 +106,6 @@ function tran(creep, flag, dest) {
     });
   }
 
-  console.log(name + " tran")
   if (target && creep.pos.isNearTo(target.pos)) {
     creep.memory.path = null;
     retval = creep.transfer(target, RESOURCE_ENERGY);

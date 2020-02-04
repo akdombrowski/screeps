@@ -33,7 +33,6 @@ function traneRm(creep, flag, dest) {
     return;
   } else if (creep.room.name === "E36N32") {
     retval = smartMove(creep, Game.flags.ne_e, 1);
-    console.log(name + " " + retval);
     return retval;
   } else if (creep.room.name === "E34N31") {
     retval = smartMove(

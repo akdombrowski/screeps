@@ -17,14 +17,12 @@ function tran(creep, flag, dest) {
   let towers = [tower1, tower2, tower3, ermtower1];
   let enAvail = rm.energyAvailable;
 
-  if (creep.memory.role === "h" || creep.memory.role === "harvester") {
-    if (creep.room.name === "E37N31") {
-      target = Game.getObjectById("5d356b280382bc5e2a8ad9f8");
-    } else if (creep.memory.dest) {
-      target = Game.getObjectById(creep.memory.dest);
-    } else if (creep.memory.flag) {
-      target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
-    }
+  if (creep.room.name === "E37N31") {
+    target = Game.getObjectById("5d356b280382bc5e2a8ad9f8");
+  } else if (creep.memory.dest) {
+    target = Game.getObjectById(creep.memory.dest);
+  } else if (creep.memory.flag) {
+    target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
   }
 
   if (target && target.energy >= target.energyCapacity) {
@@ -108,6 +106,7 @@ function tran(creep, flag, dest) {
     });
   }
 
+  console.log(name + " tran")
   if (target && creep.pos.isNearTo(target.pos)) {
     creep.memory.path = null;
     retval = creep.transfer(target, RESOURCE_ENERGY);

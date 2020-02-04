@@ -106,10 +106,11 @@ function runRoles() {
         creep.harvest(source2);
       }
     } else if (roll === "eeUp") {
-      roleEEUp(creep);
       eeastUpControllers.push(name);
+      roleEEUp(creep, "E37N31");
     } else if (roll === "eeRezzy") {
-      roleEEUp(creep);
+      eeastUpControllers.push(name);
+      roleEEUp(creep, "E37N31");
     } else if (roll === "northRezzy") {
       rezzyContr(
         creep,

@@ -4,22 +4,29 @@ const smartMove = require("./action.smartMove");
 function traneRm(creep, flag, dest) {
   let target;
   let s2 = Game.getObjectById(Memory.s2);
+  let name = creep.name;
+  let roll = creep.memory.role;
+  let rmEnAvail = creep.room.energyAvailable;
+  let rmEnCap = creep.room.energyCapacityAvailable;
 
-  if (creep.memory.role == "h" || creep.memory.role == "h") {
+  if (roll == "h" || roll == "harvester") {
     if (creep.room.name == "E37N31") {
-      if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
+      if (rmEnAvail < rmEnCap) {
         target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
           filter: structure => {
             let type = structure.structureType;
             if (
               (type === STRUCTURE_EXTENSION || type === STRUCTURE_SPAWN) &&
               structure.energy < structure.energyCapacity
-            ) {
-              extensionNeedsEnergy = true;
-              return true;
-            }
-          },
-        });
+              ) {
+                extensionNeedsEnergy = true;
+                return true;
+              }
+            },
+          });
+          console.log(name + " tranee")
+      } else {
+        target = Game.spawns.eespawn;
       }
 
       if (creep.pos.isNearTo(target)) {

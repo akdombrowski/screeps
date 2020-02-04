@@ -43,7 +43,6 @@ const roleHarvester = {
           !Memory.eastAttackerId ||
           Game.time >= Memory.eAttackDurationSafeCheck
         ) {
-
           if (creep.memory.sourceDir === "east") {
             ermgetEnergyEast(creep, "E36N32");
           } else {
@@ -69,7 +68,7 @@ const roleHarvester = {
             : null;
           console.log("East attacker");
         }
-      } else if(creep.memory.direction === "eeast") {
+      } else if (creep.memory.direction === "eeast") {
         getEnergyEEast(creep, "E37N31", Game.flags.eesource1);
       } else if (creep.memory.direction == "west") {
         if (
@@ -105,7 +104,7 @@ const roleHarvester = {
           creep.room.find(FIND_CONSTRUCTION_SITES, {
             filter: site => {
               return site.structureType === STRUCTURE_ROAD;
-            }
+            },
           })) ||
         creep.memory.buildRoad
       ) {
@@ -133,7 +132,7 @@ const roleHarvester = {
         }
       }
     }
-  }
+  },
 };
 
 module.exports = roleHarvester;

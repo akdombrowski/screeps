@@ -4,6 +4,7 @@ const smartMove = require("./action.smartMove");
 function traneRm(creep, flag, dest) {
   let target;
   let s2 = Game.getObjectById(Memory.s2);
+  let name = creep.name;
 
   if (creep.room.name === "E36N31") {
     if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
@@ -31,15 +32,23 @@ function traneRm(creep, flag, dest) {
 
     return;
   } else if (creep.room.name === "E36N32") {
-    smartMove(creep, Game.flags.ne_e, 1);
+    retval = smartMove(creep, Game.flags.ne_e, 1);
+    console.log(name + " " + retval);
+    return retval;
   } else if (creep.room.name === "E34N31") {
-    smartMove(creep, Game.getObjectById("5d1330677594977c6d3f49ad"), 3);
+    retval = smartMove(
+      creep,
+      Game.getObjectById("5d1330677594977c6d3f49ad"),
+      3
+    );
+    return retval;
   } else if (creep.room.name === "E35N32") {
     if (creep.pos.y >= 49) {
-      creep.move(BOTTOM);
+      retval = creep.move(BOTTOM);
     } else {
-      smartMove(creep, Game.flags.northEntrance1, 1);
+      retval = smartMove(creep, Game.flags.northEntrance1, 1);
     }
+    return retval;
   } else if (creep.memory.dest) {
     target = Game.getObjectById(creep.memory.dest);
   } else if (creep.memory.flag) {

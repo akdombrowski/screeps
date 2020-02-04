@@ -38,7 +38,11 @@ function smartMove(
       pathMem,
       maxOps
     );
-    creep.memory.path = path;
+    try {
+      creep.memory.path = Room.serializePath(path);
+    } catch (err) {
+      creep.memory.path = path;
+    }
   }
 
   // No path. Try finding path using maxOps.
@@ -52,11 +56,21 @@ function smartMove(
   // Check if 1st path try, or path from memory, gets us where we want to go.
   if (desPath) {
     if (desPath instanceof String) {
-      desPath = Room.deserializePath(desPath);
+      try {
+        desPath = Room.deserializePath(desPath);
+      } catch(err) {
+        // ignore
+        creep.memory.path = null;
+        return retval;
+      }
     }
 
     creep.memory.path = path;
-    retval = creep.moveByPath(desPath);
+    try {
+      retval = creep.moveByPath(desPath);
+    } catch(err) {
+      return retval;
+    }
 
     if (retval === OK) {
       if (creep.pos.inRangeTo(dest, range)) {

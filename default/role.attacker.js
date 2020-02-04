@@ -20,7 +20,7 @@ const roleAttacker = {
       if (c.pos.inRangeTo(invader, 3)) {
         console.log("attack:" + c.rangedAttack(invader));
       } else {
-        console.log("move:" + c.moveTo(invader, { range: 3 }));
+        console.log("move:" + c.moveTo(invader, { avoid: invader }));
       }
     });
   },

@@ -94,7 +94,7 @@ function getAPath(
       creep.memory.costMatrix = opts;
     }
 
-    let goals = {pos: destPos, range: range};
+    let goals = { pos: destPos, range: range };
 
     let ret = PathFinder.search(creep.pos, goals, opts);
 
@@ -103,7 +103,7 @@ function getAPath(
     try {
       desPath = Room.deserializePath(path);
       creep.memory.path = path;
-    } catch(err) {
+    } catch (err) {
       // ignore
     }
     path.shift();
@@ -113,18 +113,10 @@ function getAPath(
     desPath = Room.deserializePath(path);
     creep.memory.path = path;
   } else {
-
-
-
-    console.log(name + " path: " + path)
-
-
-
-
     try {
       let serPath = Room.serializePath(path);
       creep.memory.path = serPath;
-    } catch(err) {
+    } catch (err) {
       // ignore
     }
     desPath = path;

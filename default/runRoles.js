@@ -14,6 +14,7 @@ const roleHarvesterToSouthTower = require("./role.harvester.SouthTower");
 const roleHarvesterBuilder = require("./role.harvester.builder");
 const claim = require("./action.claimIt");
 const roleEEUp = require("./role.eeUpgradeController");
+const roleEEWorker = require("./role.worker");
 
 function runRoles() {
   let i = 0;
@@ -114,7 +115,7 @@ function runRoles() {
       roleEEUp(creep, "E37N31");
     } else if (roll === "eeworker") {
       eeworkers.push(name);
-      roleEEWorker(creep, "E37N31");
+      roleHarvesterBuilder.run(creep);
     } else if (roll === "northRezzy") {
       rezzyContr(
         creep,

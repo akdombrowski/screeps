@@ -1,5 +1,5 @@
 const getEnergy = require("./action.getEnergy.1");
-const transferEnergy = require("./action.transferEnergy");
+const transferEnergyEEast = require("./action.transferEnergyEEast");
 const transferEnergyeRm = require("./action.transferEnergyeRm");
 const getEnergyNorth = require("./action.getEnergy.1");
 const getEnergyEast = require("./action.getEnergy.1");
@@ -19,8 +19,6 @@ const roleHarvesterBuilder = {
     let direction = creep.memory.direction;
     let sourceDir = creep.memory.sourceDir;
 
-
-
     if (creep.memory.getEnergy || creep.carry.energy <= 0) {
       creep.memory.buildRoad = false;
       creep.memory.transferTower = false;
@@ -39,10 +37,17 @@ const roleHarvesterBuilder = {
         return site.room.name === creep.memory.buildRoom && site.my;
       });
 
-      if (creep.pos.inRangeTo(target, 3)) {
-        creep.build(target);
+      if (target) {
+        if (creep.pos.inRangeTo(target, 3)) {
+          creep.build(target);
+        } else {
+          smartMove(creep, target, 3);
+        }
       } else {
-        smartMove(creep, target, 3);
+        console.log("no construction sites");
+        if(creep.memory.direction === "eeast") {
+          creep.memory.role = "eBuilder";
+        }
       }
     }
   },

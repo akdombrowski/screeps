@@ -20,7 +20,7 @@ function birthCreep(
   let retval;
   eespawn = Game.spawns.eespawn;
   if (!eespawn.room.lookForAt(LOOK_CREEPS, eespawn.pos.x, eespawn.pos.y - 1)) {
-        console.log("birthing: " + name);
+    console.log("birthing: " + name);
 
     retval = eespawn.spawnCreep(parts, name, {
       memory: {
@@ -28,9 +28,9 @@ function birthCreep(
         direction: direction,
         sourceId: sourceId,
         sourceDir: sourceDir,
-        buildRoom: buildRoom
+        buildRoom: buildRoom,
       },
-      directions: spawnDirection
+      directions: spawnDirection,
     });
   } else {
     retval = eespawn.spawnCreep(parts, name, {
@@ -39,8 +39,8 @@ function birthCreep(
         direction: direction,
         sourceId: sourceId,
         sourceDir: sourceDir,
-        buildRoom: buildRoom
-      }
+        buildRoom: buildRoom,
+      },
     });
   }
 
@@ -61,7 +61,7 @@ function spawnCreepTypes(enAvail) {
   let eenorthHarvesters = Memory.eenorthHarvesters || [];
   let eewestHarvesters = Memory.eewestHarvesters || [];
 
-    let harvesters = Memory.harvesters;
+  let harvesters = Memory.harvesters;
 
   let eeastWorkers = Memory.eeastWorkers || [];
   let eeastUpControllers = Memory.eeastUpControllers || [];
@@ -182,32 +182,29 @@ function spawnCreepTypes(enAvail) {
       parts = basicHv;
       sourceDir = "eeast";
       birth = true;
-    } else if (eeastUpControllers.length < 1) {
+    } else if (eeastUpControllers.length < 4) {
       chosenRole = "eeUp";
       name = chosenRole + t;
       parts = simpleParts;
       eeastUpControllers.push(name);
       birth = true;
-    }
-    // } else if (eeUps.length < 2) {
-    //   chosenRole = "eeUp";
-    //   name = chosenRole + t;
-    //   direction = "ee";
-    //   parts = simpleParts;
-    //   eeUps.push(name);
-    //   birth = true;
-    // }
-     else if (eeRmHarvesters.length < 4) {
+    } else if (eeRmHarvesters.length < 4) {
       eeRmHarvesters.push(name);
       parts = basicHv;
       sourceDir = "eeast";
       birth = true;
     } else if (eeworkers.length < 1) {
+      chosenRole = "eeworker";
+      buildRoom = "E37N31";
+      name = chosenRole + t + buildRoom;
+      parts = simpleParts;
       eeworkers.push(name);
-      chosenRole = "eBuilder";
-      buildRoom = "E36N31";
+      birth = true;
+    } else { // remove when get to rcl to use extensions
+      chosenRole = "eeUp";
       name = chosenRole + t;
       parts = simpleParts;
+      eeastUpControllers.push(name);
       birth = true;
     }
 
@@ -331,9 +328,7 @@ function spawnCreepTypes(enAvail) {
 
   Memory.eeharvesters = eeharvesters;
   Memory.eeworkers = eeworkers;
-  Memory.eeworkers = eeworkers;
   Memory.eeneworkers = eeneworkers;
-  Memory.eeupControllers = eeupControllers;
   Memory.eeroadRepairers = eeroadRepairers;
   Memory.eeattackers = eeattackers;
   Memory.eeclaimers = eeclaimers;

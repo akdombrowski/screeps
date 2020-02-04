@@ -40,6 +40,7 @@ function runRoles() {
   let etowerHarvesters = [];
   let southtowerHarvesters = [];
   let eeUps = [];
+  let eeworkers = [];
   Memory.nesource1Creeps = [];
   Memory.nesource2Creeps = [];
 
@@ -111,6 +112,9 @@ function runRoles() {
     } else if (roll === "eeRezzy") {
       eeastUpControllers.push(name);
       roleEEUp(creep, "E37N31");
+    } else if (roll === "eeworker") {
+      eeworkers.push(name);
+      roleEEWorker(creep, "E37N31");
     } else if (roll === "northRezzy") {
       rezzyContr(
         creep,
@@ -152,10 +156,16 @@ function runRoles() {
         workers.push(name);
       }
       roleWorker.run(creep);
-    } else if (roll === "eBuilder") {
+    } else if (roll === "eBuilder" || roll === "eworker") {
       eworkers.push(name);
 
       creep.memory.buildRoom = "E36N31";
+
+      roleHarvesterBuilder.run(creep);
+    } else if (roll === "eeBuilder" || roll === "eeworker") {
+      eeworkers.push(name);
+
+      creep.memory.buildRoom = "E37N31";
 
       roleHarvesterBuilder.run(creep);
     } else if (roll === "neBuilder") {
@@ -222,6 +232,7 @@ function runRoles() {
   Memory.etowerHarvesters = etowerHarvesters;
   Memory.southtowerHarvesters = southtowerHarvesters;
   Memory.eeUps = eeUps;
+  Memory.eeworkers = eeworkers;
 }
 
 module.exports = runRoles;

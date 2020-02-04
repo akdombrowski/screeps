@@ -24,7 +24,6 @@ function traneRm(creep, flag, dest) {
               }
             },
           });
-          console.log(name + " tranee")
       } else {
         target = Game.spawns.eespawn;
       }

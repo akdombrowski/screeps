@@ -23,19 +23,27 @@ function eeUpContr(creep, rm, exit, exitDirection, entrance, controller) {
     creep.say("m." + Game.flags.eeEntrance1.pos);
     smartMove(creep, Game.flags.eeEntrance1, 0);
   } else if (creep.room.name === rm) {
-    if (_.sum(creep.energy) <= 0 || creep.getEnergy) {
+    if (
+      _.sum(creep.store) <= 0 ||
+      creep.memory.getEnergy
+      ) {
       creep.getEnergy = true;
       creep.transfer = false;
+      // eesource2
+      creep.memory.sourceId = "5bbcaf1b9099fc012e63a2de";
       creep.say("m.h");
       getEnergy(creep, "E37N31");
-    } else if (_.sum(creep.energy) >= creep.energyCapacity || creep.transfer) {
+    } else if (
+      creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0 ||
+      creep.memory.transfer
+    ) {
       let contr = Game.getObjectById(controller);
-      if (creep.pos.inRangeTo(contr, 1)) {
+      if (creep.pos.inRangeTo(contr, 3)) {
         creep.say("uc");
         creep.upgradeController(contr);
       } else {
         creep.say("m." + contr.pos);
-        retval = smartMove(creep, contr, 1);
+        retval = smartMove(creep, contr, 3);
 
         if (retval === ERR_TIRED) {
           creep.say("f." + creep.fatigue);

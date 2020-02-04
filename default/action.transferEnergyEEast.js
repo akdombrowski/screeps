@@ -41,7 +41,11 @@ function tran(creep, flag, dest) {
     target = null;
   }
 
-  if(creep.memory.direction === "south" && !target && Game.spawns.spawn2.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
+  if (
+    creep.memory.direction === "south" &&
+    !target &&
+    Game.spawns.spawn2.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+  ) {
     target = Game.spawns.spawn2;
   }
 
@@ -74,11 +78,17 @@ function tran(creep, flag, dest) {
         let type = structure.structureType;
         if (
           (type === STRUCTURE_EXTENSION &&
-          structure != Memory.spawnExts[0] &&
-          structure != Memory.spawnExts[1] &&
-          structure.energy < structure.energyCapacity) || structure.structureType === STRUCTURE_SPAWN && structure.name === "spawn2" && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+            structure.energy < structure.energyCapacity) ||
+          (structure.structureType === STRUCTURE_SPAWN &&
+            structure.name === "spawn2" &&
+            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
         ) {
           extensionNeedsEnergy = true;
+          return true;
+        } else if (
+          type === STRUCTURE_SPAWN &&
+          structure.energy < structure.energyCapacity
+        ) {
           return true;
         }
       },

@@ -32,6 +32,7 @@ function runRoles() {
   let linkGets = [];
   let eastHarvesters = [];
   let eastUpControllers = [];
+  let eeastUpControllers = [];
   let eastWorkers = [];
   let ermNeHarvesters = [];
   let ermHarvesters = [];
@@ -106,6 +107,7 @@ function runRoles() {
       }
     } else if (roll === "eeUp") {
       roleEEUp(creep);
+      eeastUpControllers.push(name);
     } else if (roll === "eeRezzy") {
       roleEEUp(creep);
     } else if (roll === "northRezzy") {
@@ -211,6 +213,7 @@ function runRoles() {
   Memory.linkGets = linkGets;
   Memory.eastHarvesters = eastHarvesters;
   Memory.eastUpControllers = eastUpControllers;
+  Memory.eeastUpControllers = eeastUpControllers;
   Memory.eastWorkers = eastWorkers;
   Memory.ermNeHarvesters = ermNeHarvesters;
   Memory.ermHarvesters = ermHarvesters;

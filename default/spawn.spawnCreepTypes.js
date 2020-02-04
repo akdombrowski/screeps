@@ -137,7 +137,6 @@ function spawnCreepTypes(enAvail) {
   if (enAvail >= 650) {
     if (
       claimers.length < 1 &&
-      !Game.getObjectById("5bbcaf1b9099fc012e63a2dd") &&
       !Game.getObjectById("5bbcaf1b9099fc012e63a2dd").my
     ) {
       let t = Game.time.toString().slice(4);

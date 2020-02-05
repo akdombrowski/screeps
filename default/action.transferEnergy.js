@@ -10,6 +10,7 @@ function tran(creep, flag, dest) {
   let direction = creep.memory.direction;
   let sourceDir = creep.memory.sourceDir;
   let s1 = Memory.s1;
+  let spawn2 = Game.spawns.spawn2;
   let tower1 = Game.getObjectById(Memory.tower1Id);
   let tower2 = Game.getObjectById(Memory.tower2Id);
   let tower3 = Game.getObjectById(Memory.tower3Id);
@@ -51,18 +52,15 @@ function tran(creep, flag, dest) {
     target.structureType === STRUCTURE_TOWER &&
     rm &&
     rm.energyAvailable &&
-    rm.energyAvailable <= 300
+    rm.energyAvailable <= 1000
   ) {
     target = null;
   }
 
-  if(creep.memory.direction === "south" && !target && Game.spawns.spawn2.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
-    target = Game.spawns.spawn2;
-  }
 
   if (
     (creep.memory.direction === "south" || creep.memory.direction === "east") &&
-    enAvail > 300
+    enAvail > 1000
   ) {
     target = towers[0];
     target = _.find(towers, tower => {

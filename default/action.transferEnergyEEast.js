@@ -34,7 +34,7 @@ function tran(creep, flag, dest) {
     target.structureType === STRUCTURE_TOWER &&
     rm &&
     rm.energyAvailable &&
-    rm.energyAvailable <= 300
+    rm.energyAvailable <= 1000
   ) {
     target = null;
   }
@@ -58,13 +58,13 @@ function tran(creep, flag, dest) {
         return false;
       }
 
-      // tower has less than 300 energy units
-      if (tower.energy < 900) {
+      // tower has less than 900 energy units
+      if (tower.store[RESOURCE_ENERGY] < 900) {
         return tower;
       }
 
       // current target tower has more energy than this tower, switch to this tower
-      if (tower.energy < target.energy) {
+      if (tower.store[RESOURCE_ENERGY] < target.store[RESOURCE_ENERGY]) {
         return tower;
       }
     });
@@ -75,15 +75,15 @@ function tran(creep, flag, dest) {
       filter: structure => {
         let type = structure.structureType;
         if (
-          type === STRUCTURE_EXTENSION ||
-          (structure.structureType === STRUCTURE_SPAWN &&
-            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
+          (type === STRUCTURE_EXTENSION ||
+            structure.structureType === STRUCTURE_SPAWN) &&
+          structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
         ) {
           extensionNeedsEnergy = true;
           return true;
         } else if (
           type === STRUCTURE_SPAWN &&
-          structure.energy < structure.energyCapacity
+          structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
         ) {
           return true;
         }
@@ -98,7 +98,7 @@ function tran(creep, flag, dest) {
           structure.structureType == STRUCTURE_STORAGE ||
           structure.structureType == STRUCTURE_CONTAINER
         ) {
-          return _.sum(structure.store) < structure.storeCapacity;
+          return structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
         }
       },
     });
@@ -107,7 +107,7 @@ function tran(creep, flag, dest) {
   if (target && creep.pos.isNearTo(target.pos)) {
     creep.memory.path = null;
     retval = creep.transfer(target, RESOURCE_ENERGY);
-    if (retval == OK) {
+    if (retval === OK) {
       creep.say("t");
       creep.memory.dest = target.id;
     }

@@ -19,7 +19,7 @@ function birthCreep(
 ) {
   let retval;
   eespawn = Game.spawns.eespawn;
-  if (!eespawn.room.lookForAt(LOOK_CREEPS, eespawn.pos.x, eespawn.pos.y - 1)) {
+  if (!eespawn.room.lookForAt(LOOK_CREEPS, eespawn.pos.x, eespawn.pos.y + 1).pop()) {
     console.log("birthing: " + name);
 
     retval = eespawn.spawnCreep(parts, name, {
@@ -85,45 +85,45 @@ function spawnCreepTypes(enAvail) {
 
   // 300
   let upContrParts = [];
-  addPart(upContrParts, 3, CARRY);
-  addPart(upContrParts, 1, WORK);
+  addPart(upContrParts, 1, CARRY);
+  addPart(upContrParts, 2, WORK);
   addPart(upContrParts, 1, MOVE);
 
-  // 800
+  // 550
   let medupContrParts = [];
-  addPart(medupContrParts, 2, CARRY);
+  addPart(medupContrParts, 1, CARRY);
   addPart(medupContrParts, 4, WORK);
-  addPart(medupContrParts, 6, MOVE);
+  addPart(medupContrParts, 2, MOVE);
 
-  // 800
+  // 550
   let medsouthHvParts = [];
-  addPart(medsouthHvParts, 2, CARRY);
-  addPart(medsouthHvParts, 5, WORK);
-  addPart(medsouthHvParts, 4, MOVE);
+  addPart(medsouthHvParts, 1, CARRY);
+  addPart(medsouthHvParts, 4, WORK);
+  addPart(medsouthHvParts, 2, MOVE);
 
-  // 800
+  // 550
   let mednewhvParts = [];
   addPart(mednewhvParts, 1, CARRY);
-  addPart(mednewhvParts, 5, WORK);
-  addPart(mednewhvParts, 5, MOVE);
+  addPart(mednewhvParts, 4, WORK);
+  addPart(mednewhvParts, 2, MOVE);
 
-  // 800
+  // 550
   let medworkerParts = [];
-  addPart(medworkerParts, 3, CARRY);
-  addPart(medworkerParts, 5, WORK);
-  addPart(medworkerParts, 3, MOVE);
+  addPart(medworkerParts, 1, CARRY);
+  addPart(medworkerParts, 3, WORK);
+  addPart(medworkerParts, 4, MOVE);
 
-  // 800
+  // 550
   let medrepairerParts = [];
   addPart(medrepairerParts, 1, CARRY);
-  addPart(medrepairerParts, 6, WORK);
-  addPart(medrepairerParts, 3, MOVE);
+  addPart(medrepairerParts, 4, WORK);
+  addPart(medrepairerParts, 2, MOVE);
 
-  //
+  // 550
   let medlinkGetsParts = [];
   addPart(medlinkGetsParts, 1, CARRY);
-  addPart(medlinkGetsParts, 6, WORK);
-  addPart(medlinkGetsParts, 1, MOVE);
+  addPart(medlinkGetsParts, 4, WORK);
+  addPart(medlinkGetsParts, 2, MOVE);
 
   // 1100
   let southHvParts = [];
@@ -180,18 +180,12 @@ function spawnCreepTypes(enAvail) {
     if (eeRmHarvesters.length < 2) {
       eeRmHarvesters.push(name);
       parts = basicHv;
-      sourceDir = "eeast";
       birth = true;
-    } else if (eeastUpControllers.length < 4) {
+    } else if (eeastUpControllers.length < 2) {
       chosenRole = "eeUp";
       name = chosenRole + t;
       parts = simpleParts;
       eeastUpControllers.push(name);
-      birth = true;
-    } else if (eeRmHarvesters.length < 4) {
-      eeRmHarvesters.push(name);
-      parts = basicHv;
-      sourceDir = "eeast";
       birth = true;
     } else if (eeworkers.length < 1) {
       chosenRole = "eeworker";
@@ -221,7 +215,7 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  if (enAvail >= 800) {
+  if (enAvail >= 550) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "EE";
     let chosenRole = "h";
@@ -229,18 +223,17 @@ function spawnCreepTypes(enAvail) {
     let parts = mednewhvParts;
     let spawnDirection = [BOTTOM];
     let sourceId = "";
-    let sourceDir = "";
+    let sourceDir = "eeast";
     let birth = false;
-    let buildRoom = "";
+    let buildRoom = "E37N31";
 
     if (eeastUpControllers.length < 2) {
       chosenRole = "eeUp";
       name = chosenRole + t;
-      direction = "eeast";
       parts = medupContrParts;
       eeastUpControllers.push(name);
       birth = true;
-    } else if (eetowerHarvesters.length < 1) {
+    } else if (eetowerHarvesters.length < 0) {
       chosenRole = "eetowerHarvester";
       name = chosenRole + t;
       eetowerHarvesters.push(name);
@@ -248,7 +241,8 @@ function spawnCreepTypes(enAvail) {
       parts = mednewhvParts;
       sourceDir = "eeast1";
       birth = true;
-    } else if (eeastWorkers.length < 1) {
+    } else if (eeastWorkers.length < 3) {
+      // go to base room
       chosenRole = "worker";
       name = chosenRole + t;
       eeastWorkers.push(name);

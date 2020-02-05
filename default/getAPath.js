@@ -84,7 +84,7 @@ function getAPath(
 
           // Avoid creeps in the room
           room.find(FIND_CREEPS).forEach(function(creep) {
-            costs.set(creep.pos.x, creep.pos.y, 0xff);
+            costs.set(creep.pos.x, creep.pos.y, Math.random() * 100);
           });
 
           return costs;

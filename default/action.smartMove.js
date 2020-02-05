@@ -61,6 +61,7 @@ function smartMove(
       } catch(err) {
         // ignore
         creep.memory.path = null;
+        creep.say("bad path");
         return retval;
       }
     }
@@ -69,6 +70,7 @@ function smartMove(
     try {
       retval = creep.moveByPath(desPath);
     } catch(err) {
+      creep.say("can't move." + retval);
       return retval;
     }
 
@@ -76,21 +78,24 @@ function smartMove(
       if (creep.pos.inRangeTo(dest, range)) {
         creep.memory.path = null;
       }
-      creep.say("m");
+      creep.say("m." + retval);
       return retval;
     } else if (retval === ERR_NOT_FOUND) {
       // path doesn't match creep's location
       path = null;
-
+      creep.say("path don't match");
       creep.memory.path = getAPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
     } else {
       path = null;
+      retval = ERR_NO_PATH;
+
       creep.memory.path = path;
       // second chance path was also out of range
     }
   } else {
     path = null;
     creep.memory.path = path;
+    creep.say("no path");
     retval = ERR_NO_PATH;
   }
 

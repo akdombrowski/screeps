@@ -13,7 +13,7 @@ function traneRm(creep, flag, dest) {
           let type = structure.structureType;
           if (
             (type === STRUCTURE_EXTENSION || type === STRUCTURE_SPAWN) &&
-            structure.energy < structure.energyCapacity
+            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
           ) {
             extensionNeedsEnergy = true;
             return true;
@@ -67,7 +67,7 @@ function traneRm(creep, flag, dest) {
     _.forEach(towers, tor => {
       if (tor) {
         if (
-          (tor.energy < tor.energyCapacity &&
+          (tor.store.getFreeCapacity(RESOURCE_ENERGY) > 0 &&
             Object.keys(Game.creeps).length > 10) ||
           tor.energy <= 50
         ) {
@@ -81,7 +81,7 @@ function traneRm(creep, flag, dest) {
           let type = structure.structureType;
           if (
             (type === STRUCTURE_EXTENSION || type === STRUCTURE_SPAWN) &&
-            structure.energy < structure.energyCapacity
+            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
           ) {
             extensionNeedsEnergy = true;
             return true;
@@ -98,7 +98,7 @@ function traneRm(creep, flag, dest) {
           structure.structureType == STRUCTURE_STORAGE ||
           structure.structureType == STRUCTURE_CONTAINER
         ) {
-          return _.sum(structure.store) < structure.storeCapacity;
+          return structure.store.getFreeCapacity(RESOURCE_ENERGY);
         }
       },
     });

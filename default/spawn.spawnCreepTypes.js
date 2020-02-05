@@ -80,9 +80,9 @@ function spawnCreepTypes(enAvail) {
 
   // 1000
   let upContrParts = [];
-  addPart(upContrParts, 6, CARRY);
+  addPart(upContrParts, 1, CARRY);
   addPart(upContrParts, 6, WORK);
-  addPart(upContrParts, 2, MOVE);
+  addPart(upContrParts, 7, MOVE);
 
   // 1000
   let southHvParts = [];
@@ -97,21 +97,21 @@ function spawnCreepTypes(enAvail) {
 
   // 1000
   let newhvParts = [];
-  addPart(newhvParts, 5, CARRY);
-  addPart(newhvParts, 7, WORK);
+  addPart(newhvParts, 1, CARRY);
+  addPart(newhvParts, 9, WORK);
   addPart(newhvParts, 1, MOVE);
 
   // 1000
   let workerParts = [];
-  addPart(workerParts, 2, CARRY);
+  addPart(workerParts, 1, CARRY);
   addPart(workerParts, 8, WORK);
-  addPart(workerParts, 2, MOVE);
+  addPart(workerParts, 3, MOVE);
 
   // 1000
   let repairerParts = [];
-  addPart(repairerParts, 4, CARRY);
+  addPart(repairerParts, 1, CARRY);
   addPart(repairerParts, 7, WORK);
-  addPart(repairerParts, 2, MOVE);
+  addPart(repairerParts, 5, MOVE);
 
   // 300
   let linkGetsParts = [];
@@ -121,9 +121,9 @@ function spawnCreepTypes(enAvail) {
 
   // 1000
   let largeLinkGetsParts = [];
-  addPart(largeLinkGetsParts, 2, CARRY);
+  addPart(largeLinkGetsParts, 1, CARRY);
   addPart(largeLinkGetsParts, 8, WORK);
-  addPart(largeLinkGetsParts, 2, MOVE);
+  addPart(largeLinkGetsParts, 3, MOVE);
 
   let rezzyParts = [CLAIM, MOVE];
   let basicHv = [CARRY, WORK, MOVE];

@@ -9,6 +9,7 @@ function vest(creep, flag, path) {
   const eeastSource2 = Game.getObjectById("5bbcaf1b9099fc012e63a2de");
   const name = creep.name;
   const sourceId = creep.memory.sourceId;
+  let room = creep.room;
 
   let target = sourceId ? Game.getObjectById(sourceId) : null;
   let retval = -16;
@@ -39,7 +40,7 @@ function vest(creep, flag, path) {
 
   if (!target) {
     if (
-      (!Room.lookForAt(
+      (!room.lookForAt(
         eeastSource2.pos.x + 1,
         eeastSource2.pos.y,
         LOOK_CREEPS

@@ -95,7 +95,9 @@ const roleHarvester = {
         creep.memory.transferTower = true;
         creep.memory.buildRoad = false;
         retval = transEnTower(creep, 2000);
+        console.log(name + " " + retval);
       }
+
 
       // didn't give energy to tower. build road.
       if (

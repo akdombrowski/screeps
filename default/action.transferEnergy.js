@@ -43,7 +43,7 @@ function tran(creep, flag, dest) {
     }
   }
 
-  if (target && target.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
+  if (target && target.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
     target = null;
   }
 
@@ -105,16 +105,16 @@ function tran(creep, flag, dest) {
         if (
           structure.structureType == STRUCTURE_STORAGE ||
           structure.structureType == STRUCTURE_CONTAINER
-        ) {
-          return structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-        }
-      },
-    });
-  }
+          ) {
+            return structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+          }
+        },
+      });
+    }
 
-  if (target && creep.pos.isNearTo(target.pos)) {
-    creep.memory.path = null;
-    retval = creep.transfer(target, RESOURCE_ENERGY);
+    if (target && creep.pos.isNearTo(target.pos)) {
+      creep.memory.path = null;
+      retval = creep.transfer(target, RESOURCE_ENERGY);
     if (retval == OK) {
       creep.say("t");
       creep.memory.dest = target.id;

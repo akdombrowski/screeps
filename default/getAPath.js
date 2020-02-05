@@ -100,9 +100,6 @@ function getAPath(
 
     path = ret.path;
 
-    console.log(name + " " + JSON.stringify(ret));
-    console.log(name + " " + JSON.stringify(goals))
-
   } else {
     try {
       desPath = Room.deserializePath(path);

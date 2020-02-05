@@ -6,6 +6,7 @@ const smartMove = require("./action.smartMove");
 function vest(creep, flag, path) {
   creep.memory.direction = "eeast";
   const eeastSource1 = Game.getObjectById("5bbcaf1b9099fc012e63a2dc");
+  const eeastSource2 = Game.getObjectById("5bbcaf1b9099fc012e63a2de");
   const name = creep.name;
   const sourceId = creep.memory.sourceId;
 
@@ -14,6 +15,10 @@ function vest(creep, flag, path) {
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
+
+    if (name === Memory.eeastSource2CreepName) {
+      Memory.eeastSource2CreepName = null;
+    }
 
     if (creep.memory.buildingRoad) {
       let retval = buildRoad(creep);
@@ -33,8 +38,21 @@ function vest(creep, flag, path) {
   }
 
   if (!target) {
-    target = eeastSource1;
-    creep.memory.sourceId = eeastSource1.id;
+    if (
+      (!Room.lookForAt(
+        eeastSource2.pos.x + 1,
+        eeastSource2.pos.y,
+        LOOK_CREEPS
+      ) &&
+        Memory.eeastSource2CreepName) ||
+      Memory.eeastSource2CreepName === name
+    ) {
+      target = eeastSource2;
+      Memory.eeastSource2CreepName = name;
+    } else {
+      target = eeastSource1;
+    }
+    creep.memory.sourceId = target.id;
   }
 
   if (target) {

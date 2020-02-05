@@ -75,10 +75,8 @@ function tran(creep, flag, dest) {
       filter: structure => {
         let type = structure.structureType;
         if (
-          (type === STRUCTURE_EXTENSION &&
-            structure.energy < structure.energyCapacity) ||
+          type === STRUCTURE_EXTENSION ||
           (structure.structureType === STRUCTURE_SPAWN &&
-            structure.name === "spawn2" &&
             structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
         ) {
           extensionNeedsEnergy = true;

@@ -200,7 +200,7 @@ function spawnCreepTypes(enAvail) {
           spawnDirection
         );
       } else if (
-        northHarvesters.length < 2 &&
+        northHarvesters.length < 0 &&
         (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
       ) {
         name += "N";

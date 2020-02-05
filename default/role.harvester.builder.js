@@ -4,6 +4,7 @@ const transferEnergyeRm = require("./action.transferEnergyeRm");
 const getEnergyNorth = require("./action.getEnergy.1");
 const getEnergyEast = require("./action.getEnergy.1");
 const ermgetEnergyEast = require("./action.getEnergy.1");
+const ermgetEnergyEEast = require("./action.getEnergyEEast");
 const getEnergyWest = require("./action.getEnergy.1");
 const buildRoad = require("./action.buildRoad");
 const smartMove = require("./action.smartMove");
@@ -27,14 +28,25 @@ const roleHarvesterBuilder = {
 
       // console.log("buildRoom:" + creep.memory.buildRoom)
 
-      ermgetEnergyEast(creep, creep.memory.buildRoom, creep.memory.buildRoom);
+      if(direction === "east") {
+        ermgetEnergyEast(creep, creep.memory.buildRoom, creep.memory.buildRoom);
+      } else if (direction === "eeast") {
+        ermgetEnergyEEast(creep);
+      } else {
+        ermgetEnergyEast(creep, creep.memory.buildRoom, creep.memory.buildRoom);
+      }
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.getEnergy = false;
       creep.memory.transfer = true;
+      if (name === Memory.eeastSource2CreepName) {
+        Memory.eeastSource2CreepName = null;
+      }
       retval = -16;
       let sites = Game.constructionSites;
       let target = _.find(sites, (site, hashId) => {
-        return site.room.name === creep.memory.buildRoom && site.my;
+        if (site.room) {
+          return site.room.name === creep.memory.buildRoom && site.my;
+        }
       });
 
       if (target) {
@@ -45,7 +57,7 @@ const roleHarvesterBuilder = {
         }
       } else {
         console.log("no construction sites");
-        if(creep.memory.direction === "eeast") {
+        if (creep.memory.direction === "eeast") {
           creep.memory.role = "eBuilder";
         }
       }

@@ -200,12 +200,6 @@ function spawnCreepTypes(enAvail) {
       parts = simpleParts;
       eeworkers.push(name);
       birth = true;
-    } else { // remove when get to rcl to use extensions
-      chosenRole = "eeUp";
-      name = chosenRole + t;
-      parts = simpleParts;
-      eeastUpControllers.push(name);
-      birth = true;
     }
 
     if (birth) {

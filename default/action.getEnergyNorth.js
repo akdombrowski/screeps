@@ -48,7 +48,7 @@ function vest(creep, flag, path) {
   if (target) {
     if (creep.pos.isNearTo(target)) {
       retval = creep.harvest(target);
-      creep.say("h");
+      creep.say("h," + retval);
       creep.memory.sourceId = target.id;
 
       return retval;

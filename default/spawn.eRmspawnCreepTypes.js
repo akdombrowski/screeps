@@ -268,10 +268,10 @@ function spawnCreepTypes(enAvail) {
       parts = mednewhvParts;
       sourceDir = "east1";
       birth = true;
-    } else if (eastWorkers.length < 2) {
+    } else if (workers.length < 2) {
       chosenRole = "worker";
       name = chosenRole + t;
-      eastWorkers.push(name);
+      workers.push(name);
       parts = medworkerParts;
       birth = true;
     } else if (eastUpControllers.length < 3) {
@@ -311,8 +311,9 @@ function spawnCreepTypes(enAvail) {
     let spawnDirection = [TOP];
     let sourceId = "";
     let sourceDir = "";
+    let buildRoom = "E37N31";
 
-    if (ermNeHarvesters.length < 5) {
+    if (ermNeHarvesters.length < 6) {
       ermNeHarvesters.push(name);
       parts = mednewhvParts;
       sourceDir = "north";
@@ -321,7 +322,7 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = medworkerParts;
       eastUpControllers.push(name);
-    } else if (eastWorkers.length < 3) {
+    } else if (workers.length < 3) {
       chosenRole = "worker";
       name = chosenRole + t;
       eastWorkers.push(name);
@@ -339,6 +340,7 @@ function spawnCreepTypes(enAvail) {
           direction,
           sourceId,
           sourceDir,
+          buildRoom,
           spawnDirection
         )
     );

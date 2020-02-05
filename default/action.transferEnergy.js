@@ -43,7 +43,7 @@ function tran(creep, flag, dest) {
     }
   }
 
-  if (target && target.energy >= target.energyCapacity) {
+  if (target && target.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
     target = null;
   }
 
@@ -56,7 +56,6 @@ function tran(creep, flag, dest) {
   ) {
     target = null;
   }
-
 
   if (
     (creep.memory.direction === "south" || creep.memory.direction === "east") &&
@@ -86,10 +85,12 @@ function tran(creep, flag, dest) {
       filter: structure => {
         let type = structure.structureType;
         if (
-          (type === STRUCTURE_EXTENSION &&
-          structure != Memory.spawnExts[0] &&
-          structure != Memory.spawnExts[1] &&
-          structure.energy < structure.energyCapacity) || structure.structureType === STRUCTURE_SPAWN && structure.name === "spawn2" && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+          ((type === STRUCTURE_EXTENSION &&
+            structure != Memory.spawnExts[0] &&
+            structure != Memory.spawnExts[1]) ||
+            (structure.structureType === STRUCTURE_SPAWN &&
+              structure.name === "spawn2")) &&
+          structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
         ) {
           extensionNeedsEnergy = true;
           return true;
@@ -105,7 +106,7 @@ function tran(creep, flag, dest) {
           structure.structureType == STRUCTURE_STORAGE ||
           structure.structureType == STRUCTURE_CONTAINER
         ) {
-          return _.sum(structure.store) < structure.storeCapacity;
+          return structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
         }
       },
     });

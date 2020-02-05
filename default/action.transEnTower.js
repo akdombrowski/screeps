@@ -32,10 +32,6 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
     creep.memory.dest.structureType === STRUCTURE_TOWER
   ) {
     target = Game.getObjectById(creep.memory.dest);
-
-    if(creep.memory.direction === "south") {
-      // console.log(name + " reuse target " + JSON.stringify(target));
-    }
   } else {
     if (myTowers.length <= 0) {
       if (direction === "east") {
@@ -48,7 +44,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
         myTowers.push(towers[1]);
       } else {
         rm.find(FIND_STRUCTURES, {
-          filter: (struct) => {
+          filter: struct => {
             let type = struct.structureType;
             if (type === STRUCTURE_TOWER) {
               myTowers.push(struct.id);
@@ -59,19 +55,17 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
       creep.memory.myTowers = myTowers;
     }
 
-    if (_.sum(creep.carry) > 0) {
+    if (creep.store[RESOURCE_ENERGY] > 0) {
       creep.memory.transferTower = true;
     }
 
     target = myTowers[0];
 
-    if(creep.memory.direction === "south") {
-
+    if (creep.memory.direction === "south") {
       // console.log(name + " starting tower " + JSON.stringify(target));
     }
 
-
-    target = _.find(myTowers, (tower) => {
+    target = _.find(myTowers, tower => {
       // tower doesn't exist or doesn't have an energy component
       if (!tower) {
         return false;
@@ -99,20 +93,16 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
     return ERR_NOT_FOUND;
   }
 
-  if(creep.memory.direction === "south") {
-
+  if (creep.memory.direction === "south") {
     // console.log(name + " going to transfer to tower, isnearto " + creep.pos.isNearTo(target.pos));
   }
 
   if (target && creep.pos.isNearTo(target.pos)) {
-
     creep.memory.path = null;
     retval = creep.transfer(target, RESOURCE_ENERGY);
 
-    if(creep.memory.direction === "south") {
-
+    if (creep.memory.direction === "south") {
       // console.log(name + " transfer to target val " + retval);
-
     }
 
     if (retval === OK) {
@@ -125,8 +115,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   } else if (target) {
     // creep.say("m." + target.pos.x + "," + target.pos.y);
 
-    if(creep.memory.direction === "south") {
-
+    if (creep.memory.direction === "south") {
       // console.log(name + " moving to tower " + JSON.stringify(target));
     }
 
@@ -143,7 +132,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
     creep.memory.dest = target.id;
   } else {
     console.log("else " + name);
-    console.log(name + " no target switching off of transentower")
+    console.log(name + " no target switching off of transentower");
     creep.memory.dest = null;
     creep.say("t.err");
   }

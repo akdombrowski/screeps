@@ -20,6 +20,7 @@ const roleHarvester = {
     let name = creep.name;
     let direction = creep.memory.direction;
     let sourceDir = creep.memory.sourceDir;
+    let rm = creep.room;
 
     if (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] < 50) {
       creep.memory.buildRoad = false;
@@ -90,7 +91,7 @@ const roleHarvester = {
       creep.memory.getEnergy = false;
       retval = -16;
 
-      if (direction === "south") {
+      if (direction === "south" && rm.energyAvailable >= 1000) {
         creep.memory.transferTower = true;
         creep.memory.buildRoad = false;
         retval = transEnTower(creep, 2000);

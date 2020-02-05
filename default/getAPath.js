@@ -84,7 +84,7 @@ function getAPath(
 
           // Avoid creeps in the room
           room.find(FIND_CREEPS).forEach(function(creep) {
-            costs.set(creep.pos.x, creep.pos.y, Math.random() * 100);
+            costs.set(creep.pos.x, creep.pos.y, Math.random() * 100 + 1);
           });
 
           return costs;
@@ -99,6 +99,10 @@ function getAPath(
     let ret = PathFinder.search(creep.pos, goals, opts);
 
     path = ret.path;
+
+    console.log(name + " " + JSON.stringify(ret));
+    console.log(name + " " + JSON.stringify(goals))
+
   } else {
     try {
       desPath = Room.deserializePath(path);

@@ -19,7 +19,9 @@ function birthCreep(
 ) {
   let retval;
   eespawn = Game.spawns.eespawn;
-  if (!eespawn.room.lookForAt(LOOK_CREEPS, eespawn.pos.x, eespawn.pos.y + 1).pop()) {
+
+  // spawn bottom if no creeps
+  if (!eespawn.room.lookForAt(LOOK_CREEPS, eespawn.pos.x, eespawn.pos.y + 1)) {
     console.log("birthing: " + name);
 
     retval = eespawn.spawnCreep(parts, name, {

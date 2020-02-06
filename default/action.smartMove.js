@@ -28,8 +28,6 @@ function smartMove(
     return ERR_TIRED;
   }
 
-      console.log(name + " here " + path);
-
   if (!path) {
     path = getAPath(
       creep,

@@ -5,6 +5,7 @@ function traneRm(creep, flag, dest) {
   let target;
   let s2 = Game.getObjectById(Memory.s2);
   let name = creep.name;
+  let retval = -16;
 
   if (creep.room.name === "E36N31") {
     if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
@@ -23,14 +24,14 @@ function traneRm(creep, flag, dest) {
     }
 
     if (creep.pos.isNearTo(target)) {
-      creep.transfer(target, RESOURCE_ENERGY);
+      retval = creep.transfer(target, RESOURCE_ENERGY);
       creep.say("t");
     } else {
-      smartMove(creep, target, 1);
+      retval = smartMove(creep, target, 1);
       creep.say("m");
     }
 
-    return;
+    return retval;
   } else if (creep.room.name === "E36N32") {
     if (creep.pos.isNearTo(Game.flags.ne_e)) {
       retval = creep.move(BOTTOM);

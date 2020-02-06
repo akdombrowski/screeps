@@ -12,11 +12,11 @@ const claimContr = require("./action.claimContr");
 const roleHarvesterToTower = require("./role.harvester.ToTower");
 const roleHarvesterToSouthTower = require("./role.harvester.SouthTower");
 const roleHarvesterBuilder = require("./role.harvester.builder");
+const roleHarvesterBuilderNE = require("./role.harvester.builderNE");
 const claim = require("./action.claimIt");
 const roleEEUp = require("./role.eeUpgradeController");
 const roleEEWorker = require("./role.worker");
 const roleAttackerN = require("./role.attackerN");
-
 
 function runRoles() {
   let i = 0;
@@ -51,16 +51,10 @@ function runRoles() {
     let creep = crps[name];
     let roll = creep.memory.role;
 
+    // console.log(name + " here2 " + roll);
     if (!roll) {
       continue;
     }
-
-    if (Game.cpu.getUsed() > Game.cpu.tickLimit / 20) {
-      // console.log("cpu needs a breather: " + Game.cpu.getUsed() + "/" + Game.cpu.tickLimit);
-      return;
-    }
-
-    console.log(name + " " + roll);
 
     if (roll === "h" || roll === "harvester") {
       if (creep.memory.direction === "north" || name.endsWith("N")) {
@@ -141,7 +135,6 @@ function runRoles() {
         "5bbcaf0c9099fc012e63a0be"
       );
     } else if (roll === "westRezzy") {
-      console.log("roll");
       rezzyContr(
         creep,
         "E34N31",
@@ -177,7 +170,7 @@ function runRoles() {
     } else if (roll === "neBuilder") {
       neworkers.push(name);
       creep.memory.buildRoom = "E36N32";
-      roleHarvesterBuilder.run(creep);
+      roleHarvesterBuilderNE.run(creep);
     } else if (roll === "healer") {
       hele(creep);
     } else if (roll === "controller") {
@@ -198,18 +191,18 @@ function runRoles() {
       claim(creep, "E37N31", "", "", "", "5bbcaf1b9099fc012e63a2dd");
     } else if (roll === "a" || name.startsWith("a")) {
       attackers.push(creep);
-      if(creep.memory.direction === "north") {
+      if (creep.memory.direction === "north") {
         roleAttackerN.run(creep);
-        return;
-      }
-      if (creep.pos.isNearTo(invader)) {
-        creep.attack(invader);
-      } else if (invader) {
-        creep.moveTo(invader, { range: 1 });
       } else {
-        smartMove(creep, Game.spawns.Spawn1, 1);
-        if (Game.spawns.Spawn1.pos.isNearTo(creep)) {
-          Game.spawns.Spawn1.recycleCreep(creep);
+        if (creep.pos.isNearTo(invader)) {
+          creep.attack(invader);
+        } else if (invader) {
+          creep.moveTo(invader, { range: 1 });
+        } else {
+          smartMove(creep, Game.spawns.Spawn1, 1);
+          if (Game.spawns.Spawn1.pos.isNearTo(creep)) {
+            Game.spawns.Spawn1.recycleCreep(creep);
+          }
         }
       }
     } else if (roll == "hChain") {

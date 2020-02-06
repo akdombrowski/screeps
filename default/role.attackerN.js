@@ -18,20 +18,23 @@ const roleAttacker = {
 
     if (rm.name === "E35N31") {
       if (creep.pos.isNearTo(northExit)) {
-        retval = creep.move(BOTTOM);
-      } else {
+        retval = creep.move(TOP);
+      } else if (creep.pos.y > 2 && creep.pos.y < 49) {
         retval = smartMove(creep, northExit.pos, 1);
+      } else {
+        retval = creep.move(TOP);
       }
       return retval;
+    } else if (rm.name === "E35N32") {
+      if (creep.pos.y >= 48) {
+        smartMove(creep, Game.flags.north1, 3);
+      }
     }
 
-    let enemyCreeps = rm.find(FIND_CREEPS, {
-      filter: creep => {
-        return !creep.my;
-      },
-    });
+    let enemyCreeps = rm.find(FIND_HOSTILE_SPAWNS);
 
     invader = enemyCreeps.pop();
+    console.log("invader: " + invader);
     if (creep.pos.isNearTo(invader)) {
       console.log("attack:" + creep.attack(invader));
     } else {

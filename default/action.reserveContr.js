@@ -1,8 +1,9 @@
+const smartMove = require("./action.smartMove");
+
 function reserveContr(creep, rm, exit, exitDirection, entrance, controller) {
   /** creep controller reserve**/
   let path1 = creep.memory.path1;
   let path2 = creep.memory.path2;
-  console.log("name " + name)
   if (creep.room.name === "E35N31") {
     creep.say("alive")
     if (!creep.pos.isNearTo(exit)) {

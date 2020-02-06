@@ -198,7 +198,7 @@ module.exports.loop = function() {
       spawnCreepTypeseeRm(enAvaileeRm);
     }
 
-    if (Game.cpu.bucket > 10) {
+    if (Game.cpu.bucket > 0) {
       runRoles();
       linkTran(linkEntrance, linkExit);
     }

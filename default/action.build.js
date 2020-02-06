@@ -20,7 +20,7 @@ function build(creep) {
         creep.room.lookAt(target).progressTotal
     ) {
       target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
-        filter: (constructionSite) => {
+        filter: constructionSite => {
           return constructionSite.progress < constructionSite.progressTotal;
         },
       });
@@ -29,14 +29,14 @@ function build(creep) {
 
     target = Game.getObjectById(targetId);
 
-    if (target == null) {
+    if (target === null) {
       creep.memory.building = false;
       creep.memory.transfer = true;
       return retval;
     }
     if (creep.pos.inRangeTo(target, 3)) {
       if (
-        creep.pos.findInRange(FIND_CREEPS, 1).pop().name != creep.name &&
+        creep.pos.findInRange(FIND_CREEPS, 1).pop().name !== creep.name &&
         creep.pos.isNearTo(Game.getObjectById(Memory.source1eRm))
       ) {
         creep.move(LEFT);
@@ -48,12 +48,13 @@ function build(creep) {
         creep.say("build");
       }
     } else {
-      retval = smartMove(creep, target.pos, 3, "#ffff0f");
-      if (retval != OK) {
-        creep.say("err");
-      } else if (creep.fatigue > 0) {
+      if (creep.fatigue > 0) {
         creep.say("f" + creep.fatigue);
         return ERR_TIRED;
+      }
+      retval = smartMove(creep, target, 3, "#ffff0f");
+      if (retval !== OK) {
+        creep.say("err");
       } else {
         creep.say("m");
       }

@@ -58,7 +58,7 @@ var roleWorker = {
       let targetId = creep.memory.b;
       let target = Game.getObjectById(targetId);
       if (target) {
-        if (creep.room.name != target.room.name) {
+        if (creep.room.name !== target.room.name) {
           creep.memory.b = null;
           targetId = null;
         }

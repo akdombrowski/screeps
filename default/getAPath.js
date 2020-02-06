@@ -36,19 +36,17 @@ function getAPath(
     creep.say("out of my way creep");
     path = null;
     creep.memory.path = path;
-
-    return;
   }
 
   let destPos = dest;
-  if (dest && dest.pos) {
-    destPos = dest.pos;
+  if (destPos) {
     if (!(destPos instanceof RoomPosition)) {
       destPos = new RoomPosition(dest.pos.x, dest.pos.y, dest.room.name);
     }
   } else {
-    return;
+    return ERR_INVALID_TARGET;
   }
+
 
   let opts;
 
@@ -68,6 +66,7 @@ function getAPath(
           // you should be careful!
           if (!room) return;
           let costs = new PathFinder.CostMatrix();
+          let creepCost = name === "mover1" ? 0 : Math.random() * 100 + 1;
 
           room.find(FIND_STRUCTURES).forEach(function(struct) {
             if (struct.structureType === STRUCTURE_ROAD) {
@@ -76,39 +75,39 @@ function getAPath(
             } else if (
               struct.structureType !== STRUCTURE_CONTAINER &&
               (struct.structureType !== STRUCTURE_RAMPART || !struct.my)
-            ) {
-              // Can't walk through non-walkable buildings
-              costs.set(struct.pos.x, struct.pos.y, 0xff);
-            }
-          });
+              ) {
+                // Can't walk through non-walkable buildings
+                costs.set(struct.pos.x, struct.pos.y, 0xff);
+              }
+            });
 
-          // Avoid creeps in the room
-          room.find(FIND_CREEPS).forEach(function(creep) {
-            costs.set(creep.pos.x, creep.pos.y, Math.random() * 100 + 1);
-          });
+            // Avoid creeps in the room
+            room.find(FIND_CREEPS).forEach(function(c) {
+              costs.set(c.pos.x, c.pos.y, creepCost);
+            });
 
-          return costs;
-        },
-      };
-      Memory.costMatrix = opts;
-      creep.memory.costMatrix = opts;
+            return costs;
+          },
+        };
+        Memory.costMatrix = opts;
+        creep.memory.costMatrix = opts;
+      }
+
+      let goals = { pos: destPos, range: range };
+
+      let ret = PathFinder.search(creep.pos, goals, opts);
+
+      path = ret.path;
+
+    } else {
+      try {
+        desPath = Room.deserializePath(path);
+        creep.memory.path = path;
+      } catch (err) {
+        // ignore
+      }
+      path.shift();
     }
-
-    let goals = { pos: destPos, range: range };
-
-    let ret = PathFinder.search(creep.pos, goals, opts);
-
-    path = ret.path;
-
-  } else {
-    try {
-      desPath = Room.deserializePath(path);
-      creep.memory.path = path;
-    } catch (err) {
-      // ignore
-    }
-    path.shift();
-  }
 
   if (path instanceof String) {
     desPath = Room.deserializePath(path);

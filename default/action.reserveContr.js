@@ -2,15 +2,11 @@ function reserveContr(creep, rm, exit, exitDirection, entrance, controller) {
   /** creep controller reserve**/
   let path1 = creep.memory.path1;
   let path2 = creep.memory.path2;
+  console.log("name " + name)
   if (creep.room.name === "E35N31") {
+    creep.say("alive")
     if (!creep.pos.isNearTo(exit)) {
-      if (!path1) {
-        path1 = creep.room.findPath(creep.pos, exit.pos, {
-          serialize: true,
-          range: 1
-        });
-      }
-      if (creep.moveByPath(path1) != OK) {
+      if (creep.smartMove(creep, exit, 1) != OK) {
         path = null;
         creep.say("err");
       } else {
@@ -23,18 +19,11 @@ function reserveContr(creep, rm, exit, exitDirection, entrance, controller) {
     }
   } else if (creep.room.name === rm) {
     let contr = Game.getObjectById(controller);
-    if (creep.pos.isNearTo(contr)) {
+    if (creep.pos.inRangeTo(contr, 3)) {
       creep.reserveController(contr);
+      creep.say("res");
     } else {
-      if (!path2) {
-        path2 = creep.room.findPath(creep.pos, contr.pos, {
-          range: 1,
-          serialize: true
-        });
-        creep.memory.path2 = path2;
-      }
-
-      creep.moveByPath(path2);
+      creep.smartMove(creep, contr, 3);
       creep.say(rm);
     }
   }

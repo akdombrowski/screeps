@@ -14,12 +14,13 @@ const roleAttacker = {
     let northExit = Game.flags.northExit;
     let getEnergy = creep.memory.getEnergy;
     let transfer = creep.memory.transfer;
+    let name = creep.name;
 
-    if (rm === "E35N31") {
+    if (rm.name === "E35N31") {
       if (creep.pos.isNearTo(northExit)) {
         retval = creep.move(BOTTOM);
       } else {
-        retval = smartMove(creep, northExit, 1);
+        retval = smartMove(creep, northExit.pos, 1);
       }
       return retval;
     }

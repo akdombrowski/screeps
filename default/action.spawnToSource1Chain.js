@@ -26,26 +26,27 @@ function spawnToSource1Chain() {
   let exts = Memory.spawnExts;
   let stor1 = Game.getObjectById(Memory.store1);
   let linkEntrance = Game.getObjectById(Memory.linkEntranceId);
+  let retval = -16;
 
   try {
     if (tr1 && source1.energy <= 0) {
       tr1.withdraw(stor1, RESOURCE_ENERGY);
-      tr1.transfer(linkEntrance, RESOURCE_ENERGY);
+      retval = tr1.transfer(linkEntrance, RESOURCE_ENERGY);
 
-      return;
+      return retval;
     }
     if (!hv) {
       // console.log("hv");
 
-      return;
+      return retval;
     } else if (!tr1 && hv.pos.isNearTo(source1)) {
-      let val = hv.harvest(source1);
+      retval = hv.harvest(source1);
 
       // console.log("tr1");
-      return;
+      return retval;
     } else if (!tr2 && hv.pos.isNearTo(source1)) {
       // console.log("tr2");
-      hv.harvest(source1);
+      retval = hv.harvest(source1);
       if (tr1) {
         supplyChainRetVal = supplyChain([tr1.name], hv.name, source1, s1);
       }
@@ -73,16 +74,16 @@ function spawnToSource1Chain() {
       if (Memory.enAvail >= 100) {
         Game.spawns.Spawn1.spawnCreep([MOVE, MOVE], "mover1", {
           memory: {
-            role: "mover"
-          }
+            role: "mover",
+          },
         });
       }
     } else {
       Game.spawns.Spawn1.spawnCreep([MOVE, MOVE], "mover1", {
         memory: {
           role: "mover",
-          directions: direction
-        }
+          directions: direction,
+        },
       });
     }
   } else if (needMover) {
@@ -90,8 +91,9 @@ function spawnToSource1Chain() {
     if (hv && !hv.pos.isNearTo(source1)) {
       // we need to pull hv into place next to the source to harvest
       if (!mv.pos.isNearTo(hv)) {
-        smartMove(mv, hv, 1);
+        retval = smartMove(mv, hv, 1);
       } else {
+        console.log(hv.name + " " + hv.pos);
         if (
           !mv.pos.isEqualTo(
             new RoomPosition(
@@ -101,7 +103,7 @@ function spawnToSource1Chain() {
             )
           )
         ) {
-          chainMove(
+          retval = chainMove(
             mv.name,
             hvNames,
             new RoomPosition(
@@ -111,11 +113,12 @@ function spawnToSource1Chain() {
             ),
             0
           );
+          console.log(mv.name + " Pulled " + retval);
         } else {
           try {
-            chainMove(mv.name, hvNames, hv, 0);
+            retval = chainMove(mv.name, hvNames, hv, 0);
           } catch (e) {
-            chainMove(
+            retval = chainMove(
               mv.name,
               hvNames,
               new RoomPosition(45, 5, hv.room.name),
@@ -126,13 +129,13 @@ function spawnToSource1Chain() {
       }
     } else if (tr1 && (!tr1.pos.isNearTo(hv) || tr1.pos.x <= hv.pos.x)) {
       if (!mv.pos.isNearTo(tr1)) {
-        smartMove(mv, tr1, 1);
+        retval = smartMove(mv, tr1, 1);
       } else if (
         !mv.pos.isEqualTo(
           new RoomPosition(hv.pos.x + 1, source1.pos.y - 1, hv.room.name)
         )
       ) {
-        chainMove(
+        retval = chainMove(
           mv.name,
           [tr1.name],
           new RoomPosition(hv.pos.x + 1, source1.pos.y - 1, hv.room.name),
@@ -140,10 +143,10 @@ function spawnToSource1Chain() {
         );
       } else {
         try {
-          chainMove(mv.name, [tr1.name], tr1, 0);
+          retval = chainMove(mv.name, [tr1.name], tr1, 0);
         } catch (e) {
           console.log(e.message);
-          chainMove(
+          retval = chainMove(
             mv.name,
             [tr1.name],
             new RoomPosition(43, 7, hv.room.name),
@@ -153,16 +156,16 @@ function spawnToSource1Chain() {
       }
     } else if (tr2 && (!tr2.pos.isNearTo(tr1) || !tr2.pos.isNearTo(s1))) {
       if (!mv.pos.isNearTo(tr2)) {
-        smartMove(mv, tr2, 1);
+        retval = smartMove(mv, tr2, 1);
       } else if ((mv.pos.x != 45 && mv.pos.y != 5) || tr2.pos.x <= tr1.pos.x) {
-        chainMove(
+        retval = chainMove(
           mv.name,
           [tr2.name],
           new RoomPosition(45, 5, source1.room.name),
           0
         );
       } else {
-        chainMove(
+        retval = chainMove(
           mv.name,
           [tr2.name],
           new RoomPosition(
@@ -202,12 +205,11 @@ function spawnToSource1Chain() {
       if (chainval[1] != OK && _.sum(tr2.carry) > 0 && chainval[1] != OK) {
         extRetVal = -17;
         if (_.sum(exts) < 50) {
-
           _.forEach(exts, ext => {
             let e = Game.getObjectById(ext);
             if (tr2.pos.isNearTo(e) && e.energy < e.energyCapacity) {
               extretval2 = tr2.transfer(e, RESOURCE_ENERGY);
-              
+
               if (extretval2 === OK) {
                 tr2.say("se");
               } else {
@@ -256,7 +258,6 @@ function spawnToSource1Chain() {
             tr2.say("st1");
           }
         }
-
       }
     } catch (e) {
       console.log(e + "\nstart supply chain err:" + supplyChainRetVal);

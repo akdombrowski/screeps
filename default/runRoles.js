@@ -60,6 +60,8 @@ function runRoles() {
       return;
     }
 
+    console.log(name + " " + roll);
+
     if (roll === "h" || roll === "harvester") {
       if (creep.memory.direction === "north" || name.endsWith("N")) {
         creep.memory.direction = "north";
@@ -139,6 +141,7 @@ function runRoles() {
         "5bbcaf0c9099fc012e63a0be"
       );
     } else if (roll === "westRezzy") {
+      console.log("roll");
       rezzyContr(
         creep,
         "E34N31",

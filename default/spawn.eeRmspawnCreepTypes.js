@@ -56,6 +56,7 @@ function spawnCreepTypes(enAvail) {
   let eelinkGets = Memory.eelinkGets || [];
   let eeworkers = Memory.eeworkers || [];
   let eeneworkers = Memory.eeneworkers || [];
+  let workers = Memory.workers || [];
 
   let eeharvesters = Memory.eeharvesters || [];
   let eeupControllers = Memory.eeupControllers || [];
@@ -166,7 +167,6 @@ function spawnCreepTypes(enAvail) {
   let nAttackerId = Memory.nAttackerId;
   let invaderId = Memory.invaderId;
 
-
   if (enAvail >= 300) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "EE";
@@ -229,11 +229,15 @@ function spawnCreepTypes(enAvail) {
     let birth = false;
     let buildRoom = "E37N31";
 
-    if (eeastUpControllers.length < 2) {
+    if (eeastUpControllers.length < 3) {
       chosenRole = "eeUp";
       name = chosenRole + t;
       parts = medupContrParts;
       eeastUpControllers.push(name);
+      birth = true;
+    } else if (eeRmHarvesters.length < 4) {
+      eeRmHarvesters.push(name);
+      parts = mednewhvParts;
       birth = true;
     } else if (eetowerHarvesters.length < 0) {
       chosenRole = "eetowerHarvester";
@@ -243,14 +247,14 @@ function spawnCreepTypes(enAvail) {
       parts = mednewhvParts;
       sourceDir = "eeast1";
       birth = true;
-    } else if (eeastWorkers.length < 3) {
+    } else if (workers.length < 3) {
       // go to base room
       chosenRole = "worker";
       name = chosenRole + t;
-      eeastWorkers.push(name);
+      eeworkers.push(name);
       parts = medworkerParts;
       birth = true;
-    } else if (eeastUpControllers.length < 3) {
+    } else if (eeastUpControllers.length < 4) {
       chosenRole = "eeUp";
       name = chosenRole + t;
       direction = "eeast";
@@ -293,7 +297,7 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = medworkerParts;
       eeastUpControllers.push(name);
-    } else if (eeastWorkers.length < 3) {
+    } else if (eeworkers.length < 3) {
       chosenRole = "worker";
       name = chosenRole + t;
       eeastWorkers.push(name);
@@ -325,7 +329,7 @@ function spawnCreepTypes(enAvail) {
   Memory.eenorthHarvesters = eenorthHarvesters;
   Memory.eewestHarvesters = eewestHarvesters;
   Memory.eelinkGets = eelinkGets;
-
+  Memory.workers = workers;
   Memory.eeastWorkers = eeastWorkers;
   Memory.eeastUpControllers = eeastUpControllers;
   Memory.eeRmHarvesters = eeRmHarvesters;

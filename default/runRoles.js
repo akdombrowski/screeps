@@ -15,6 +15,8 @@ const roleHarvesterBuilder = require("./role.harvester.builder");
 const claim = require("./action.claimIt");
 const roleEEUp = require("./role.eeUpgradeController");
 const roleEEWorker = require("./role.worker");
+const roleAttackerN = require("./role.attackerN");
+
 
 function runRoles() {
   let i = 0;
@@ -193,6 +195,10 @@ function runRoles() {
       claim(creep, "E37N31", "", "", "", "5bbcaf1b9099fc012e63a2dd");
     } else if (roll === "a" || name.startsWith("a")) {
       attackers.push(creep);
+      if(creep.memory.direction === "north") {
+        roleAttackerN.run(creep);
+        return;
+      }
       if (creep.pos.isNearTo(invader)) {
         creep.attack(invader);
       } else if (invader) {

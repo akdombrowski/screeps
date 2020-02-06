@@ -293,7 +293,7 @@ function spawnCreepTypes(enAvail) {
       chosenRole = "upController";
       upControllers.push(name);
       birth = true;
-    } else if (attackers.length < 2) {
+    } else if (attackers.length < 2 && Memory.nAttackerId) {
       parts = bigAttackerParts;
       name = "attacker" + t;
       chosenRole = "attacker";

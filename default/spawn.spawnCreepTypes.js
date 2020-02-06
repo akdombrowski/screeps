@@ -293,6 +293,21 @@ function spawnCreepTypes(enAvail) {
       chosenRole = "upController";
       upControllers.push(name);
       birth = true;
+    } else if (attackers.length < 2) {
+      parts = bigAttackerParts;
+      name = "attacker" + t;
+      chosenRole = "attacker";
+      direction = "north";
+      attackers.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
     } else if (southHarvesters.length < 3) {
       southHarvesters.push(name);
       parts = southHvParts;

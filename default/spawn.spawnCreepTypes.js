@@ -312,7 +312,7 @@ function spawnCreepTypes(enAvail) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
-    } else if (southtowerHarvesters.length < 2) {
+    } else if (southtowerHarvesters.length < 3) {
       chosenRole = "southtowerHarvester";
       name = chosenRole + t;
       harvesters.push(name);
@@ -341,13 +341,7 @@ function spawnCreepTypes(enAvail) {
       direction = "west";
       westHarvesters.push(name);
       birth = true;
-    } else if (roadRepairers.length < 4) {
-      chosenRole = "r";
-      name = chosenRole + t;
-      parts = repairerParts;
-      roadRepairers.push(name);
-      birth = true;
-    } else if (workers.length < 2) {
+    } else if (workers.length < 3) {
       chosenRole = "w";
       name = chosenRole + t;
       parts = workerParts;

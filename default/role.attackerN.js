@@ -6,7 +6,7 @@ const roleAttacker = {
   /** **/
   run: function(creep) {
     let s1 = Game.spawns.Spawn1;
-    let rm = s1.room;
+    let rm = creep.room;
     let creeps = Game.creeps;
     let enAvail = rm.energyAvailable;
     let invader;
@@ -24,22 +24,31 @@ const roleAttacker = {
       } else {
         retval = creep.move(TOP);
       }
+
       return retval;
     } else if (rm.name === "E35N32") {
       if (creep.pos.y >= 48) {
-        smartMove(creep, Game.flags.north1, 3);
+        retval = smartMove(creep, Game.flags.north1, 3);
       }
     }
 
-    let enemyCreeps = rm.find(FIND_HOSTILE_SPAWNS);
+   let enemyCreeps = rm.find(FIND_HOSTILE_STRUCTURES);
+
+   if(!enemyCreeps) {
+     enemyCreeps = rm.find(FIND_HOSTILE_CREEPS);
+   }
+
+   if(!enemyCreeps) {
+     enemyCreeps = rm.find(FIND_HOSTILE_SPAWNS);
+   }
 
     invader = enemyCreeps.pop();
-    console.log("invader: " + invader);
     if (creep.pos.isNearTo(invader)) {
-      console.log("attack:" + creep.attack(invader));
+      retval = creep.attack(invader);
     } else {
-      console.log("move:" + smartMove(creep, invader, 1));
+      retval = smartMove(creep, invader, 1);
     }
+    return retval;
   },
 };
 

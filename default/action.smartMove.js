@@ -66,7 +66,7 @@ function smartMove(
       try {
         desPath = Room.deserializePath(desPath);
       } catch (err) {
-        // ignore
+        // ignore. desPath is a string but isn't deserializable? what is it?!? it's not null. i don't know. should we be able to serialize then deserialize then serialize?
         creep.memory.path = null;
         creep.say("bad path");
         return retval;
@@ -132,9 +132,11 @@ function smartMove(
     creep.memory.path = null;
   }
 
+  if (retval === -5) {
+    console.log("m." + retval);
+  }
   creep.say("m." + retval);
   return retval;
 }
 
 module.exports = smartMove;
-

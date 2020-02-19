@@ -195,7 +195,7 @@ function spawnCreepTypes(enAvail) {
           sourceId,
           spawnDirection
         );
-      } else if (upControllers.length < 4) {
+      } else if (upControllers.length < 1) {
         parts = upContrParts;
         name = "upc" + t;
         upControllers.push(name);
@@ -209,7 +209,7 @@ function spawnCreepTypes(enAvail) {
           sourceId,
           spawnDirection
         );
-      } else if (attackers.length < 1) {
+      } else if (attackers.length < 0) {
         parts = attackerParts;
         name = "attacker" + t;
         chosenRole = "attacker";
@@ -225,7 +225,7 @@ function spawnCreepTypes(enAvail) {
           spawnDirection
         );
       } else if (
-        northHarvesters.length < 0 &&
+        northHarvesters.length < 5 &&
         (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
       ) {
         name += "N";
@@ -241,7 +241,7 @@ function spawnCreepTypes(enAvail) {
           spawnDirection
         );
       } else if (
-        westHarvesters.length < 2 &&
+        westHarvesters.length < 5 &&
         (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
       ) {
         name += "W";
@@ -308,11 +308,11 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (southHarvesters.length < 3) {
+    } else if (southHarvesters.length < 4) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
-    } else if (southtowerHarvesters.length < 3) {
+    } else if (southtowerHarvesters.length < 4) {
       chosenRole = "southtowerHarvester";
       name = chosenRole + t;
       harvesters.push(name);

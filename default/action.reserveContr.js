@@ -7,7 +7,7 @@ function reserveContr(creep, rm, exit, exitDirection, entrance, controller) {
   if (creep.room.name === "E35N31") {
     creep.say("alive")
     if (!creep.pos.isNearTo(exit)) {
-      if (creep.smartMove(creep, exit, 1) != OK) {
+      if (smartMove(creep, exit, 1) != OK) {
         path = null;
         creep.say("err");
       } else {
@@ -24,7 +24,7 @@ function reserveContr(creep, rm, exit, exitDirection, entrance, controller) {
       creep.reserveController(contr);
       creep.say("res");
     } else {
-      creep.smartMove(creep, contr, 3);
+      smartMove(creep, contr, 3);
       creep.say(rm);
     }
   }

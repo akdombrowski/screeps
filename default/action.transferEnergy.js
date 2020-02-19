@@ -52,14 +52,14 @@ function tran(creep, flag, dest) {
     target.structureType === STRUCTURE_TOWER &&
     rm &&
     rm.energyAvailable &&
-    rm.energyAvailable <= 1000
+    rm.energyAvailable <= 300
   ) {
     target = null;
   }
 
   if (
     (creep.memory.direction === "south" || creep.memory.direction === "east") &&
-    enAvail > 1000
+    enAvail > 300
   ) {
     target = towers[0];
     target = _.find(towers, tower => {
@@ -99,7 +99,7 @@ function tran(creep, flag, dest) {
     });
   }
 
-  if (!target) {
+  if (!target && !extensionNeedsEnergy) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: structure => {
         if (

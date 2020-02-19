@@ -14,8 +14,11 @@ function tran(creep, flag, dest) {
   let tower1 = Game.getObjectById(Memory.tower1Id);
   let tower2 = Game.getObjectById(Memory.tower2Id);
   let tower3 = Game.getObjectById(Memory.tower3Id);
+  let tower4 = Game.getObjectById(Memory.tower4Id);
+  let tower5 = Game.getObjectById(Memory.tower5Id);
+  let tower6 = Game.getObjectById(Memory.tower6Id);
   let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
-  let towers = [tower1, tower2, tower3, ermtower1];
+  let towers = [tower1, tower2, tower3, tower4, tower5, tower6, ermtower1];
   let enAvail = rm.energyAvailable;
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {

@@ -52,7 +52,10 @@ function smartMove(
   if (!path) {
     console.log(name + " no path");
     creep.say("nopath");
+    // path should already be set to null/undefined but do it again here to be explicit
+    creep.memory.path = path;
     retval = ERR_NO_PATH;
+    return retval;
   }
 
   let desPath = path;
@@ -110,6 +113,7 @@ function smartMove(
     creep.memory.path = path;
     creep.say("no path");
     retval = ERR_NO_PATH;
+    return retval;
   }
 
   // retval = creep.moveTo(dest, {

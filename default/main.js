@@ -24,8 +24,8 @@ module.exports.loop = function() {
     let nRm = Game.rooms.E35N32;
     let wRm = Game.rooms.E34N31;
     let eRm = Game.rooms.E36N31;
-    let enRm = Game.rooms.E36N32;
     let eeRm = Game.rooms.E37N31;
+    let neRm = Game.rooms.E36N32;
 
     let enAvail = rm.energyAvailable;
     let enCap = rm.energyCapacityAvailable;
@@ -105,6 +105,14 @@ module.exports.loop = function() {
     let linkExit = Game.getObjectById(linkExitId);
     Memory.linkExitId = linkExitId;
 
+    let slinkMiddleId = Memory.slinkMiddleId || "5e4d06f7513ade25f2675b99";
+    let slinkMiddle = Game.getObjectById(slinkMiddleId);
+    Memory.slinkMiddleId = slinkMiddleId;
+
+    let slinkMiddle2Id = Memory.slinkMiddle2Id || "5e4cfded815dd6352dde50cb";
+    let slinkMiddle2 = Game.getObjectById(slinkMiddle2Id);
+    Memory.slinkMiddle2Id = slinkMiddle2Id;
+
     Memory.spawnExts = [e1, e4];
     Memory.extension1 = "5cf733caf7020f7e680e392f";
     Memory.extension4 = "5cf714bb21281831d9ecd4c0";
@@ -148,6 +156,8 @@ module.exports.loop = function() {
     Memory.nRm = nRm;
     Memory.wRm = wRm;
     Memory.eRm = eRm;
+    Memory.neRm = neRm;
+
     Memory.s2 = s2.id;
     Memory.eespawn = eespawn.id;
 

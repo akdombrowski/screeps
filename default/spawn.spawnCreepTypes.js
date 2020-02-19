@@ -189,6 +189,10 @@ function spawnCreepTypes(enAvail) {
       let parts = simpleParts;
       let spawnDirection = [TOP_RIGHT];
 
+
+
+      console.log("attackern " + attackers.length + " " + Memory.nAttackerId)
+
       if (southHarvesters.length < 2) {
         southHarvesters.push(name);
         parts = simpleParts;
@@ -216,6 +220,13 @@ function spawnCreepTypes(enAvail) {
           spawnDirection
         );
       } else if (attackers.length < 1 && Memory.nAttackerId) {
+
+
+
+
+
+
+
         parts = attackerParts;
         name = "attacker" + t;
         chosenRole = "attacker";
@@ -293,7 +304,7 @@ function spawnCreepTypes(enAvail) {
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
-    } else if (upControllers.length < 4) {
+    } else if (upControllers.length < 2) {
       parts = upContrParts;
       name = "upc" + t;
       chosenRole = "upController";

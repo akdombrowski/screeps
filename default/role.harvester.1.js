@@ -98,7 +98,6 @@ const roleHarvester = {
         console.log(name + " " + retval);
       }
 
-
       // didn't give energy to tower. build road.
       if (
         (retval != OK &&

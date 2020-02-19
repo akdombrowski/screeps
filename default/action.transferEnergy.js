@@ -45,19 +45,18 @@ function tran(creep, flag, dest) {
     target = null;
   }
 
-  console.log(enAvail)
   if (
     target &&
     target.structureType === STRUCTURE_TOWER &&
     rm &&
-    enAvail < 300
+    enAvail < 1000
   ) {
     target = null;
   }
 
   if (
     (creep.memory.direction === "south" || creep.memory.direction === "east") &&
-    enAvail > 300
+    enAvail > 1000
   ) {
     target = towers[0];
     target = _.find(towers, tower => {
@@ -66,18 +65,17 @@ function tran(creep, flag, dest) {
         return false;
       }
 
-      // tower has less than 300 energy units
-      if (tower.energy < 900) {
+      // tower has free space
+      if (tower.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
         return tower;
       }
 
       // current target tower has more energy than this tower, switch to this tower
-      if (tower.energy < target.energy) {
+      if (tower.store.getFreeCapacity(RESOURCE_ENERGY) > target.store.getFreeCapacity(RESOURCE_ENERGY)) {
         return tower;
       }
     });
   }
-
 
   let extensionNeedsEnergy = false;
 

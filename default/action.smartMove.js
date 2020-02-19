@@ -61,6 +61,24 @@ function smartMove(
   let desPath = path;
 
   // Check if 1st path try, or path from memory, gets us where we want to go.
+  if (creep.memory.path) {
+    retval = creep.moveTo(dest, {
+      reusePath: pathMem,
+      ignoreCreeps: ignoreCreeps,
+      range: range,
+      maxOps: maxOps,
+      serializeMemory: true,
+      noPathFinding: noPathFinding,
+      visualizePathStyle: { stroke: pathColor },
+    });
+  }
+
+  if(retval === OK) {
+    creep.say("remember the way")
+    return retval;
+  }
+
+
   if (desPath) {
     if (desPath instanceof String) {
       try {
@@ -116,25 +134,12 @@ function smartMove(
     return retval;
   }
 
-  // retval = creep.moveTo(dest, {
-  //   reusePath: pathMem,
-  //   ignoreCreeps: ignoreCreeps,
-  //   range: range,
-  //   maxOps: maxOps,
-  //   serializeMemory: true,
-  //   noPathFinding: noPathFinding,
-  //   visualizePathStyle: { stroke: pathColor },
-  // });
-
   if (retval === ERR_INVALID_TARGET || retval === ERR_NOT_FOUND) {
     creep.memory.path = null;
   } else if (retval === ERR_NO_PATH) {
     creep.memory.path = null;
   }
 
-  if (retval === -5) {
-    console.log("m." + retval);
-  }
   creep.say("m." + retval);
   return retval;
 }

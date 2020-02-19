@@ -237,7 +237,7 @@ function getAPath(
   // }
 
   creep.say("gap." + retval);
-  return retval;
+  return null;
 }
 
 module.exports = getAPath;

@@ -78,11 +78,17 @@ function spawnCreepTypes(enAvail) {
 
   let attackers = Memory.attackers || [];
 
-  // 1000
+  // 300
   let upContrParts = [];
   addPart(upContrParts, 1, CARRY);
-  addPart(upContrParts, 6, WORK);
-  addPart(upContrParts, 7, MOVE);
+  addPart(upContrParts, 2, WORK);
+  addPart(upContrParts, 1, MOVE);
+
+  // 1000
+  let upContrPartsBig = [];
+  addPart(upContrPartsBig, 1, CARRY);
+  addPart(upContrPartsBig, 6, WORK);
+  addPart(upContrPartsBig, 7, MOVE);
 
   // 1000
   let southHvParts = [];

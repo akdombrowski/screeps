@@ -12,6 +12,22 @@ function checkForAttackers() {
 
   if (nRm && (!Memory.nAttackerId || Game.time >= wAttackDurationSafeCheck)) {
     attackerId = getAttackEvents(nRm);
+    if (!attackerId) {
+      let enemyCreeps = nRm.find(FIND_HOSTILE_STRUCTURES);
+
+      if (!enemyCreeps) {
+        enemyCreeps = nRm.find(FIND_HOSTILE_CREEPS);
+      }
+
+      if (!enemyCreeps) {
+        enemyCreeps = nRm.find(FIND_HOSTILE_SPAWNS);
+      }
+
+      if (enemyCreeps) {
+        console.log("checking n rm for attacker " + enemyCreeps);
+        attackerId = enemyCreeps.pop();
+      }
+    }
     Memory.nAttackerId = attackerId;
     if (attackerId) {
       Memory.nAttackDurationSafeCheck = Game.time + 1000;
@@ -42,13 +58,13 @@ function checkForAttackers() {
     //   console.log("invader:" + attackerId);
     // }
     let enemyCreeps = rm.find(FIND_CREEPS, {
-      filter: (creep) => {
+      filter: creep => {
         return !creep.my;
       },
     });
 
     invader = enemyCreeps.pop();
-    
+
     Memory.invaderId = invader ? invader.id : null;
   }
 }

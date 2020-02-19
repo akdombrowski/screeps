@@ -45,7 +45,7 @@ const roleHarvester = {
           Game.time >= Memory.eAttackDurationSafeCheck
         ) {
           if (creep.memory.sourceDir === "east") {
-            ermgetEnergyEast(creep, "E36N32");
+            ermgetEnergyEast(creep, "E36N31");
           } else {
             let nesource1Creeps = Memory.nesource1Creeps || [];
             let nesource2Creeps = Memory.nesource2Creeps || [];

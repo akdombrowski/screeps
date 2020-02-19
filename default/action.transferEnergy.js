@@ -34,8 +34,6 @@ function tran(creep, flag, dest) {
       traneRm(creep);
     } else if (creep.room.name === "E34N31") {
       smartMove(creep, Game.getObjectById("5d1330677594977c6d3f49ad"), 3);
-    } else if (creep.room.name === "E36N31") {
-      target = Game.getObjectById("5bbcaf0c9099fc012e63a0bd");
     } else if (creep.memory.dest) {
       target = Game.getObjectById(creep.memory.dest);
     } else if (creep.memory.flag) {
@@ -47,12 +45,12 @@ function tran(creep, flag, dest) {
     target = null;
   }
 
+  console.log(enAvail)
   if (
     target &&
     target.structureType === STRUCTURE_TOWER &&
     rm &&
-    rm.energyAvailable &&
-    rm.energyAvailable <= 300
+    enAvail < 300
   ) {
     target = null;
   }
@@ -80,6 +78,9 @@ function tran(creep, flag, dest) {
     });
   }
 
+
+  let extensionNeedsEnergy = false;
+
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: structure => {
@@ -105,16 +106,16 @@ function tran(creep, flag, dest) {
         if (
           structure.structureType == STRUCTURE_STORAGE ||
           structure.structureType == STRUCTURE_CONTAINER
-          ) {
-            return structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-          }
-        },
-      });
-    }
+        ) {
+          return structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+        }
+      },
+    });
+  }
 
-    if (target && creep.pos.isNearTo(target.pos)) {
-      creep.memory.path = null;
-      retval = creep.transfer(target, RESOURCE_ENERGY);
+  if (target && creep.pos.isNearTo(target.pos)) {
+    creep.memory.path = null;
+    retval = creep.transfer(target, RESOURCE_ENERGY);
     if (retval == OK) {
       creep.say("t");
       creep.memory.dest = target.id;

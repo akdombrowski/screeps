@@ -28,6 +28,7 @@ function smartMove(
     return ERR_TIRED;
   }
 
+  // no path in memory.path
   if (!path) {
     path = getAPath(
       creep,
@@ -38,15 +39,18 @@ function smartMove(
       pathMem,
       maxOps
     );
+
     try {
       creep.memory.path = Room.serializePath(path);
     } catch (err) {
+      // got an error above because either already serialized path or null
       creep.memory.path = path;
     }
   }
 
   // No path. Try finding path using maxOps.
   if (!path) {
+    console.log(name + " no path");
     creep.say("nopath");
     retval = ERR_NO_PATH;
   }
@@ -58,7 +62,7 @@ function smartMove(
     if (desPath instanceof String) {
       try {
         desPath = Room.deserializePath(desPath);
-      } catch(err) {
+      } catch (err) {
         // ignore
         creep.memory.path = null;
         creep.say("bad path");
@@ -69,7 +73,7 @@ function smartMove(
     creep.memory.path = path;
     try {
       retval = creep.moveByPath(desPath);
-    } catch(err) {
+    } catch (err) {
       creep.say("can't move." + retval);
       return retval;
     }
@@ -84,7 +88,15 @@ function smartMove(
       // path doesn't match creep's location
       path = null;
       creep.say("path don't match");
-      creep.memory.path = getAPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
+      creep.memory.path = getAPath(
+        creep,
+        dest,
+        range,
+        ignoreCreeps,
+        pathColor,
+        pathMem,
+        maxOps
+      );
     } else {
       path = null;
       retval = ERR_NO_PATH;
@@ -93,6 +105,7 @@ function smartMove(
       // second chance path was also out of range
     }
   } else {
+    console.log(name + " null path");
     path = null;
     creep.memory.path = path;
     creep.say("no path");
@@ -120,3 +133,4 @@ function smartMove(
 }
 
 module.exports = smartMove;
+

@@ -8,7 +8,7 @@ function traneRm(creep, flag, dest) {
   let retval = -16;
 
   if (creep.room.name === "E36N31") {
-    if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
+    if (creep.room.energyAvailable < creep.room.energyCapacity) {
       target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
         filter: structure => {
           let type = structure.structureType;
@@ -64,7 +64,7 @@ function traneRm(creep, flag, dest) {
     target = null;
   }
 
-  if (creep.memory.direction === "south" || creep.memory.direction === "east") {
+  if (creep.memory.direction === "east") {
     let tower = Game.getObjectById(Memory.tower1Id);
     let tower2 = Game.getObjectById(Memory.tower2Id);
     let tower1 = Game.getObjectById(Memory.ermtowerId);

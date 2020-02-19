@@ -189,10 +189,6 @@ function spawnCreepTypes(enAvail) {
       let parts = simpleParts;
       let spawnDirection = [TOP_RIGHT];
 
-
-
-      console.log("attackern " + attackers.length + " " + Memory.nAttackerId)
-
       if (southHarvesters.length < 2) {
         southHarvesters.push(name);
         parts = simpleParts;
@@ -220,15 +216,8 @@ function spawnCreepTypes(enAvail) {
           spawnDirection
         );
       } else if (attackers.length < 1 && Memory.nAttackerId) {
-
-
-
-
-
-
-
         parts = attackerParts;
-        name = "attacker" + t;
+        name = "att" + t;
         chosenRole = "attacker";
         direction = "north";
         attackers.push(name);
@@ -289,7 +278,7 @@ function spawnCreepTypes(enAvail) {
     }
   } else if (enAvail >= 1000 && !invaderId) {
     let t = Game.time.toString().slice(4);
-    let name = "harvester" + t;
+    let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
     let waitForRezzy = false;
@@ -312,26 +301,17 @@ function spawnCreepTypes(enAvail) {
       birth = true;
     } else if (attackers.length < 2 && Memory.nAttackerId) {
       parts = bigAttackerParts;
-      name = "attacker" + t;
+      name = "att" + t;
       chosenRole = "attacker";
       direction = "north";
       attackers.push(name);
-      birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
     } else if (southHarvesters.length < 4) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
     } else if (southtowerHarvesters.length < 4) {
       chosenRole = "southtowerHarvester";
-      name = chosenRole + t;
+      name = "sth" + t;
       harvesters.push(name);
       southtowerHarvesters.push(name);
       parts = southHvParts;
@@ -354,7 +334,7 @@ function spawnCreepTypes(enAvail) {
       westHarvesters.length < 4 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
-      name += "west";
+      name += "W";
       direction = "west";
       westHarvesters.push(name);
       birth = true;
@@ -371,7 +351,7 @@ function spawnCreepTypes(enAvail) {
       waitForRezzy = true;
       if (enAvail >= 650) {
         chosenRole = "northRezzy";
-        name = chosenRole;
+        name = "nRezzy" + t;
         direction = "north";
         parts = rezzyParts;
         birth = true;
@@ -382,7 +362,7 @@ function spawnCreepTypes(enAvail) {
     ) {
       waitForRezzy = true;
       chosenRole = "westRezzy";
-      name = chosenRole;
+      name = "wRezzy" + t;
       direction = "west";
       parts = rezzyParts;
       birth = true;
@@ -392,7 +372,7 @@ function spawnCreepTypes(enAvail) {
     ) {
       waitForRezzy = true;
       chosenRole = "eastRezzy";
-      name = chosenRole;
+      name = "eRezzy" + t;
       direction = "east";
       parts = upContrParts;
       birth = true;

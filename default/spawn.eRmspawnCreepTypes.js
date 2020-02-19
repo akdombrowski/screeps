@@ -80,6 +80,7 @@ function spawnCreepTypes(enAvail) {
   let s2 = Game.spawns.s2;
 
   let attackers = Memory.attackers || [];
+  let eattackers = Memory.eattackers || [];
 
   // 300
   let upContrParts = [];
@@ -133,6 +134,11 @@ function spawnCreepTypes(enAvail) {
   addPart(southHvParts, 1, CARRY);
   addPart(southHvParts, 9, WORK);
   addPart(southHvParts, 3, MOVE);
+
+  // 800
+  let attackerMedParts = [];
+  addPart(attackerMedParts, 8, ATTACK);
+  addPart(attackerMedParts, 3, MOVE);
 
   // 1100
   let newhvParts = [];
@@ -200,21 +206,16 @@ function spawnCreepTypes(enAvail) {
     //   eeUps.push(name);
     //   birth = true;
     // }
-    else if (attackers.length < 1 && Memory.neAttackerId) {
+    else if (eattackers.length < 1 && Memory.neAttackerId) {
+      console.log(
+        "neattacker " + Memory.neAttackerId + " " + eattackers.length
+      );
       parts = attackerParts;
       name = "eatt" + t;
       chosenRole = "attacker";
       direction = "ne";
-      attackers.push(name);
-      birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
+      birth = true;
+      eattackers.push(name);
     } else if (ermNeHarvesters.length < 2) {
       ermHarvesters.push(name);
       name = "h" + t + "NE";
@@ -268,7 +269,14 @@ function spawnCreepTypes(enAvail) {
     let birth = false;
     let buildRoom = "E37N31";
 
-    if (eastUpControllers.length < 2) {
+    if (eattackers.length < 2 && Memory.neAttackerId) {
+      parts = attackerMedParts;
+      name = "eatt" + t;
+      chosenRole = "attacker";
+      direction = "ne";
+      eattackers.push(name);
+      birth = true;
+    } else if (eastUpControllers.length < 2) {
       chosenRole = "eRezzy";
       name = chosenRole + t;
       direction = "east";
@@ -334,7 +342,14 @@ function spawnCreepTypes(enAvail) {
     let sourceDir = "";
     let buildRoom = "E37N31";
 
-    if (ermNeHarvesters.length < 6) {
+    if (eattackers.length < 3 && Memory.neAttackerId) {
+      parts = attackerBigParts;
+      name = "eatt" + t;
+      chosenRole = "attacker";
+      direction = "ne";
+      eattackers.push(name);
+      birth = true;
+    } else if (ermNeHarvesters.length < 6) {
       ermNeHarvesters.push(name);
       parts = mednewhvParts;
       sourceDir = "north";
@@ -379,6 +394,7 @@ function spawnCreepTypes(enAvail) {
   Memory.westHarvesters = westHarvesters;
   Memory.linkGets = linkGets;
 
+  Memory.eattackers = eattackers;
   Memory.eastHarvesters = eastHarvesters;
   Memory.eastWorkers = eastWorkers;
   Memory.eastUpControllers = eastUpControllers;

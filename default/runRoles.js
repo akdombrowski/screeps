@@ -29,6 +29,7 @@ function runRoles() {
   let upControllers = [];
   let roadRepairers = [];
   let attackers = [];
+  let eattackers = [];
   let claimers = [];
   let northHarvesters = [];
   let southHarvesters = [];
@@ -190,13 +191,15 @@ function runRoles() {
       claimers.push(name);
       roll = "c";
       claim(creep, "E37N31", "", "", "", "5bbcaf1b9099fc012e63a2dd");
-    } else if (roll === "a" || name.startsWith("a")) {
-      attackers.push(creep);
+    } else if (roll === "a" || roll === "attacker" || name.startsWith("a")) {
       if (creep.memory.direction === "north") {
+        attackers.push(name);
         roleAttackerN.run(creep);
       } else if (creep.memory.direction === "ne") {
+        eattackers.push(name);
         roleAttackerNE.run(creep);
       } else {
+        attackers.push(name);
         if (creep.pos.isNearTo(invader)) {
           creep.attack(invader);
         } else if (invader) {
@@ -223,6 +226,7 @@ function runRoles() {
   Memory.upControllers = upControllers;
   Memory.roadRepairers = roadRepairers;
   Memory.attackers = attackers;
+  Memory.eattackers = eattackers;
   Memory.claimers = claimers;
   Memory.northHarvesters = northHarvesters;
   Memory.westHarvesters = westHarvesters;

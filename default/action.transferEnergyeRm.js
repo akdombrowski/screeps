@@ -7,8 +7,50 @@ function traneRm(creep, flag, dest) {
   let name = creep.name;
   let retval = -16;
   let extensionNeedsEnergy = false;
+  let towerId1 = "5d0f99d929c9cb5363cba23d";
+  let towerId2 = "5d352664dbfe1b628e86ecff";
+  let tower1 = Game.getObjectById(towerId1);
+  let tower2 = Game.getObjectById(towerId2);
+  let towers = [tower1, tower2];
+  let enAvail = creep.room.energyAvailable;
 
   if (creep.room.name === "E36N31") {
+    if (target && target.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
+      target = null;
+    }
+
+    if (
+      target &&
+      target.structureType === STRUCTURE_TOWER &&
+      rm &&
+      enAvail < 1000
+    ) {
+      target = null;
+    }
+
+    if (enAvail > 1000) {
+      target = towers[0];
+      target = _.find(towers, tower => {
+        // tower doesn't exist or doesn't have an energy component
+        if (!tower) {
+          return false;
+        }
+
+        // tower has free space
+        if (tower.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
+          return tower;
+        }
+
+        // current target tower has more energy than this tower, switch to this tower
+        if (
+          tower.store.getFreeCapacity(RESOURCE_ENERGY) >
+          target.store.getFreeCapacity(RESOURCE_ENERGY)
+        ) {
+          return tower;
+        }
+      });
+    }
+
     if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
       target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
         filter: structure => {

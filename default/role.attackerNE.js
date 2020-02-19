@@ -33,19 +33,28 @@ const roleAttacker = {
       }
       return retval;
     } else if (rm.name === "E36N31") {
-      retval = smartMove(creep, neExit1, 3);
+      console.log("exit pos " + neExit1.pos.x);
+      if (creep.pos.y <= 1) {
+        if (creep.pos.x > neExit1.pos.x) {
+          creep.move(LEFT);
+        } else {
+          retval = creep.move(TOP);
+        }
+      } else {
+        retval = smartMove(creep, neExit1, 1);
+      }
       return retval;
     }
 
-   let enemyCreeps = rm.find(FIND_HOSTILE_STRUCTURES);
+    let enemyCreeps = rm.find(FIND_HOSTILE_STRUCTURES);
 
-   if(!enemyCreeps) {
-     enemyCreeps = rm.find(FIND_HOSTILE_CREEPS);
-   }
+    if (!enemyCreeps) {
+      enemyCreeps = rm.find(FIND_HOSTILE_CREEPS);
+    }
 
-   if(!enemyCreeps) {
-     enemyCreeps = rm.find(FIND_HOSTILE_SPAWNS);
-   }
+    if (!enemyCreeps) {
+      enemyCreeps = rm.find(FIND_HOSTILE_SPAWNS);
+    }
 
     invader = enemyCreeps.pop();
     if (creep.pos.isNearTo(invader)) {

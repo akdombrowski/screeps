@@ -26,9 +26,9 @@ function birthCreep(
         direction: direction,
         sourceId: sourceId,
         sourceDir: sourceDir,
-        buildRoom: buildRoom
+        buildRoom: buildRoom,
       },
-      directions: spawnDirection
+      directions: spawnDirection,
     });
   } else {
     retval = s2.spawnCreep(parts, name, {
@@ -37,8 +37,8 @@ function birthCreep(
         direction: direction,
         sourceId: sourceId,
         sourceDir: sourceDir,
-        buildRoom: buildRoom
-      }
+        buildRoom: buildRoom,
+      },
     });
   }
 
@@ -86,6 +86,11 @@ function spawnCreepTypes(enAvail) {
   addPart(upContrParts, 1, CARRY);
   addPart(upContrParts, 2, WORK);
   addPart(upContrParts, 1, MOVE);
+
+  // 290
+  let attackerParts = [];
+  addPart(attackerParts, 3, ATTACK);
+  addPart(attackerParts, 1, MOVE);
 
   // 800
   let medupContrParts = [];
@@ -185,7 +190,8 @@ function spawnCreepTypes(enAvail) {
       direction = "east";
       parts = simpleParts;
       eastUpControllers.push(name);
-      birth = true;}
+      birth = true;
+    }
     // } else if (eeUps.length < 2) {
     //   chosenRole = "eeUp";
     //   name = chosenRole + t;
@@ -194,7 +200,22 @@ function spawnCreepTypes(enAvail) {
     //   eeUps.push(name);
     //   birth = true;
     // }
-    else if (ermNeHarvesters.length < 2) {
+    else if (attackers.length < 1 && Memory.neAttackerId) {
+      parts = attackerParts;
+      name = "eatt" + t;
+      chosenRole = "attacker";
+      direction = "ne";
+      attackers.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (ermNeHarvesters.length < 2) {
       ermHarvesters.push(name);
       name = "h" + t + "NE";
       parts = basicHv;

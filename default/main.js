@@ -209,6 +209,9 @@ module.exports.loop = function() {
     if (tower2) {
       roleTower.run(tower2);
     }
+    if (etower1) {
+      roleTower.run(etower1);
+    }
 
     if (!Memory.e35n31fixables || Memory.e35n31fixables.length < 4) {
       Memory.e35n31fixables = findDecayed("E35N31");

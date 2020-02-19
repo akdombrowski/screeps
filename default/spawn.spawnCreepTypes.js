@@ -209,7 +209,7 @@ function spawnCreepTypes(enAvail) {
           sourceId,
           spawnDirection
         );
-      } else if (attackers.length < 0) {
+      } else if (attackers.length < 1 && Memory.nAttackerId) {
         parts = attackerParts;
         name = "attacker" + t;
         chosenRole = "attacker";

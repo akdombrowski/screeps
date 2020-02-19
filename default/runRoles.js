@@ -17,6 +17,7 @@ const claim = require("./action.claimIt");
 const roleEEUp = require("./role.eeUpgradeController");
 const roleEEWorker = require("./role.worker");
 const roleAttackerN = require("./role.attackerN");
+const roleAttackerNE = require("./role.attackerNE");
 
 function runRoles() {
   let i = 0;
@@ -193,6 +194,8 @@ function runRoles() {
       attackers.push(creep);
       if (creep.memory.direction === "north") {
         roleAttackerN.run(creep);
+      } else if (creep.memory.direction === "ne") {
+        roleAttackerNE.run(creep);
       } else {
         if (creep.pos.isNearTo(invader)) {
           creep.attack(invader);

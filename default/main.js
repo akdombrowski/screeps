@@ -78,11 +78,17 @@ module.exports.loop = function() {
 
     let tower1Id = "5cf3b09b75f7e26764ee4276";
     let tower2Id = "5d0182c6667a4642d4259e3f";
-    let tower3Id = "5d55c927ea104379d90d9176";
+    let tower3Id = "5e4cf7096fffaff8b64d9bb4";
+    let tower4Id = "5e4d2bd662e847fc90b61a78";
+    let tower5Id = "5e4d35b6388a326ccea12cb8";
+    let tower6Id = "5d55c927ea104379d90d9176";
     let etower1Id = "5d0f99d929c9cb5363cba23d";
     let tower1 = Game.getObjectById(tower1Id);
     let tower2 = Game.getObjectById(tower2Id);
     let tower3 = Game.getObjectById(tower3Id);
+    let tower4 = Game.getObjectById(tower4Id);
+    let tower5 = Game.getObjectById(tower5Id);
+    let tower6 = Game.getObjectById(tower6Id);
     let etower1 = Game.getObjectById(etower1Id);
 
     let rmControllerId = Memory.rmControllerId || "5bbcaefa9099fc012e639e90";
@@ -144,6 +150,9 @@ module.exports.loop = function() {
     Memory.tower1Id = tower1Id;
     Memory.tower2Id = tower2Id;
     Memory.tower3Id = tower3Id;
+    Memory.tower4Id = tower4Id;
+    Memory.tower5Id = tower5Id;
+    Memory.tower6Id = tower6Id;
     Memory.etower1Id = etower1Id;
 
     Memory.enAvail = enAvail;
@@ -168,6 +177,22 @@ module.exports.loop = function() {
 
       if (tower2) {
         tower2.attack(invader);
+      }
+
+      if(tower3) {
+        tower3.attack(invader);
+      }
+
+      if (tower4) {
+        tower4.attack(invader);
+      }
+
+      if (tower5) {
+        tower5.attack(invader);
+      }
+
+      if (tower6) {
+        tower6.attack(invader);
       }
     }
 
@@ -214,6 +239,18 @@ module.exports.loop = function() {
     }
     if (tower2) {
       roleTower.run(tower2);
+    }
+    if(tower3) {
+      roleTower.run(tower3);
+    }
+    if (tower4) {
+      roleTower.run(tower4);
+    }
+    if (tower5) {
+      roleTower.run(tower5);
+    }
+    if (tower6) {
+      roleTower.run(tower6);
     }
     if (etower1) {
       roleTower.run(etower1);

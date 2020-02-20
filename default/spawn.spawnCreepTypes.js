@@ -179,7 +179,7 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  if (southHarvesters.length < 3 && !invaderId) {
+  if (southHarvesters.length < 5 && !invaderId) {
     if (enAvail >= 300) {
       let t = Game.time.toString().slice(4);
       let name = "h" + t;
@@ -189,7 +189,7 @@ function spawnCreepTypes(enAvail) {
       let parts = simpleParts;
       let spawnDirection = [TOP_RIGHT];
 
-      if (southHarvesters.length < 2) {
+      if (southHarvesters.length < 4) {
         southHarvesters.push(name);
         parts = simpleParts;
         birthCreep(
@@ -305,11 +305,11 @@ function spawnCreepTypes(enAvail) {
       chosenRole = "attacker";
       direction = "north";
       attackers.push(name);
-    } else if (southHarvesters.length < 4) {
+    } else if (southHarvesters.length < 7) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
-    } else if (southtowerHarvesters.length < 4) {
+    } else if (southtowerHarvesters.length < 6) {
       chosenRole = "southtowerHarvester";
       name = "sth" + t;
       harvesters.push(name);

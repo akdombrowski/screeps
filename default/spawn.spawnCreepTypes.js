@@ -187,7 +187,7 @@ function spawnCreepTypes(enAvail) {
       let direction = "south";
       let sourceId = Memory.source2;
       let parts = simpleParts;
-      let spawnDirection = [TOP_RIGHT];
+      let spawnDirection = [BOTTOM];
 
       if (southHarvesters.length < 4) {
         southHarvesters.push(name);
@@ -284,7 +284,7 @@ function spawnCreepTypes(enAvail) {
     let waitForRezzy = false;
     let sourceId = Memory.source2;
     let parts = newhvParts;
-    let spawnDirection = [TOP_RIGHT];
+    let spawnDirection = [BOTTOM];
     let birth = false;
 
     if (linkGets.length < 1 && Memory.harvester1) {

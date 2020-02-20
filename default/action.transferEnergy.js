@@ -69,7 +69,7 @@ function tran(creep, flag, dest) {
       }
 
       // current target tower has more energy than this tower, switch to this tower
-      if (tower.store.getFreeCapacity(RESOURCE_ENERGY) > target.store.getFreeCapacity(RESOURCE_ENERGY)) {
+      if (tower.store.getFreeCapacity([RESOURCE_ENERGY]) > target.store.getFreeCapacity([RESOURCE_ENERGY])) {
         return tower;
       }
     });

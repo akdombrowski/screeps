@@ -64,13 +64,8 @@ function tran(creep, flag, dest) {
     target = towers[0];
     target = _.find(towers, tower => {
       // tower doesn't exist or doesn't have an energy component
-      if (!tower) {
+      if (!tower.store) {
         return false;
-      }
-
-      // tower has free space
-      if (tower.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
-        return tower;
       }
 
       // current target tower has more energy than this tower, switch to this tower

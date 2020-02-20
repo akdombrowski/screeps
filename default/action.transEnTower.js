@@ -12,8 +12,11 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   let tower1 = Game.getObjectById(Memory.tower1Id);
   let tower2 = Game.getObjectById(Memory.tower2Id);
   let tower3 = Game.getObjectById(Memory.tower3Id);
+  let tower4 = Game.getObjectById(Memory.tower4Id);
+  let tower5 = Game.getObjectById(Memory.tower5Id);
+  let tower6 = Game.getObjectById(Memory.tower6Id);
   let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
-  let towers = [tower1, tower2, tower3, ermtower1];
+  let towers = [tower1, tower2, tower3, tower4, tower5, tower6, ermtower1];
   let enAvail = rm.energyAvailable;
   let myTowers = creep.memory.myTowers || [];
   let towers4En = [];
@@ -59,30 +62,23 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
       creep.memory.transferTower = true;
     }
 
-    target = myTowers[0];
+    target = null;
 
-    if (creep.memory.direction === "south") {
-      // console.log(name + " starting tower " + JSON.stringify(target));
-    }
-
-    target = _.find(myTowers, tower => {
+    target = _.find(towers, tower => {
       // tower doesn't exist or doesn't have an energy component
-      if (!tower) {
+      if (!tower.store[RESOURCE_ENERGY]) {
         return false;
       }
 
-      // tower has less than 900 energy units
-      if (tower.energy < 900) {
-        return tower;
-      }
-
       // current target tower has more energy than this tower, switch to this tower
-      if (tower.energy < target.energy) {
+      if (
+        tower.store[RESOURCE_ENERGY] < target.store[RESOURCE_ENERGY]
+      ) {
         return tower;
       }
     });
 
-    if (target && !target.energy && target.energy >= target.energyCapacity) {
+    if (!target.stOre.getFreeCapacity([RESOURCE_ENERGY]) <= 0) {
       target = null;
     }
   }
@@ -91,10 +87,6 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
     creep.say("wut tower?");
     creep.memory.transferTower = false;
     return ERR_NOT_FOUND;
-  }
-
-  if (creep.memory.direction === "south") {
-    // console.log(name + " going to transfer to tower, isnearto " + creep.pos.isNearTo(target.pos));
   }
 
   if (target && creep.pos.isNearTo(target.pos)) {

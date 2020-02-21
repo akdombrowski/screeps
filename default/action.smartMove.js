@@ -18,6 +18,7 @@ function smartMove(
   let rm = creep.room;
   let name = creep.name;
   let pos = creep.pos;
+  let desPath;
   ignoreCreeps = ignoreCreeps;
   pathColor = pathColor || "#ffffff";
   pathMem = Math.random() * 10 - 1;
@@ -41,6 +42,7 @@ function smartMove(
     );
 
     try {
+      console.log(creep.memory.path);
       creep.memory.path = Room.serializePath(path);
       desPath = path;
     } catch (err) {
@@ -49,8 +51,8 @@ function smartMove(
         desPath = Room.deserializePath(path);
         creep.memory.path = path;
       } catch (e) {
-        console.log(name + ' cant des either ' + path)
-        path = null
+        console.log(name + " cant des either " + path);
+        path = null;
         creep.memory.path = path;
       }
     }
@@ -66,7 +68,6 @@ function smartMove(
     return retval;
   }
 
-  desPath = path;
 
   // Check if 1st path try, or path from memory, gets us where we want to go.
   if (path) {
@@ -87,18 +88,6 @@ function smartMove(
   }
 
   if (desPath) {
-    if (desPath instanceof String) {
-      try {
-        desPath = Room.deserializePath(desPath);
-      } catch (err) {
-        // ignore. desPath is a string but isn't deserializable? what is it?!? it's not null. i don't know. should we be able to serialize then deserialize then serialize?
-        creep.memory.path = null;
-        creep.say("bad path");
-        return retval;
-      }
-    }
-
-    creep.memory.path = path;
     try {
       retval = creep.moveByPath(desPath);
     } catch (err) {

@@ -276,7 +276,7 @@ function spawnCreepTypes(enAvail) {
         );
       }
     }
-  } else if (enAvail >= 1000 && !invaderId) {
+  } else if (enAvail >= 1000 && !invaderId && Memory.harvester1) {
     let t = Game.time.toString().slice(4);
     let name = "harv" + t;
     let chosenRole = "h";

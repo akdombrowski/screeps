@@ -16,7 +16,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   let tower5 = Game.getObjectById(Memory.tower5Id);
   let tower6 = Game.getObjectById(Memory.tower6Id);
   let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
-  let towers = [tower1, tower2, tower3, tower4, tower5, tower6, ermtower1];
+  let towers = [tower1, tower2, tower3, tower4, tower5, tower6];
   let enAvail = rm.energyAvailable;
   let myTowers = creep.memory.myTowers || [];
   let towers4En = [];
@@ -35,38 +35,14 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
     creep.memory.dest.structureType === STRUCTURE_TOWER
   ) {
     target = Game.getObjectById(creep.memory.dest);
-  } else {
-    if (myTowers.length <= 0) {
-      if (direction === "east") {
-        myTowers.push(towers[2]);
-      } else if (direction === "south") {
-        myTowers.push(towers[0]);
-        myTowers.push(towers[1]);
-      } else if (direction) {
-        myTowers.push(towers[0]);
-        myTowers.push(towers[1]);
-      } else {
-        rm.find(FIND_STRUCTURES, {
-          filter: struct => {
-            let type = struct.structureType;
-            if (type === STRUCTURE_TOWER) {
-              myTowers.push(struct.id);
-            }
-          },
-        });
-      }
-      creep.memory.myTowers = myTowers;
-    }
+  } else if (creep.store[RESOURCE_ENERGY] > 0) {
+    creep.memory.transferTower = true;
 
-    if (creep.store[RESOURCE_ENERGY] > 0) {
-      creep.memory.transferTower = true;
-    }
-
-    target = null;
+    target = towers[0];
 
     target = _.find(towers, tower => {
       // tower doesn't exist or doesn't have an energy component
-      if (!tower || !tower.store.getFreeCapacity([RESOURCE_ENERGY])) {
+      if (!tower || !!tower.store || !tower.store.getFreeCapacity([RESOURCE_ENERGY])) {
         return false;
       }
 
@@ -124,7 +100,6 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
 
     creep.memory.dest = target.id;
   } else {
-    console.log("else " + name);
     console.log(name + " no target switching off of transentower");
     creep.memory.dest = null;
     creep.say("t.err");
@@ -134,6 +109,8 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
     creep.memory.transfer = false;
     creep.memory.transferTower = false;
     creep.memory.path = null;
+
+    creep.memory.dest = null;
   }
 
   return retval;

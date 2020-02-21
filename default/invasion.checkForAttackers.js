@@ -28,7 +28,7 @@ function checkForAttackers() {
       if (enemyCreeps) {
         let enemyCreep = enemyCreeps.pop();
         if (enemyCreep) {
-          console.log("nrm enemyCreep spotted " + JSON.stringify(enemyCreep));
+          console.log("nrm enemyCreep spotted ");
           attackerId = enemyCreep.id;
         }
       }
@@ -55,7 +55,7 @@ function checkForAttackers() {
       if (enemyCreeps) {
         let enemyCreep = enemyCreeps.pop();
         if (enemyCreep) {
-          console.log("erm enemyCreep spotted " + JSON.stringify(enemyCreep));
+          console.log("erm enemyCreep spotted ");
           attackerId = enemyCreep.id;
         }
       }
@@ -114,7 +114,7 @@ function checkForAttackers() {
 
   if (
     neRm &&
-    (!Memory.nrAttackerId || Game.time >= neAttackDurationSafeCheck)
+    (!Memory.neAttackerId || Game.time >= neAttackDurationSafeCheck)
   ) {
     attackerId = getAttackEvents(neRm);
     if (!attackerId) {
@@ -131,7 +131,7 @@ function checkForAttackers() {
       if (enemyCreeps) {
         let enemyCreep = enemyCreeps.pop();
         if (enemyCreep) {
-          console.log("nerm enemyCreep spotted " + JSON.stringify(enemyCreep));
+          console.log("nerm enemyCreep spotted ");
           attackerId = enemyCreep.id;
         }
       }
@@ -140,7 +140,7 @@ function checkForAttackers() {
     Memory.neAttackerId = attackerId;
     if (attackerId) {
       Memory.neAttackDurationSafeCheck = Game.time + 1000;
-      console.log("neAttacker:" + attackerId);
+      console.log("attacker:" + attackerId);
     }
   }
 }

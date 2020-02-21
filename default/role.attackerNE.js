@@ -33,7 +33,6 @@ const roleAttacker = {
       }
       return retval;
     } else if (rm.name === "E36N31") {
-      console.log("exit pos " + neExit1.pos.x);
       if (creep.pos.y <= 1) {
         if (creep.pos.x > neExit1.pos.x) {
           creep.move(LEFT);

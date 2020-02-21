@@ -42,9 +42,17 @@ function smartMove(
 
     try {
       creep.memory.path = Room.serializePath(path);
+      desPath = path;
     } catch (err) {
       // got an error above because either already serialized path or null
-      creep.memory.path = path;
+      try {
+        desPath = Room.deserializePath(path);
+        creep.memory.path = path;
+      } catch (e) {
+        console.log(name + ' cant des either ' + path)
+        path = null
+        creep.memory.path = path;
+      }
     }
   }
 
@@ -58,26 +66,25 @@ function smartMove(
     return retval;
   }
 
-  let desPath = path;
+  desPath = path;
 
   // Check if 1st path try, or path from memory, gets us where we want to go.
-  if (creep.memory.path) {
-    retval = creep.moveTo(dest, {
-      reusePath: pathMem,
-      ignoreCreeps: ignoreCreeps,
-      range: range,
-      maxOps: maxOps,
-      serializeMemory: true,
-      noPathFinding: noPathFinding,
-      visualizePathStyle: { stroke: pathColor },
-    });
+  if (path) {
+    // retval = creep.moveTo(dest, {
+    //   reusePath: pathMem,
+    //   ignoreCreeps: ignoreCreeps,
+    //   range: range,
+    //   maxOps: maxOps,
+    //   serializeMemory: true,
+    //   noPathFinding: noPathFinding,
+    //   visualizePathStyle: { stroke: pathColor },
+    // });
   }
 
-  if(retval === OK) {
-    creep.say("remember the way")
+  if (retval === OK) {
+    creep.say("remember the way");
     return retval;
   }
-
 
   if (desPath) {
     if (desPath instanceof String) {

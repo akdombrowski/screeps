@@ -208,7 +208,7 @@ function spawnCreepTypes(enAvail) {
     // }
     else if (eattackers.length < 1 && Memory.neAttackerId) {
       console.log(
-        "neattacker " + Memory.neAttackerId + " " + eattackers.length
+        "neattacker " + Memory.neAttackerId + " " + eattackers.length + " " + enAvail
       );
       parts = attackerParts;
       name = "eatt" + t;

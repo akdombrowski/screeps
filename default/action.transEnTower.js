@@ -66,19 +66,20 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
 
     target = _.find(towers, tower => {
       // tower doesn't exist or doesn't have an energy component
-      if (!tower.store[RESOURCE_ENERGY]) {
+      if (!tower || !tower.store.getFreeCapacity([RESOURCE_ENERGY])) {
         return false;
       }
 
       // current target tower has more energy than this tower, switch to this tower
       if (
-        tower.store[RESOURCE_ENERGY] < target.store[RESOURCE_ENERGY]
+        tower.store.getFreeCapacity([RESOURCE_ENERGY]) >
+        target.store.getFreeCapacity([RESOURCE_ENERGY])
       ) {
         return tower;
       }
     });
 
-    if (!target.stOre.getFreeCapacity([RESOURCE_ENERGY]) <= 0) {
+    if (target.store.getFreeCapacity([RESOURCE_ENERGY]) <= 0) {
       target = null;
     }
   }

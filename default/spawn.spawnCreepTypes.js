@@ -182,7 +182,7 @@ function spawnCreepTypes(enAvail) {
   if (southHarvesters.length < 5 && !invaderId) {
     if (enAvail >= 300) {
       let t = Game.time.toString().slice(4);
-      let name = "h" + t;
+      let name = "harv" + t;
       let chosenRole = "h";
       let direction = "south";
       let sourceId = Memory.source2;
@@ -278,7 +278,7 @@ function spawnCreepTypes(enAvail) {
     }
   } else if (enAvail >= 1000 && !invaderId) {
     let t = Game.time.toString().slice(4);
-    let name = "h" + t;
+    let name = "harv" + t;
     let chosenRole = "h";
     let direction = "south";
     let waitForRezzy = false;

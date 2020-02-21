@@ -19,6 +19,7 @@ function getAPath(
   let pos = creep.pos;
   let lastStop;
   let desPath;
+  let serPath;
   let isOnPath;
   let checkLastStop;
   ignoreCreeps = ignoreCreeps;
@@ -36,6 +37,7 @@ function getAPath(
     creep.say("out of my way creep");
     path = null;
     creep.memory.path = path;
+    return path;
   }
 
   let destPos = dest;
@@ -49,9 +51,8 @@ function getAPath(
       destPos = new RoomPosition(dest.pos.x, dest.pos.y, rmName);
     }
   } else {
-    return ERR_INVALID_TARGET;
+    return null;
   }
-
 
   let opts;
 
@@ -79,7 +80,8 @@ function getAPath(
               costs.set(struct.pos.x, struct.pos.y, 0);
             } else if (
               (struct.structureType !== STRUCTURE_CONTAINER &&
-              struct.structureType !== STRUCTURE_RAMPART) || !struct.my
+                struct.structureType !== STRUCTURE_RAMPART) ||
+              !struct.my
             ) {
               // Can't walk through non-walkable buildings
               costs.set(struct.pos.x, struct.pos.y, 0xff);
@@ -104,27 +106,19 @@ function getAPath(
 
     path = ret.path;
   } else {
+    serPath = Room.serializePath(path);
     try {
-      desPath = Room.deserializePath(path);
-      creep.memory.path = path;
+      desPath = Room.deserializePath(serPath);
     } catch (err) {
-      // ignore
+      creep.memory.path = null;
+      return null;
     }
-    path.shift();
   }
 
-  if (path instanceof String) {
-    desPath = Room.deserializePath(path);
-    creep.memory.path = path;
-  } else {
-    try {
-      let serPath = Room.serializePath(path);
-      creep.memory.path = serPath;
-    } catch (err) {
-      // ignore
-    }
-    desPath = path;
-  }
+  desPath = path;
+  creep.memory.path = path;
+
+  // path.shift();
 
   if (desPath) {
     lastStop = desPath[desPath.length - 1];
@@ -176,7 +170,7 @@ function getAPath(
   // Check if 1st path try, or path from memory, gets us where we want to go.
   if (desPath && checkLastStop && isOnPath) {
     creep.memory.path = path;
-    return desPath;
+    return path;
 
     retval = creep.moveByPath(path, {
       visualizePathStyle: {
@@ -200,6 +194,7 @@ function getAPath(
       // second chance path was also out of range
     }
   } else {
+    console.log(creep.name + " p: " + checkLastStop + " " + isOnPath);
     path = null;
     creep.memory.path = null;
   }
@@ -237,6 +232,7 @@ function getAPath(
   // }
 
   creep.say("gap." + retval);
+  console.log(creep.name + " retval: " + path);
   return null;
 }
 

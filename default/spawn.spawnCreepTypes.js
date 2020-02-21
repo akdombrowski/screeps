@@ -179,7 +179,30 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  if (southHarvesters.length < 5 && !invaderId) {
+  if (enAvail >= 300 && attackers.length < 1 && Memory.nAttackerId) {
+    let t = Game.time.toString().slice(4);
+    let name = "harv" + t;
+    let chosenRole = "h";
+    let direction = "south";
+    let sourceId = Memory.source2;
+    let parts = simpleParts;
+    let spawnDirection = [BOTTOM];
+
+    parts = attackerParts;
+    name = "att" + t;
+    chosenRole = "attacker";
+    direction = "north";
+    attackers.push(name);
+    birthCreep(
+      s1,
+      parts,
+      name,
+      chosenRole,
+      direction,
+      sourceId,
+      spawnDirection
+    );
+  } else if (southHarvesters.length < 5 && !invaderId) {
     if (enAvail >= 300) {
       let t = Game.time.toString().slice(4);
       let name = "harv" + t;
@@ -206,21 +229,6 @@ function spawnCreepTypes(enAvail) {
         name = "upc" + t;
         upControllers.push(name);
         chosenRole = "upController";
-        birthCreep(
-          s1,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection
-        );
-      } else if (attackers.length < 1 && Memory.nAttackerId) {
-        parts = attackerParts;
-        name = "att" + t;
-        chosenRole = "attacker";
-        direction = "north";
-        attackers.push(name);
         birthCreep(
           s1,
           parts,
@@ -277,6 +285,7 @@ function spawnCreepTypes(enAvail) {
       }
     }
   } else if (enAvail >= 1000 && !invaderId && Memory.harvester1) {
+    console.log("birth attacker");
     let t = Game.time.toString().slice(4);
     let name = "harv" + t;
     let chosenRole = "h";
@@ -323,7 +332,7 @@ function spawnCreepTypes(enAvail) {
       roadRepairers.push(name);
       birth = true;
     } else if (
-      northHarvesters.length < 0 &&
+      northHarvesters.length < 4 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {
       name += "N";

@@ -18,7 +18,7 @@ function tran(creep, flag, dest) {
   let tower5 = Game.getObjectById(Memory.tower5Id);
   let tower6 = Game.getObjectById(Memory.tower6Id);
   let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
-  let towers = [tower1, tower2, tower3, tower4, tower5, tower6, ermtower1];
+  let towers = [tower1, tower2, tower3, tower4, tower5, tower6];
   let enAvail = rm.energyAvailable;
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {
@@ -64,12 +64,12 @@ function tran(creep, flag, dest) {
     target = towers[0];
     target = _.find(towers, tower => {
       // tower doesn't exist or doesn't have an energy component
-      if (!tower.store) {
+      if (!tower1) {
         return false;
       }
 
       // current target tower has more energy than this tower, switch to this tower
-      if (tower.store.getFreeCapacity([RESOURCE_ENERGY]) > target.store.getFreeCapacity([RESOURCE_ENERGY])) {
+      if (target && tower.store.getFreeCapacity([RESOURCE_ENERGY]) > target.store.getFreeCapacity([RESOURCE_ENERGY])) {
         return tower;
       }
     });

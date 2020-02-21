@@ -171,6 +171,7 @@ function spawnCreepTypes(enAvail) {
   let eAttackerId = Memory.eAttackerId;
   let wAttackerId = Memory.wAttackerId;
   let nAttackerId = Memory.nAttackerId;
+  let neAttackerId = Memory.neAttackerId;
   let invaderId = Memory.invaderId;
 
   if (enAvail >= 300) {
@@ -206,7 +207,7 @@ function spawnCreepTypes(enAvail) {
     //   eeUps.push(name);
     //   birth = true;
     // }
-    else if (eattackers.length < 1 && Memory.neAttackerId) {
+    else if (eattackers.length < 1 && neAttackerId) {
       console.log(
         "neattacker " + Memory.neAttackerId + " " + eattackers.length + " " + enAvail
       );
@@ -216,7 +217,7 @@ function spawnCreepTypes(enAvail) {
       direction = "ne";
       birth = true;
       eattackers.push(name);
-    } else if (ermNeHarvesters.length < 2) {
+    } else if (ermNeHarvesters.length < 2 && !neAttackerId) {
       ermHarvesters.push(name);
       name = "h" + t + "NE";
       parts = basicHv;
@@ -269,7 +270,7 @@ function spawnCreepTypes(enAvail) {
     let birth = false;
     let buildRoom = "E37N31";
 
-    if (eattackers.length < 2 && Memory.neAttackerId) {
+    if (eattackers.length < 2 && neAttackerId) {
       parts = attackerMedParts;
       name = "eatt" + t;
       chosenRole = "attacker";
@@ -283,13 +284,13 @@ function spawnCreepTypes(enAvail) {
       parts = medupContrParts;
       eastUpControllers.push(name);
       birth = true;
-    } else if (ermNeHarvesters.length < 4) {
+    } else if (ermNeHarvesters.length < 4 && !neAttackerId) {
       ermNeHarvesters.push(name);
       name = "h" + t + "NE";
       parts = mednewhvParts;
       sourceDir = "north1";
       birth = true;
-    } else if (etowerHarvesters.length < 1) {
+    } else if (etowerHarvesters.length < 2) {
       chosenRole = "etowerHarvester";
       name = chosenRole + t;
       etowerHarvesters.push(name);
@@ -309,6 +310,11 @@ function spawnCreepTypes(enAvail) {
       direction = "east";
       parts = medupContrParts;
       eastUpControllers.push(name);
+      birth = true;
+    } else {
+      ermHarvesters.push(name);
+      parts = mednewhvParts;
+      sourceDir = "east";
       birth = true;
     }
 

@@ -35,27 +35,32 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
     creep.memory.dest.structureType === STRUCTURE_TOWER
   ) {
     target = Game.getObjectById(creep.memory.dest);
-  } else if (creep.store[RESOURCE_ENERGY] > 0) {
-    creep.memory.transferTower = true;
+  } else {
 
-    target = towers[0];
+
+    if (creep.store[RESOURCE_ENERGY] > 0) {
+      creep.memory.transferTower = true;
+    }
+
+    target = null;
 
     target = _.find(towers, tower => {
       // tower doesn't exist or doesn't have an energy component
-      if (!tower || !!tower.store || !tower.store.getFreeCapacity([RESOURCE_ENERGY])) {
+      if (!tower || !tower.store.getFreeCapacity([RESOURCE_ENERGY])) {
         return false;
       }
 
       // current target tower has more energy than this tower, switch to this tower
-      if (
+      if (target &&
         tower.store.getFreeCapacity([RESOURCE_ENERGY]) >
         target.store.getFreeCapacity([RESOURCE_ENERGY])
       ) {
-        return tower;
+        return true;
       }
+      return false;
     });
 
-    if (target.store.getFreeCapacity([RESOURCE_ENERGY]) <= 0) {
+    if (target && target.store.getFreeCapacity([RESOURCE_ENERGY]) <= 0) {
       target = null;
     }
   }
@@ -109,8 +114,6 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
     creep.memory.transfer = false;
     creep.memory.transferTower = false;
     creep.memory.path = null;
-
-    creep.memory.dest = null;
   }
 
   return retval;

@@ -42,7 +42,6 @@ function smartMove(
     );
 
     try {
-      console.log(creep.memory.path);
       creep.memory.path = Room.serializePath(path);
       desPath = path;
     } catch (err) {

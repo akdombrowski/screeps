@@ -353,7 +353,7 @@ function spawnCreepTypes(enAvail) {
       waitForRezzy = true;
       if (enAvail >= 650) {
         chosenRole = "northRezzy";
-        name = "nRezzy" + t;
+        name = "rezzyN" + t;
         direction = "north";
         parts = rezzyParts;
         birth = true;
@@ -364,7 +364,7 @@ function spawnCreepTypes(enAvail) {
     ) {
       waitForRezzy = true;
       chosenRole = "westRezzy";
-      name = "wRezzy" + t;
+      name = "rezzyW" + t;
       direction = "west";
       parts = rezzyParts;
       birth = true;
@@ -374,7 +374,7 @@ function spawnCreepTypes(enAvail) {
     ) {
       waitForRezzy = true;
       chosenRole = "eastRezzy";
-      name = "eRezzy" + t;
+      name = "rezzyE" + t;
       direction = "east";
       parts = upContrParts;
       birth = true;
@@ -386,7 +386,7 @@ function spawnCreepTypes(enAvail) {
       birth = true;
     }
 
-    if ((!waitForRezzy || numCrps < 10 || name.endsWith("Rezzy")) && birth) {
+    if ((!waitForRezzy || numCrps < 10 || name.startsWith("rezzy")) && birth) {
       birthCreep(
         s1,
         parts,

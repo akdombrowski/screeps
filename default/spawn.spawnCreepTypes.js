@@ -284,8 +284,7 @@ function spawnCreepTypes(enAvail) {
         );
       }
     }
-  } else if (enAvail >= 1000 && !invaderId && Memory.harvester1) {
-    console.log("birth attacker");
+  } else if (enAvail >= 1000 && !invaderId) {
     let t = Game.time.toString().slice(4);
     let name = "harv" + t;
     let chosenRole = "h";
@@ -302,11 +301,12 @@ function spawnCreepTypes(enAvail) {
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
-    } else if (upControllers.length < 2) {
-      parts = upContrParts;
-      name = "upc" + t;
-      chosenRole = "upController";
-      upControllers.push(name);
+    } else if (southtowerHarvesters.length < 6) {
+      chosenRole = "southtowerHarvester";
+      name = "sth" + t;
+      harvesters.push(name);
+      southtowerHarvesters.push(name);
+      parts = southHvParts;
       birth = true;
     } else if (attackers.length < 2 && Memory.nAttackerId) {
       parts = bigAttackerParts;
@@ -316,13 +316,6 @@ function spawnCreepTypes(enAvail) {
       attackers.push(name);
     } else if (southHarvesters.length < 7) {
       southHarvesters.push(name);
-      parts = southHvParts;
-      birth = true;
-    } else if (southtowerHarvesters.length < 6) {
-      chosenRole = "southtowerHarvester";
-      name = "sth" + t;
-      harvesters.push(name);
-      southtowerHarvesters.push(name);
       parts = southHvParts;
       birth = true;
     } else if (roadRepairers.length < 2) {

@@ -44,7 +44,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
 
     target = null;
 
-    target = _.find(towers, tower => {
+    target = _.each(towers, tower => {
       // tower doesn't exist or doesn't have an energy component
       if (!tower || !tower.store.getFreeCapacity([RESOURCE_ENERGY])) {
         return false;
@@ -60,7 +60,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
       return false;
     });
 
-    if (target && target.store.getFreeCapacity([RESOURCE_ENERGY]) <= 0) {
+    if (target && target.store && target.store.getFreeCapacity([RESOURCE_ENERGY]) <= 0) {
       target = null;
     }
   }

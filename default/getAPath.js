@@ -27,19 +27,6 @@ function getAPath(
   pathMem = Math.random() * 100 - 1;
   maxOps = Math.random() * 2000;
 
-  blockage = moveAwayFromCreep(creep);
-  if (blockage) {
-    // console.log(name + " blockage " + blockage);
-
-    ignoreCreeps = false;
-    pathMem = 0;
-    noPathFinding = false;
-    creep.say("out of my way creep");
-    path = null;
-    creep.memory.path = path;
-    return path;
-  }
-
   let destPos = dest;
   if (destPos && (dest.room || dest.roomName)) {
     let rmName = dest.roomName;
@@ -106,12 +93,17 @@ function getAPath(
 
     path = ret.path;
   } else {
-    serPath = Room.serializePath(path);
     try {
-      desPath = Room.deserializePath(serPath);
-    } catch (err) {
-      creep.memory.path = null;
-      return null;
+      serPath = Room.serializePath(path);
+      try {
+        desPath = Room.deserializePath(serPath);
+      } catch (err) {
+        creep.memory.path = null;
+        console.log("here line 114");
+        return null;
+      }
+    } catch (e) {
+      desPath = path;
     }
   }
 
@@ -151,19 +143,19 @@ function getAPath(
       serialize: true,
     });
 
-    if (path instanceof String) {
+    if (path) {
+      creep.memory.path = path;
       desPath = Room.deserializePath(path);
-    } else {
-      desPath = path;
-    }
+      path = desPath;
 
-    lastStop = desPath[desPath.length - 1];
-    isOnPath = _.find(desPath, step => {
-      return creep.pos.isNearTo(step.x, step.y);
-    });
+      lastStop = desPath[desPath.length - 1];
+      isOnPath = _.find(desPath, step => {
+        return creep.pos.isNearTo(step.x, step.y);
+      });
 
-    if (lastStop && destPos.inRangeTo(lastStop.x, lastStop.y, range)) {
-      checkLastStop = true;
+      if (lastStop && destPos.inRangeTo(lastStop.x, lastStop.y, range)) {
+        checkLastStop = true;
+      }
     }
   }
 
@@ -194,7 +186,6 @@ function getAPath(
       // second chance path was also out of range
     }
   } else {
-    console.log(creep.name + " p: " + checkLastStop + " " + isOnPath);
     path = null;
     creep.memory.path = null;
   }

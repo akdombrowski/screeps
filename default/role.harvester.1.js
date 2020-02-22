@@ -91,7 +91,7 @@ const roleHarvester = {
       creep.memory.getEnergy = false;
       retval = -16;
 
-      if (direction === "south" && rm.energyAvailable >= 1000) {
+      if (direction === "south") {
         creep.memory.transferTower = true;
         creep.memory.buildRoad = false;
         retval = transEnTower(creep, 2000);

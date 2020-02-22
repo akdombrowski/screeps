@@ -10,6 +10,7 @@
 const chainMove = require("./chainMove");
 const smartMove = require("./action.smartMove");
 const supplyChain = require("./supplyChain");
+const spawnChain = require("./spawnHarvesterChain")
 
 function spawnToSource1Chain() {
   let hv = Game.creeps["harvester1"];
@@ -28,6 +29,7 @@ function spawnToSource1Chain() {
   let linkEntrance = Game.getObjectById(Memory.linkEntranceId);
   let retval = -16;
 
+
   try {
     if (tr1 && source1.energy <= 0) {
       tr1.withdraw(stor1, RESOURCE_ENERGY);
@@ -37,7 +39,7 @@ function spawnToSource1Chain() {
     }
     if (!hv) {
       // console.log("hv");
-
+      spawnChain(Game.rooms["E35N31"].energyAvailable, Game.rooms["E35N31"], s1, Memory.harvesters);
       return retval;
     } else if (!tr1 && hv.pos.isNearTo(source1)) {
       retval = hv.harvest(source1);

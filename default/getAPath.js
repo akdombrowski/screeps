@@ -27,6 +27,10 @@ function getAPath(
   pathMem = Math.random() * 100 - 1;
   maxOps = Math.random() * 2000;
 
+  if (creep.fatigue > 0) {
+    return null;
+  }
+
   let destPos = dest;
   if (destPos && (dest.room || dest.roomName)) {
     let rmName = dest.roomName;

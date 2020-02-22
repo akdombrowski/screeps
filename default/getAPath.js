@@ -48,8 +48,8 @@ function getAPath(
       opts = {
         // We need to set the defaults costs higher so that we
         // can set the road cost lower in `roomCallback`
-        plainCost: 1,
-        swampCost: 2,
+        plainCost: 2,
+        swampCost: 5,
         maxOps: maxOps,
 
         roomCallback: function(roomName) {
@@ -71,7 +71,21 @@ function getAPath(
               !struct.my
             ) {
               // Can't walk through non-walkable buildings
-              costs.set(struct.pos.x, struct.pos.y, 0xff);
+              // let rmPos = struct.pos;
+              // let objs = rmPos.look();
+              // let isRoadThere = _.find(objs, lookObject => {
+              //   if (
+              //     lookObject.type === "structure" &&
+              //     lookObject.structure.structureType === STRUCTURE_ROAD
+              //   ) {
+              //     costs.set(struct.pos.x, struct.pos.y, 0);
+              //     return true;
+              //   }
+              // });
+              let isRoadThere = false;
+              if (!isRoadThere) {
+                costs.set(struct.pos.x, struct.pos.y, 0xff);
+              }
             }
           });
 

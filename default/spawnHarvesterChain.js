@@ -1,7 +1,7 @@
 function spawnHarvesterChain(enAvail, rm, s1, harvesters) {
   let harvester1 = Game.creeps.harvester1;
   let retval = -16;
-  console.log(enAvail + " spawn chain")
+
   if (!harvester1 && enAvail >= 1200) {
     let name = "harvester1";
     let parts = [

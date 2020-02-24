@@ -5,6 +5,7 @@ const roleHarvester = require("role.harvester.1");
 const roleLinkGet = require("role.linkGet");
 const hele = require("./action.hele");
 const upController = require("./action.upgradeController");
+const upControllerNE = require("./action.upgradeControllerNE");
 const rezzyContr = require("./action.reserveContr");
 const smartMove = require("./action.smartMove");
 const deepSouthScout = require("./action.deepSouthScout");
@@ -28,6 +29,7 @@ function runRoles() {
   let neworkers = [];
   let eworkers = [];
   let upControllers = [];
+  let upControllersNE = [];
   let roadRepairers = [];
   let attackers = [];
   let eattackers = [];
@@ -126,6 +128,13 @@ function runRoles() {
         RIGHT,
         "eastEntrance1",
         "5bbcaf0c9099fc012e63a0b9"
+      );
+    } else if (roll === "upCNE") {
+      upControllersNE.push(name);
+
+      upControllerNE(
+        creep,
+        Game.flags.e36n31contr
       );
     } else if (roll === "northRezzy") {
       rezzyContr(
@@ -235,6 +244,7 @@ function runRoles() {
   Memory.eworkers = eworkers;
   Memory.neworkers = neworkers;
   Memory.upControllers = upControllers;
+  Memory.upControllersNE = upControllersNE;
   Memory.roadRepairers = roadRepairers;
   Memory.attackers = attackers;
   Memory.eattackers = eattackers;

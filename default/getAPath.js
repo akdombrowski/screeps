@@ -24,7 +24,7 @@ function getAPath(
   let checkLastStop;
   pathColor = pathColor || "#ffffff";
   pathMem = 0; // Math.random() * 2 - 1;
-  maxOps = Math.random() * 50;
+  maxOps = Math.random() * 1000;
 
   if (creep.fatigue > 0) {
     return null;
@@ -70,14 +70,18 @@ function getAPath(
         let ter = new Room.Terrain(roomName);
 
         room.find(FIND_STRUCTURES).forEach(function(struct) {
+          const x = struct.pos.x;
+
+          const y = struct.pos.y;
+
           if (struct.structureType === STRUCTURE_ROAD) {
             // Favor roads over plain tiles
-            costMatrix.set(struct.pos.x, struct.pos.y, 0);
+            costMatrix.set(x, y, 0);
           } else if (struct.structureType === STRUCTURE_CONTAINER) {
             // should already be set to the right value based on terrain costs above
-            costMatric.set(struct.pos.x, struct.pos.y, 1);
+            costMatric.set(x, y, 1);
           } else if (struct.structureType === STRUCTURE_RAMPART) {
-            costMatrix.set(struct.pos.x, struct.pos.y, 1);
+            costMatrix.set(x, y, 1);
           } else {
             // Can't walk through non-walkable buildings
             // let rmPos = struct.pos;
@@ -93,7 +97,7 @@ function getAPath(
             // });
             let isRoadThere = false;
             if (!isRoadThere) {
-              costMatrix.set(struct.pos.x, struct.pos.y, 255);
+              costMatrix.set(x, y, 255);
             }
           }
         });

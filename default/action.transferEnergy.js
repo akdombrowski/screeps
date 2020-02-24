@@ -23,7 +23,14 @@ function tran(creep, flag, dest) {
   let retval = -16;
 
 
+  if (_.sum(creep.carry) < 50) {
+    creep.memory.path = null;
+    creep.memory.transfer = false;
+    return retval
+  }
+
   if(creep.store.getUsedCapacity(RESOURCE_ENERGY) < 50) {
+    creep.memory.path = null;
     creep.memory.transfer = false;
     creep.memory.getEnergy = true;
     return retval;
@@ -163,10 +170,7 @@ function tran(creep, flag, dest) {
     creep.say("t.err");
   }
 
-  if (_.sum(creep.carry) <= 0) {
-    creep.memory.path = null;
-    creep.memory.transfer = false;
-  }
+
 
   if (retval) {
     return retval;

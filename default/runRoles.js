@@ -18,6 +18,7 @@ const roleEEUp = require("./role.eeUpgradeController");
 const roleEEWorker = require("./role.worker");
 const roleAttackerN = require("./role.attackerN");
 const roleAttackerNE = require("./role.attackerNE");
+const claimNE = require("./action.claimContrNE");
 
 function runRoles() {
   let i = 0;
@@ -31,6 +32,7 @@ function runRoles() {
   let attackers = [];
   let eattackers = [];
   let claimers = [];
+  let claimersNE = [];
   let northHarvesters = [];
   let southHarvesters = [];
   let westHarvesters = [];
@@ -116,6 +118,15 @@ function runRoles() {
     } else if (roll === "eeworker") {
       eeworkers.push(name);
       roleHarvesterBuilder.run(creep);
+    } else if (roll === "claimNE") {
+      claimNE(
+        creep,
+        "E36N32",
+        Game.flags.eastExit,
+        RIGHT,
+        "eastEntrance1",
+        "5bbcaf0c9099fc012e63a0b9"
+      );
     } else if (roll === "northRezzy") {
       rezzyContr(
         creep,
@@ -228,6 +239,7 @@ function runRoles() {
   Memory.attackers = attackers;
   Memory.eattackers = eattackers;
   Memory.claimers = claimers;
+  Memory.claimersNe = claimersNE;
   Memory.northHarvesters = northHarvesters;
   Memory.westHarvesters = westHarvesters;
   Memory.southHarvesters = southHarvesters;

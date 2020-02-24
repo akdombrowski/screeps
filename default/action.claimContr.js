@@ -1,6 +1,6 @@
 const smartMove = require("./action.smartMove");
 const getEnergyEast = require("./action.getEnergy.1");
-const ermgetEnergyEast = require("./action.getEnergy.1");
+const ermgetEnergyEast = require("./action.erm.getEnergyEast");
 
 function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
   /** creep controller reserve**/
@@ -11,12 +11,12 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
   if (creep.room.name == "E35N31") {
 
     if (!creep.pos.isNearTo(exit)) {
-        
-        
+
+
     console.log(creep.name + " me")
-    
+
         retval = smartMove(creep, exit.pos, 1);
-        
+
       if (retval === ERR_NO_PATH || retval === ERR_NOT_FOUND) {
         creep.memory.path = null;
         creep.say("err");

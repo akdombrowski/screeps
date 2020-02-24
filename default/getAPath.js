@@ -30,6 +30,10 @@ function getAPath(
     return null;
   }
 
+  if(name === "claimNE") {
+    maxOps = 10000;
+  }
+
   let destPos = dest;
   if (destPos && (dest.room || dest.roomName)) {
     let rmName = dest.roomName;

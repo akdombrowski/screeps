@@ -87,8 +87,8 @@ function spawnCreepTypes(enAvail) {
   // 1000
   let upContrPartsBig = [];
   addPart(upContrPartsBig, 1, CARRY);
-  addPart(upContrPartsBig, 6, WORK);
-  addPart(upContrPartsBig, 7, MOVE);
+  addPart(upContrPartsBig, 8, WORK);
+  addPart(upContrPartsBig, 3, MOVE);
 
   // 1000
   let southHvParts = [];

@@ -43,6 +43,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
     }
 
     target = null;
+    let currTarget = towers[0];
 
     target = _.each(towers, tower => {
       // tower doesn't exist or doesn't have an energy component
@@ -50,15 +51,24 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
         return false;
       }
 
+      // Skip tower 6 for south creeps
+      if (
+        creep.memory.direction === "south" &&
+        tower.id === tower6.id
+      ) {
+        return false;
+      }
+
       // current target tower has more energy than this tower, switch to this tower
-      if (target &&
+      if (target && target.store && tower.store &&
         tower.store.getFreeCapacity([RESOURCE_ENERGY]) >
         target.store.getFreeCapacity([RESOURCE_ENERGY])
       ) {
+        target = tower;
         return true;
       }
       return false;
-    });
+    }).pop();
 
     if (target && target.store && target.store.getFreeCapacity([RESOURCE_ENERGY]) <= 0) {
       target = null;
@@ -67,6 +77,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
 
   if (!target) {
     creep.say("wut tower?");
+    console.log("wut tower");
     creep.memory.transferTower = false;
     return ERR_NOT_FOUND;
   }
@@ -83,17 +94,13 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
       creep.say("t");
       creep.memory.dest = target.id;
     }
-    creep.memory.path = null;
   } else if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
   } else if (target) {
     // creep.say("m." + target.pos.x + "," + target.pos.y);
 
-    if (creep.memory.direction === "south") {
-      // console.log(name + " moving to tower " + JSON.stringify(target));
-    }
-
     retval = smartMove(creep, target, 1);
+
     if (retval === ERR_NOT_FOUND) {
       creep.say("err." + retval);
     } else if (retval != OK) {

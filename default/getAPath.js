@@ -22,10 +22,9 @@ function getAPath(
   let serPath;
   let isOnPath;
   let checkLastStop;
-  ignoreCreeps = ignoreCreeps;
   pathColor = pathColor || "#ffffff";
-  pathMem = Math.random() * 100 - 1;
-  maxOps = Math.random() * 2000;
+  pathMem = 0; // Math.random() * 2 - 1;
+  maxOps = Math.random() * 50;
 
   if (creep.fatigue > 0) {
     return null;
@@ -46,89 +45,117 @@ function getAPath(
   }
 
   let opts;
+  let maxCost = 10000;
+  if (!opts) {
+    opts = {
+      // We need to set the defaults costs higher so that we
+      // can set the road cost lower in `roomCallback`
+      plainCost: 3,
+      swampCost: 5,
+      maxOps: maxOps,
+      serialize: true,
+      range: range,
+      ignoreCreeps: false,
+      maxRooms: 4,
 
-  if (!path || pathMem === 0) {
-    if (!opts) {
-      opts = {
-        // We need to set the defaults costs higher so that we
-        // can set the road cost lower in `roomCallback`
-        plainCost: 2,
-        swampCost: 5,
-        maxOps: maxOps,
+      costCallback: function(roomName, costMatrix) {
+        let room = Game.rooms[roomName];
+        // In this example `room` will always exist, but since
+        // PathFinder supports searches which span multiple rooms
+        // you should be careful!
+        if (!room) return;
 
-        roomCallback: function(roomName) {
-          let room = Game.rooms[roomName];
-          // In this example `room` will always exist, but since
-          // PathFinder supports searches which span multiple rooms
-          // you should be careful!
-          if (!room) return;
-          let costs = new PathFinder.CostMatrix();
-          let creepCost = 0xff;
+        costMatrix = new PathFinder.CostMatrix();
+        let creepCost = 255;
+        let ter = new Room.Terrain(roomName);
 
-          room.find(FIND_STRUCTURES).forEach(function(struct) {
-            if (struct.structureType === STRUCTURE_ROAD) {
-              // Favor roads over plain tiles
-              costs.set(struct.pos.x, struct.pos.y, 0);
-            } else if (
-              (struct.structureType !== STRUCTURE_CONTAINER &&
-                struct.structureType !== STRUCTURE_RAMPART) ||
-              !struct.my
-            ) {
-              // Can't walk through non-walkable buildings
-              // let rmPos = struct.pos;
-              // let objs = rmPos.look();
-              // let isRoadThere = _.find(objs, lookObject => {
-              //   if (
-              //     lookObject.type === "structure" &&
-              //     lookObject.structure.structureType === STRUCTURE_ROAD
-              //   ) {
-              //     costs.set(struct.pos.x, struct.pos.y, 0);
-              //     return true;
-              //   }
-              // });
-              let isRoadThere = false;
-              if (!isRoadThere) {
-                costs.set(struct.pos.x, struct.pos.y, 0xff);
-              }
+        room.find(FIND_STRUCTURES).forEach(function(struct) {
+          if (struct.structureType === STRUCTURE_ROAD) {
+            // Favor roads over plain tiles
+            costMatrix.set(struct.pos.x, struct.pos.y, 0);
+          } else if (struct.structureType === STRUCTURE_CONTAINER) {
+            // should already be set to the right value based on terrain costs above
+            costMatric.set(struct.pos.x, struct.pos.y, 1);
+          } else if (struct.structureType === STRUCTURE_RAMPART) {
+            costMatrix.set(struct.pos.x, struct.pos.y, 1);
+          } else {
+            // Can't walk through non-walkable buildings
+            // let rmPos = struct.pos;
+            // let objs = rmPos.look();
+            // let isRoadThere = _.find(objs, lookObject => {
+            //   if (
+            //     lookObject.type === "structure" &&
+            //     lookObject.structure.structureType === STRUCTURE_ROAD
+            //   ) {
+            //     costs.set(struct.pos.x, struct.pos.y, 0);
+            //     return true;
+            //   }
+            // });
+            let isRoadThere = false;
+            if (!isRoadThere) {
+              costMatrix.set(struct.pos.x, struct.pos.y, 255);
             }
-          });
+          }
+        });
 
-          // Avoid creeps in the room
-          room.find(FIND_CREEPS).forEach(function(c) {
-            costs.set(c.pos.x, c.pos.y, creepCost);
-          });
+        // Avoid creeps in the room
+        room.find(FIND_CREEPS).forEach(function(c) {
+          costMatrix.set(c.pos.x, c.pos.y, creepCost);
+        });
 
-          return costs;
-        },
-      };
-      Memory.costMatrix = opts;
-      creep.memory.costMatrix = opts;
-    }
+        // if (room.name === "E35N31") {
+        //   let rd = _.find(room.lookForAt(LOOK_STRUCTURES, 29, 14), struct => {
+        //     return struct.structureType === STRUCTURE_ROAD;
+        //   });
 
-    let goals = { pos: destPos, range: range };
+        //   if (rd) {
+        //     costMatrix.set(rd.pos.x, rd.pos.y, 0);
+        //   }
 
-    let ret = PathFinder.search(creep.pos, goals, opts);
+        //   rd = _.find(room.lookForAt(LOOK_STRUCTURES, 30, 14), struct => {
+        //     return struct.structureType === STRUCTURE_ROAD;
+        //   });
 
-    path = ret.path;
-  } else {
-    try {
-      serPath = Room.serializePath(path);
-      try {
-        desPath = Room.deserializePath(serPath);
-      } catch (err) {
-        creep.memory.path = null;
-        console.log("here line 114");
-        return null;
-      }
-    } catch (e) {
-      desPath = path;
-    }
+        //   if (rd) {
+        //     costMatrix.set(rd.pos.x, rd.pos.y, 0);
+        //   }
+
+        //   rd = _.find(room.lookForAt(LOOK_STRUCTURES, 30, 15), struct => {
+        //     return struct.structureType === STRUCTURE_ROAD;
+        //   });
+
+        //   if (rd) {
+        //     costMatrix.set(rd.pos.x, rd.pos.y, 0);
+        //   }
+
+        //   rd = _.find(room.lookForAt(LOOK_STRUCTURES, 30, 16), struct => {
+        //     return struct.structureType === STRUCTURE_ROAD;
+        //   });
+
+        //   if (rd) {
+        //     costMatrix.set(rd.pos.x, rd.pos.y, 0);
+        //   }
+        // }
+
+        Memory.costMatrix = JSON.stringify(costMatrix.serialize());
+        return costMatrix;
+      },
+    };
+    creep.memory.costMatrix = opts;
   }
 
-  desPath = path;
-  creep.memory.path = path;
+  PathFinder.use(true);
+  let ret = creep.room.findPath(creep.pos, destPos, opts);
+  path = ret;
 
-  // path.shift();
+  try {
+    serPath = path;
+    desPath = Room.deserializePath(serPath);
+    creep.memory.path = JSON.stringify(serPath);
+  } catch (e) {
+    console.log("no despath");
+    return null;
+  }
 
   if (desPath) {
     lastStop = desPath[desPath.length - 1];
@@ -145,42 +172,16 @@ function getAPath(
     if (lastStop && destPos.inRangeTo(lastStop.x, lastStop.y, range)) {
       checkLastStop = true;
     }
-  }
 
-  if (!isOnPath || !checkLastStop) {
-    path = null;
-  }
-
-  // No path. Try finding path using maxOps.
-  if (!path) {
-    let ops = maxOps * 2;
-    path = rm.findPath(pos, destPos, {
-      ignoreCreeps: false,
-      range: range,
-      maxOps: ops,
-      serialize: true,
-    });
-
-    if (path) {
-      creep.memory.path = path;
-      desPath = Room.deserializePath(path);
-      path = desPath;
-
-      lastStop = desPath[desPath.length - 1];
-      isOnPath = _.find(desPath, step => {
-        return creep.pos.isNearTo(step.x, step.y);
-      });
-
-      if (lastStop && destPos.inRangeTo(lastStop.x, lastStop.y, range)) {
-        checkLastStop = true;
-      }
+    if (!isOnPath || !checkLastStop) {
+      path = null;
     }
   }
 
   // Check if 1st path try, or path from memory, gets us where we want to go.
-  if (desPath && checkLastStop && isOnPath) {
-    creep.memory.path = path;
-    return path;
+  if (serPath && checkLastStop && isOnPath) {
+    creep.memory.path = serPath;
+    return serPath;
 
     retval = creep.moveByPath(path, {
       visualizePathStyle: {
@@ -203,9 +204,6 @@ function getAPath(
       creep.memory.path = null;
       // second chance path was also out of range
     }
-  } else {
-    path = null;
-    creep.memory.path = null;
   }
 
   // retval = creep.moveTo(dest, {
@@ -240,8 +238,9 @@ function getAPath(
   //   });
   // }
 
-  creep.say("gap." + retval);
-  console.log(creep.name + " retval: " + path);
+  path = null;
+  creep.memory.path = null;
+  creep.say("null");
   return null;
 }
 

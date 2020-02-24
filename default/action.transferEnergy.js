@@ -20,6 +20,14 @@ function tran(creep, flag, dest) {
   let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
   let towers = [tower1, tower2, tower3, tower4, tower5, tower6];
   let enAvail = rm.energyAvailable;
+  let retval = -16;
+
+
+  if(creep.store.getUsedCapacity(RESOURCE_ENERGY) < 50) {
+    creep.memory.transfer = false;
+    creep.memory.getEnergy = true;
+    return retval;
+  }
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {
     if (creep.room.name === "E35N32") {
@@ -27,25 +35,33 @@ function tran(creep, flag, dest) {
         creep.pos == Game.flags.northEntrance1 ||
         creep.pos.isNearTo(Game.flags.northEntrance1)
       ) {
-        creep.move(BOTTOM);
+        retval = creep.move(BOTTOM);
       } else {
-        smartMove(creep, Game.flags.northEntrance1, 0);
+        retval = smartMove(creep, Game.flags.northEntrance1, 0);
       }
       creep.say("northEntrance");
-      return;
+      return retval;
     } else if (creep.room.name === "E36N31") {
-      traneRm(creep);
+      retval = traneRm(creep);
+      return retval;
     } else if (creep.room.name === "E34N31") {
-      smartMove(creep, Game.getObjectById("5d1330677594977c6d3f49ad"), 3);
+      retval = smartMove(creep, tower6, 3);
+      return retval;
+    } else if (flag) {
+      target = flag.pos.lookFor(LOOK_STRUCTURES).pop();
     } else if (creep.memory.dest) {
-      target = Game.getObjectById(creep.memory.dest);
     } else if (creep.memory.flag) {
       target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
     }
   }
 
-  if (target && target.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
+  if (
+    target &&
+    target.store.getUsedCapacity(RESOURCE_ENERGY) >=
+      target.store.getCapacity(RESOURCE_ENERGY)
+  ) {
     target = null;
+    creep.memory.flag = null;
   }
 
   if (
@@ -55,9 +71,11 @@ function tran(creep, flag, dest) {
     enAvail < 1000
   ) {
     target = null;
+    creep.memory.flag = null;
   }
 
   if (
+    !target &&
     (creep.memory.direction === "south" || creep.memory.direction === "east") &&
     enAvail > 1000
   ) {
@@ -68,10 +86,19 @@ function tran(creep, flag, dest) {
         return false;
       }
 
+      if (tower.id === tower6.id) {
+        console.log(tower.id);
+        return false;
+      }
       // current target tower has more energy than this tower, switch to this tower
-      if (target && tower.store.getFreeCapacity([RESOURCE_ENERGY]) > target.store.getFreeCapacity([RESOURCE_ENERGY])) {
+      if (
+        target &&
+        tower.store.getFreeCapacity([RESOURCE_ENERGY]) >
+          target.store.getFreeCapacity([RESOURCE_ENERGY])
+      ) {
         return tower;
       }
+      target = tower;
     });
   }
 
@@ -81,29 +108,32 @@ function tran(creep, flag, dest) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: structure => {
         let type = structure.structureType;
+
         if (
           ((type === STRUCTURE_EXTENSION &&
             structure != Memory.spawnExts[0] &&
             structure != Memory.spawnExts[1]) ||
             (structure.structureType === STRUCTURE_SPAWN &&
               structure.name === "spawn2")) &&
-          structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+          structure.store &&
+          structure.store.getUsedCapacity(RESOURCE_ENERGY) < structure.store.getCapacity(RESOURCE_ENERGY)
         ) {
-          extensionNeedsEnergy = true;
-          return true;
+          return structure;
         }
       },
     });
   }
 
-  if (!target && !extensionNeedsEnergy) {
+  if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: structure => {
         if (
           structure.structureType == STRUCTURE_STORAGE ||
           structure.structureType == STRUCTURE_CONTAINER
         ) {
-          return structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+          return (
+            structure.energy < structure.energyCapacity
+          );
         }
       },
     });
@@ -112,32 +142,28 @@ function tran(creep, flag, dest) {
   if (target && creep.pos.isNearTo(target.pos)) {
     creep.memory.path = null;
     retval = creep.transfer(target, RESOURCE_ENERGY);
-    if (retval == OK) {
+    if (retval === OK) {
       creep.say("t");
-      creep.memory.dest = target.id;
     }
   } else if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
   } else if (target) {
-    creep.say("m." + target.pos.x + "," + target.pos.y);
-
     retval = smartMove(creep, target, 1);
+
 
     if (retval !== OK) {
       creep.memory.path = null;
-      creep.memory.dest = null;
       creep.say("m.err." + retval);
     } else if (retval === OK) {
       creep.memory.dest = target.id;
-      creep.say("m");
+      creep.say(target.pos.x + "," + target.pos.y);
     }
   } else {
-    creep.memory.dest = null;
     creep.memory.path = null;
     creep.say("t.err");
   }
 
-  if (_.sum(creep.carry) == 0) {
+  if (_.sum(creep.carry) <= 0) {
     creep.memory.path = null;
     creep.memory.transfer = false;
   }

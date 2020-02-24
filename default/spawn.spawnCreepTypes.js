@@ -301,8 +301,11 @@ function spawnCreepTypes(enAvail) {
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
-    } else if (!Game.creeps["claimNE"]) {
-      parts = upContrPartsBig;
+    } else if (
+      !Game.creeps["claimNE"] &&
+      !Game.getObjectById("5bbcaf0c9099fc012e63a0b9").my
+    ) {
+      parts = claimerParts;
       name = "claimNE";
       chosenRole = "claimNE";
       birth = true;

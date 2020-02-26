@@ -15,6 +15,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   let rmName = creep.room.name;
   let rm = creep.rm;
   let roll = creep.memory.role;
+  let direction = creep.memory.direction;
   let s1RmEnAvail = Memory.s1.room.energyAvailable;
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
@@ -71,12 +72,20 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   }
 
   // target = target || Game.getObjectById(lastSourceId);
+  let sources;
+  let useMoveTo = false;
+  if (direction === "south") {
+    sources = ["5bbcaefa9099fc012e639e8f"];
+    target = Game.getObjectById(sources[0]);
+    useMoveTo = true;
+  }
 
   if (targetedRm) {
     // if (lastSourceId) {
     //   console.log(name + " getEnergy ");
     //   target = Game.getObjectById(lastSourceId);
     // }
+
 
     if (
       !target ||
@@ -130,13 +139,22 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
   // If i don't have a target yet. Check containers and storage units
   //  for energy.
+  if (direction === "south" && !target) {
+    let southStorageStructures = ["5d0178505a74ac0a0094daab"];
+    target = Game.getObjectById(southStorageStructures[0]);
+    if (!target || !target.energy || target.energy < 50) {
+      target = null;
+    }
+  }
+
   if (!target || !target.energy || target.energy < 50) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: structure => {
         if (
           (structure.structureType == STRUCTURE_CONTAINER ||
             structure.structureType == STRUCTURE_STORAGE) &&
-          structure.store.getFreeCapacity(RESOURCE_ENERGY) >= creep.store.getUsedCapacity(RESOURCE_ENERGY)
+          structure.store.getFreeCapacity(RESOURCE_ENERGY) >=
+            creep.store.getUsedCapacity(RESOURCE_ENERGY)
         ) {
           // console.log("name: " + structure)
           return structure;
@@ -157,6 +175,8 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       });
     }
   }
+
+
 
   if (target) {
     // If I have a target, go harvest it.
@@ -185,7 +205,21 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       // Still tired
       creep.say("f." + creep.fatigue);
     } else {
-      retval = smartMove(creep, target, 1, false, "#FF32F1", 2000, 100);
+      if(useMoveTo) {
+        retval = creep.moveTo(target, {
+          reusePath: 10,
+          visualizePathStyle: {
+            fill: "transparent",
+            stroke: "#fff",
+            lineStyle: "dashed",
+            strokeWidth: 0.15,
+            opacity: 0.1,
+          },
+        });
+      } else {
+
+        retval = smartMove(creep, target, 1, false, "#FF32F1", 2000, 100);
+      }
       if (retval === OK) {
         creep.say(target.pos.x + "," + target.pos.y);
       } else {

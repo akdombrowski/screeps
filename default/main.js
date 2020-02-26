@@ -220,7 +220,7 @@ module.exports.loop = function() {
     crps = Game.creeps;
     numCrps = Object.keys(crps).length;
 
-    if (Game.cpu.bucket > 1) {
+    if (Game.cpu.bucket > 10) {
       spawnCreepTypes(enAvail);
 
       spawnToSource1Chain();
@@ -229,7 +229,7 @@ module.exports.loop = function() {
       spawnCreepTypeseeRm(enAvaileeRm);
     }
 
-    if (Game.cpu.bucket > 0) {
+    if (Game.cpu.bucket > 10) {
       runRoles();
       linkTran(linkEntrance, linkExit);
     }

@@ -2,9 +2,10 @@ const getEnergy = require("./action.getEnergy.1");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 
-function upController(creep, flag) {
+function upController(creep, flag, room) {
  let controllerId = "5bbcaf0c9099fc012e63a0b9";
  let retval;
+ let rm = room;
  controller = Game.getObjectById(controllerId);
  if (
    rm === creep.room.name &&

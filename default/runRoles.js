@@ -134,7 +134,8 @@ function runRoles() {
 
       upControllerNE(
         creep,
-        Game.flags.e36n31contr
+        Game.flags.e36n32contr,
+        "E36N32"
       );
     } else if (roll === "northRezzy") {
       rezzyContr(

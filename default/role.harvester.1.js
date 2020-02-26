@@ -88,15 +88,41 @@ const roleHarvester = {
         getEnergy(creep, "E35N31");
       }
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
+      creep.memory.transEnTower = false;
       creep.memory.getEnergy = false;
       retval = -16;
 
-      retval = transferEnergy(creep);
+      if (direction === "north") {
+        retval = transferEnergyeRm(creep);
+      } else if (direction === "east") {
+        retval = transferEnergyeRm(creep);
+      } else if (direction === "west") {
+        retval = transferEnergy(creep);
+      } else {
+        retval = transferEnergy(creep);
 
+        console.log(name + " " + retval);
+
+      }
+
+      if (retval === ERR_TIRED) {
+        return retval;
+      }
+
+      if (retval === -17) {
+        return retval;
+      }
+
+      if(retval === -5 || retval === -2) {
+        creep.memory.path = null;
+        return retval;
+      }
 
       if (retval !== OK && direction === "south") {
         creep.memory.transferTower = true;
         creep.memory.buildRoad = false;
+
+        console.log(name + " switching to transEnTower " + retval);
         retval = transEnTower(creep, 2000);
       }
 
@@ -123,14 +149,7 @@ const roleHarvester = {
 
       // didn't build road and didn't transto tower
       if (retval != OK) {
-        if (creep.memory.direction === "east") {
-          retval = transferEnergyeRm(creep);
-        } else if (creep.memory.direction === "eeast") {
-          retval = transferEnergyeeRm(creep);
-        } else {
-          creep.memory.transfer = true;
-          retval = transferEnergy(creep);
-        }
+        creep.say("sad");
       }
     }
   },

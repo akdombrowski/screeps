@@ -6,7 +6,7 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
   let retval;
   controller = Game.getObjectById(controllerId);
 
-  if (creep.pos.inRangeTo(controller, 3)) {
+  if (creep.pos.inRangeTo(controller, 1)) {
     retval = creep.claimController(controller);
     creep.say("c." + retval);
   } else {

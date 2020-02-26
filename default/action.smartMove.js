@@ -53,7 +53,7 @@ function smartMove(
     // path should already be set to null/undefined but do it again here to be explicit
     path = null;
     creep.memory.path = path;
-    console.log("no path");
+    console.log(name + ": no path");
     return ERR_NO_PATH;
   }
 

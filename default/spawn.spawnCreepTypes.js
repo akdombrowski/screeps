@@ -67,6 +67,7 @@ function spawnCreepTypes(enAvail) {
   let eastHarvesters = Memory.eastHarvesters || [];
   let southtowerHarvesters = Memory.southtowerHarvesters || [];
   let claimers = Memory.claimers || [];
+  let claimersNE = Memory.claimersNE || [];
   let eAttackDurationSafeCheck = Memory.eAttackDurationSafeCheck;
   let nAttackDurationSafeCheck = Memory.nAttackDurationSafeCheck;
   let sAttackDurationSafeCheck = Memory.sAttackDurationSafeCheck;
@@ -302,13 +303,13 @@ function spawnCreepTypes(enAvail) {
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
-    } else if (
-      !Game.creeps["claimNE"] &&
+    } else if (claimersNE.length < 1 &&
       !Game.getObjectById("5bbcaf0c9099fc012e63a0b9").my
     ) {
       parts = claimerParts;
-      name = "claimNE";
+      name = "claimNE" + t;
       chosenRole = "claimNE";
+      claimersNE.push(name);
       birth = true;
     } else if (
       upControllersNE.length < 2 &&

@@ -5,8 +5,9 @@ const smartMove = require("./action.smartMove");
 
 function vest(creep, flag, path) {
   creep.memory.direction = "east";
-  const eastSource1 = Game.getObjectById("5bbcaf1b9099fc012e63a2dc");
-  const eastSource2 = Game.getObjectById("5bbcaf1b9099fc012e63a2de");
+  const eastSource1 = Game.getObjectById("5bbcaf0c9099fc012e63a0bd");
+  const nESource1 = Game.getObjectById("5bbcaf0c9099fc012e63a0ba");
+  const nESource2 = Game.getObjectById("5bbcaf0c9099fc012e63a0bb");
   const name = creep.name;
   const sourceId = creep.memory.sourceId;
   let room = creep.room;
@@ -16,10 +17,6 @@ function vest(creep, flag, path) {
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
-
-    if (name === Memory.eastSource2CreepName) {
-      Memory.eastSource2CreepName = null;
-    }
 
     if (creep.memory.buildingRoad) {
       let retval = buildRoad(creep);
@@ -39,20 +36,8 @@ function vest(creep, flag, path) {
   }
 
   if (!target) {
-    if (
-      (!room.lookForAt(
-        eastSource2.pos.x + 1,
-        eastSource2.pos.y,
-        LOOK_CREEPS
-      ) &&
-        Memory.eastSource2CreepName) ||
-      Memory.eastSource2CreepName === name
-    ) {
-      target = eastSource2;
-      Memory.eastSource2CreepName = name;
-    } else {
-      target = eastSource1;
-    }
+    target = eastSource1;
+
     creep.memory.sourceId = target.id;
   }
 
@@ -88,7 +73,7 @@ function vest(creep, flag, path) {
     }
   } else {
     console.log("creep.name " + creep.name + " is sad.");
-    creep.say("sad");
+    creep.say("sad." + retval);
   }
   return retval;
 }

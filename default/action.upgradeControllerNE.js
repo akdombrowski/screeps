@@ -9,19 +9,20 @@ function upController(creep, flag, room) {
  controller = Game.getObjectById(controllerId);
  if (
    rm === creep.room.name &&
-   creep.store.getFreeCapacity(RESOURCE_ENERGY) > 50
+   creep.store[RESOURCE_ENERGY] < 50 ||
+   creep.store.getFreeCapacity(RESOURCE_ENERGY) >= 50
  ) {
    let target;
    target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
    if (target) {
-     if (creep.pos.isNearTo(target)) {
+     if (creep.pos.inRangeTo(target, 1)) {
        retval = creep.harvest(target);
      } else if (creep.fatigue > 0) {
        creep.say("f." + creep.fatigue);
        retval = ERR_TIRED;
      } else {
        creep.say(target.pos.x + "," + target.pos.y);
-       retval = smartMove(creep, target, 3);
+       retval = smartMove(creep, target, 1);
      }
    } else {
      creep.say("sad");
@@ -29,7 +30,7 @@ function upController(creep, flag, room) {
  } else {
    if (creep.pos.inRangeTo(controller, 3)) {
      retval = creep.upgradeController(controller);
-     creep.say("c." + retval);
+     creep.say("up." + retval);
    } else {
      retval = smartMove(creep, controller, 1);
    }

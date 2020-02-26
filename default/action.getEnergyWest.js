@@ -46,7 +46,13 @@ function vest(creep, flag, path) {
     creep.memory.sourceId = target.id;
   }
 
-  if (target) {
+  if (
+    target &&
+    ((target.store &&
+      target.store[RESOURCE_ENERGY] &&
+      target.store[RESOURCE_ENERGY] >= 50) ||
+      target.energy >= 50)
+  ) {
     if (creep.pos.isNearTo(target)) {
       retval = creep.harvest(target);
       creep.say("h");

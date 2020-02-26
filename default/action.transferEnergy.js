@@ -1,6 +1,7 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const traneRm = require("./action.transferEnergyeRm");
+const tranee = require("./action.transferEnergyEEast");
 const tranW = require("./action.transferEnergyW");
 const transEnTower = require("./action.transEnTower");
 
@@ -10,6 +11,7 @@ function tran(creep, flag, dest) {
   let name = creep.name;
   let direction = creep.memory.direction;
   let sourceDir = creep.memory.sourceDir;
+  let fatigue = creep.fatigue;
   let s1 = Memory.s1;
   let spawn2 = Game.spawns.spawn2;
   let tower1 = Game.getObjectById(Memory.tower1Id);
@@ -29,6 +31,10 @@ function tran(creep, flag, dest) {
     return -18;
   }
 
+  if (direction === "eeast") {
+    return tranee(creep);
+  }
+
   if (
     !creep.store[RESOURCE_ENERGY] ||
     creep.store.getUsedCapacity(RESOURCE_ENERGY) < 50
@@ -45,10 +51,15 @@ function tran(creep, flag, dest) {
         creep.pos == Game.flags.northEntrance1 ||
         creep.pos.isNearTo(Game.flags.northEntrance1)
       ) {
-        retval = creep.move(BOTTOM);
+        if (fatigue > 0) {
+          retval = ERR_TIRED;
+        } else {
+          retval = creep.move(BOTTOM);
+        }
       } else {
         retval = smartMove(creep, Game.flags.northEntrance1, 0);
       }
+
       creep.say("northEntrance");
       return retval;
     } else if (creep.room.name === "E36N31") {
@@ -56,17 +67,26 @@ function tran(creep, flag, dest) {
       return retval;
     } else if (creep.room.name === "E34N31") {
       if (creep.pos.x > 49) {
-        retval = creep.move(RIGHT);
+        if (fatigue <= 0) {
+          retval = creep.move(RIGHT);
+        } else {
+          retval = ERR_TIRED;
+        }
       } else {
         retval = smartMove(creep, tower6, 3);
       }
       return retval;
     } else if (creep.room.name === "E35N31" && direction === "west") {
       if (creep.pos.x < 2) {
-        return creep.move(RIGHT);
+        if (fatigue <= 0) {
+          retval = creep.move(RIGHT);
+        } else {
+          retval = ERR_TIRED;
+        }
       } else {
-        return tranW(creep);
+        retval = tranW(creep);
       }
+      return retval;
     } else if (flag) {
       target = flag.pos.lookFor(LOOK_STRUCTURES).pop();
     } else if (creep.memory.dest) {

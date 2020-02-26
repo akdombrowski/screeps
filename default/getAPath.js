@@ -47,12 +47,15 @@ function getAPath(
     maxOps = 500;
   } else if (roll === "worker" && direction === "eeast") {
     maxOps = 500;
+  } else if (name.startsWith("etowerHarvester")) {
+    maxOps = 500;
+  } else if (name.startsWith("eeUp")) {
+    maxOps = 200;
+  } else if (creep.memory.sourceDir === "eeast" && roll === "worker") {
+    maxOps = 500;
   }
 
   let destPos = dest;
-  if (name === "harv5653") {
-    console.log("destination in getpath: " + JSON.stringify(dest));
-  }
   if (destPos && (dest.room || dest.roomName)) {
     let rmName = dest.roomName;
     if (!rmName) {
@@ -107,6 +110,8 @@ function getAPath(
             costMatrix.get(x, y) < 1
           ) {
             costMatrix.set(x, y, 1);
+          } else if (struct.structureType === STRUCTURE_WALL) {
+            costMatrix.set(x, y, 255);
           } else {
             // Can't walk through non-walkable buildings
             // let rmPos = struct.pos;

@@ -78,6 +78,7 @@ function smartMove(
     path = null;
     retval = ERR_NO_PATH;
 
+    creep.say("e." + retval);
     creep.memory.path = path;
     // second chance path was also out of range
   }

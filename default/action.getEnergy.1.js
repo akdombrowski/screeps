@@ -4,6 +4,7 @@ const transferEnergy = require("./action.transferEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const buildRoad = require("./action.buildRoad");
+const vestEE = require("./action.getEnergyEEast");
 
 function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   let tower = Game.getObjectById(Memory.tower1Id);
@@ -23,6 +24,11 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
     return OK;
+  }
+
+  if(direction === "eeast") {
+    retval = vestEE(creep);
+    return retval;
   }
 
   creep.memory.getEnergy = true;

@@ -15,12 +15,14 @@ const transEnTower = require("./action.transEnTower");
 const roleHarvester = {
   /** @param {Creep} creep **/
   run: function(creep) {
-    let ermHarvesters = Memory.ermHarvesters;
-    let ermNeHarvesters = Memory.ermNeHarvesters;
-    let name = creep.name;
-    let direction = creep.memory.direction;
-    let sourceDir = creep.memory.sourceDir;
-    let rm = creep.room;
+    const ermHarvesters = Memory.ermHarvesters;
+    const ermNeHarvesters = Memory.ermNeHarvesters;
+    const name = creep.name;
+    const direction = creep.memory.direction;
+    const sourceDir = creep.memory.sourceDir;
+    const fatigue = creep.fatigue;
+    const rm = creep.room;
+    let retval = -16;
 
     if (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] < 50) {
       creep.memory.buildRoad = false;
@@ -33,7 +35,7 @@ const roleHarvester = {
           !Memory.northAttackerId ||
           Game.time >= Memory.nAtackDurationSafeCheck
         ) {
-          getEnergyNorth(creep, "E35N32");
+          retval = getEnergyNorth(creep, "E35N32");
         } else {
           Memory.northAttackerId = creep.room.find(FIND_HOSTILE_CREEPS).pop()
             ? Memory.northAttackerId
@@ -45,22 +47,42 @@ const roleHarvester = {
           Game.time >= Memory.eAttackDurationSafeCheck
         ) {
           if (creep.memory.sourceDir === "east") {
-            ermgetEnergyEast(creep, "E36N31");
+            retval = ermgetEnergyEast(creep, "E36N31");
           } else {
             let nesource1Creeps = Memory.nesource1Creeps || [];
             let nesource2Creeps = Memory.nesource2Creeps || [];
             if (creep.memory.nesourceNumber === 1) {
-              ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource1);
+              retval = ermgetEnergyEast(
+                creep,
+                "E36N32",
+                "E36N31",
+                Game.flags.neSource1
+              );
             } else if (creep.memory.nesourceNumber === 2) {
-              ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource2);
+              retval = ermgetEnergyEast(
+                creep,
+                "E36N32",
+                "E36N31",
+                Game.flags.neSource2
+              );
             } else if (nesource1Creeps.length < nesource2Creeps.length) {
               // go to energy source 1
-              ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource1);
+              retval = ermgetEnergyEast(
+                creep,
+                "E36N32",
+                "E36N31",
+                Game.flags.neSource1
+              );
               creep.memory.nesourceNumber = 1;
             } else {
               // go to energy source 2
               creep.memory.nesourceNumber = 2;
-              ermgetEnergyEast(creep, "E36N32", "E36N31", Game.flags.neSource2);
+              retval = ermgetEnergyEast(
+                creep,
+                "E36N32",
+                "E36N31",
+                Game.flags.neSource2
+              );
             }
           }
         } else {
@@ -70,22 +92,22 @@ const roleHarvester = {
           console.log("East attacker");
         }
       } else if (direction === "eeast") {
-        getEnergyEEast(creep, "E37N31", Game.flags.eesource1);
+        retval = getEnergyEEast(creep, "E37N31", Game.flags.eesource1);
       } else if (direction == "west") {
         if (
           !Memory.westAttackerId ||
           Game.time >= Memory.wAttackDurationSafeCheck
         ) {
-          getEnergyWest(creep, "E34N31");
+          retval = getEnergyWest(creep, "E34N31");
         } else {
           Memory.westAttackerId = creep.room.find(FIND_HOSTILE_CREEPS).pop()
             ? Memory.westAttackerId
             : null;
         }
       } else if (direction == "south" || creep) {
-        getEnergy(creep, "E35N31");
+        retval = getEnergy(creep, "E35N31");
       } else {
-        getEnergy(creep, "E35N31");
+        retval = getEnergy(creep, "E35N31");
       }
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.transEnTower = false;
@@ -106,6 +128,7 @@ const roleHarvester = {
       }
 
       if (retval === ERR_TIRED) {
+        creep.say("f." + fatigue);
         return retval;
       }
 
@@ -147,9 +170,13 @@ const roleHarvester = {
         creep.say("tower");
       }
 
+      if(retval === ERR_TIRED) {
+        creep.say("f." + fatigue);
+      }
+
       // didn't build road and didn't transto tower
       if (retval != OK) {
-        creep.say("sad");
+        creep.say("sad." + retval);
       }
     }
   },

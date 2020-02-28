@@ -35,17 +35,13 @@ const roleHarvesterToTower = {
       let tower2 = Game.getObjectById(tower2Id);
       let target = tower1;
 
-      if (tower2.energy < 1000) {
-        target = tower2;
-      }
-
-      if (target.energy >= 1000) {
-        target = creep.room.storage;
-      }
-      if (creep.pos.isNearTo(target)) {
-        creep.transfer(target, RESOURCE_ENERGY);
-      } else {
-        smartMove(creep, target, 1);
+      retval = transEnTower(creep, 0);
+      if (retval !== OK) {
+        if (creep.pos.isNearTo(target)) {
+          creep.transfer(target, RESOURCE_ENERGY);
+        } else {
+          smartMove(creep, target, 1);
+        }
       }
     }
   },

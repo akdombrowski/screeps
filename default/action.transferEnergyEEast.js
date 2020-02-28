@@ -16,6 +16,7 @@ function tran(creep, flag, dest) {
   let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
   let towers = [tower1, tower2, tower3, ermtower1];
   let enAvail = rm.energyAvailable;
+  let retval = -16;
 
   if (creep.room.name === "E37N31") {
     target = Game.getObjectById("5d356b280382bc5e2a8ad9f8");

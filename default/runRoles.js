@@ -5,6 +5,7 @@ const roleHarvester = require("role.harvester.1");
 const roleLinkGet = require("role.linkGet");
 const hele = require("./action.hele");
 const upController = require("./action.upgradeController");
+const upControllerN = require("./action.upgradeControllerN");
 const upControllerNE = require("./action.upgradeControllerNE");
 const rezzyContr = require("./action.reserveContr");
 const smartMove = require("./action.smartMove");
@@ -20,6 +21,7 @@ const roleEEWorker = require("./role.worker");
 const roleAttackerN = require("./role.attackerN");
 const roleAttackerNE = require("./role.attackerNE");
 const claimNE = require("./action.claimContrNE");
+const claimN = require("./action.claimContrN");
 
 function runRoles() {
   let i = 0;
@@ -132,10 +134,15 @@ function runRoles() {
     } else if (roll === "upCNE") {
       upControllersNE.push(name);
 
-      upControllerNE(
+      upControllerNE(creep, Game.flags.e36n32contr, "E36N32");
+    } else if (roll === "claimN") {
+      claimN(
         creep,
-        Game.flags.e36n32contr,
-        "E36N32"
+        "E35N32",
+        Game.flags.eastExit,
+        RIGHT,
+        "eastEntrance1",
+        "5bbcaf0c9099fc012e63a0b9"
       );
     } else if (roll === "northRezzy") {
       rezzyContr(

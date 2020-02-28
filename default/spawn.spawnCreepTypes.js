@@ -59,6 +59,7 @@ function spawnCreepTypes(enAvail) {
   let workers = Memory.workers || [];
   let harvesters = Memory.harvesters || [];
   let upControllers = Memory.upControllers || [];
+  let upControllersN = Memory.upControllersN || [];
   let upControllersNE = Memory.upControllersNE || [];
   let roadRepairers = Memory.roadRepairers || [];
   let northHarvesters = Memory.northHarvesters || [];
@@ -67,6 +68,7 @@ function spawnCreepTypes(enAvail) {
   let eastHarvesters = Memory.eastHarvesters || [];
   let southtowerHarvesters = Memory.southtowerHarvesters || [];
   let claimers = Memory.claimers || [];
+  let claimersN = Memory.claimersN || [];
   let claimersNE = Memory.claimersNE || [];
   let eAttackDurationSafeCheck = Memory.eAttackDurationSafeCheck;
   let nAttackDurationSafeCheck = Memory.nAttackDurationSafeCheck;
@@ -303,7 +305,8 @@ function spawnCreepTypes(enAvail) {
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
-    } else if (claimersNE.length < 1 &&
+    } else if (
+      claimersNE.length < 1 &&
       !Game.getObjectById("5bbcaf0c9099fc012e63a0b9").my
     ) {
       parts = claimerParts;
@@ -320,6 +323,24 @@ function spawnCreepTypes(enAvail) {
       chosenRole = "upCNE";
       birth = true;
       upControllersNE.push(name);
+    } else if (
+      claimersN.length < 1 &&
+      !Game.getObjectById("5bbcaefa9099fc012e639e8b").my
+    ) {
+      parts = claimerParts;
+      name = "claimN" + t;
+      chosenRole = "claimN";
+      claimersN.push(name);
+      birth = true;
+    } else if (
+      upControllersN.length < 2 &&
+      Game.getObjectById("5bbcaefa9099fc012e639e8b").my
+    ) {
+      parts = upContrPartsBig;
+      name = "upcN" + t;
+      chosenRole = "upCN";
+      birth = true;
+      upControllersN.push(name);
     } else if (upControllers.length < 2) {
       parts = upContrPartsBig;
       name = "upc" + t;
@@ -350,7 +371,7 @@ function spawnCreepTypes(enAvail) {
       roadRepairers.push(name);
       birth = true;
     } else if (
-      northHarvesters.length < 5 &&
+      northHarvesters.length < 7 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {
       name += "N";
@@ -358,7 +379,7 @@ function spawnCreepTypes(enAvail) {
       northHarvesters.push(name);
       birth = true;
     } else if (
-      westHarvesters.length < 5 &&
+      westHarvesters.length < 7 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
       name += "W";
@@ -378,7 +399,7 @@ function spawnCreepTypes(enAvail) {
       waitForRezzy = true;
       if (enAvail >= 650) {
         chosenRole = "northRezzy";
-        name = "rezzyN" + t;
+        name = "northRezzy";
         direction = "north";
         parts = rezzyParts;
         birth = true;
@@ -389,7 +410,7 @@ function spawnCreepTypes(enAvail) {
     ) {
       waitForRezzy = true;
       chosenRole = "westRezzy";
-      name = "rezzyW" + t;
+      name = "westRezzy";
       direction = "west";
       parts = rezzyParts;
       birth = true;
@@ -399,7 +420,7 @@ function spawnCreepTypes(enAvail) {
     ) {
       waitForRezzy = true;
       chosenRole = "eastRezzy";
-      name = "rezzyE" + t;
+      name = "eastRezzy";
       direction = "east";
       parts = upContrParts;
       birth = true;
@@ -429,9 +450,13 @@ function spawnCreepTypes(enAvail) {
   Memory.harvesters = harvesters;
   Memory.workers = workers;
   Memory.upControllers = upControllers;
+  Memory.upControllersN = upControllersN;
+  Memory.upControllersNE = upControllersNE;
   Memory.roadRepairers = roadRepairers;
   Memory.attackers = attackers;
   Memory.claimers = claimers;
+  Memory.claimersN = claimersN;
+  Memory.claimersNE = claimersNE;
   Memory.northHarvesters = northHarvesters;
   Memory.eastHarvesters = eastHarvesters;
   Memory.westHarvesters = westHarvesters;

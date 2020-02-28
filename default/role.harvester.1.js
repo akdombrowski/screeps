@@ -115,15 +115,13 @@ const roleHarvester = {
       retval = -16;
 
       if (direction === "north") {
-        retval = transferEnergyeRm(creep);
+        retval = transferEnergy(creep);
       } else if (direction === "east") {
         retval = transferEnergyeRm(creep);
       } else if (direction === "west") {
         retval = transferEnergy(creep);
       } else {
         retval = transferEnergy(creep);
-
-        console.log(name + " " + retval);
 
       }
 
@@ -145,7 +143,6 @@ const roleHarvester = {
         creep.memory.transferTower = true;
         creep.memory.buildRoad = false;
 
-        console.log(name + " switching to transEnTower " + retval);
         retval = transEnTower(creep, 2000);
       }
 
@@ -161,7 +158,6 @@ const roleHarvester = {
           })) ||
         creep.memory.buildRoad
       ) {
-        console.log(name + " build road inside role harvester");
         retval = buildRoad(creep);
         if (retval === OK) {
           creep.memory.buildRoad = true;

@@ -20,11 +20,11 @@ function reserveContr(creep, rm, exit, exitDirection, entrance, controller) {
     }
   } else if (creep.room.name === rm) {
     let contr = Game.getObjectById(controller);
-    if (creep.pos.inRangeTo(contr, 3)) {
+    if (creep.pos.inRangeTo(contr, 1)) {
       creep.reserveController(contr);
       creep.say("res");
     } else {
-      smartMove(creep, contr, 3);
+      smartMove(creep, contr, 1);
       creep.say(rm);
     }
   }

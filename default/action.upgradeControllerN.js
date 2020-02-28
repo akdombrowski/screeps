@@ -3,7 +3,7 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 
 function upController(creep, flag, room) {
-  let controllerId = "5bbcaf0c9099fc012e63a0b9";
+  let controllerId = "5bbcaefa9099fc012e639e8b";
   let retval;
   let rm = room;
   controller = Game.getObjectById(controllerId);

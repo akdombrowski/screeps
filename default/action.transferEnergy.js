@@ -37,27 +37,29 @@ function tran(creep, flag, dest) {
 
   if (
     !creep.store[RESOURCE_ENERGY] ||
-    creep.store.getUsedCapacity(RESOURCE_ENERGY) < 50
+    creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0
   ) {
     creep.memory.path = null;
     creep.memory.transfer = false;
     creep.memory.getEnergy = true;
     return -19;
   }
+  console.log(name + " " + creep.pos.isNearTo(Game.flags.northEntrance1));
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {
     if (creep.room.name === "E35N32") {
       if (
-        creep.pos == Game.flags.northEntrance1 ||
-        creep.pos.isNearTo(Game.flags.northEntrance1)
+        creep.pos === Game.flags.northEntrance1 ||
+        creep.pos.inRangeTo(Game.flags.northEntrance1, 1)
       ) {
         if (fatigue > 0) {
           retval = ERR_TIRED;
         } else {
+          console.log(name + " move bottom ");
           retval = creep.move(BOTTOM);
         }
       } else {
-        retval = smartMove(creep, Game.flags.northEntrance1, 0);
+        retval = smartMove(creep, Game.flags.northEntrance1, 1);
       }
 
       creep.say("northEntrance");
@@ -85,6 +87,13 @@ function tran(creep, flag, dest) {
         }
       } else {
         retval = tranW(creep);
+      }
+      return retval;
+    } else if (creep.room.name === "E35N31" && creep.pos.y < 1) {
+      if (fatigue <= 0) {
+        retval = creep.move(BOTTOM);
+      } else {
+        retval = ERR_TIRED;
       }
       return retval;
     } else if (flag) {
@@ -116,7 +125,7 @@ function tran(creep, flag, dest) {
   }
 
   let extensionNeedsEnergy = false;
-  if (!target && (direction === "south" || direction === "west")) {
+  if (!target && (direction === "south" || direction === "west" || direction === "north")) {
     let exts;
 
     exts = Game.rooms["E35N31"].find(FIND_STRUCTURES, {
@@ -166,13 +175,7 @@ function tran(creep, flag, dest) {
       target = a;
     }
   }
-  console.log(
-    name +
-      " before storage and containers " +
-      target +
-      " " +
-      Memory.e35n31Extensions
-  );
+
   if (
     !target &&
     (direction === "south" || direction === "east" || direction === "west") &&

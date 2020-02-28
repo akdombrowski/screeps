@@ -22,6 +22,8 @@ const roleAttackerN = require("./role.attackerN");
 const roleAttackerNE = require("./role.attackerNE");
 const claimNE = require("./action.claimContrNE");
 const claimN = require("./action.claimContrN");
+const buildNE = require("./action.buildNE");
+const buildEE = require("./action.buildEE");
 
 function runRoles() {
   let i = 0;
@@ -30,12 +32,15 @@ function runRoles() {
   let workers = [];
   let neworkers = [];
   let eworkers = [];
+  let eeworkers = [];
   let upControllers = [];
+  let upControllersN = [];
   let upControllersNE = [];
   let roadRepairers = [];
   let attackers = [];
   let eattackers = [];
   let claimers = [];
+  let claimersN = [];
   let claimersNE = [];
   let northHarvesters = [];
   let southHarvesters = [];
@@ -51,7 +56,6 @@ function runRoles() {
   let etowerHarvesters = [];
   let southtowerHarvesters = [];
   let eeUps = [];
-  let eeworkers = [];
   Memory.nesource1Creeps = [];
   Memory.nesource2Creeps = [];
 
@@ -121,7 +125,7 @@ function runRoles() {
       roleEEUp(creep, "E37N31");
     } else if (roll === "eeworker") {
       eeworkers.push(name);
-      roleHarvesterBuilder.run(creep);
+      buildEE(creep, Game.flags.eeController, "E37N31");
     } else if (roll === "claimNE") {
       claimNE(
         creep,
@@ -144,6 +148,10 @@ function runRoles() {
         "eastEntrance1",
         "5bbcaf0c9099fc012e63a0b9"
       );
+    } else if (roll === "upCN") {
+      upControllersN.push(name);
+
+      upControllerN(creep, Game.flags.e36n32contr, "E35N32");
     } else if (roll === "northRezzy") {
       rezzyContr(
         creep,
@@ -200,7 +208,11 @@ function runRoles() {
     } else if (roll === "neBuilder") {
       neworkers.push(name);
       creep.memory.buildRoom = "E36N32";
-      roleHarvesterBuilderNE.run(creep);
+      buildNE(creep, Game.flags.neSource1, "E36N32");
+    } else if (roll === "eeBuilder") {
+      eeworkers.push(name);
+      creep.memory.buildRoom = "E37N31";
+      buildEE(creep, Game.flags.eeController, "E37N31");
     } else if (roll === "healer") {
       hele(creep);
     } else if (roll === "controller") {
@@ -250,13 +262,16 @@ function runRoles() {
   Memory.harvesters = harvesters;
   Memory.workers = workers;
   Memory.eworkers = eworkers;
+  Memory.eeworkers = eeworkers;
   Memory.neworkers = neworkers;
   Memory.upControllers = upControllers;
+  Memory.upControllersN = upControllersN;
   Memory.upControllersNE = upControllersNE;
   Memory.roadRepairers = roadRepairers;
   Memory.attackers = attackers;
   Memory.eattackers = eattackers;
   Memory.claimers = claimers;
+  Memory.claimersNe = claimersN;
   Memory.claimersNe = claimersNE;
   Memory.northHarvesters = northHarvesters;
   Memory.westHarvesters = westHarvesters;
@@ -272,7 +287,6 @@ function runRoles() {
   Memory.etowerHarvesters = etowerHarvesters;
   Memory.southtowerHarvesters = southtowerHarvesters;
   Memory.eeUps = eeUps;
-  Memory.eeworkers = eeworkers;
 }
 
 module.exports = runRoles;

@@ -1,7 +1,7 @@
 const getEnergy = require("./action.getEnergy.1");
 const transferEnergy = require("./action.transferEnergy");
 const transferEnergyeRm = require("./action.transferEnergyeRm");
-const transferEnergyeeRm = require("./action.transferEnergyEEast");
+const transferEnergyEE = require("./action.transferEnergyEEast");
 const getEnergyNorth = require("./action.getEnergyNorth");
 const getEnergyEast = require("./action.getEnergy.1");
 const ermgetEnergyEast = require("./action.getEnergy.1");
@@ -24,7 +24,16 @@ const roleHarvester = {
     const rm = creep.room;
     let retval = -16;
 
-    if (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] < 50) {
+    if (
+      creep.memory.getEnergy ||
+      creep.store[RESOURCE_ENERGY] < 5 || !creep.store[RESOURCE_ENERGY]
+    ) {
+      if (creep.store.getFreeCapacity() <= 0) {
+        retval = ERR_FULL;
+        creep.memory.getEnergy = false;
+        return retval;
+      }
+
       creep.memory.buildRoad = false;
       creep.memory.transferTower = false;
       creep.memory.getEnergy = true;
@@ -110,6 +119,13 @@ const roleHarvester = {
         retval = getEnergy(creep, "E35N31");
       }
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
+      if(!creep.store[RESOURCE_ENERGY] || creep.store[RESOURCE_ENERGY] <= 0) {
+        creep.memory.getEnergy = true;
+        creep.memory.transEnTower = false;
+        creep.memory.transfer = false;
+        creep.memory.buildRoad = false;
+        return ERR_NOT_ENOUGH_RESOURCES;
+      }
       creep.memory.transEnTower = false;
       creep.memory.getEnergy = false;
       retval = -16;
@@ -118,11 +134,15 @@ const roleHarvester = {
         retval = transferEnergy(creep);
       } else if (direction === "east") {
         retval = transferEnergyeRm(creep);
+        return retval;
       } else if (direction === "west") {
         retval = transferEnergy(creep);
+        return retval;
+      } else if (direction === "eeast") {
+        retval = transferEnergyEE(creep);
+        return retval;
       } else {
         retval = transferEnergy(creep);
-
       }
 
       if (retval === ERR_TIRED) {
@@ -134,7 +154,7 @@ const roleHarvester = {
         return retval;
       }
 
-      if(retval === -5 || retval === -2) {
+      if (retval === -5 || retval === -2) {
         creep.memory.path = null;
         return retval;
       }
@@ -147,7 +167,7 @@ const roleHarvester = {
       }
 
       // didn't give energy to tower. build road.
-      if (
+      if (direction === "south" &&
         (retval != OK &&
           !creep.memory.transfer &&
           !creep.memory.transferTower &&
@@ -166,7 +186,7 @@ const roleHarvester = {
         creep.say("tower");
       }
 
-      if(retval === ERR_TIRED) {
+      if (retval === ERR_TIRED) {
         creep.say("f." + fatigue);
       }
 

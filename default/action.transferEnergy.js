@@ -44,7 +44,6 @@ function tran(creep, flag, dest) {
     creep.memory.getEnergy = true;
     return -19;
   }
-  console.log(name + " " + creep.pos.isNearTo(Game.flags.northEntrance1));
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {
     if (creep.room.name === "E35N32") {
@@ -55,7 +54,6 @@ function tran(creep, flag, dest) {
         if (fatigue > 0) {
           retval = ERR_TIRED;
         } else {
-          console.log(name + " move bottom ");
           retval = creep.move(BOTTOM);
         }
       } else {

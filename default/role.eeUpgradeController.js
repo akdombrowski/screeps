@@ -24,7 +24,7 @@ function eeUpContr(creep, rm, exit, exitDirection, entrance, controller) {
     smartMove(creep, Game.flags.eeEntrance1, 0);
   } else if (creep.room.name === rm) {
     if (
-      _.sum(creep.store) <= 0 ||
+      creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0 ||
       creep.memory.getEnergy
       ) {
       creep.getEnergy = true;
@@ -55,6 +55,7 @@ function eeUpContr(creep, rm, exit, exitDirection, entrance, controller) {
   } else {
     console.log(name + " did you add a room name to this method call?");
   }
+  return retval;
 }
 
 module.exports = eeUpContr;

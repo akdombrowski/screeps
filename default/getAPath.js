@@ -37,6 +37,8 @@ function getAPath(
     maxOps = 1000;
   } else if (roll === "upCNE") {
     maxOps = 1000;
+  } else if (roll === "upCN") {
+    maxOps = 500;
   } else if (name.endsWith("W")) {
     maxOps = 1000;
   } else if (name.startsWith("claim")) {
@@ -51,7 +53,10 @@ function getAPath(
     maxOps = 500;
   } else if (name.startsWith("eeUp")) {
     maxOps = 200;
-  } else if (creep.memory.sourceDir === "eeast" && roll === "worker") {
+  } else if (
+    creep.memory.sourceDir === "eeast" &&
+    (roll === "worker" || roll === "eeworker")
+  ) {
     maxOps = 500;
   }
 
@@ -68,6 +73,8 @@ function getAPath(
   } else {
     return null;
   }
+
+
 
   let opts;
   let maxCost = 10000;
@@ -186,7 +193,7 @@ function getAPath(
     desPath = Room.deserializePath(serPath);
     creep.memory.path = JSON.stringify(serPath);
   } catch (e) {
-    console.log("no despath");
+    console.log(name + " no despath");
     return null;
   }
 

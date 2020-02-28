@@ -31,6 +31,20 @@ function smartMove(
     return retval;
   }
 
+  let destPos = dest;
+  if (destPos && (dest.room || dest.roomName)) {
+    let rmName = dest.roomName;
+    if (!rmName) {
+      rmName = dest.room.name;
+    }
+
+    if (!(destPos instanceof RoomPosition)) {
+      destPos = new RoomPosition(dest.pos.x, dest.pos.y, rmName);
+    }
+  } else {
+    return null;
+  }
+
   if (moveAwayFromCreep(creep)) {
     path = null;
   }
@@ -59,11 +73,21 @@ function smartMove(
 
   // Check if 1st path try, or path from memory, gets us where we want to go.
   if (path) {
+    let beforePos = creep.pos;
+    let afterPos = Room.deserializePath(path)[0];
     retval = creep.moveByPath(path);
+
+    if (
+      !beforePos ||
+      !afterPos ||
+      (beforePos.x === afterPos.x && beforePos.y === afterPos.y)
+    ) {
+      retval = ERR_NO_PATH;
+    }
   }
 
   if (retval === OK) {
-    creep.say("mbp");
+    creep.say("mbp." + destPos.x + "," + destPos.y);
 
     if (creep.pos.inRangeTo(dest, range)) {
       creep.memory.path = null;
@@ -76,9 +100,10 @@ function smartMove(
     creep.memory.path = null;
   } else {
     path = null;
+    creep.memory.path = path;
     retval = ERR_NO_PATH;
 
-    creep.say("e." + retval);
+    creep.say("nopath." + retval);
     creep.memory.path = path;
     // second chance path was also out of range
   }

@@ -75,6 +75,7 @@ module.exports.loop = function() {
     let source1 = rm.lookForAt(LOOK_SOURCES, 41, 8).pop();
     let source2 = rm.lookForAt(LOOK_SOURCES, 29, 15).pop();
     let source1eRm = eRm.lookForAt(LOOK_SOURCES, 9, 10).pop();
+    let sourceEE1Id = "5bbcaf1b9099fc012e63a2dc";
 
     let tower1Id = "5cf3b09b75f7e26764ee4276";
     let tower2Id = "5d0182c6667a4642d4259e3f";
@@ -83,6 +84,7 @@ module.exports.loop = function() {
     let tower5Id = "5e4d35b6388a326ccea12cb8";
     let tower6Id = "5d55c927ea104379d90d9176";
     let etower1Id = "5d0f99d929c9cb5363cba23d";
+    let eetower1Id = "5d55a5716700154079e38442";
     let tower1 = Game.getObjectById(tower1Id);
     let tower2 = Game.getObjectById(tower2Id);
     let tower3 = Game.getObjectById(tower3Id);
@@ -90,6 +92,7 @@ module.exports.loop = function() {
     let tower5 = Game.getObjectById(tower5Id);
     let tower6 = Game.getObjectById(tower6Id);
     let etower1 = Game.getObjectById(etower1Id);
+    let eetower1 = Game.getObjectById(eetower1Id);
 
     let rmControllerId = Memory.rmControllerId || "5bbcaefa9099fc012e639e90";
     let rmController = Game.getObjectById(rmControllerId);
@@ -144,6 +147,7 @@ module.exports.loop = function() {
     Memory.source1 = source1;
     Memory.source2 = source2;
     Memory.source1eRm = source1eRm.id;
+    Memory.sourceEE1Id = sourceEE1Id;
 
     Memory.s1 = s1;
 
@@ -154,6 +158,7 @@ module.exports.loop = function() {
     Memory.tower5Id = tower5Id;
     Memory.tower6Id = tower6Id;
     Memory.etower1Id = etower1Id;
+    Memory.eetower1Id = eetower1Id;
 
     Memory.enAvail = enAvail;
     Memory.enCap = enCap;

@@ -209,7 +209,12 @@ function spawnCreepTypes(enAvail) {
     // }
     else if (eattackers.length < 1 && neAttackerId) {
       console.log(
-        "neattacker " + Memory.neAttackerId + " " + eattackers.length + " " + enAvail
+        "neattacker " +
+          Memory.neAttackerId +
+          " " +
+          eattackers.length +
+          " " +
+          enAvail
       );
       parts = attackerParts;
       name = "eatt" + t;
@@ -297,6 +302,13 @@ function spawnCreepTypes(enAvail) {
       harvesters.push(name);
       parts = mednewhvParts;
       sourceDir = "east1";
+      birth = true;
+    } else if (neworkers.length < 3) {
+      eworkers.push(name);
+      chosenRole = "neBuilder";
+      buildRoom = "E36N32";
+      name = chosenRole + t;
+      parts = medworkerParts;
       birth = true;
     } else if (workers.length < 2) {
       chosenRole = "worker";

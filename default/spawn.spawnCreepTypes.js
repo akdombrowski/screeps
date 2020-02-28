@@ -57,6 +57,7 @@ function birthCreep(
 function spawnCreepTypes(enAvail) {
   let linkGets = Memory.linkGets || [];
   let workers = Memory.workers || [];
+  let neworkers = Memory.neworkers || [];
   let harvesters = Memory.harvesters || [];
   let upControllers = Memory.upControllers || [];
   let upControllersN = Memory.upControllersN || [];
@@ -206,7 +207,7 @@ function spawnCreepTypes(enAvail) {
       sourceId,
       spawnDirection
     );
-  } else if (southHarvesters.length < 4 && !invaderId) {
+  } else if (southHarvesters.length < 3 && !invaderId) {
     if (enAvail >= 300) {
       let t = Game.time.toString().slice(4);
       let name = "harv" + t;
@@ -216,7 +217,7 @@ function spawnCreepTypes(enAvail) {
       let parts = simpleParts;
       let spawnDirection = [BOTTOM];
 
-      if (southHarvesters.length < 3) {
+      if (southHarvesters.length < 2) {
         southHarvesters.push(name);
         parts = simpleParts;
         birthCreep(
@@ -228,7 +229,7 @@ function spawnCreepTypes(enAvail) {
           sourceId,
           spawnDirection
         );
-      } else if (upControllers.length < 2) {
+      } else if (upControllers.length < 1) {
         parts = upContrParts;
         name = "upc" + t;
         upControllers.push(name);
@@ -243,7 +244,7 @@ function spawnCreepTypes(enAvail) {
           spawnDirection
         );
       } else if (
-        northHarvesters.length < 5 &&
+        northHarvesters.length < 2 &&
         (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
       ) {
         name += "N";
@@ -259,7 +260,7 @@ function spawnCreepTypes(enAvail) {
           spawnDirection
         );
       } else if (
-        westHarvesters.length < 5 &&
+        westHarvesters.length < 2 &&
         (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
       ) {
         name += "W";
@@ -298,6 +299,7 @@ function spawnCreepTypes(enAvail) {
     let parts = newhvParts;
     let spawnDirection = [BOTTOM];
     let birth = false;
+    let buildRoom = "E36N32";
 
     if (linkGets.length < 1 && Memory.harvester1) {
       chosenRole = "linkGet";
@@ -386,49 +388,18 @@ function spawnCreepTypes(enAvail) {
       direction = "west";
       westHarvesters.push(name);
       birth = true;
-    } else if (workers.length < 5) {
+    } else if (neworkers.length < 3) {
+      neworkers.push(name);
+      chosenRole = "neBuilder";
+      buildRoom = "E36N32";
+      name = chosenRole + t;
+      parts = workerParts;
+      birth = true;
+    } else {
       chosenRole = "w";
       name = chosenRole + t;
       parts = workerParts;
       workers.push(name);
-      birth = true;
-    } else if (
-      !Game.creeps.northRezzy &&
-      (!nAttackerId || Game.time >= eAttackDurationSafeCheck)
-    ) {
-      waitForRezzy = true;
-      if (enAvail >= 650) {
-        chosenRole = "northRezzy";
-        name = "northRezzy";
-        direction = "north";
-        parts = rezzyParts;
-        birth = true;
-      }
-    } else if (
-      !Game.creeps.westRezzy &&
-      (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
-    ) {
-      waitForRezzy = true;
-      chosenRole = "westRezzy";
-      name = "westRezzy";
-      direction = "west";
-      parts = rezzyParts;
-      birth = true;
-    } else if (
-      !Game.creeps.eastRezzy &&
-      (!eAttackerId || Game.time >= eAttackDurationSafeCheck)
-    ) {
-      waitForRezzy = true;
-      chosenRole = "eastRezzy";
-      name = "eastRezzy";
-      direction = "east";
-      parts = upContrParts;
-      birth = true;
-    } else {
-      chosenRole = "linkGet";
-      name = "XLlink" + t;
-      parts = largeLinkGetsParts;
-      linkGets.push(name);
       birth = true;
     }
 
@@ -449,6 +420,7 @@ function spawnCreepTypes(enAvail) {
 
   Memory.harvesters = harvesters;
   Memory.workers = workers;
+  Memory.neworkers = neworkers;
   Memory.upControllers = upControllers;
   Memory.upControllersN = upControllersN;
   Memory.upControllersNE = upControllersNE;

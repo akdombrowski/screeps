@@ -14,23 +14,11 @@ function vest(creep, flag, path) {
   let target = sourceId ? Game.getObjectById(sourceId) : null;
   let retval = -16;
 
-  if (_.sum(creep.carry) >= creep.carryCapacity) {
+  if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0 || _.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.getEnergy = false;
 
     if (name === Memory.eeastSource2CreepName) {
       Memory.eeastSource2CreepName = null;
-    }
-
-    if (creep.memory.buildingRoad) {
-      let retval = buildRoad(creep);
-      if (retval != OK) {
-        creep.memory.transfer = true;
-        transferEnergy(creep);
-      } else {
-        creep.memory.buildingRoad = true;
-      }
-    } else if (creep.memory.transfer) {
-      transferEnergy(creep);
     }
     return retval;
   } else {
@@ -68,8 +56,17 @@ function vest(creep, flag, path) {
 
       return retval;
     } else {
-      retval = smartMove(creep, target, 1, true, "#000fff", 2000, 1000);
+      // retval = smartMove(creep, target, 1, true, "#000fff", 2000, 1000);
 
+      retval = creep.moveTo(target, {
+        visualizePathStyle: {
+          fill: "transparent",
+          stroke: "#fff",
+          lineStyle: "dashed",
+          strokeWidth: 0.15,
+          opacity: 0.1,
+        },
+      });
       return retval;
     }
   } else if (!target) {

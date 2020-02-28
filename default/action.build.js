@@ -36,11 +36,38 @@ function build(creep) {
     }
     if (creep.pos.inRangeTo(target, 3)) {
       if (
-        creep.pos.findInRange(FIND_CREEPS, 1).pop().name !== creep.name &&
-        creep.pos.isNearTo(Game.getObjectById(Memory.source1eRm))
+        creep.pos.findInRange(FIND_CREEPS, 1).pop().name !== creep.name
       ) {
-        creep.move(LEFT);
-        creep.move(TOP_LEFT);
+        retval = creep.move(LEFT);
+
+        if (retval !== OK) {
+          creep.move(TOP_LEFT);
+        }
+
+        if (retval !== OK) {
+          creep.move(TOP);
+        }
+
+        if (retval !== OK) {
+          creep.move(TOP_RIGHT);
+        }
+
+        if (retval !== OK) {
+          creep.move(RIGHT);
+        }
+
+        if (retval !== OK) {
+          creep.move(BOTTOM_RIGHT);
+        }
+
+        if (retval !== OK) {
+          creep.move(BOTTOM);
+        }
+
+        if (retval !== OK) {
+          creep.move(BOTTOM_LEFT);
+        }
+
         creep.say("pass");
       } else {
         retval = creep.build(target);

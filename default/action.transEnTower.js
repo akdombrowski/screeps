@@ -68,7 +68,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
         return true;
       }
       return false;
-    }).pop();
+    })[0];
 
     if (target && target.store && target.store.getFreeCapacity([RESOURCE_ENERGY]) <= 0) {
       target = null;
@@ -77,7 +77,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
 
   if (!target) {
     creep.say("wut tower?");
-    console.log("wut tower");
+    console.log(name + " wut tower");
     creep.memory.transferTower = false;
     return ERR_NOT_FOUND;
   }
@@ -86,9 +86,6 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
     creep.memory.path = null;
     retval = creep.transfer(target, RESOURCE_ENERGY);
 
-    if (creep.memory.direction === "south") {
-      // console.log(name + " transfer to target val " + retval);
-    }
 
     if (retval === OK) {
       creep.say("t");

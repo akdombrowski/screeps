@@ -61,64 +61,64 @@ function build(creep, flag, room) {
         },
       });
       targetId = target ? target.id : null;
+    }
 
-      target = Game.getObjectById(targetId);
+    target = Game.getObjectById(targetId);
 
-      if (creep.pos.inRangeTo(target, 3)) {
-        if (
-          creep.pos.findInRange(FIND_CREEPS, 1).pop().name !== creep.name &&
-          creep.pos.isNearTo(Game.getObjectById(Memory.source1eRm))
-        ) {
-          retval = creep.move(LEFT);
+    if (creep.pos.inRangeTo(target, 3)) {
+      if (
+        creep.pos.findInRange(FIND_CREEPS, 1).pop().name !== creep.name &&
+        creep.pos.isNearTo(Game.getObjectById(Memory.source1eRm))
+      ) {
+        retval = creep.move(LEFT);
 
-          if (retval !== OK) {
-            creep.move(TOP_LEFT);
-          }
-
-          if (retval !== OK) {
-            creep.move(RIGHT);
-          }
-
-          if (retval !== OK) {
-            creep.move(TOP_RIGHT);
-          }
-
-          if (retval !== OK) {
-            creep.move(BOTTOM);
-          }
-
-          if (retval !== OK) {
-            creep.move(BOTTOM_RIGHT);
-          }
-
-          creep.say("pass");
-        } else {
-          retval = creep.build(target);
-          creep.memory.b = targetId;
-          creep.say("build");
-        }
-      } else {
-        if (creep.fatigue > 0) {
-          creep.say("f" + creep.fatigue);
-          return ERR_TIRED;
-        }
-        retval = smartMove(creep, target, 3, "#ffff0f");
         if (retval !== OK) {
-          creep.say("err");
-        } else {
-          creep.say("m");
+          creep.move(TOP_LEFT);
         }
-      }
 
-      if (creep.carry.energy <= 0) {
-        creep.memory.building = false;
-        creep.memory.getEnergy = true;
+        if (retval !== OK) {
+          creep.move(RIGHT);
+        }
+
+        if (retval !== OK) {
+          creep.move(TOP_RIGHT);
+        }
+
+        if (retval !== OK) {
+          creep.move(BOTTOM);
+        }
+
+        if (retval !== OK) {
+          creep.move(BOTTOM_RIGHT);
+        }
+
+        creep.say("pass");
+      } else {
+        retval = creep.build(target);
+        creep.memory.b = targetId;
+        creep.say("build");
       }
+    } else {
+      if (creep.fatigue > 0) {
+        creep.say("f" + creep.fatigue);
+        return ERR_TIRED;
+      }
+      retval = smartMove(creep, target, 3, "#ffff0f");
+      if (retval !== OK) {
+        creep.say("err");
+      } else {
+        creep.say("m");
+      }
+    }
+
+    if (creep.carry.energy <= 0) {
+      creep.memory.building = false;
+      creep.memory.getEnergy = true;
     } else {
       retval = ERR_NOT_ENOUGH_ENERGY;
     }
-    return retval;
   }
+  return retval;
 }
 
 module.exports = build;

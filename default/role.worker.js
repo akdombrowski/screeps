@@ -31,9 +31,7 @@ var roleWorker = {
       creep.say("h");
       creep.memory.getEnergy = true;
 
-      if (creep.room.name === "E36N31" || creep.room.name === "E36N32") {
-        getEnergy(creep, "E35N31");
-      } else if (creep.memory.direction) {
+      if (creep.memory.direction) {
         switch (creep.memory.direction) {
           case "east":
             if (creep.memory.sourceDir === "north") {

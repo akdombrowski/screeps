@@ -1,9 +1,9 @@
 const smartMove = require("./action.smartMove");
 
 function build(creep, flag, room) {
-  let targetId = "5e5870380307a75ac091d835";
+  let targetId = "5e5a6e2b016b547504000249";
   let target = Game.getObjectById(targetId);
-  let eesource1 = Game.getObjectById(Memory.sourceEE1Id);
+  let nsource = Game.getObjectById("5bbcaefa9099fc012e639e8c");
   let building = true;
   let retval = -16;
   let rm = creep.room;
@@ -12,7 +12,7 @@ function build(creep, flag, room) {
 
   // get to the right room
   if (rmName !== room) {
-    return smartMove(creep, flag, 1);
+    return smartMove(creep, flag, 1, false, "#fff000");
   }
 
   // harvest or build depending on energy level and if still filling up
@@ -22,7 +22,7 @@ function build(creep, flag, room) {
     creep.memory.getEnergy
   ) {
     creep.memory.getEnergy = true;
-    target = eesource1;
+    target = nsource;
 
     // Find closest source if sourceEE1Id isn't good.
     if (!target) {
@@ -56,28 +56,28 @@ function build(creep, flag, room) {
       creep.room.lookAt(target).progress >=
         creep.room.lookAt(target).progressTotal
     ) {
-      if (!Memory.eesites) {
-        Memory.eesites = Game.rooms.E37N31.find(FIND_CONSTRUCTION_SITES, {
+      if (!Memory.sites) {
+        Memory.sites = Game.rooms.E37N31.find(FIND_CONSTRUCTION_SITES, {
           filter: constructionSite => {
             return constructionSite.progress < constructionSite.progressTotal;
           },
         });
       }
-      target = creep.pos.findClosestByRange(Memory.eesites);
+      target = creep.pos.findClosestByRange(Memory.nsites);
       targetId = target ? target.id : null;
       creep.memory.targetId = targetId;
       if (targetId) {
         target = Game.getObjectById(targetId);
       } else {
         target = null;
-        Memory.eesites = null;
+        Memory.nsites = null;
       }
     }
 
     if (target && creep.pos.inRangeTo(target, 3)) {
       if (
         creep.pos.findInRange(FIND_CREEPS, 1).pop().name !== creep.name &&
-        creep.pos.isNearTo(Game.getObjectById(Memory.source1eRm))
+        creep.pos.isNearTo(Game.getObjectById(Memory.nsource))
       ) {
         retval = creep.move(LEFT);
 

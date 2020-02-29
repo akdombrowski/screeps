@@ -6,6 +6,7 @@ const smartMove = require("./action.smartMove");
 const spawnCreepTypes = require("./spawn.spawnCreepTypes");
 const spawnCreepTypeseRm = require("./spawn.eRmspawnCreepTypes");
 const spawnCreepTypeseeRm = require("./spawn.eeRmspawnCreepTypes");
+const spawnCreepTypesNE = require("./spawn.spawnCreepTypesNE");
 const runRoles = require("./runRoles");
 const linkTran = require("./action.linkTran");
 const profiler = require("./screeps-profiler");
@@ -20,6 +21,7 @@ module.exports.loop = function() {
     let s1 = Game.spawns.Spawn1;
     let s2 = Game.spawns.s2;
     let eespawn = Game.spawns.eespawn;
+    let spawnNE = Game.spawns.spawnNE;
     let rm = Game.rooms.E35N31;
     let nRm = Game.rooms.E35N32;
     let wRm = Game.rooms.E34N31;
@@ -33,10 +35,14 @@ module.exports.loop = function() {
     let enAvaileRm = eRm.energyAvailable;
     let enCapeRm = eRm.energyCapacityAvailable;
 
-    let enAvaileeRm =
-      eeRm.energyAvailable +
-      Game.spawns.eespawn.store.getUsedCapacity(RESOURCE_ENERGY);
+    let enAvailNE = neRm.energyAvailable;
+    let enCapNE = neRm.energyCapacityAvailable;
+
+    let enAvaileeRm = eeRm.energyAvailable;
     let enCapeeRm = eeRm.energyCapacityAvailable;
+
+    let enAvailN = nRm.energyAvailable;
+    let enCapN = nRm.energyCapacityAvailable;
 
     let crps = Game.creeps;
     let numCrps = Object.keys(crps).length;
@@ -98,6 +104,12 @@ module.exports.loop = function() {
     let rmController = Game.getObjectById(rmControllerId);
     let ermControllerId = Memory.ermControllerId || "5bbcaf0c9099fc012e63a0be";
     let ermController = Game.getObjectById(ermControllerId);
+    let eermControllerId = "5bbcaf1b9099fc012e63a2dd";
+    let eermController = Game.getObjectById(eermControllerId);
+    let nermControllerId = "5bbcaf0c9099fc012e63a0b9";
+    let nermController = Game.getObjectById(nermControllerId);
+    let nrmControllerId = "5bbcaefa9099fc012e639e8b";
+    let nrmController = Game.getObjectById(nrmControllerId);
     let e1 = Memory.extension1;
     let e2 = Memory.extension2;
     let e3 = Memory.extension3;
@@ -232,6 +244,7 @@ module.exports.loop = function() {
 
       spawnCreepTypeseRm(enAvaileRm);
       spawnCreepTypeseeRm(enAvaileeRm);
+      spawnCreepTypesNE(enAvailNE);
     } else {
       console.log("low cpu bucket: " + Game.cpu.bucket);
     }
@@ -284,16 +297,42 @@ module.exports.loop = function() {
         Memory.ermProg = 0;
       }
 
+      if (!Memory.eeRmProg) {
+        Memory.eeRmProg = 0;
+      }
+
+      if (!Memory.neRmProg) {
+        Memory.neRmProg = 0;
+      }
+
+      if (!Memory.nRmProg) {
+        Memory.nRmProg = 0;
+      }
+
       let rmLvl = rmController.level;
       let rmProg = rmController.progress;
       let rmProgTot = rmController.progressTotal;
+      let nrmLvl = nrmController.level;
+      let nrmProg = nrmController.progress;
+      let nrmProgTot = nrmController.progressTotal;
+      let eermLvl = eermController.level;
+      let eermProg = eermController.progress;
+      let eermProgTot = eermController.progressTotal;
       const ermLvl = ermController.level;
       const ermProg = ermController.progress;
       const ermProgTot = ermController.progressTotal;
+      const nermLvl = nermController.level;
+      const nermProg = nermController.progress;
+      const nermProgTot = nermController.progressTotal;
       let rmProgRate = (rmProg - Memory.rmProg) / Memory.rmProg;
       let ermProgRate = (ermProg - Memory.ermProg) / Memory.ermProg;
+      let eermProgRate = (eeRmProg - Memory.eeRmProg) / Memory.eeRmProg;
+      let nermProgRate = (nermProg - Memory.neRmProg) / Memory.neRmProg;
+      let nrmProgRate = (nrmProg - Memory.nRmProg) / Memory.nRmProg;
       let rmProgPerc = rmProgRate * 100;
       let ermProgPerc = ermProgRate * 100;
+      let eermProgPerc = eermProgRate * 100;
+      let nermProgPerc = nermProgRate * 100;
 
       console.log("Creeps: " + numCrps);
 
@@ -309,6 +348,17 @@ module.exports.loop = function() {
           "%"
       );
       console.log(
+        "N: " +
+          nrmLvl +
+          ":" +
+          nrmProg / 1000 +
+          "/" +
+          nrmProgTot / 1000 +
+          " - " +
+          nrmProgPerc +
+          "%"
+      );
+      console.log(
         "E: " +
           ermLvl +
           ":" +
@@ -319,9 +369,33 @@ module.exports.loop = function() {
           ermProgPerc +
           "%"
       );
+      console.log(
+        "EE: " +
+          eermLvl +
+          ":" +
+          eermProg / 1000 +
+          "/" +
+          eermProgTot / 1000 +
+          " - " +
+          eermProgPerc +
+          "%"
+      );
+      console.log(
+        "NE: " +
+          nermLvl +
+          ":" +
+          nermProg / 1000 +
+          "/" +
+          nermProgTot / 1000 +
+          " - " +
+          nermProgPerc +
+          "%"
+      );
 
       console.log("S:" + enAvail + "," + enCap);
       console.log("E:" + enAvaileRm + "," + enCapeRm);
+      console.log("EE:" + enAvaileeRm + "," + enCapeeRm);
+      console.log("NE:" + enAvailNE + "," + enCapNE);
 
       Game.notify(
         "S: " +

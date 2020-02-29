@@ -34,6 +34,7 @@ function tran(creep, flag, dest) {
   }
 
   if (direction === "eeast") {
+    creep.memory.transferTargetId;
     return tranee(creep);
   }
 
@@ -150,10 +151,6 @@ function tran(creep, flag, dest) {
       exts = extsObjs;
     }
 
-    console.log(
-      name + " in transferEnergy lastTarget " + JSON.stringify(creep.memory.transferTargetId)
-    );
-    console.log(name + " in transferEnergy finding closest ext " + exts);
     let a = creep.pos.findClosestByPath(exts, {
       filter: function(structure) {
         if (!structure) {
@@ -233,7 +230,6 @@ function tran(creep, flag, dest) {
   }
 
   if (!target) {
-    console.log(name + " in transferEnergy finding storage ");
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: structure => {
         if (
@@ -268,6 +264,7 @@ function tran(creep, flag, dest) {
     retval = creep.transfer(target, RESOURCE_ENERGY);
     if (retval === OK) {
       creep.memory.path = null;
+      creep.memory.transferTargetId = null;
       creep.say("t");
       return retval;
     }

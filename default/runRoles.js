@@ -31,6 +31,7 @@ function runRoles() {
   let harvesters = [];
   let workers = [];
   let neworkers = [];
+  let nworkers = [];
   let eworkers = [];
   let eeworkers = [];
   let upControllers = [];
@@ -193,26 +194,32 @@ function runRoles() {
         workers.push(name);
       }
       roleWorker.run(creep);
+    } else if (roll === "nBuilder" || roll === "nworker") {
+      nworkers.push(name);
+
+      creep.memory.buildRoom = "E35N32";
+
+      role.worker.run(creep);
     } else if (roll === "eBuilder" || roll === "eworker") {
       eworkers.push(name);
 
       creep.memory.buildRoom = "E36N31";
 
-      roleHarvesterBuilder.run(creep);
+      roleWorker.run(creep);
     } else if (roll === "eeBuilder" || roll === "eeworker") {
       eeworkers.push(name);
 
       creep.memory.buildRoom = "E37N31";
 
-      roleHarvesterBuilder.run(creep);
+      roleWorker.run(creep);
     } else if (roll === "neBuilder") {
       neworkers.push(name);
       creep.memory.buildRoom = "E36N32";
-      buildNE(creep, Game.flags.neSource1, "E36N32");
+      roleWorker.run(creep, Game.flags.neSource1, "E36N32");
     } else if (roll === "eeBuilder") {
       eeworkers.push(name);
       creep.memory.buildRoom = "E37N31";
-      buildEE(creep, Game.flags.eeController, "E37N31");
+      roleWorker.run(creep, Game.flags.eeController, "E37N31");
     } else if (roll === "healer") {
       hele(creep);
     } else if (roll === "controller") {
@@ -264,6 +271,7 @@ function runRoles() {
   Memory.eworkers = eworkers;
   Memory.eeworkers = eeworkers;
   Memory.neworkers = neworkers;
+  Memory.nworkers = nworkers;
   Memory.upControllers = upControllers;
   Memory.upControllersN = upControllersN;
   Memory.upControllersNE = upControllersNE;

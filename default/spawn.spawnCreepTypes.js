@@ -207,7 +207,7 @@ function spawnCreepTypes(enAvail) {
       sourceId,
       spawnDirection
     );
-  } else if (southHarvesters.length < 3 && !invaderId) {
+  } else if (southHarvesters.length < 4 && !invaderId) {
     if (enAvail >= 300) {
       let t = Game.time.toString().slice(4);
       let name = "harv" + t;
@@ -217,7 +217,7 @@ function spawnCreepTypes(enAvail) {
       let parts = simpleParts;
       let spawnDirection = [BOTTOM];
 
-      if (southHarvesters.length < 2) {
+      if (southHarvesters.length < 3) {
         southHarvesters.push(name);
         parts = simpleParts;
         birthCreep(
@@ -307,7 +307,7 @@ function spawnCreepTypes(enAvail) {
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
-    } else if (southHarvesters.length < 3) {
+    } else if (southHarvesters.length < 5) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
@@ -327,7 +327,7 @@ function spawnCreepTypes(enAvail) {
       claimersNE.push(name);
       birth = true;
     } else if (
-      upControllersNE.length < 2 &&
+      upControllersNE.length < 1 &&
       Game.getObjectById("5bbcaf0c9099fc012e63a0b9").my
     ) {
       parts = upContrPartsBig;
@@ -345,7 +345,7 @@ function spawnCreepTypes(enAvail) {
       claimersN.push(name);
       birth = true;
     } else if (
-      upControllersN.length < 2 &&
+      upControllersN.length < 1 &&
       Game.getObjectById("5bbcaefa9099fc012e639e8b").my
     ) {
       parts = upContrPartsBig;
@@ -353,6 +353,13 @@ function spawnCreepTypes(enAvail) {
       chosenRole = "upCN";
       birth = true;
       upControllersN.push(name);
+    }else if (nworkers.length < 3) {
+      nworkers.push(name);
+      chosenRole = "nBuilder";
+      buildRoom = "E35N32";
+      name = chosenRole + t;
+      parts = workerParts;
+      birth = true;
     } else if (southtowerHarvesters.length < 3) {
       chosenRole = "southtowerHarvester";
       name = "sth" + t;

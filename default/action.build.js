@@ -3,7 +3,7 @@ const smartMove = require("./action.smartMove");
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
 
 function build(creep) {
-  let targetId = creep.memory.targetId;
+  let targetId = "5e4da6ddb59f24183dd709cb";
   let target = Game.getObjectById(targetId);
   let building = creep.memory.building || true;
   let s2 = Game.spawns.s2;

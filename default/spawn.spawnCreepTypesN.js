@@ -53,6 +53,7 @@ function spawnCreepTypes(enAvail) {
   let workers = Memory.workers || [];
   let eworkers = Memory.eworkers || [];
   let neworkers = Memory.neworkers || [];
+  let nworkers = Memory.nworkers || [];
 
   let harvesters = Memory.harvesters || [];
   let upControllers = Memory.upControllers || [];
@@ -61,7 +62,6 @@ function spawnCreepTypes(enAvail) {
   let westHarvesters = Memory.westHarvesters || [];
 
   let eastHarvesters = Memory.eastHarvesters || [];
-  let workersN = Memory.eastWorkers || [];
   let upControllersN = Memory.eastUpControllers || [];
   let harvestersN = Memory.harvestersN || [];
   let towerHarvestersN = Memory.etowerHarvesters || [];
@@ -236,7 +236,7 @@ function spawnCreepTypes(enAvail) {
       birth = true;
     } else {
       nworkers.push(name);
-      chosenRole = "neBuilder";
+      chosenRole = "nBuilder";
       buildRoom = "E35N32";
       name = chosenRole + t;
       parts = simpleParts;
@@ -309,10 +309,10 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = medworkerParts;
       birth = true;
-    } else if (workersN.length < 2) {
-      chosenRole = "nworker";
+    } else if (nworkers.length < 2) {
+      chosenRole = "nBuilder";
       name = chosenRole + t;
-      workersN.push(name);
+      nworkers.push(name);
       parts = medworkerParts;
       birth = true;
     } else if (upControllersN.length < 3) {
@@ -375,10 +375,10 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = medworkerParts;
       upControllersN.push(name);
-    } else if (workersN.length < 3) {
+    } else if (nworkers.length < 3) {
       chosenRole = "nBuilder";
       name = chosenRole + t;
-      workersN.push(name);
+      nworkers.push(name);
       parts = medworkerParts;
     }
 
@@ -400,7 +400,7 @@ function spawnCreepTypes(enAvail) {
   }
 
   Memory.harvesters = harvesters;
-  Memory.workersN = workersN;
+  Memory.nworkers = nworkers;
   Memory.eworkers = eworkers;
   Memory.neworkers = neworkers;
   Memory.upControllers = upControllers;

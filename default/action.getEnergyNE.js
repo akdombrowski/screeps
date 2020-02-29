@@ -13,7 +13,6 @@ function checkForCreepsNearSource(creep, range, sources) {
     }
   });
 
-
   return target;
 }
 
@@ -29,7 +28,7 @@ function vest(creep, flag, path) {
   let target = sourceId ? Game.getObjectById(sourceId) : null;
   let retval = -16;
 
-  if (_.sum(creep.carry) >= creep.carryCapacity) {
+  if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
     creep.memory.getEnergy = false;
 
     if (creep.memory.buildingRoad) {
@@ -49,10 +48,9 @@ function vest(creep, flag, path) {
   creep.memory.transfer = false;
   creep.memory.getEnergy = true;
 
-  if (!target || target.room.name !== "E36N32" || !target.store[RESOURCE_ENERGY]) {
-    target = checkForCreepsNearSource(
-      creep, 1, [nESource1, nESource2]
-    );
+  if (!target) {
+    target = nESource1;
+    target = checkForCreepsNearSource(creep, 1, [nESource1, nESource2]);
   }
 
   if (target) {

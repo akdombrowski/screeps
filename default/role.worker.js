@@ -1,6 +1,7 @@
 const getEnergy = require("./action.getEnergy.1");
 const getEnergyEE = require("./action.getEnergyEEast");
 const getEnergyN = require("./action.getEnergyNorth");
+const getEnergyNE = require("./action.getEnergyNE");
 const getEnergyW = require("./action.getEnergyWest");
 const getEnergyE = require("./action.getEnergyE");
 const smartMove = require("./action.smartMove");
@@ -52,7 +53,7 @@ var roleWorker = {
             getEnergyN(creep, "E35N32");
             break;
           case "ne":
-            getEnergyE(creep, "E36N32");
+            getEnergyNE(creep, "E36N32");
             break;
           default:
             getEnergy(creep, "E35N31");
@@ -74,17 +75,6 @@ var roleWorker = {
     }
 
     if (creep.memory.working) {
-      let retval;
-      let targetId = creep.memory.b;
-      let target = Game.getObjectById(targetId);
-      creep.memory.working = true;
-      if (target) {
-        if (creep.room.name !== target.room.name) {
-          creep.memory.b = null;
-          targetId = null;
-        }
-      }
-
       if (
         creep.memory.direction === "s" ||
         creep.memory.direction === "south"

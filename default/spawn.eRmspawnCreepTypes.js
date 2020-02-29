@@ -102,20 +102,20 @@ function spawnCreepTypes(enAvail) {
   // 800
   let medsouthHvParts = [];
   addPart(medsouthHvParts, 1, CARRY);
-  addPart(medsouthHvParts, 6, WORK);
-  addPart(medsouthHvParts, 3, MOVE);
+  addPart(medsouthHvParts, 4, WORK);
+  addPart(medsouthHvParts, 7, MOVE);
 
   // 800
   let mednewhvParts = [];
-  addPart(mednewhvParts, 1, CARRY);
-  addPart(mednewhvParts, 5, WORK);
-  addPart(mednewhvParts, 5, MOVE);
+  addPart(mednewhvParts, 2, CARRY);
+  addPart(mednewhvParts, 3, WORK);
+  addPart(mednewhvParts, 8, MOVE);
 
   // 800
   let medworkerParts = [];
   addPart(medworkerParts, 1, CARRY);
-  addPart(medworkerParts, 7, WORK);
-  addPart(medworkerParts, 1, MOVE);
+  addPart(medworkerParts, 4, WORK);
+  addPart(medworkerParts, 7, MOVE);
 
   // 800
   let medrepairerParts = [];
@@ -132,13 +132,13 @@ function spawnCreepTypes(enAvail) {
   // 1100
   let southHvParts = [];
   addPart(southHvParts, 1, CARRY);
-  addPart(southHvParts, 9, WORK);
-  addPart(southHvParts, 3, MOVE);
+  addPart(southHvParts, 7, WORK);
+  addPart(southHvParts, 7, MOVE);
 
   // 800
   let attackerMedParts = [];
-  addPart(attackerMedParts, 8, ATTACK);
-  addPart(attackerMedParts, 3, MOVE);
+  addPart(attackerMedParts, 5, ATTACK);
+  addPart(attackerMedParts, 8, MOVE);
 
   // 1100
   let newhvParts = [];
@@ -149,8 +149,8 @@ function spawnCreepTypes(enAvail) {
   // 1100
   let workerParts = [];
   addPart(workerParts, 1, CARRY);
-  addPart(workerParts, 9, WORK);
-  addPart(workerParts, 3, MOVE);
+  addPart(workerParts, 6, WORK);
+  addPart(workerParts, 9, MOVE);
 
   // 1100
   let repairerParts = [];
@@ -161,8 +161,8 @@ function spawnCreepTypes(enAvail) {
   // 1100
   let linkGetsParts = [];
   addPart(linkGetsParts, 1, CARRY);
-  addPart(linkGetsParts, 9, WORK);
-  addPart(linkGetsParts, 3, MOVE);
+  addPart(linkGetsParts, 7, WORK);
+  addPart(linkGetsParts, 5, MOVE);
 
   let rezzyParts = [CLAIM, MOVE];
   let basicHv = [CARRY, WORK, WORK, MOVE];
@@ -236,7 +236,7 @@ function spawnCreepTypes(enAvail) {
       parts = simpleParts;
       birth = true;
     } else if (neworkers.length < 1) {
-      eworkers.push(name);
+      neworkers.push(name);
       chosenRole = "neBuilder";
       buildRoom = "E36N32";
       name = chosenRole + t;
@@ -263,124 +263,132 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  if (enAvail >= 800) {
-    let t = Game.time.toString().slice(4);
-    let name = "h" + t + "E";
-    let chosenRole = "h";
-    let direction = "east";
-    let parts = mednewhvParts;
-    let spawnDirection = [TOP];
-    let sourceId = "";
-    let sourceDir = "eeast";
-    let birth = false;
-    let buildRoom = "E37N31";
+  // if (enAvail >= 800) {
+  //   let t = Game.time.toString().slice(4);
+  //   let name = "h" + t + "E";
+  //   let chosenRole = "h";
+  //   let direction = "east";
+  //   let parts = mednewhvParts;
+  //   let spawnDirection = [TOP];
+  //   let sourceId = "";
+  //   let sourceDir = "eeast";
+  //   let birth = false;
+  //   let buildRoom = "E37N31";
 
-    if (eattackers.length < 2 && neAttackerId) {
-      parts = attackerMedParts;
-      name = "eatt" + t;
-      chosenRole = "attacker";
-      direction = "ne";
-      eattackers.push(name);
-      birth = true;
-    } else if (eastUpControllers.length < 2) {
-      chosenRole = "eRezzy";
-      name = chosenRole + t;
-      direction = "east";
-      parts = medupContrParts;
-      eastUpControllers.push(name);
-      birth = true;
-    } else if (ermNeHarvesters.length < 4 && !neAttackerId) {
-      ermNeHarvesters.push(name);
-      name = "h" + t + "NE";
-      parts = mednewhvParts;
-      sourceDir = "north1";
-      birth = true;
-    } else if (etowerHarvesters.length < 2) {
-      chosenRole = "etowerHarvester";
-      name = chosenRole + t;
-      etowerHarvesters.push(name);
-      harvesters.push(name);
-      parts = mednewhvParts;
-      sourceDir = "east1";
-      birth = true;
-    } else if (neworkers.length < 3) {
-      eworkers.push(name);
-      chosenRole = "neBuilder";
-      buildRoom = "E36N32";
-      name = chosenRole + t;
-      parts = medworkerParts;
-      birth = true;
-    } else if (workers.length < 2) {
-      chosenRole = "worker";
-      name = chosenRole + t;
-      workers.push(name);
-      parts = medworkerParts;
-      birth = true;
-    } else if (eastUpControllers.length < 3) {
-      chosenRole = "eRezzy";
-      name = chosenRole + t;
-      direction = "east";
-      parts = medupContrParts;
-      eastUpControllers.push(name);
-      birth = true;
-    } else {
-      ermHarvesters.push(name);
-      parts = mednewhvParts;
-      sourceDir = "east";
-      birth = true;
-    }
+  //   if (eattackers.length < 2 && neAttackerId) {
+  //     parts = attackerMedParts;
+  //     name = "eatt" + t;
+  //     chosenRole = "attacker";
+  //     direction = "ne";
+  //     eattackers.push(name);
+  //     birth = true;
+  //   } else if (eastUpControllers.length < 2) {
+  //     chosenRole = "eRezzy";
+  //     name = chosenRole + t;
+  //     direction = "east";
+  //     parts = medupContrParts;
+  //     eastUpControllers.push(name);
+  //     birth = true;
+  //   } else if (ermNeHarvesters.length < 4 && !neAttackerId) {
+  //     ermNeHarvesters.push(name);
+  //     name = "h" + t + "NE";
+  //     parts = mednewhvParts;
+  //     sourceDir = "north1";
+  //     birth = true;
+  //   } else if (etowerHarvesters.length < 2) {
+  //     chosenRole = "etowerHarvester";
+  //     name = chosenRole + t;
+  //     etowerHarvesters.push(name);
+  //     harvesters.push(name);
+  //     parts = mednewhvParts;
+  //     sourceDir = "east1";
+  //     birth = true;
+  //   } else if (neworkers.length < 3) {
+  //     eworkers.push(name);
+  //     chosenRole = "neBuilder";
+  //     buildRoom = "E36N32";
+  //     name = chosenRole + t;
+  //     parts = medworkerParts;
+  //     birth = true;
+  //   } else if (workers.length < 2) {
+  //     chosenRole = "worker";
+  //     name = chosenRole + t;
+  //     workers.push(name);
+  //     parts = medworkerParts;
+  //     birth = true;
+  //   } else if (eastUpControllers.length < 3) {
+  //     chosenRole = "eRezzy";
+  //     name = chosenRole + t;
+  //     direction = "east";
+  //     parts = medupContrParts;
+  //     eastUpControllers.push(name);
+  //     birth = true;
+  //   } else {
+  //     ermHarvesters.push(name);
+  //     parts = mednewhvParts;
+  //     sourceDir = "east";
+  //     birth = true;
+  //   }
 
-    if (birth) {
-      console.log(
-        name +
-          " role birth: " +
-          birthCreep(
-            s2,
-            parts,
-            name,
-            chosenRole,
-            direction,
-            sourceId,
-            sourceDir,
-            buildRoom,
-            spawnDirection
-          )
-      );
-    }
-  }
+  //   if (birth) {
+  //     console.log(
+  //       name +
+  //         " role birth: " +
+  //         birthCreep(
+  //           s2,
+  //           parts,
+  //           name,
+  //           chosenRole,
+  //           direction,
+  //           sourceId,
+  //           sourceDir,
+  //           buildRoom,
+  //           spawnDirection
+  //         )
+  //     );
+  //   }
+  // }
 
   if (enAvail >= 1100) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "NE";
     let chosenRole = "h";
     let direction = "east";
-    let parts = mednewhvParts;
+    let parts = newhvParts;
     let spawnDirection = [TOP];
     let sourceId = "";
     let sourceDir = "";
     let buildRoom = "E37N31";
 
-    if (eattackers.length < 3 && Memory.neAttackerId) {
+    if (eattackers.length < 1 && Memory.neAttackerId) {
       parts = attackerBigParts;
       name = "eatt" + t;
       chosenRole = "attacker";
       direction = "ne";
       eattackers.push(name);
       birth = true;
-    } else if (ermNeHarvesters.length < 6) {
+    } else if (ermNeHarvesters.length < 5) {
       ermNeHarvesters.push(name);
-      parts = mednewhvParts;
+      parts = newhvParts;
       sourceDir = "north";
-    } else if (eastUpControllers.length < 3) {
+    } else if (neworkers.length < 3) {
+      neworkers.push(name);
+      chosenRole = "neBuilder";
+      buildRoom = "E36N32";
+      name = chosenRole + t;
+      parts = workerParts;
+      birth = true;
+    } else if (eastUpControllers.length < 2) {
       chosenRole = "eRezzy";
       name = chosenRole + t;
       parts = medworkerParts;
       eastUpControllers.push(name);
     } else if (workers.length < 3) {
-      chosenRole = "worker";
+      chosenRole = "eworker";
+      buildRoom = "E36N31";
       name = chosenRole + t;
       eastWorkers.push(name);
-      parts = medworkerParts;
+      parts = workerParts;
     }
 
     console.log(

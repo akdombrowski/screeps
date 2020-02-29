@@ -199,7 +199,7 @@ function runRoles() {
 
       creep.memory.buildRoom = "E35N32";
 
-      role.worker.run(creep);
+      roleWorker.run(creep);
     } else if (roll === "eBuilder" || roll === "eworker") {
       eworkers.push(name);
 

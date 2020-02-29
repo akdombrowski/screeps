@@ -1,7 +1,7 @@
 const smartMove = require("./action.smartMove");
 
 function build(creep, flag, room) {
-  let targetId = "5e56e8d1b59f243e6ed8f396";
+  let targetId = "5e573320ed4d65035f99cb28";
   let target = Game.getObjectById(targetId);
   let building = true;
   let retval = -16;
@@ -54,6 +54,7 @@ function build(creep, flag, room) {
 
       target = Game.getObjectById(targetId);
     }
+
     if (creep.pos.inRangeTo(target, 3)) {
       if (
         creep.pos.findInRange(FIND_CREEPS, 1).pop().name !== creep.name &&
@@ -62,23 +63,23 @@ function build(creep, flag, room) {
         retval = creep.move(LEFT);
 
         if (retval !== OK) {
-          creep.move(TOP_LEFT);
+          retval = creep.move(TOP_LEFT);
         }
 
         if (retval !== OK) {
-          creep.move(RIGHT);
+          retval = creep.move(RIGHT);
         }
 
         if (retval !== OK) {
-          creep.move(TOP_RIGHT);
+          retval = creep.move(TOP_RIGHT);
         }
 
         if (retval !== OK) {
-          creep.move(BOTTOM);
+          retval = creep.move(BOTTOM);
         }
 
         if (retval !== OK) {
-          creep.move(BOTTOM_RIGHT);
+          retval = creep.move(BOTTOM_RIGHT);
         }
 
         creep.say("pass");
@@ -92,6 +93,7 @@ function build(creep, flag, room) {
         creep.say("f" + creep.fatigue);
         return ERR_TIRED;
       }
+
       retval = smartMove(creep, target, 3, "#ffff0f");
 
       if (retval !== OK) {

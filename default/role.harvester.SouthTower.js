@@ -3,7 +3,7 @@ const transferEnergy = require("./action.transferEnergy");
 const transferEnergyeRm = require("./action.transferEnergyeRm");
 const getEnergyNorth = require("./action.getEnergy.1");
 const getEnergyEast = require("./action.getEnergy.1");
-const ermgetEnergyEast = require("./action.getEnergy.1");
+const getEnergyEE = require("./action.getEnergyEEast");
 const getEnergyWest = require("./action.getEnergy.1");
 const buildRoad = require("./action.buildRoad");
 const smartMove = require("./action.smartMove");
@@ -19,12 +19,12 @@ const roleHarvesterToTower = {
     let direction = creep.memory.direction;
     let sourceDir = creep.memory.sourceDir;
 
-    if (creep.memory.getEnergy || creep.carry.energy <= 0) {
+    if (!creep.store[RESOURCE_ENERGY] || creep.memory.getEnergy || creep.carry.energy <= 0) {
       creep.memory.buildRoad = false;
       creep.memory.transferTower = false;
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
-      ermgetEnergyEast(creep, "E35N31", "E35N31", Game.flags.source1);
+      getEnergy(creep, "E35N31", "E35N31", Game.flags.source1);
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.getEnergy = false;
       creep.memory.transfer = true;

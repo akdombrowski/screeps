@@ -26,25 +26,25 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   let destMem = creep.memory.dest;
   let transfering = creep.memory.transferTower;
 
+  if (creep.store[RESOURCE_ENERGY] > 0) {
+    creep.memory.transferTower = true;
+  } else {
+    creep.memory.trasnferTower = false;
+    return ERR_NOT_ENOUGH_ENERGY;
+  }
+
   if (rm.energyAvailable < minRmEnAvail && !transfering) {
     console.log(name + " rm energy too low or not transfertower");
     return retval;
   }
 
-
-
   if (
     creep.memory.transTowerId &&
-    creep.memory.transTowerId.structureType === STRUCTURE_TOWER
-  ) {
+    creep.memory.transTowerId.structureType === STRUCTURE_TOWER  ){
     target = Game.getObjectById(creep.memory.transTowerId);
   }
 
-  if(!target) {
-    if (creep.store[RESOURCE_ENERGY] > 0) {
-      creep.memory.transferTower = true;
-    }
-
+  if (!target || target.store.getFreeCapacity(RESOURCE_ENERGY) > 200) {
     target = null;
     let currTarget = towers[0];
     let prevTarget = towers[0];
@@ -62,7 +62,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
         return;
       }
 
-      if(!tower.store[RESOURCE_ENERGY]) {
+      if (!tower.store[RESOURCE_ENERGY]) {
         target = tower;
         return false;
       }

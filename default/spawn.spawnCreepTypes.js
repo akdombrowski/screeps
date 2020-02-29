@@ -357,6 +357,7 @@ function spawnCreepTypes(enAvail) {
     }else if (nworkers.length < 3) {
       nworkers.push(name);
       chosenRole = "nBuilder";
+      direction = "north";
       buildRoom = "E35N32";
       name = chosenRole + t;
       parts = workerParts;

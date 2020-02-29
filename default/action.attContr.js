@@ -9,16 +9,28 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
   if (creep.room.name == "E35N31") {
     if (_.sum(creep.carry) >= creep.carryCapacity) {
       if (!creep.pos.isNearTo(exit)) {
-        if (!path1) {
-          path1 = creep.room.findPath(creep.pos, exit.pos, {
-            serialize: true,
-            range: 1
-          });
-        }
-        if (creep.moveByPath(path1) != OK) {
+        retval = creep.moveTo(exit, {
+          range: 1,
+          noPathFinding: creep.memory.noPathFinding,
+          reusePath: creep.memory.reusePath,
+          serializeMemory: true,
+          visualizePathStyle: {
+            fill: "transparent",
+            stroke: "#fff",
+            lineStyle: "dashed",
+            strokeWidth: 0.15,
+            opacity: 0.1,
+          },
+        });
+
+        if (retval != OK) {
+          creep.memory.reusePath = 0;
+          creep.memory.noPathFinding = false;
           path = null;
           creep.say("err");
         } else {
+          creep.memoyr.reusePath = 10;
+          creep.memory.noPathFinding = true;
           creep.memory.path1 = path1;
           creep.say(rm);
         }
@@ -31,16 +43,29 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
       if (creep.pos.isNearTo(contr)) {
         creep.attackController(contr);
       } else {
-        if (!path2) {
-          path2 = creep.room.findPath(creep.pos, contr.pos, {
-            range: 1,
-            serialize: true
-          });
-          creep.memory.path2 = path2;
-        }
+        retval = creep.moveTo(contr, {
+          range: 1,
+          noPathFinding: creep.memory.noPathFinding,
+          reusePath: creep.memory.reusePath,
+          serializeMemory: true,
+          visualizePathStyle: {
+            fill: "transparent",
+            stroke: "#fff",
+            lineStyle: "dashed",
+            strokeWidth: 0.15,
+            opacity: 0.1,
+          },
+        });
 
-        creep.moveByPath(path2);
-        creep.say(rm);
+        if (retval !== OK) {
+          creep.memory.reusePath = 0;
+          creep.memory.noPathFinding = false;
+        } else {
+          creep.memory.reusePath = 10;
+          creep.memory.noPathFinding = true;
+
+          creep.say(rm);
+        }
       }
     }
   } else {

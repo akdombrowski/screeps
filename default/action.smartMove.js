@@ -86,6 +86,9 @@ function smartMove(
   //   }
   // }
   retval = creep.moveTo(destPos, {
+    plainCost: 3,
+    range: range,
+    ignoreCreeps: false,
     noPathFinding: false,
     reusePath: 1,
     serializeMemory: true,

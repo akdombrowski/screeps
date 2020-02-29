@@ -57,6 +57,7 @@ function birthCreep(
 function spawnCreepTypes(enAvail) {
   let linkGets = Memory.linkGets || [];
   let workers = Memory.workers || [];
+  let nworkers = Memory.nworkers || [];
   let neworkers = Memory.neworkers || [];
   let harvesters = Memory.harvesters || [];
   let upControllers = Memory.upControllers || [];
@@ -431,6 +432,7 @@ function spawnCreepTypes(enAvail) {
 
   Memory.harvesters = harvesters;
   Memory.workers = workers;
+  Memory.nworkers = nworkers;
   Memory.neworkers = neworkers;
   Memory.upControllers = upControllers;
   Memory.upControllersN = upControllersN;

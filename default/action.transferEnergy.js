@@ -6,7 +6,8 @@ const tranW = require("./action.transferEnergyW");
 const transEnTower = require("./action.transEnTower");
 
 function tran(creep, flag, dest) {
-  let target;
+  let targetId = creep.memory.transferTargetId;
+  let target = Game.getObjectById(targetId);
   let rm = creep.room;
   let name = creep.name;
   let direction = creep.memory.direction;
@@ -28,6 +29,7 @@ function tran(creep, flag, dest) {
   if (_.sum(creep.carry) < 50) {
     creep.memory.path = null;
     creep.memory.transfer = false;
+    creep.memory.transferTargetId = null;
     return -18;
   }
 
@@ -41,6 +43,7 @@ function tran(creep, flag, dest) {
   ) {
     creep.memory.path = null;
     creep.memory.transfer = false;
+    creep.memory.transferTargetId = null;
     creep.memory.getEnergy = true;
     return -19;
   }
@@ -123,19 +126,22 @@ function tran(creep, flag, dest) {
   }
 
   let extensionNeedsEnergy = false;
-  if (!target && (direction === "south" || direction === "west" || direction === "north")) {
+  if (
+    !target &&
+    (direction === "south" || direction === "west" || direction === "north")
+  ) {
     let exts;
 
-    exts = Game.rooms["E35N31"].find(FIND_STRUCTURES, {
-      filter: struct => {
-        return struct.structureType === STRUCTURE_EXTENSION;
-      },
-    });
-    Memory.e35n31Extensions = [];
-    _.each(exts, ext => {
-      Memory.e35n31Extensions.push(ext.id);
-    });
     if (!Memory.e35n31Extensions) {
+      exts = Game.rooms["E35N31"].find(FIND_STRUCTURES, {
+        filter: struct => {
+          return struct.structureType === STRUCTURE_EXTENSION;
+        },
+      });
+      Memory.e35n31Extensions = [];
+      _.each(exts, ext => {
+        Memory.e35n31Extensions.push(ext.id);
+      });
     } else {
       let extsObjs = [];
       _.each(Memory.e35n31Extensions, (val, key, collection) => {
@@ -144,6 +150,10 @@ function tran(creep, flag, dest) {
       exts = extsObjs;
     }
 
+    console.log(
+      name + " in transferEnergy lastTarget " + JSON.stringify(creep.memory.transferTargetId)
+    );
+    console.log(name + " in transferEnergy finding closest ext " + exts);
     let a = creep.pos.findClosestByPath(exts, {
       filter: function(structure) {
         if (!structure) {
@@ -171,6 +181,7 @@ function tran(creep, flag, dest) {
     });
     if (a) {
       target = a;
+      creep.memory.transferTargetId = target.id;
     }
   }
 
@@ -222,6 +233,7 @@ function tran(creep, flag, dest) {
   }
 
   if (!target) {
+    console.log(name + " in transferEnergy finding storage ");
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: structure => {
         if (
@@ -249,6 +261,7 @@ function tran(creep, flag, dest) {
 
   if (target && creep.pos.inRangeTo(target, 1)) {
     creep.memory.path = null;
+    creep.memory.transferTargetId = target.id;
     if (target instanceof String || target instanceof Number) {
       target = Game.getObjectById(target);
     }
@@ -262,6 +275,8 @@ function tran(creep, flag, dest) {
     creep.say("f." + creep.fatigue);
     return ERR_TIRED;
   } else if (target) {
+    creep.memory.transferTargetId = target.id;
+
     retval = smartMove(creep, target, 1);
 
     if (creep.pos.isNearTo(target)) {

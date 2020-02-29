@@ -51,40 +51,52 @@ function smartMove(
 
   // no path in memory.path. get one.
   if (!path || pathMem < 1) {
-    path = getAPath(
-      creep,
-      dest,
-      range,
-      ignoreCreeps,
-      pathColor,
-      pathMem,
-      maxOps
-    );
+    // path = getAPath(
+    //   creep,
+    //   dest,
+    //   range,
+    //   ignoreCreeps,
+    //   pathColor,
+    //   pathMem,
+    //   maxOps
+    // );
   }
 
-  // No path. Try finding path using maxOps.
-  if (!path) {
-    // path should already be set to null/undefined but do it again here to be explicit
-    path = null;
-    creep.memory.path = path;
-    console.log(name + ": no path");
-    return ERR_NO_PATH;
-  }
+  // // No path. Try finding path using maxOps.
+  // if (!path) {
+  //   // path should already be set to null/undefined but do it again here to be explicit
+  //   path = null;
+  //   creep.memory.path = path;
+  //   console.log(name + ": no path");
+  //   return ERR_NO_PATH;
+  // }
 
-  // Check if 1st path try, or path from memory, gets us where we want to go.
-  if (path) {
-    let beforePos = creep.pos;
-    let afterPos = Room.deserializePath(path)[0];
-    retval = creep.moveByPath(path);
+  // // Check if 1st path try, or path from memory, gets us where we want to go.
+  // if (path) {
+  //   let beforePos = creep.pos;
+  //   let afterPos = Room.deserializePath(path)[0];
+  //   retval = creep.moveByPath(path);
 
-    if (
-      !beforePos ||
-      !afterPos ||
-      (beforePos.x === afterPos.x && beforePos.y === afterPos.y)
-    ) {
-      retval = ERR_NO_PATH;
-    }
-  }
+  //   if (
+  //     !beforePos ||
+  //     !afterPos ||
+  //     (beforePos.x === afterPos.x && beforePos.y === afterPos.y)
+  //   ) {
+  //     retval = ERR_NO_PATH;
+  //   }
+  // }
+  retval = creep.moveTo(destPos, {
+    noPathFinding: false,
+    reusePath: 1,
+    serializeMemory: true,
+    visualizePathStyle: {
+      fill: "transparent",
+      stroke: "#fff",
+      lineStyle: "dashed",
+      strokeWidth: 0.15,
+      opacity: 0.1,
+    },
+  });
 
   if (retval === OK) {
     creep.say("mbp." + destPos.x + "," + destPos.y);

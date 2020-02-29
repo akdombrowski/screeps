@@ -22,12 +22,14 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.path = null;
     creep.memory.getEnergy = false;
+    creep.memory.getEnergyTargetId = null;
     creep.memory.transfer = true;
     return OK;
   }
 
   if(direction === "eeast") {
     retval = vestEE(creep);
+    creep.memory.getEnergyTargetId = null;
     return retval;
   }
 

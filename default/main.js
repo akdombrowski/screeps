@@ -184,7 +184,7 @@ module.exports.loop = function() {
         tower2.attack(invader);
       }
 
-      if(tower3) {
+      if (tower3) {
         tower3.attack(invader);
       }
 
@@ -225,18 +225,22 @@ module.exports.loop = function() {
     crps = Game.creeps;
     numCrps = Object.keys(crps).length;
 
-    if (Game.cpu.bucket > 10) {
+    if (Game.cpu.bucket > 20) {
       spawnCreepTypes(enAvail);
 
       spawnToSource1Chain();
 
       spawnCreepTypeseRm(enAvaileRm);
       spawnCreepTypeseeRm(enAvaileeRm);
+    } else {
+      console.log("low cpu bucket: " + Game.cpu.bucket);
     }
 
-    if (Game.cpu.bucket > 10) {
+    if (Game.cpu.bucket > 20) {
       runRoles();
       linkTran(linkEntrance, linkExit);
+    } else {
+      console.log("low cpu bucket: " + Game.cpu.bucket);
     }
 
     if (tower1) {
@@ -245,7 +249,7 @@ module.exports.loop = function() {
     if (tower2) {
       roleTower.run(tower2);
     }
-    if(tower3) {
+    if (tower3) {
       roleTower.run(tower3);
     }
     if (tower4) {

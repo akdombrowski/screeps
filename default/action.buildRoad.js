@@ -31,7 +31,7 @@ function buildRoad(creep) {
 
     target = Game.getObjectById(targetId);
 
-    if (target == null) {
+    if (target === null) {
       creep.memory.buildingRoad = false;
       creep.memory.transfer = true;
       return retval;

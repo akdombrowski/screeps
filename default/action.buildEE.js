@@ -55,17 +55,24 @@ function build(creep, flag, room) {
       creep.room.lookAt(target).progress >=
         creep.room.lookAt(target).progressTotal
     ) {
-      target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
-        filter: constructionSite => {
-          return constructionSite.progress < constructionSite.progressTotal;
-        },
-      });
+      if (!Memory.eesites) {
+        Memory.eesites = creep.room.find(FIND_CONSTRUCTION_SITES, {
+          filter: constructionSite => {
+            return constructionSite.progress < constructionSite.progressTotal;
+          },
+        });
+      }
+      target = creep.pos.findClosestByRange(Memory.eesites);
       targetId = target ? target.id : null;
+      creep.memory.targetId = targetId;
+      if (targetId) {
+        target = Game.getObjectById(targetId);
+      } else {
+        target = null;
+      }
     }
 
-    target = Game.getObjectById(targetId);
-
-    if (creep.pos.inRangeTo(target, 3)) {
+    if (target && creep.pos.inRangeTo(target, 3)) {
       if (
         creep.pos.findInRange(FIND_CREEPS, 1).pop().name !== creep.name &&
         creep.pos.isNearTo(Game.getObjectById(Memory.source1eRm))

@@ -40,9 +40,9 @@ function getAPath(
   } else if (roll === "upCN") {
     maxOps = 500;
   } else if (name.endsWith("W")) {
-    maxOps = 1000;
+    maxOps = 500;
   } else if (name.startsWith("claim")) {
-    maxOps = 1000;
+    maxOps = 200;
   } else if (name.endsWith("E")) {
     maxOps = 500;
   } else if (roll === "neBuilder") {
@@ -76,7 +76,7 @@ function getAPath(
 
 
 
-  let opts;
+  let opts = creep.memory.opts;
   let maxCost = 10000;
   if (!opts) {
     opts = {

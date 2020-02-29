@@ -7,6 +7,10 @@ var roleWorker = {
   /** @param {Creep} creep **/
   run: function(creep) {
     let s2 = Game.getObjectById(Memory.s2);
+    let name = creep.name;
+    let direction = creep.memory.direction;
+    let rm = creep.room;
+    let pos = creep.pos;
     if (!creep.memory.working) {
       creep.memory.working = false;
     }
@@ -72,24 +76,40 @@ var roleWorker = {
       ) {
         let extFound = false;
         let t;
-        target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
-          filter: (site) => {
-            let prog = site.progress;
-            let progTot = site.progressTotal;
-            let progLeft = progTot - prog;
-            let type = site.structureType;
-            if (prog >= progTot) {
-              return false;
-            } else if (type === STRUCTURE_EXTENSION) {
-              extFound = true;
-              t = site;
-            } else {
-              return site;
-            }
-          },
+        if (!Memory.e35n31sites) {
+          Memory.e35n31sites = creep.room.find(FIND_CONSTRUCTION_SITES, {
+            filter: site => {
+              let prog = site.progress;
+              let progTot = site.progressTotal;
+              let progLeft = progTot - prog;
+              let type = site.structureType;
+              if (prog >= progTot) {
+                return false;
+              } else if (type === STRUCTURE_EXTENSION) {
+                extFound = true;
+                t = site;
+              } else {
+                return site;
+              }
+            },
+          });
+        }
+
+        let arr = [];
+        let newArr = _.forEach(Memory.e35n31sites, site => {
+          return arr.push(Game.getObjectById(site.id));
         });
-        target = t || target;
-        targetId = target ? target.id : null;
+
+        target = creep.pos.findClosestByPath(arr);
+        if (target && !target.id) {
+          target = null;
+          creep.memory.buildTarget = null;
+          Memory.e35n31sites = null;
+          return retval;
+        } else {
+          target = t || target;
+          targetId = target ? target.id : null;
+        }
       }
 
       if (target) {

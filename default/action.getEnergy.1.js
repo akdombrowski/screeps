@@ -222,20 +222,8 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       // Still tired
       creep.say("f." + creep.fatigue);
     } else {
-      if (useMoveTo) {
-        retval = creep.moveTo(target, {
-          reusePath: 10,
-          visualizePathStyle: {
-            fill: "transparent",
-            stroke: "#fff",
-            lineStyle: "dashed",
-            strokeWidth: 0.15,
-            opacity: 0.1,
-          },
-        });
-      } else {
-        retval = smartMove(creep, target, 1, false, "#FF32F1", 2000, 100);
-      }
+      retval = smartMove(creep, target, 1, false, "#FF32F1", 2000, 100);
+
       if (retval === OK) {
         creep.say(target.pos.x + "," + target.pos.y);
       } else {

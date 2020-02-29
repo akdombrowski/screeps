@@ -7,6 +7,7 @@ const spawnCreepTypes = require("./spawn.spawnCreepTypes");
 const spawnCreepTypeseRm = require("./spawn.eRmspawnCreepTypes");
 const spawnCreepTypeseeRm = require("./spawn.eeRmspawnCreepTypes");
 const spawnCreepTypesNE = require("./spawn.spawnCreepTypesNE");
+const spawnCreepTypesN = require("./spawn.spawnCreepTypesN");
 const runRoles = require("./runRoles");
 const linkTran = require("./action.linkTran");
 const profiler = require("./screeps-profiler");
@@ -245,6 +246,7 @@ module.exports.loop = function() {
       spawnCreepTypeseRm(enAvaileRm);
       spawnCreepTypeseeRm(enAvaileeRm);
       spawnCreepTypesNE(enAvailNE);
+      spawnCreepTypesN(enAvailN);
     } else {
       console.log("low cpu bucket: " + Game.cpu.bucket);
     }
@@ -309,30 +311,31 @@ module.exports.loop = function() {
         Memory.nRmProg = 0;
       }
 
-      let rmLvl = rmController.level;
-      let rmProg = rmController.progress;
-      let rmProgTot = rmController.progressTotal;
-      let nrmLvl = nrmController.level;
-      let nrmProg = nrmController.progress;
-      let nrmProgTot = nrmController.progressTotal;
-      let eermLvl = eermController.level;
-      let eermProg = eermController.progress;
-      let eermProgTot = eermController.progressTotal;
+      const rmLvl = rmController.level;
+      const nrmLvl = nrmController.level;
+      const eermLvl = eermController.level;
       const ermLvl = ermController.level;
-      const ermProg = ermController.progress;
-      const ermProgTot = ermController.progressTotal;
       const nermLvl = nermController.level;
+      const rmProg = rmController.progress;
+      const nrmProg = nrmController.progress;
+      const eermProg = eermController.progress;
+      const ermProg = ermController.progress;
       const nermProg = nermController.progress;
+      const rmProgTot = rmController.progressTotal;
+      const nrmProgTot = nrmController.progressTotal;
+      const eermProgTot = eermController.progressTotal;
+      const ermProgTot = ermController.progressTotal;
       const nermProgTot = nermController.progressTotal;
-      let rmProgRate = (rmProg - Memory.rmProg) / Memory.rmProg;
-      let ermProgRate = (ermProg - Memory.ermProg) / Memory.ermProg;
-      let eermProgRate = (eeRmProg - Memory.eeRmProg) / Memory.eeRmProg;
-      let nermProgRate = (nermProg - Memory.neRmProg) / Memory.neRmProg;
-      let nrmProgRate = (nrmProg - Memory.nRmProg) / Memory.nRmProg;
-      let rmProgPerc = rmProgRate * 100;
-      let ermProgPerc = ermProgRate * 100;
-      let eermProgPerc = eermProgRate * 100;
-      let nermProgPerc = nermProgRate * 100;
+      const rmProgRate = (rmProg - Memory.rmProg) / Memory.rmProg;
+      const ermProgRate = (ermProg - Memory.ermProg) / Memory.ermProg;
+      const eermProgRate = (eeRmProg - Memory.eeRmProg) / Memory.eeRmProg;
+      const nermProgRate = (nermProg - Memory.neRmProg) / Memory.neRmProg;
+      const nrmProgRate = (nrmProg - Memory.nRmProg) / Memory.nRmProg;
+      const rmProgPerc = rmProgRate * 100;
+      const ermProgPerc = ermProgRate * 100;
+      const eermProgPerc = eermProgRate * 100;
+      const nermProgPerc = nermProgRate * 100;
+      const nrmProgPerc = nrmProgRate * 100;
 
       console.log("Creeps: " + numCrps);
 

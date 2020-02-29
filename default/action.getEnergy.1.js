@@ -18,6 +18,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   let roll = creep.memory.role;
   let direction = creep.memory.direction;
   let s1RmEnAvail = Memory.s1.room.energyAvailable;
+  let range = 1;
 
   if (_.sum(creep.carry) >= creep.carryCapacity) {
     creep.memory.path = null;
@@ -149,12 +150,23 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   if (direction === "south" && !target) {
     let southStorageStructures = ["5d0178505a74ac0a0094daab"];
     target = Game.getObjectById(southStorageStructures[0]);
+    let storageCreep = creep.room.lookForAt(LOOK_CREEPS, 43, 9).pop();
+    let storageCreep2 = creep.room.lookForAt(LOOK_CREEPS, 44, 9).pop();
     if (
       !target ||
       !target.store[RESOURCE_ENERGY] ||
       target.store[RESOURCE_ENERGY] < 50
     ) {
       target = null;
+    }
+    if (
+      storageCreep &&
+      storageCreep.name !== name &&
+      storageCreep2 &&
+      storageCreep2.name !== name
+    ) {
+      creep.say("wait");
+      return retval;
     }
   }
 

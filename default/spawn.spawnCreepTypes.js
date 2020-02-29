@@ -98,9 +98,9 @@ function spawnCreepTypes(enAvail) {
 
   // 2000
   let southHvParts = [];
-  addPart(southHvParts, 1, CARRY);
-  addPart(southHvParts, 13, WORK);
-  addPart(southHvParts, 13, MOVE);
+  addPart(southHvParts, 8, CARRY);
+  addPart(southHvParts, 8, WORK);
+  addPart(southHvParts, 16, MOVE);
 
   // 650
   let claimerParts = [];
@@ -109,15 +109,15 @@ function spawnCreepTypes(enAvail) {
 
   // 2000
   let newhvParts = [];
-  addPart(newhvParts, 1, CARRY);
-  addPart(newhvParts, 13, WORK);
-  addPart(newhvParts, 13, MOVE);
+  addPart(newhvParts, 8, CARRY);
+  addPart(newhvParts, 8, WORK);
+  addPart(newhvParts, 16, MOVE);
 
   // 2000
   let workerParts = [];
-  addPart(workerParts, 5, CARRY);
-  addPart(workerParts, 10, WORK);
-  addPart(workerParts, 15, MOVE);
+  addPart(workerParts, 9, CARRY);
+  addPart(workerParts, 7, WORK);
+  addPart(workerParts, 17, MOVE);
 
   // 2000
   let repairerParts = [];
@@ -308,7 +308,7 @@ function spawnCreepTypes(enAvail) {
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
-    } else if (southHarvesters.length < 5) {
+    } else if (southHarvesters.length < 6) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
@@ -318,24 +318,6 @@ function spawnCreepTypes(enAvail) {
       parts = workerParts;
       workers.push(name);
       birth = true;
-    } else if (
-      claimersNE.length < 1 &&
-      !Game.getObjectById("5bbcaf0c9099fc012e63a0b9").my
-    ) {
-      parts = claimerParts;
-      name = "claimNE" + t;
-      chosenRole = "claimNE";
-      claimersNE.push(name);
-      birth = true;
-    } else if (
-      upControllersNE.length < 1 &&
-      Game.getObjectById("5bbcaf0c9099fc012e63a0b9").my
-    ) {
-      parts = upContrPartsBig;
-      name = "upcNE" + t;
-      chosenRole = "upCNE";
-      birth = true;
-      upControllersNE.push(name);
     } else if (
       claimersN.length < 1 &&
       !Game.getObjectById("5bbcaefa9099fc012e639e8b").my

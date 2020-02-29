@@ -56,8 +56,8 @@ function build(creep, flag, room) {
       creep.room.lookAt(target).progress >=
         creep.room.lookAt(target).progressTotal
     ) {
-      if (!Memory.sites) {
-        Memory.sites = Game.rooms.E37N31.find(FIND_CONSTRUCTION_SITES, {
+      if (!Memory.nsites) {
+        Memory.nsites = Game.rooms.E35N32.find(FIND_CONSTRUCTION_SITES, {
           filter: constructionSite => {
             return constructionSite.progress < constructionSite.progressTotal;
           },
@@ -82,23 +82,23 @@ function build(creep, flag, room) {
         retval = creep.move(LEFT);
 
         if (retval !== OK) {
-          creep.move(TOP_LEFT);
+          retval = creep.move(TOP_LEFT);
         }
 
         if (retval !== OK) {
-          creep.move(RIGHT);
+          retval = creep.move(RIGHT);
         }
 
         if (retval !== OK) {
-          creep.move(TOP_RIGHT);
+          retval = creep.move(TOP_RIGHT);
         }
 
         if (retval !== OK) {
-          creep.move(BOTTOM);
+          retval = creep.move(BOTTOM);
         }
 
         if (retval !== OK) {
-          creep.move(BOTTOM_RIGHT);
+          retval = creep.move(BOTTOM_RIGHT);
         }
 
         creep.say("pass");
@@ -107,7 +107,7 @@ function build(creep, flag, room) {
         creep.memory.b = targetId;
         creep.say("build");
       }
-    } else {
+    } else if (target) {
       if (creep.fatigue > 0) {
         creep.say("f" + creep.fatigue);
         return ERR_TIRED;
@@ -118,6 +118,8 @@ function build(creep, flag, room) {
       } else {
         creep.say("m");
       }
+    } else {
+      creep.say("target?")
     }
 
     if (creep.carry.energy <= 0) {

@@ -56,31 +56,29 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
         return;
       }
 
-      console.log(name + " tower " + tower);
-      console.log(name + " target " + target);
-      prevTarget = tower;
 
       // Skip tower 6 for south creeps
       if (creep.memory.direction === "south" && tower.id === tower6.id) {
         return;
       }
 
-      if (!tower.store[RESOURCE_ENERGY]) {
+      if (!tower.store[RESOURCE_ENERGY] || tower.store[RESOURCE_ENERGY] <= 0) {
         currTarget = tower;
         return false;
       }
 
       // current target tower has more energy than this tower, switch to this tower
       if (
-        prevTarget &&
-        prevTarget.store &&
+        currTarget &&
+        currTarget.store &&
         tower.store &&
         tower.store.getFreeCapacity([RESOURCE_ENERGY]) >
-          prevTarget.store.getFreeCapacity([RESOURCE_ENERGY])
+          currTarget.store.getFreeCapacity([RESOURCE_ENERGY])
       ) {
         currTarget = tower;
         return true;
       }
+      prevTarget = tower;
       return;
     });
 

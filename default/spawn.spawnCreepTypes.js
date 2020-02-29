@@ -312,7 +312,7 @@ function spawnCreepTypes(enAvail) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
-    } else if (workers.length < 2) {
+    } else if (workers.length < 3) {
       chosenRole = "w";
       name = chosenRole + t;
       parts = workerParts;
@@ -378,12 +378,6 @@ function spawnCreepTypes(enAvail) {
     } else if (southHarvesters.length < 4) {
       southHarvesters.push(name);
       parts = southHvParts;
-      birth = true;
-    } else if (roadRepairers.length < 1) {
-      chosenRole = "r";
-      name = chosenRole + t;
-      parts = repairerParts;
-      roadRepairers.push(name);
       birth = true;
     } else if (
       northHarvesters.length < 5 &&

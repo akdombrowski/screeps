@@ -1,5 +1,6 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const getAPath = require("./getAPath");
+const getRandomColor = require("./getRandomColor");
 
 function smartMove(
   creep,
@@ -94,7 +95,7 @@ function smartMove(
     serializeMemory: true,
     visualizePathStyle: {
       fill: "transparent",
-      stroke: "#fff",
+      stroke: getRandomColor(),
       lineStyle: "dashed",
       strokeWidth: 0.15,
       opacity: 0.1,

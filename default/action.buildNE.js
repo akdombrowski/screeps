@@ -42,17 +42,35 @@ function build(creep, flag, room) {
     if (
       !target ||
       !CONSTRUCTION_COST[target.structureType] ||
-      creep.room.lookAt(target).progress >=
-        creep.room.lookAt(target).progressTotal
+      target.progress >= target.progressTotal
     ) {
-      target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
-        filter: constructionSite => {
-          return constructionSite.progress < constructionSite.progressTotal;
-        },
-      });
-      targetId = target ? target.id : null;
+      let t;
+      if (!Memory.e36n32sites || Memory.e36n32sites) {
+        Memory.e36n32sites = Game.rooms.E36N32.find(FIND_CONSTRUCTION_SITES, {
+          filter: site => {
+            let prog = site.progress;
+            let progTot = site.progressTotal;
+            let progLeft = progTot - prog;
+            let type = site.structureType;
+            if (prog >= progTot) {
+              return false;
+            } else if (type === STRUCTURE_EXTENSION) {
+              extFound = true;
+              t = site;
+            } else {
+              return site;
+            }
+          },
+        });
+      }
 
-      target = Game.getObjectById(targetId);
+      let arr = [];
+      _.forEach(Memory.e36n32sites, site => {
+        return arr.push(Game.getObjectById(site.id));
+      });
+
+      target = creep.pos.findClosestByRange(arr);
+      targetId = target ? target.id : null;
     }
 
     if (creep.pos.inRangeTo(target, 3)) {
@@ -106,8 +124,9 @@ function build(creep, flag, room) {
     if (creep.carry.energy <= 0) {
       creep.memory.building = false;
       creep.memory.getEnergy = true;
-    } else {
       retval = ERR_NOT_ENOUGH_ENERGY;
+    } else {
+      retval = -17;
     }
   }
 

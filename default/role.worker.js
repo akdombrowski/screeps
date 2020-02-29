@@ -6,6 +6,7 @@ const getEnergyE = require("./action.getEnergyE");
 const smartMove = require("./action.smartMove");
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
 const build = require("./action.build");
+const buildE = require("./action.buildE");
 const buildEE = require("./action.buildEE");
 const buildNE = require("./action.buildNE");
 const buildN = require("./action.buildN");
@@ -95,7 +96,7 @@ var roleWorker = {
         creep.memory.direction === "ee" ||
         creep.memory.direction === "eeast"
       ) {
-        return buildEE(creep, Game.flags.e36n32contr, "E37N31");
+        return buildEE(creep, Game.flags.eeController, "E37N31");
       } else if (creep.memory.direction === "ne") {
         return buildNE(creep, Game.flags.nesource1, "E36N32");
       } else if (
@@ -107,7 +108,7 @@ var roleWorker = {
         creep.memory.direction === "e" ||
         creep.memory.direction === "east"
       ) {
-        return buildNE(creep, Game.flags.nesource1, "E36N32");
+        return buildE(creep, Game.flags.east, "E36N31");
       }
     }
   },

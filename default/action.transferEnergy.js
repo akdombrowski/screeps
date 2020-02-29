@@ -26,18 +26,6 @@ function tran(creep, flag, dest) {
   let enAvail = rm.energyAvailable;
   let retval = -16;
 
-  if (_.sum(creep.carry) < 50) {
-    creep.memory.path = null;
-    creep.memory.transfer = false;
-    creep.memory.transferTargetId = null;
-    return -18;
-  }
-
-  if (direction === "eeast") {
-    creep.memory.transferTargetId;
-    return tranee(creep);
-  }
-
   if (
     !creep.store[RESOURCE_ENERGY] ||
     creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0
@@ -47,6 +35,11 @@ function tran(creep, flag, dest) {
     creep.memory.transferTargetId = null;
     creep.memory.getEnergy = true;
     return -19;
+  }
+
+  if (direction === "eeast") {
+    creep.memory.transferTargetId;
+    return tranee(creep);
   }
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {

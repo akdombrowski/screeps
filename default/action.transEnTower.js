@@ -29,7 +29,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   if (creep.store[RESOURCE_ENERGY] > 0) {
     creep.memory.transferTower = true;
   } else {
-    creep.memory.trasnferTower = false;
+    creep.memory.transferTower = false;
     return ERR_NOT_ENOUGH_ENERGY;
   }
 
@@ -40,12 +40,13 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
 
   if (
     creep.memory.transTowerId &&
-    creep.memory.transTowerId.structureType === STRUCTURE_TOWER  ){
+    creep.memory.transTowerId.structureType === STRUCTURE_TOWER
+  ) {
     target = Game.getObjectById(creep.memory.transTowerId);
   }
 
-  if (!target || target.store.getFreeCapacity(RESOURCE_ENERGY) > 200) {
-    target = null;
+  if (!target || target.store.getUsedCapacity(RESOURCE_ENERGY) > 200) {
+    target = towers[0];
     let currTarget = towers[0];
     let prevTarget = towers[0];
 
@@ -55,6 +56,8 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
         return;
       }
 
+      console.log(name + " tower " + tower);
+      console.log(name + " target " + target);
       prevTarget = tower;
 
       // Skip tower 6 for south creeps
@@ -63,7 +66,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
       }
 
       if (!tower.store[RESOURCE_ENERGY]) {
-        target = tower;
+        currTarget = tower;
         return false;
       }
 
@@ -75,11 +78,13 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
         tower.store.getFreeCapacity([RESOURCE_ENERGY]) >
           prevTarget.store.getFreeCapacity([RESOURCE_ENERGY])
       ) {
-        target = tower;
+        currTarget = tower;
         return true;
       }
       return;
-    })[0];
+    });
+
+    target = currTarget;
 
     if (
       target &&
@@ -92,6 +97,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
 
   if (!target) {
     creep.say("wut tower?");
+    console.log(name + " " + creep.fatigue);
     console.log(name + " wut tower");
     creep.memory.transferTower = false;
     return ERR_NOT_FOUND;

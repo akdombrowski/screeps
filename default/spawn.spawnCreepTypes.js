@@ -75,6 +75,7 @@ function spawnCreepTypes(enAvail) {
   let harvesters = Memory.harvesters || [];
   let upControllers = Memory.upControllers || [];
   let upControllersN = Memory.upControllersN || [];
+  let upControllersW = Memory.upControllersW || [];
   let upControllersNE = Memory.upControllersNE || [];
   let roadRepairers = Memory.roadRepairers || [];
   let harvestersN = Memory.harvestersN || [];
@@ -84,6 +85,7 @@ function spawnCreepTypes(enAvail) {
   let southtowerHarvesters = Memory.southtowerHarvesters || [];
   let claimers = Memory.claimers || [];
   let claimersN = Memory.claimersN || [];
+  let claimersW = Memory.claimersW || [];
   let claimersNE = Memory.claimersNE || [];
   let eAttackDurationSafeCheck = Memory.eAttackDurationSafeCheck;
   let nAttackDurationSafeCheck = Memory.nAttackDurationSafeCheck;
@@ -375,6 +377,25 @@ function spawnCreepTypes(enAvail) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
+    } else if (
+      claimersW.length < 1 &&
+      !Game.getObjectById("5bbcaefa9099fc012e639e8b").my
+    ) {
+      parts = claimerParts;
+      name = "claimW" + t;
+      chosenRole = "claimW";
+      claimersN.push(name);
+      birth = true;
+    } else if (
+      upControllersW.length < 1 &&
+      Game.getObjectById("5bbcaefa9099fc012e639e8b").my &&
+      (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
+    ) {
+      parts = upContrPartsBig;
+      name = "upCW" + t;
+      chosenRole = "upCW";
+      birth = true;
+      upControllersW.push(name);
     } else if (
       claimersN.length < 1 &&
       !Game.getObjectById("5bbcaefa9099fc012e639e8b").my

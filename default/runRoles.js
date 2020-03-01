@@ -7,6 +7,7 @@ const hele = require("./action.hele");
 const upController = require("./action.upgradeController");
 const upControllerN = require("./action.upgradeControllerN");
 const upControllerNE = require("./action.upgradeControllerNE");
+const upControllerW = require("./action.upgradeControllerW");
 const rezzyContr = require("./action.reserveContr");
 const smartMove = require("./action.smartMove");
 const deepSouthScout = require("./action.deepSouthScout");
@@ -22,6 +23,7 @@ const roleAttackerN = require("./role.attackerN");
 const roleAttackerNE = require("./role.attackerNE");
 const claimNE = require("./action.claimContrNE");
 const claimN = require("./action.claimContrN");
+const claimW = require("./action.claimContrW");
 const buildNE = require("./action.buildNE");
 const buildEE = require("./action.buildEE");
 
@@ -38,12 +40,14 @@ function runRoles() {
   let eeworkers = [];
   let upControllers = [];
   let upControllersN = [];
+  let upControllersW = [];
   let upControllersNE = [];
   let roadRepairers = [];
   let attackers = [];
   let eattackers = [];
   let claimers = [];
   let claimersN = [];
+  let claimersW = [];
   let claimersNE = [];
   let northHarvesters = [];
   let southHarvesters = [];
@@ -133,6 +137,7 @@ function runRoles() {
       eeworkers.push(name);
       buildEE(creep, Game.flags.eeController, "E37N31");
     } else if (roll === "claimNE") {
+      claimersNE.push(name);
       claimNE(
         creep,
         "E36N32",
@@ -146,6 +151,7 @@ function runRoles() {
 
       upControllerNE(creep, Game.flags.e36n32contr, "E36N32");
     } else if (roll === "claimN") {
+      claimersN.push(name);
       claimN(
         creep,
         "E35N32",
@@ -185,6 +191,16 @@ function runRoles() {
         Game.flags.westExit,
         LEFT,
         "westEntrance1",
+        "5bbcaeeb9099fc012e639c4d"
+      );
+    } else if (roll === "claimW") {
+      claimersW.push(name);
+      claimW(
+        creep,
+        "E34N31",
+        Game.flags.westExit,
+        LEFT,
+        "westExit",
         "5bbcaeeb9099fc012e639c4d"
       );
     } else if (roll === "deepSouthRezzy") {
@@ -281,12 +297,14 @@ function runRoles() {
   Memory.nworkers = nworkers;
   Memory.upControllers = upControllers;
   Memory.upControllersN = upControllersN;
+  Memory.upControllersW = upControllersW;
   Memory.upControllersNE = upControllersNE;
   Memory.roadRepairers = roadRepairers;
   Memory.attackers = attackers;
   Memory.eattackers = eattackers;
   Memory.claimers = claimers;
   Memory.claimersN = claimersN;
+  Memory.claimersW = claimersW;
   Memory.claimersNe = claimersNE;
   Memory.northHarvesters = northHarvesters;
   Memory.westHarvesters = westHarvesters;

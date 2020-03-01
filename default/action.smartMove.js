@@ -103,7 +103,7 @@ function smartMove(
   });
 
   if (retval === OK) {
-    creep.say("mbp." + destPos.x + "," + destPos.y);
+    creep.say(destPos.x + "," + destPos.y);
 
     if (creep.pos.inRangeTo(dest, range)) {
       creep.memory.path = null;

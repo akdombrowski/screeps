@@ -56,7 +56,6 @@ function vest(creep, flag, path) {
   if (!target) {
     target = nESource1;
     target = checkForCreepsNearSource(creep, 1, [nESource1, nESource2]);
-    console.log(name + " check for creeps " + target);
   }
 
   if (target) {
@@ -72,9 +71,6 @@ function vest(creep, flag, path) {
       return retval;
     } else {
       retval = smartMove(creep, target, 1, true, "#000fff", 2000, 1000);
-      console.log(name + " check for creeps " + target);
-      console.log(name + " retval " + retval);
-
       return retval;
     }
   } else if (!target) {

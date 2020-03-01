@@ -1,14 +1,15 @@
 function linkTransferToAnotherLink(linkFrom, linkTo, energy) {
   let retval = -16;
+  let freeCap = linkTo.store.getFreeCapacity(RESOURCE_ENERGY);
+  let usedCap = linkFrom.store.getUsedCapacity(RESOURCE_ENERGY);
+  let store = linkFrom.store[RESOURCE_ENERGY];
 
-  if (linkTo.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
+  console.log(" link transfer " + freeCap + " " + usedCap + " " + store);
+  if (freeCap <= 0) {
     return ERR_FULL;
   }
 
-  if (
-    !linkFrom.store[RESOURCE_ENERGY] ||
-    linkFrom.store.getUsedCapacity(RESOURCE_ENERGY)
-  ) {
+  if (!store || usedCap) {
     return ERR_NOT_ENOUGH_ENERGY;
   }
 

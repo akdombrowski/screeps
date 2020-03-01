@@ -189,6 +189,10 @@ module.exports.loop = function() {
     Memory.s2 = s2.id;
     Memory.eespawn = eespawn.id;
 
+    if(!Memory.neAttackerId) {
+      Memory.neAttackerId = null;
+    }
+
     if (invader) {
       if (tower1) {
         tower1.attack(invader);

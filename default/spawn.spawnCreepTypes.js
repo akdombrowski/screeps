@@ -47,9 +47,22 @@ function birthCreep(
       },
       directions: [TOP],
     });
+  }
+
+  if (retval === OK) {
+    console.log("spawned." + name);
+  } else {
+    retval = Game.spawns.sspawn3.spawnCreep(parts, name, {
+      memory: {
+        role: chosenRole,
+        direction: direction,
+        sourceId: sourceId,
+      },
+      directions: [TOP_RIGHT],
+    });
 
     if (retval === OK) {
-      console.log("spawn2ed." + name);
+      console.log("spawn3ed." + name);
     }
   }
 }
@@ -158,6 +171,7 @@ function spawnCreepTypes(enAvail) {
   let eAttackerId = Memory.eAttackerId;
   let wAttackerId = Memory.wAttackerId;
   let nAttackerId = Memory.nAttackerId;
+  let neAttackerId = Memory.neAttackerId;
   let invaderId = Memory.invaderId;
 
   // if (enAvail >= 650) {
@@ -189,7 +203,11 @@ function spawnCreepTypes(enAvail) {
   //     return;
   //   }
   // }
-  if(Game.spawns.Spawn1.spawning && Game.spawns.spawn2.spawning) {
+  if (
+    Game.spawns.Spawn1.spawning &&
+    Game.spawns.spawn2.spawning &&
+    Game.spawns.sspawn3.spawning
+  ) {
     return;
   }
 
@@ -353,7 +371,7 @@ function spawnCreepTypes(enAvail) {
       parts = workerParts;
       workers.push(name);
       birth = true;
-    }  else if (southHarvesters.length < 5) {
+    } else if (southHarvesters.length < 5) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
@@ -399,7 +417,7 @@ function spawnCreepTypes(enAvail) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
-    }  else if (
+    } else if (
       nworkers.length < 2 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {

@@ -151,9 +151,12 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   ) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: structure => {
+        const type = structure.structureType;
+
         if (
-          (structure.structureType === STRUCTURE_CONTAINER ||
-            structure.structureType === STRUCTURE_STORAGE || structure.structureType === STRUCTURE_LINK) &&
+          (type === STRUCTURE_CONTAINER ||
+            type === STRUCTURE_STORAGE ||
+            type === STRUCTURE_LINK) &&
           creep.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
         ) {
           // console.log("name: " + structure)

@@ -34,11 +34,11 @@ const roleAttacker = {
 
    let enemyCreeps = rm.find(FIND_HOSTILE_STRUCTURES);
 
-   if(!enemyCreeps) {
+   if(!enemyCreeps || enemyCreeps.length <= 0) {
      enemyCreeps = rm.find(FIND_HOSTILE_CREEPS);
    }
 
-   if(!enemyCreeps) {
+   if (!enemyCreeps || enemyCreeps.length <= 0) {
      enemyCreeps = rm.find(FIND_HOSTILE_SPAWNS);
    }
 

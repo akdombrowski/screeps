@@ -10,6 +10,7 @@ const spawnCreepTypesNE = require("./spawn.spawnCreepTypesNE");
 const spawnCreepTypesN = require("./spawn.spawnCreepTypesN");
 const runRoles = require("./runRoles");
 const linkTran = require("./action.linkTran");
+const linkTransfer = require("./linkTransfer");
 const profiler = require("./screeps-profiler");
 const findDecayed = require("./action.findDecayed");
 
@@ -119,13 +120,14 @@ module.exports.loop = function() {
     let exts = Memory.spawnExts;
     let stor1 = Memory.stor1;
 
-    let linkEntranceId = Memory.linkEntranceId || "5cfd3d207e979d09d3c5ad2c";
-    let linkEntrance = Game.getObjectById(linkEntranceId);
-    Memory.linkEntranceId = linkEntranceId;
+    let linkSpawnId = Memory.linkSpawnId || "5cfd3d207e979d09d3c5ad2c";
+    let linkSpawn = Game.getObjectById(linkSpawnId);
+    Memory.linkSpawnId = linkSpawnId;
 
-    let linkExitId = Memory.linkExitId || "5cfd8274d7150267ad4571be";
-    let linkExit = Game.getObjectById(linkExitId);
-    Memory.linkExitId = linkExitId;
+
+    let linkContrId = Memory.linkContrId || "5cfd8274d7150267ad4571be";
+    let linkContr = Game.getObjectById(linkContrId);
+    Memory.linkContrId = linkContrId;
 
     let slinkMiddleId = Memory.slinkMiddleId || "5e4d06f7513ade25f2675b99";
     let slinkMiddle = Game.getObjectById(slinkMiddleId);
@@ -144,7 +146,7 @@ module.exports.loop = function() {
     Memory.ermControllerId = ermControllerId;
 
     Memory.store1 = "5d0178505a74ac0a0094daab";
-    Memory.link1 = linkEntranceId;
+    Memory.link1 = linkSpawnId;
     Memory.eAttackDurationSafeCheck = eAttackDurationSafeCheck;
     Memory.nAttackDurationSafeCheck = nAttackDurationSafeCheck;
     Memory.wAttackDurationSafeCheck = wAttackDurationSafeCheck;
@@ -253,7 +255,7 @@ module.exports.loop = function() {
 
     if (Game.cpu.bucket > 20) {
       runRoles();
-      linkTran(linkEntrance, linkExit);
+      linkTransfer(linkSpawn, slinkMiddle);
     } else {
       console.log("low cpu bucket: " + Game.cpu.bucket);
     }
@@ -486,6 +488,9 @@ module.exports.loop = function() {
 
       Memory.rmProg = rmProg;
       Memory.ermProg = ermProg;
+      Memory.eermProg = eermProg;
+      Memory.nermProg = nermProg;
+      Memory.nrmProg = nrmProg;
     }
   });
 

@@ -155,9 +155,8 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
         if (
           (type === STRUCTURE_CONTAINER ||
-            type === STRUCTURE_STORAGE ||
             type === STRUCTURE_LINK) &&
-          struct.getUsedCapacity(RESOURCE_ENERGY) >= 50
+          struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50 && struct.pos.y < 27
         ) {
           // console.log("name: " + structure)
           return struct;

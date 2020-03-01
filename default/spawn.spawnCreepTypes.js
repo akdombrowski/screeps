@@ -48,7 +48,6 @@ function birthCreep(
       directions: [TOP],
     });
 
-    console.log(retval + " " + name);
     if (retval === OK) {
       console.log("spawn2ed." + name);
     }
@@ -190,6 +189,9 @@ function spawnCreepTypes(enAvail) {
   //     return;
   //   }
   // }
+  if(Game.spawns.Spawn1.spawning && Game.spawns.spawn2.spawning) {
+    return;
+  }
 
   if (enAvail >= 300 && attackers.length < 1 && Memory.nAttackerId) {
     let t = Game.time.toString().slice(4);
@@ -457,8 +459,6 @@ function spawnCreepTypes(enAvail) {
       birth = true;
     }
 
-    console.log(enAvail);
-    console.log(" spawn " + name + " " + birth);
     if (birth) {
       birthCreep(
         s1,

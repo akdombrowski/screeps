@@ -45,12 +45,18 @@ function vest(creep, flag, path) {
     return retval;
   }
 
+  if(creep.room.name !== "E36N32") {
+    retval = smartMove(creep, Game.flags.e36n32contr, 10);
+    return retval;
+  }
+
   creep.memory.transfer = false;
   creep.memory.getEnergy = true;
 
   if (!target) {
     target = nESource1;
     target = checkForCreepsNearSource(creep, 1, [nESource1, nESource2]);
+    console.log(name + " check for creeps " + target);
   }
 
   if (target) {
@@ -66,6 +72,8 @@ function vest(creep, flag, path) {
       return retval;
     } else {
       retval = smartMove(creep, target, 1, true, "#000fff", 2000, 1000);
+      console.log(name + " check for creeps " + target);
+      console.log(name + " retval " + retval);
 
       return retval;
     }

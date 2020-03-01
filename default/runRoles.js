@@ -29,6 +29,8 @@ function runRoles() {
   let i = 0;
   let crps = Game.creeps;
   let harvesters = [];
+  let harvestersN = [];
+  let harvestersNE = [];
   let workers = [];
   let neworkers = [];
   let nworkers = [];
@@ -72,7 +74,7 @@ function runRoles() {
     if (roll === "h" || roll === "harvester") {
       if (creep.memory.direction === "north" || name.endsWith("N")) {
         creep.memory.direction = "north";
-        northHarvesters.push(name);
+        harvestersN.push(name);
       } else if (creep.memory.direction === "east" && !name.endsWith("EE")) {
         if (creep.memory.sourceDir === "north1") {
           ermNeHarvesters.push(name);
@@ -95,6 +97,9 @@ function runRoles() {
       } else if (creep.memory.direction === "eeast" || name.endsWith("EE")) {
         creep.memory.direction = "eeast";
         eeRmHarvesters.push(name);
+      } else if (creep.memory.direction === "ne" || name.endsWith("NE")) {
+        creep.memory.direction = "ne";
+        harvestersNE.push(name);
       } else {
         southHarvesters.push(name);
       }
@@ -184,7 +189,7 @@ function runRoles() {
       );
     } else if (roll === "deepSouthRezzy") {
       deepSouthScout(creep);
-    } else if (roll === "uc" || roll === "upController") {
+    } else if (roll === "uc" || roll === "upController" || roll === "upc") {
       upControllers.push(name);
       upController(creep);
     } else if (roll === "worker" || roll === "w") {
@@ -267,6 +272,8 @@ function runRoles() {
   }
 
   Memory.harvesters = harvesters;
+  Memory.harvestersN = harvestersN;
+  Memory.harvestersNE = harvestersNE;
   Memory.workers = workers;
   Memory.eworkers = eworkers;
   Memory.eeworkers = eeworkers;
@@ -279,7 +286,7 @@ function runRoles() {
   Memory.attackers = attackers;
   Memory.eattackers = eattackers;
   Memory.claimers = claimers;
-  Memory.claimersNe = claimersN;
+  Memory.claimersN = claimersN;
   Memory.claimersNe = claimersNE;
   Memory.northHarvesters = northHarvesters;
   Memory.westHarvesters = westHarvesters;

@@ -7,11 +7,16 @@ function upController(creep, flag, room) {
   let retval;
   let rm = room;
   controller = Game.getObjectById(controllerId);
+  if (creep.room.name !== room) {
+    retval = smartMove(creep, controller, 10);
+  }
+
   if (
     rm === creep.room.name &&
     (!creep.store ||
       creep.store[RESOURCE_ENERGY] <= 0 ||
-      creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0 || creep.memory.getEnergy)
+      creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0 ||
+      creep.memory.getEnergy)
   ) {
     let target;
     creep.memory.getEnergy = true;
@@ -19,7 +24,7 @@ function upController(creep, flag, room) {
     if (target) {
       if (creep.pos.inRangeTo(target, 1)) {
         retval = creep.harvest(target);
-        if(creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
+        if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
           creep.memory.getEnergy = false;
         }
       } else if (creep.fatigue > 0) {

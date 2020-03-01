@@ -2,6 +2,7 @@ const getEnergy = require("./action.getEnergy.1");
 const transferEnergy = require("./action.transferEnergy");
 const transferEnergyeRm = require("./action.transferEnergyeRm");
 const transferEnergyEE = require("./action.transferEnergyEEast");
+const transferEnergyNE = require("./action.transferEnergyNE");
 const getEnergyNorth = require("./action.getEnergyNorth");
 const getEnergyEast = require("./action.getEnergy.1");
 const ermgetEnergyEast = require("./action.getEnergy.1");
@@ -26,7 +27,8 @@ const roleHarvester = {
 
     if (
       creep.memory.getEnergy ||
-      creep.store[RESOURCE_ENERGY] < 5 || !creep.store[RESOURCE_ENERGY]
+      creep.store[RESOURCE_ENERGY] < 5 ||
+      !creep.store[RESOURCE_ENERGY]
     ) {
       if (creep.store.getFreeCapacity() <= 0) {
         retval = ERR_FULL;
@@ -115,11 +117,13 @@ const roleHarvester = {
         }
       } else if (direction == "south" || creep) {
         retval = getEnergy(creep, "E35N31");
+      } else if (direction == "ne" || creep) {
+        retval = getEnergy(creep, "E36N32");
       } else {
         retval = getEnergy(creep, "E35N31");
       }
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
-      if(!creep.store[RESOURCE_ENERGY] || creep.store[RESOURCE_ENERGY] <= 0) {
+      if (!creep.store[RESOURCE_ENERGY] || creep.store[RESOURCE_ENERGY] <= 0) {
         creep.memory.getEnergy = true;
         creep.memory.transEnTower = false;
         creep.memory.transfer = false;
@@ -140,6 +144,9 @@ const roleHarvester = {
         return retval;
       } else if (direction === "eeast") {
         retval = transferEnergyEE(creep);
+        return retval;
+      } else if (direction === "ne") {
+        retval = transferEnergyNE(creep);
         return retval;
       } else {
         retval = transferEnergy(creep);
@@ -167,8 +174,9 @@ const roleHarvester = {
       }
 
       // didn't give energy to tower. build road.
-      if (direction === "south" &&
-        (retval != OK &&
+      if (
+        (direction === "south" &&
+          retval != OK &&
           !creep.memory.transfer &&
           !creep.memory.transferTower &&
           creep.room.find(FIND_CONSTRUCTION_SITES, {

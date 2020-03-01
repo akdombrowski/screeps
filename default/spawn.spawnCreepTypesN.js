@@ -58,12 +58,11 @@ function spawnCreepTypes(enAvail) {
   let harvesters = Memory.harvesters || [];
   let upControllers = Memory.upControllers || [];
   let roadRepairers = Memory.roadRepairers || [];
-  let northHarvesters = Memory.northHarvesters || [];
+  let harvestersN = Memory.harvestersN || [];
   let westHarvesters = Memory.westHarvesters || [];
 
   let eastHarvesters = Memory.eastHarvesters || [];
   let upControllersN = Memory.eastUpControllers || [];
-  let harvestersN = Memory.harvestersN || [];
   let towerHarvestersN = Memory.etowerHarvesters || [];
   let eeUps = Memory.eeUps || [];
 
@@ -191,9 +190,9 @@ function spawnCreepTypes(enAvail) {
       sourceDir = "north";
       birth = true;
     } else if (upControllersN.length < 1) {
-      chosenRole = "nRezzy";
+      chosenRole = "upCN";
       name = chosenRole + t;
-      direction = "ne";
+      direction = "n";
       parts = simpleParts;
       upControllersN.push(name);
       birth = true;
@@ -213,9 +212,9 @@ function spawnCreepTypes(enAvail) {
     //   eeUps.push(name);
     //   birth = true;
     // }
-    else if (attackersN.length < 1 && neAttackerId) {
+    else if (attackersN.length < 1 && nAttackerId) {
       console.log(
-        "neattacker " +
+        "nattacker " +
           Memory.nAttackerId +
           " " +
           attackersN.length +
@@ -228,7 +227,7 @@ function spawnCreepTypes(enAvail) {
       direction = "n";
       birth = true;
       attackersN.push(name);
-    } else if (harvestersN.length < 2 && !neAttackerId) {
+    } else if (harvestersN.length < 2 && !nAttackerId) {
       harvestersN.push(name);
       name = "h" + t + "N";
       parts = basicHv;
@@ -260,9 +259,7 @@ function spawnCreepTypes(enAvail) {
           )
       );
     }
-  }
-
-  if (enAvail >= 800) {
+  } else if (enAvail >= 800) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "N";
     let chosenRole = "h";
@@ -346,9 +343,7 @@ function spawnCreepTypes(enAvail) {
           )
       );
     }
-  }
-
-  if (enAvail >= 1100) {
+  } else if (enAvail >= 1100) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "N";
     let chosenRole = "h";

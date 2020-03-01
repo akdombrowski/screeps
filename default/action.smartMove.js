@@ -91,7 +91,7 @@ function smartMove(
     range: range,
     ignoreCreeps: false,
     noPathFinding: false,
-    reusePath: 1,
+    reusePath: pathMem,
     serializeMemory: true,
     visualizePathStyle: {
       fill: "transparent",

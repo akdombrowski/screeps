@@ -64,7 +64,8 @@ function spawnCreepTypes(enAvail) {
   let eenorthHarvesters = Memory.eenorthHarvesters || [];
   let eewestHarvesters = Memory.eewestHarvesters || [];
 
-  let harvesters = Memory.harvesters;
+  let harvesters = Memory.harvesters || [];
+  let harvestersN = Memory.harvestersN || [];
 
   let eeastWorkers = Memory.eeastWorkers || [];
   let eeastUpControllers = Memory.eeastUpControllers || [];
@@ -320,6 +321,8 @@ function spawnCreepTypes(enAvail) {
     );
   }
 
+  Memory.harvesters = harvesters;
+  Memory.harvestersN = harvestersN;
   Memory.eeharvesters = eeharvesters;
   Memory.eeworkers = eeworkers;
   Memory.eeneworkers = eeneworkers;

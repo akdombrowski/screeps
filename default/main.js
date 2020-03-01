@@ -394,11 +394,23 @@ module.exports.loop = function() {
           nermProgPerc +
           "%"
       );
+      console.log(
+        "N: " +
+          nrmLvl +
+          ":" +
+          nrmProg / 1000 +
+          "/" +
+          nrmProgTot / 1000 +
+          " - " +
+          nrmProgPerc +
+          "%"
+      );
 
       console.log("S:" + enAvail + "," + enCap);
       console.log("E:" + enAvaileRm + "," + enCapeRm);
       console.log("EE:" + enAvaileeRm + "," + enCapeeRm);
       console.log("NE:" + enAvailNE + "," + enCapNE);
+      console.log("N:" + enAvailN + "," + enCapN);
 
       Game.notify(
         "S: " +
@@ -421,13 +433,55 @@ module.exports.loop = function() {
           ermProgPerc +
           "%" +
           "\n" +
+          "N: " +
+          nrmLvl +
+          ":" +
+          nrmProg / 1000 +
+          "/" +
+          nrmProgTot / 1000 +
+          "\n" +
+          nrmProgPerc +
+          "%" +
+          "\n" +
+          "NE: " +
+          nermLvl +
+          ":" +
+          nermProg / 1000 +
+          "/" +
+          nermProgTot / 1000 +
+          "\n" +
+          nermProgPerc +
+          "%" +
+          "\n" +
+          "EE: " +
+          eermLvl +
+          ":" +
+          eermProg / 1000 +
+          "/" +
+          eermProgTot / 1000 +
+          "\n" +
+          eermProgPerc +
+          "%" +
+          "\n" +
           enAvail +
           "," +
           enCap +
           "\n" +
           enAvaileRm +
           "," +
-          enCapeRm
+          enCapeRm +
+          "\n" +
+          enAvaileeRm +
+          "," +
+          enCapeeRm +
+          "\n" +
+          enAvailnRm +
+          "," +
+          enCapnRm +
+          "\n" +
+          enAvailNE +
+          "," +
+          enCapNE
       );
 
       Memory.rmProg = rmProg;

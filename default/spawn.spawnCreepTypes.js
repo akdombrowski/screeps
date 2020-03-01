@@ -214,7 +214,7 @@ function spawnCreepTypes(enAvail) {
       sourceId,
       spawnDirection
     );
-  } else if (southHarvesters.length < 4 && !invaderId) {
+  } else if (southHarvesters.length < 3 && !invaderId) {
     if (enAvail >= 300) {
       let t = Game.time.toString().slice(4);
       let name = "harv" + t;
@@ -224,7 +224,7 @@ function spawnCreepTypes(enAvail) {
       let parts = simpleParts;
       let spawnDirection = [BOTTOM];
 
-      if (southHarvesters.length < 3) {
+      if (southHarvesters.length < 2) {
         southHarvesters.push(name);
         parts = simpleParts;
         birthCreep(
@@ -335,15 +335,25 @@ function spawnCreepTypes(enAvail) {
       chosenRole = "upController";
       birth = true;
     } else if (southHarvesters.length < 4) {
-      console.log(name + " southHarvester " + chosenRole);
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
-    } else if (workers.length < 5) {
+    } else if (southtowerHarvesters.length < 1) {
+      chosenRole = "southtowerHarvester";
+      name = "sth" + t;
+      harvesters.push(name);
+      southtowerHarvesters.push(name);
+      parts = southHvParts;
+      birth = true;
+    } else if (workers.length < 1) {
       chosenRole = "w";
       name = chosenRole + t;
       parts = workerParts;
       workers.push(name);
+      birth = true;
+    }  else if (southHarvesters.length < 5) {
+      southHarvesters.push(name);
+      parts = southHvParts;
       birth = true;
     } else if (
       claimersN.length < 1 &&
@@ -383,7 +393,11 @@ function spawnCreepTypes(enAvail) {
       chosenRole = "upCNE";
       birth = true;
       upControllersNE.push(name);
-    } else if (
+    } else if (southHarvesters.length < 6) {
+      southHarvesters.push(name);
+      parts = southHvParts;
+      birth = true;
+    }  else if (
       nworkers.length < 2 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {

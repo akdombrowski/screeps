@@ -159,6 +159,9 @@ function tran(creep, flag, dest) {
           (structure.store[RESOURCE_ENERGY] <= 150 ||
             !structure.store[RESOURCE_ENERGY])
         ) {
+          if (structure.id === "5cf733caf7020f7e680e392f") {
+            return;
+          }
           if (direction === "west" && structure.pos.x < 10) {
             target = structure;
             return structure;
@@ -180,53 +183,50 @@ function tran(creep, flag, dest) {
     (direction === "south" || direction === "east" || direction === "west") &&
     enAvail > 1000
   ) {
-        target = towers[0];
-        let currTarget = towers[0];
-        let prevTarget = towers[0];
+    target = towers[0];
+    let currTarget = towers[0];
+    let prevTarget = towers[0];
 
-        _.each(towers, tower => {
-          // tower doesn't exist or doesn't have an energy component
-          if (!tower) {
-            return;
-          }
+    _.each(towers, tower => {
+      // tower doesn't exist or doesn't have an energy component
+      if (!tower) {
+        return;
+      }
 
-          // Skip tower 6 for south creeps
-          if (creep.memory.direction === "south" && tower.id === tower6.id) {
-            return;
-          }
+      // Skip tower 6 for south creeps
+      if (creep.memory.direction === "south" && tower.id === tower6.id) {
+        return;
+      }
 
-          if (
-            !tower.store[RESOURCE_ENERGY] ||
-            tower.store[RESOURCE_ENERGY] <= 0
-          ) {
-            currTarget = tower;
-            return false;
-          }
+      if (!tower.store[RESOURCE_ENERGY] || tower.store[RESOURCE_ENERGY] <= 0) {
+        currTarget = tower;
+        return false;
+      }
 
-          // current target tower has more energy than this tower, switch to this tower
-          if (
-            currTarget &&
-            currTarget.store &&
-            tower.store &&
-            tower.store.getFreeCapacity([RESOURCE_ENERGY]) >
-              currTarget.store.getFreeCapacity([RESOURCE_ENERGY])
-          ) {
-            currTarget = tower;
-            return true;
-          }
-          prevTarget = tower;
-          return;
-        });
+      // current target tower has more energy than this tower, switch to this tower
+      if (
+        currTarget &&
+        currTarget.store &&
+        tower.store &&
+        tower.store.getFreeCapacity([RESOURCE_ENERGY]) >
+          currTarget.store.getFreeCapacity([RESOURCE_ENERGY])
+      ) {
+        currTarget = tower;
+        return true;
+      }
+      prevTarget = tower;
+      return;
+    });
 
-        target = currTarget;
+    target = currTarget;
 
-        if (
-          target &&
-          target.store &&
-          target.store.getFreeCapacity([RESOURCE_ENERGY]) <= 0
-        ) {
-          target = null;
-        }
+    if (
+      target &&
+      target.store &&
+      target.store.getFreeCapacity([RESOURCE_ENERGY]) <= 0
+    ) {
+      target = null;
+    }
   }
 
   if (!target) {

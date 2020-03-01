@@ -120,19 +120,19 @@ module.exports.loop = function() {
     let exts = Memory.spawnExts;
     let stor1 = Memory.stor1;
 
-    let linkSpawnId = Memory.linkSpawnId || "5cfd3d207e979d09d3c5ad2c";
+    let linkSpawnId = "5cfd3d207e979d09d3c5ad2c";
     let linkSpawn = Game.getObjectById(linkSpawnId);
     Memory.linkSpawnId = linkSpawnId;
 
-    let linkContrId = Memory.linkContrId || "5cfd8274d7150267ad4571be";
+    let linkContrId = "5cfd8274d7150267ad4571be";
     let linkContr = Game.getObjectById(linkContrId);
     Memory.linkContrId = linkContrId;
 
-    let slinkMiddleId = Memory.slinkMiddleId || "5e4d06f7513ade25f2675b99";
+    let slinkMiddleId = "5e4d06f7513ade25f2675b99";
     let slinkMiddle = Game.getObjectById(slinkMiddleId);
     Memory.slinkMiddleId = slinkMiddleId;
 
-    let slinkMiddle2Id = Memory.slinkMiddle2Id || "5e4cfded815dd6352dde50cb";
+    let slinkMiddle2Id =  "5e4cfded815dd6352dde50cb";
     let slinkMiddle2 = Game.getObjectById(slinkMiddle2Id);
     Memory.slinkMiddle2Id = slinkMiddle2Id;
 

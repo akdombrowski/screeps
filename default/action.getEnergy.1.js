@@ -143,7 +143,26 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     target = creep.room.lookForAt(LOOK_SOURCES, creep.memory.flag).pop();
   }
 
-  // console.log("name2: " + creep.name + " "  + target)
+  if (
+    !target ||
+    (target &&
+      target.store &&
+      (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
+  ) {
+    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+      filter: structure => {
+        if (
+          (structure.structureType === STRUCTURE_CONTAINER ||
+            structure.structureType === STRUCTURE_STORAGE || structure.structureType === STRUCTURE_LINK) &&
+          creep.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
+        ) {
+          // console.log("name: " + structure)
+          return structure;
+        }
+      },
+    });
+    isTargetStructure = target ? true : false;
+  }
 
   // If i don't have a target yet. Check containers and storage units
   //  for energy.
@@ -168,27 +187,6 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       creep.say("wait");
       return retval;
     }
-  }
-
-  if (
-    !target ||
-    (target &&
-      target.store &&
-      (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
-  ) {
-    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: structure => {
-        if (
-          (structure.structureType == STRUCTURE_CONTAINER ||
-            structure.structureType == STRUCTURE_STORAGE) &&
-          creep.store.getUsedCapacity(RESOURCE_ENERGY) > 50
-        ) {
-          // console.log("name: " + structure)
-          return structure;
-        }
-      },
-    });
-    isTargetStructure = target ? true : false;
   }
 
   if (

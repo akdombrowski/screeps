@@ -32,17 +32,23 @@ const roleAttacker = {
       }
     }
 
-   let enemyCreeps = rm.find(FIND_HOSTILE_STRUCTURES);
+    let enemyCreep = Game.getObjectById(Memory.nAttackerId);
+    if (enemyCreep) {
+      invader = enemyCreep;
+    } else {
+      let enemyCreeps = rm.find(FIND_HOSTILE_STRUCTURES);
 
-   if(!enemyCreeps || enemyCreeps.length <= 0) {
-     enemyCreeps = rm.find(FIND_HOSTILE_CREEPS);
-   }
+      if (!enemyCreeps || enemyCreeps.length <= 0) {
+        enemyCreeps = rm.find(FIND_HOSTILE_CREEPS);
+      }
 
-   if (!enemyCreeps || enemyCreeps.length <= 0) {
-     enemyCreeps = rm.find(FIND_HOSTILE_SPAWNS);
-   }
+      if (!enemyCreeps || enemyCreeps.length <= 0) {
+        enemyCreeps = rm.find(FIND_HOSTILE_SPAWNS);
+      }
 
-    invader = enemyCreeps.pop();
+      invader = enemyCreeps.pop();
+    }
+
     if (creep.pos.isNearTo(invader)) {
       retval = creep.attack(invader);
     } else {

@@ -35,6 +35,7 @@ var roleWorker = {
       if (creep.memory.direction) {
         switch (creep.memory.direction) {
           case "east":
+          case "e":
             if (creep.memory.sourceDir === "north") {
               getEnergyE(creep, "E36N32");
             } else if (creep.memory.sourceDir === "east") {
@@ -44,15 +45,19 @@ var roleWorker = {
             }
             break;
           case "eeast":
+          case "ee":
             getEnergyEE(creep, "E37N31");
             break;
           case "west":
+          case "w":
             getEnergyW(creep, "E34N31");
             break;
           case "north":
+          case "n":
             getEnergyN(creep, "E35N32");
             break;
           case "ne":
+          case "northeast":
             getEnergyNE(creep, "E36N32");
             break;
           default:

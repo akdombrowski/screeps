@@ -132,7 +132,7 @@ module.exports.loop = function() {
     let slinkMiddle = Game.getObjectById(slinkMiddleId);
     Memory.slinkMiddleId = slinkMiddleId;
 
-    let slinkMiddle2Id =  "5e4cfded815dd6352dde50cb";
+    let slinkMiddle2Id = "5e4cfded815dd6352dde50cb";
     let slinkMiddle2 = Game.getObjectById(slinkMiddle2Id);
     Memory.slinkMiddle2Id = slinkMiddle2Id;
 
@@ -260,6 +260,7 @@ module.exports.loop = function() {
 
     if (Game.cpu.bucket > 20) {
       linkTransfer(linkSpawn, slinkMiddle);
+      linkTransfer(linkSpawn, slinkMiddle2);
     } else {
       console.log("low cpu bucket: " + Game.cpu.bucket);
     }

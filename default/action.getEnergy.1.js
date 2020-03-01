@@ -154,9 +154,10 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
         const type = struct.structureType;
 
         if (
-          (type === STRUCTURE_CONTAINER ||
-            type === STRUCTURE_LINK) &&
-          struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50 && struct.pos.y < 27
+          (type === STRUCTURE_CONTAINER || type === STRUCTURE_LINK) &&
+          struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50 &&
+          struct.pos.y < 27 &&
+          structure.id !== "5cfd3d207e979d09d3c5ad2c"
         ) {
           // console.log("name: " + structure)
           return struct;

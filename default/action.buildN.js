@@ -1,7 +1,7 @@
 const smartMove = require("./action.smartMove");
 
 function build(creep, flag, room) {
-  let targetId = "5e5a6e2b016b547504000249";
+  let targetId = creep.memory.targetId;
   let target = Game.getObjectById(targetId);
   let nsource = Game.getObjectById("5bbcaefa9099fc012e639e8c");
   let building = true;
@@ -75,6 +75,7 @@ function build(creep, flag, room) {
     }
 
     if (target && creep.pos.inRangeTo(target, 3)) {
+      targetId = target.id;
       if (
         creep.pos.findInRange(FIND_CREEPS, 1).pop().name !== creep.name &&
         creep.pos.isNearTo(Game.getObjectById(Memory.nsource))

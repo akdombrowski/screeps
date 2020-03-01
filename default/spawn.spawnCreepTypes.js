@@ -429,7 +429,7 @@ function spawnCreepTypes(enAvail) {
       parts = southHvParts;
       birth = true;
     } else if (
-      harvestersN.length < 5 &&
+      harvestersN.length < 2 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {
       name += "N";

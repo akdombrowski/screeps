@@ -69,27 +69,9 @@ function build(creep) {
 
     if (target) {
       if (creep.pos.inRangeTo(target, 3)) {
-        if (yucreepin(creep)) {
-          retval = smartMove(creep, s2, 5);
-
-          // Couldn't move towards construction target
-          if (retval === ERR_INVALID_TARGET) {
-            creep.say("m.inval");
-            target = null;
-            creep.memory.b = null;
-          } else if (retval === OK && target) {
-            creep.say("m." + target.pos.x + "," + target.pos.y);
-            creep.memory.b = targetId;
-          } else {
-            creep.say("m." + retval);
-            target = null;
-            creep.memory.b = null;
-          }
-        } else {
-          retval = creep.build(target);
-          creep.memory.b = targetId;
-          creep.say("b");
-        }
+        retval = creep.build(target);
+        creep.memory.b = targetId;
+        creep.say("b");
       } else if (creep.fatigue > 0) {
         creep.say("f." + creep.fatigue);
       } else {

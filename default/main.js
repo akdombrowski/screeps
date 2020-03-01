@@ -124,7 +124,6 @@ module.exports.loop = function() {
     let linkSpawn = Game.getObjectById(linkSpawnId);
     Memory.linkSpawnId = linkSpawnId;
 
-
     let linkContrId = Memory.linkContrId || "5cfd8274d7150267ad4571be";
     let linkContr = Game.getObjectById(linkContrId);
     Memory.linkContrId = linkContrId;
@@ -241,6 +240,12 @@ module.exports.loop = function() {
     numCrps = Object.keys(crps).length;
 
     if (Game.cpu.bucket > 20) {
+      runRoles();
+    } else {
+      console.log("low cpu bucket: " + Game.cpu.bucket);
+    }
+
+    if (Game.cpu.bucket > 20) {
       spawnCreepTypes(enAvail);
 
       spawnToSource1Chain();
@@ -254,7 +259,6 @@ module.exports.loop = function() {
     }
 
     if (Game.cpu.bucket > 20) {
-      runRoles();
       linkTransfer(linkSpawn, slinkMiddle);
     } else {
       console.log("low cpu bucket: " + Game.cpu.bucket);

@@ -12,11 +12,13 @@ function linkTransferToAnotherLink(linkFrom, linkTo, energy) {
     return ERR_NOT_ENOUGH_ENERGY;
   }
 
+  console.log("link transfer:");
   if (energy && energy > 0) {
     retval = linkFrom.transferEnergy(linkTo, energy);
   } else {
     retval = linkFrom.transferEnergy(linkTo);
   }
+  console.log(retval);
 
   return retval;
 }

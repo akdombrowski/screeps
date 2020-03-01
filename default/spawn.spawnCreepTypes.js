@@ -95,40 +95,40 @@ function spawnCreepTypes(enAvail) {
   let moverParts = [];
   addPart(moverParts, 50, MOVE);
 
-  // 4000
+  // 3000
   let upContrPartsBig = [];
-  addPart(upContrPartsBig, 10, CARRY);
-  addPart(upContrPartsBig, 30, WORK);
-  addPart(upContrPartsBig, 10, MOVE);
+  addPart(upContrPartsBig, 20, CARRY);
+  addPart(upContrPartsBig, 10, WORK);
+  addPart(upContrPartsBig, 20, MOVE);
 
-  // 4000
+  // 3500
   let southHvParts = [];
   addPart(southHvParts, 8, CARRY);
-  addPart(southHvParts, 30, WORK);
-  addPart(southHvParts, 12, MOVE);
+  addPart(southHvParts, 20, WORK);
+  addPart(southHvParts, 22, MOVE);
 
   // 650
   let claimerParts = [];
   addPart(claimerParts, 1, MOVE);
   addPart(claimerParts, 1, CLAIM);
 
-  // 4000
+  // 2750
   let newhvParts = [];
-  addPart(newhvParts, 8, CARRY);
-  addPart(newhvParts, 30, WORK);
-  addPart(newhvParts, 12, MOVE);
+  addPart(newhvParts, 20, CARRY);
+  addPart(newhvParts, 5, WORK);
+  addPart(newhvParts, 25, MOVE);
 
-  // 4000
+  // 2900
   let workerParts = [];
-  addPart(workerParts, 10, CARRY);
-  addPart(workerParts, 30, WORK);
-  addPart(workerParts, 10, MOVE);
+  addPart(workerParts, 16, CARRY);
+  addPart(workerParts, 8, WORK);
+  addPart(workerParts, 26, MOVE);
 
-  // 4000
+  // 3000
   let repairerParts = [];
   addPart(repairerParts, 10, CARRY);
-  addPart(repairerParts, 30, WORK);
-  addPart(repairerParts, 10, MOVE);
+  addPart(repairerParts, 10, WORK);
+  addPart(repairerParts, 30, MOVE);
 
   // 300
   let linkGetsParts = [];
@@ -136,11 +136,11 @@ function spawnCreepTypes(enAvail) {
   addPart(linkGetsParts, 2, WORK);
   addPart(linkGetsParts, 1, MOVE);
 
-  // 4000
+  // 3000
   let largeLinkGetsParts = [];
   addPart(largeLinkGetsParts, 10, CARRY);
-  addPart(largeLinkGetsParts, 30, WORK);
-  addPart(largeLinkGetsParts, 10, MOVE);
+  addPart(largeLinkGetsParts, 10, WORK);
+  addPart(largeLinkGetsParts, 30, MOVE);
 
   // 290
   let attackerParts = [];
@@ -311,7 +311,7 @@ function spawnCreepTypes(enAvail) {
         );
       }
     }
-  } else if (enAvail >= 4000 && !invaderId) {
+  } else if (enAvail >= 3250 && !invaderId) {
     let t = Game.time.toString().slice(4);
     let name = "harvXL" + t;
     let chosenRole = "h";

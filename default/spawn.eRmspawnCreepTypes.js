@@ -236,20 +236,6 @@ function spawnCreepTypes(enAvail) {
       parts = basicHv;
       sourceDir = "north2";
       birth = true;
-    } else if (eworkers.length < 1) {
-      eworkers.push(name);
-      chosenRole = "eBuilder";
-      buildRoom = "E36N31";
-      name = chosenRole + t;
-      parts = simpleParts;
-      birth = true;
-    } else if (neworkers.length < 1) {
-      neworkers.push(name);
-      chosenRole = "neBuilder";
-      buildRoom = "E36N32";
-      name = chosenRole + t;
-      parts = simpleParts;
-      birth = true;
     }
 
     if (birth) {
@@ -305,7 +291,7 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = medworkerParts;
       eastUpControllers.push(name);
-    } else if (workers.length < 3) {
+    } else if (eastWorkers.length < 3) {
       chosenRole = "eworker";
       buildRoom = "E36N31";
       name = chosenRole + t;

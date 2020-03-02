@@ -46,7 +46,6 @@ function vest(creep, flag, path) {
     return retval;
   }
 
-  console.log(name + " getEnergyNE " + room.name );
   if(room.name !== "E36N32") {
     retval = smartMove(creep, Game.flags.e36n32contr, 10);
     return retval;

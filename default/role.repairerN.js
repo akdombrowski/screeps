@@ -3,6 +3,7 @@ const getEnergyN = require("./action.getEnergyNorth");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const build = require("./action.build");
+const buildN = require("./action.buildN");
 const findRepairable = require("./action.findRepairableStruct");
 
 var roleRepairer = {

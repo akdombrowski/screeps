@@ -15,6 +15,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   let name = creep.name;
   let rmName = creep.room.name;
   let rm = creep.rm;
+  let pos = creep ? creep.pos : null;
   let roll = creep.memory.role;
   let direction = creep.memory.direction;
   let s1RmEnAvail = Memory.s1.room.energyAvailable;
@@ -181,14 +182,17 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     ) {
       target = null;
     }
-    if (
+    if (target &&
       storageCreep &&
       storageCreep.name !== name &&
       storageCreep2 &&
-      storageCreep2.name !== name
+      storageCreep2.name !== name &&
+      pos && creep
     ) {
-      creep.say("wait");
-      return retval;
+      if (creep.pos.inRangeTo(target, 5)) {
+        creep.say("wait");
+        return retval;
+      }
     }
   }
 

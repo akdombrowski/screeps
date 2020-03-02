@@ -300,6 +300,9 @@ module.exports.loop = function() {
     if (!Memory.e36n32fixables || Memory.e36n32fixables.length < 4) {
       Memory.e36n32fixables = findDecayed("E36N32");
     }
+    if (!Memory.e35n32fixables || Memory.e35n32fixables.length < 4) {
+      Memory.e35n32fixables = findDecayed("E35N32");
+    }
 
     if (Game.time % 3600 == 0) {
       if (!Memory.rmProg) {

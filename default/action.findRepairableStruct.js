@@ -12,6 +12,8 @@ function findRepairable(creep) {
     weakest = Memory.e36n31fixables.pop();
   } else if (creep.room.name === "E36N32") {
     weakest = Memory.e36n32fixables.pop();
+  } else if (creep.room.name === "E35N32") {
+    weakest = Memory.e35n32fixables.pop();
   }
   target = Game.getObjectById(weakest);
 

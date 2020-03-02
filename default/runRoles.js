@@ -203,6 +203,10 @@ function runRoles() {
         "westExit",
         "5bbcaeeb9099fc012e639c4d"
       );
+    } else if (roll === "upCW") {
+      upControllersW.push(name);
+
+      upControllerW(creep, Game.flags.west, "E34N31");
     } else if (roll === "deepSouthRezzy") {
       deepSouthScout(creep);
     } else if (roll === "uc" || roll === "upController" || roll === "upc") {

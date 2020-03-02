@@ -25,6 +25,7 @@ function vest(creep, flag, path) {
   const sourceId = creep.memory.sourceId;
   let room = creep.room;
 
+
   let target = sourceId ? Game.getObjectById(sourceId) : null;
   let retval = -16;
 
@@ -45,7 +46,8 @@ function vest(creep, flag, path) {
     return retval;
   }
 
-  if(creep.room.name !== "E36N32") {
+  console.log(name + " getEnergyNE " + room.name );
+  if(room.name !== "E36N32") {
     retval = smartMove(creep, Game.flags.e36n32contr, 10);
     return retval;
   }

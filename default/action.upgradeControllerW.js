@@ -32,13 +32,15 @@ function upController(creep, flag, room) {
     } else {
       creep.say("sad");
     }
-  } else {
+  } else if (controller) {
     if (creep.pos.inRangeTo(controller, 3)) {
       retval = creep.upgradeController(controller);
       creep.say("up." + retval);
     } else {
       retval = smartMove(creep, controller, 3);
     }
+  } else {
+    retval = smartMove(creep, flag, 10);
   }
 
   return retval;

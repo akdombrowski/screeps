@@ -4,6 +4,7 @@ const transferEnergyeRm = require("./action.transferEnergyeRm");
 const transferEnergyEE = require("./action.transferEnergyEEast");
 const transferEnergyNE = require("./action.transferEnergyNE");
 const getEnergyNorth = require("./action.getEnergyNorth");
+const getEnergyNE = require("./action.getEnergyNE");
 const getEnergyEast = require("./action.getEnergy.1");
 const ermgetEnergyEast = require("./action.getEnergy.1");
 const getEnergyEEast = require("./action.getEnergyEEast");
@@ -115,10 +116,10 @@ const roleHarvester = {
             ? Memory.westAttackerId
             : null;
         }
-      } else if (direction == "south" || creep) {
+      } else if (direction == "south") {
         retval = getEnergy(creep, "E35N31");
-      } else if (direction == "ne" || creep) {
-        retval = getEnergy(creep, "E36N32");
+      } else if (direction == "ne") {
+        retval = getEnergyNE(creep, "E36N32");
       } else {
         retval = getEnergy(creep, "E35N31");
       }

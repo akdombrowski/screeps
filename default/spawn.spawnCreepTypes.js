@@ -379,7 +379,8 @@ function spawnCreepTypes(enAvail) {
       birth = true;
     } else if (
       claimersW.length < 1 &&
-      !Game.getObjectById("5bbcaefa9099fc012e639e8b").my
+      (!Game.getObjectById("5bbcaeeb9099fc012e639c4d") ||
+        !Game.getObjectById("5bbcaeeb9099fc012e639c4d").my)
     ) {
       parts = claimerParts;
       name = "claimW" + t;
@@ -388,7 +389,8 @@ function spawnCreepTypes(enAvail) {
       birth = true;
     } else if (
       upControllersW.length < 1 &&
-      Game.getObjectById("5bbcaefa9099fc012e639e8b").my &&
+      (Game.getObjectById("5bbcaeeb9099fc012e639c4d") &&
+        Game.getObjectById("5bbcaeeb9099fc012e639c4d").my) &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
       parts = upContrPartsBig;

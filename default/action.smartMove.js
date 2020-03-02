@@ -41,6 +41,8 @@ function smartMove(
     maxOps = 1000;
   } else if (roll === "upCN") {
     maxOps = 500;
+  }else if (name.endsWith("NE")) {
+    maxOps = 700;
   } else if (name.endsWith("W")) {
     maxOps = 500;
   } else if (name.startsWith("claim")) {

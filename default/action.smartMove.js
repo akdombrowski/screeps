@@ -20,9 +20,11 @@ function smartMove(
   let name = creep.name;
   let pos = creep.pos;
   let desPath;
-  pathColor = pathColor || "#ffffff";
-  pathMem = Math.random() * 10 - 1;
+  pathColor = pathColor || getRandomColor();
+  pathMem = Math.random() * 100 - 1;
   let ops = maxOps || Math.random() * 100000;
+  let roll = creep.memory.role;
+  let direction = creep.memory.direction;
 
   if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
@@ -30,6 +32,34 @@ function smartMove(
   } else if (!dest) {
     creep.say("no destination");
     return retval;
+  }
+
+  // keep them separate to allow fine tuning of maxOps
+  if (name === "claimNE") {
+    maxOps = 1000;
+  } else if (roll === "upCNE") {
+    maxOps = 1000;
+  } else if (roll === "upCN") {
+    maxOps = 500;
+  } else if (name.endsWith("W")) {
+    maxOps = 500;
+  } else if (name.startsWith("claim")) {
+    maxOps = 200;
+  } else if (name.endsWith("E")) {
+    maxOps = 500;
+  } else if (roll === "neBuilder") {
+    maxOps = 500;
+  } else if (roll === "worker" && direction === "eeast") {
+    maxOps = 500;
+  } else if (name.startsWith("etowerHarvester")) {
+    maxOps = 500;
+  } else if (name.startsWith("eeUp")) {
+    maxOps = 200;
+  } else if (
+    creep.memory.sourceDir === "eeast" &&
+    (roll === "worker" || roll === "eeworker")
+  ) {
+    maxOps = 500;
   }
 
   let destPos = dest;
@@ -92,10 +122,12 @@ function smartMove(
     ignoreCreeps: false,
     noPathFinding: false,
     reusePath: pathMem,
+    maxOps: maxOps,
+    maxRooms: 4,
     serializeMemory: true,
     visualizePathStyle: {
       fill: "transparent",
-      stroke: getRandomColor(),
+      stroke: pathColor,
       lineStyle: "dashed",
       strokeWidth: 0.15,
       opacity: 0.1,

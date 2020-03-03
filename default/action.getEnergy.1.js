@@ -178,7 +178,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     if (
       !target ||
       !target.store[RESOURCE_ENERGY] ||
-      target.store[RESOURCE_ENERGY] < 50
+      target.store[RESOURCE_ENERGY] < 400
     ) {
       target = null;
     }

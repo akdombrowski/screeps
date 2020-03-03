@@ -5,6 +5,7 @@ const smartMove = require("./action.smartMove");
 
 function checkForCreepsNearSource(creep, range, sources) {
   let target = sources[0];
+  let nESource2 = Game.getObjectById("5bbcaf0c9099fc012e63a0bb");
 
   _.forEach(sources, src => {
     let sourceCreeps = target.pos.findInRange(FIND_CREEPS, range);

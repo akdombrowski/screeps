@@ -80,7 +80,6 @@ function vest(creep, flag, path) {
       return retval;
     }
   } else {
-    console.log("creep.name " + creep.name + " is sad.");
     creep.say("sad");
   }
   return retval;

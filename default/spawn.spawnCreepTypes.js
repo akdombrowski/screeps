@@ -138,6 +138,12 @@ function spawnCreepTypes(enAvail) {
   addPart(newhvParts, 5, WORK);
   addPart(newhvParts, 25, MOVE);
 
+  // 2550
+  let travelhvParts = [];
+  addPart(travelhvParts, 24, CARRY);
+  addPart(travelhvParts, 1, WORK);
+  addPart(travelhvParts, 25, MOVE);
+
   // 2900
   let workerParts = [];
   addPart(workerParts, 16, CARRY);
@@ -310,38 +316,6 @@ function spawnCreepTypes(enAvail) {
           sourceId,
           spawnDirection
         );
-      } else if (
-        harvestersN.length < 1 &&
-        (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
-      ) {
-        name += "N";
-        direction = "north";
-        harvestersN.push(name);
-        birthCreep(
-          s1,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection
-        );
-      } else if (
-        harvestersW.length < 1 &&
-        (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
-      ) {
-        name += "W";
-        direction = "west";
-        harvestersW.push(name);
-        birthCreep(
-          s1,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection
-        );
       } else if (claimersNWW.length < 1 && (!contrNWW || !contrNWW.my)) {
         parts = claimerParts;
         name = "claimNWW" + t;
@@ -394,26 +368,31 @@ function spawnCreepTypes(enAvail) {
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
       name += "W";
+      parts = travelhvParts;
       direction = "west";
       harvestersW.push(name);
       birth = true;
     } else if (harvestersNWW.length < 1) {
       name += "NWW";
+      parts = travelhvParts;
       direction = "nww";
       harvestersNWW.push(name);
       birth = true;
     } else if (harvestersNW.length < 1) {
       name += "WW";
+      parts = travelhvParts;
       direction = "nw";
       harvestersNW.push(name);
       birth = true;
     } else if (harvestersNWW.length < 2) {
       name += "NWW";
+      parts = travelhvParts;
       direction = "nww";
       harvestersNWW.push(name);
       birth = true;
     } else if (harvestersNW.length < 2) {
       name += "WW";
+      parts = travelhvParts;
       direction = "nw";
       harvestersNW.push(name);
       birth = true;
@@ -537,14 +516,16 @@ function spawnCreepTypes(enAvail) {
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {
       name += "N";
+      parts = travelhvParts;
       direction = "north";
       harvestersN.push(name);
       birth = true;
     } else if (
-      harvestersW.length < 5 &&
+      harvestersW.length < 3 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
       name += "W";
+      parts = travelhvParts;
       direction = "west";
       harvestersW.push(name);
       birth = true;

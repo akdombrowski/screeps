@@ -225,6 +225,7 @@ function spawnCreepTypes(enAvail) {
     return;
   }
 
+  const contrW = Game.getObjectById("5bbcaeeb9099fc012e639c4d");
   const contrNW = Game.getObjectById("5bbcaeeb9099fc012e639c4a");
   const contrNWW = Game.getObjectById("5bbcaedb9099fc012e639a93");
 
@@ -251,7 +252,7 @@ function spawnCreepTypes(enAvail) {
       sourceId,
       spawnDirection
     );
-  } else if (claimersNW.length < 1 && !invaderId) {
+  } else if (claimersW.length < 2 && !invaderId) {
     if (enAvail >= 300) {
       let t = Game.time.toString().slice(4);
       let name = "harv" + t;
@@ -316,6 +317,20 @@ function spawnCreepTypes(enAvail) {
           sourceId,
           spawnDirection
         );
+      } else if (claimersW.length < 1 && (!contrW || !contrW.my)) {
+        parts = claimerParts;
+        name = "claimW" + t;
+        chosenRole = "claimW";
+        claimersNW.push(name);
+        birthCreep(
+          s1,
+          parts,
+          name,
+          chosenRole,
+          direction,
+          sourceId,
+          spawnDirection
+        );
       } else if (claimersNWW.length < 1 && (!contrNWW || !contrNWW.my)) {
         parts = claimerParts;
         name = "claimNWW" + t;
@@ -334,6 +349,48 @@ function spawnCreepTypes(enAvail) {
         parts = claimerParts;
         name = "claimNW" + t;
         chosenRole = "claimNW";
+        claimersNW.push(name);
+        birthCreep(
+          s1,
+          parts,
+          name,
+          chosenRole,
+          direction,
+          sourceId,
+          spawnDirection
+        );
+      } else if (claimersNWW.length < 2 && (!contrNWW || !contrNWW.my)) {
+        parts = claimerParts;
+        name = "claimNWW" + t;
+        chosenRole = "claimNWW";
+        claimersNW.push(name);
+        birthCreep(
+          s1,
+          parts,
+          name,
+          chosenRole,
+          direction,
+          sourceId,
+          spawnDirection
+        );
+      } else if (claimersNW.length < 2 && (!contrNW || !contrNW.my)) {
+        parts = claimerParts;
+        name = "claimNW" + t;
+        chosenRole = "claimNW";
+        claimersNW.push(name);
+        birthCreep(
+          s1,
+          parts,
+          name,
+          chosenRole,
+          direction,
+          sourceId,
+          spawnDirection
+        );
+      } else if (claimersW.length < 2 && (!contrW || !contrW.my)) {
+        parts = claimerParts;
+        name = "claimW" + t;
+        chosenRole = "claimW";
         claimersNW.push(name);
         birthCreep(
           s1,

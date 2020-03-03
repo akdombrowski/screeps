@@ -304,7 +304,7 @@ function spawnCreepTypes(enAvail) {
           spawnDirection
         );
       } else if (
-        westHarvesters.length < 1 &&
+        westHarvesters.length < 2 &&
         (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
       ) {
         name += "W";
@@ -350,13 +350,21 @@ function spawnCreepTypes(enAvail) {
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
+    } else if (
+      westHarvesters.length < 2 &&
+      (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
+    ) {
+      name += "W";
+      direction = "west";
+      westHarvesters.push(name);
+      birth = true;
     } else if (upControllers.length < 1) {
       parts = upContrParts;
       name = "upc" + t;
       upControllers.push(name);
       chosenRole = "upController";
       birth = true;
-    } else if (southHarvesters.length < 3) {
+    } else if (southHarvesters.length < 2) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
@@ -390,7 +398,7 @@ function spawnCreepTypes(enAvail) {
     } else if (
       upControllersW.length < 1 &&
       Game.getObjectById("5bbcaeeb9099fc012e639c4d") &&
-        Game.getObjectById("5bbcaeeb9099fc012e639c4d").my &&
+      Game.getObjectById("5bbcaeeb9099fc012e639c4d").my &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
       parts = upContrPartsBig;

@@ -56,6 +56,7 @@ function spawnCreepTypes(enAvail) {
 
   let harvesters = Memory.harvesters || [];
   let upControllers = Memory.upControllers || [];
+  let upControllersE = Memory.upControllersE || [];
   let upControllersNE = Memory.upControllersNE || [];
   let roadRepairers = Memory.roadRepairers || [];
   let harvestersN = Memory.harvestersN || [];
@@ -130,40 +131,40 @@ function spawnCreepTypes(enAvail) {
   addPart(medlinkGetsParts, 6, WORK);
   addPart(medlinkGetsParts, 3, MOVE);
 
-  // 1100
-  let southHvParts = [];
-  addPart(southHvParts, 1, CARRY);
-  addPart(southHvParts, 5, WORK);
-  addPart(southHvParts, 11, MOVE);
-
   // 800
   let attackerMedParts = [];
   addPart(attackerMedParts, 5, ATTACK);
   addPart(attackerMedParts, 8, MOVE);
 
-  // 1100
+  // 2000
+  let southHvParts = [];
+  addPart(southHvParts, 12, CARRY);
+  addPart(southHvParts, 5, WORK);
+  addPart(southHvParts, 18, MOVE);
+
+  // 2000
   let newhvParts = [];
-  addPart(newhvParts, 4, CARRY);
-  addPart(newhvParts, 4, WORK);
-  addPart(newhvParts, 10, MOVE);
+  addPart(newhvParts, 10, CARRY);
+  addPart(newhvParts, 5, WORK);
+  addPart(newhvParts, 20, MOVE);
 
-  // 1100
+  // 2000
   let workerParts = [];
-  addPart(workerParts, 1, CARRY);
-  addPart(workerParts, 6, WORK);
-  addPart(workerParts, 9, MOVE);
+  addPart(workerParts, 5, CARRY);
+  addPart(workerParts, 9, WORK);
+  addPart(workerParts, 17, MOVE);
 
-  // 1100
+  // 2000
   let repairerParts = [];
-  addPart(repairerParts, 1, CARRY);
-  addPart(repairerParts, 6, WORK);
-  addPart(repairerParts, 9, MOVE);
+  addPart(repairerParts, 5, CARRY);
+  addPart(repairerParts, 8, WORK);
+  addPart(repairerParts, 19, MOVE);
 
-  // 1100
+  // 2000
   let linkGetsParts = [];
-  addPart(linkGetsParts, 1, CARRY);
-  addPart(linkGetsParts, 6, WORK);
-  addPart(linkGetsParts, 7, MOVE);
+  addPart(linkGetsParts, 5, CARRY);
+  addPart(linkGetsParts, 9, WORK);
+  addPart(linkGetsParts, 17, MOVE);
 
   let rezzyParts = [CLAIM, MOVE];
   let basicHv = [CARRY, WORK, WORK, MOVE];
@@ -230,12 +231,6 @@ function spawnCreepTypes(enAvail) {
       direction = "ne";
       birth = true;
       eattackers.push(name);
-    } else if (ermNeHarvesters.length < 2 && !neAttackerId) {
-      ermHarvesters.push(name);
-      name = "h" + t + "NE";
-      parts = basicHv;
-      sourceDir = "north2";
-      birth = true;
     }
 
     if (birth) {
@@ -257,16 +252,16 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  if (enAvail >= 1100) {
+  if (enAvail >= 2000) {
     let t = Game.time.toString().slice(4);
-    let name = "h" + t + "NE";
+    let name = "h" + t + "E";
     let chosenRole = "h";
-    let direction = "east";
+    let direction = "e";
     let parts = newhvParts;
     let spawnDirection = [TOP];
     let sourceId = "";
     let sourceDir = "";
-    let buildRoom = "E37N31";
+    let buildRoom = "E36N31";
 
     if (eattackers.length < 1 && Memory.neAttackerId) {
       parts = attackerBigParts;
@@ -276,6 +271,9 @@ function spawnCreepTypes(enAvail) {
       eattackers.push(name);
       birth = true;
     } else if (ermNeHarvesters.length < 5) {
+      name = "h" + t + "NE";
+      chosenRole = "h";
+      direction = "ne";
       ermNeHarvesters.push(name);
       parts = newhvParts;
       sourceDir = "north";
@@ -291,6 +289,11 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = medworkerParts;
       eastUpControllers.push(name);
+    } else if (upControllersNE.length < 3) {
+      chosenRole = "upCE";
+      name = chosenRole + t;
+      parts = medworkerParts;
+      upControllersE.push(name);
     } else if (eastWorkers.length < 3) {
       chosenRole = "eworker";
       buildRoom = "E36N31";
@@ -325,6 +328,7 @@ function spawnCreepTypes(enAvail) {
   Memory.eworkers = eworkers;
   Memory.neworkers = neworkers;
   Memory.upControllers = upControllers;
+  Memory.upControllersE = upControllersE;
   Memory.upControllersNE = upControllersNE;
   Memory.roadRepairers = roadRepairers;
   Memory.attackers = attackers;

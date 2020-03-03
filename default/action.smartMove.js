@@ -36,16 +36,11 @@ function smartMove(
   }
 
   // keep them separate to allow fine tuning of maxOps
-  if (
-    name === "claimNE" ||
-    roll === "claimW" ||
-    roll === "claimNW"
-  ) {
+  if (name === "claimNE" || roll === "claimW" || roll === "claimNW") {
     maxOps = 1000;
-  } else if (roll === "claimNWW") {
+  } else if (roll.endsWith("WW")) {
     maxOps = 1000;
     maxRooms = 6;
-    ignoreCreeps = true;
   } else if (roll === "upCNE") {
     maxOps = 1000;
   } else if (roll === "upCN") {

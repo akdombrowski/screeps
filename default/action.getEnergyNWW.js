@@ -26,7 +26,7 @@ function vest(creep, flag, path) {
   const pos = creep.memory.pos;
   const sourceId = creep.memory.sourceId;
   let room = creep.room;
-
+  const logging = false;
 
   let target = sourceId ? Game.getObjectById(sourceId) : null;
   let retval = -16;
@@ -48,8 +48,11 @@ function vest(creep, flag, path) {
     return retval;
   }
 
-  if(room.name !== "E33N32") {
-    retval = smartMove(creep, Game.flags.nwwsource1, 10);
+  if (room.name !== "E33N32") {
+    retval = smartMove(creep, Game.flags.nwwsource1.pos, 5, true);
+    if (logging) {
+      console.log(name + " retval move to e33n32 " + retval);
+    }
     return retval;
   }
 
@@ -73,7 +76,7 @@ function vest(creep, flag, path) {
 
       return retval;
     } else {
-      retval = smartMove(creep, target, 1, true, "#000fff", 2000, 1000);
+      retval = smartMove(creep, target, 1, false, "#000fff", 2000, 1000);
       return retval;
     }
   } else if (!target) {

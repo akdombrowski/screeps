@@ -397,8 +397,17 @@ function spawnCreepTypes(enAvail) {
       direction = "west";
       harvestersW.push(name);
       birth = true;
-    } else if (
-      harvestersNWW.length < 2) {
+    } else if (harvestersNWW.length < 1) {
+      name += "NWW";
+      direction = "nww";
+      harvestersNWW.push(name);
+      birth = true;
+    } else if (harvestersNW.length < 1) {
+      name += "WW";
+      direction = "nw";
+      harvestersNW.push(name);
+      birth = true;
+    } else if (harvestersNWW.length < 2) {
       name += "NWW";
       direction = "nww";
       harvestersNWW.push(name);

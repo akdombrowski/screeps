@@ -1,32 +1,40 @@
 const transferEnergy = require("./action.transferEnergyEEast");
 const buildRoad = require("./action.buildRoad");
 const transferEnergyE = require("./action.transferEnergyeRm");
-const transferEnergyNW = require("./action.transferEnergyNW");
+const transEn = require("./action.transEn");
 const smartMove = require("./action.smartMove");
 
-function checkForCreepsNearSource(creep, range, sources) {
+function sourceWithLessCreeps(
+  creep,
+  range,
+  sources,
+  alternateSource,
+  numCreepsAllowedNearSource
+) {
   let target = sources[0];
-  let nESource2 = Game.getObjectById("5bbcaf0c9099fc012e63a0bb");
 
   _.forEach(sources, src => {
-    let sourceCreeps = target.pos.findInRange(FIND_CREEPS, range);
-    if (sourceCreeps.length > 2 && !_.any(sourceCreeps, creep)) {
-      target = nESource2;
+    let sourceCreeps = src.pos.findInRange(FIND_CREEPS, range);
+    if (
+      sourceCreeps.length < numCreepsAllowedNearSource &&
+      !_.any(sourceCreeps, creep)
+    ) {
+      target = src;
     }
   });
 
   return target;
 }
 
-function vest(creep, flag, path) {
-  const nwSource1 = Game.getObjectById("5bbcaeeb9099fc012e639c49");
-  const nwSource2 = Game.getObjectById("5bbcaeeb9099fc012e639c4b");
+function vest(creep, flag, path, targetRoomName, source1Id, source2Id) {
+  // const nESource1 = Game.getObjectById("5bbcaedb9099fc012e639a94");
+  const source1 = Game.getObjectById(source1Id);
+  // const nESource2 = Game.getObjectById("5bbcaedb9099fc012e639a95");
+  const source2 = Game.getObjectById(source2Id);
   const name = creep.name;
-  const direction = creep.memory.direction;
-  const pos = creep.memory.pos;
   const sourceId = creep.memory.sourceId;
-  let room = creep.room;
 
+  let room = creep.room;
 
   let target = sourceId ? Game.getObjectById(sourceId) : null;
   let retval = -16;
@@ -38,18 +46,54 @@ function vest(creep, flag, path) {
       let retval = buildRoad(creep);
       if (retval != OK) {
         creep.memory.transfer = true;
-        transferEnergyNW(creep);
+        switch (direction) {
+          case "S":
+          case "south":
+            transferEnergyE(creep);
+            break;
+          case "E":
+          case "east":
+            transferEnergyE(creep);
+            break;
+          case "N":
+          case "north":
+            transferEnergyE(creep);
+            break;
+          case "W":
+          case "west":
+            transferEnergyE(creep);
+            break;
+          case "EE":
+          case "eeast":
+            transferEnergyE(creep);
+            break;
+          case "NE":
+          case "ne":
+            transferEnergyE(creep);
+            break;
+          case "NW":
+          case "nw":
+            transferEnergyE(creep);
+            break;
+          case "NWW":
+          case "nww":
+            transEn(creep, Game.flags.tower6);
+            break;
+          default:
+            transferEnergy(creep);
+            break;
+        }
       } else {
         creep.memory.buildingRoad = true;
       }
     } else if (creep.memory.transfer) {
-      transferEnergyNW(creep);
+      transferEnergyE(creep);
     }
     return retval;
   }
 
-  if(room.name !== "E34N32") {
-    retval = smartMove(creep, Game.flags.nwsource1, 10);
+  if (room.name !== targetRoomName) {
+    retval = smartMove(creep, flag, 10);
     return retval;
   }
 
@@ -57,8 +101,8 @@ function vest(creep, flag, path) {
   creep.memory.getEnergy = true;
 
   if (!target) {
-    target = nwSource1;
-    target = checkForCreepsNearSource(creep, 1, [nwSource1, nwSource2]);
+    target = nESource1;
+    target = sourceWithLessCreeps(creep, 1, [nESource1, nESource2]);
   }
 
   if (target) {
@@ -91,7 +135,6 @@ function vest(creep, flag, path) {
       return retval;
     }
   } else {
-    console.log("creep.name " + creep.name + " is sad.");
     creep.say("sad." + retval);
   }
   return retval;

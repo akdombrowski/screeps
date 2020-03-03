@@ -28,6 +28,7 @@ const roleAttackerNE = require("./role.attackerNE");
 const claimNE = require("./action.claimContrNE");
 const claimN = require("./action.claimContrN");
 const claimNW = require("./action.claimContrNW");
+const claimNWW = require("./action.claimContrNWW");
 const claimW = require("./action.claimContrW");
 const buildNE = require("./action.buildNE");
 const buildNW = require("./action.buildNW");
@@ -39,6 +40,7 @@ function runRoles() {
   let harvesters = [];
   let harvestersN = [];
   let harvestersNW = [];
+  let harvestersNWW = [];
   let harvestersNE = [];
   let workers = [];
   let neworkers = [];
@@ -60,6 +62,7 @@ function runRoles() {
   let claimers = [];
   let claimersN = [];
   let claimersNW = [];
+  let claimersNWW = [];
   let claimersW = [];
   let claimersNE = [];
   let northHarvesters = [];
@@ -117,6 +120,12 @@ function runRoles() {
       } else if (creep.memory.direction === "ne" || name.endsWith("NE")) {
         creep.memory.direction = "ne";
         harvestersNE.push(name);
+      } else if (creep.memory.direction === "nw" || name.endsWith("NW")) {
+        creep.memory.direction = "nw";
+        harvestersNW.push(name);
+      } else if (creep.memory.direction === "nww" || name.endsWith("NWW")) {
+        creep.memory.direction = "nww";
+        harvestersNWW.push(name);
       } else {
         southHarvesters.push(name);
       }
@@ -176,6 +185,26 @@ function runRoles() {
         "eastEntrance1",
         "5bbcaeeb9099fc012e639c4a"
       );
+    } else if (roll === "claimW") {
+      claimersW.push(name);
+      claimW(
+        creep,
+        "E34N31",
+        Game.flags.westExit,
+        LEFT,
+        "westExit",
+        "5bbcaeeb9099fc012e639c4d"
+      );
+    } else if (roll === "claimNWW") {
+      claimersNWW.push(name);
+      claimNWW(
+        creep,
+        "E33N32",
+        Game.flags.nww,
+        LEFT,
+        "nww",
+        "5bbcaedb9099fc012e639a93"
+      );
     } else if (roll === "northRezzy") {
       rezzyContr(
         creep,
@@ -203,16 +232,6 @@ function runRoles() {
         Game.flags.westExit,
         LEFT,
         "westEntrance1",
-        "5bbcaeeb9099fc012e639c4d"
-      );
-    } else if (roll === "claimW") {
-      claimersW.push(name);
-      claimW(
-        creep,
-        "E34N31",
-        Game.flags.westExit,
-        LEFT,
-        "westExit",
         "5bbcaeeb9099fc012e639c4d"
       );
     } else if (roll === "upCN") {
@@ -333,6 +352,7 @@ function runRoles() {
   Memory.harvesters = harvesters;
   Memory.harvestersN = harvestersN;
   Memory.harvestersNW = harvestersNW;
+  Memory.harvestersNWW = harvestersNWW;
   Memory.harvestersNE = harvestersNE;
   Memory.workers = workers;
   Memory.eworkers = eworkers;
@@ -354,6 +374,7 @@ function runRoles() {
   Memory.claimers = claimers;
   Memory.claimersN = claimersN;
   Memory.claimersNW = claimersNW;
+  Memory.claimersNWW = claimersNWW;
   Memory.claimersW = claimersW;
   Memory.claimersNe = claimersNE;
   Memory.northHarvesters = northHarvesters;

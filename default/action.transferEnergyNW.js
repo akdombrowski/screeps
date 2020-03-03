@@ -1,166 +1,313 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
+const traneRm = require("./action.transferEnergyeRm");
+const tranee = require("./action.transferEnergyEEast");
+const tranW = require("./action.transferEnergyW");
+const transEnTower = require("./action.transEnTower");
 
-function tranNE(creep, flag, dest) {
-  let target;
-  let s2 = Game.getObjectById(Memory.s2);
+function tran(creep, flag, dest) {
+  let targetId = creep.memory.transferTargetId;
+  let target = Game.getObjectById(targetId);
+  let rm = creep.room;
   let name = creep.name;
+  let direction = creep.memory.direction;
+  let sourceDir = creep.memory.sourceDir;
+  let fatigue = creep.fatigue;
+  let s1 = Memory.s1;
+  let spawn2 = Game.spawns.spawn2;
+  let tower1 = Game.getObjectById(Memory.tower1Id);
+  let tower2 = Game.getObjectById(Memory.tower2Id);
+  let tower3 = Game.getObjectById(Memory.tower3Id);
+  let tower4 = Game.getObjectById(Memory.tower4Id);
+  let tower5 = Game.getObjectById(Memory.tower5Id);
+  let tower6 = Game.getObjectById(Memory.tower6Id);
+  let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
+  let towers = [tower1, tower2, tower3, tower4, tower5, tower6];
+  let enAvail = rm.energyAvailable;
   let retval = -16;
+
+  if (
+    !creep.store[RESOURCE_ENERGY] ||
+    creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0
+  ) {
+    creep.memory.path = null;
+    creep.memory.transfer = false;
+    creep.memory.transferTargetId = null;
+    creep.memory.getEnergy = true;
+    return -19;
+  }
+
+  if(rm.name !== "E35N31") {
+    retval = smartMove(creep, tower6, 5);
+    return retval;
+  }
+
+  if (direction === "eeast") {
+    creep.memory.transferTargetId;
+    return tranee(creep);
+  }
+
+  if (creep.memory.role === "h" || creep.memory.role === "harvester") {
+    if (creep.room.name === "E35N32") {
+      if (
+        creep.pos === Game.flags.northEntrance1 ||
+        creep.pos.inRangeTo(Game.flags.northEntrance1, 1)
+      ) {
+        if (fatigue > 0) {
+          retval = ERR_TIRED;
+        } else {
+          retval = creep.move(BOTTOM);
+        }
+      } else {
+        retval = smartMove(creep, Game.flags.northEntrance1, 1);
+      }
+
+      creep.say("northEntrance");
+      return retval;
+    } else if (creep.room.name === "E36N31") {
+      retval = traneRm(creep);
+      return retval;
+    } else if (creep.room.name === "E34N31") {
+      if (creep.pos.x > 49) {
+        if (fatigue <= 0) {
+          retval = creep.move(RIGHT);
+        } else {
+          retval = ERR_TIRED;
+        }
+      } else {
+        retval = smartMove(creep, tower6, 3);
+      }
+      return retval;
+    } else if (creep.room.name === "E35N31" && direction === "west") {
+      if (creep.pos.x < 2) {
+        if (fatigue <= 0) {
+          retval = creep.move(RIGHT);
+        } else {
+          retval = ERR_TIRED;
+        }
+      } else {
+        retval = tranW(creep);
+      }
+      return retval;
+    } else if (creep.room.name === "E35N31" && creep.pos.y < 1) {
+      if (fatigue <= 0) {
+        retval = creep.move(BOTTOM);
+      } else {
+        retval = ERR_TIRED;
+      }
+      return retval;
+    } else if (flag) {
+      target = flag.pos.lookFor(LOOK_STRUCTURES).pop();
+    } else if (creep.memory.dest) {
+    } else if (creep.memory.flag) {
+      target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
+    }
+  }
+
+  if (
+    target &&
+    target.store[RESOURCE_ENERGY] &&
+    target.store.getUsedCapacity(RESOURCE_ENERGY) >=
+      target.store.getCapacity(RESOURCE_ENERGY)
+  ) {
+    target = null;
+    creep.memory.flag = null;
+  }
+
+  if (
+    target &&
+    target.structureType === STRUCTURE_TOWER &&
+    rm &&
+    enAvail < 1000
+  ) {
+    target = null;
+    creep.memory.flag = null;
+  }
+
   let extensionNeedsEnergy = false;
-  let towerId1 = "5d0f99d929c9cb5363cba23d";
-  let towerId2 = "5d352664dbfe1b628e86ecff";
-  let tower1 = Game.getObjectById(towerId1);
-  let tower2 = Game.getObjectById(towerId2);
-  let towers = [tower1, tower2];
-  let enAvail = creep.room.energyAvailable;
+  if (
+    !target &&
+    (direction === "south" || direction === "west" || direction === "north")
+  ) {
+    let exts;
 
-  if (creep.room.name === "E36N31") {
-    if (target && target.store.getFreeCapacity(RESOURCE_ENERGY) < 50) {
-      target = null;
-    }
-
-    if (
-      target &&
-      target.structureType === STRUCTURE_TOWER &&
-      rm &&
-      enAvail < 1000
-    ) {
-      target = null;
-    }
-
-    if (enAvail > 1000) {
-      target = towers[0];
-      target = _.find(towers, tower => {
-        // tower doesn't exist or doesn't have an energy component
-        if (!tower) {
-          return false;
-        }
-
-        // tower has free space
-        if (tower.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
-          return tower;
-        }
-
-        // current target tower has more energy than this tower, switch to this tower
-        if (
-          tower.store.getFreeCapacity(RESOURCE_ENERGY) >
-          target.store.getFreeCapacity(RESOURCE_ENERGY)
-        ) {
-          return tower;
-        }
-      });
-    }
-
-    if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
-      target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        filter: structure => {
-          let type = structure.structureType;
-          if (
-            (type === STRUCTURE_EXTENSION || type === STRUCTURE_SPAWN) &&
-            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-          ) {
-            extensionNeedsEnergy = true;
-            return true;
-          }
+    if (!Memory.e35n31Extensions) {
+      exts = Game.rooms["E35N31"].find(FIND_STRUCTURES, {
+        filter: struct => {
+          return struct.structureType === STRUCTURE_EXTENSION;
         },
       });
-    }
-
-    if (creep.pos.isNearTo(target)) {
-      retval = creep.transfer(target, RESOURCE_ENERGY);
-      creep.say("t");
+      Memory.e35n31Extensions = [];
+      _.each(exts, ext => {
+        Memory.e35n31Extensions.push(ext.id);
+      });
     } else {
-      retval = smartMove(creep, target, 1);
-      creep.say("m");
+      let extsObjs = [];
+      _.each(Memory.e35n31Extensions, (val, key, collection) => {
+        extsObjs.push(Game.getObjectById(val));
+      });
+      exts = extsObjs;
     }
 
-    return retval;
-  } else if (creep.room.name === "E36N32") {
-    if (creep.pos.isNearTo(Game.flags.ne_e)) {
-      retval = creep.move(BOTTOM);
-    } else {
-      retval = smartMove(creep, Game.flags.ne_e, 1);
-    }
-
-    return retval;
-  } else if (creep.room.name === "E34N31") {
-    retval = smartMove(
-      creep,
-      Game.getObjectById("5d1330677594977c6d3f49ad"),
-      3
-    );
-    return retval;
-  } else if (creep.room.name === "E35N32") {
-    if (creep.pos.y >= 49) {
-      retval = creep.move(BOTTOM);
-    } else {
-      retval = smartMove(creep, Game.flags.northEntrance1, 1);
-    }
-    return retval;
-  } else if (creep.memory.dest) {
-    target = Game.getObjectById(creep.memory.dest);
-  } else if (creep.memory.flag) {
-    target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
-  }
-
-  if (target && target.energy >= target.energyCapacity) {
-    target = null;
-  }
-
-  if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
-    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: structure => {
+    let a = creep.pos.findClosestByPath(exts, {
+      filter: function(structure) {
+        if (!structure) {
+          return false;
+        }
         let type = structure.structureType;
         if (
-          (type === STRUCTURE_EXTENSION || type === STRUCTURE_SPAWN) &&
-          structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+          ((type === STRUCTURE_EXTENSION &&
+            structure !== Memory.spawnExts[0] &&
+            structure !== Memory.spawnExts[1]) ||
+            (structure.structureType === STRUCTURE_SPAWN &&
+              structure.name === "spawn2")) &&
+          (structure.store[RESOURCE_ENERGY] <= 150 ||
+            !structure.store[RESOURCE_ENERGY])
         ) {
-          extensionNeedsEnergy = true;
-          return true;
+          if (structure.id === "5cf733caf7020f7e680e392f") {
+            return;
+          }
+          if (direction === "west" && structure.pos.x < 10) {
+            target = structure;
+            return structure;
+          } else if (direction !== "west" && structure.pos.x > 10) {
+            target = structure;
+            return target;
+          }
         }
       },
     });
+    if (a) {
+      target = a;
+      creep.memory.transferTargetId = target.id;
+    }
+  }
+
+  if (
+    !target &&
+    (direction === "south" || direction === "east" || direction === "west") &&
+    enAvail > 1000
+  ) {
+    target = towers[0];
+    let currTarget = towers[0];
+    let prevTarget = towers[0];
+
+    _.each(towers, tower => {
+      // tower doesn't exist or doesn't have an energy component
+      if (!tower) {
+        return;
+      }
+
+      // Skip tower 6 for south creeps
+      if (creep.memory.direction === "south" && tower.id === tower6.id) {
+        return;
+      }
+
+      if (!tower.store[RESOURCE_ENERGY] || tower.store[RESOURCE_ENERGY] <= 0) {
+        currTarget = tower;
+        return false;
+      }
+
+      // current target tower has more energy than this tower, switch to this tower
+      if (
+        currTarget &&
+        currTarget.store &&
+        tower.store &&
+        tower.store.getFreeCapacity([RESOURCE_ENERGY]) >
+          currTarget.store.getFreeCapacity([RESOURCE_ENERGY])
+      ) {
+        currTarget = tower;
+        return true;
+      }
+      prevTarget = tower;
+      return;
+    });
+
+    target = currTarget;
+
+    if (
+      target &&
+      target.store &&
+      target.store.getFreeCapacity([RESOURCE_ENERGY]) <= 0
+    ) {
+      target = null;
+    }
+  }
+
+  if (!target) {
+    let spawns = [s1, spawn2];
   }
 
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: structure => {
         if (
-          structure.structureType == STRUCTURE_STORAGE ||
-          structure.structureType == STRUCTURE_CONTAINER
+          structure.structureType === STRUCTURE_STORAGE &&
+          !name.startsWith("h")
         ) {
-          return structure.store.getFreeCapacity(RESOURCE_ENERGY);
+          return (
+            !structure.store ||
+            structure.store[RESOURCE_ENERGY] <
+              structure.store.getCapacity(RESOURCE_ENERGY)
+          );
+        } else if (
+          structure.structureType === STRUCTURE_CONTAINER &&
+          structure.store
+        ) {
+          return (
+            !structure.store ||
+            structure.store[RESOURCE_ENERGY] <
+              structure.store.getCapacity(RESOURCE_ENERGY)
+          );
         }
       },
     });
   }
 
-  if (target && creep.pos.isNearTo(target.pos)) {
+  if (target && creep.pos.inRangeTo(target, 1)) {
+    creep.memory.path = null;
+    creep.memory.transferTargetId = target.id;
+    if (target instanceof String || target instanceof Number) {
+      target = Game.getObjectById(target);
+    }
     retval = creep.transfer(target, RESOURCE_ENERGY);
-    if (retval == OK) {
+    if (retval === OK) {
+      creep.memory.path = null;
+      creep.memory.transferTargetId = null;
       creep.say("t");
-      creep.memory.dest = target.id;
+      return retval;
     }
   } else if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
+    return ERR_TIRED;
   } else if (target) {
+    creep.memory.transferTargetId = target.id;
+
     retval = smartMove(creep, target, 1);
 
-    if (retval != OK) {
-      creep.say("err." + retval);
-    } else {
-      creep.say("m." + target.pos.x + "," + target.pos.y);
+    if (creep.pos.isNearTo(target)) {
+      return -17;
     }
+    if (retval !== OK) {
+      creep.memory.path = null;
 
-    creep.memory.dest = target.id;
+      creep.say("m.err." + retval);
+      return retval;
+    } else if (retval === OK) {
+      creep.memory.dest = target.id;
+      creep.say(target.pos.x + "," + target.pos.y);
+      return retval;
+    }
   } else {
-    creep.memory.dest = null;
+    console.log(name + " no target " + target);
+    creep.memory.path = null;
     creep.say("t.err");
   }
 
-  if (_.sum(creep.carry) == 0) {
-    creep.memory.transfer = false;
+  if (retval) {
+    console.log(name + " here retval " + retval);
+    return retval;
   }
 }
 
-module.exports = tranNE;
+module.exports = tran;

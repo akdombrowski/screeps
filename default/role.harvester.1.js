@@ -120,6 +120,8 @@ const roleHarvester = {
         retval = getEnergy(creep, "E35N31");
       } else if (direction == "ne") {
         retval = getEnergyNE(creep, "E36N32");
+      } else if (direction == "nw") {
+        retval = getEnergyNW(creep, "E34N32");
       } else {
         retval = getEnergy(creep, "E35N31");
       }
@@ -148,6 +150,9 @@ const roleHarvester = {
         return retval;
       } else if (direction === "ne") {
         retval = transferEnergyNE(creep);
+        return retval;
+      } else if (direction === "nw") {
+        retval = transferEnergyNW(creep);
         return retval;
       } else {
         retval = transferEnergy(creep);

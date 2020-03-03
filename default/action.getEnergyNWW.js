@@ -19,8 +19,8 @@ function checkForCreepsNearSource(creep, range, sources) {
 }
 
 function vest(creep, flag, path) {
-  const nwSource1 = Game.getObjectById("5bbcaeeb9099fc012e639c49");
-  const nwSource2 = Game.getObjectById("5bbcaeeb9099fc012e639c4b");
+  const nwwSource1 = Game.getObjectById("5bbcaedb9099fc012e639a94");
+  const nwwSource2 = Game.getObjectById("5bbcaedb9099fc012e639a95");
   const name = creep.name;
   const direction = creep.memory.direction;
   const pos = creep.memory.pos;
@@ -48,8 +48,8 @@ function vest(creep, flag, path) {
     return retval;
   }
 
-  if(room.name !== "E34N32") {
-    retval = smartMove(creep, Game.flags.nwsource1, 10);
+  if(room.name !== "E33N32") {
+    retval = smartMove(creep, Game.flags.nwwsource1, 10);
     return retval;
   }
 
@@ -57,8 +57,8 @@ function vest(creep, flag, path) {
   creep.memory.getEnergy = true;
 
   if (!target) {
-    target = nwSource1;
-    target = checkForCreepsNearSource(creep, 1, [nwSource1, nwSource2]);
+    target = nwwSource1;
+    target = checkForCreepsNearSource(creep, 1, [nwwSource1, nwwSource2]);
   }
 
   if (target) {

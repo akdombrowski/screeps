@@ -25,6 +25,7 @@ function smartMove(
   let ops = maxOps || Math.random() * 100000;
   let roll = creep.memory.role;
   let direction = creep.memory.direction;
+  let maxRooms = 4;
 
   if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
@@ -35,8 +36,16 @@ function smartMove(
   }
 
   // keep them separate to allow fine tuning of maxOps
-  if (name === "claimNE" || roll === "claimW" || roll === "claimNW") {
+  if (
+    name === "claimNE" ||
+    roll === "claimW" ||
+    roll === "claimNW"
+  ) {
     maxOps = 1000;
+  } else if (roll === "claimNWW") {
+    maxOps = 1000;
+    maxRooms = 6;
+    ignoreCreeps = true;
   } else if (roll === "upCNE") {
     maxOps = 1000;
   } else if (roll === "upCN") {
@@ -123,11 +132,11 @@ function smartMove(
   retval = creep.moveTo(destPos, {
     plainCost: 3,
     range: range,
-    ignoreCreeps: false,
+    ignoreCreeps: ignoreCreeps,
     noPathFinding: false,
     reusePath: pathMem,
     maxOps: maxOps,
-    maxRooms: 4,
+    maxRooms: maxRooms,
     serializeMemory: true,
     visualizePathStyle: {
       fill: "transparent",

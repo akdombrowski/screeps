@@ -11,7 +11,6 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
     if (creep.pos.inRangeTo(controller, 1)) {
       retval = creep.claimController(controller);
       if (retval === ERR_GCL_NOT_ENOUGH) {
-        console.log("can't claim");
         retval = creep.reserveController(controller);
       }
       creep.say("c." + retval);

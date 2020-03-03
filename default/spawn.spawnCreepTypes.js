@@ -71,20 +71,24 @@ function spawnCreepTypes(enAvail) {
   let linkGets = Memory.linkGets || [];
   let workers = Memory.workers || [];
   let nworkers = Memory.nworkers || [];
+  let nwworkers = Memory.nwworkers || [];
   let neworkers = Memory.neworkers || [];
   let harvesters = Memory.harvesters || [];
   let upControllers = Memory.upControllers || [];
   let upControllersN = Memory.upControllersN || [];
+  let upControllersNW = Memory.upControllersNW || [];
   let upControllersW = Memory.upControllersW || [];
   let upControllersNE = Memory.upControllersNE || [];
   let roadRepairers = Memory.roadRepairers || [];
   let harvestersN = Memory.harvestersN || [];
+  let harvestersNW = Memory.harvestersNW || [];
   let westHarvesters = Memory.westHarvesters || [];
   let southHarvesters = Memory.southHarvesters || [];
   let eastHarvesters = Memory.eastHarvesters || [];
   let southtowerHarvesters = Memory.southtowerHarvesters || [];
   let claimers = Memory.claimers || [];
   let claimersN = Memory.claimersN || [];
+  let claimersNW = Memory.claimersNW || [];
   let claimersW = Memory.claimersW || [];
   let claimersNE = Memory.claimersNE || [];
   let eAttackDurationSafeCheck = Memory.eAttackDurationSafeCheck;
@@ -278,6 +282,20 @@ function spawnCreepTypes(enAvail) {
         upControllersNE.push(name);
         chosenRole = "upCNE";
         direction = "ne";
+        birthCreep(
+          s1,
+          parts,
+          name,
+          chosenRole,
+          direction,
+          sourceId,
+          spawnDirection
+        );
+      } else if (upControllersNW.length < 1) {
+        parts = upContrParts;
+        name = "upCNW" + t;
+        upControllers.push(name);
+        chosenRole = "upCNW";
         birthCreep(
           s1,
           parts,
@@ -526,16 +544,20 @@ function spawnCreepTypes(enAvail) {
   Memory.harvesters = harvesters;
   Memory.workers = workers;
   Memory.nworkers = nworkers;
+  Memory.nwworkers = nwworkers;
   Memory.neworkers = neworkers;
   Memory.upControllers = upControllers;
   Memory.upControllersN = upControllersN;
+  Memory.upControllersNW = upControllersNW;
   Memory.upControllersNE = upControllersNE;
   Memory.roadRepairers = roadRepairers;
   Memory.attackers = attackers;
   Memory.claimers = claimers;
   Memory.claimersN = claimersN;
+  Memory.claimersNW = claimersNW;
   Memory.claimersNE = claimersNE;
   Memory.harvestersN = harvestersN;
+  Memory.harvestersNW = harvestersNW;
   Memory.eastHarvesters = eastHarvesters;
   Memory.westHarvesters = westHarvesters;
   Memory.southHarvesters = southHarvesters;

@@ -2,12 +2,14 @@ const roleController = require("role.controller");
 const roleWorker = require("role.worker");
 const roleRepairer = require("role.repairer");
 const roleRepairerN = require("role.repairerN");
+const roleRepairerNW = require("role.repairerNW");
 const roleRepairerNE = require("role.repairerNE");
 const roleHarvester = require("role.harvester.1");
 const roleLinkGet = require("role.linkGet");
 const hele = require("./action.hele");
 const upController = require("./action.upgradeController");
 const upControllerN = require("./action.upgradeControllerN");
+const upControllerNW = require("./action.upgradeControllerNW");
 const upControllerNE = require("./action.upgradeControllerNE");
 const upControllerW = require("./action.upgradeControllerW");
 const rezzyContr = require("./action.reserveContr");
@@ -25,8 +27,10 @@ const roleAttackerN = require("./role.attackerN");
 const roleAttackerNE = require("./role.attackerNE");
 const claimNE = require("./action.claimContrNE");
 const claimN = require("./action.claimContrN");
+const claimNW = require("./action.claimContrNW");
 const claimW = require("./action.claimContrW");
 const buildNE = require("./action.buildNE");
+const buildNW = require("./action.buildNW");
 const buildEE = require("./action.buildEE");
 
 function runRoles() {
@@ -34,23 +38,28 @@ function runRoles() {
   let crps = Game.creeps;
   let harvesters = [];
   let harvestersN = [];
+  let harvestersNW = [];
   let harvestersNE = [];
   let workers = [];
   let neworkers = [];
   let nworkers = [];
+  let nwworkers = [];
   let eworkers = [];
   let eeworkers = [];
   let upControllers = [];
   let upControllersN = [];
+  let upControllersNW = [];
   let upControllersW = [];
   let upControllersNE = [];
   let roadRepairers = [];
   let roadRepairersN = [];
+  let roadRepairersNW = [];
   let roadRepairersNE = [];
   let attackers = [];
   let eattackers = [];
   let claimers = [];
   let claimersN = [];
+  let claimersNW = [];
   let claimersW = [];
   let claimersNE = [];
   let northHarvesters = [];
@@ -164,6 +173,16 @@ function runRoles() {
         "eastEntrance1",
         "5bbcaf0c9099fc012e63a0b9"
       );
+    }else if (roll === "claimNW") {
+      claimersNW.push(name);
+      claimNW(
+        creep,
+        "E34N32",
+        Game.flags.eastExit,
+        LEFT,
+        "eastEntrance1",
+        "5bbcaeeb9099fc012e639c4a"
+      );
     } else if (roll === "upCN") {
       upControllersN.push(name);
 
@@ -222,6 +241,12 @@ function runRoles() {
       } else {
         workers.push(name);
       }
+      roleWorker.run(creep);
+    } else if (roll === "nwBuilder" || roll === "nwworker") {
+      nwworkers.push(name);
+
+      creep.memory.buildRoom = "E34N32";
+
       roleWorker.run(creep);
     } else if (roll === "nBuilder" || roll === "nworker") {
       nworkers.push(name);
@@ -303,23 +328,28 @@ function runRoles() {
 
   Memory.harvesters = harvesters;
   Memory.harvestersN = harvestersN;
+  Memory.harvestersNW = harvestersNW;
   Memory.harvestersNE = harvestersNE;
   Memory.workers = workers;
   Memory.eworkers = eworkers;
   Memory.eeworkers = eeworkers;
   Memory.neworkers = neworkers;
+  Memory.nwworkers = nwworkers;
   Memory.nworkers = nworkers;
   Memory.upControllers = upControllers;
   Memory.upControllersN = upControllersN;
+  Memory.upControllersNW = upControllersNW;
   Memory.upControllersW = upControllersW;
   Memory.upControllersNE = upControllersNE;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersN = roadRepairersN;
+  Memory.roadRepairersNW = roadRepairersNW;
   Memory.roadRepairersNE = roadRepairersNE;
   Memory.attackers = attackers;
   Memory.eattackers = eattackers;
   Memory.claimers = claimers;
   Memory.claimersN = claimersN;
+  Memory.claimersNW = claimersNW;
   Memory.claimersW = claimersW;
   Memory.claimersNe = claimersNE;
   Memory.northHarvesters = northHarvesters;

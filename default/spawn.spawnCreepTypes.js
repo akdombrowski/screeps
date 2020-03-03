@@ -449,7 +449,7 @@ function spawnCreepTypes(enAvail) {
       parts = southHvParts;
       birth = true;
     } else if (
-      nworkers.length < 2 &&
+      nworkers.length < 1 &&
       (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
     ) {
       nworkers.push(name);

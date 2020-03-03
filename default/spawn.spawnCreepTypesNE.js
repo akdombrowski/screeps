@@ -193,64 +193,64 @@ function spawnCreepTypes(enAvail) {
       sourceDir = "east";
       birth = true;
     } else if (upControllersNE.length < 1) {
-      chosenRole = "eRezzy";
+      chosenRole = "upCNE";
       name = chosenRole + t;
       direction = "ne";
       parts = simpleParts;
       upControllersNE.push(name);
       birth = true;
     } else if (neworkers.length < 1) {
-             eworkers.push(name);
-             chosenRole = "neBuilder";
-             buildRoom = "E36N32";
-             name = chosenRole + t;
-             parts = simpleParts;
-             birth = true;
-           } else if (roadRepairersNE.length < 2 && !neAttackerId) {
-             roadRepairersNE.push(name);
-             chosenRole = "rNE";
-             name = "r" + t + "NE";
-             parts = basicHv;
-             sourceDir = "north2";
-             birth = true;
-           }
-           // } else if (eeUps.length < 2) {
-           //   chosenRole = "eeUp";
-           //   name = chosenRole + t;
-           //   direction = "ee";
-           //   parts = simpleParts;
-           //   eeUps.push(name);
-           //   birth = true;
-           // }
-           else if (attackersNE.length < 1 && neAttackerId) {
-             console.log(
-               "neattacker " +
-                 Memory.neAttackerId +
-                 " " +
-                 attackersNE.length +
-                 " " +
-                 enAvail
-             );
-             parts = attackerParts;
-             name = "eatt" + t;
-             chosenRole = "attacker";
-             direction = "ne";
-             birth = true;
-             attackersNE.push(name);
-           } else if (harvestersNE.length < 2 && !neAttackerId) {
-             ermHarvesters.push(name);
-             name = "h" + t + "NE";
-             parts = basicHv;
-             sourceDir = "north2";
-             birth = true;
-           } else {
-             eworkers.push(name);
-             chosenRole = "neBuilder";
-             buildRoom = "E36N32";
-             name = chosenRole + t;
-             parts = simpleParts;
-             birth = true;
-           }
+      eworkers.push(name);
+      chosenRole = "neBuilder";
+      buildRoom = "E36N32";
+      name = chosenRole + t;
+      parts = simpleParts;
+      birth = true;
+    } else if (roadRepairersNE.length < 2 && !neAttackerId) {
+      roadRepairersNE.push(name);
+      chosenRole = "rNE";
+      name = "r" + t + "NE";
+      parts = basicHv;
+      sourceDir = "north2";
+      birth = true;
+    }
+    // } else if (eeUps.length < 2) {
+    //   chosenRole = "eeUp";
+    //   name = chosenRole + t;
+    //   direction = "ee";
+    //   parts = simpleParts;
+    //   eeUps.push(name);
+    //   birth = true;
+    // }
+    else if (attackersNE.length < 1 && neAttackerId) {
+      console.log(
+        "neattacker " +
+          Memory.neAttackerId +
+          " " +
+          attackersNE.length +
+          " " +
+          enAvail
+      );
+      parts = attackerParts;
+      name = "eatt" + t;
+      chosenRole = "attacker";
+      direction = "ne";
+      birth = true;
+      attackersNE.push(name);
+    } else if (harvestersNE.length < 1 && !neAttackerId) {
+      harvestersNE.push(name);
+      name = "h" + t + "NE";
+      parts = basicHv;
+      sourceDir = "north2";
+      birth = true;
+    } else {
+      neworkers.push(name);
+      chosenRole = "neBuilder";
+      buildRoom = "E36N32";
+      name = chosenRole + t;
+      parts = simpleParts;
+      birth = true;
+    }
 
     if (birth) {
       console.log(
@@ -291,7 +291,7 @@ function spawnCreepTypes(enAvail) {
       attackersNE.push(name);
       birth = true;
     } else if (upControllersNE.length < 2) {
-      chosenRole = "eRezzy";
+      chosenRole = "upCNE";
       name = chosenRole + t;
       direction = "ne";
       parts = medupContrParts;
@@ -304,15 +304,14 @@ function spawnCreepTypes(enAvail) {
       sourceDir = "north1";
       birth = true;
     } else if (towerHarvestersNE.length < 2) {
-      chosenRole = "etowerHarvester";
+      chosenRole = "netowerHarvester";
       name = chosenRole + t;
       towerHarvestersNE.push(name);
-      harvesters.push(name);
       parts = mednewhvParts;
       sourceDir = "east1";
       birth = true;
     } else if (neworkers.length < 3) {
-      eworkers.push(name);
+      neworkers.push(name);
       chosenRole = "neBuilder";
       buildRoom = "E36N32";
       name = chosenRole + t;
@@ -325,14 +324,14 @@ function spawnCreepTypes(enAvail) {
       parts = medworkerParts;
       birth = true;
     } else if (upControllersNE.length < 3) {
-      chosenRole = "eRezzy";
+      chosenRole = "upCNE";
       name = chosenRole + t;
       direction = "ne";
       parts = medupContrParts;
       upControllersNE.push(name);
       birth = true;
     } else {
-      ermHarvesters.push(name);
+      harvestersNE.push(name);
       parts = mednewhvParts;
       sourceDir = "east";
       birth = true;

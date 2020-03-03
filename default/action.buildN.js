@@ -69,9 +69,8 @@ function build(creep, flag, room) {
             } else if (type === STRUCTURE_EXTENSION) {
               extFound = true;
               t = site;
-            } else {
-              return site;
             }
+            return site;
           },
         });
       }
@@ -86,7 +85,6 @@ function build(creep, flag, room) {
       if (targetId) {
         target = Game.getObjectById(targetId);
       } else {
-        console.log(name + " target buildN null " + target);
         target = null;
         Memory.nsites = null;
       }
@@ -138,7 +136,7 @@ function build(creep, flag, room) {
         creep.say("m");
       }
     } else {
-      creep.say("target?")
+      creep.say("target?");
     }
 
     if (creep.carry.energy <= 0) {

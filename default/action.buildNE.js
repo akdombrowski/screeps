@@ -57,9 +57,8 @@ function build(creep, flag, room) {
             } else if (type === STRUCTURE_EXTENSION) {
               extFound = true;
               t = site;
-            } else {
-              return site;
             }
+            return site;
           },
         });
       }

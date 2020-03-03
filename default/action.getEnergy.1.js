@@ -205,7 +205,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     creep.memory.path = null;
     target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
       filter: structure => {
-        if (structure.pos.findInRange(FIND_CREEPS, 2).length <= 6) {
+        if (structure.pos.findInRange(FIND_CREEPS, 2).length <= 1) {
           return structure;
         }
       },

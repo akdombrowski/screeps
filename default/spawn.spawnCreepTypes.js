@@ -217,6 +217,8 @@ function spawnCreepTypes(enAvail) {
     return;
   }
 
+  const contrNW = Game.getObjectById("5bbcaeeb9099fc012e639c4a");
+
   if (enAvail >= 300 && attackers.length < 1 && Memory.nAttackerId) {
     let t = Game.time.toString().slice(4);
     let name = "harv" + t;
@@ -240,7 +242,7 @@ function spawnCreepTypes(enAvail) {
       sourceId,
       spawnDirection
     );
-  } else if (southHarvesters.length < 2 && !invaderId) {
+  } else if (claimersNW.length < 1 && !invaderId) {
     if (enAvail >= 300) {
       let t = Game.time.toString().slice(4);
       let name = "harv" + t;
@@ -337,6 +339,12 @@ function spawnCreepTypes(enAvail) {
           sourceId,
           spawnDirection
         );
+      } else if (claimersNW.length < 1 && (!contrNW || !contrNW.my)) {
+        parts = claimerParts;
+        name = "claimNW" + t;
+        chosenRole = "claimNW";
+        claimersNW.push(name);
+        birth = true;
       } else {
         southHarvesters.push(name);
         parts = simpleParts;
@@ -382,10 +390,6 @@ function spawnCreepTypes(enAvail) {
       upControllers.push(name);
       chosenRole = "upController";
       birth = true;
-    } else if (southHarvesters.length < 2) {
-      southHarvesters.push(name);
-      parts = southHvParts;
-      birth = true;
     } else if (southtowerHarvesters.length < 1) {
       chosenRole = "southtowerHarvester";
       name = "sth" + t;
@@ -399,7 +403,7 @@ function spawnCreepTypes(enAvail) {
       parts = workerParts;
       workers.push(name);
       birth = true;
-    } else if (southHarvesters.length < 4) {
+    } else if (southHarvesters.length < 2) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
@@ -462,7 +466,7 @@ function spawnCreepTypes(enAvail) {
       chosenRole = "upCNE";
       birth = true;
       upControllersNE.push(name);
-    } else if (southHarvesters.length < 6) {
+    } else if (southHarvesters.length < 2) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;
@@ -491,7 +495,7 @@ function spawnCreepTypes(enAvail) {
       direction = "north";
       attackers.push(name);
       birth = true;
-    } else if (southHarvesters.length < 6) {
+    } else if (southHarvesters.length < 2) {
       southHarvesters.push(name);
       parts = southHvParts;
       birth = true;

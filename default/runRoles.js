@@ -140,9 +140,6 @@ function runRoles() {
       } else {
         creep.harvest(source2);
       }
-    } else if (roll === "eeUp") {
-      eeastUpControllers.push(name);
-      roleEEUp(creep, "E37N31");
     } else if (roll === "eeRezzy") {
       eeastUpControllers.push(name);
       roleEEUp(creep, "E37N31");
@@ -159,10 +156,6 @@ function runRoles() {
         "eastEntrance1",
         "5bbcaf0c9099fc012e63a0b9"
       );
-    } else if (roll === "upCNE") {
-      upControllersNE.push(name);
-
-      upControllerNE(creep, Game.flags.e36n32contr, "E36N32");
     } else if (roll === "claimN") {
       claimersN.push(name);
       claimN(
@@ -173,7 +166,7 @@ function runRoles() {
         "eastEntrance1",
         "5bbcaf0c9099fc012e63a0b9"
       );
-    }else if (roll === "claimNW") {
+    } else if (roll === "claimNW") {
       claimersNW.push(name);
       claimNW(
         creep,
@@ -183,10 +176,6 @@ function runRoles() {
         "eastEntrance1",
         "5bbcaeeb9099fc012e639c4a"
       );
-    } else if (roll === "upCN") {
-      upControllersN.push(name);
-
-      upControllerN(creep, Game.flags.e36n32contr, "E35N32");
     } else if (roll === "northRezzy") {
       rezzyContr(
         creep,
@@ -226,10 +215,25 @@ function runRoles() {
         "westExit",
         "5bbcaeeb9099fc012e639c4d"
       );
+    } else if (roll === "upCN") {
+      upControllersN.push(name);
+
+      upControllerN(creep, Game.flags.e36n32contr, "E35N32");
+    } else if (roll === "upCNE") {
+      upControllersNE.push(name);
+
+      upControllerNE(creep, Game.flags.e36n32contr, "E36N32");
     } else if (roll === "upCW") {
       upControllersW.push(name);
 
       upControllerW(creep, Game.flags.west, "E34N31");
+    } else if (roll === "upCNW") {
+      upControllersNW.push(name);
+
+      upControllerNW(creep, Game.flags.west, "E34N31");
+    } else if (roll === "eeUp") {
+      eeastUpControllers.push(name);
+      roleEEUp(creep, "E37N31");
     } else if (roll === "deepSouthRezzy") {
       deepSouthScout(creep);
     } else if (roll === "uc" || roll === "upController" || roll === "upc") {

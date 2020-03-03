@@ -58,7 +58,7 @@ function tran(creep, flag, dest) {
       }
       return retval;
     } else if (creep.room.name === "E35N31") {
-      if (creep.pos.x < 2) {
+      if (creep.pos.x < 1) {
         return creep.move(RIGHT);
       }
     } else if (flag) {

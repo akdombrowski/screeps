@@ -56,19 +56,37 @@ function build(creep, flag, room) {
       creep.room.lookAt(target).progress >=
         creep.room.lookAt(target).progressTotal
     ) {
-      if (!Memory.nsites) {
+      let t;
+      if (!Memory.nsites || Memory.nsites) {
         Memory.nsites = Game.rooms.E35N32.find(FIND_CONSTRUCTION_SITES, {
-          filter: constructionSite => {
-            return constructionSite.progress < constructionSite.progressTotal;
+          filter: site => {
+            let prog = site.progress;
+            let progTot = site.progressTotal;
+            let progLeft = progTot - prog;
+            let type = site.structureType;
+            if (prog >= progTot) {
+              return false;
+            } else if (type === STRUCTURE_EXTENSION) {
+              extFound = true;
+              t = site;
+            } else {
+              return site;
+            }
           },
         });
       }
-      target = creep.pos.findClosestByRange(Memory.nsites);
+
+      let arr = [];
+      _.forEach(Memory.nsites, site => {
+        return arr.push(Game.getObjectById(site.id));
+      });
+
+      target = creep.pos.findClosestByRange(arr);
       targetId = target ? target.id : null;
-      creep.memory.targetId = targetId;
       if (targetId) {
         target = Game.getObjectById(targetId);
       } else {
+        console.log(name + " target buildN null " + target);
         target = null;
         Memory.nsites = null;
       }

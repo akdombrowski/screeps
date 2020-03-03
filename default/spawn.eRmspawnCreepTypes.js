@@ -43,7 +43,7 @@ function birthCreep(
   }
 
   if (retval == OK) {
-    console.log("spawned." + name);
+    console.log("spawnedE." + name);
   }
   return retval;
 }

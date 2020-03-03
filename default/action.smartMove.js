@@ -35,9 +35,7 @@ function smartMove(
   }
 
   // keep them separate to allow fine tuning of maxOps
-  if (name === "claimNE") {
-    maxOps = 1000;
-  } else if (roll === "claimW") {
+  if (name === "claimNE" || roll === "claimW" || roll === "claimNW") {
     maxOps = 1000;
   } else if (roll === "upCNE") {
     maxOps = 1000;

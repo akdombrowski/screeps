@@ -37,7 +37,7 @@ function birthCreep(
   }
 
   if (retval === OK) {
-    console.log("spawned." + name);
+    console.log("spawn1ed." + name);
   } else {
     retval = Game.spawns.spawn2.spawnCreep(parts, name, {
       memory: {
@@ -50,7 +50,7 @@ function birthCreep(
   }
 
   if (retval === OK) {
-    console.log("spawned." + name);
+    console.log("spawn2ed." + name);
   } else {
     retval = Game.spawns.sspawn3.spawnCreep(parts, name, {
       memory: {
@@ -324,7 +324,7 @@ function spawnCreepTypes(enAvail) {
           spawnDirection
         );
       } else if (
-        westHarvesters.length < 2 &&
+        westHarvesters.length < 1 &&
         (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
       ) {
         name += "W";
@@ -344,10 +344,6 @@ function spawnCreepTypes(enAvail) {
         name = "claimNW" + t;
         chosenRole = "claimNW";
         claimersNW.push(name);
-        birth = true;
-      } else {
-        southHarvesters.push(name);
-        parts = simpleParts;
         birthCreep(
           s1,
           parts,
@@ -361,7 +357,7 @@ function spawnCreepTypes(enAvail) {
     }
   } else if (enAvail >= 3250 && !invaderId) {
     let t = Game.time.toString().slice(4);
-    let name = "harvXL" + t;
+    let name = "hXL" + t;
     let chosenRole = "h";
     let direction = "south";
     let sourceId = Memory.source2;
@@ -372,7 +368,7 @@ function spawnCreepTypes(enAvail) {
 
     if (linkGets.length < 1 && Memory.harvester1) {
       chosenRole = "linkGet";
-      name = "XLlink" + t;
+      name = "linkget" + t;
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
@@ -397,7 +393,7 @@ function spawnCreepTypes(enAvail) {
       southtowerHarvesters.push(name);
       parts = southHvParts;
       birth = true;
-    } else if (workers.length < 1) {
+    } else if (workers.length < 3) {
       chosenRole = "w";
       name = chosenRole + t;
       parts = workerParts;
@@ -529,6 +525,8 @@ function spawnCreepTypes(enAvail) {
       workers.push(name);
       birth = true;
     }
+
+    console.log("roll" + chosenRole);
 
     if (birth) {
       birthCreep(

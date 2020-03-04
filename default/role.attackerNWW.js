@@ -36,6 +36,7 @@ const roleAttacker = {
       retval = smartMove(creep, nwwAttacker, 1, false, "#0ff123", 0, 1000, 8);
       return retval;
     } else if (nwAttacker && !pos.inRangeTo(nwAttacker, 1) && !nwwAttacker) {
+      Memory.nwwAttackerId = null;
       if (pos.x < 2 && rmName !== "E35N31") {
         if (fatigue > 0) {
           creep.say("f." + fatigue);

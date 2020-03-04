@@ -20,6 +20,8 @@ const roleAttacker = {
     let nwAttacker = Game.getObjectById(Memory.nwAttackerId);
     let nwwAttacker = Game.getObjectById(Memory.nwwAttackerId);
 
+
+
     if ((pos.y >= 46 || pos.y < 1) && rmName === "E34N31") {
       retval = creep.move(TOP);
       creep.say("m.TOP." + retval);
@@ -33,6 +35,7 @@ const roleAttacker = {
       nwwAttacker &&
       !nwAttacker
     ) {
+      Memory.nwAttackerId = null;
       retval = smartMove(
         creep,
         Game.flags.nww.pos,

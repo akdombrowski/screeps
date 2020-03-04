@@ -24,6 +24,8 @@ const claim = require("./action.claimIt");
 const roleEEUp = require("./role.eeUpgradeController");
 const roleEEWorker = require("./role.worker");
 const roleAttackerN = require("./role.attackerN");
+const roleAttackerNW = require("./role.attackerNW");
+const roleAttackerNWW = require("./role.attackerNWW");
 const roleAttackerNE = require("./role.attackerNE");
 const claimNE = require("./action.claimContrNE");
 const claimN = require("./action.claimContrN");
@@ -59,6 +61,8 @@ function runRoles() {
   let roadRepairersNW = [];
   let roadRepairersNE = [];
   let attackers = [];
+  let attackersNW = [];
+  let attackersNWW = [];
   let eattackers = [];
   let claimers = [];
   let claimersN = [];
@@ -255,7 +259,12 @@ function runRoles() {
       roleEEUp(creep, "E37N31");
     } else if (roll === "deepSouthRezzy") {
       deepSouthScout(creep);
-    } else if (roll === "uc" || roll === "upController" || roll === "upc" || roll === "upC") {
+    } else if (
+      roll === "uc" ||
+      roll === "upController" ||
+      roll === "upc" ||
+      roll === "upC"
+    ) {
       upControllers.push(name);
       upController(creep);
     } else if (roll === "worker" || roll === "w") {
@@ -328,6 +337,12 @@ function runRoles() {
       } else if (creep.memory.direction === "ne") {
         eattackers.push(name);
         roleAttackerNE.run(creep);
+      } else if (creep.memory.direction === "nw") {
+        attackersNW.push(name);
+        roleAttackerNW.run(creep);
+      } else if (creep.memory.direction === "nww") {
+        attackersNWW.push(name);
+        roleAttackerNWW.run(creep);
       } else {
         attackers.push(name);
         if (creep.pos.isNearTo(invader)) {
@@ -371,6 +386,8 @@ function runRoles() {
   Memory.roadRepairersNW = roadRepairersNW;
   Memory.roadRepairersNE = roadRepairersNE;
   Memory.attackers = attackers;
+  Memory.attackersNW = attackersNW;
+  Memory.attackersNWW = attackersNWW;
   Memory.eattackers = eattackers;
   Memory.claimers = claimers;
   Memory.claimersN = claimersN;

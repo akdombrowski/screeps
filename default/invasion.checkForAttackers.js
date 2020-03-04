@@ -5,11 +5,16 @@ function checkForAttackers() {
   let wRm = Memory.wRm;
   let rm = Memory.rm;
   let neRm = Memory.neRm;
+  let nwRm = Memory.nwRm;
+  let nwwRm = Memory.nwwRm;
   let wAttackDurationSafeCheck = Memory.wAttackDurationSafeCheck;
   let eAttackDurationSafeCheck = Memory.eAttackDurationSafeCheck;
   let nAttackDurationSafeCheck = Memory.nAttackDurationSafeCheck;
   let sAttackDurationSafeCheck = Memory.sAttackDurationSafeCheck;
   let neAttackDurationSafeCheck = Memory.neAttackDurationSafeCheck;
+  let nwAttackDurationSafeCheck = Memory.nwAttackDurationSafeCheck;
+  let nwwAttackDurationSafeCheck = Memory.nwwAttackDurationSafeCheck;
+  const attackerCheckWaitTime = 100;
   let attackerId;
 
   if (nRm && (!Memory.nAttackerId || Game.time >= wAttackDurationSafeCheck)) {
@@ -35,7 +40,7 @@ function checkForAttackers() {
     }
     Memory.nAttackerId = attackerId;
     if (attackerId) {
-      Memory.nAttackDurationSafeCheck = Game.time + 1000;
+      Memory.nAttackDurationSafeCheck = Game.time + attackerCheckWaitTime;
       console.log("nAttacker:" + attackerId);
     }
   }
@@ -62,7 +67,7 @@ function checkForAttackers() {
     }
     Memory.eAttackerId = attackerId;
     if (attackerId) {
-      Memory.eAttackDurationSafeCheck = Game.time + 1000;
+      Memory.eAttackDurationSafeCheck = Game.time + attackerCheckWaitTime;
       console.log("eAttacker:" + attackerId);
     }
   }
@@ -82,7 +87,7 @@ function checkForAttackers() {
       if (enemyCreeps) {
         let enemyCreep = enemyCreeps.pop();
         if (enemyCreep) {
-          console.log("nrm enemyCreep spotted " + JSON.stringify(enemyCreep));
+          console.log("nrm enemyCreep spotted ");
           attackerId = enemyCreep.id;
         }
       }
@@ -90,10 +95,11 @@ function checkForAttackers() {
 
     Memory.wAttackerId = attackerId;
     if (attackerId) {
-      Memory.wAttackDurationSafeCheck = Game.time + 1000;
+      Memory.wAttackDurationSafeCheck = Game.time + attackerCheckWaitTime;
       console.log("wAttacker:" + attackerId);
     }
   }
+
   if (rm && (!Memory.invader || Game.time >= sAttackDurationSafeCheck)) {
     // attackerId = getAttackEvents(rm);
     // Memory.invaderId = attackerId;
@@ -110,6 +116,7 @@ function checkForAttackers() {
     invader = enemyCreeps.pop();
 
     Memory.invaderId = invader ? invader.id : null;
+    sAttackDurationSafeCheck = Game.time + attackerCheckWaitTime;
   }
 
   if (
@@ -139,8 +146,71 @@ function checkForAttackers() {
 
     Memory.neAttackerId = attackerId;
     if (attackerId) {
-      Memory.neAttackDurationSafeCheck = Game.time + 1000;
       console.log("attacker:" + attackerId);
+    }
+    Memory.neAttackDurationSafeCheck = Game.time + attackerCheckWaitTime;
+  }
+
+  if (
+    nwRm &&
+    (!Memory.nwAttackerId || Game.time >= nwAttackDurationSafeCheck)
+  ) {
+    attackerId = getAttackEvents(nwRm);
+    if (!attackerId) {
+      let enemyCreeps = nwRm.find(FIND_HOSTILE_STRUCTURES);
+
+      if (!enemyCreeps) {
+        enemyCreeps = nwRm.find(FIND_HOSTILE_CREEPS);
+      }
+
+      if (!enemyCreeps) {
+        enemyCreeps = nwRm.find(FIND_HOSTILE_SPAWNS);
+      }
+
+      if (enemyCreeps) {
+        let enemyCreep = enemyCreeps.pop();
+        if (enemyCreep) {
+          console.log("nwrm enemyCreep spotted ");
+          attackerId = enemyCreep.id;
+          Memory.nwAttackerId = attackerId;
+        }
+      } else {
+        Memory.nwAttackerId = null;
+      }
+      Memory.nwAttackDurationSafeCheck = Game.time + attackerCheckWaitTime;
+    } else {
+      Memory.nwAttackerId = attackerId;
+    }
+  }
+
+  if (
+    nwwRm
+    // &&
+    // (!Memory.nwwAttackerId || Game.time >= nwwAttackDurationSafeCheck)
+  ) {
+    attackerId = getAttackEvents(nwwRm);
+    if (!attackerId) {
+      let enemyCreeps = nwwRm.find(FIND_HOSTILE_STRUCTURES);
+
+      if (!enemyCreeps) {
+        enemyCreeps = nwwRm.find(FIND_HOSTILE_CREEPS);
+      }
+
+      if (!enemyCreeps) {
+        enemyCreeps = nwwRm.find(FIND_HOSTILE_SPAWNS);
+      }
+
+      if (enemyCreeps) {
+        let enemyCreep = enemyCreeps.pop();
+        if (enemyCreep) {
+          console.log("nwwrm enemyCreep spotted ");
+          attackerId = enemyCreep.id;
+          Memory.nwwAttackerId = attackerId;
+        } else {
+          Memory.nwwAttackerId = null;
+        }
+        Memory.nwwAttackDurationSafeCheck = Game.time + attackerCheckWaitTime;
+      }
     }
   }
 }

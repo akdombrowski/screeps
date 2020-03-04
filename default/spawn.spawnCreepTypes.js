@@ -40,7 +40,7 @@ function birthCreep(
     console.log("spawn1ed." + name);
     return retval;
   } else {
-    console.log("Spawn1 failed: " + retval);
+    console.log("Spawn1 failed: " + retval + " " + name);
     retval = Game.spawns.spawn2.spawnCreep(parts, name, {
       memory: {
         role: chosenRole,
@@ -96,17 +96,20 @@ function spawnCreepTypes(enAvail) {
   let claimersNWW = Memory.claimersNWW || [];
   let claimersW = Memory.claimersW || [];
   let claimersNE = Memory.claimersNE || [];
+  let attackersNW = Memory.attackersNW || [];
+  let attackersNWW = Memory.attackersNWW || [];
+  let attackers = Memory.attackers || [];
   let eAttackDurationSafeCheck = Memory.eAttackDurationSafeCheck;
   let nAttackDurationSafeCheck = Memory.nAttackDurationSafeCheck;
   let sAttackDurationSafeCheck = Memory.sAttackDurationSafeCheck;
   let wAttackDurationSafeCheck = Memory.wAttackDurationSafeCheck;
+  let nwAttackDurationSafeCheck = Memory.nwAttackDurationSafeCheck;
+  let nwwAttackDurationSafeCheck = Memory.nwwAttackDurationSafeCheck;
 
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
 
   let s1 = Game.spawns.Spawn1;
-
-  let attackers = Memory.attackers || [];
 
   // 500
   let upContrParts = [];
@@ -181,6 +184,11 @@ function spawnCreepTypes(enAvail) {
   let attackerParts = [];
   addPart(attackerParts, 3, ATTACK);
   addPart(attackerParts, 1, MOVE);
+
+  // 500
+  let attackerParts500 = [];
+  addPart(attackerParts500, 3, ATTACK);
+  addPart(attackerParts500, 5, MOVE);
 
   // 3250
   let bigAttackerParts = [];
@@ -320,6 +328,44 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
+  if (enAvail >= 500) {
+    let t = Game.time.toString().slice(4);
+    let name = "att" + t;
+    let chosenRole = "a";
+    let direction = "south";
+    let sourceId = Memory.source2;
+    let parts = attackerParts500;
+    let spawnDirection = [BOTTOM];
+
+    if (Memory.nwAttackerId && attackersNW.length < 2) {
+      direction = "nw";
+      name += "NW";
+      attackersNW.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (Memory.nwwAttackerId && attackersNWW.length < 2) {
+      direction = "nww";
+      name += "NWW";
+      attackersNWW.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    }
+  }
+
   if (enAvail >= 500 && !invaderId) {
     let t = Game.time.toString().slice(4);
     let name = "harv" + t;
@@ -358,7 +404,10 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (upControllersNW.length < 1) {
+    } else if (
+      upControllersNW.length < 1 &&
+      (!Memory.nwAttackerId || Game.time >= nwAttackDurationSafeCheck)
+    ) {
       parts = upContrParts;
       name = "upCNW" + t;
       upControllersNW.push(name);
@@ -398,6 +447,7 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts500;
     let spawnDirection = [BOTTOM];
 
+    console.log("spawning harv " + harvestersNW.length);
     if (
       harvestersW.length < 2 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
@@ -414,7 +464,10 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (harvestersNW.length < 2) {
+    } else if (
+      harvestersNW.length < 2 &&
+      (!Memory.nwAttackerId || Game.time >= nwAttackDurationSafeCheck)
+    ) {
       name += "NW";
       direction = "nw";
       harvestersW.push(name);
@@ -427,7 +480,10 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (harvestersNWW.length < 2) {
+    } else if (
+      harvestersNWW.length < 2 &&
+      (!Memory.nwwAttackerId || Game.time >= nwwAttackDurationSafeCheck)
+    ) {
       name += "NWW";
       direction = "nww";
       harvestersNWW.push(name);
@@ -475,6 +531,10 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts;
     let spawnDirection = [BOTTOM];
 
+    console.log(
+      "spawn claimers " + claimersNW.length + " " + Memory.nwAttackerId
+    );
+
     if (claimersW.length < 1 && (!contrW || !contrW.my)) {
       parts = claimerParts;
       name = "claimW" + t;
@@ -489,7 +549,11 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (claimersNWW.length < 1 && (!contrNWW || !contrNWW.my)) {
+    } else if (
+      claimersNWW.length < 1 &&
+      (!contrNWW || !contrNWW.my) &&
+      (!Memory.nwwAttackerId || Game.time >= nwwAttackDurationSafeCheck)
+    ) {
       parts = claimerParts;
       name = "claimNWW" + t;
       chosenRole = "claimNWW";
@@ -503,7 +567,11 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (claimersNW.length < 1 && (!contrNW || !contrNW.my)) {
+    } else if (
+      claimersNW.length < 1 &&
+      (!contrNW || !contrNW.my) &&
+      (!Memory.nwAttackerId || Game.time >= nwAttackDurationSafeCheck)
+    ) {
       parts = claimerParts;
       name = "claimNW" + t;
       chosenRole = "claimNW";
@@ -517,7 +585,11 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (claimersNWW.length < 2 && (!contrNWW || !contrNWW.my)) {
+    } else if (
+      claimersNWW.length < 2 &&
+      (!contrNWW || !contrNWW.my) &&
+      (!Memory.nwwAttackerId || Game.time >= nwwAttackDurationSafeCheck)
+    ) {
       parts = claimerParts;
       name = "claimNWW" + t;
       chosenRole = "claimNWW";
@@ -531,7 +603,11 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (claimersNW.length < 2 && (!contrNW || !contrNW.my)) {
+    } else if (
+      claimersNW.length < 2 &&
+      (!contrNW || !contrNW.my) &&
+      (!Memory.nwAttackerId || Game.time >= nwAttackDurationSafeCheck)
+    ) {
       parts = claimerParts;
       name = "claimNW" + t;
       chosenRole = "claimNW";

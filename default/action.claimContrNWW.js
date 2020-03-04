@@ -9,7 +9,7 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
   let flag = Game.flags.nww;
 
   if (!controller) {
-    retval = smartMove(creep, flag.pos, 10, true, "#FFF000", 10000, 1000, 6);
+    retval = smartMove(creep, flag.pos, 10, false, "#FFF000", 10000, 1000, 6);
     return retval;
   }
 

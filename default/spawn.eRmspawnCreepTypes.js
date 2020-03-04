@@ -176,6 +176,10 @@ function spawnCreepTypes(enAvail) {
   let neAttackerId = Memory.neAttackerId;
   let invaderId = Memory.invaderId;
 
+  if (Memory.eAttackerId) {
+    return;
+  }
+
   if (enAvail >= 300) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "E";

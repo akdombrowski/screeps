@@ -188,6 +188,8 @@ module.exports.loop = function() {
     Memory.wRm = wRm;
     Memory.eRm = eRm;
     Memory.neRm = neRm;
+    Memory.nwRm = nwRm;
+    Memory.nwwRm = nwwRm;
 
     Memory.s2 = s2.id;
     Memory.eespawn = eespawn.id;

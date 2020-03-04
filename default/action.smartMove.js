@@ -6,26 +6,28 @@ function smartMove(
   creep,
   dest,
   range,
-  ignoreCreeps = false,
-  pathColor = "#ffffff",
-  pathMem = 2000,
-  maxOps = 100,
-  maxRms = 4
+  ignoreCreeps,
+  pathColor,
+  pathMem,
+  maxOps,
+  maxRms
 ) {
   let s;
   let retval = -16;
   let blockage;
   let noPathFinding = true;
   let path = creep.memory.path;
-  let rm = creep.room;
-  let name = creep.name;
-  let pos = creep.pos;
+  const rm = creep.room;
+  const name = creep.name;
+  const pos = creep.pos;
   let desPath;
+  const roll = creep.memory.role;
+  const direction = creep.memory.direction;
   pathColor = pathColor || getRandomColor();
-  pathMem = Math.random() * 100 - 1;
-  let ops = maxOps || Math.random() * 100000;
-  let roll = creep.memory.role;
-  let direction = creep.memory.direction;
+  pathMem = pathMem || Math.floor(Math.random() * 10);
+  maxOps = maxOps || Math.floor(Math.random() * 1000) + 1;
+  maxRms = maxRms || 4;
+  ignoreCreeps = ignoreCreeps || false;
 
   if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
@@ -40,7 +42,7 @@ function smartMove(
     maxOps = 1000;
   } else if (roll.endsWith("WW")) {
     maxOps = 1000;
-    maxRooms = 6;
+    maxRooms = 8;
   } else if (roll === "upCNE") {
     maxOps = 1000;
   } else if (roll === "upCN") {

@@ -325,6 +325,20 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
+    } else if (upControllersN.length < 1) {
+      parts = upContrParts;
+      name = "upCN" + t;
+      upControllersN.push(name);
+      chosenRole = "upCN";
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
     } else if (
       harvestersW.length < 2 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)

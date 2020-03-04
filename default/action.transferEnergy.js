@@ -43,7 +43,7 @@ function tran(creep, flag, dest) {
     return tranee(creep);
   }
   if(rmName !== "E35N31") {
-    retval = smartMove(creep, Game.flags.tower6.pos, 5);
+    retval = smartMove(creep, Game.flags.tower6.pos, 5, maxRms=8, maxOps=1000);
     return retval;
   }
 

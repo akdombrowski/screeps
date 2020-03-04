@@ -8,8 +8,9 @@ function smartMove(
   range,
   ignoreCreeps = false,
   pathColor = "#ffffff",
-  pathMem,
-  maxOps
+  pathMem = 2000,
+  maxOps = 100,
+  maxRms = 4
 ) {
   let s;
   let retval = -16;
@@ -25,7 +26,6 @@ function smartMove(
   let ops = maxOps || Math.random() * 100000;
   let roll = creep.memory.role;
   let direction = creep.memory.direction;
-  let maxRooms = 4;
 
   if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
@@ -49,7 +49,7 @@ function smartMove(
     maxOps = 1000;
   } else if (name.endsWith("NE")) {
     maxOps = 700;
-  } else if (name.endsWith("W")) {
+  } else if (direction === "west") {
     maxOps = 500;
   } else if (name.startsWith("claim")) {
     maxOps = 200;
@@ -131,7 +131,7 @@ function smartMove(
     noPathFinding: false,
     reusePath: pathMem,
     maxOps: maxOps,
-    maxRooms: maxRooms,
+    maxRooms: maxRms,
     serializeMemory: true,
     visualizePathStyle: {
       fill: "transparent",

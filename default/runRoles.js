@@ -71,7 +71,6 @@ function runRoles() {
   let claimersNWW = [];
   let claimersW = [];
   let claimersNE = [];
-  let northHarvesters = [];
   let southHarvesters = [];
   let westHarvesters = [];
   let linkGets = [];
@@ -98,7 +97,7 @@ function runRoles() {
     }
 
     if (roll === "h" || roll === "harvester") {
-      if (creep.memory.direction === "north" || name.endsWith("N")) {
+      if (creep.memory.direction === "north" || name.endsWith("N") || creep.memory.direction === "n") {
         creep.memory.direction = "north";
         harvestersN.push(name);
       } else if (creep.memory.direction === "east" && !name.endsWith("EE")) {
@@ -401,7 +400,6 @@ function runRoles() {
   Memory.claimersNWW = claimersNWW;
   Memory.claimersW = claimersW;
   Memory.claimersNe = claimersNE;
-  Memory.northHarvesters = northHarvesters;
   Memory.westHarvesters = westHarvesters;
   Memory.southHarvesters = southHarvesters;
   Memory.linkGets = linkGets;

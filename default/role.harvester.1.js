@@ -3,6 +3,7 @@ const transferEnergy = require("./action.transferEnergy");
 const transferEnergyeRm = require("./action.transferEnergyeRm");
 const transferEnergyEE = require("./action.transferEnergyEEast");
 const transferEnergyNE = require("./action.transferEnergyNE");
+const transferEnergyN = require("./action.transferEnergyN");
 const transferEnergyNW = require("./action.transferEnergyNW");
 const getEnergyNorth = require("./action.getEnergyNorth");
 const getEnergyNE = require("./action.getEnergyNE");
@@ -143,7 +144,7 @@ const roleHarvester = {
       retval = -16;
 
       if (direction === "north") {
-        retval = transferEnergy(creep);
+        retval = transferEnergyN(creep);
       } else if (direction === "east") {
         retval = transferEnergyeRm(creep);
         return retval;

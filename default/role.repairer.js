@@ -4,12 +4,12 @@ const smartMove = require("./action.smartMove");
 const build = require("./action.build");
 const findRepairable = require("./action.findRepairableStruct");
 
-
 var roleRepairer = {
   /** @param {Creep} creep **/
   run: function(creep) {
     let repair = creep.memory.repair;
     let retval = -16;
+    const lastRepairableStructId = creep.memory.lastRepairableStructId;
 
     if (!repair && creep.carry.energy >= creep.carryCapacity) {
       creep.memory.repair = true;
@@ -29,13 +29,20 @@ var roleRepairer = {
 
     if (repair) {
       let struct;
-      let target;
+      let target = Game.getObjectById(lastRepairableStructId);
       let targetObj;
       let targetType = creep.memory.targetType;
-      
-      target = findRepairable(creep);
+
+      if (target && target.hits >= target.hitsMax) {
+        target = null;
+      }
+
+      if (!target) {
+        target = findRepairable(creep);
+      }
 
       if (target) {
+        creep.memory.lastRepairableStructId = target.id;
         if (creep.pos.inRangeTo(target, 3)) {
           let retval = creep.repair(target);
 
@@ -69,7 +76,7 @@ var roleRepairer = {
         creep.say("r.b");
       }
     }
-  }
+  },
 };
 
 module.exports = roleRepairer;

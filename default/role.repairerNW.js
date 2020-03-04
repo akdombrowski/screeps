@@ -14,14 +14,13 @@ var roleRepairer = {
     let rm = creep.room;
     let rmName = rm.name;
     let name = creep.name;
-
+    const lastRepairableStructId = creep.memory.lastRepairableStructId;
 
     if (rmName !== "E35N32") {
       console.log(name + " ");
       retval = smartMove(creep, Game.spawns.spawnN, 10);
       return retval;
     }
-
 
     if (!repair && creep.carry.energy >= creep.carryCapacity) {
       creep.memory.repair = true;
@@ -38,13 +37,20 @@ var roleRepairer = {
 
     if (repair) {
       let struct;
-      let target;
+      let target = Game.getObjectById(lastRepairableStructId);
       let targetObj;
       let targetType = creep.memory.targetType;
 
-      target = findRepairable(creep);
+      if (target && target.hits >= target.hitsMax) {
+        target = null;
+      }
+
+      if (!target) {
+        target = findRepairable(creep);
+      }
 
       if (target) {
+        creep.memory.lastRepairableStruct = target.id;
         if (creep.pos.inRangeTo(target, 3)) {
           let retval = creep.repair(target);
 

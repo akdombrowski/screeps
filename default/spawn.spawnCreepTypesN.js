@@ -92,6 +92,24 @@ function spawnCreepTypes(enAvail) {
   addPart(attackerParts, 3, ATTACK);
   addPart(attackerParts, 1, MOVE);
 
+  // 500
+  let hvParts500 = [];
+  addPart(hvParts500, 4, CARRY);
+  addPart(hvParts500, 1, WORK);
+  addPart(hvParts500, 4, MOVE);
+
+  // 500
+  let rParts500 = [];
+  addPart(rParts500, 3, CARRY);
+  addPart(rParts500, 1, WORK);
+  addPart(rParts500, 5, MOVE);
+
+  // 500
+  let workerParts500 = [];
+  addPart(workerParts500, 2, CARRY);
+  addPart(workerParts500, 2, WORK);
+  addPart(workerParts500, 4, MOVE);
+
   // 800
   let medupContrParts = [];
   addPart(medupContrParts, 1, CARRY);
@@ -228,17 +246,31 @@ function spawnCreepTypes(enAvail) {
       direction = "n";
       birth = true;
       attackersN.push(name);
-    } else if (harvestersN.length < 2 && !nAttackerId) {
+    }
+  }
+
+  if (enAvail >= 500) {
+    let t = Game.time.toString().slice(4);
+    let name = "h" + t + "N";
+    let chosenRole = "h";
+    let direction = "n";
+    let parts = hvParts500;
+    let spawnDirection = [BOTTOM];
+    let sourceId = "";
+    let sourceDir = "";
+    let birth = false;
+    let buildRoom = "";
+
+    if (harvestersN.length < 3 && !nAttackerId) {
       harvestersN.push(name);
       name = "h" + t + "N";
-      parts = basicHv;
       sourceDir = "north2";
       birth = true;
     } else if (roadRepairersN.length < 2 && !nAttackerId) {
       roadRepairersN.push(name);
       chosenRole = "rN";
       name = "r" + t + "N";
-      parts = basicHv;
+      parts = rParts500;
       sourceDir = "north2";
       birth = true;
     } else {
@@ -246,7 +278,7 @@ function spawnCreepTypes(enAvail) {
       chosenRole = "nBuilder";
       buildRoom = "E35N32";
       name = chosenRole + t;
-      parts = simpleParts;
+      parts = workerParts500;
       birth = true;
     }
 

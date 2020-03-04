@@ -108,11 +108,11 @@ function spawnCreepTypes(enAvail) {
 
   let attackers = Memory.attackers || [];
 
-  // 300
+  // 500
   let upContrParts = [];
-  addPart(upContrParts, 1, CARRY);
-  addPart(upContrParts, 2, WORK);
-  addPart(upContrParts, 1, MOVE);
+  addPart(upContrParts, 3, CARRY);
+  addPart(upContrParts, 1, WORK);
+  addPart(upContrParts, 5, MOVE);
 
   // 2500
   let moverParts = [];
@@ -190,6 +190,18 @@ function spawnCreepTypes(enAvail) {
   let rezzyParts = [CLAIM, MOVE];
   let basicHv = [CARRY, WORK, MOVE];
   let simpleParts = [CARRY, WORK, WORK, MOVE];
+  let simpleParts350 = [CARRY, WORK, WORK, MOVE, MOVE];
+  let simpleParts500 = [
+    CARRY,
+    CARRY,
+    CARRY,
+    CARRY,
+    WORK,
+    MOVE,
+    MOVE,
+    MOVE,
+    MOVE,
+  ];
 
   let eAttackerId = Memory.eAttackerId;
   let wAttackerId = Memory.wAttackerId;
@@ -270,7 +282,7 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts;
     let spawnDirection = [BOTTOM];
 
-    if (harvestersS.length < 2) {
+    if (harvestersS.length < 1) {
       harvestersS.push(name);
       parts = simpleParts;
       birthCreep(
@@ -282,7 +294,42 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (upControllers.length < 1) {
+    }
+  }
+
+  if (enAvail >= 350 && !invaderId) {
+    let t = Game.time.toString().slice(4);
+    let name = "harv" + t;
+    let chosenRole = "h";
+    let direction = "south";
+    let sourceId = Memory.source2;
+    let parts = simpleParts350;
+    let spawnDirection = [BOTTOM];
+
+    if (harvestersS.length < 2) {
+      harvestersS.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    }
+  }
+
+  if (enAvail >= 500 && !invaderId) {
+    let t = Game.time.toString().slice(4);
+    let name = "harv" + t;
+    let chosenRole = "h";
+    let direction = "south";
+    let sourceId = Memory.source2;
+    let parts = upContrParts;
+    let spawnDirection = [BOTTOM];
+
+    if (upControllers.length < 1) {
       parts = upContrParts;
       name = "upC" + t;
       upControllers.push(name);
@@ -339,12 +386,23 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (
+    }
+  }
+
+  if (enAvail >= 500 && !invaderId) {
+    let t = Game.time.toString().slice(4);
+    let name = "harv" + t;
+    let chosenRole = "h";
+    let direction = "south";
+    let sourceId = Memory.source2;
+    let parts = simpleParts500;
+    let spawnDirection = [BOTTOM];
+
+    if (
       harvestersW.length < 2 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
     ) {
       name += "W";
-      parts = simpleParts;
       direction = "west";
       harvestersW.push(name);
       birthCreep(
@@ -358,7 +416,6 @@ function spawnCreepTypes(enAvail) {
       );
     } else if (harvestersNW.length < 2) {
       name += "NW";
-      parts = simpleParts;
       direction = "nw";
       harvestersW.push(name);
       birthCreep(
@@ -372,7 +429,6 @@ function spawnCreepTypes(enAvail) {
       );
     } else if (harvestersNWW.length < 2) {
       name += "NWW";
-      parts = simpleParts;
       direction = "nww";
       harvestersNWW.push(name);
       birthCreep(

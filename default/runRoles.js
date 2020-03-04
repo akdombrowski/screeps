@@ -47,6 +47,7 @@ function runRoles() {
   let nworkers = [];
   let nwworkers = [];
   let eworkers = [];
+  let eeastWorkers = [];
   let eeworkers = [];
   let upControllers = [];
   let upControllersN = [];
@@ -78,7 +79,6 @@ function runRoles() {
   let eeRmHarvesters = [];
   let etowerHarvesters = [];
   let southtowerHarvesters = [];
-  let eeUps = [];
   Memory.nesource1Creeps = [];
   Memory.nesource2Creeps = [];
 
@@ -356,6 +356,7 @@ function runRoles() {
   Memory.harvestersNE = harvestersNE;
   Memory.workers = workers;
   Memory.eworkers = eworkers;
+  Memory.eeastWorkers = eeastWorkers;
   Memory.eeworkers = eeworkers;
   Memory.neworkers = neworkers;
   Memory.nwworkers = nwworkers;
@@ -390,7 +391,6 @@ function runRoles() {
   Memory.eeRmHarvesters = eeRmHarvesters;
   Memory.etowerHarvesters = etowerHarvesters;
   Memory.southtowerHarvesters = southtowerHarvesters;
-  Memory.eeUps = eeUps;
 }
 
 module.exports = runRoles;

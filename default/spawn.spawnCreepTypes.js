@@ -546,7 +546,7 @@ function spawnCreepTypes(enAvail) {
       parts = upContrParts;
       name = "upc" + t;
       upControllers.push(name);
-      chosenRole = "upController";
+      chosenRole = "upC";
       birth = true;
     } else if (southtowerHarvesters.length < 1) {
       chosenRole = "southtowerHarvester";

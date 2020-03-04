@@ -11,6 +11,7 @@ function tran(creep, flag, dest) {
   let rm = creep.room;
   let name = creep.name;
   let direction = creep.memory.direction;
+  const pos = creep.pos;
   let sourceDir = creep.memory.sourceDir;
   let fatigue = creep.fatigue;
   let s1 = Memory.s1;
@@ -37,7 +38,7 @@ function tran(creep, flag, dest) {
     return -19;
   }
 
-  if(rm.name !== "E35N31") {
+  if (rm.name !== "E35N31") {
     retval = smartMove(creep, tower6, 5);
     return retval;
   }
@@ -45,6 +46,11 @@ function tran(creep, flag, dest) {
   if (direction === "eeast") {
     creep.memory.transferTargetId;
     return tranee(creep);
+  }
+
+  if (pos.x < 1) {
+    retval = creep.move(RIGHT);
+    return retval;
   }
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {
@@ -79,7 +85,7 @@ function tran(creep, flag, dest) {
       }
       return retval;
     } else if (creep.room.name === "E35N31" && direction === "west") {
-      if (creep.pos.x < 2) {
+      if (creep.pos.x < 1) {
         if (fatigue <= 0) {
           retval = creep.move(RIGHT);
         } else {
@@ -125,10 +131,7 @@ function tran(creep, flag, dest) {
   }
 
   let extensionNeedsEnergy = false;
-  if (
-    !target &&
-    (direction === "south" || direction === "west" || direction === "north")
-  ) {
+  if (!target) {
     let exts;
 
     if (!Memory.e35n31Extensions) {
@@ -167,10 +170,18 @@ function tran(creep, flag, dest) {
           if (structure.id === "5cf733caf7020f7e680e392f") {
             return;
           }
-          if (direction === "west" && structure.pos.x < 10) {
+          if (
+            (direction === "west" ||
+              direction === "nww" ||
+              direction === "nw") &&
+            structure.pos.x < 10
+          ) {
             target = structure;
             return structure;
-          } else if (direction !== "west" && structure.pos.x > 10) {
+          } else if (!
+            (direction === "west" ||
+              direction === "nww" ||
+              direction === "nw") && structure.pos.x > 21) {
             target = structure;
             return target;
           }

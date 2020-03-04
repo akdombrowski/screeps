@@ -11,6 +11,7 @@ function tran(creep, flag, dest) {
   let rm = creep.room;
   let rmName = rm.name;
   let name = creep.name;
+  let pos = creep.pos;
   let direction = creep.memory.direction;
   let sourceDir = creep.memory.sourceDir;
   let fatigue = creep.fatigue;
@@ -42,8 +43,20 @@ function tran(creep, flag, dest) {
     creep.memory.transferTargetId;
     return tranee(creep);
   }
-  if(rmName !== "E35N31") {
-    retval = smartMove(creep, Game.flags.tower6.pos, 5, maxRms=8, maxOps=1000);
+
+  if (rmName !== "E35N31") {
+    retval = smartMove(
+      creep,
+      Game.flags.tower6.pos,
+      5,
+      (maxRms = 8),
+      (maxOps = 1000)
+    );
+    return retval;
+  }
+
+  if (pos.x < 1) {
+    retval = creep.move(RIGHT);
     return retval;
   }
 
@@ -126,8 +139,7 @@ function tran(creep, flag, dest) {
 
   let extensionNeedsEnergy = false;
   if (
-    !target &&
-    (direction === "south" || direction === "west" || direction === "north")
+    !target
   ) {
     let exts;
 
@@ -164,13 +176,22 @@ function tran(creep, flag, dest) {
           (structure.store[RESOURCE_ENERGY] <= 150 ||
             !structure.store[RESOURCE_ENERGY])
         ) {
-          if (structure.id === "5cf733caf7020f7e680e392f") {
-            return;
-          }
-          if (direction === "west" && structure.pos.x < 10) {
+          if (
+            (direction === "west" ||
+              direction === "nww" ||
+              direction === "nw") &&
+            structure.pos.x < 10
+          ) {
             target = structure;
             return structure;
-          } else if (direction !== "west" && structure.pos.x > 10) {
+          } else if (
+            !(
+              direction === "west" ||
+              direction === "nww" ||
+              direction === "nw"
+            ) &&
+            structure.pos.x > 21
+          ) {
             target = structure;
             return target;
           }

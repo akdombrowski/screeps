@@ -36,21 +36,7 @@ function tran(creep, flag, dest) {
   }
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {
-    if (creep.room.name === "E35N32") {
-      if (
-        creep.pos == Game.flags.northEntrance1 ||
-        creep.pos.isNearTo(Game.flags.northEntrance1)
-      ) {
-        retval = creep.move(BOTTOM);
-      } else {
-        retval = smartMove(creep, Game.flags.northEntrance1, 0);
-      }
-      creep.say("northEntrance");
-      return retval;
-    } else if (creep.room.name === "E36N31") {
-      retval = traneRm(creep);
-      return retval;
-    } else if (creep.room.name === "E34N31") {
+     if (creep.room.name === "E34N31") {
       if (creep.pos.x > 49) {
         retval = creep.move(RIGHT);
       } else {
@@ -96,7 +82,7 @@ function tran(creep, flag, dest) {
   }
 
   let extensionNeedsEnergy = false;
-  if ((!target && direction === "south") || direction === "west") {
+  if (!target && (direction === "south" || direction === "west")) {
     let exts;
 
     exts = Game.rooms["E35N31"].find(FIND_STRUCTURES, {

@@ -118,6 +118,12 @@ function spawnCreepTypes(enAvail) {
   let moverParts = [];
   addPart(moverParts, 50, MOVE);
 
+  // 1100
+  let medsouthHvParts = [];
+  addPart(medsouthHvParts, 4, CARRY);
+  addPart(medsouthHvParts, 5, WORK);
+  addPart(medsouthHvParts, 8, MOVE);
+
   // 3000
   let upContrPartsBig = [];
   addPart(upContrPartsBig, 20, CARRY);
@@ -290,20 +296,6 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (upControllersN.length < 1) {
-      parts = upContrParts;
-      name = "upCN" + t;
-      upControllersN.push(name);
-      chosenRole = "upCN";
-      birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
     } else if (upControllersNE.length < 1) {
       parts = upContrParts;
       name = "upCNE" + t;
@@ -369,6 +361,29 @@ function spawnCreepTypes(enAvail) {
       parts = simpleParts;
       direction = "nww";
       harvestersNWW.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    }
+  }
+
+  if (enAvail >= 1100) {
+    let t = Game.time.toString().slice(4);
+    let name = "harv" + t;
+    let chosenRole = "h";
+    let direction = "south";
+    let sourceId = Memory.source2;
+    let parts = medsouthHvParts;
+    let spawnDirection = [BOTTOM];
+
+    if (harvestersS.length < 3) {
+      harvestersS.push(name);
       birthCreep(
         s1,
         parts,

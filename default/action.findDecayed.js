@@ -8,21 +8,28 @@ function findDecayed(roomName) {
   let rm = Game.rooms[roomName];
   let fixablesIds = [];
 
-  if(rm) {
+  if (rm) {
     fixables = rm.find(FIND_STRUCTURES, {
       filter: struct => {
         if (struct.structureType === STRUCTURE_WALL) {
           return false;
         }
-        
+
         return struct.hits < struct.hitsMax;
-      }
+      },
     });
-    
+
+    // sort by the difference of hits and hits max (how much more before getting to full structural health).
+    // since sortBy sorts by ascending value, we'll use the negative of the difference b/w hits and hitsmax
+    _.sortBy(fixables, value => {
+      return value.hits - value.hitsMax;
+    });
+
+
     _.each(fixables, struct => {
       fixablesIds.push(struct.id);
     });
-    
+
     if (fixablesIds.length) {
       fixablesIds = _.sortBy(fixablesIds, id => {
         let struct = Game.getObjectById(id);
@@ -30,8 +37,8 @@ function findDecayed(roomName) {
       });
     }
   }
-    
-    return fixablesIds;
+
+  return fixablesIds;
 }
 
 module.exports = findDecayed;

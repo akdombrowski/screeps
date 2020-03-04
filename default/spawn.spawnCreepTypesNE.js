@@ -389,21 +389,16 @@ function spawnCreepTypes(enAvail) {
       workersNE.push(name);
       parts = medworkerParts;
     }
-
-    console.log(
-      name +
-        " role birth: " +
-        birthCreep(
-          s2,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          sourceDir,
-          buildRoom,
-          spawnDirection
-        )
+    birthCreep(
+      s2,
+      parts,
+      name,
+      chosenRole,
+      direction,
+      sourceId,
+      sourceDir,
+      buildRoom,
+      spawnDirection
     );
   }
 

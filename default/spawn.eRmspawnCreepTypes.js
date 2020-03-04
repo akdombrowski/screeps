@@ -234,20 +234,16 @@ function spawnCreepTypes(enAvail) {
     }
 
     if (birth) {
-      console.log(
-        name +
-          " role birth: " +
-          birthCreep(
-            s2,
-            parts,
-            name,
-            chosenRole,
-            direction,
-            sourceId,
-            sourceDir,
-            buildRoom,
-            spawnDirection
-          )
+      birthCreep(
+        s2,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        sourceDir,
+        buildRoom,
+        spawnDirection
       );
     }
   }
@@ -306,20 +302,16 @@ function spawnCreepTypes(enAvail) {
       sourceDir = "north";
     }
 
-    console.log(
-      name +
-        " role birth: " +
-        birthCreep(
-          s2,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          sourceDir,
-          buildRoom,
-          spawnDirection
-        )
+    birthCreep(
+      s2,
+      parts,
+      name,
+      chosenRole,
+      direction,
+      sourceId,
+      sourceDir,
+      buildRoom,
+      spawnDirection
     );
   }
 

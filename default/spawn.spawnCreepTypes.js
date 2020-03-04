@@ -38,7 +38,9 @@ function birthCreep(
 
   if (retval === OK) {
     console.log("spawn1ed." + name);
+    return retval;
   } else {
+    console.log("Spawn1 failed: " + retval);
     retval = Game.spawns.spawn2.spawnCreep(parts, name, {
       memory: {
         role: chosenRole,
@@ -51,6 +53,7 @@ function birthCreep(
 
   if (retval === OK) {
     console.log("spawn2ed." + name);
+    return retval;
   } else {
     retval = Game.spawns.sspawn3.spawnCreep(parts, name, {
       memory: {
@@ -252,158 +255,229 @@ function spawnCreepTypes(enAvail) {
       sourceId,
       spawnDirection
     );
-  } else if (claimersW.length < 2 && !invaderId) {
-    if (enAvail >= 300) {
-      let t = Game.time.toString().slice(4);
-      let name = "harv" + t;
-      let chosenRole = "h";
-      let direction = "south";
-      let sourceId = Memory.source2;
-      let parts = simpleParts;
-      let spawnDirection = [BOTTOM];
+  } else if (enAvail >= 300 && !invaderId) {
+    let t = Game.time.toString().slice(4);
+    let name = "harv" + t;
+    let chosenRole = "h";
+    let direction = "south";
+    let sourceId = Memory.source2;
+    let parts = simpleParts;
+    let spawnDirection = [BOTTOM];
 
-      if (harvestersS.length < 1) {
-        harvestersS.push(name);
-        parts = simpleParts;
-        birthCreep(
-          s1,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection
-        );
-      } else if (upControllersN.length < 1) {
-        parts = upContrParts;
-        name = "upCN" + t;
-        upControllers.push(name);
-        chosenRole = "upCN";
-        birthCreep(
-          s1,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection
-        );
-      } else if (upControllersNE.length < 1) {
-        parts = upContrParts;
-        name = "upCNE" + t;
-        upControllersNE.push(name);
-        chosenRole = "upCNE";
-        direction = "ne";
-        birthCreep(
-          s1,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection
-        );
-      } else if (upControllersNW.length < 1) {
-        parts = upContrParts;
-        name = "upCNW" + t;
-        upControllers.push(name);
-        chosenRole = "upCNW";
-        birthCreep(
-          s1,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection
-        );
-      } else if (claimersW.length < 1 && (!contrW || !contrW.my)) {
-        parts = claimerParts;
-        name = "claimW" + t;
-        chosenRole = "claimW";
-        claimersNW.push(name);
-        birthCreep(
-          s1,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection
-        );
-      } else if (claimersNWW.length < 1 && (!contrNWW || !contrNWW.my)) {
-        parts = claimerParts;
-        name = "claimNWW" + t;
-        chosenRole = "claimNWW";
-        claimersNW.push(name);
-        birthCreep(
-          s1,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection
-        );
-      } else if (claimersNW.length < 1 && (!contrNW || !contrNW.my)) {
-        parts = claimerParts;
-        name = "claimNW" + t;
-        chosenRole = "claimNW";
-        claimersNW.push(name);
-        birthCreep(
-          s1,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection
-        );
-      } else if (claimersNWW.length < 2 && (!contrNWW || !contrNWW.my)) {
-        parts = claimerParts;
-        name = "claimNWW" + t;
-        chosenRole = "claimNWW";
-        claimersNW.push(name);
-        birthCreep(
-          s1,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection
-        );
-      } else if (claimersNW.length < 2 && (!contrNW || !contrNW.my)) {
-        parts = claimerParts;
-        name = "claimNW" + t;
-        chosenRole = "claimNW";
-        claimersNW.push(name);
-        birthCreep(
-          s1,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection
-        );
-      } else if (claimersW.length < 2 && (!contrW || !contrW.my)) {
-        parts = claimerParts;
-        name = "claimW" + t;
-        chosenRole = "claimW";
-        claimersNW.push(name);
-        birthCreep(
-          s1,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection
-        );
-      }
+    if (harvestersS.length < 2) {
+      harvestersS.push(name);
+      parts = simpleParts;
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (upControllers.length < 1) {
+      parts = upContrParts;
+      name = "upC" + t;
+      upControllers.push(name);
+      chosenRole = "upC";
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (upControllersN.length < 1) {
+      parts = upContrParts;
+      name = "upCN" + t;
+      upControllersN.push(name);
+      chosenRole = "upCN";
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (upControllersNE.length < 1) {
+      parts = upContrParts;
+      name = "upCNE" + t;
+      upControllersNE.push(name);
+      chosenRole = "upCNE";
+      direction = "ne";
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (upControllersNW.length < 1) {
+      parts = upContrParts;
+      name = "upCNW" + t;
+      upControllersNW.push(name);
+      chosenRole = "upCNW";
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (
+      harvestersW.length < 2 &&
+      (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
+    ) {
+      name += "W";
+      parts = simpleParts;
+      direction = "west";
+      harvestersW.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (harvestersNW.length < 2) {
+      name += "NW";
+      parts = simpleParts;
+      direction = "nw";
+      harvestersW.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (harvestersNWW.length < 2) {
+      name += "NWW";
+      parts = simpleParts;
+      direction = "nww";
+      harvestersNWW.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
     }
-  } else if (enAvail >= 3250 && !invaderId) {
+  }
+
+  if (enAvail >= 650) {
+    let t = Game.time.toString().slice(4);
+    let name = "harv" + t;
+    let chosenRole = "h";
+    let direction = "south";
+    let sourceId = Memory.source2;
+    let parts = simpleParts;
+    let spawnDirection = [BOTTOM];
+
+    if (claimersW.length < 1 && (!contrW || !contrW.my)) {
+      parts = claimerParts;
+      name = "claimW" + t;
+      chosenRole = "claimW";
+      claimersNW.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (claimersNWW.length < 1 && (!contrNWW || !contrNWW.my)) {
+      parts = claimerParts;
+      name = "claimNWW" + t;
+      chosenRole = "claimNWW";
+      claimersNW.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (claimersNW.length < 1 && (!contrNW || !contrNW.my)) {
+      parts = claimerParts;
+      name = "claimNW" + t;
+      chosenRole = "claimNW";
+      claimersNW.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (claimersNWW.length < 2 && (!contrNWW || !contrNWW.my)) {
+      parts = claimerParts;
+      name = "claimNWW" + t;
+      chosenRole = "claimNWW";
+      claimersNW.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (claimersNW.length < 2 && (!contrNW || !contrNW.my)) {
+      parts = claimerParts;
+      name = "claimNW" + t;
+      chosenRole = "claimNW";
+      claimersNW.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (claimersW.length < 2 && (!contrW || !contrW.my)) {
+      parts = claimerParts;
+      name = "claimW" + t;
+      chosenRole = "claimW";
+      claimersNW.push(name);
+      birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    }
+  }
+
+  if (enAvail >= 3250 && !invaderId) {
     let t = Game.time.toString().slice(4);
     let name = "hXL" + t;
     let chosenRole = "h";
@@ -600,8 +674,6 @@ function spawnCreepTypes(enAvail) {
       workers.push(name);
       birth = true;
     }
-
-    console.log("roll" + chosenRole);
 
     if (birth) {
       birthCreep(

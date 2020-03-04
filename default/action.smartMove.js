@@ -6,7 +6,7 @@ function smartMove(
   creep,
   dest,
   range,
-  ignoreCreeps = true,
+  ignoreCreeps = false,
   pathColor = "#ffffff",
   pathMem,
   maxOps

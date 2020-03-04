@@ -255,7 +255,7 @@ function runRoles() {
       roleEEUp(creep, "E37N31");
     } else if (roll === "deepSouthRezzy") {
       deepSouthScout(creep);
-    } else if (roll === "uc" || roll === "upController" || roll === "upc") {
+    } else if (roll === "uc" || roll === "upController" || roll === "upc" || roll === "upC") {
       upControllers.push(name);
       upController(creep);
     } else if (roll === "worker" || roll === "w") {

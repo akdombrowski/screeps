@@ -9,6 +9,7 @@ function tran(creep, flag, dest) {
   let targetId = creep.memory.transferTargetId;
   let target = Game.getObjectById(targetId);
   let rm = creep.room;
+  let rmName = rm.name;
   let name = creep.name;
   let direction = creep.memory.direction;
   let sourceDir = creep.memory.sourceDir;
@@ -40,6 +41,10 @@ function tran(creep, flag, dest) {
   if (direction === "eeast") {
     creep.memory.transferTargetId;
     return tranee(creep);
+  }
+  if(rmName !== "E35N31") {
+    retval = smartMove(creep, Game.flags.tower6.pos, 5);
+    return retval;
   }
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {

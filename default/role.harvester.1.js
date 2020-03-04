@@ -3,6 +3,7 @@ const transferEnergy = require("./action.transferEnergy");
 const transferEnergyeRm = require("./action.transferEnergyeRm");
 const transferEnergyEE = require("./action.transferEnergyEEast");
 const transferEnergyNE = require("./action.transferEnergyNE");
+const transferEnergyNW = require("./action.transferEnergyNW");
 const getEnergyNorth = require("./action.getEnergyNorth");
 const getEnergyNE = require("./action.getEnergyNE");
 const getEnergyNW = require("./action.getEnergyNW");

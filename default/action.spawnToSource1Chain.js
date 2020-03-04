@@ -99,7 +99,7 @@ function spawnToSource1Chain() {
     if (hv && !hv.pos.isNearTo(source1)) {
       // we need to pull hv into place next to the source to harvest
       if (!mv.pos.isNearTo(hv)) {
-        retval = smartMove(mv, hv, 1);
+        retval = smartMove(mv, hv, 1, false);
       } else {
         console.log(hv.name + " " + hv.pos);
         if (
@@ -137,7 +137,7 @@ function spawnToSource1Chain() {
       }
     } else if (tr1 && (!tr1.pos.isNearTo(hv) || tr1.pos.x <= hv.pos.x)) {
       if (!mv.pos.isNearTo(tr1)) {
-        retval = smartMove(mv, tr1, 1);
+        retval = smartMove(mv, tr1, 1, false);
       } else if (
         !mv.pos.isEqualTo(
           new RoomPosition(hv.pos.x + 1, source1.pos.y - 1, hv.room.name)
@@ -164,7 +164,7 @@ function spawnToSource1Chain() {
       }
     } else if (tr2 && (!tr2.pos.isNearTo(tr1) || !tr2.pos.isNearTo(s1))) {
       if (!mv.pos.isNearTo(tr2)) {
-        retval = smartMove(mv, tr2, 1);
+        retval = smartMove(mv, tr2, 1, false);
       } else if ((mv.pos.x != 45 && mv.pos.y != 5) || tr2.pos.x <= tr1.pos.x) {
         retval = chainMove(
           mv.name,

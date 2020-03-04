@@ -43,7 +43,7 @@ function birthCreep(
   }
 
   if (retval == OK) {
-    console.log("spawned." + name);
+    console.log("spawnedN." + name);
   }
   return retval;
 }
@@ -251,20 +251,16 @@ function spawnCreepTypes(enAvail) {
     }
 
     if (birth) {
-      console.log(
-        name +
-          " role birth: " +
-          birthCreep(
-            s2,
-            parts,
-            name,
-            chosenRole,
-            direction,
-            sourceId,
-            sourceDir,
-            buildRoom,
-            spawnDirection
-          )
+      birthCreep(
+        s2,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        sourceDir,
+        buildRoom,
+        spawnDirection
       );
     }
   } else if (enAvail >= 800) {

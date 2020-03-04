@@ -47,7 +47,7 @@ function birthCreep(
   }
 
   if (retval == OK) {
-    console.log("spawned." + name);
+    console.log("spawnedEE." + name);
   }
   return retval;
 }
@@ -305,19 +305,15 @@ function spawnCreepTypes(enAvail) {
       parts = medworkerParts;
     }
 
-    console.log(
-      chosenRole +
-        " role birth:" +
-        birthCreep(
-          Game.spawns.eespawn,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          sourceDir,
-          spawnDirection
-        )
+    birthCreep(
+      Game.spawns.eespawn,
+      parts,
+      name,
+      chosenRole,
+      direction,
+      sourceId,
+      sourceDir,
+      spawnDirection
     );
   }
 

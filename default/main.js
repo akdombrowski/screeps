@@ -48,11 +48,6 @@ module.exports.loop = function() {
     let enAvailN = nRm.energyAvailable;
     let enCapN = nRm.energyCapacityAvailable;
 
-    let enAvailNW = nwRm.energyAvailable;
-    let enCapNW = nwRm.energyCapacityAvailable;
-
-    let enAvailNWW = nwwRm.energyAvailable;
-    let enCapNWW = nwwRm.energyCapacityAvailable;
 
     let crps = Game.creeps;
     let numCrps = Object.keys(crps).length;
@@ -503,15 +498,7 @@ module.exports.loop = function() {
           "\n" +
           enAvailNE +
           "," +
-          enCapNE +
-          "\n" +
-          enAvailNW +
-          "," +
-          enCapNW +
-          "\n" +
-          enAvailNWW +
-          "," +
-          enCapNWW
+          enCapNE
       );
 
       Memory.rmProg = rmProg;

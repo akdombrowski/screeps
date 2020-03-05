@@ -150,11 +150,11 @@ function spawnCreepTypes(enAvail) {
   addPart(newhvParts, 5, WORK);
   addPart(newhvParts, 25, MOVE);
 
-  // 2550
+  // 3000
   let travelhvParts = [];
-  addPart(travelhvParts, 24, CARRY);
-  addPart(travelhvParts, 1, WORK);
-  addPart(travelhvParts, 25, MOVE);
+  addPart(travelhvParts, 12, CARRY);
+  addPart(travelhvParts, 10, WORK);
+  addPart(travelhvParts, 28, MOVE);
 
   // 2900
   let workerParts = [];
@@ -404,23 +404,6 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (
-      upControllersNW.length < 1 &&
-      (!Memory.nwAttackerId || Game.time >= nwAttackDurationSafeCheck)
-    ) {
-      parts = upContrParts;
-      name = "upCNW" + t;
-      upControllersNW.push(name);
-      chosenRole = "upCNW";
-      birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
     } else if (upControllersN.length < 1) {
       parts = upContrParts;
       name = "upCN" + t;
@@ -530,10 +513,6 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts;
     let spawnDirection = [BOTTOM];
 
-    console.log(
-      "spawn claimers " + claimersNW.length + " " + Memory.nwAttackerId
-    );
-
     if (claimersW.length < 1 && (!contrW || !contrW.my)) {
       parts = claimerParts;
       name = "claimW" + t;
@@ -550,8 +529,7 @@ function spawnCreepTypes(enAvail) {
       );
     } else if (
       claimersNWW.length < 1 &&
-      (!contrNWW || !contrNWW.my) &&
-      (!Memory.nwwAttackerId || Game.time >= nwwAttackDurationSafeCheck)
+      (!contrNWW || !contrNWW.my)
     ) {
       parts = claimerParts;
       name = "claimNWW" + t;
@@ -568,8 +546,7 @@ function spawnCreepTypes(enAvail) {
       );
     } else if (
       claimersNW.length < 1 &&
-      (!contrNW || !contrNW.my) &&
-      (!Memory.nwAttackerId || Game.time >= nwAttackDurationSafeCheck)
+      (!contrNW || !contrNW.my)
     ) {
       parts = claimerParts;
       name = "claimNW" + t;
@@ -586,8 +563,7 @@ function spawnCreepTypes(enAvail) {
       );
     } else if (
       claimersNWW.length < 2 &&
-      (!contrNWW || !contrNWW.my) &&
-      (!Memory.nwwAttackerId || Game.time >= nwwAttackDurationSafeCheck)
+      (!contrNWW || !contrNWW.my)
     ) {
       parts = claimerParts;
       name = "claimNWW" + t;
@@ -604,8 +580,7 @@ function spawnCreepTypes(enAvail) {
       );
     } else if (
       claimersNW.length < 2 &&
-      (!contrNW || !contrNW.my) &&
-      (!Memory.nwAttackerId || Game.time >= nwAttackDurationSafeCheck)
+      (!contrNW || !contrNW.my)
     ) {
       parts = claimerParts;
       name = "claimNW" + t;

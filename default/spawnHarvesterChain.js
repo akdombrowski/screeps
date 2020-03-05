@@ -5,7 +5,8 @@ function spawnHarvesterChain(enAvail, rm, s1, harvesters) {
   if (!harvester1 && enAvail >= 1200) {
     let name = "harvester1";
     let parts = [];
-    for (let i = 0; i < 25; i++) {
+    // 12 energy harvesting per tick with 6 work parts. Energy sources replenish after 300 ticks. This puts the harvester with minimal downtime for source replenish.  (10 would be exact but we can be a little more aggressive for overlapping timelines). This is as efficient as we can get.
+    for (let i = 0; i < 6; i++) {
       parts.push(WORK);
     }
     let chosenRole = "hChain";

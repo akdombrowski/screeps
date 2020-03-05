@@ -182,7 +182,7 @@ function spawnCreepTypes(enAvail) {
   addPart(linkGetsParts, 3, MOVE);
 
   let rezzyParts = [CLAIM, MOVE];
-  let basicHv = [CARRY, WORK, WORK, MOVE];
+  let basicHv = [CARRY, CARRY, WORK, MOVE, MOVE];
   let simpleParts = [CARRY, WORK, WORK, MOVE];
 
   let eAttackerId = Memory.eAttackerId;
@@ -246,6 +246,20 @@ function spawnCreepTypes(enAvail) {
       direction = "n";
       birth = true;
       attackersN.push(name);
+    }
+
+    if (birth) {
+      birthCreep(
+        s2,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        sourceDir,
+        buildRoom,
+        spawnDirection
+      );
     }
   }
 
@@ -315,13 +329,6 @@ function spawnCreepTypes(enAvail) {
       chosenRole = "attackerN";
       direction = "n";
       attackersN.push(name);
-      birth = true;
-    } else if (upControllersN.length < 2) {
-      chosenRole = "upCN";
-      name = chosenRole + t;
-      direction = "n";
-      parts = medupContrParts;
-      upControllersN.push(name);
       birth = true;
     } else if (harvestersN.length < 4 && !neAttackerId) {
       harvestersN.push(name);
@@ -394,7 +401,7 @@ function spawnCreepTypes(enAvail) {
       harvestersN.push(name);
       parts = mednewhvParts;
       sourceDir = "north";
-    } else if (upControllersN.length < 3) {
+    } else if (upControllersN.length < 2) {
       chosenRole = "upCN";
       name = chosenRole + t;
       parts = medworkerParts;

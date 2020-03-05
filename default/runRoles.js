@@ -77,8 +77,6 @@ function runRoles() {
   let eastHarvesters = [];
   let eastUpControllers = [];
   let eeastUpControllers = [];
-  let eastWorkers = [];
-  let ermNeHarvesters = [];
   let ermHarvesters = [];
   let eeRmHarvesters = [];
   let etowerHarvesters = [];
@@ -102,9 +100,9 @@ function runRoles() {
         harvestersN.push(name);
       } else if (creep.memory.direction === "east" && !name.endsWith("EE")) {
         if (creep.memory.sourceDir === "north1") {
-          ermNeHarvesters.push(name);
+          harvestersNE.push(name);
         } else if (creep.memory.sourceDir === "north2") {
-          ermNeHarvesters.push(name);
+          harvestersNE.push(name);
         } else if (creep.memory.sourceDir === "east") {
           ermHarvesters.push(name);
         } else if (creep.memory.sourceDir === "east2") {
@@ -258,7 +256,7 @@ function runRoles() {
     } else if (roll === "upCNW") {
       upControllersNW.push(name);
 
-      upControllerNW(creep, Game.flags.west, "E34N31");
+      upControllerNW(creep, Game.flags.nw, "E34N32");
     } else if (roll === "eeUp") {
       eeastUpControllers.push(name);
       roleEEUp(creep, "E37N31");
@@ -274,7 +272,7 @@ function runRoles() {
       upController(creep);
     } else if (roll === "worker" || roll === "w") {
       if (creep.memory.direction === "east") {
-        eastWorkers.push(name);
+        eworkers.push(name);
       } else {
         workers.push(name);
       }
@@ -303,7 +301,7 @@ function runRoles() {
       creep.memory.buildRoom = "E37N31";
 
       roleWorker.run(creep);
-    } else if (roll === "neBuilder") {
+    } else if (roll === "neBuilder" || roll === "neworker") {
       neworkers.push(name);
       creep.memory.buildRoom = "E36N32";
       roleWorker.run(creep, Game.flags.neSource1, "E36N32");
@@ -406,8 +404,6 @@ function runRoles() {
   Memory.eastHarvesters = eastHarvesters;
   Memory.eastUpControllers = eastUpControllers;
   Memory.eeastUpControllers = eeastUpControllers;
-  Memory.eastWorkers = eastWorkers;
-  Memory.ermNeHarvesters = ermNeHarvesters;
   Memory.ermHarvesters = ermHarvesters;
   Memory.eeRmHarvesters = eeRmHarvesters;
   Memory.etowerHarvesters = etowerHarvesters;

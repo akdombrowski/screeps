@@ -48,7 +48,7 @@ function vest(creep, flag, path) {
   }
 
   if(room.name !== "E36N32") {
-    retval = smartMove(creep, Game.flags.e36n32contr, 10);
+    retval = smartMove(creep, Game.flags.e36n32contr, 10, false, null, 100, 1000, 4);
     return retval;
   }
 
@@ -72,7 +72,7 @@ function vest(creep, flag, path) {
 
       return retval;
     } else {
-      retval = smartMove(creep, target, 1, false, "#000fff", 2000, 1000);
+      retval = smartMove(creep, target, 1, false, null, null, 100, 1);
       return retval;
     }
   } else if (!target) {
@@ -83,7 +83,7 @@ function vest(creep, flag, path) {
         retval = creep.pickup(target);
       } else {
         creep.say("pu");
-        retval = smartMove(creep, target, 1);
+        retval = smartMove(creep, target, 1, false, null, null, 100, 1);
       }
 
       creep.memory.sourceId = null;

@@ -3,7 +3,7 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 
 function upController(creep, flag, room) {
-  let controllerId = "5bbcaefa9099fc012e639e8b";
+  let controllerId = "5bbcaeeb9099fc012e639c4a";
   let retval;
   let rm = room;
   controller = Game.getObjectById(controllerId);
@@ -27,7 +27,7 @@ function upController(creep, flag, room) {
         retval = ERR_TIRED;
       } else {
         creep.say(target.pos.x + "," + target.pos.y);
-        retval = smartMove(creep, target, 1);
+        retval = smartMove(creep, target, 1, false, null, null, 100, 1);
       }
     } else {
       creep.say("sad");

@@ -63,10 +63,9 @@ function spawnCreepTypes(enAvail) {
   let westHarvesters = Memory.westHarvesters || [];
 
   let eastHarvesters = Memory.eastHarvesters || [];
-  let eastWorkers = Memory.eastWorkers || [];
   let eastUpControllers = Memory.eastUpControllers || [];
   let ermHarvesters = Memory.ermHarvesters || [];
-  let ermNeHarvesters = Memory.ermNeHarvesters || [];
+  let harvestersNE = Memory.harvestersNE || [];
   let etowerHarvesters = Memory.etowerHarvesters || [];
   let eeUps = Memory.eeUps || [];
 
@@ -270,11 +269,11 @@ function spawnCreepTypes(enAvail) {
       direction = "ne";
       eattackers.push(name);
       birth = true;
-    } else if (ermNeHarvesters.length < 5) {
+    } else if (harvestersNE.length < 3) {
       name = "h" + t + "NE";
       chosenRole = "h";
       direction = "ne";
-      ermNeHarvesters.push(name);
+      harvestersNE.push(name);
       parts = newhvParts;
       sourceDir = "north";
     } else if (neworkers.length < 3) {
@@ -284,7 +283,7 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = workerParts;
       birth = true;
-    } else if (eastUpControllers.length < 1) {
+    } else if (eastUpControllers.length < 2) {
       chosenRole = "eRezzy";
       name = chosenRole + t;
       parts = medworkerParts;
@@ -294,16 +293,12 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = medworkerParts;
       upControllersE.push(name);
-    } else if (eastWorkers.length < 3) {
+    } else if (eworkers.length < 3) {
       chosenRole = "eworker";
       buildRoom = "E36N31";
       name = chosenRole + t;
-      eastWorkers.push(name);
+      eworkers.push(name);
       parts = workerParts;
-    } else {
-      ermNeHarvesters.push(name);
-      parts = newhvParts;
-      sourceDir = "north";
     }
 
     birthCreep(
@@ -335,10 +330,9 @@ function spawnCreepTypes(enAvail) {
 
   Memory.eattackers = eattackers;
   Memory.eastHarvesters = eastHarvesters;
-  Memory.eastWorkers = eastWorkers;
   Memory.eastUpControllers = eastUpControllers;
   Memory.ermHarvesters = ermHarvesters;
-  Memory.ermNeHarvesters = ermNeHarvesters;
+  Memory.harvestersNE = harvestersNE;
   Memory.etowerHarvesters = etowerHarvesters;
   Memory.eeUps = eeUps;
 }

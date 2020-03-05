@@ -36,7 +36,7 @@ function build(creep, flag, room) {
       retval = ERR_TIRED;
       creep.say("f." + creep.fatigue);
     } else {
-      retval = smartMove(creep, target, 1);
+      retval = smartMove(creep, target, 1, false, null, null, 100, 1);
     }
 
     // switch off of harvesting when full
@@ -129,7 +129,8 @@ function build(creep, flag, room) {
         creep.say("f" + creep.fatigue);
         return ERR_TIRED;
       }
-      retval = smartMove(creep, target, 3, "#ffff0f");
+
+      retval = smartMove(creep, target, 1, false, null, null, 100, 1);
       if (retval !== OK) {
         creep.say("err");
       } else {

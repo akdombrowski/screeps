@@ -1,4 +1,5 @@
 const transferEnergy = require("./action.transferEnergy");
+const transferEnergyN = require("./action.transferEnergyN");
 const buildRoad = require("./action.buildRoad");
 const transferEnergyeRm = require("./action.transferEnergyeRm");
 const smartMove = require("./action.smartMove");
@@ -16,7 +17,7 @@ function vest(creep, flag, path) {
     if (creep.pos.isNearTo(Game.flags.northExit)) {
       retval = creep.move(TOP);
     } else {
-      retval = smartMove(creep, Game.flags.northExit, 1);
+      retval = smartMove(creep, target, 1, false, null, null, 100, 1);
     }
     return retval;
   }
@@ -28,12 +29,12 @@ function vest(creep, flag, path) {
       let retval = buildRoad(creep);
       if (retval != OK) {
         creep.memory.transfer = true;
-        transferEnergy(creep);
+        transferEnergyN(creep);
       } else {
         creep.memory.buildingRoad = true;
       }
     } else if (creep.memory.transfer) {
-      transferEnergy(creep);
+      transferEnergyN(creep);
     }
     return retval;
   } else {
@@ -55,7 +56,7 @@ function vest(creep, flag, path) {
     } else if (creep.fatigue > 0) {
       creep.say("f." + creep.fatigue);
     } else {
-      retval = smartMove(creep, target, 1, false, "#000fff", 2000, 100);
+      retval = smartMove(creep, target, 1, false, null, null, 100, 1);
     }
     return retval;
   } else if (!target) {

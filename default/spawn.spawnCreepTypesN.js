@@ -249,53 +249,55 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  if (enAvail >= 500) {
-    let t = Game.time.toString().slice(4);
-    let name = "h" + t + "N";
-    let chosenRole = "h";
-    let direction = "n";
-    let parts = hvParts500;
-    let spawnDirection = [BOTTOM];
-    let sourceId = "";
-    let sourceDir = "";
-    let birth = false;
-    let buildRoom = "";
+  // if (enAvail >= 500) {
+  //   let t = Game.time.toString().slice(4);
+  //   let name = "h" + t + "N";
+  //   let chosenRole = "h";
+  //   let direction = "n";
+  //   let parts = hvParts500;
+  //   let spawnDirection = [BOTTOM];
+  //   let sourceId = "";
+  //   let sourceDir = "";
+  //   let birth = false;
+  //   let buildRoom = "";
 
-    if (harvestersN.length < 3 && !nAttackerId) {
-      harvestersN.push(name);
-      name = "h" + t + "N";
-      sourceDir = "north2";
-      birth = true;
-    } else if (roadRepairersN.length < 2 && !nAttackerId) {
-      roadRepairersN.push(name);
-      chosenRole = "rN";
-      name = "r" + t + "N";
-      parts = rParts500;
-      sourceDir = "north2";
-      birth = true;
-    } else {
-      nworkers.push(name);
-      chosenRole = "nBuilder";
-      buildRoom = "E35N32";
-      name = chosenRole + t;
-      parts = workerParts500;
-      birth = true;
-    }
+  //   if (harvestersN.length < 3 && !nAttackerId) {
+  //     harvestersN.push(name);
+  //     name = "h" + t + "N";
+  //     sourceDir = "north2";
+  //     birth = true;
+  //   } else if (roadRepairersN.length < 2 && !nAttackerId) {
+  //     roadRepairersN.push(name);
+  //     chosenRole = "rN";
+  //     name = "r" + t + "N";
+  //     parts = rParts500;
+  //     sourceDir = "north2";
+  //     birth = true;
+  //   } else {
+  //     nworkers.push(name);
+  //     chosenRole = "nBuilder";
+  //     buildRoom = "E35N32";
+  //     name = chosenRole + t;
+  //     parts = workerParts500;
+  //     birth = true;
+  //   }
 
-    if (birth) {
-      birthCreep(
-        s2,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        sourceDir,
-        buildRoom,
-        spawnDirection
-      );
-    }
-  } else if (enAvail >= 800) {
+  //   if (birth) {
+  //     birthCreep(
+  //       s2,
+  //       parts,
+  //       name,
+  //       chosenRole,
+  //       direction,
+  //       sourceId,
+  //       sourceDir,
+  //       buildRoom,
+  //       spawnDirection
+  //     );
+  //   }
+  // }
+
+  if (enAvail >= 800) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "N";
     let chosenRole = "h";
@@ -315,7 +317,7 @@ function spawnCreepTypes(enAvail) {
       attackersN.push(name);
       birth = true;
     } else if (upControllersN.length < 2) {
-      chosenRole = "nRezzy";
+      chosenRole = "upCN";
       name = chosenRole + t;
       direction = "n";
       parts = medupContrParts;
@@ -335,24 +337,19 @@ function spawnCreepTypes(enAvail) {
       parts = mednewhvParts;
       sourceDir = "north";
       birth = true;
+    } else if (roadRepairersN.length < 2 && !nAttackerId) {
+      roadRepairersN.push(name);
+      chosenRole = "rN";
+      name = "r" + t + "N";
+      parts = medrepairerParts;
+      sourceDir = "north2";
+      birth = true;
     } else if (nworkers.length < 3) {
       nworkers.push(name);
       chosenRole = "nBuilder";
       buildRoom = "E35N32";
       name = chosenRole + t;
       parts = medworkerParts;
-      birth = true;
-    } else if (upControllersN.length < 1) {
-      chosenRole = "eRezzy";
-      name = chosenRole + t;
-      direction = "ne";
-      parts = medupContrParts;
-      upControllersN.push(name);
-      birth = true;
-    } else {
-      harvestersN.push(name);
-      parts = mednewhvParts;
-      sourceDir = "east";
       birth = true;
     }
 
@@ -373,7 +370,9 @@ function spawnCreepTypes(enAvail) {
           )
       );
     }
-  } else if (enAvail >= 1100) {
+  }
+
+  if (enAvail >= 1100) {
     let t = Game.time.toString().slice(4);
     let name = "h" + t + "N";
     let chosenRole = "h";
@@ -396,7 +395,7 @@ function spawnCreepTypes(enAvail) {
       parts = mednewhvParts;
       sourceDir = "north";
     } else if (upControllersN.length < 3) {
-      chosenRole = "nRezzy";
+      chosenRole = "upCN";
       name = chosenRole + t;
       parts = medworkerParts;
       upControllersN.push(name);

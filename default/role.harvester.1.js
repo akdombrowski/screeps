@@ -57,7 +57,7 @@ const roleHarvester = {
             ? Memory.northAttackerId
             : null;
         }
-      } else if (direction == "east") {
+      } else if (direction == "east" || direction === "e") {
         if (
           !Memory.eastAttackerId ||
           Game.time >= Memory.eAttackDurationSafeCheck
@@ -145,7 +145,7 @@ const roleHarvester = {
 
       if (direction === "north") {
         retval = transferEnergyN(creep);
-      } else if (direction === "east") {
+      } else if (direction === "east" || direction === "e") {
         retval = transferEnergyeRm(creep);
         return retval;
       } else if (direction === "west") {

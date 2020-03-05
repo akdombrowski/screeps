@@ -75,7 +75,6 @@ function runRoles() {
   let westHarvesters = [];
   let linkGets = [];
   let eastHarvesters = [];
-  let eastUpControllers = [];
   let eeastUpControllers = [];
   let ermHarvesters = [];
   let eeRmHarvesters = [];
@@ -95,10 +94,17 @@ function runRoles() {
     }
 
     if (roll === "h" || roll === "harvester") {
-      if (creep.memory.direction === "north" || name.endsWith("N") || creep.memory.direction === "n") {
+      if (
+        creep.memory.direction === "north" ||
+        name.endsWith("N") ||
+        creep.memory.direction === "n"
+      ) {
         creep.memory.direction = "north";
         harvestersN.push(name);
-      } else if (creep.memory.direction === "east" && !name.endsWith("EE")) {
+      } else if (
+        creep.memory.direction === "east" ||
+        creep.memory.direction === "e"
+      ) {
         if (creep.memory.sourceDir === "north1") {
           harvestersNE.push(name);
         } else if (creep.memory.sourceDir === "north2") {
@@ -108,6 +114,7 @@ function runRoles() {
         } else if (creep.memory.sourceDir === "east2") {
           ermHarvesters.push(name);
         }
+        ermHarvesters.push(name);
 
         if (creep.memory.nesourceNumber === 1) {
           Memory.nesource1Creeps.push(name);
@@ -144,7 +151,6 @@ function runRoles() {
       southtowerHarvesters.push(name);
       roleHarvesterToSouthTower.run(creep);
     } else if (roll.startsWith("towerHarvesterN")) {
-
       towerHarvestersN.push(name);
       roleHarvesterToTowerN.run(creep);
     } else if (roll.startsWith("linkGet")) {
@@ -222,7 +228,7 @@ function runRoles() {
         "5bbcaefa9099fc012e639e8b"
       );
     } else if (roll === "eRezzy") {
-      eastUpControllers.push(name);
+      upController.push(name);
 
       claimContr(
         creep,
@@ -402,7 +408,6 @@ function runRoles() {
   Memory.southHarvesters = southHarvesters;
   Memory.linkGets = linkGets;
   Memory.eastHarvesters = eastHarvesters;
-  Memory.eastUpControllers = eastUpControllers;
   Memory.eeastUpControllers = eeastUpControllers;
   Memory.ermHarvesters = ermHarvesters;
   Memory.eeRmHarvesters = eeRmHarvesters;

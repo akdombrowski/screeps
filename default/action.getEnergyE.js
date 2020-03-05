@@ -35,6 +35,8 @@ function vest(creep, flag, path) {
     creep.memory.getEnergy = true;
   }
 
+  console.log(name + " getEnergyE " + target);
+
   if (!target) {
     target = eastSource1;
 

@@ -4,20 +4,10 @@ function spawnHarvesterChain(enAvail, rm, s1, harvesters) {
 
   if (!harvester1 && enAvail >= 1200) {
     let name = "harvester1";
-    let parts = [
-      WORK,
-      WORK,
-      WORK,
-      WORK,
-      WORK,
-      WORK,
-      WORK,
-      WORK,
-      WORK,
-      WORK,
-      WORK,
-      WORK,
-    ];
+    let parts = [];
+    for (let i = 0; i < 25; i++) {
+      parts.push(WORK);
+    }
     let chosenRole = "hChain";
     let direction = TOP;
     if (rm.lookForAt(LOOK_CREEPS, s1.pos.x, s1.pos.y - 1)) {
@@ -34,13 +24,7 @@ function spawnHarvesterChain(enAvail, rm, s1, harvesters) {
     harvesters.push(name);
   } else if (!harvester1 && enAvail >= 500) {
     let name = "harvester1";
-    let parts = [
-      WORK,
-      WORK,
-      WORK,
-      WORK,
-      WORK
-    ];
+    let parts = [WORK, WORK, WORK, WORK, WORK];
     let chosenRole = "hChain";
     let direction = TOP;
     if (rm.lookForAt(LOOK_CREEPS, s1.pos.x, s1.pos.y - 1)) {

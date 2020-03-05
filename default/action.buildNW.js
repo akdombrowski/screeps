@@ -10,7 +10,7 @@ function build(creep, flag, room) {
   let name = creep.name;
 
   if (rmName !== room) {
-    return smartMove(creep, flag, 1);
+    return smartMove(creep, flag, 1, false, null, 10, 200, 4);
   }
 
   if (
@@ -27,7 +27,7 @@ function build(creep, flag, room) {
       retval = ERR_TIRED;
       creep.say("f." + creep.fatigue);
     } else {
-      retval = smartMove(creep, target, 1);
+      retval = smartMove(creep, target, 1, false, null, null, 100, 1);
     }
 
     if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
@@ -112,7 +112,7 @@ function build(creep, flag, room) {
         return ERR_TIRED;
       }
 
-      retval = smartMove(creep, target, 3, "#ffff0f");
+      retval = smartMove(creep, target, 3, false, "#ffff0f", null, 100, 1);
 
       if (retval !== OK) {
         creep.say("err");

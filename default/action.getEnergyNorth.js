@@ -16,8 +16,10 @@ function vest(creep, flag, path) {
   if (creep.room.name === "E35N31") {
     if (creep.pos.isNearTo(Game.flags.northExit)) {
       retval = creep.move(TOP);
-    } else {
+    } else if(target) {
       retval = smartMove(creep, target, 1, false, null, null, 100, 1);
+    } else {
+      retval = smartMove(creep, Game.flags.northExit.pos, 1, false, null, null, 100, 2);
     }
     return retval;
   }

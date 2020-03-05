@@ -49,7 +49,7 @@ function vest(creep, flag, path) {
   }
 
   if(room.name !== "E34N32") {
-    retval = smartMove(creep, Game.flags.nwsource1.pos, 10);
+    retval = smartMove(creep, Game.flags.nwsource1.pos, 10, false, null, 400, 1000, 6);
     return retval;
   }
 
@@ -73,7 +73,7 @@ function vest(creep, flag, path) {
 
       return retval;
     } else {
-      retval = smartMove(creep, target, 1, true, "#000fff", 2000, 1000);
+      retval = smartMove(creep, target, 1, false, "#000fff", 1, 1000);
       return retval;
     }
   } else if (!target) {

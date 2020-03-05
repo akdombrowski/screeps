@@ -11,6 +11,7 @@ const upController = require("./action.upgradeController");
 const upControllerN = require("./action.upgradeControllerN");
 const upControllerNW = require("./action.upgradeControllerNW");
 const upControllerNE = require("./action.upgradeControllerNE");
+const upControllerE = require("./action.upgradeControllerE");
 const upControllerW = require("./action.upgradeControllerW");
 const rezzyContr = require("./action.reserveContr");
 const smartMove = require("./action.smartMove");
@@ -28,6 +29,7 @@ const roleAttackerN = require("./role.attackerN");
 const roleAttackerNW = require("./role.attackerNW");
 const roleAttackerNWW = require("./role.attackerNWW");
 const roleAttackerNE = require("./role.attackerNE");
+const claimE = require("./action.claimContrN");
 const claimNE = require("./action.claimContrNE");
 const claimN = require("./action.claimContrN");
 const claimNW = require("./action.claimContrNW");
@@ -57,6 +59,7 @@ function runRoles() {
   let upControllersNW = [];
   let upControllersW = [];
   let upControllersNE = [];
+  let upControllersE = [];
   let roadRepairers = [];
   let roadRepairersN = [];
   let roadRepairersNW = [];
@@ -162,7 +165,7 @@ function runRoles() {
       } else {
         creep.harvest(source2);
       }
-    } else if (roll === "eeRezzy") {
+    } else if (roll === "eeRezzy" || roll === "upCEE") {
       eeastUpControllers.push(name);
       roleEEUp(creep, "E37N31");
     } else if (roll === "eeworker") {
@@ -227,17 +230,10 @@ function runRoles() {
         "northEntrance1",
         "5bbcaefa9099fc012e639e8b"
       );
-    } else if (roll === "eRezzy") {
-      upController.push(name);
+    } else if (roll === "eRezzy" || roll === "upCE") {
+      upControllersE.push(name);
 
-      claimContr(
-        creep,
-        "E36N31",
-        Game.flags.eastExit,
-        RIGHT,
-        "eastEntrance1",
-        "5bbcaf0c9099fc012e63a0be"
-      );
+      upControllerE(creep, Game.flags.eastController, "E36N31");
     } else if (roll === "westRezzy") {
       rezzyContr(
         creep,
@@ -390,6 +386,7 @@ function runRoles() {
   Memory.upControllersNW = upControllersNW;
   Memory.upControllersW = upControllersW;
   Memory.upControllersNE = upControllersNE;
+  Memory.upControllersE = upControllersE;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersN = roadRepairersN;
   Memory.roadRepairersNW = roadRepairersNW;
@@ -408,7 +405,6 @@ function runRoles() {
   Memory.southHarvesters = southHarvesters;
   Memory.linkGets = linkGets;
   Memory.eastHarvesters = eastHarvesters;
-  Memory.eeastUpControllers = eeastUpControllers;
   Memory.ermHarvesters = ermHarvesters;
   Memory.eeRmHarvesters = eeRmHarvesters;
   Memory.etowerHarvesters = etowerHarvesters;

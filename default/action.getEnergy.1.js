@@ -76,7 +76,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   }
 
   if (target && target.pos.room && !target.energy && !targetedRm) {
-    retval = smartMove(creep, target, 1, false, null, null, 100, 1);
+    retval = smartMove(creep, target, 1, false, null, null, 200, 1);
     creep.say("ge.m." + retval);
     return retval;
   }
@@ -239,7 +239,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       // Still tired
       creep.say("f." + creep.fatigue);
     } else {
-      retval = smartMove(creep, target, 1, false, null, null, 100, 1);
+      retval = smartMove(creep, target, 1, false, null, null, 350, 1);
 
       if (retval === OK) {
         creep.say(target.pos.x + "," + target.pos.y);

@@ -203,7 +203,7 @@ function spawnCreepTypes(enAvail) {
     let birth = false;
     let buildRoom = "";
 
-    if (harvestersN.length < 2) {
+    if (harvestersN.length < 3) {
       harvestersN.push(name);
       parts = basicHv;
       sourceDir = "north";
@@ -215,23 +215,7 @@ function spawnCreepTypes(enAvail) {
       parts = simpleParts;
       upControllersN.push(name);
       birth = true;
-    } else if (nworkers.length < 1) {
-      nworkers.push(name);
-      chosenRole = "nBuilder";
-      buildRoom = "E35N32";
-      name = chosenRole + t;
-      parts = simpleParts;
-      birth = true;
-    }
-    // } else if (eeUps.length < 2) {
-    //   chosenRole = "eeUp";
-    //   name = chosenRole + t;
-    //   direction = "ee";
-    //   parts = simpleParts;
-    //   eeUps.push(name);
-    //   birth = true;
-    // }
-    else if (attackersN.length < 1 && nAttackerId) {
+    } else if (attackersN.length < 1 && nAttackerId) {
       console.log(
         "nattacker " +
           Memory.nAttackerId +
@@ -249,7 +233,7 @@ function spawnCreepTypes(enAvail) {
     }
 
     if (birth) {
-      birthCreep(
+      const retval = birthCreep(
         s2,
         parts,
         name,
@@ -260,6 +244,12 @@ function spawnCreepTypes(enAvail) {
         buildRoom,
         spawnDirection
       );
+
+      console.log(name + " role birth: " + retval);
+
+      if (retval === OK || retval === ERR_BUSY) {
+        return retval;
+      }
     }
   }
 
@@ -280,24 +270,10 @@ function spawnCreepTypes(enAvail) {
       name = "h" + t + "N";
       sourceDir = "north2";
       birth = true;
-    } else if (roadRepairersN.length < 2 && !nAttackerId) {
-      roadRepairersN.push(name);
-      chosenRole = "rN";
-      name = "r" + t + "N";
-      parts = rParts500;
-      sourceDir = "north2";
-      birth = true;
-    } else {
-      nworkers.push(name);
-      chosenRole = "nBuilder";
-      buildRoom = "E35N32";
-      name = chosenRole + t;
-      parts = workerParts500;
-      birth = true;
     }
 
     if (birth) {
-      birthCreep(
+      const retval = birthCreep(
         s2,
         parts,
         name,
@@ -308,9 +284,14 @@ function spawnCreepTypes(enAvail) {
         buildRoom,
         spawnDirection
       );
+
+      console.log(name + " role birth: " + retval);
+
+      if (retval === OK || retval === ERR_BUSY) {
+        return retval;
+      }
     }
   }
-
 
   if (enAvail >= 800) {
     let t = Game.time.toString().slice(4);
@@ -345,13 +326,6 @@ function spawnCreepTypes(enAvail) {
       parts = mednewhvParts;
       sourceDir = "north";
       birth = true;
-    } else if (roadRepairersN.length < 2 && !nAttackerId) {
-      roadRepairersN.push(name);
-      chosenRole = "rN";
-      name = "r" + t + "N";
-      parts = medrepairerParts;
-      sourceDir = "north2";
-      birth = true;
     } else if (nworkers.length < 3) {
       nworkers.push(name);
       chosenRole = "nBuilder";
@@ -359,24 +333,39 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = medworkerParts;
       birth = true;
+    } else if (harvestersN.length < 5 && !nAttackerId) {
+      harvestersN.push(name);
+      name = "h" + t + "N";
+      parts = mednewhvParts;
+      sourceDir = "north1";
+      birth = true;
+    } else if (nworkers.length < 4) {
+      upControllersN.push(name);
+      chosenRole = "upCN";
+      buildRoom = "E35N32";
+      name = chosenRole + t;
+      parts = medupContrParts;
+      birth = true;
     }
 
     if (birth) {
-      console.log(
-        name +
-          " role birth: " +
-          birthCreep(
-            s2,
-            parts,
-            name,
-            chosenRole,
-            direction,
-            sourceId,
-            sourceDir,
-            buildRoom,
-            spawnDirection
-          )
+      const retval = birthCreep(
+        s2,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        sourceDir,
+        buildRoom,
+        spawnDirection
       );
+
+      console.log(name + " role birth: " + retval);
+
+      if (retval === OK || retval === ERR_BUSY) {
+        return retval;
+      }
     }
   }
 

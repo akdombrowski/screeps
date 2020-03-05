@@ -447,7 +447,6 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts500;
     let spawnDirection = [BOTTOM];
 
-    console.log("spawning harv " + harvestersNW.length);
     if (
       harvestersW.length < 2 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
@@ -773,17 +772,6 @@ function spawnCreepTypes(enAvail) {
     } else if (harvestersS.length < 2) {
       harvestersS.push(name);
       parts = southHvParts;
-      birth = true;
-    } else if (
-      nworkers.length < 1 &&
-      (!nAttackerId || Game.time >= nAttackDurationSafeCheck)
-    ) {
-      nworkers.push(name);
-      chosenRole = "nBuilder";
-      direction = "north";
-      buildRoom = "E35N32";
-      name = chosenRole + t;
-      parts = workerParts;
       birth = true;
     } else if (southtowerHarvesters.length < 2) {
       chosenRole = "southtowerHarvester";

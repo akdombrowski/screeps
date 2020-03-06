@@ -117,6 +117,12 @@ function spawnCreepTypes(enAvail) {
   addPart(upContrParts, 1, WORK);
   addPart(upContrParts, 5, MOVE);
 
+  // 500
+  let workerParts500 = [];
+  addPart(workerParts500, 3, CARRY);
+  addPart(workerParts500, 1, WORK);
+  addPart(workerParts500, 5, MOVE);
+
   // 2500
   let moverParts = [];
   addPart(moverParts, 50, MOVE);
@@ -465,6 +471,21 @@ function spawnCreepTypes(enAvail) {
       name += "NWW";
       direction = "nww";
       harvestersNWW.push(name);
+      retval = birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (workers.length < 4) {
+      chosenRole = "worker";
+      name = chosenRole + t;
+      parts = workerParts500;
+      direction = "south";
+      workers.push(name);
       retval = birthCreep(
         s1,
         parts,

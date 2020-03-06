@@ -166,7 +166,8 @@ function tran(creep, flag, dest) {
   } else if (target) {
     creep.say("m." + target.pos.x + "," + target.pos.y);
 
-    retval = smartMove(creep, target, 1);
+    console.log(name + " Moving eeast")
+    retval = smartMove(creep, target, 1, false, null, null, 50, 1);
 
     if (retval !== OK) {
       creep.memory.path = null;

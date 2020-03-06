@@ -32,7 +32,8 @@ function traneRm(creep, flag, dest) {
         creep.transfer(target, RESOURCE_ENERGY);
         creep.say("t");
       } else {
-        smartMove(creep, target, 1);
+        console.log("moving")
+        smartMove(creep, target, 1, false);
         creep.say("m");
       }
 
@@ -123,7 +124,8 @@ function traneRm(creep, flag, dest) {
     } else if (target) {
       creep.say("m." + target.pos.x + "," + target.pos.y);
 
-      retval = smartMove(creep, target, 1);
+      console.log("moving eerm")
+      retval = smartMove(creep, target, 1, false);
 
       if (retval != OK) {
         creep.say("err." + retval);

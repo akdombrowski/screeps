@@ -251,6 +251,7 @@ function spawnCreepTypes(enAvail) {
     } else if (workers.length < 3) {
       // go to base room
       chosenRole = "worker";
+      direction = "south";
       name = chosenRole + t;
       eeworkers.push(name);
       parts = medworkerParts;
@@ -299,7 +300,7 @@ function spawnCreepTypes(enAvail) {
       parts = medworkerParts;
       eeastUpControllers.push(name);
     } else if (eeworkers.length < 3) {
-      chosenRole = "worker";
+      chosenRole = "eeworker";
       name = chosenRole + t;
       eeastWorkers.push(name);
       parts = medworkerParts;
@@ -320,6 +321,7 @@ function spawnCreepTypes(enAvail) {
   Memory.harvesters = harvesters;
   Memory.harvestersN = harvestersN;
   Memory.eeharvesters = eeharvesters;
+  Memory.workers = workers;
   Memory.eeworkers = eeworkers;
   Memory.eeneworkers = eeneworkers;
   Memory.eeroadRepairers = eeroadRepairers;
@@ -328,7 +330,6 @@ function spawnCreepTypes(enAvail) {
   Memory.eenorthHarvesters = eenorthHarvesters;
   Memory.eewestHarvesters = eewestHarvesters;
   Memory.eelinkGets = eelinkGets;
-  Memory.workers = workers;
   Memory.eeastWorkers = eeastWorkers;
   Memory.eeastUpControllers = eeastUpControllers;
   Memory.eeRmHarvesters = eeRmHarvesters;

@@ -288,10 +288,10 @@ function spawnCreepTypes(enAvail) {
       parts = medworkerParts;
       upControllersE.push(name);
     } else if (upControllersNE.length < 3) {
-      chosenRole = "upCE";
+      chosenRole = "upCNE";
       name = chosenRole + t;
       parts = medworkerParts;
-      upControllersE.push(name);
+      upControllersNE.push(name);
     } else if (eworkers.length < 3) {
       chosenRole = "eworker";
       buildRoom = "E36N31";

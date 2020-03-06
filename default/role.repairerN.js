@@ -14,7 +14,7 @@ var roleRepairer = {
     let rm = creep.room;
     let rmName = rm.name;
     let name = creep.name;
-    const lastRepairableStructId = creep.memory.lastRepairableStruct;
+    const lastRepairableStructId = creep.memory.lastRepairableStructId;
 
     if (rmName !== "E35N32") {
       console.log(name + " ");
@@ -50,7 +50,7 @@ var roleRepairer = {
       }
 
       if (target) {
-        creep.memory.lastRepairableStruct = target.id;
+        creep.memory.lastRepairableStructId = target.id;
         if (creep.pos.inRangeTo(target, 3)) {
           let retval = creep.repair(target);
 

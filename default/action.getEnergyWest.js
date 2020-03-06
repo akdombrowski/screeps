@@ -16,7 +16,7 @@ function vest(creep, flag, path) {
     if (creep.pos.isNearTo(Game.flags.westExit)) {
       retval = creep.move(LEFT);
     } else {
-      retval = smartMove(creep, Game.flags.westExit, 1);
+      retval = smartMove(creep, Game.flags.westExit, 1, false, null, 10, 1000, 1);
     }
     return retval;
   }

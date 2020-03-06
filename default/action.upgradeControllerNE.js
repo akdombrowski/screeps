@@ -8,7 +8,7 @@ function upController(creep, flag, room) {
   let rm = room;
   controller = Game.getObjectById(controllerId);
   if (creep.room.name !== room) {
-    retval = smartMove(creep, controller, 10);
+    retval = smartMove(creep, controller, 10, false, null, 10, 1000, 2);
   }
 
   if (
@@ -32,7 +32,7 @@ function upController(creep, flag, room) {
         retval = ERR_TIRED;
       } else {
         creep.say(target.pos.x + "," + target.pos.y);
-        retval = smartMove(creep, target, 1);
+        retval = smartMove(creep, target, 1, false, null, 10, 500, 1);
       }
     } else {
       creep.say("sad");
@@ -42,7 +42,7 @@ function upController(creep, flag, room) {
       retval = creep.upgradeController(controller);
       creep.say("up." + retval);
     } else {
-      retval = smartMove(creep, controller, 3);
+      retval = smartMove(creep, controller, 3, false, null, 100, 500, 1);
     }
   }
 

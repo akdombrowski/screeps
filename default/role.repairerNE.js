@@ -4,6 +4,7 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const build = require("./action.build");
 const buildN = require("./action.buildN");
+const buildNE = require("./action.buildNE");
 const findRepairable = require("./action.findRepairableStruct");
 
 var roleRepairer = {
@@ -18,7 +19,16 @@ var roleRepairer = {
 
     if (rmName !== "E36N32") {
       console.log(name + " ");
-      retval = smartMove(creep, Game.spawns.spawnN, 10);
+      retval = smartMove(
+        creep,
+        Game.spawns.spawnN,
+        10,
+        false,
+        null,
+        10,
+        1000,
+        2
+      );
       return retval;
     }
 
@@ -50,7 +60,8 @@ var roleRepairer = {
       }
 
       if (target) {
-        creep.memory.lastRepairableStruct = target.id;
+        creep.memory.lastRepairableStructId = target.id;
+
         if (creep.pos.inRangeTo(target, 3)) {
           let retval = creep.repair(target);
 
@@ -64,7 +75,7 @@ var roleRepairer = {
             creep.say("r.err");
           }
         } else {
-          retval = smartMove(creep, target, 3);
+          retval = smartMove(creep, target, 3, false, null, 10, 100, 1);
           creep.memory.r = target.pos;
           if (creep.fatigue > 0) {
             creep.say("f." + creep.fatigue);
@@ -80,7 +91,7 @@ var roleRepairer = {
         creep.memory.getEnergy = true;
         retval = getEnergyNE(creep);
       } else {
-        retval = buildN(creep);
+        retval = buildNE(creep);
         creep.say("r.b");
       }
     }

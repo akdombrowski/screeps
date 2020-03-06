@@ -1,7 +1,7 @@
 const smartMove = require("./action.smartMove");
 
 function build(creep, flag, room) {
-  let targetId = "5e573320ed4d65035f99cb28";
+  let targetId = "5e60f7da11457a06d70b09a8";
   let target = Game.getObjectById(targetId);
   let building = true;
   let retval = -16;

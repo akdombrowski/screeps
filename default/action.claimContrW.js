@@ -6,6 +6,13 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
   let flag = Game.flags.west;
   let retval;
   controller = Game.getObjectById(controllerId);
+  const room = creep.room;
+  const roomName = room.name;
+
+  if (roomName !== rm) {
+    retval = smartMove(creep, controller, 5, false, null, 10, 1000, 2);
+    return retval;
+  }
 
   if (controller) {
     if (creep.pos.inRangeTo(controller, 1)) {
@@ -18,7 +25,7 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
       retval = smartMove(creep, controller, 1);
     }
   } else {
-  retval = smartMove(creep, flag, 10);
+    retval = smartMove(creep, flag, 10);
   }
 
   return retval;

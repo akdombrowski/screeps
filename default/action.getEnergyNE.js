@@ -72,7 +72,11 @@ function vest(creep, flag, path) {
 
       return retval;
     } else {
-      retval = smartMove(creep, target, 1, false, null, null, null, 1);
+      let maxOps = null;
+      if(creep.memory.role === "upCNE") {
+        maxOps = 1000;
+      }
+      retval = smartMove(creep, target, 1, false, null, null, maxOps, 1);
       return retval;
     }
   } else if (!target) {

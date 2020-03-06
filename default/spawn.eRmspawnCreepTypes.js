@@ -113,9 +113,9 @@ function spawnCreepTypes(enAvail) {
 
   // 800
   let medworkerParts = [];
-  addPart(medworkerParts, 1, CARRY);
+  addPart(medworkerParts, 7, CARRY);
   addPart(medworkerParts, 4, WORK);
-  addPart(medworkerParts, 7, MOVE);
+  addPart(medworkerParts, 1, MOVE);
 
   // 800
   let medrepairerParts = [];
@@ -279,6 +279,13 @@ function spawnCreepTypes(enAvail) {
       neworkers.push(name);
       chosenRole = "neBuilder";
       buildRoom = "E36N32";
+      name = chosenRole + t;
+      parts = workerParts;
+      birth = true;
+    } else if (eworkers.length < 3) {
+      eworkers.push(name);
+      chosenRole = "eBuilder";
+      buildRoom = "E36N31";
       name = chosenRole + t;
       parts = workerParts;
       birth = true;

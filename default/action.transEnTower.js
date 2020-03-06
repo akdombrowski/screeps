@@ -115,7 +115,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   } else if (target) {
     // creep.say("m." + target.pos.x + "," + target.pos.y);
     creep.memory.transTowerId = target.id;
-    retval = smartMove(creep, target, 1);
+    retval = smartMove(creep, target, 1, false, null, null, null, 1);
 
     if (retval === ERR_NOT_FOUND) {
       creep.say("err." + retval);

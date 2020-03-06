@@ -253,13 +253,13 @@ module.exports.loop = function() {
     crps = Game.creeps;
     numCrps = Object.keys(crps).length;
 
-    if (Game.cpu.bucket > 20) {
+    if (Game.cpu.bucket > 15) {
       runRoles();
     } else {
       console.log("low cpu bucket: " + Game.cpu.bucket);
     }
 
-    if (Game.cpu.bucket > 20) {
+    if (Game.cpu.bucket > 25) {
       spawnCreepTypes(enAvail);
 
       spawnToSource1Chain();
@@ -272,7 +272,7 @@ module.exports.loop = function() {
       console.log("low cpu bucket: " + Game.cpu.bucket);
     }
 
-    if (Game.cpu.bucket > 40) {
+    if (Game.cpu.bucket > 30) {
       linkTransfer(linkSpawn, slinkMiddle);
       linkTransfer(linkSpawn, slinkMiddle2);
     } else {

@@ -49,8 +49,11 @@ function tran(creep, flag, dest) {
       creep,
       Game.flags.tower6.pos,
       5,
-      (maxRms = 8),
-      (maxOps = 1000)
+      false,
+      null,
+      10,
+      500,
+      8
     );
     return retval;
   }
@@ -88,7 +91,7 @@ function tran(creep, flag, dest) {
           retval = ERR_TIRED;
         }
       } else {
-        retval = smartMove(creep, tower6, 3);
+        retval = smartMove(creep, tower6, 3, false, null, null, null, 1);
       }
       return retval;
     } else if (creep.room.name === "E35N31" && direction === "west") {
@@ -138,9 +141,7 @@ function tran(creep, flag, dest) {
   }
 
   let extensionNeedsEnergy = false;
-  if (
-    !target
-  ) {
+  if (!target) {
     let exts;
 
     if (!Memory.e35n31Extensions) {

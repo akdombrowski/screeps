@@ -57,7 +57,7 @@ function tran(creep, flag, dest) {
     if (creep.room.name === "E35N32") {
       if (
         creep.pos === Game.flags.northEntrance1 ||
-        creep.pos.inRangeTo(Game.flags.northEntrance1, 1)
+        creep.pos.isNearTo(Game.flags.northEntrance1)
       ) {
         if (fatigue > 0) {
           retval = ERR_TIRED;

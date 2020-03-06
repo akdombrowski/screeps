@@ -25,8 +25,8 @@ function smartMove(
   const direction = creep.memory.direction;
   pathColor = pathColor || getRandomColor();
   pathMem = pathMem || Math.floor(Math.random() * 10);
-  maxOps = maxOps || Math.floor(Math.random() * 1000) + 1;
-  maxRms = maxRms || 4;
+  maxOps = maxOps || Math.floor(Math.random() * 100) + 1;
+  maxRms = maxRms || 1;
   ignoreCreeps = ignoreCreeps || false;
 
   if (creep.fatigue > 0) {
@@ -35,41 +35,6 @@ function smartMove(
   } else if (!dest) {
     creep.say("no destination");
     return retval;
-  }
-
-  // keep them separate to allow fine tuning of maxOps
-  if (name === "claimNE" || roll === "claimW" || roll === "claimNW") {
-    maxOps = 1000;
-  } else if (roll.endsWith("WW")) {
-    maxOps = 1000;
-    maxRooms = 8;
-  } else if (roll === "upCNE") {
-    maxOps = 1000;
-  } else if (roll === "upCN") {
-    maxOps = 500;
-  } else if (roll === "upCNW") {
-    maxOps = 1000;
-  } else if (name.endsWith("NE")) {
-    maxOps = 700;
-  } else if (direction === "west") {
-    maxOps = 500;
-  } else if (name.startsWith("claim")) {
-    maxOps = 200;
-  } else if (name.endsWith("E")) {
-    maxOps = 500;
-  } else if (roll === "neBuilder") {
-    maxOps = 500;
-  } else if (roll === "worker" && direction === "eeast") {
-    maxOps = 500;
-  } else if (name.startsWith("etowerHarvester")) {
-    maxOps = 500;
-  } else if (name.startsWith("eeUp")) {
-    maxOps = 200;
-  } else if (
-    creep.memory.sourceDir === "eeast" &&
-    (roll === "worker" || roll === "eeworker")
-  ) {
-    maxOps = 500;
   }
 
   let destPos = dest;

@@ -70,34 +70,12 @@ function transEn(creep, flag, dest) {
       retval = creep.transfer(target, RESOURCE_ENERGY);
       creep.say("t");
     } else {
-      retval = smartMove(creep, target, 1);
+      retval = smartMove(creep, target, 1, false, null, null, null, 1);
       creep.say("m");
     }
 
     return retval;
-  } else if (creep.room.name === "E36N32") {
-    if (creep.pos.isNearTo(Game.flags.ne_e)) {
-      retval = creep.move(BOTTOM);
-    } else {
-      retval = smartMove(creep, Game.flags.ne_e, 1);
-    }
-
-    return retval;
-  } else if (creep.room.name === "E34N31") {
-    retval = smartMove(
-      creep,
-      Game.getObjectById("5d1330677594977c6d3f49ad"),
-      3
-    );
-    return retval;
-  } else if (creep.room.name === "E35N32") {
-    if (creep.pos.y >= 49) {
-      retval = creep.move(BOTTOM);
-    } else {
-      retval = smartMove(creep, Game.flags.northEntrance1, 1);
-    }
-    return retval;
-  } else if (creep.memory.dest) {
+  }  else if (creep.memory.dest) {
     target = Game.getObjectById(creep.memory.dest);
   } else if (creep.memory.flag) {
     target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
@@ -144,7 +122,7 @@ function transEn(creep, flag, dest) {
   } else if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
   } else if (target) {
-    retval = smartMove(creep, target, 1);
+    retval = smartMove(creep, target, 1, false, null, null, null, 1);
 
     if (retval != OK) {
       creep.say("err." + retval);

@@ -64,7 +64,7 @@ function spawnCreepTypes(enAvail) {
 
   let eastHarvesters = Memory.eastHarvesters || [];
   let upControllersN = Memory.eastUpControllers || [];
-  let towerHarvestersN = Memory.etowerHarvesters || [];
+  let towerHarvestersN = Memory.towerHarvestersN || [];
   let eeUps = Memory.eeUps || [];
 
   let claimers = Memory.claimers || [];

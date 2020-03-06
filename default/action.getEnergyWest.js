@@ -62,7 +62,7 @@ function vest(creep, flag, path) {
     } else if (creep.fatigue > 0) {
       creep.say("f." + creep.fatigue);
     } else {
-      retval = smartMove(creep, target, 1, true, "#000fff", 2000, 1000);
+      retval = smartMove(creep, target, 1, true, null, null, null, 1);
     }
     return retval;
   } else if (!target) {

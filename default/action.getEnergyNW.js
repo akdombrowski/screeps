@@ -73,7 +73,7 @@ function vest(creep, flag, path) {
 
       return retval;
     } else {
-      retval = smartMove(creep, target, 1, false, "#000fff", 1, 1000);
+      retval = smartMove(creep, target, 1, false, null, null, null, 1);
       return retval;
     }
   } else if (!target) {

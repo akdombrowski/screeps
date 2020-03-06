@@ -87,7 +87,7 @@ function spawnCreepTypes(enAvail) {
   let harvestersNW = Memory.harvestersNW || [];
   let harvestersNWW = Memory.harvestersNWW || [];
   let harvestersW = Memory.westHarvesters || [];
-  let harvestersS = Memory.southHarvesters || [];
+  let harvestersS = Memory.harvestersS || [];
   let harvestersE = Memory.eastHarvesters || [];
   let southtowerHarvesters = Memory.southtowerHarvesters || [];
   let claimers = Memory.claimers || [];
@@ -413,7 +413,7 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts500;
     let spawnDirection = [BOTTOM];
 
-    if (harvesters.length < 3) {
+    if (harvestersS.length < 3) {
       name += "S";
       direction = "south";
       harvestersS.push(name);
@@ -484,7 +484,7 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  if (enAvail >= 500 && !invaderId) {
+  if (enAvail >= 510 && !invaderId) {
     let t = Game.time.toString().slice(4);
     let name = "harv" + t;
     let chosenRole = "h";
@@ -877,6 +877,7 @@ function spawnCreepTypes(enAvail) {
   }
 
   Memory.harvesters = harvesters;
+  Memory.harvestersS = harvestersS;
   Memory.workers = workers;
   Memory.nworkers = nworkers;
   Memory.nwworkers = nwworkers;

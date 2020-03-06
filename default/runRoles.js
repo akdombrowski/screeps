@@ -43,6 +43,7 @@ function runRoles() {
   let i = 0;
   let crps = Game.creeps;
   let harvesters = [];
+  let harvestersS = [];
   let harvestersN = [];
   let harvestersNW = [];
   let harvestersNWW = [];
@@ -140,7 +141,7 @@ function runRoles() {
         creep.memory.direction = "nww";
         harvestersNWW.push(name);
       } else {
-        southHarvesters.push(name);
+        harvestersS.push(name);
       }
 
       harvesters.push(name);
@@ -153,7 +154,7 @@ function runRoles() {
       harvesters.push(name);
       southtowerHarvesters.push(name);
       roleHarvesterToSouthTower.run(creep);
-    } else if (roll.startsWith("towerHarvesterN")) {
+    } else if (roll.startsWith("ntowerHarvester")) {
       towerHarvestersN.push(name);
       roleHarvesterToTowerN.run(creep);
     } else if (roll.startsWith("linkGet")) {
@@ -370,6 +371,7 @@ function runRoles() {
   }
 
   Memory.harvesters = harvesters;
+  Memory.harvestersS = harvestersS;
   Memory.harvestersN = harvestersN;
   Memory.harvestersNW = harvestersNW;
   Memory.harvestersNWW = harvestersNWW;

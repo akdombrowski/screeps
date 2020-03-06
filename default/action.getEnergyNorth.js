@@ -17,9 +17,9 @@ function vest(creep, flag, path) {
     if (creep.pos.isNearTo(Game.flags.northExit)) {
       retval = creep.move(TOP);
     } else if(target) {
-      retval = smartMove(creep, target, 1, false, null, null, 100, 1);
+      retval = smartMove(creep, target, 1, false, null, null, null, 1);
     } else {
-      retval = smartMove(creep, Game.flags.northExit.pos, 1, false, null, null, 100, 2);
+      retval = smartMove(creep, Game.flags.northExit.pos, 1, false, null, null, null, 1);
     }
     return retval;
   }
@@ -58,7 +58,7 @@ function vest(creep, flag, path) {
     } else if (creep.fatigue > 0) {
       creep.say("f." + creep.fatigue);
     } else {
-      retval = smartMove(creep, target, 1, false, null, null, 100, 1);
+      retval = smartMove(creep, target, 1, false, null, null, null, 1);
     }
     return retval;
   } else if (!target) {
@@ -69,7 +69,7 @@ function vest(creep, flag, path) {
         retval = creep.pickup(target);
       } else {
         creep.say("pu");
-        retval = smartMove(creep, target, 1);
+        retval = smartMove(creep, target, 1, false, null, null, null, 1);
       }
 
       creep.memory.sourceId = null;

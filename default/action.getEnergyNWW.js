@@ -49,7 +49,7 @@ function vest(creep, flag, path) {
   }
 
   if (room.name !== "E33N32") {
-    retval = smartMove(creep, Game.flags.nwwsource1.pos, 5, false, "#f201ff9f", 0, 1000, 8);
+    retval = smartMove(creep, Game.flags.nwwsource1.pos, 5, false, null, 10, 1000, 8);
     if (logging) {
       console.log(name + " retval move to e33n32 " + retval);
     }
@@ -76,7 +76,7 @@ function vest(creep, flag, path) {
 
       return retval;
     } else {
-      retval = smartMove(creep, target, 1, false, "#000fff", 2000, 1000, 1);
+      retval = smartMove(creep, target, 1, false, null, null, null, 1);
       return retval;
     }
   } else if (!target) {

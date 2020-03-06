@@ -72,7 +72,7 @@ function vest(creep, flag, path) {
 
       return retval;
     } else {
-      retval = smartMove(creep, target, 1, false, null, null, 100, 1);
+      retval = smartMove(creep, target, 1, false, null, null, null, 1);
       return retval;
     }
   } else if (!target) {
@@ -83,7 +83,7 @@ function vest(creep, flag, path) {
         retval = creep.pickup(target);
       } else {
         creep.say("pu");
-        retval = smartMove(creep, target, 1, false, null, null, 100, 1);
+        retval = smartMove(creep, target, 1, false, null, null, null, 1);
       }
 
       creep.memory.sourceId = null;

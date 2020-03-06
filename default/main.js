@@ -272,7 +272,7 @@ module.exports.loop = function() {
       console.log("low cpu bucket: " + Game.cpu.bucket);
     }
 
-    if (Game.cpu.bucket > 20) {
+    if (Game.cpu.bucket > 40) {
       linkTransfer(linkSpawn, slinkMiddle);
       linkTransfer(linkSpawn, slinkMiddle2);
     } else {

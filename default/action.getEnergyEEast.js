@@ -56,17 +56,17 @@ function vest(creep, flag, path) {
 
       return retval;
     } else {
-      // retval = smartMove(creep, target, 1, true, "#000fff", 2000, 1000);
+      retval = smartMove(creep, target, 1, false, null, null, null, 1);
 
-      retval = creep.moveTo(target, {
-        visualizePathStyle: {
-          fill: "transparent",
-          stroke: "#fff",
-          lineStyle: "dashed",
-          strokeWidth: 0.15,
-          opacity: 0.1,
-        },
-      });
+      // retval = creep.moveTo(target, {
+      //   visualizePathStyle: {
+      //     fill: "transparent",
+      //     stroke: "#fff",
+      //     lineStyle: "dashed",
+      //     strokeWidth: 0.15,
+      //     opacity: 0.1,
+      //   },
+      // });
       return retval;
     }
   } else if (!target) {

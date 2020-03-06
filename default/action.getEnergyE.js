@@ -35,7 +35,6 @@ function vest(creep, flag, path) {
     creep.memory.getEnergy = true;
   }
 
-  console.log(name + " getEnergyE " + target);
 
   if (!target) {
     target = eastSource1;
@@ -55,7 +54,7 @@ function vest(creep, flag, path) {
 
       return retval;
     } else {
-      retval = smartMove(creep, target, 1, true, "#000fff", 2000, 1000);
+      retval = smartMove(creep, target, 1, true, "#000fff", null, null, 1);
 
       return retval;
     }

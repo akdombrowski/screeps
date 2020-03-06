@@ -27,7 +27,7 @@ function build(creep, flag, room) {
       retval = ERR_TIRED;
       creep.say("f." + creep.fatigue);
     } else {
-      retval = smartMove(creep, target, 1);
+      retval = smartMove(creep, target, 1, false, null, 100, 1000, 1);
     }
 
     if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
@@ -111,7 +111,7 @@ function build(creep, flag, room) {
         return ERR_TIRED;
       }
 
-      retval = smartMove(creep, target, 3, "#ffff0f");
+      retval = smartMove(creep, target, 3, false, null, 100, 1000, 1);
 
       if (retval !== OK) {
         creep.say("err");

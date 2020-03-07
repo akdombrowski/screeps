@@ -39,7 +39,7 @@ function tran(creep, flag, dest) {
   }
 
   if (rm.name !== "E35N31") {
-    retval = smartMove(creep, tower6, 5);
+    retval = smartMove(creep, tower6, 5, false, null, 10, 1000, 4);
     return retval;
   }
 

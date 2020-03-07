@@ -729,7 +729,7 @@ function spawnCreepTypes(enAvail) {
       harvestersNWW.push(name);
       birth = true;
     } else if (harvestersNW.length < 5) {
-      name += "WW";
+      name += "NW";
       parts = travelhvParts;
       direction = "nw";
       harvestersNW.push(name);
@@ -741,7 +741,7 @@ function spawnCreepTypes(enAvail) {
       harvestersNWW.push(name);
       birth = true;
     } else if (harvestersNW.length < 6) {
-      name += "WW";
+      name += "NW";
       parts = travelhvParts;
       direction = "nw";
       harvestersNW.push(name);

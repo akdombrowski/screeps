@@ -49,7 +49,16 @@ function vest(creep, flag, path) {
   }
 
   if (room.name !== "E33N32") {
-    retval = smartMove(creep, Game.flags.nwwsource1.pos, 5, false, null, 10, 1000, 8);
+    retval = smartMove(
+      creep,
+      Game.flags.nwwsource1.pos,
+      5,
+      false,
+      null,
+      10,
+      1000,
+      8
+    );
     if (logging) {
       console.log(name + " retval move to e33n32 " + retval);
     }
@@ -59,9 +68,35 @@ function vest(creep, flag, path) {
   creep.memory.transfer = false;
   creep.memory.getEnergy = true;
 
+  if (target) {
+    if (
+      (target.energy && target.energy <= 0) ||
+      !target.store ||
+      !target.store[RESOURCE_ENERGY] ||
+      target.store[RESOURCE_ENERGY] <= 0
+    ) {
+      target = null;
+    }
+  }
+
   if (!target) {
     target = nwwSource1;
     target = checkForCreepsNearSource(creep, 1, [nwwSource1, nwwSource2]);
+
+    console.log(name);
+    console.log(target);
+    if (
+      (target.energy && target.energy <= 0) ||
+      !target.store ||
+      !target.store[RESOURCE_ENERGY] ||
+      target.store[RESOURCE_ENERGY] <= 0
+    ) {
+      target = null;
+    }
+  }
+
+  if (!target) {
+    target = nwwSource2;
   }
 
   if (target) {

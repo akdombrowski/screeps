@@ -22,7 +22,7 @@ function tran(creep, flag, dest) {
   let enAvail = rm.energyAvailable;
   let retval = -16;
 
-  if (_.sum(creep.carry) < 50) {
+  if (_.sum(creep.carry) <= 0) {
     creep.memory.path = null;
     creep.memory.transfer = false;
     return retval;

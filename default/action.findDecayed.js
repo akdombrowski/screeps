@@ -22,6 +22,9 @@ function findDecayed(roomName) {
     // sort by the difference of hits and hits max (how much more before getting to full structural health).
     // since sortBy sorts by ascending value, we'll use the negative of the difference b/w hits and hitsmax
     _.sortBy(fixables, value => {
+      if(value.hits < 1000) {
+        return -value.hits;
+      }
       return value.hits - value.hitsMax;
     });
 

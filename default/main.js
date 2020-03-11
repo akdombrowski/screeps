@@ -307,7 +307,7 @@ module.exports.loop = function() {
       roleTower.run(towerN);
     }
 
-    if (!Memory.e35n31fixables || Memory.e35n31fixables.length < 50) {
+    if (!Memory.e35n31fixables || Memory.e35n31fixables.length < 90) {
       Memory.e35n31fixables = findDecayed("E35N31");
     }
     if (!Memory.e36n31fixables || Memory.e36n31fixables.length < 4) {

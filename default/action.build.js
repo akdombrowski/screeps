@@ -75,7 +75,7 @@ function build(creep) {
       } else if (creep.fatigue > 0) {
         creep.say("f." + creep.fatigue);
       } else {
-        retval = smartMove(creep, target, 3);
+        retval = smartMove(creep, target, 3, false, null, null, 200, 1);
         // Couldn't move towards construction target
         if (retval === ERR_INVALID_TARGET || retval === ERR_INVALID_TARGET) {
           creep.say("m.inval");

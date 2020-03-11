@@ -69,12 +69,7 @@ function vest(creep, flag, path) {
   creep.memory.getEnergy = true;
 
   if (target) {
-    if (
-      (target.energy && target.energy <= 0) ||
-      !target.store ||
-      !target.store[RESOURCE_ENERGY] ||
-      target.store[RESOURCE_ENERGY] <= 0
-    ) {
+    if (target.energy && target.energy <= 0) {
       target = null;
     }
   }
@@ -85,12 +80,7 @@ function vest(creep, flag, path) {
 
     console.log(name);
     console.log(target);
-    if (
-      (target.energy && target.energy <= 0) ||
-      !target.store ||
-      !target.store[RESOURCE_ENERGY] ||
-      target.store[RESOURCE_ENERGY] <= 0
-    ) {
+    if (target.energy && target.energy <= 0) {
       target = null;
     }
   }

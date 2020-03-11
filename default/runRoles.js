@@ -61,6 +61,7 @@ function runRoles() {
   let upControllersW = [];
   let upControllersNE = [];
   let upControllersE = [];
+  let eeastUpControllers = [];
   let roadRepairers = [];
   let roadRepairersN = [];
   let roadRepairersNW = [];
@@ -79,7 +80,6 @@ function runRoles() {
   let westHarvesters = [];
   let linkGets = [];
   let eastHarvesters = [];
-  let eeastUpControllers = [];
   let ermHarvesters = [];
   let eeRmHarvesters = [];
   let etowerHarvesters = [];
@@ -389,6 +389,7 @@ function runRoles() {
   Memory.upControllersW = upControllersW;
   Memory.upControllersNE = upControllersNE;
   Memory.upControllersE = upControllersE;
+  Memory.eeastUpControllers = eeastUpControllers;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersN = roadRepairersN;
   Memory.roadRepairersNW = roadRepairersNW;

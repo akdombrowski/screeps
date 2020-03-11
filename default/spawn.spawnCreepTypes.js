@@ -479,7 +479,7 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (workers.length < 4) {
+    } else if (workers.length < 2) {
       chosenRole = "worker";
       name = chosenRole + t;
       parts = workerParts500;

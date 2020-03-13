@@ -29,7 +29,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     return OK;
   }
 
-  if(creep.room.name !== "E35N31") {
+  if(creep.room.name !== "E35N31" && creep.memory.role === "worker") {
     retval = smartMove(creep, Game.flags.Flag1, 5, false, null, 10, 1000, 2);
     return retval;
   }

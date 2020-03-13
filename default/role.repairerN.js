@@ -64,7 +64,8 @@ var roleRepairer = {
             creep.say("r.err");
           }
         } else {
-          retval = smartMove(creep, target, 3);
+ console.log(name)
+          retval = smartMove(creep, target, 3, false, null, 10, 100, 1);
           creep.memory.r = target.pos;
           if (creep.fatigue > 0) {
             creep.say("f." + creep.fatigue);

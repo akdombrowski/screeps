@@ -76,8 +76,6 @@ function vest(creep, flag, path) {
     target = nwSource1;
     target = checkForCreepsNearSource(creep, 1, [nwSource1, nwSource2]);
 
-    console.log(name);
-    console.log(target);
     if
       (target.energy && target.energy <= 0)
       {

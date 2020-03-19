@@ -66,7 +66,7 @@ function spawnCreepTypes(enAvail) {
   let upControllersNE = Memory.eastUpControllers || [];
   let ermHarvesters = Memory.ermHarvesters || [];
   let harvestersNE = Memory.ermNeHarvesters || [];
-  let towerHarvestersNE = Memory.etowerHarvesters || [];
+  let towerHarvestersNE = Memory.towerHarvestersNE || [];
   let eeUps = Memory.eeUps || [];
 
   let claimers = Memory.claimers || [];
@@ -206,12 +206,12 @@ function spawnCreepTypes(enAvail) {
       name = chosenRole + t;
       parts = simpleParts;
       birth = true;
-    } else if (roadRepairersNE.length < 2 && !neAttackerId) {
-      roadRepairersNE.push(name);
-      chosenRole = "rNE";
-      name = "r" + t + "NE";
+    } else if (towerHarvestersNE.length < 2 && !neAttackerId) {
+      towerHarvestersNE.push(name);
+      chosenRole = "netowerHarvester";
+      name = "neth" + t ;
       parts = basicHv;
-      sourceDir = "north2";
+      sourceDir = "netower1";
       birth = true;
     }
     // } else if (eeUps.length < 2) {

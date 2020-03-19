@@ -111,17 +111,17 @@ function spawnCreepTypes(enAvail) {
 
   let s1 = Game.spawns.Spawn1;
 
-  // 500
+  // 250
   let upContrParts = [];
-  addPart(upContrParts, 3, CARRY);
+  addPart(upContrParts, 1, CARRY);
   addPart(upContrParts, 1, WORK);
-  addPart(upContrParts, 5, MOVE);
+  addPart(upContrParts, 1, MOVE);
 
   // 500
   let workerParts500 = [];
-  addPart(workerParts500, 5, CARRY);
+  addPart(workerParts500, 7, CARRY);
   addPart(workerParts500, 1, WORK);
-  addPart(workerParts500, 3, MOVE);
+  addPart(workerParts500, 1, MOVE);
 
   // 2500
   let moverParts = [];
@@ -129,21 +129,21 @@ function spawnCreepTypes(enAvail) {
 
   // 1100
   let medsouthHvParts = [];
-  addPart(medsouthHvParts, 4, CARRY);
-  addPart(medsouthHvParts, 5, WORK);
-  addPart(medsouthHvParts, 8, MOVE);
+  addPart(medsouthHvParts, 10, CARRY);
+  addPart(medsouthHvParts, 1, WORK);
+  addPart(medsouthHvParts, 10, MOVE);
 
   // 3000
   let upContrPartsBig = [];
-  addPart(upContrPartsBig, 20, CARRY);
-  addPart(upContrPartsBig, 10, WORK);
-  addPart(upContrPartsBig, 20, MOVE);
+  addPart(upContrPartsBig, 30, CARRY);
+  addPart(upContrPartsBig, 5, WORK);
+  addPart(upContrPartsBig, 15, MOVE);
 
   // 3500
   let southHvParts = [];
-  addPart(southHvParts, 8, CARRY);
-  addPart(southHvParts, 20, WORK);
-  addPart(southHvParts, 22, MOVE);
+  addPart(southHvParts, 20, CARRY);
+  addPart(southHvParts, 5, WORK);
+  addPart(southHvParts, 25, MOVE);
 
   // 650
   let claimerParts = [];
@@ -314,7 +314,7 @@ function spawnCreepTypes(enAvail) {
       name = "upC" + t;
       chosenRole = "upC";
       upControllers.push(name);
-      parts = basicCarry;
+      parts = upContrParts;
       retval = birthCreep(
         s1,
         parts,

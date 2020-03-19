@@ -30,7 +30,7 @@ const roleHarvesterToTower = {
       creep.memory.transferTower = false;
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
-      getEnergy(creep, "E35N32", "E35N32", Game.flags.tower1N);
+      getEnergy(creep, "E36N31", "E36N31", Game.flags.east);
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       creep.memory.getEnergy = false;
       creep.memory.transfer = true;

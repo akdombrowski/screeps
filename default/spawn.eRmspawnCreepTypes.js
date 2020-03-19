@@ -53,6 +53,7 @@ function spawnCreepTypes(enAvail) {
   let workers = Memory.workers || [];
   let eworkers = Memory.eworkers || [];
   let neworkers = Memory.neworkers || [];
+  let erepairers = Memory.erepairers || [];
 
   let harvesters = Memory.harvesters || [];
   let upControllers = Memory.upControllers || [];
@@ -275,6 +276,13 @@ function spawnCreepTypes(enAvail) {
       harvestersNE.push(name);
       parts = newhvParts;
       sourceDir = "north";
+    } else if (etowerHarvesters.length < 2) {
+      name = "eth" + t;
+      chosenRole = "etowerHarvester";
+      direction = "east";
+      etowerHarvesters.push(name);
+      parts = southHvParts;
+      sourceDir = "east";
     } else if (neworkers.length < 3) {
       neworkers.push(name);
       chosenRole = "neBuilder";
@@ -324,6 +332,7 @@ function spawnCreepTypes(enAvail) {
   Memory.workers = workers;
   Memory.eworkers = eworkers;
   Memory.neworkers = neworkers;
+  Memory.erepairers = erepairers;
   Memory.upControllers = upControllers;
   Memory.upControllersE = upControllersE;
   Memory.upControllersNE = upControllersNE;

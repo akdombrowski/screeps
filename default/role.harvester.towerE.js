@@ -19,8 +19,13 @@ const roleHarvesterToTower = {
     let direction = creep.memory.direction;
     let sourceDir = creep.memory.sourceDir;
     let tower1Id = "5d352664dbfe1b628e86ecff";
+    let tower2Id = "5d0f99d929c9cb5363cba23d";
 
-    if (!creep.store[RESOURCE_ENERGY] || creep.memory.getEnergy || creep.carry.energy <= 0) {
+    if (
+      !creep.store[RESOURCE_ENERGY] ||
+      creep.memory.getEnergy ||
+      creep.carry.energy <= 0
+    ) {
       creep.memory.buildRoad = false;
       creep.memory.transferTower = false;
       creep.memory.getEnergy = true;
@@ -30,17 +35,21 @@ const roleHarvesterToTower = {
       creep.memory.getEnergy = false;
       creep.memory.transfer = true;
       retval = -16;
-      let tower1Id = "5e5dcc407c6d8f35385b7da7";
       let tower1 = Game.getObjectById(tower1Id);
+      let tower2 = Game.getObjectById(tower2Id);
       let target = tower1;
+      if (
+        !tower2.store[RESOURCE_ENERGY] ||
+        (tower1.store[RESOURCE_ENERGY] &&
+          tower2.store[RESOURCE_ENERGY] < tower1.store[RESOURCE_ENERGY])
+      ) {
+        target = tower2;
+      }
 
-      retval = transEnTower(creep, 0);
-      if (retval !== OK) {
-        if (creep.pos.isNearTo(target)) {
-          creep.transfer(target, RESOURCE_ENERGY);
-        } else {
-          smartMove(creep, target, 1);
-        }
+      if (creep.pos.isNearTo(target)) {
+        creep.transfer(target, RESOURCE_ENERGY);
+      } else {
+        smartMove(creep, target, 1);
       }
     }
   },

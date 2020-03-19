@@ -4,6 +4,7 @@ const roleRepairer = require("role.repairer");
 const roleRepairerN = require("role.repairerN");
 const roleRepairerNW = require("role.repairerNW");
 const roleRepairerNE = require("role.repairerNE");
+const roleRepairerE = require("role.repairerE");
 const roleHarvester = require("role.harvester.1");
 const roleLinkGet = require("role.linkGet");
 const hele = require("./action.hele");
@@ -66,6 +67,7 @@ function runRoles() {
   let roadRepairersN = [];
   let roadRepairersNW = [];
   let roadRepairersNE = [];
+  let erepairers = [];
   let attackers = [];
   let attackersNW = [];
   let attackersNWW = [];
@@ -147,7 +149,6 @@ function runRoles() {
       harvesters.push(name);
       roleHarvester.run(creep);
     } else if (roll.startsWith("etowerHarvester")) {
-      harvesters.push(name);
       etowerHarvesters.push(name);
       roleHarvesterToTower.run(creep);
     } else if (roll.startsWith("southtowerHarvester")) {
@@ -332,6 +333,9 @@ function runRoles() {
     } else if (roll === "roadRepairerNE" || roll === "rNE") {
       roadRepairersNE.push(name);
       roleRepairerNE.run(creep);
+    } else if (roll === "roadRepairerE" || roll === "rE") {
+      erepairers.push(name);
+      roleRepairerE.run(creep);
     } else if (roll === "c" || name.startsWith("c")) {
       claimers.push(name);
       roll = "c";
@@ -394,6 +398,7 @@ function runRoles() {
   Memory.roadRepairersN = roadRepairersN;
   Memory.roadRepairersNW = roadRepairersNW;
   Memory.roadRepairersNE = roadRepairersNE;
+  Memory.erepairers = erepairers;
   Memory.attackers = attackers;
   Memory.attackersNW = attackersNW;
   Memory.attackersNWW = attackersNWW;

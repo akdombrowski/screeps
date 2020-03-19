@@ -119,8 +119,8 @@ function spawnCreepTypes(enAvail) {
 
   // 500
   let workerParts500 = [];
-  addPart(workerParts500, 3, CARRY);
-  addPart(workerParts500, 2, WORK);
+  addPart(workerParts500, 5, CARRY);
+  addPart(workerParts500, 1, WORK);
   addPart(workerParts500, 3, MOVE);
 
   // 2500

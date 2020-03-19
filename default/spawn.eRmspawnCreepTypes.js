@@ -84,8 +84,8 @@ function spawnCreepTypes(enAvail) {
 
   // 300
   let upContrParts = [];
-  addPart(upContrParts, 1, CARRY);
-  addPart(upContrParts, 2, WORK);
+  addPart(upContrParts, 3, CARRY);
+  addPart(upContrParts, 1, WORK);
   addPart(upContrParts, 1, MOVE);
 
   // 290
@@ -95,33 +95,33 @@ function spawnCreepTypes(enAvail) {
 
   // 800
   let medupContrParts = [];
-  addPart(medupContrParts, 1, CARRY);
-  addPart(medupContrParts, 7, WORK);
+  addPart(medupContrParts, 13, CARRY);
+  addPart(medupContrParts, 1, WORK);
   addPart(medupContrParts, 1, MOVE);
 
   // 800
   let medsouthHvParts = [];
-  addPart(medsouthHvParts, 1, CARRY);
-  addPart(medsouthHvParts, 4, WORK);
+  addPart(medsouthHvParts, 7, CARRY);
+  addPart(medsouthHvParts, 1, WORK);
   addPart(medsouthHvParts, 7, MOVE);
 
   // 800
   let mednewhvParts = [];
-  addPart(mednewhvParts, 2, CARRY);
-  addPart(mednewhvParts, 3, WORK);
+  addPart(mednewhvParts, 6, CARRY);
+  addPart(mednewhvParts, 1, WORK);
   addPart(mednewhvParts, 8, MOVE);
 
   // 800
   let medworkerParts = [];
   addPart(medworkerParts, 7, CARRY);
-  addPart(medworkerParts, 4, WORK);
-  addPart(medworkerParts, 1, MOVE);
+  addPart(medworkerParts, 1, WORK);
+  addPart(medworkerParts, 7, MOVE);
 
   // 800
   let medrepairerParts = [];
-  addPart(medrepairerParts, 1, CARRY);
-  addPart(medrepairerParts, 4, WORK);
-  addPart(medrepairerParts, 7, MOVE);
+  addPart(medrepairerParts, 5, CARRY);
+  addPart(medrepairerParts, 1, WORK);
+  addPart(medrepairerParts, 9, MOVE);
 
   // 800
   let medlinkGetsParts = [];
@@ -136,27 +136,27 @@ function spawnCreepTypes(enAvail) {
 
   // 2000
   let southHvParts = [];
-  addPart(southHvParts, 12, CARRY);
-  addPart(southHvParts, 5, WORK);
-  addPart(southHvParts, 18, MOVE);
+  addPart(southHvParts, 18, CARRY);
+  addPart(southHvParts, 1, WORK);
+  addPart(southHvParts, 20, MOVE);
 
   // 2000
   let newhvParts = [];
-  addPart(newhvParts, 10, CARRY);
-  addPart(newhvParts, 5, WORK);
+  addPart(newhvParts, 18, CARRY);
+  addPart(newhvParts, 1, WORK);
   addPart(newhvParts, 20, MOVE);
 
   // 2000
   let workerParts = [];
-  addPart(workerParts, 5, CARRY);
-  addPart(workerParts, 9, WORK);
-  addPart(workerParts, 17, MOVE);
+  addPart(workerParts, 17, CARRY);
+  addPart(workerParts, 1, WORK);
+  addPart(workerParts, 21, MOVE);
 
   // 2000
   let repairerParts = [];
-  addPart(repairerParts, 5, CARRY);
-  addPart(repairerParts, 8, WORK);
-  addPart(repairerParts, 19, MOVE);
+  addPart(repairerParts, 17, CARRY);
+  addPart(repairerParts, 1, WORK);
+  addPart(repairerParts, 21, MOVE);
 
   // 2000
   let linkGetsParts = [];

@@ -2,11 +2,12 @@ function spawnHarvesterChain(enAvail, rm, s1, harvesters) {
   let harvester1 = Game.creeps.harvester1;
   let retval = -16;
 
-  if (!harvester1 && enAvail >= 1200) {
+  if (!harvester1 && enAvail >= 1000) {
     let name = "harvester1";
     let parts = [];
     // 12 energy harvesting per tick with 6 work parts. Energy sources replenish after 300 ticks. This puts the harvester with minimal downtime for source replenish.  (10 would be exact but we can be a little more aggressive for overlapping timelines). This is as efficient as we can get.
-    for (let i = 0; i < 6; i++) {
+    // Be more aggressive to fill up storage and link for other creeps
+    for (let i = 0; i < 10; i++) {
       parts.push(WORK);
     }
     let chosenRole = "hChain";

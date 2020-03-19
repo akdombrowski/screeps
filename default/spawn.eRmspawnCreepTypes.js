@@ -137,26 +137,26 @@ function spawnCreepTypes(enAvail) {
 
   // 2000
   let southHvParts = [];
-  addPart(southHvParts, 18, CARRY);
-  addPart(southHvParts, 1, WORK);
+  addPart(southHvParts, 10, CARRY);
+  addPart(southHvParts, 5, WORK);
   addPart(southHvParts, 20, MOVE);
 
   // 2000
   let newhvParts = [];
-  addPart(newhvParts, 18, CARRY);
-  addPart(newhvParts, 1, WORK);
+  addPart(newhvParts, 10, CARRY);
+  addPart(newhvParts, 5, WORK);
   addPart(newhvParts, 20, MOVE);
 
   // 2000
   let workerParts = [];
-  addPart(workerParts, 17, CARRY);
-  addPart(workerParts, 1, WORK);
+  addPart(workerParts, 9, CARRY);
+  addPart(workerParts, 5, WORK);
   addPart(workerParts, 21, MOVE);
 
   // 2000
   let repairerParts = [];
-  addPart(repairerParts, 17, CARRY);
-  addPart(repairerParts, 1, WORK);
+  addPart(repairerParts, 9, CARRY);
+  addPart(repairerParts, 5, WORK);
   addPart(repairerParts, 21, MOVE);
 
   // 2000

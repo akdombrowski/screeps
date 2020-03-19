@@ -111,7 +111,7 @@ function spawnCreepTypes(enAvail) {
 
   let s1 = Game.spawns.Spawn1;
 
-  // 250
+  // 200
   let upContrParts = [];
   addPart(upContrParts, 1, CARRY);
   addPart(upContrParts, 1, WORK);
@@ -135,15 +135,15 @@ function spawnCreepTypes(enAvail) {
 
   // 3000
   let upContrPartsBig = [];
-  addPart(upContrPartsBig, 30, CARRY);
-  addPart(upContrPartsBig, 5, WORK);
-  addPart(upContrPartsBig, 15, MOVE);
+  addPart(upContrPartsBig, 22, CARRY);
+  addPart(upContrPartsBig, 8, WORK);
+  addPart(upContrPartsBig, 20, MOVE);
 
   // 3500
   let southHvParts = [];
-  addPart(southHvParts, 20, CARRY);
-  addPart(southHvParts, 5, WORK);
-  addPart(southHvParts, 25, MOVE);
+  addPart(southHvParts, 16, CARRY);
+  addPart(southHvParts, 10, WORK);
+  addPart(southHvParts, 26, MOVE);
 
   // 650
   let claimerParts = [];
@@ -152,8 +152,8 @@ function spawnCreepTypes(enAvail) {
 
   // 2750
   let newhvParts = [];
-  addPart(newhvParts, 20, CARRY);
-  addPart(newhvParts, 5, WORK);
+  addPart(newhvParts, 15, CARRY);
+  addPart(newhvParts, 10, WORK);
   addPart(newhvParts, 25, MOVE);
 
   // 3000
@@ -164,15 +164,15 @@ function spawnCreepTypes(enAvail) {
 
   // 2900
   let workerParts = [];
-  addPart(workerParts, 16, CARRY);
+  addPart(workerParts, 18, CARRY);
   addPart(workerParts, 8, WORK);
-  addPart(workerParts, 26, MOVE);
+  addPart(workerParts, 24, MOVE);
 
   // 3000
   let repairerParts = [];
-  addPart(repairerParts, 10, CARRY);
+  addPart(repairerParts, 14, CARRY);
   addPart(repairerParts, 10, WORK);
-  addPart(repairerParts, 30, MOVE);
+  addPart(repairerParts, 16, MOVE);
 
   // 300
   let linkGetsParts = [];
@@ -182,9 +182,9 @@ function spawnCreepTypes(enAvail) {
 
   // 3000
   let largeLinkGetsParts = [];
-  addPart(largeLinkGetsParts, 10, CARRY);
+  addPart(largeLinkGetsParts, 20, CARRY);
   addPart(largeLinkGetsParts, 10, WORK);
-  addPart(largeLinkGetsParts, 30, MOVE);
+  addPart(largeLinkGetsParts, 20, MOVE);
 
   // 290
   let attackerParts = [];

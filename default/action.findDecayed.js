@@ -21,24 +21,18 @@ function findDecayed(roomName) {
 
     // sort by the difference of hits and hits max (how much more before getting to full structural health).
     // since sortBy sorts by ascending value, we'll use the negative of the difference b/w hits and hitsmax
-    _.sortBy(fixables, value => {
-      if(value.hits < 1000) {
+    let fixables2 = _.sortBy(fixables, value => {
+      if(value.hits < value.hitsMax) {
+
         return -value.hits;
       }
-      return value.hits - value.hitsMax;
+
+      return -value.hits - 1000000;
     });
 
-
-    _.each(fixables, struct => {
+    _.each(fixables2, struct => {
       fixablesIds.push(struct.id);
     });
-
-    if (fixablesIds.length) {
-      fixablesIds = _.sortBy(fixablesIds, id => {
-        let struct = Game.getObjectById(id);
-        return (struct.hitsMax - struct.hits) / struct.hitsMax;
-      });
-    }
   }
 
   return fixablesIds;

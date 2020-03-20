@@ -206,16 +206,7 @@ function spawnCreepTypes(enAvail) {
   let basicHv = [CARRY, WORK, MOVE];
   let simpleParts = [CARRY, WORK, WORK, MOVE];
   let simpleParts350 = [CARRY, WORK, WORK, MOVE, MOVE];
-  let simpleParts500 = [
-    CARRY,
-    CARRY,
-    CARRY,
-    CARRY,
-    WORK,
-    WORK,
-    MOVE,
-    MOVE,
-  ];
+  let simpleParts500 = [CARRY, CARRY, CARRY, CARRY, WORK, WORK, MOVE, MOVE];
 
   let eAttackerId = Memory.eAttackerId;
   let wAttackerId = Memory.wAttackerId;
@@ -418,7 +409,7 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts500;
     let spawnDirection = [BOTTOM];
 
-    if (harvestersS.length < 3) {
+    if (harvestersS.length < 2) {
       name += "S";
       direction = "south";
       harvestersS.push(name);
@@ -713,6 +704,10 @@ function spawnCreepTypes(enAvail) {
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
+    } else if (harvestersS.length < 4) {
+      harvestersS.push(name);
+      parts = southHvParts;
+      birth = true;
     } else if (
       harvestersW.length < 3 &&
       (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
@@ -745,12 +740,6 @@ function spawnCreepTypes(enAvail) {
       parts = travelhvParts;
       direction = "nw";
       harvestersNW.push(name);
-      birth = true;
-    } else if (upControllers.length < 1) {
-      parts = upContrParts;
-      name = "upc" + t;
-      upControllers.push(name);
-      chosenRole = "upC";
       birth = true;
     } else if (southtowerHarvesters.length < 3) {
       chosenRole = "southtowerHarvester";

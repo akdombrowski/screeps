@@ -174,7 +174,7 @@ function tran(creep, flag, dest) {
             (direction === "west" ||
               direction === "nww" ||
               direction === "nw") &&
-            structure.pos.x < 10
+            structure.pos.x < 31
           ) {
             target = structure;
             return structure;

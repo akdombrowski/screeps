@@ -36,7 +36,7 @@ function tran(creep, flag, dest) {
   }
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {
-     if (creep.room.name === "E34N31") {
+    if (creep.room.name === "E34N31") {
       if (creep.pos.x > 49) {
         retval = creep.move(RIGHT);
       } else {
@@ -78,7 +78,12 @@ function tran(creep, flag, dest) {
   // }
 
   if (!target && direction === "west" && enAvail > 1000) {
-    target = towers[5];
+    if (
+      towers[5].store[RESOURCE_ENERGY] &&
+      towers[5].store[RESOURCE_ENERGY] < 1000
+    ) {
+      target = towers[5];
+    }
   }
 
   let extensionNeedsEnergy = false;
@@ -118,7 +123,7 @@ function tran(creep, flag, dest) {
           (structure.store[RESOURCE_ENERGY] <= 150 ||
             !structure.store[RESOURCE_ENERGY])
         ) {
-          if (direction === "west" && structure.pos.x < 30) {
+          if (direction === "west" && structure.pos.x < 40) {
             target = structure;
             return structure;
           } else if (direction !== "west" && structure.pos.x > 10) {
@@ -144,7 +149,7 @@ function tran(creep, flag, dest) {
           structure.structureType === STRUCTURE_STORAGE ||
           (structure.structureType == STRUCTURE_CONTAINER && structure.store)
         ) {
-          if (direction === "west" && structure.pos.x < 30) {
+          if (direction === "west" && structure.pos.x < 40) {
             return (
               structure.store[RESOURCE_ENERGY] <
               structure.store.getCapacity(RESOURCE_ENERGY)

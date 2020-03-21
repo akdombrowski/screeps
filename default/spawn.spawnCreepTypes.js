@@ -135,15 +135,15 @@ function spawnCreepTypes(enAvail) {
 
   // 3000
   let upContrPartsBig = [];
-  addPart(upContrPartsBig, 22, CARRY);
-  addPart(upContrPartsBig, 8, WORK);
-  addPart(upContrPartsBig, 20, MOVE);
+  addPart(upContrPartsBig, 16, CARRY);
+  addPart(upContrPartsBig, 12, WORK);
+  addPart(upContrPartsBig, 22, MOVE);
 
   // 3500
   let southHvParts = [];
-  addPart(southHvParts, 16, CARRY);
-  addPart(southHvParts, 10, WORK);
-  addPart(southHvParts, 26, MOVE);
+  addPart(southHvParts, 1, CARRY);
+  addPart(southHvParts, 25, WORK);
+  addPart(southHvParts, 24, MOVE);
 
   // 650
   let claimerParts = [];
@@ -152,27 +152,27 @@ function spawnCreepTypes(enAvail) {
 
   // 2750
   let newhvParts = [];
-  addPart(newhvParts, 15, CARRY);
-  addPart(newhvParts, 10, WORK);
-  addPart(newhvParts, 25, MOVE);
+  addPart(newhvParts, 1, CARRY);
+  addPart(newhvParts, 25, WORK);
+  addPart(newhvParts, 24, MOVE);
 
   // 3000
   let travelhvParts = [];
-  addPart(travelhvParts, 12, CARRY);
-  addPart(travelhvParts, 10, WORK);
-  addPart(travelhvParts, 28, MOVE);
+  addPart(travelhvParts, 1, CARRY);
+  addPart(travelhvParts, 25, WORK);
+  addPart(travelhvParts, 24, MOVE);
 
   // 2900
   let workerParts = [];
-  addPart(workerParts, 18, CARRY);
-  addPart(workerParts, 8, WORK);
+  addPart(workerParts, 1, CARRY);
+  addPart(workerParts, 25, WORK);
   addPart(workerParts, 24, MOVE);
 
   // 3000
   let repairerParts = [];
-  addPart(repairerParts, 14, CARRY);
-  addPart(repairerParts, 10, WORK);
-  addPart(repairerParts, 16, MOVE);
+  addPart(repairerParts, 1, CARRY);
+  addPart(repairerParts, 25, WORK);
+  addPart(repairerParts, 24, MOVE);
 
   // 300
   let linkGetsParts = [];
@@ -470,21 +470,6 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (workers.length < 2) {
-      chosenRole = "worker";
-      name = chosenRole + t;
-      parts = workerParts500;
-      direction = "south";
-      workers.push(name);
-      retval = birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
     }
 
     if (retval !== -16) {
@@ -704,7 +689,7 @@ function spawnCreepTypes(enAvail) {
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
-    } else if (harvestersS.length < 4) {
+    } else if (harvestersS.length < 3) {
       harvestersS.push(name);
       parts = southHvParts;
       birth = true;
@@ -874,6 +859,7 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
+      console.log(parts.length);
       if (retval !== -16) {
         console.log("spawningS " + name + " " + retval);
       }

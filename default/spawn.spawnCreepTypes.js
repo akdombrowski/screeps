@@ -216,35 +216,6 @@ function spawnCreepTypes(enAvail) {
 
   let retval = -16;
 
-  // if (enAvail >= 650) {
-  //   if (
-  //     claimers.length < 1 &&
-  //     !Game.getObjectById("5bbcaf1b9099fc012e63a2dd").my
-  //   ) {
-  //     let t = Game.time.toString().slice(4);
-  //     chosenRole = "c";
-  //     name = "claimer" + t;
-  //     direction = "ee";
-  //     parts = claimerParts;
-  //     sourceId = "";
-  //     spawnDirection = [TOP_RIGHT];
-  //     claimers.push(name);
-
-  //     console.log("claimers");
-
-  //     birthCreep(
-  //       s1,
-  //       parts,
-  //       name,
-  //       chosenRole,
-  //       direction,
-  //       sourceId,
-  //       spawnDirection
-  //     );
-  //     Memory.claimers = claimers;
-  //     return;
-  //   }
-  // }
   if (
     Game.spawns.Spawn1.spawning &&
     Game.spawns.spawn2.spawning &&
@@ -859,7 +830,6 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-      console.log(parts.length);
       if (retval !== -16) {
         console.log("spawningS " + name + " " + retval);
       }

@@ -27,7 +27,7 @@ const roleHarvesterToTower = {
       creep.memory.getEnergy = false;
       creep.memory.transfer = true;
       retval = -16;
-      let tower1Id = "5e5dcc407c6d8f35385b7da7";
+      let tower1Id = "5e627bdb6ec99b7b4d5ff213";
       let tower1 = Game.getObjectById(tower1Id);
       let target = tower1;
 

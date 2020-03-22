@@ -49,7 +49,9 @@ function build(creep) {
 
       if (arr) {
         try {
-          target = arr[0];
+          target = creep.pos.findClosestByPath(arr, {filter: (site) => {
+            return site.progress < site.progressTotal;
+          }});
           // target = creep.pos.findClosestByPath(arr);
 
           if (target && !target.id) {

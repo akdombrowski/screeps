@@ -48,7 +48,6 @@ module.exports.loop = function() {
     let enAvailN = nRm.energyAvailable;
     let enCapN = nRm.energyCapacityAvailable;
 
-
     let crps = Game.creeps;
     let numCrps = Object.keys(crps).length;
 
@@ -110,6 +109,19 @@ module.exports.loop = function() {
     let eetower1 = Game.getObjectById(eetower1Id);
     let towerN = Game.getObjectById(towerNId);
     let towerNE = Game.getObjectById(towerNEId);
+    let towers = [
+      tower1,
+      tower2,
+      tower3,
+      tower4,
+      tower5,
+      tower6,
+      etower1,
+      etower2,
+      eetower1,
+      towerN,
+      towerNE,
+    ];
 
     let rmControllerId = Memory.rmControllerId || "5bbcaefa9099fc012e639e90";
     let rmController = Game.getObjectById(rmControllerId);
@@ -201,7 +213,7 @@ module.exports.loop = function() {
     Memory.s2 = s2.id;
     Memory.eespawn = eespawn.id;
 
-    if(!Memory.neAttackerId) {
+    if (!Memory.neAttackerId) {
       Memory.neAttackerId = null;
     }
 
@@ -281,35 +293,10 @@ module.exports.loop = function() {
       console.log("low cpu bucket: " + Game.cpu.bucket);
     }
 
-    if (tower1) {
-      roleTower.run(tower1);
-    }
-    if (tower2) {
-      roleTower.run(tower2);
-    }
-    if (tower3) {
-      roleTower.run(tower3);
-    }
-    if (tower4) {
-      roleTower.run(tower4);
-    }
-    if (tower5) {
-      roleTower.run(tower5);
-    }
-    if (tower6) {
-      roleTower.run(tower6);
-    }
-    if (etower1) {
-      roleTower.run(etower1);
-    }
-    if (etower2) {
-      roleTower.run(etower2);
-    }
-    if (towerN) {
-      roleTower.run(towerN);
-    }
-    if (towerNE) {
-      roleTower.run(towerNE);
+    for (let i = 0; i < towers.length; i++) {
+      if (towers[i]) {
+        roleTower.run(towers[i]);
+      }
     }
 
     if (!Memory.e35n31fixables || Memory.e35n31fixables.length < 40) {
@@ -365,12 +352,18 @@ module.exports.loop = function() {
       const ermProgRate = (ermProg - Memory.ermProg) / Memory.ermProg;
       const eermProgRate = (eermProg - Memory.eermProg) / Memory.eermProg;
       const nermProgRate = (nermProg - Memory.nermProg) / Memory.nermProg;
-      const nrmProgRate = (nrmProg - Memory.nRmProg) / Memory.nRmProg;
+      const nrmProgRate = (nrmProg - Memory.nrmProg) / Memory.nrmProg;
       const rmProgPerc = rmProgRate * 100;
       const ermProgPerc = ermProgRate * 100;
       const eermProgPerc = eermProgRate * 100;
       const nermProgPerc = nermProgRate * 100;
       const nrmProgPerc = nrmProgRate * 100;
+
+      Memory.rmProg = rmProg;
+      Memory.ermProg = ermProg;
+      Memory.eermProg = eermProg;
+      Memory.nermProg = nermProg;
+      Memory.nrmProg = nrmProg;
 
       console.log("Creeps: " + numCrps);
 
@@ -518,12 +511,6 @@ module.exports.loop = function() {
           "," +
           enCapNE
       );
-
-      Memory.rmProg = rmProg;
-      Memory.ermProg = ermProg;
-      Memory.eermProg = eermProg;
-      Memory.nermProg = nermProg;
-      Memory.nrmProg = nrmProg;
     }
   });
 

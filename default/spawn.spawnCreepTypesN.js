@@ -312,7 +312,7 @@ function spawnCreepTypes(enAvail) {
       direction = "n";
       attackersN.push(name);
       birth = true;
-    } else if (towerHarvestersN.length < 1) {
+    } else if (towerHarvestersN.length < 2) {
       chosenRole = "ntowerHarvester";
       name = chosenRole + t;
       towerHarvestersN.push(name);
@@ -326,7 +326,7 @@ function spawnCreepTypes(enAvail) {
       parts = mednewhvParts;
       sourceDir = "north1";
       birth = true;
-    } else if (towerHarvestersN.length < 2) {
+    } else if (towerHarvestersN.length < 3) {
       chosenRole = "ntowerHarvester";
       name = chosenRole + t;
       towerHarvestersN.push(name);

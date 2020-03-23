@@ -203,7 +203,7 @@ function spawnCreepTypes(enAvail) {
     let birth = false;
     let buildRoom = "";
 
-    if (harvestersN.length < 3) {
+    if (harvestersN.length < 1) {
       harvestersN.push(name);
       parts = basicHv;
       sourceDir = "north";
@@ -265,7 +265,7 @@ function spawnCreepTypes(enAvail) {
     let birth = false;
     let buildRoom = "";
 
-    if (harvestersN.length < 4 && !nAttackerId) {
+    if (harvestersN.length < 1 && !nAttackerId) {
       harvestersN.push(name);
       name = "h" + t + "N";
       sourceDir = "north2";
@@ -312,7 +312,15 @@ function spawnCreepTypes(enAvail) {
       direction = "n";
       attackersN.push(name);
       birth = true;
-    } else if (harvestersN.length < 4 && !nAttackerId) {
+    } else if (towerHarvestersN.length < 1) {
+      chosenRole = "ntowerHarvester";
+      name = chosenRole + t;
+      towerHarvestersN.push(name);
+      harvesters.push(name);
+      parts = mednewhvParts;
+      sourceDir = "north";
+      birth = true;
+    } else if (harvestersN.length < 3 && !nAttackerId) {
       harvestersN.push(name);
       name = "h" + t + "N";
       parts = mednewhvParts;

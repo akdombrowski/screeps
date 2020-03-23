@@ -1,5 +1,6 @@
 const getEnergy = require("./action.getEnergy.1");
 const transferEnergy = require("./action.transferEnergy");
+const transferEnergyNE = require("./action.transferEnergyNE");
 const transferEnergyeRm = require("./action.transferEnergyeRm");
 const getEnergyNorth = require("./action.getEnergy.1");
 const getEnergyEast = require("./action.getEnergy.1");
@@ -31,12 +32,15 @@ const roleHarvesterToTower = {
       let tower1 = Game.getObjectById(tower1Id);
       let target = tower1;
 
-      if (retval !== OK) {
+      if(target.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
+
         if (creep.pos.isNearTo(target)) {
           creep.transfer(target, RESOURCE_ENERGY);
         } else {
           smartMove(creep, target, 1);
         }
+      } else {
+        transferEnergyNE(creep);
       }
     }
   },

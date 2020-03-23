@@ -21,12 +21,12 @@ function tranN(creep, flag, dest) {
       target &&
       target.structureType === STRUCTURE_TOWER &&
       rm &&
-      enAvail < 800
+      enAvail < 1000
     ) {
       target = null;
     }
 
-    if (enAvail > 800 && !target) {
+    if (enAvail > 1000 && !target) {
       target = towers[0];
       target = _.find(towers, tower => {
         // tower doesn't exist or doesn't have an energy component

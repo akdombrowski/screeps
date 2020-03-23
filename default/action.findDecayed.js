@@ -11,9 +11,7 @@ function findDecayed(roomName) {
   if (rm) {
     fixables = rm.find(FIND_STRUCTURES, {
       filter: struct => {
-        if (struct.structureType === STRUCTURE_WALL) {
-          return false;
-        }
+
 
         return struct.hits < struct.hitsMax;
       },

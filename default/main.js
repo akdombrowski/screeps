@@ -98,6 +98,7 @@ module.exports.loop = function() {
     let etower2Id = "5d352664dbfe1b628e86ecff";
     let eetower1Id = "5d55a5716700154079e38442";
     let towerNId = "5e5dcc407c6d8f35385b7da7";
+    let towerNEId = "5e627bdb6ec99b7b4d5ff213";
     let tower1 = Game.getObjectById(tower1Id);
     let tower2 = Game.getObjectById(tower2Id);
     let tower3 = Game.getObjectById(tower3Id);
@@ -108,6 +109,7 @@ module.exports.loop = function() {
     let etower2 = Game.getObjectById(etower2Id);
     let eetower1 = Game.getObjectById(eetower1Id);
     let towerN = Game.getObjectById(towerNId);
+    let towerNE = Game.getObjectById(towerNEId);
 
     let rmControllerId = Memory.rmControllerId || "5bbcaefa9099fc012e639e90";
     let rmController = Game.getObjectById(rmControllerId);
@@ -305,6 +307,9 @@ module.exports.loop = function() {
     }
     if (towerN) {
       roleTower.run(towerN);
+    }
+    if (towerNE) {
+      roleTower.run(towerNE);
     }
 
     if (!Memory.e35n31fixables || Memory.e35n31fixables.length < 40) {

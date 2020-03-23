@@ -265,7 +265,7 @@ function spawnCreepTypes(enAvail) {
     let birth = false;
     let buildRoom = "";
 
-    if (harvestersN.length < 1 && !nAttackerId) {
+    if (harvestersN.length < 2 && !nAttackerId) {
       harvestersN.push(name);
       name = "h" + t + "N";
       sourceDir = "north2";

@@ -24,7 +24,7 @@ function smartMove(
   const roll = creep.memory.role;
   const direction = creep.memory.direction;
   pathColor = pathColor || getRandomColor();
-  pathMem = pathMem || Math.floor(Math.random() * 10);
+  pathMem = pathMem || Math.floor(Math.random() * 100);
   maxOps = maxOps || Math.floor(Math.random() * 100) + 1;
   maxRms = maxRms || 1;
   ignoreCreeps = ignoreCreeps || false;

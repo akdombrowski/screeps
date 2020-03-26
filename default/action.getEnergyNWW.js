@@ -55,7 +55,7 @@ function vest(creep, flag, path) {
       5,
       false,
       null,
-      10,
+      null,
       1000,
       8
     );

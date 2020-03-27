@@ -139,7 +139,7 @@ function spawnCreepTypes(enAvail) {
   addPart(upContrPartsBig, 12, WORK);
   addPart(upContrPartsBig, 22, MOVE);
 
-  // 3500
+  // 3750
   let southHvParts = [];
   addPart(southHvParts, 1, CARRY);
   addPart(southHvParts, 25, WORK);
@@ -149,6 +149,11 @@ function spawnCreepTypes(enAvail) {
   let claimerParts = [];
   addPart(claimerParts, 1, MOVE);
   addPart(claimerParts, 1, CLAIM);
+
+  // 3000
+  let bigclaimerParts = [];
+  addPart(bigclaimerParts, 6, MOVE);
+  addPart(bigclaimerParts, 4, CLAIM);
 
   // 2750
   let newhvParts = [];
@@ -587,52 +592,6 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (claimersNW.length < 2 && (!contrNW || !contrNW.my)) {
-      parts = claimerParts;
-      name = "claimNW" + t;
-      chosenRole = "claimNW";
-      claimersNW.push(name);
-      retval = birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
-    } else if (
-      claimersNWW.length < 3 &&
-      (!contrNWW || !contrNWW.my) &&
-      (!Memory.nwwAttackerId || Game.time >= nwwAttackDurationSafeCheck)
-    ) {
-      parts = claimerParts;
-      name = "claimNWW" + t;
-      chosenRole = "claimNWW";
-      claimersNW.push(name);
-      retval = birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
-    } else if (claimersW.length < 2 && (!contrW || !contrW.my)) {
-      parts = claimerParts;
-      name = "claimW" + t;
-      chosenRole = "claimW";
-      claimersNW.push(name);
-      retval = birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
     }
 
     if (retval !== -16) {
@@ -643,7 +602,7 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  if (enAvail >= 3250 && !invaderId) {
+  if (enAvail >= 3750 && !invaderId) {
     let t = Game.time.toString().slice(4);
     let name = "hXL" + t;
     let chosenRole = "h";
@@ -660,8 +619,35 @@ function spawnCreepTypes(enAvail) {
       parts = largeLinkGetsParts;
       linkGets.push(name);
       birth = true;
+    } else if (claimersNW.length < 2 && (!contrNW || !contrNW.my)) {
+      parts = bigclaimerParts;
+      name = "claimNW" + t;
+      chosenRole = "claimNW";
+      claimersNW.push(name);
+      birth = true;
+    } else if (
+      claimersNWW.length < 3 &&
+      (!contrNWW || !contrNWW.my) &&
+      (!Memory.nwwAttackerId || Game.time >= nwwAttackDurationSafeCheck)
+    ) {
+      parts = bigclaimerParts;
+      name = "claimNWW" + t;
+      chosenRole = "claimNWW";
+      claimersNW.push(name);
+      birth = true;
+    } else if (claimersW.length < 2 && (!contrW || !contrW.my)) {
+      parts = bigclaimerParts;
+      name = "claimW" + t;
+      chosenRole = "claimW";
+      claimersNW.push(name);
+      birth = true;
+    } else if (harvestersS.length < 2) {
+      harvestersS.push(name);
+      parts = southHvParts;
+      birth = true;
     } else if (harvestersS.length < 3) {
       harvestersS.push(name);
+      direction = "ntoS";
       parts = southHvParts;
       birth = true;
     } else if (

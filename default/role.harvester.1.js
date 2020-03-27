@@ -58,6 +58,8 @@ const roleHarvester = {
             ? Memory.northAttackerId
             : null;
         }
+      } else if (direction === "ntoS") {
+        getEnergyNorth(creep, "E35N32");
       } else if (direction == "east" || direction === "e") {
         if (
           !Memory.eastAttackerId ||
@@ -146,6 +148,9 @@ const roleHarvester = {
 
       if (direction === "north") {
         retval = transferEnergyN(creep);
+      } else if (direction === "ntoS") {
+        retval = transferEnergy(creep);
+        return retval;
       } else if (direction === "east" || direction === "e") {
         retval = transferEnergyeRm(creep);
         return retval;

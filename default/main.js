@@ -21,10 +21,10 @@ module.exports.loop = function () {
     let lastEnAvail = Memory.enAvail || 0;
 
     let s1 = Game.spawns.Spawn1;
-    let rm = Game.rooms.E35N31;
+    let rm = Game.rooms.W63N36;
 
-    let enAvaileRm = eRm.energyAvailable;
-    let enCapeRm = eRm.energyCapacityAvailable;
+    let enAvaileRm = rm.energyAvailable;
+    let enCapeRm = rm.energyCapacityAvailable;
 
 
     towersAttackInvader(invader, towers);

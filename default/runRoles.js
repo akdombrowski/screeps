@@ -41,6 +41,7 @@ const claimW = require("./action.claimContrW");
 const buildNE = require("./action.buildNE");
 const buildNW = require("./action.buildNW");
 const buildEE = require("./action.buildEE");
+const buildRoad = require("./action.buildRoad");
 
 function runRoles() {
   let i = 0;
@@ -49,6 +50,7 @@ function runRoles() {
   let workers = Memory.workers || [];
   let upControllers = [];
   let roadRepairers = Memory.roadRepairers || [];
+  let roadBuilder = Memory.roadBuilder || [];
   let attackers = Memory.attackers || [];
   let claimers = Memory.claimers || [];
   let linkGets = Memory.linkGets || [];
@@ -64,6 +66,9 @@ function runRoles() {
     } else if (name.startsWith("upC")) {
       creep.memory.role = "upC";
       roll = "upC";
+    } else if (name.startsWith("r")) {
+      creep.memory.role = "roadBuilder";
+      roll = "roadBuilder";
     }
 
     if (roll === "h" || roll === "harvester") {
@@ -85,9 +90,15 @@ function runRoles() {
     } else if (roll === "eeRezzy" || roll === "upCEE") {
       eeastUpControllers.push(name);
       roleEEUp(creep, "E37N31");
-    } else if (roll === "eeworker") {
-      eeworkers.push(name);
-      buildEE(creep, Game.flags.eeController, "E37N31");
+    } else if (roll === "roadBuilder" || roll === "r") {
+      if (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] <= 0) {
+        creep.memory.getEnergy = true;
+        console.log(name + " roadbuilder");
+        roleHarvester.run(creep);
+      } else {
+        buildRoad(creep);
+      }
+      roadBuilder.push(name);
     } else if (roll === "claimNE") {
       claimersNE.push(name);
       claimNE(
@@ -98,46 +109,6 @@ function runRoles() {
         "eastEntrance1",
         "5bbcaf0c9099fc012e63a0b9"
       );
-    } else if (roll === "claimN") {
-      claimersN.push(name);
-      claimN(
-        creep,
-        "E35N32",
-        Game.flags.eastExit,
-        RIGHT,
-        "eastEntrance1",
-        "5bbcaf0c9099fc012e63a0b9"
-      );
-    } else if (roll === "claimNW") {
-      claimersNW.push(name);
-      claimNW(
-        creep,
-        "E34N32",
-        Game.flags.eastExit,
-        LEFT,
-        "eastEntrance1",
-        "5bbcaeeb9099fc012e639c4a"
-      );
-    } else if (roll === "claimW") {
-      claimersW.push(name);
-      claimW(
-        creep,
-        "E34N31",
-        Game.flags.westExit,
-        LEFT,
-        "westExit",
-        "5bbcaeeb9099fc012e639c4d"
-      );
-    } else if (roll === "claimNWW") {
-      claimersNWW.push(name);
-      claimNWW(
-        creep,
-        "E33N32",
-        Game.flags.nww,
-        LEFT,
-        "nww",
-        "5bbcaedb9099fc012e639a93"
-      );
     } else if (roll === "northRezzy") {
       rezzyContr(
         creep,
@@ -147,49 +118,17 @@ function runRoles() {
         "northEntrance1",
         "5bbcaefa9099fc012e639e8b"
       );
-    } else if (roll === "eRezzy" || roll === "upCE") {
-      upControllersE.push(name);
-
-      upControllerE(creep, Game.flags.eastController, "E36N31");
-    } else if (roll === "westRezzy") {
-      rezzyContr(
-        creep,
-        "E34N31",
-        Game.flags.westExit,
-        LEFT,
-        "westEntrance1",
-        "5bbcaeeb9099fc012e639c4d"
-      );
-    } else if (roll === "upC") {
-      creep.memory.up = true;
-      upControllers.push(name);
-
-      upController(creep, Game.flags.e59s48contr, "E59S48");
-    } else if (roll === "upCNE") {
-      upControllersNE.push(name);
-
-      upControllerNE(creep, Game.flags.e36n32contr, "E36N32");
-    } else if (roll === "upCW") {
-      upControllersW.push(name);
-
-      upControllerW(creep, Game.flags.west, "E34N31");
-    } else if (roll === "upCNW") {
-      upControllersNW.push(name);
-
-      upControllerNW(creep, Game.flags.nw, "E34N32");
-    } else if (roll === "eeUp") {
-      eeastUpControllers.push(name);
-      roleEEUp(creep, "E37N31");
-    } else if (roll === "deepSouthRezzy") {
-      deepSouthScout(creep);
     } else if (
       roll === "uc" ||
       roll === "upController" ||
       roll === "upc" ||
       roll === "upC"
     ) {
-      creep.memory.up = true;
+      if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
+        creep.memory.up = true;
+      }
       upControllers.push(name);
+
       upController(creep, Game.flags.e59s48contr, "E59S48");
     } else if (roll === "worker" || roll === "w") {
       if (creep.memory.direction === "east") {
@@ -198,38 +137,6 @@ function runRoles() {
         workers.push(name);
       }
       roleWorker.run(creep);
-    } else if (roll === "nwBuilder" || roll === "nwworker") {
-      nwworkers.push(name);
-
-      creep.memory.buildRoom = "E34N32";
-
-      roleWorker.run(creep);
-    } else if (roll === "nBuilder" || roll === "nworker") {
-      nworkers.push(name);
-
-      creep.memory.buildRoom = "E35N32";
-
-      roleWorker.run(creep);
-    } else if (roll === "eBuilder" || roll === "eworker") {
-      eworkers.push(name);
-
-      creep.memory.buildRoom = "E36N31";
-
-      roleWorker.run(creep);
-    } else if (roll === "eeBuilder" || roll === "eeworker") {
-      eeworkers.push(name);
-
-      creep.memory.buildRoom = "E37N31";
-
-      roleWorker.run(creep);
-    } else if (roll === "neBuilder" || roll === "neworker") {
-      neworkers.push(name);
-      creep.memory.buildRoom = "E36N32";
-      roleWorker.run(creep, Game.flags.neSource1, "E36N32");
-    } else if (roll === "eeBuilder") {
-      eeworkers.push(name);
-      creep.memory.buildRoom = "E37N31";
-      roleWorker.run(creep, Game.flags.eeController, "E37N31");
     } else if (roll === "healer") {
       hele(creep);
     } else if (roll === "controller") {
@@ -244,15 +151,6 @@ function runRoles() {
       }
       roadRepairers.push(name);
       roleRepairer.run(creep);
-    } else if (roll === "roadRepairerN" || roll === "rN") {
-      roadRepairersN.push(name);
-      roleRepairerN.run(creep);
-    } else if (roll === "roadRepairerNE" || roll === "rNE") {
-      roadRepairersNE.push(name);
-      roleRepairerNE.run(creep);
-    } else if (roll === "roadRepairerE" || roll === "rE") {
-      erepairers.push(name);
-      roleRepairerE.run(creep);
     } else if (roll === "c" || name.startsWith("c")) {
       claimers.push(name);
       roll = "c";
@@ -295,6 +193,7 @@ function runRoles() {
   Memory.workers = workers;
   Memory.upControllers = upControllers;
   Memory.roadRepairers = roadRepairers;
+  Memory.roadBuilder = roadBuilder;
   Memory.attackers = attackers;
   Memory.claimers = claimers;
   Memory.linkGets = linkGets;

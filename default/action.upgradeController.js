@@ -39,7 +39,7 @@ function upController(creep, flag) {
 
   if (creep.memory.up) {
     if (creep.room.name !== "E59S48") {
-      smartMove(creep, Game.getObjectById("59bbc5d22052a716c3cea137"), 3);
+      smartMove(creep, Game.getObjectById("59bbc5d22052a716c3cea137"), 3, true, "#290199", null, 10000);
     } else if(creep.pos.inRangeTo(target, 3)) {
       retval = creep.upgradeController(target);
       if (retval == OK) {

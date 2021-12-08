@@ -3,7 +3,6 @@ const transferEnToTower = require("./action.transEnTower");
 const transferEnergy = require("./action.transferEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
-const buildRoad = require("./action.buildRoad");
 const vestEE = require("./action.getEnergyEEast");
 
 function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
@@ -83,30 +82,27 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   // target = target || Game.getObjectById(lastSourceId);
   let sources;
   let useMoveTo = false;
-  if (direction === "south") {
+  if (direction === "south" && !creep.memory.lastSourceId) {
     sources = ["59bbc5d22052a716c3cea136", "59bbc5d22052a716c3cea135"];
-    target = Game.getObjectById(sources[0]);
+    let randInt = getRandomInt(2);
+
+    target = Game.getObjectById(sources[randInt]);
     useMoveTo = true;
+  } else if (creep.memory.lastSourceId){
+    target = Game.getObjectById(creep.memory.lastSourceId)
   }
 
-  if (targetedRm) {
+  if (targetedRm && !target) {
     // if (lastSourceId) {
     //   console.log(name + " getEnergy ");
     //   target = Game.getObjectById(lastSourceId);
     // }
 
-    if (
-      !target ||
-      (target.room.name === "E59S48" && target.pos.isEqualTo(41, 8)) ||
-      target.energy <= 0
-    ) {
+    if (!target || target.room.name === "E59S48" || target.energy <= 0) {
       target = targetedRm
         .find(FIND_SOURCES_ACTIVE, {
           filter: (source) => {
-            if (
-              !(targetedRm.name === "E59S48" && source.pos.isEqualTo(41, 8)) &&
-              source.energy > 0
-            ) {
+            if (!(targetedRm.name === "E59S48") && source.energy > 0) {
               // console.log("name2: " + creep.name + " "  + source)
 
               return source;
@@ -169,7 +165,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
   // If i don't have a target yet. Check containers and storage units
   //  for energy.
-  if (direction === "south" && !target) {
+  if (!target) {
     let southStorageStructures = ["5d0178505a74ac0a0094daab"];
     target = Game.getObjectById(southStorageStructures[0]);
     let storageCreep = creep.room.lookForAt(LOOK_CREEPS, 43, 9).pop();
@@ -267,9 +263,11 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     creep.say("sad");
   }
 
-  console.log(name + " getEnergybottom " + creep.memory.getEnergy)
-
   return retval;
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
 }
 
 module.exports = vest;

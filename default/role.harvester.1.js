@@ -16,9 +16,6 @@ const roleHarvester = {
     const homeRmName = Memory.homeRoomName;
     let retval = -16;
 
-    console.log(name + " store " + creep.store[RESOURCE_ENERGY]);
-    console.log(name + " getEnergy1 " + creep.memory.getEnergy);
-
     if (
       creep.memory.getEnergy ||
       creep.store[RESOURCE_ENERGY] < 5 ||
@@ -35,8 +32,6 @@ const roleHarvester = {
       creep.memory.transferTower = false;
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
-
-      console.log(name + " inside getEnergy: " + creep.memory.getEnergy);
 
       retval = getEnergy(creep, homeRmName);
     } else if (creep.memory.transfer || creep.carry.energy > 0) {

@@ -85,6 +85,7 @@ function spawnCreepTypes(enAvail) {
   let wAttackDurationSafeCheck = Memory.wAttackDurationSafeCheck;
   let nwAttackDurationSafeCheck = Memory.nwAttackDurationSafeCheck;
   let nwwAttackDurationSafeCheck = Memory.nwwAttackDurationSafeCheck;
+  let roadBuilder = Memory.roadBuilder || [];
 
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
@@ -212,9 +213,6 @@ function spawnCreepTypes(enAvail) {
   const contrNWW = Game.getObjectById("5bbcaedb9099fc012e639a93");
 
 
-  console.log("here2");
-
-
   if (enAvail >= 300 && attackers.length < 1 && Memory.nAttackerId) {
     let t = Game.time.toString().slice(4);
     let name = "harv" + t;
@@ -260,11 +258,25 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else {//if (upControllers.length < 3) {
+    } else if (upControllers.length < 3) {
       name = "upC" + t;
       chosenRole = "upC";
       upControllers.push(name);
       parts = upContrParts;
+      retval = birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else {
+      name = "r" + t;
+      chosenRole = "roadBuilder";
+      roadBuilder.push(name);
+      parts = simpleParts;
       retval = birthCreep(
         s1,
         parts,
@@ -810,6 +822,7 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
+  Memory.roadBuilder = roadBuilder;
   Memory.harvesters = harvesters;
   Memory.workers = workers;
   Memory.upControllers = upControllers;

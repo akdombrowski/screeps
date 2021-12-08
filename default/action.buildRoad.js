@@ -1,17 +1,19 @@
 const smartMove = require("./action.smartMove");
+const getEnergy = require("./action.getEnergy.1");
 
 function buildRoad(creep) {
+  let name = creep.name;
   let targetId = creep.memory.targetId;
   let target = null;
   let buildingRoad = creep.memory.buildingRoad || true;
   let retval = -16;
 
-  if (_.sum(creep.carry) >= creep.carryCapacity) {
+  if (creep.store[RESOURCE_ENERGY] >= creep.carryCapacity) {
     buildingRoad = true;
     creep.memory.buildingRoad = buildingRoad;
   }
 
-  if (buildingRoad && _.sum(creep.carry) > 0) {
+  if (buildingRoad && creep.store[RESOURCE_ENERGY] > 0) {
     if (
       !target ||
       !CONSTRUCTION_COST[target.structureType] ||
@@ -19,12 +21,12 @@ function buildRoad(creep) {
         creep.room.lookAt(target).progressTotal
     ) {
       target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
-        filter: constructionSite => {
+        filter: (constructionSite) => {
           return (
             constructionSite.progress < constructionSite.progressTotal &&
             constructionSite.structureType == STRUCTURE_ROAD
           );
-        }
+        },
       });
       targetId = target ? target.id : null;
     }
@@ -60,13 +62,16 @@ function buildRoad(creep) {
       }
     }
 
-    if (creep.carry.energy <= 0) {
+    if (creep.store[RESOURCE_ENERGY] <= 0) {
       creep.memory.buildingRoad = false;
       creep.memory.getEnergy = true;
     }
   } else {
     retval = ERR_NOT_ENOUGH_ENERGY;
+    creep.memory.getEnergy = true;
+    getEnergy(creep);
   }
+
   return retval;
 }
 

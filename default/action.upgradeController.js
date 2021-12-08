@@ -3,13 +3,18 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 
 function upController(creep, flag) {
-  if (_.sum(creep.carry) >= creep.carryCapacity) {
+  if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
     creep.memory.up = true;
-  } else if (_.sum(creep.carry) == 0) {
+    creep.memory.getEnergy = false;
+  } else if (creep.store[RESOURCE_ENERGY] == 0) {
     creep.memory.up = false;
     creep.memory.getEnergy = true;
     getEnergy(creep);
     return;
+  }
+
+  if(creep.memory.up) {
+    creep.memory.getEnergy = false;
   }
 
   let target;
@@ -21,7 +26,7 @@ function upController(creep, flag) {
     target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
   }
 
-  target = Game.getObjectById("5bbcaefa9099fc012e639e90");
+  target = Game.getObjectById("59bbc5d22052a716c3cea137");
 
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
@@ -33,8 +38,8 @@ function upController(creep, flag) {
   }
 
   if (creep.memory.up) {
-    if (creep.room.name === "E36N32") {
-      smartMove(creep, Game.getObjectById("5bbcaf0c9099fc012e63a0be"), 3);
+    if (creep.room.name !== "E59S48") {
+      smartMove(creep, Game.getObjectById("59bbc5d22052a716c3cea137"), 3);
     } else if(creep.pos.inRangeTo(target, 3)) {
       retval = creep.upgradeController(target);
       if (retval == OK) {
@@ -46,6 +51,7 @@ function upController(creep, flag) {
         creep.memory.up = false;
         creep.memory.getEnergy = true;
         getEnergy(creep);
+        return retval;
       } else {
         creep.memory.controller = null;
         creep.say("uc." + retval);

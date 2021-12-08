@@ -23,7 +23,6 @@ function tran(creep, flag, dest) {
   let tower4 = Game.getObjectById(Memory.tower4Id);
   let tower5 = Game.getObjectById(Memory.tower5Id);
   let tower6 = Game.getObjectById(Memory.tower6Id);
-  let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
   let towers = [tower1, tower2, tower3, tower4, tower5, tower6];
   let enAvail = rm.energyAvailable;
   let retval = -16;
@@ -44,7 +43,7 @@ function tran(creep, flag, dest) {
     return tranee(creep);
   }
 
-  if (rmName !== "E35N31") {
+  if (rmName !== "E59S48") {
     retval = smartMove(
       creep,
       Game.flags.tower6.pos,
@@ -145,13 +144,13 @@ function tran(creep, flag, dest) {
     let exts;
 
     if (!Memory.e35n31Extensions) {
-      exts = Game.rooms["E35N31"].find(FIND_STRUCTURES, {
-        filter: struct => {
+      exts = Game.rooms["E59S48"].find(FIND_STRUCTURES, {
+        filter: (struct) => {
           return struct.structureType === STRUCTURE_EXTENSION;
         },
       });
       Memory.e35n31Extensions = [];
-      _.each(exts, ext => {
+      _.each(exts, (ext) => {
         Memory.e35n31Extensions.push(ext.id);
       });
     } else {
@@ -163,7 +162,7 @@ function tran(creep, flag, dest) {
     }
 
     let a = creep.pos.findClosestByPath(exts, {
-      filter: function(structure) {
+      filter: function (structure) {
         if (!structure) {
           return false;
         }
@@ -214,7 +213,7 @@ function tran(creep, flag, dest) {
     let currTarget = towers[0];
     let prevTarget = towers[0];
 
-    _.each(towers, tower => {
+    _.each(towers, (tower) => {
       // tower doesn't exist or doesn't have an energy component
       if (!tower) {
         return;
@@ -262,7 +261,7 @@ function tran(creep, flag, dest) {
 
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: structure => {
+      filter: (structure) => {
         if (
           structure.structureType === STRUCTURE_STORAGE &&
           !name.startsWith("h")
@@ -286,6 +285,7 @@ function tran(creep, flag, dest) {
     });
   }
 
+  target = Memory.s1;
   if (target && creep.pos.inRangeTo(target, 1)) {
     creep.memory.path = null;
     creep.memory.transferTargetId = target.id;
@@ -325,6 +325,11 @@ function tran(creep, flag, dest) {
     creep.memory.path = null;
     creep.say("t.err");
   }
+
+
+
+  console.log("target: " + target);
+
 
   if (retval) {
     console.log(name + " here retval " + retval);

@@ -4,7 +4,7 @@ const ermgetEnergyEast = require("./action.erm.getEnergyEast");
 
 function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
   /** creep controller reserve**/
-  controller = "5bbcaf0c9099fc012e63a0be";
+  controller = "59bbc5d22052a716c3cea137";
   let path1 = creep.memory.path1;
   let path2 = creep.memory.path2;
   let retval;

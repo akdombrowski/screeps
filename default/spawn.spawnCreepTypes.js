@@ -73,31 +73,11 @@ function birthCreep(
 function spawnCreepTypes(enAvail) {
   let linkGets = Memory.linkGets || [];
   let workers = Memory.workers || [];
-  let nworkers = Memory.nworkers || [];
-  let nwworkers = Memory.nwworkers || [];
-  let neworkers = Memory.neworkers || [];
   let harvesters = Memory.harvesters || [];
   let upControllers = Memory.upControllers || [];
-  let upControllersN = Memory.upControllersN || [];
-  let upControllersNW = Memory.upControllersNW || [];
-  let upControllersW = Memory.upControllersW || [];
-  let upControllersNE = Memory.upControllersNE || [];
   let roadRepairers = Memory.roadRepairers || [];
-  let harvestersN = Memory.harvestersN || [];
-  let harvestersNW = Memory.harvestersNW || [];
-  let harvestersNWW = Memory.harvestersNWW || [];
-  let harvestersW = Memory.westHarvesters || [];
-  let harvestersS = Memory.harvestersS || [];
-  let harvestersE = Memory.eastHarvesters || [];
-  let southtowerHarvesters = Memory.southtowerHarvesters || [];
+  let towerHarvesters = Memory.towerHarvesters || [];
   let claimers = Memory.claimers || [];
-  let claimersN = Memory.claimersN || [];
-  let claimersNW = Memory.claimersNW || [];
-  let claimersNWW = Memory.claimersNWW || [];
-  let claimersW = Memory.claimersW || [];
-  let claimersNE = Memory.claimersNE || [];
-  let attackersNW = Memory.attackersNW || [];
-  let attackersNWW = Memory.attackersNWW || [];
   let attackers = Memory.attackers || [];
   let eAttackDurationSafeCheck = Memory.eAttackDurationSafeCheck;
   let nAttackDurationSafeCheck = Memory.nAttackDurationSafeCheck;
@@ -222,9 +202,7 @@ function spawnCreepTypes(enAvail) {
   let retval = -16;
 
   if (
-    Game.spawns.Spawn1.spawning &&
-    Game.spawns.spawn2.spawning &&
-    Game.spawns.sspawn3.spawning
+    Game.spawns.Spawn1.spawning
   ) {
     return;
   }
@@ -232,6 +210,10 @@ function spawnCreepTypes(enAvail) {
   const contrW = Game.getObjectById("5bbcaeeb9099fc012e639c4d");
   const contrNW = Game.getObjectById("5bbcaeeb9099fc012e639c4a");
   const contrNWW = Game.getObjectById("5bbcaedb9099fc012e639a93");
+
+
+  console.log("here2");
+
 
   if (enAvail >= 300 && attackers.length < 1 && Memory.nAttackerId) {
     let t = Game.time.toString().slice(4);
@@ -265,8 +247,9 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts;
     let spawnDirection = [BOTTOM];
 
-    if (harvestersS.length < 1) {
-      harvestersS.push(name);
+
+    if (harvesters.length < 2) {
+      harvesters.push(name);
       parts = simpleParts;
       retval = birthCreep(
         s1,
@@ -277,7 +260,7 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (upControllers.length < 1) {
+    } else if (upControllers.length < 2) {
       name = "upC" + t;
       chosenRole = "upC";
       upControllers.push(name);
@@ -828,30 +811,13 @@ function spawnCreepTypes(enAvail) {
   }
 
   Memory.harvesters = harvesters;
-  Memory.harvestersS = harvestersS;
   Memory.workers = workers;
-  Memory.nworkers = nworkers;
-  Memory.nwworkers = nwworkers;
-  Memory.neworkers = neworkers;
   Memory.upControllers = upControllers;
-  Memory.upControllersN = upControllersN;
-  Memory.upControllersNW = upControllersNW;
-  Memory.upControllersNE = upControllersNE;
   Memory.roadRepairers = roadRepairers;
   Memory.attackers = attackers;
   Memory.claimers = claimers;
-  Memory.claimersN = claimersN;
-  Memory.claimersNW = claimersNW;
-  Memory.claimersNWW = claimersNWW;
-  Memory.claimersNE = claimersNE;
-  Memory.harvestersN = harvestersN;
-  Memory.harvestersNW = harvestersNW;
-  Memory.harvestersNWW = harvestersNWW;
-  Memory.eastHarvesters = harvestersE;
-  Memory.westHarvesters = harvestersW;
-  Memory.southHarvesters = harvestersS;
   Memory.linkGets = linkGets;
-  Memory.southtowerHarvesters = southtowerHarvesters;
+  Memory.towerHarvesters = towerHarvesters;
 }
 
 module.exports = spawnCreepTypes;

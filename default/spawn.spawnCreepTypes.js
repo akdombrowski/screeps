@@ -260,7 +260,7 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (upControllers.length < 2) {
+    } else {//if (upControllers.length < 3) {
       name = "upC" + t;
       chosenRole = "upC";
       upControllers.push(name);

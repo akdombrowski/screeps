@@ -46,125 +46,34 @@ function runRoles() {
   let i = 0;
   let crps = Game.creeps;
   let harvesters = [];
-  let harvestersS = [];
-  let harvestersN = [];
-  let harvestersNW = [];
-  let harvestersNWW = [];
-  let harvestersNE = [];
-  let workers = [];
-  let neworkers = [];
-  let nworkers = [];
-  let nwworkers = [];
-  let eworkers = [];
-  let eeastWorkers = [];
-  let eeworkers = [];
+  let workers = Memory.workers || [];
   let upControllers = [];
-  let upControllersN = [];
-  let upControllersNW = [];
-  let upControllersW = [];
-  let upControllersNE = [];
-  let upControllersE = [];
-  let eeastUpControllers = [];
-  let roadRepairers = [];
-  let roadRepairersN = [];
-  let roadRepairersNW = [];
-  let roadRepairersNE = [];
-  let erepairers = [];
-  let attackers = [];
-  let attackersNW = [];
-  let attackersNWW = [];
-  let eattackers = [];
-  let claimers = [];
-  let claimersN = [];
-  let claimersNW = [];
-  let claimersNWW = [];
-  let claimersW = [];
-  let claimersNE = [];
-  let southHarvesters = [];
-  let westHarvesters = [];
-  let linkGets = [];
-  let eastHarvesters = [];
-  let ermHarvesters = [];
-  let eeRmHarvesters = [];
-  let etowerHarvesters = [];
-  let southtowerHarvesters = [];
-  let towerHarvestersN = [];
-  let towerHarvestersNE = [];
-  Memory.nesource1Creeps = [];
-  Memory.nesource2Creeps = [];
+  let roadRepairers = Memory.roadRepairers || [];
+  let attackers = Memory.attackers || [];
+  let claimers = Memory.claimers || [];
+  let linkGets = Memory.linkGets || [];
+  let towerHarvesters = Memory.towerHarvesters || [];
 
   for (let name in crps) {
     let creep = crps[name];
     let roll = creep.memory.role;
 
-    // console.log(name + " here2 " + roll);
-    if (!roll) {
-      continue;
+    if (!roll && name.startsWith("harv")) {
+      creep.memory.role = "h";
+      roll = "h";
+    } else if (name.startsWith("upC")) {
+      creep.memory.role = "upC";
+      roll = "upC";
     }
 
     if (roll === "h" || roll === "harvester") {
-      if (
-        creep.memory.direction === "north" ||
-        name.endsWith("N") ||
-        creep.memory.direction === "n"
-      ) {
-        creep.memory.direction = "north";
-        harvestersN.push(name);
-      } else if (
-        creep.memory.direction === "east" ||
-        creep.memory.direction === "e"
-      ) {
-        if (creep.memory.sourceDir === "north1") {
-          harvestersNE.push(name);
-        } else if (creep.memory.sourceDir === "north2") {
-          harvestersNE.push(name);
-        } else if (creep.memory.sourceDir === "east") {
-          ermHarvesters.push(name);
-        } else if (creep.memory.sourceDir === "east2") {
-          ermHarvesters.push(name);
-        }
-        ermHarvesters.push(name);
-
-        if (creep.memory.nesourceNumber === 1) {
-          Memory.nesource1Creeps.push(name);
-        } else if (creep.memory.nesourceNumber === 2) {
-          Memory.nesource2Creeps.push(name);
-        }
-        eastHarvesters.push(name);
-      } else if (creep.memory.direction === "west") {
-        westHarvesters.push(name);
-      } else if (creep.memory.direction === "eeast" || name.endsWith("EE")) {
-        creep.memory.direction = "eeast";
-        eeRmHarvesters.push(name);
-      } else if (creep.memory.direction === "ne" || name.endsWith("NE")) {
-        creep.memory.direction = "ne";
-        harvestersNE.push(name);
-      } else if (creep.memory.direction === "nw" || name.endsWith("NW")) {
-        creep.memory.direction = "nw";
-        harvestersNW.push(name);
-      } else if (creep.memory.direction === "nww" || name.endsWith("NWW")) {
-        creep.memory.direction = "nww";
-        harvestersNWW.push(name);
-      } else {
-        harvestersS.push(name);
-      }
-
+      creep.memory.getEnergy = true;
       harvesters.push(name);
       roleHarvester.run(creep);
-    } else if (roll.startsWith("etowerHarvester")) {
-      etowerHarvesters.push(name);
-      roleHarvesterToTowerE.run(creep);
-    } else if (roll.startsWith("southtowerHarvester")) {
-      harvesters.push(name);
-      southtowerHarvesters.push(name);
-      roleHarvesterToSouthTower.run(creep);
-    } else if (roll.startsWith("ntowerHarvester")) {
-      towerHarvestersN.push(name);
-      roleHarvesterToTowerN.run(creep);
-    } else if (roll.startsWith("netowerHarvester")) {
-      towerHarvestersNE.push(name);
-      roleHarvesterToTowerNE.run(creep);
-    } else if (roll.startsWith("linkGet")) {
+    } else if (roll && roll.startsWith("towerHarvester")) {
+      towerHarvesters.push(name);
+      roleHarvesterToTower.run(creep);
+    } else if (roll && roll.startsWith("linkGet")) {
       linkGets.push(name);
       roleLinkGet.run(creep);
     } else if (roll === "newharvester") {
@@ -251,10 +160,11 @@ function runRoles() {
         "westEntrance1",
         "5bbcaeeb9099fc012e639c4d"
       );
-    } else if (roll === "upCN") {
-      upControllersN.push(name);
+    } else if (roll === "upC") {
+      creep.memory.up = true;
+      upControllers.push(name);
 
-      upControllerN(creep, Game.flags.e36n32contr, "E35N32");
+      upController(creep, Game.flags.e59s48contr, "E59S48");
     } else if (roll === "upCNE") {
       upControllersNE.push(name);
 
@@ -278,8 +188,9 @@ function runRoles() {
       roll === "upc" ||
       roll === "upC"
     ) {
+      creep.memory.up = true;
       upControllers.push(name);
-      upController(creep);
+      upController(creep, Game.flags.e59s48contr, "E59S48");
     } else if (roll === "worker" || roll === "w") {
       if (creep.memory.direction === "east") {
         eworkers.push(name);
@@ -381,50 +292,13 @@ function runRoles() {
   }
 
   Memory.harvesters = harvesters;
-  Memory.harvestersS = harvestersS;
-  Memory.harvestersN = harvestersN;
-  Memory.harvestersNW = harvestersNW;
-  Memory.harvestersNWW = harvestersNWW;
-  Memory.harvestersNE = harvestersNE;
   Memory.workers = workers;
-  Memory.eworkers = eworkers;
-  Memory.eeastWorkers = eeastWorkers;
-  Memory.eeworkers = eeworkers;
-  Memory.neworkers = neworkers;
-  Memory.nwworkers = nwworkers;
-  Memory.nworkers = nworkers;
   Memory.upControllers = upControllers;
-  Memory.upControllersN = upControllersN;
-  Memory.upControllersNW = upControllersNW;
-  Memory.upControllersW = upControllersW;
-  Memory.upControllersNE = upControllersNE;
-  Memory.upControllersE = upControllersE;
-  Memory.eeastUpControllers = eeastUpControllers;
   Memory.roadRepairers = roadRepairers;
-  Memory.roadRepairersN = roadRepairersN;
-  Memory.roadRepairersNW = roadRepairersNW;
-  Memory.roadRepairersNE = roadRepairersNE;
-  Memory.erepairers = erepairers;
   Memory.attackers = attackers;
-  Memory.attackersNW = attackersNW;
-  Memory.attackersNWW = attackersNWW;
-  Memory.eattackers = eattackers;
   Memory.claimers = claimers;
-  Memory.claimersN = claimersN;
-  Memory.claimersNW = claimersNW;
-  Memory.claimersNWW = claimersNWW;
-  Memory.claimersW = claimersW;
-  Memory.claimersNe = claimersNE;
-  Memory.westHarvesters = westHarvesters;
-  Memory.southHarvesters = southHarvesters;
   Memory.linkGets = linkGets;
-  Memory.eastHarvesters = eastHarvesters;
-  Memory.ermHarvesters = ermHarvesters;
-  Memory.eeRmHarvesters = eeRmHarvesters;
-  Memory.etowerHarvesters = etowerHarvesters;
-  Memory.southtowerHarvesters = southtowerHarvesters;
-  Memory.towerHarvestersN = towerHarvestersN;
-  Memory.towerHarvestersNE = towerHarvestersNE;
+  Memory.towerHarvesters = towerHarvesters;
 }
 
 module.exports = runRoles;

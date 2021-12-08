@@ -8,9 +8,7 @@ const vestEE = require("./action.getEnergyEEast");
 
 function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   let tower = Game.getObjectById(Memory.tower1Id);
-  let tower2 = Game.getObjectById(Memory.tower2Id);
-  let ermtower1 = Game.getObjectById(Memory.ermtower1Id);
-  let towers = [tower, tower2];
+  let towers = [tower];
   let retval = -16;
   let name = creep.name;
   let rmName = creep.room.name;
@@ -21,7 +19,9 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   let s1RmEnAvail = Memory.s1.room.energyAvailable;
   let range = 1;
 
-  if (_.sum(creep.carry) >= creep.carryCapacity) {
+  if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
+    console.log("resetting getEnergy");
+
     creep.memory.path = null;
     creep.memory.getEnergy = false;
     creep.memory.getEnergyTargetId = null;
@@ -29,14 +29,8 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     return OK;
   }
 
-  if(creep.room.name !== "E35N31" && creep.memory.role === "worker") {
+  if (creep.room.name !== "E59S48" && creep.memory.role === "worker") {
     retval = smartMove(creep, Game.flags.Flag1, 5, false, null, 10, 1000, 2);
-    return retval;
-  }
-
-  if (direction === "eeast") {
-    retval = vestEE(creep);
-    creep.memory.getEnergyTargetId = null;
     return retval;
   }
 
@@ -90,7 +84,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   let sources;
   let useMoveTo = false;
   if (direction === "south") {
-    sources = ["5bbcaefa9099fc012e639e8f"];
+    sources = ["59bbc5d22052a716c3cea136", "59bbc5d22052a716c3cea135"];
     target = Game.getObjectById(sources[0]);
     useMoveTo = true;
   }
@@ -103,14 +97,14 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
     if (
       !target ||
-      (target.room.name === "E35N31" && target.pos.isEqualTo(41, 8)) ||
+      (target.room.name === "E59S48" && target.pos.isEqualTo(41, 8)) ||
       target.energy <= 0
     ) {
       target = targetedRm
         .find(FIND_SOURCES_ACTIVE, {
-          filter: source => {
+          filter: (source) => {
             if (
-              !(targetedRm.name === "E35N31" && source.pos.isEqualTo(41, 8)) &&
+              !(targetedRm.name === "E59S48" && source.pos.isEqualTo(41, 8)) &&
               source.energy > 0
             ) {
               // console.log("name2: " + creep.name + " "  + source)
@@ -156,7 +150,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
   ) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: struct => {
+      filter: (struct) => {
         const type = struct.structureType;
 
         if (
@@ -187,12 +181,14 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     ) {
       target = null;
     }
-    if (target &&
+    if (
+      target &&
       storageCreep &&
       storageCreep.name !== name &&
       storageCreep2 &&
       storageCreep2.name !== name &&
-      pos && creep
+      pos &&
+      creep
     ) {
       if (creep.pos.inRangeTo(target, 5)) {
         creep.say("wait");
@@ -209,7 +205,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   ) {
     creep.memory.path = null;
     target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
-      filter: structure => {
+      filter: (structure) => {
         if (structure.pos.findInRange(FIND_CREEPS, 2).length <= 1) {
           return structure;
         }
@@ -218,6 +214,17 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   }
 
   if (target) {
+    if (target instanceof String || target instanceof Number) {
+      target = Game.getObjectById(target);
+    }
+
+    if (target instanceof Flag) {
+      target = creep.room.lookForAt(
+        LOOK_SOURCES,
+        target.pos.x,
+        target.pos.y
+      )[0];
+    }
     // If I have a target, go harvest it.
     creep.memory.lastSourceId = target.id;
     if (target.structureType) {
@@ -234,6 +241,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       } else {
         retval = creep.harvest(target);
       }
+
       if (retval === OK) {
         creep.say("v");
       } else {
@@ -258,6 +266,8 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     creep.memory.lastSourceId = target;
     creep.say("sad");
   }
+
+  console.log(name + " getEnergybottom " + creep.memory.getEnergy)
 
   return retval;
 }

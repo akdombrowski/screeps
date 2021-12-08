@@ -1,18 +1,5 @@
 const getEnergy = require("./action.getEnergy.1");
 const transferEnergy = require("./action.transferEnergy");
-const transferEnergyeRm = require("./action.transferEnergyeRm");
-const transferEnergyEE = require("./action.transferEnergyEEast");
-const transferEnergyNE = require("./action.transferEnergyNE");
-const transferEnergyN = require("./action.transferEnergyN");
-const transferEnergyNW = require("./action.transferEnergyNW");
-const getEnergyNorth = require("./action.getEnergyNorth");
-const getEnergyNE = require("./action.getEnergyNE");
-const getEnergyNW = require("./action.getEnergyNW");
-const getEnergyNWW = require("./action.getEnergyNWW");
-const getEnergyEast = require("./action.getEnergy.1");
-const ermgetEnergyEast = require("./action.getEnergy.1");
-const getEnergyEEast = require("./action.getEnergyEEast");
-const getEnergyWest = require("./action.getEnergyWest");
 const buildRoad = require("./action.buildRoad");
 const smartMove = require("./action.smartMove");
 const build = require("./action.build");
@@ -20,15 +7,17 @@ const transEnTower = require("./action.transEnTower");
 
 const roleHarvester = {
   /** @param {Creep} creep **/
-  run: function(creep) {
-    const ermHarvesters = Memory.ermHarvesters;
-    const ermNeHarvesters = Memory.ermNeHarvesters;
+  run: function (creep) {
     const name = creep.name;
     const direction = creep.memory.direction;
     const sourceDir = creep.memory.sourceDir;
     const fatigue = creep.fatigue;
     const rm = creep.room;
+    const homeRmName = Memory.homeRoomName;
     let retval = -16;
+
+    console.log(name + " store " + creep.store[RESOURCE_ENERGY]);
+    console.log(name + " getEnergy1 " + creep.memory.getEnergy);
 
     if (
       creep.memory.getEnergy ||
@@ -47,93 +36,9 @@ const roleHarvester = {
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
 
-      if (direction == "north") {
-        if (
-          !Memory.northAttackerId ||
-          Game.time >= Memory.nAtackDurationSafeCheck
-        ) {
-          retval = getEnergyNorth(creep, "E35N32");
-        } else {
-          Memory.northAttackerId = creep.room.find(FIND_HOSTILE_CREEPS).pop()
-            ? Memory.northAttackerId
-            : null;
-        }
-      } else if (direction === "ntoS") {
-        getEnergyNorth(creep, "E35N32");
-      } else if (direction == "east" || direction === "e") {
-        if (
-          !Memory.eastAttackerId ||
-          Game.time >= Memory.eAttackDurationSafeCheck
-        ) {
-          if (creep.memory.sourceDir === "east") {
-            retval = ermgetEnergyEast(creep, "E36N31");
-          } else {
-            let nesource1Creeps = Memory.nesource1Creeps || [];
-            let nesource2Creeps = Memory.nesource2Creeps || [];
-            if (creep.memory.nesourceNumber === 1) {
-              retval = ermgetEnergyEast(
-                creep,
-                "E36N32",
-                "E36N31",
-                Game.flags.neSource1
-              );
-            } else if (creep.memory.nesourceNumber === 2) {
-              retval = ermgetEnergyEast(
-                creep,
-                "E36N32",
-                "E36N31",
-                Game.flags.neSource2
-              );
-            } else if (nesource1Creeps.length < nesource2Creeps.length) {
-              // go to energy source 1
-              retval = ermgetEnergyEast(
-                creep,
-                "E36N32",
-                "E36N31",
-                Game.flags.neSource1
-              );
-              creep.memory.nesourceNumber = 1;
-            } else {
-              // go to energy source 2
-              creep.memory.nesourceNumber = 2;
-              retval = ermgetEnergyEast(
-                creep,
-                "E36N32",
-                "E36N31",
-                Game.flags.neSource2
-              );
-            }
-          }
-        } else {
-          Memory.eastAttackerId = creep.room.find(FIND_HOSTILE_CREEPS).pop()
-            ? Memory.eastAttackerId
-            : null;
-          console.log("East attacker");
-        }
-      } else if (direction === "eeast") {
-        retval = getEnergyEEast(creep, "E37N31", Game.flags.eesource1);
-      } else if (direction == "west") {
-        if (
-          !Memory.westAttackerId ||
-          Game.time >= Memory.wAttackDurationSafeCheck
-        ) {
-          retval = getEnergyWest(creep, "E34N31");
-        } else {
-          Memory.westAttackerId = creep.room.find(FIND_HOSTILE_CREEPS).pop()
-            ? Memory.westAttackerId
-            : null;
-        }
-      } else if (direction == "south") {
-        retval = getEnergy(creep, "E35N31");
-      } else if (direction == "ne") {
-        retval = getEnergyNE(creep, "E36N32");
-      } else if (direction == "nw") {
-        retval = getEnergyNW(creep, "E34N32");
-      } else if (direction == "nww") {
-        retval = getEnergyNWW(creep, "E33N32");
-      } else {
-        retval = getEnergy(creep, "E35N31");
-      }
+      console.log(name + " inside getEnergy: " + creep.memory.getEnergy);
+
+      retval = getEnergy(creep, homeRmName);
     } else if (creep.memory.transfer || creep.carry.energy > 0) {
       if (!creep.store[RESOURCE_ENERGY] || creep.store[RESOURCE_ENERGY] <= 0) {
         creep.memory.getEnergy = true;
@@ -146,29 +51,7 @@ const roleHarvester = {
       creep.memory.getEnergy = false;
       retval = -16;
 
-      if (direction === "north") {
-        retval = transferEnergyN(creep);
-      } else if (direction === "ntoS") {
-        retval = transferEnergy(creep);
-        return retval;
-      } else if (direction === "east" || direction === "e") {
-        retval = transferEnergyeRm(creep);
-        return retval;
-      } else if (direction === "west") {
-        retval = transferEnergy(creep);
-        return retval;
-      } else if (direction === "eeast") {
-        retval = transferEnergyEE(creep);
-        return retval;
-      } else if (direction === "ne") {
-        retval = transferEnergyNE(creep);
-        return retval;
-      } else if (direction === "nw") {
-        retval = transferEnergyNW(creep);
-        return retval;
-      } else {
-        retval = transferEnergy(creep);
-      }
+      retval = transferEnergy(creep);
 
       if (retval === ERR_TIRED) {
         creep.say("f." + fatigue);
@@ -198,7 +81,7 @@ const roleHarvester = {
           !creep.memory.transfer &&
           !creep.memory.transferTower &&
           creep.room.find(FIND_CONSTRUCTION_SITES, {
-            filter: site => {
+            filter: (site) => {
               return site.structureType === STRUCTURE_ROAD;
             },
           })) ||
@@ -220,6 +103,8 @@ const roleHarvester = {
       if (retval != OK) {
         creep.say("sad." + retval);
       }
+    } else {
+      creep.memory.getEnergy = true;
     }
   },
 };

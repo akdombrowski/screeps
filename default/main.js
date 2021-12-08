@@ -21,23 +21,30 @@ module.exports.loop = function () {
     let lastEnAvail = Memory.enAvail || 0;
 
     let s1 = Game.spawns.Spawn1;
-    let rm = Game.rooms.E35N31;
+    Memory.s1 = s1;
 
-    let enAvaileRm = eRm.energyAvailable;
-    let enCapeRm = eRm.energyCapacityAvailable;
+    let rm = s1.room;
+    Memory.rm = rm;
+    Memory.homeRoomName = "E59S48";
 
+    let enAvail = rm.energyAvailable;
+    let enCapRm = rm.energyCapacityAvailable;
+    Memory.enAvail = enAvail;
+    Memory.enCapRm = enCapRm;
 
-    towersAttackInvader(invader, towers);
+    // towersAttackInvader(invader, towers);
 
     checkForAttackers();
 
-    let crps = Game.creeps;
-    let numCrps = reCheckNumOfCreeps(numCrps, crps);
+    let crps = Memory.creeps || [];
+    Memory.creeps = crps;
+    let numCrps = reCheckNumOfCreeps(crps);
     areCreepsDying(numCrps);
 
     deleteDeadCreeps();
     crps = Game.creeps;
-    numCrps = reCheckNumOfCreeps(numCrps, crps);
+    numCrps = reCheckNumOfCreeps(crps);
+    Memory.creeps = crps;
 
     if (Game.cpu.bucket > 15) {
       runRoles();
@@ -48,18 +55,17 @@ module.exports.loop = function () {
     if (Game.cpu.bucket > 25) {
       spawnCreepTypes(enAvail);
 
-      spawnToSource1Chain();
+      // spawnToSource1Chain();
     } else {
       console.log("low cpu bucket: " + Game.cpu.bucket);
     }
 
-    if (Game.cpu.bucket > 30) {
-      linkTransfer(linkSpawn, slinkMiddle);
-      linkTransfer(linkSpawn, slinkMiddle2);
-    } else {
-      console.log("low cpu bucket: " + Game.cpu.bucket);
-    }
-
+    // if (Game.cpu.bucket > 30) {
+    //   linkTransfer(linkSpawn, slinkMiddle);
+    //   linkTransfer(linkSpawn, slinkMiddle2);
+    // } else {
+    //   console.log("low cpu bucket: " + Game.cpu.bucket);
+    // }
 
     checkProgress(numCrps, rm);
   });
@@ -72,8 +78,8 @@ module.exports.loop = function () {
     Game.profiler.email(profilerDur);
   }
 };
-function reCheckNumOfCreeps(numCrps, crps) {
-  numCrps = Object.keys(crps).length;
+function reCheckNumOfCreeps(crps) {
+  let numCrps = Object.keys(crps).length;
   return numCrps;
 }
 
@@ -100,7 +106,6 @@ function checkProgress(numCrps, rm) {
       Memory.rmProg = 0;
     }
 
-
     let rmControllerId = Memory.rmControllerId || "5bbcaefa9099fc012e639e90";
     let rmController = Game.getObjectById(rmControllerId);
     const rmLvl = rmController.level;
@@ -112,14 +117,14 @@ function checkProgress(numCrps, rm) {
 
     console.log(
       "S: " +
-      rmLvl +
-      ":" +
-      rmProg / 1000 +
-      "/" +
-      rmProgTot / 1000 +
-      " - " +
-      rmProgPerc +
-      "%"
+        rmLvl +
+        ":" +
+        rmProg / 1000 +
+        "/" +
+        rmProgTot / 1000 +
+        " - " +
+        rmProgPerc +
+        "%"
     );
 
     let enAvail = rm.energyAvailable;
@@ -128,23 +133,22 @@ function checkProgress(numCrps, rm) {
 
     Game.notify(
       "S: " +
-      rmLvl +
-      ":" +
-      rmProg / 1000 +
-      "/" +
-      rmProgTot / 1000 +
-      "\n" +
-      rmProgPerc +
-      "%"
+        rmLvl +
+        ":" +
+        rmProg / 1000 +
+        "/" +
+        rmProgTot / 1000 +
+        "\n" +
+        rmProgPerc +
+        "%"
     );
   }
 }
 
 function towersAttackInvader(invader, towers) {
   if (invader) {
-    for(let i = 0; i < towers.length; i++) {
+    for (let i = 0; i < towers.length; i++) {
       towers[i].attack(invader);
     }
   }
 }
-

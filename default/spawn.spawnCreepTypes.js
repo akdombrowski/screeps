@@ -272,10 +272,24 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else {
+    } else if (roadBuilder.length < 3) {
       name = "r" + t;
       chosenRole = "roadBuilder";
       roadBuilder.push(name);
+      parts = simpleParts;
+      retval = birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else {
+      name = "w" + t;
+      chosenRole = "worker";
+      workers.push(name);
       parts = simpleParts;
       retval = birthCreep(
         s1,

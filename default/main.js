@@ -110,6 +110,8 @@ function checkProgress(numCrps, rm) {
     let rmController = Game.getObjectById(rmControllerId);
     const rmLvl = rmController.level;
     const rmProg = rmController.progress;
+    const rmProgTotal = rmController.progressTotal;
+    const rmProgPerc = (rmProg / rmProgTotal) * 100;
 
     Memory.rmProg = rmProg;
 
@@ -121,7 +123,7 @@ function checkProgress(numCrps, rm) {
         ":" +
         rmProg / 1000 +
         "/" +
-        rmProgTot / 1000 +
+        rmProgTotal / 1000 +
         " - " +
         rmProgPerc +
         "%"
@@ -132,12 +134,11 @@ function checkProgress(numCrps, rm) {
     console.log("S:" + enAvail + "," + enCap);
 
     Game.notify(
-      "S: " +
-        rmLvl +
+      rmLvl +
         ":" +
         rmProg / 1000 +
         "/" +
-        rmProgTot / 1000 +
+        rmProgTotal / 1000 +
         "\n" +
         rmProgPerc +
         "%"

@@ -13,7 +13,7 @@ function sourceWithLessCreeps(
 ) {
   let target = sources[0];
 
-  _.forEach(sources, src => {
+  _.forEach(sources, (src) => {
     let sourceCreeps = src.pos.findInRange(FIND_CREEPS, range);
     if (
       sourceCreeps.length < numCreepsAllowedNearSource &&
@@ -40,51 +40,13 @@ function vest(creep, flag, path, targetRoomName, source1Id, source2Id) {
   let retval = -16;
 
   if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
-    creep.memory.getEnergy = false;
+    creep.memory.getEnergy = true;
 
     if (creep.memory.buildingRoad) {
       let retval = buildRoad(creep);
       if (retval != OK) {
         creep.memory.transfer = true;
-        switch (direction) {
-          case "S":
-          case "south":
-            transferEnergyE(creep);
-            break;
-          case "E":
-          case "east":
-            transferEnergyE(creep);
-            break;
-          case "N":
-          case "north":
-            transferEnergyE(creep);
-            break;
-          case "W":
-          case "west":
-            transferEnergyE(creep);
-            break;
-          case "EE":
-          case "eeast":
-            transferEnergyE(creep);
-            break;
-          case "NE":
-          case "ne":
-            transferEnergyE(creep);
-            break;
-          case "NW":
-          case "nw":
-            transferEnergyE(creep);
-            break;
-          case "NWW":
-          case "nww":
-            transEn(creep, Game.flags.tower6);
-            break;
-          default:
-            transferEnergy(creep);
-            break;
-        }
-      } else {
-        creep.memory.buildingRoad = true;
+        transferEnergy(creep);
       }
     } else if (creep.memory.transfer) {
       transferEnergyE(creep);

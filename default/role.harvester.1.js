@@ -1,4 +1,4 @@
-const getEnergy = require("./action.getEnergy.1");
+const getEnergy = require("./action.getEnergy");
 const transferEnergy = require("./action.transferEnergy");
 const buildRoad = require("./action.buildRoad");
 const smartMove = require("./action.smartMove");
@@ -15,6 +15,11 @@ const roleHarvester = {
     const rm = creep.room;
     const homeRmName = Memory.homeRoomName;
     let retval = -16;
+
+
+
+    console.log(name + " getEnergy " + creep.memory.getEnergy)
+
 
     if (
       creep.memory.getEnergy ||

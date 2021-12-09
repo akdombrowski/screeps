@@ -87,13 +87,9 @@ function runRoles() {
       } else {
         creep.harvest(source2);
       }
-    } else if (roll === "eeRezzy" || roll === "upCEE") {
-      eeastUpControllers.push(name);
-      roleEEUp(creep, "E37N31");
     } else if (roll === "roadBuilder" || roll === "r") {
       if (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] <= 0) {
         creep.memory.getEnergy = true;
-        console.log(name + " roadbuilder");
         roleHarvester.run(creep);
       } else {
         buildRoad(creep);

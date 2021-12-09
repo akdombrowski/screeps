@@ -17,6 +17,9 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   let range = 1;
   let homeRoomName = Memory.homeRoomName;
 
+  creep.memory.getEnergy = true;
+  creep.memory.transfer = false;
+
   if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
     console.log(name + " resetting getEnergy");
 
@@ -27,9 +30,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     return OK;
   }
 
-
-
-  if (creep.room.name !== "E59S48" && creep.memory.role === "worker") {
+  if (creep.room.name !== homeRoomName && creep.memory.role === "worker") {
     retval = smartMove(creep, Game.flags.Flag1, 5, false, null, 10, 1000, 2);
     return retval;
   }
@@ -73,6 +74,15 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     }
   }
 
+  if (creep.memory.lastSourceId) {
+    target = Game.getObjectById(creep.memory.lastSourceId);
+    console.log(name + " " + target);
+    if (target.energy <= 0) {
+      target = null;
+      creep.memory.lastSourceId = null;
+    }
+  }
+
   if (target && target.pos.room && !target.energy && !targetedRm) {
     retval = smartMove(creep, target, 1, false, null, null, null, 1);
     creep.say("ge.m." + retval);
@@ -87,9 +97,10 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     let randInt = getRandomInt(2);
 
     target = Game.getObjectById(sources[randInt]);
+    creep.memory.lastSourceId = sources[randInt];
     useMoveTo = true;
-  } else if (creep.memory.lastSourceId){
-    target = Game.getObjectById(creep.memory.lastSourceId)
+  } else if (creep.memory.lastSourceId) {
+    target = Game.getObjectById(creep.memory.lastSourceId);
   }
 
   if (targetedRm && !target) {

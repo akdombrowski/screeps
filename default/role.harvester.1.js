@@ -16,30 +16,25 @@ const roleHarvester = {
     const homeRmName = Memory.homeRoomName;
     let retval = -16;
 
-
-
-    console.log(name + " getEnergy " + creep.memory.getEnergy)
-
+    if (creep.store.getFreeCapacity() <= 0) {
+      retval = ERR_FULL;
+      creep.memory.getEnergy = false;
+      transferEnergy(creep);
+      return retval;
+    }
 
     if (
       creep.memory.getEnergy ||
-      creep.store[RESOURCE_ENERGY] < 5 ||
-      !creep.store[RESOURCE_ENERGY]
+      !creep.store[RESOURCE_ENERGY] ||
+      creep.store[RESOURCE_ENERGY] <= 0
     ) {
-      if (creep.store.getFreeCapacity() <= 0) {
-        retval = ERR_FULL;
-        creep.memory.getEnergy = false;
-        transferEnergy(creep);
-        return retval;
-      }
-
       creep.memory.buildRoad = false;
       creep.memory.transferTower = false;
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
 
       retval = getEnergy(creep, homeRmName);
-    } else if (creep.memory.transfer || creep.carry.energy > 0) {
+    } else if (creep.memory.transfer || creep.store[RESOURCE_ENERGY] > 0) {
       if (!creep.store[RESOURCE_ENERGY] || creep.store[RESOURCE_ENERGY] <= 0) {
         creep.memory.getEnergy = true;
         creep.memory.transEnTower = false;
@@ -49,6 +44,7 @@ const roleHarvester = {
       }
       creep.memory.transEnTower = false;
       creep.memory.getEnergy = false;
+      creep.memory.transfer = true;
       retval = -16;
 
       retval = transferEnergy(creep);

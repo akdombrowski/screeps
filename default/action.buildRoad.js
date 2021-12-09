@@ -1,6 +1,5 @@
 const smartMove = require("./action.smartMove");
 const getEnergy = require("./action.getEnergy.1");
-const { NOT_ENOUGH_RESOURCES } = require("./constant/msgs");
 
 function buildRoad(creep) {
   let name = creep.name;
@@ -18,9 +17,6 @@ function buildRoad(creep) {
     creep.say("getEn");
     return NOT_ENOUGH_RESOURCES;
   }
-
-
-  console.log(name + " buildRoad")
 
   if (buildingRoad && creep.store[RESOURCE_ENERGY] > 0) {
     if (

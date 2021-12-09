@@ -90,30 +90,12 @@ function runRoles() {
     } else if (roll === "roadBuilder" || roll === "r") {
       if (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] <= 0) {
         creep.memory.getEnergy = true;
+
         roleHarvester.run(creep);
       } else {
         buildRoad(creep);
       }
       roadBuilder.push(name);
-    } else if (roll === "claimNE") {
-      claimersNE.push(name);
-      claimNE(
-        creep,
-        "E36N32",
-        Game.flags.eastExit,
-        RIGHT,
-        "eastEntrance1",
-        "5bbcaf0c9099fc012e63a0b9"
-      );
-    } else if (roll === "northRezzy") {
-      rezzyContr(
-        creep,
-        "E35N32",
-        Game.flags.northExit,
-        TOP,
-        "northEntrance1",
-        "5bbcaefa9099fc012e639e8b"
-      );
     } else if (
       roll === "uc" ||
       roll === "upController" ||
@@ -127,11 +109,8 @@ function runRoles() {
 
       upController(creep, Game.flags.e59s48contr, "E59S48");
     } else if (roll === "worker" || roll === "w") {
-      if (creep.memory.direction === "east") {
-        eworkers.push(name);
-      } else {
-        workers.push(name);
-      }
+      workers.push(name);
+
       roleWorker.run(creep);
     } else if (roll === "healer") {
       hele(creep);

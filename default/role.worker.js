@@ -16,17 +16,18 @@ const buildNW = require("./action.buildNW");
 
 var roleWorker = {
   /** @param {Creep} creep **/
-  run: function(creep, flag, workRoom) {
-    let s2 = Game.getObjectById(Memory.s2);
+  run: function (creep, flag, workRoom) {
+    let s1 = Game.getObjectById(Memory.s1);
     let name = creep.name;
     let direction = creep.memory.direction;
     let rm = creep.room;
     let pos = creep.pos;
     let retval = -16;
+    let homeRoomName = Memory.homeRoomName;
 
     if (
       !creep.store[RESOURCE_ENERGY] ||
-      creep.carry.energy <= 0 ||
+      creep.store[RESOURCE_ENERGY] <= 0 ||
       (creep.store.getFreeCapacity(RESOURCE_ENERGY) > 0 &&
         !creep.memory.working)
     ) {
@@ -67,16 +68,16 @@ var roleWorker = {
             getEnergyNW(creep, "E34N32");
             break;
           default:
-            getEnergy(creep, "E35N31");
+            getEnergy(creep, homeRoomName);
             break;
         }
       } else {
-        getEnergy(creep, "E35N31");
+        getEnergy(creep, homeRoomName);
       }
       return;
     } else if (
       !creep.memory.working &&
-      creep.carry.energy >= creep.carryCapacity
+      creep.store[RESOURCE_ENERGY] >= creep.getCarryCapacity()
     ) {
       creep.memory.working = true;
       creep.memory.getEnergy = false;
@@ -113,6 +114,9 @@ var roleWorker = {
         creep.memory.direction === "northwest"
       ) {
         return buildNW(creep, Game.flags.nw, "E34N32");
+      } else {
+
+        return build(creep);
       }
     }
   },

@@ -43,8 +43,6 @@ module.exports.loop = function () {
 
     deleteDeadCreeps();
     crps = Game.creeps;
-    numCrps = reCheckNumOfCreeps(crps);
-    Memory.creeps = crps;
 
     if (Game.cpu.bucket > 15) {
       runRoles();

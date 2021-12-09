@@ -76,7 +76,6 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
   if (creep.memory.lastSourceId) {
     target = Game.getObjectById(creep.memory.lastSourceId);
-    console.log(name + " " + target);
     if (target.energy <= 0) {
       target = null;
       creep.memory.lastSourceId = null;
@@ -232,6 +231,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
         target.pos.y
       )[0];
     }
+
     // If I have a target, go harvest it.
     creep.memory.lastSourceId = target.id;
     if (target.structureType) {
@@ -242,7 +242,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       if (isTargetStructure) {
         retval = creep.withdraw(target, RESOURCE_ENERGY);
         if (retval != OK) {
-          creep.say("w." + retval);
+          creep.say("v." + retval);
           creep.memory.lastSourceId = null;
         }
       } else {
@@ -251,8 +251,10 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
       if (retval === OK) {
         creep.say("v");
+        creep.memory.lastSourceId = target.id;
       } else {
         creep.say("v." + retval);
+
         creep.memory.lastSourceId = null;
       }
     } else if (creep.fatigue > 0) {
@@ -273,7 +275,6 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     creep.memory.lastSourceId = target;
     creep.say("sad");
   }
-
   return retval;
 }
 

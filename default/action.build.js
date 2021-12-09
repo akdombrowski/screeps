@@ -6,10 +6,10 @@ function build(creep) {
   let targetId = "5e4da6ddb59f24183dd709cb";
   let target = Game.getObjectById(targetId);
   let building = creep.memory.building || true;
-  let s2 = Game.spawns.s2;
+  let s1 = Game.spawns.s1;
   let retval = -16;
 
-  if (_.sum(creep.carry) >= creep.carryCapacity) {
+  if (creep.store[RESOURCE_ENERGY] >= creep.getCarryCapacity()) {
     building = true;
     creep.memory.building = building;
   } else if (_.sum(creep.carry) <= 0) {
@@ -23,35 +23,35 @@ function build(creep) {
     ) {
       let extFound = false;
       let t;
-      if (!Memory.e35n31sites || Memory.e35n31sites) {
-        Memory.e35n31sites = Game.rooms.E35N31.find(FIND_CONSTRUCTION_SITES, {
-          filter: site => {
-            let prog = site.progress;
-            let progTot = site.progressTotal;
-            let progLeft = progTot - prog;
-            let type = site.structureType;
-            if (prog >= progTot) {
-              return false;
-            } else if (type === STRUCTURE_EXTENSION) {
-              extFound = true;
-              t = site;
-            } else {
-              return site;
-            }
-          },
-        });
-      }
+      Memory.e59s48sites = Game.rooms.E59S48.find(FIND_CONSTRUCTION_SITES, {
+        filter: (site) => {
+          let prog = site.progress;
+          let progTot = site.progressTotal;
+          let progLeft = progTot - prog;
+          let type = site.structureType;
+          if (prog >= progTot) {
+            return false;
+          } else if (type === STRUCTURE_EXTENSION) {
+            extFound = true;
+            t = site;
+          } else {
+            return site;
+          }
+        },
+      });
 
       let arr = [];
-      _.forEach(Memory.e35n31sites, site => {
+      _.forEach(Memory.e59s48sites, (site) => {
         return arr.push(Game.getObjectById(site.id));
       });
 
       if (arr) {
         try {
-          target = creep.pos.findClosestByPath(arr, {filter: (site) => {
-            return site.progress < site.progressTotal;
-          }});
+          target = creep.pos.findClosestByPath(arr, {
+            filter: (site) => {
+              return site.progress < site.progressTotal;
+            },
+          });
           // target = creep.pos.findClosestByPath(arr);
 
           if (target && !target.id) {

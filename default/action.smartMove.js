@@ -122,20 +122,19 @@ function smartMove(
     path = null;
     creep.say("no match");
     creep.memory.path = null;
+  } else if (retval === ERR_INVALID_TARGET || retval === ERR_NOT_FOUND) {
+    creep.say("invalidTarget");
+    creep.memory.path = null;
+  } else if (retval === ERR_NO_PATH) {
+    creep.say("noPath");
+    creep.memory.path = null;
   } else {
     path = null;
     creep.memory.path = path;
-    retval = ERR_NO_PATH;
 
     creep.say("nopath." + retval);
     creep.memory.path = path;
     // second chance path was also out of range
-  }
-
-  if (retval === ERR_INVALID_TARGET || retval === ERR_NOT_FOUND) {
-    creep.memory.path = null;
-  } else if (retval === ERR_NO_PATH) {
-    creep.memory.path = null;
   }
 
   creep.say("m." + retval);

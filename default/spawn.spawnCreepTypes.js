@@ -41,31 +41,35 @@ function birthCreep(
     return retval;
   } else {
     console.log("Spawn1 failed: " + retval + " " + name);
-    retval = Game.spawns.spawn2.spawnCreep(parts, name, {
-      memory: {
-        role: chosenRole,
-        direction: direction,
-        sourceId: sourceId,
-      },
-      directions: [TOP],
-    });
+    if (Game.spawns.Spawn2) {
+      retval = Game.spawns.Spawn2.spawnCreep(parts, name, {
+        memory: {
+          role: chosenRole,
+          direction: direction,
+          sourceId: sourceId,
+        },
+        directions: [TOP],
+      });
+    }
   }
 
   if (retval === OK) {
     console.log("spawn2ed." + name);
     return retval;
   } else {
-    retval = Game.spawns.sspawn3.spawnCreep(parts, name, {
-      memory: {
-        role: chosenRole,
-        direction: direction,
-        sourceId: sourceId,
-      },
-      directions: [TOP_RIGHT],
-    });
+    if (Game.spawns.Spawn3) {
+      retval = Game.spawns.Spawn3.spawnCreep(parts, name, {
+        memory: {
+          role: chosenRole,
+          direction: direction,
+          sourceId: sourceId,
+        },
+        directions: [TOP_RIGHT],
+      });
 
-    if (retval === OK) {
-      console.log("spawn3ed." + name);
+      if (retval === OK) {
+        console.log("spawn3ed." + name);
+      }
     }
   }
 }

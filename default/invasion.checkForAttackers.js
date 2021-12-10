@@ -3,14 +3,14 @@ function checkForAttackers() {
   let nRm = Memory.nRm;
   let eRm = Memory.eRm;
   let wRm = Memory.wRm;
-  let rm = Memory.rm;
+  let rm = Game.spawns.Spawn1.room;
   let neRm = Memory.neRm;
   let nwRm = Memory.nwRm;
   let nwwRm = Memory.nwwRm;
   let wAttackDurationSafeCheck = Memory.wAttackDurationSafeCheck;
   let eAttackDurationSafeCheck = Memory.eAttackDurationSafeCheck;
   let nAttackDurationSafeCheck = Memory.nAttackDurationSafeCheck;
-  let sAttackDurationSafeCheck = Memory.sAttackDurationSafeCheck;
+  let attackDurationSafeCheck = Memory.attackDurationSafeCheck;
   let neAttackDurationSafeCheck = Memory.neAttackDurationSafeCheck;
   let nwAttackDurationSafeCheck = Memory.nwAttackDurationSafeCheck;
   let nwwAttackDurationSafeCheck = Memory.nwwAttackDurationSafeCheck;
@@ -100,7 +100,7 @@ function checkForAttackers() {
     }
   }
 
-  if (rm && (!Memory.invader || Game.time >= sAttackDurationSafeCheck)) {
+  if (rm && (!Memory.invader || Game.time >= attackDurationSafeCheck)) {
     // attackerId = getAttackEvents(rm);
     // Memory.invaderId = attackerId;
     // if (attackerId) {
@@ -108,7 +108,7 @@ function checkForAttackers() {
     //   console.log("invader:" + attackerId);
     // }
     let enemyCreeps = rm.find(FIND_CREEPS, {
-      filter: creep => {
+      filter: (creep) => {
         return !creep.my;
       },
     });

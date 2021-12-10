@@ -1,7 +1,7 @@
 const roleAttacker = {
   /** **/
-  run: function(creep) {
-    let s1 = Game.spawns.s1;
+  run: function (creep) {
+    let s1 = Game.spawns.Spawn1;
     let rm = s1.room;
     let creeps = Game.creeps;
     let enAvail = rm.energyAvailable;
@@ -17,10 +17,12 @@ const roleAttacker = {
     invader = enemyCreeps.pop();
     _.forEach(creeps, (c) => {
       // console.log(JSON.stringify(Game.creeps));
-      if (c.pos.inRangeTo(invader, 3)) {
-        console.log("attack:" + c.rangedAttack(invader));
-      } else {
-        console.log("move:" + c.moveTo(invader, { avoid: invader }));
+      if (c.getActiveBodyparts(ATTACK) > 0) {
+        if (c.pos.inRangeTo(invader, 3)) {
+          console.log("attack:" + c.rangedAttack(invader));
+        } else {
+          console.log("move:" + c.moveTo(invader, { avoid: invader }));
+        }
       }
     });
   },

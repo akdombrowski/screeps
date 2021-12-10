@@ -47,14 +47,14 @@ function runRoles() {
   let i = 0;
   let crps = Game.creeps;
   let harvesters = [];
-  let workers = Memory.workers || [];
+  let workers = [];
   let upControllers = [];
-  let roadRepairers = Memory.roadRepairers || [];
-  let roadBuilder = Memory.roadBuilder || [];
-  let attackers = Memory.attackers || [];
-  let claimers = Memory.claimers || [];
-  let linkGets = Memory.linkGets || [];
-  let towerHarvesters = Memory.towerHarvesters || [];
+  let roadRepairers = [];
+  let roadBuilder = [];
+  let attackers = [];
+  let claimers = [];
+  let linkGets = [];
+  let towerHarvesters = [];
 
   for (let name in crps) {
     let creep = crps[name];
@@ -97,7 +97,7 @@ function runRoles() {
       }
       roadBuilder.push(name);
     } else if (roll === "roadRepairer") {
-      roadRepairer.runRole(creep);
+      roleRepairer.run(creep);
       roadRepairers.push(name);
     } else if (
       roll === "uc" ||

@@ -1,4 +1,4 @@
-const getEnergy = require("./action.getEnergy.1");
+const getEnergy = require("./action.getEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const build = require("./action.build");
@@ -6,29 +6,29 @@ const findRepairable = require("./action.findRepairableStruct");
 
 var roleRepairer = {
   /** @param {Creep} creep **/
-  run: function(creep) {
+  run: function (creep) {
     let repair = creep.memory.repair;
     let retval = -16;
     const lastRepairableStructId = creep.memory.lastRepairableStructId;
 
-    if (!repair && creep.carry.energy >= creep.carryCapacity) {
-      creep.memory.repair = true;
+    if (!repair && creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
+      repair = true;
+      creep.memory.repair = repair;
       creep.memory.getEnergy = false;
       creep.say("r");
     } else if (!repair || creep.memory.getEnergy || _.sum(creep.carry) <= 0) {
-      creep.say("h");
       creep.memory.repair = false;
       creep.memory.getEnergy = true;
-      if (creep.memory.direction === "east") {
-        getEnergy(creep, "E36N31");
-      } else {
-        getEnergy(creep, "E35N31");
-      }
+      creep.say("h");
+
+      getEnergy(creep, Memory.homeRoomName);
+
       return;
     }
 
     if (repair) {
       let struct;
+      // will be null if lastRepairableStructId is null
       let target = Game.getObjectById(lastRepairableStructId);
       let targetObj;
       let targetType = creep.memory.targetType;
@@ -53,21 +53,23 @@ var roleRepairer = {
             getEnergy(creep);
             creep.say("r.En");
           } else {
-            creep.say("r.err");
+            creep.say("err." + retval);
           }
         } else {
           smartMove(creep, target, 1);
-          creep.memory.r = target.pos;
+          creep.memory.rx = target.pos.x;
+          creep.memory.ry = target.pos.y;
           if (creep.fatigue > 0) {
             creep.say("f." + creep.fatigue);
           } else if (retval == ERR_INVALID_TARGET) {
-            creep.say("r." + "inval");
+            creep.say("invalTarg");
             target = null;
+            creep.memory.lastRepairableStructId = null;
           } else {
-            creep.say("m" + target.pos.x + "," + target.pos.y);
+            creep.say(target.pos.x + "," + target.pos.y);
           }
         }
-      } else if (creep.carry < creep.carryCapacity / 2) {
+      } else if (creep.store[RESOURCE_ENERGY] < creep.store.getCapacity(RESOURCE_ENERGY) / 2) {
         creep.memory.repair = false;
         creep.memory.getEnergy = true;
         getEnergy(creep);

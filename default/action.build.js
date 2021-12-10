@@ -57,14 +57,14 @@ function build(creep) {
           if (target && !target.id) {
             target = null;
             creep.memory.buildTarget = null;
-            Memory.e35n31sites = null;
+            Memory.e59s48sites = null;
             return retval;
           } else {
             target = t || target;
             targetId = target ? target.id : null;
           }
         } catch (e) {
-          Memory.e35n31sites = null;
+          Memory.e59s48sites = null;
         }
       }
     }
@@ -92,9 +92,6 @@ function build(creep) {
           creep.memory.b = null;
         }
       }
-    } else if (creep.room.name === "E35N32") {
-      retval = smartMove(creep, Game.flags.northEntrance1, 1);
-      creep.say("w.n");
     } else {
       // creep.memory.role = "r";
       // creep.memory.working = false;

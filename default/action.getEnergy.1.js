@@ -88,8 +88,8 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
     target = Game.getObjectById(sources[randInt]);
     useMoveTo = true;
-  } else if (creep.memory.lastSourceId){
-    target = Game.getObjectById(creep.memory.lastSourceId)
+  } else if (creep.memory.lastSourceId) {
+    target = Game.getObjectById(creep.memory.lastSourceId);
   }
 
   if (targetedRm && !target) {
@@ -248,7 +248,12 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       // Still tired
       creep.say("f." + creep.fatigue);
     } else {
-      retval = smartMove(creep, target, 1, false, null, null, null, 1);
+      if (creep.saying === "crap") {
+        retval = smartMove(creep, target, 1, false, null, 10000, null, 1);
+        console.log(name + " " + retval);
+      } else {
+        retval = smartMove(creep, target, 1, false, null, null, null, 1);
+      }
 
       if (retval === OK) {
         creep.say(target.pos.x + "," + target.pos.y);

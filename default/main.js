@@ -109,7 +109,7 @@ function checkProgress(numCrps, rm) {
       Memory.rmProg = 0;
     }
 
-    let rmControllerId = Memory.rmControllerId || "5bbcaefa9099fc012e639e90";
+    let rmControllerId = "59bbc5d22052a716c3cea137";
     let rmController = Game.getObjectById(rmControllerId);
     const rmLvl = rmController.level;
     const rmProg = rmController.progress;

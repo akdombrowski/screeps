@@ -272,10 +272,10 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (roadBuilder.length < 3) {
-      name = "r" + t;
-      chosenRole = "roadBuilder";
-      roadBuilder.push(name);
+    } else if (workers.length < 3) {
+      name = "w" + t;
+      chosenRole = "worker";
+      workers.push(name);
       parts = simpleParts;
       retval = birthCreep(
         s1,
@@ -286,10 +286,10 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else {
-      name = "w" + t;
-      chosenRole = "worker";
-      workers.push(name);
+    } else if (roadBuilder.length < 13) {
+      name = "r" + t;
+      chosenRole = "roadBuilder";
+      roadBuilder.push(name);
       parts = simpleParts;
       retval = birthCreep(
         s1,

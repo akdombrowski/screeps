@@ -8,7 +8,7 @@ function buildRoad(creep) {
   let buildingRoad = creep.memory.buildingRoad || true;
   let retval = -16;
 
-  if (creep.store[RESOURCE_ENERGY] >= creep.carryCapacity) {
+  if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity(RESOURCE_ENERGY)) {
     buildingRoad = true;
     creep.memory.buildingRoad = buildingRoad;
   } else if (creep.store[RESOURCE_ENERGY] <= 0) {

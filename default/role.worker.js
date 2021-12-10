@@ -77,7 +77,7 @@ var roleWorker = {
       return;
     } else if (
       !creep.memory.working &&
-      creep.store[RESOURCE_ENERGY] >= creep.getCarryCapacity()
+      creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()
     ) {
       creep.memory.working = true;
       creep.memory.getEnergy = false;

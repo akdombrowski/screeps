@@ -9,7 +9,7 @@ function build(creep) {
   let s1 = Game.spawns.s1;
   let retval = -16;
 
-  if (creep.store[RESOURCE_ENERGY] >= creep.getCarryCapacity()) {
+  if (creep.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
     building = true;
     creep.memory.building = building;
   } else if (_.sum(creep.carry) <= 0) {

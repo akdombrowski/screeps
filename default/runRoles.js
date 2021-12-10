@@ -70,8 +70,8 @@ function runRoles() {
       }
       roadBuilder.push(name);
     } else if (roll === "roadRepairer") {
-      roleRepairer.run(creep);
       roadRepairers.push(name);
+      roleRepairer.run(creep);
     } else if (
       roll === "uc" ||
       roll === "upController" ||

@@ -39,10 +39,13 @@ module.exports.loop = function () {
 
     // towersAttackInvader(invader, towers);
 
-    Memory.e59s48sites = Game.spawns["Spawn1"].room.find(FIND_MY_STRUCTURES, {
+    Memory.e59s48fixables = Game.spawns["Spawn1"].room.find(FIND_STRUCTURES, {
       filter: function (struct) {
+        console.log("findfixables " + struct);
         if (struct.structureType === STRUCTURE_ROAD) {
           return struct.hits < struct.hitsMax;
+        } else {
+          return false;
         }
       },
     });

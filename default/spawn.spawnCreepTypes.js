@@ -260,7 +260,7 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (upControllers.length < 3) {
+    } else if (upControllers.length < 2) {
       name = "upC" + t;
       chosenRole = "upC";
       upControllers.push(name);
@@ -274,7 +274,7 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (workers.length < 3) {
+    } else if (workers.length < 2) {
       name = "w" + t;
       chosenRole = "worker";
       workers.push(name);
@@ -288,7 +288,7 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (roadBuilder.length < 3) {
+    } else if (roadBuilder.length < 2) {
       name = "rB" + t;
       chosenRole = "roadBuilder";
       roadBuilder.push(name);

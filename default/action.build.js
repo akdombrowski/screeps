@@ -15,7 +15,7 @@ function build(creep) {
   } else if (_.sum(creep.carry) <= 0) {
   }
 
-  if (building && _.sum(creep.carry) > 0) {
+  if (building && creep.store[RESOURCE_ENERGY] > 0) {
     if (
       !target ||
       !CONSTRUCTION_COST[target.structureType] ||

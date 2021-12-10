@@ -66,7 +66,7 @@ function runRoles() {
     } else if (name.startsWith("upC")) {
       creep.memory.role = "upC";
       roll = "upC";
-    } else if (name.startsWith("r")) {
+    } else if (name.startsWith("rB")) {
       creep.memory.role = "roadBuilder";
       roll = "roadBuilder";
     }
@@ -87,7 +87,7 @@ function runRoles() {
       } else {
         creep.harvest(source2);
       }
-    } else if (roll === "roadBuilder" || roll === "r") {
+    } else if (roll === "roadBuilder") {
       if (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] <= 0) {
         creep.memory.getEnergy = true;
 
@@ -96,6 +96,9 @@ function runRoles() {
         buildRoad(creep);
       }
       roadBuilder.push(name);
+    } else if (roll === "roadRepairer") {
+      roadRepairer.runRole(creep);
+      roadRepairers.push(name);
     } else if (
       roll === "uc" ||
       roll === "upController" ||

@@ -288,7 +288,7 @@ function spawnCreepTypes(enAvail) {
         spawnDirection
       );
     } else if (roadBuilder.length < 3) {
-      name = "r" + t;
+      name = "rB" + t;
       chosenRole = "roadBuilder";
       roadBuilder.push(name);
       parts = simpleParts;
@@ -302,7 +302,7 @@ function spawnCreepTypes(enAvail) {
         spawnDirection
       );
     } else if (roadRepairers.length < 3) {
-      name = "r" + t;
+      name = "rR" + t;
       chosenRole = "roadRepairer";
       roadRepairers.push(name);
       parts = simpleParts;

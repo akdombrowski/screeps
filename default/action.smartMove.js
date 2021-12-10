@@ -132,12 +132,11 @@ function smartMove(
     path = null;
     creep.memory.path = path;
 
-    creep.say("nopath." + retval);
+    creep.say("oops." + retval);
     creep.memory.path = path;
     // second chance path was also out of range
   }
 
-  creep.say("m." + retval);
   return retval;
 }
 

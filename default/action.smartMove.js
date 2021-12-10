@@ -1,5 +1,5 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
-const getAPath = require("./getAPath");
+const getPath = require("./action.getPath");
 const getRandomColor = require("./getRandomColor");
 
 function smartMove(
@@ -55,17 +55,43 @@ function smartMove(
     path = null;
   }
 
+  console.log(name + " " + creep.memory.path);
   // no path in memory.path. get one.
   if (!path || pathMem < 1) {
-    // path = getAPath(
-    //   creep,
-    //   dest,
-    //   range,
-    //   ignoreCreeps,
-    //   pathColor,
-    //   pathMem,
-    //   maxOps
-    // );
+    getPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
+    path = creep.memory.path;
+  }
+
+  if (path) {
+    retval = creep.moveByPath(path);
+    if (retval === OK) {
+      creep.memory.path.shift();
+    } else if (retval === ERR_NOT_FOUND) {
+      creep.memory.path = null;
+      return retval;
+    }
+    console.log(name + " retval2 " + retval);
+    console.log(name + " " + creep.memory.path);
+  } else {
+    creep.memory.path = null;
+    retval = creep.moveTo(destPos, {
+      plainCost: 1,
+      swampCost: 2,
+      range: range,
+      ignoreCreeps: ignoreCreeps,
+      noPathFinding: false,
+      reusePath: pathMem,
+      maxOps: maxOps,
+      maxRooms: maxRms,
+      serializeMemory: true,
+      visualizePathStyle: {
+        fill: "transparent",
+        stroke: pathColor,
+        lineStyle: "dashed",
+        strokeWidth: 0.15,
+        opacity: 0.1,
+      },
+    });
   }
 
   // // No path. Try finding path using maxOps.
@@ -91,24 +117,6 @@ function smartMove(
   //     retval = ERR_NO_PATH;
   //   }
   // }
-  retval = creep.moveTo(destPos, {
-    plainCost: 1,
-    swampCost: 2,
-    range: range,
-    ignoreCreeps: ignoreCreeps,
-    noPathFinding: false,
-    reusePath: pathMem,
-    maxOps: maxOps,
-    maxRooms: maxRms,
-    serializeMemory: true,
-    visualizePathStyle: {
-      fill: "transparent",
-      stroke: pathColor,
-      lineStyle: "dashed",
-      strokeWidth: 0.15,
-      opacity: 0.1,
-    },
-  });
 
   if (retval === OK) {
     creep.say(destPos.x + "," + destPos.y);
@@ -116,21 +124,20 @@ function smartMove(
     if (creep.pos.inRangeTo(dest, range)) {
       creep.memory.path = null;
     }
-    return retval;
   } else if (retval === ERR_NOT_FOUND) {
     // path doesn't match creep's location
-    path = null;
     creep.say("no match");
     creep.memory.path = null;
   } else if (retval === ERR_INVALID_TARGET || retval === ERR_NOT_FOUND) {
     creep.say("invalidTarget");
     creep.memory.path = null;
   } else if (retval === ERR_NO_PATH) {
+    console.log(name + " no path");
+
     creep.say("noPath");
     creep.memory.path = null;
   } else {
     path = null;
-    creep.memory.path = path;
 
     creep.say("oops." + retval);
     creep.memory.path = path;

@@ -216,7 +216,7 @@ function spawnCreepTypes(enAvail) {
 
   if (enAvail >= 300 && attackers.length < 1 && Memory.nAttackerId) {
     let t = Game.time.toString().slice(timeDigitsInName);
-    let name = "harv" + t;
+    let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
     let sourceId = Memory.source2;
@@ -239,7 +239,7 @@ function spawnCreepTypes(enAvail) {
     );
   } else if (enAvail >= 300 && !invaderId) {
     let t = Game.time.toString().slice(timeDigitsInName);
-    let name = "harv" + t;
+    let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
     let sourceId = Memory.source2;
@@ -287,10 +287,24 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (roadBuilder.length < 13) {
+    } else if (roadBuilder.length < 3) {
       name = "r" + t;
       chosenRole = "roadBuilder";
       roadBuilder.push(name);
+      parts = simpleParts;
+      retval = birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (roadRepairers.length < 3) {
+      name = "r" + t;
+      chosenRole = "roadRepairer";
+      roadRepairers.push(name);
       parts = simpleParts;
       retval = birthCreep(
         s1,
@@ -320,7 +334,7 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts350;
     let spawnDirection = [BOTTOM];
 
-    if (harvesters.length < 2) {
+    if (harvesters.length < 3) {
       harvesters.push(name);
       retval = birthCreep(
         s1,
@@ -388,65 +402,16 @@ function spawnCreepTypes(enAvail) {
 
   if (enAvail >= 500 && !invaderId) {
     let t = Game.time.toString().slice(4);
-    let name = "harv_5_OH_OH_" + t;
+    let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
     let sourceId = Memory.source2;
     let parts = simpleParts500;
     let spawnDirection = [BOTTOM];
 
-    if (harvestersS.length < 2) {
-      name += "S";
+    if (harvesters.length < 2) {
       direction = "south";
-      harvestersS.push(name);
-      retval = birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
-    } else if (
-      harvestersW.length < 2 &&
-      (!wAttackerId || Game.time >= wAttackDurationSafeCheck)
-    ) {
-      name += "W";
-      direction = "west";
-      harvestersW.push(name);
-      retval = birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
-    } else if (
-      harvestersNW.length < 4 &&
-      (!Memory.nwAttackerId || Game.time >= nwAttackDurationSafeCheck)
-    ) {
-      name += "NW";
-      direction = "nw";
-      harvestersW.push(name);
-      retval = birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
-    } else if (
-      harvestersNWW.length < 4 &&
-      (!Memory.nwwAttackerId || Game.time >= nwwAttackDurationSafeCheck)
-    ) {
-      name += "NWW";
-      direction = "nww";
-      harvestersNWW.push(name);
+      harvesters.push(name);
       retval = birthCreep(
         s1,
         parts,
@@ -468,33 +433,19 @@ function spawnCreepTypes(enAvail) {
 
   if (enAvail >= 510 && !invaderId) {
     let t = Game.time.toString().slice(4);
-    let name = "harv" + t;
+    let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
     let sourceId = Memory.source2;
     let parts = upContrParts;
     let spawnDirection = [BOTTOM];
 
-    if (upControllersNE.length < 1) {
+    if (upControllers.length < 1) {
       parts = upContrParts;
-      name = "upCNE" + t;
-      upControllersNE.push(name);
-      chosenRole = "upCNE";
+      name = "upC" + t;
+      upControllers.push(name);
+      chosenRole = "upC";
       direction = "ne";
-      retval = birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
-    } else if (upControllersN.length < 1) {
-      parts = upContrParts;
-      name = "upCN" + t;
-      upControllersN.push(name);
-      chosenRole = "upCN";
       retval = birthCreep(
         s1,
         parts,
@@ -516,7 +467,7 @@ function spawnCreepTypes(enAvail) {
 
   // if (enAvail >= 1100) {
   //   let t = Game.time.toString().slice(4);
-  //   let name = "harv" + t;
+  //   let name = "h" + t;
   //   let chosenRole = "h";
   //   let direction = "south";
   //   let sourceId = Memory.source2;
@@ -539,7 +490,7 @@ function spawnCreepTypes(enAvail) {
 
   if (enAvail >= 650) {
     let t = Game.time.toString().slice(4);
-    let name = "harv" + t;
+    let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
     let sourceId = Memory.source2;

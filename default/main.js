@@ -32,6 +32,9 @@ module.exports.loop = function () {
     Memory.enAvail = enAvail;
     Memory.enCapRm = enCapRm;
 
+    Memory.source1 = "59bbc5d22052a716c3cea136";
+    Memory.source2 = "59bbc5d22052a716c3cea135";
+
     // towersAttackInvader(invader, towers);
 
     checkForAttackers();

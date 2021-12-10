@@ -202,9 +202,7 @@ function spawnCreepTypes(enAvail) {
 
   let retval = -16;
 
-  if (
-    Game.spawns.Spawn1.spawning
-  ) {
+  if (Game.spawns.Spawn1.spawning) {
     return;
   }
 
@@ -244,8 +242,7 @@ function spawnCreepTypes(enAvail) {
     let direction = "south";
     let sourceId = Memory.source2;
     let parts = simpleParts;
-    let spawnDirection = [BOTTOM];
-
+    let spawnDirection = [TOP];
 
     if (harvesters.length < 2) {
       harvesters.push(name);

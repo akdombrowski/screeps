@@ -251,7 +251,6 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       if (creep.saying === "crap") {
         creep.memory.path = null;
         retval = smartMove(creep, target, 1, false, null, 100000, null, 1);
-        console.log(name + " " + retval);
       } else {
         retval = smartMove(creep, target, 1, false, null, null, null, 1);
       }

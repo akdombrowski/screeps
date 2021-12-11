@@ -1,20 +1,20 @@
 const smartMove = require("./action.smartMove");
 const getEnergy = require("./action.getEnergy");
+const moveAway = require("./action.moveAway");
 
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
 
 function build(creep) {
-  let targetId = "5e4da6ddb59f24183dd709cb";
-  let target = Game.getObjectById(targetId);
+  let targetId = creep.memory.lastBuildID;
+  let target = targetId ? Game.getObjectById(targetId) : null;
   let building = creep.memory.building || true;
-  let s1 = Game.spawns.s1;
   let retval = -16;
 
-  if (creep.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
+  if (creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
     building = true;
     creep.memory.building = building;
   } else if (creep.store[RESOURCE_ENERGY] <= 0) {
-    getEnergy(creep);
+    return getEnergy(creep);
   }
 
   if (building && creep.store[RESOURCE_ENERGY] > 0) {
@@ -31,11 +31,12 @@ function build(creep) {
           let progTot = site.progressTotal;
           let progLeft = progTot - prog;
           let type = site.structureType;
-          if (prog >= progTot) {
+          if (progLeft <= 0) {
             return false;
           } else if (type === STRUCTURE_EXTENSION) {
             extFound = true;
             t = site;
+            return site;
           } else {
             return site;
           }
@@ -61,6 +62,12 @@ function build(creep) {
             creep.memory.buildTarget = null;
             Memory.e59s48sites = null;
             return retval;
+          } else if (t) {
+            target = t;
+            targetId = target.id;
+            if (targetId === null) {
+              target = null;
+            }
           } else {
             target = t || target;
             targetId = target ? target.id : null;
@@ -73,6 +80,14 @@ function build(creep) {
 
     if (target) {
       if (creep.pos.inRangeTo(target, 3)) {
+        const nearbySources = creep.pos.findInRange(FIND_SOURCES_ACTIVE, 1);
+        const nearbyCreeps = creep.pos.findInRange(FIND_CREEPS, 1);
+        if (
+          nearbySources.length > 0 &&
+          nearbyCreeps.length > 0
+        ) {
+          retval = moveAway(creep, nearbySources, nearbyCreeps);
+        }
         retval = creep.build(target);
         creep.memory.b = targetId;
         creep.say("b");

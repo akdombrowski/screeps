@@ -214,6 +214,10 @@ function tran(creep, flag, dest) {
     });
   }
 
+  if (!target) {
+    target = Game.spawns.Spawn1;
+  }
+
   if (target && creep.pos.inRangeTo(target, 1)) {
     creep.memory.path = null;
     creep.memory.transferTargetId = target.id;
@@ -229,8 +233,6 @@ function tran(creep, flag, dest) {
     return ERR_TIRED;
   } else if (target) {
     creep.memory.transferTargetId = target.id;
-
-    console.log(name + " target for move to transfer energy " + target);
 
     retval = smartMove(creep, target, 1);
 

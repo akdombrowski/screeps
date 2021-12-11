@@ -95,11 +95,6 @@ function runRoles() {
     } else if (roll === "upgrader") {
       roleUpgrader.run(creep);
     } else if (roll === "roadRepairer" || roll === "r") {
-      if (creep.name.charAt(creep.name.length - 1) % 2 === 0) {
-        creep.memory.r = Memory.tower1Id;
-      } else if (creep.name.charAt(creep.name.length - 1) % 3 === 0) {
-        creep.memory.r = STRUCTURE_RAMPART;
-      }
       roadRepairers.push(name);
       roleRepairer.run(creep);
     } else if (roll === "c" || name.startsWith("c")) {

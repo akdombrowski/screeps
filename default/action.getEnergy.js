@@ -84,7 +84,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
   if (target && target.pos.room && !target.energy && !targetedRm) {
     retval = smartMove(creep, target, 1, true, null, null, null, 1);
-    creep.say("ge.m." + retval);
+    creep.say(target.pos.x + "," + target.pos.y);
     return retval;
   }
 
@@ -264,6 +264,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       if (retval === OK) {
         creep.say(target.pos.x + "," + target.pos.y);
       } else {
+        creep.memory.lastSourceId = null;
         creep.say("crap");
       }
     }

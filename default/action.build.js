@@ -1,7 +1,7 @@
 const smartMove = require("./action.smartMove");
 const getEnergy = require("./action.getEnergy");
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
-const checkIfBlockingSource = require("./checkIfBlockingSource");
+const { checkIfBlockingSource } = require("./checkIfBlockingSource");
 
 function build(creep) {
   let targetId = creep.memory.lastBuildID;
@@ -79,6 +79,8 @@ function build(creep) {
 
     if (target) {
       if (creep.pos.inRangeTo(target, 3)) {
+        creep.memory.path = null;
+
         checkIfBlockingSource(creep);
 
         retval = creep.build(target);
@@ -117,4 +119,3 @@ function build(creep) {
 }
 
 module.exports = build;
-

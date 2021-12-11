@@ -161,9 +161,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
         if (
           (type === STRUCTURE_CONTAINER || type === STRUCTURE_LINK) &&
-          struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50 &&
-          struct.pos.y < 27 &&
-          struct.id !== "5cfd3d207e979d09d3c5ad2c"
+          struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
         ) {
           // console.log("name: " + structure)
           return struct;
@@ -176,7 +174,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   // If i don't have a target yet. Check containers and storage units
   //  for energy.
   if (!target) {
-    let southStorageStructures = ["5d0178505a74ac0a0094daab"];
+    let southStorageStructures = ["61b469b5b87275b8511dfebf"];
     target = Game.getObjectById(southStorageStructures[0]);
     let storageCreep = creep.room.lookForAt(LOOK_CREEPS, 43, 9).pop();
     let storageCreep2 = creep.room.lookForAt(LOOK_CREEPS, 44, 9).pop();

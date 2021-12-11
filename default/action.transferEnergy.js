@@ -125,23 +125,16 @@ function tran(creep, flag, dest) {
     }
   }
 
-  if (
-    !target &&
-    (direction === "south" || direction === "east" || direction === "west") &&
-    enAvail > 1000
-  ) {
-    target = towers[0];
+  if (!target && enAvail > 1000) {
+    let towers = creep.room.find(FIND_MY_STRUCTURES, {
+      filter: { structureType: STRUCTURE_TOWER },
+    });
     let currTarget = towers[0];
     let prevTarget = towers[0];
 
     _.each(towers, (tower) => {
       // tower doesn't exist or doesn't have an energy component
       if (!tower) {
-        return;
-      }
-
-      // Skip tower 6 for south creeps
-      if (creep.memory.direction === "south" && tower.id === tower6.id) {
         return;
       }
 
@@ -155,8 +148,8 @@ function tran(creep, flag, dest) {
         currTarget &&
         currTarget.store &&
         tower.store &&
-        tower.store.getFreeCapacity([RESOURCE_ENERGY]) >
-          currTarget.store.getFreeCapacity([RESOURCE_ENERGY])
+        currTarget.store.getUsedCapacity([RESOURCE_ENERGY]) > tower.store.getUsedCapacity([RESOURCE_ENERGY])
+
       ) {
         currTarget = tower;
         return true;

@@ -63,7 +63,7 @@ function smartMove(
     return retval;
   }
 
-  if (!path) console.log(name);
+  if (!path) console.log(name + " no path");
 
   if (path) {
     retval = creep.moveByPath(path);

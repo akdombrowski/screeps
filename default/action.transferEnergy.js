@@ -116,19 +116,19 @@ function tran(creep, flag, dest) {
   // containers or storage
   if (!target) {
     if (!Memory.e35s48structs) {
-      let structs = creep.room.find(FIND_STRUCTURES, function (struct) {
-        let type = struct.type;
-        return (
-          (type === STRUCTURE_CONTAINER || type === STRUCTURE_STORAGE) &&
-          (!struct.store[RESOURCE_ENERGY] ||
-            struct.store.getFreeCapacity(RESOURCE_ENERGY))
-        );
+      let structs = creep.room.find(FIND_STRUCTURES, {
+        filter: function (struct) {
+          let type = struct.type;
+          return (
+            (type === STRUCTURE_CONTAINER || type === STRUCTURE_STORAGE) &&
+            (!struct.store[RESOURCE_ENERGY] ||
+              struct.store.getFreeCapacity(RESOURCE_ENERGY))
+          );
+        },
       });
 
       if (structs && structs.length > 0) {
-        target = creep.pos.findClosestByPath(structs, {
-          filter: function (struct) {},
-        });
+        target = creep.pos.findClosestByPath(structs);
       }
     }
   }

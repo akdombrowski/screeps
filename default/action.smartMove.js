@@ -25,7 +25,7 @@ function smartMove(
   pathMem = pathMem || Math.floor(Math.random() * 100);
   maxOps = maxOps || Math.floor(Math.random() * 500) + 1;
   maxRms = maxRms || 1;
-  ignoreCreeps = ignoreCreeps || false;
+  ignoreCreeps = ignoreCreeps || true;
 
   if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);

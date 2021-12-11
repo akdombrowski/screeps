@@ -38,22 +38,8 @@ function tran(creep, flag, dest) {
     return -19;
   }
 
-  if (direction === "eeast") {
-    creep.memory.transferTargetId;
-    return tranee(creep);
-  }
-
   if (rmName !== "E59S48") {
-    retval = smartMove(
-      creep,
-      Game.flags.tower6.pos,
-      5,
-      false,
-      null,
-      10,
-      500,
-      8
-    );
+    retval = smartMove(creep, Game.flags.tower6.pos, 5, true, null, 10, 500, 8);
     return retval;
   }
 
@@ -63,57 +49,12 @@ function tran(creep, flag, dest) {
   }
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {
-    if (creep.room.name === "E35N32") {
-      if (
-        creep.pos === Game.flags.northEntrance1 ||
-        creep.pos.inRangeTo(Game.flags.northEntrance1, 1)
-      ) {
-        if (fatigue > 0) {
-          retval = ERR_TIRED;
-        } else {
-          retval = creep.move(BOTTOM);
-        }
-      } else {
-        retval = smartMove(creep, Game.flags.northEntrance1, 1);
-      }
-
-      creep.say("northEntrance");
-      return retval;
-    } else if (creep.room.name === "E36N31") {
-      retval = traneRm(creep);
-      return retval;
-    } else if (creep.room.name === "E34N31") {
-      if (creep.pos.x > 49) {
-        if (fatigue <= 0) {
-          retval = creep.move(RIGHT);
-        } else {
-          retval = ERR_TIRED;
-        }
-      } else {
-        retval = smartMove(creep, tower6, 3, true, null, null, null, 1);
-      }
-      return retval;
-    } else if (creep.room.name === "E35N31" && direction === "west") {
-      if (creep.pos.x < 2) {
-        if (fatigue <= 0) {
-          retval = creep.move(RIGHT);
-        } else {
-          retval = ERR_TIRED;
-        }
-      } else {
-        retval = tranW(creep);
-      }
-      return retval;
-    } else if (creep.room.name === "E35N31" && creep.pos.y < 1) {
-      if (fatigue <= 0) {
-        retval = creep.move(BOTTOM);
-      } else {
-        retval = ERR_TIRED;
-      }
-      return retval;
-    } else if (flag) {
+    if (flag) {
       target = flag.pos.lookFor(LOOK_STRUCTURES).pop();
-    } else if (creep.memory.dest) {
+    } else if (creep.memory.destID) {
+      target = Game.getObjectById(creep.memory.destID);
+      // target = creep.memory.destID.pos.lookFor(LOOK_STRUCTURES).pop();
+      console.log("target " + target);
     } else if (creep.memory.flag) {
       target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
     }
@@ -144,7 +85,7 @@ function tran(creep, flag, dest) {
     let exts;
 
     if (!Memory.e35n31Extensions) {
-      exts = Game.rooms["E59S48"].find(FIND_STRUCTURES, {
+      exts = Game.rooms[Memory.homeRoomName].find(FIND_STRUCTURES, {
         filter: (struct) => {
           return struct.structureType === STRUCTURE_EXTENSION;
         },
@@ -168,39 +109,19 @@ function tran(creep, flag, dest) {
         }
         let type = structure.structureType;
         if (
-          ((type === STRUCTURE_EXTENSION &&
-            structure !== Memory.spawnExts[0] &&
-            structure !== Memory.spawnExts[1]) ||
+          (type === STRUCTURE_EXTENSION ||
             (structure.structureType === STRUCTURE_SPAWN &&
               structure.name === "spawn2")) &&
           (structure.store[RESOURCE_ENERGY] <= 150 ||
             !structure.store[RESOURCE_ENERGY])
         ) {
-          if (
-            (direction === "west" ||
-              direction === "nww" ||
-              direction === "nw") &&
-            structure.pos.x < 30
-          ) {
-            target = structure;
-            return structure;
-          } else if (
-            !(
-              direction === "west" ||
-              direction === "nww" ||
-              direction === "nw"
-            ) &&
-            structure.pos.x > 20
-          ) {
-            target = structure;
-            return target;
-          }
+          return target;
         }
       },
     });
     if (a) {
       target = a;
-      creep.memory.transferTargetId = target.id;
+      creep.memory.destID = target.id;
     }
   }
 
@@ -285,7 +206,6 @@ function tran(creep, flag, dest) {
     });
   }
 
-  target = Memory.s1;
   if (target && creep.pos.inRangeTo(target, 1)) {
     creep.memory.path = null;
     creep.memory.transferTargetId = target.id;
@@ -316,7 +236,7 @@ function tran(creep, flag, dest) {
       creep.say("m.err." + retval);
       return retval;
     } else if (retval === OK) {
-      creep.memory.dest = target.id;
+      creep.memory.destID = target.id;
       creep.say(target.pos.x + "," + target.pos.y);
       return retval;
     }
@@ -326,10 +246,7 @@ function tran(creep, flag, dest) {
     creep.say("t.err");
   }
 
-
-
   console.log("target: " + target);
-
 
   if (retval) {
     console.log(name + " here retval " + retval);

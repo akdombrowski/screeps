@@ -21,8 +21,6 @@ function smartMove(
   const name = creep.name;
   const pos = creep.pos;
   let desPath;
-  const roll = creep.memory.role;
-  const direction = creep.memory.direction;
   pathColor = pathColor || getRandomColor();
   pathMem = pathMem || Math.floor(Math.random() * 100);
   maxOps = maxOps || Math.floor(Math.random() * 500) + 1;
@@ -39,13 +37,9 @@ function smartMove(
 
   let destPos = dest;
   if (destPos && dest.room) {
-    let rmName = dest.room.name;
-
     if (!(destPos instanceof RoomPosition)) {
-      destPos = new RoomPosition(dest.pos.x, dest.pos.y, rmName);
+      destPos = new RoomPosition(dest.pos.x, dest.pos.y, dest.room.name);
     }
-  } else {
-    return null;
   }
 
   if (moveAwayFromCreep(creep)) {
@@ -68,6 +62,8 @@ function smartMove(
     path = null;
     return retval;
   }
+
+  if (!path) console.log(name);
 
   if (path) {
     retval = creep.moveByPath(path);

@@ -8,7 +8,9 @@ function buildRoad(creep) {
   let buildingRoad = creep.memory.buildingRoad || true;
   let retval = -16;
 
-  if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity(RESOURCE_ENERGY)) {
+  if (
+    creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity(RESOURCE_ENERGY)
+  ) {
     buildingRoad = true;
     creep.memory.buildingRoad = buildingRoad;
   } else if (creep.store[RESOURCE_ENERGY] <= 0) {
@@ -43,6 +45,7 @@ function buildRoad(creep) {
       creep.memory.transfer = true;
       return retval;
     }
+
     if (creep.pos.inRangeTo(target, 3)) {
       if (
         creep.pos.findInRange(FIND_CREEPS, 1).pop().name != creep.name &&
@@ -57,6 +60,7 @@ function buildRoad(creep) {
       }
     } else {
       retval = smartMove(creep, target.pos, 3, "#ffff0f");
+
       if (retval != OK) {
         creep.say("err");
       } else if (creep.fatigue > 0) {

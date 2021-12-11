@@ -11,12 +11,16 @@ var roleRepairer = {
     let retval = -16;
     const lastRepairableStructId = creep.memory.lastRepairableStructId;
 
-    if (!repair && creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
+    if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
       repair = true;
       creep.memory.repair = repair;
       creep.memory.getEnergy = false;
       creep.say("r");
-    } else if (!repair || creep.memory.getEnergy || _.sum(creep.carry) <= 0) {
+    } else if (
+      !repair ||
+      creep.memory.getEnergy ||
+      creep.store[RESOURCE_ENERGY] <= 0
+    ) {
       creep.memory.repair = false;
       creep.memory.getEnergy = true;
       creep.say("h");
@@ -38,7 +42,9 @@ var roleRepairer = {
       }
 
       if (!target) {
+
         target = findRepairable(creep);
+        console.log("findfixables " + target);
       }
 
       if (target) {
@@ -69,7 +75,10 @@ var roleRepairer = {
             creep.say(target.pos.x + "," + target.pos.y);
           }
         }
-      } else if (creep.store[RESOURCE_ENERGY] < creep.store.getCapacity(RESOURCE_ENERGY) / 2) {
+      } else if (
+        creep.store[RESOURCE_ENERGY] <
+        creep.store.getCapacity(RESOURCE_ENERGY) / 2
+      ) {
         creep.memory.repair = false;
         creep.memory.getEnergy = true;
         getEnergy(creep);

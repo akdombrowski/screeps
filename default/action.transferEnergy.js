@@ -85,7 +85,7 @@ function tran(creep, flag, dest) {
     if (!Memory.e35n31Extensions || Memory.e35n31Extensions.length <= 0) {
       exts = Game.rooms[Memory.homeRoomName].find(FIND_STRUCTURES, {
         filter: (struct) => {
-          return struct.structureType === STRUCTURE_EXTENSION;
+          return struct.structureType === STRUCTURE_EXTENSION || struct.structureType === STRUCTURE_SPAWN;
         },
       });
       const extIDs = exts.map(function (ext) {

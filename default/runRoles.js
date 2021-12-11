@@ -45,7 +45,10 @@ function runRoles() {
     }
 
     if (roll === "h" || roll === "harvester") {
-      creep.memory.getEnergy = true;
+      if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
+        creep.memory.getEnergy = true;
+      }
+
       harvesters.push(name);
       roleHarvester.run(creep);
     } else if (roll && roll.startsWith("towerHarvester")) {

@@ -19,7 +19,9 @@ const roleHarvester = {
     if (creep.store.getFreeCapacity() <= 0) {
       retval = ERR_FULL;
       creep.memory.getEnergy = false;
-      retval = transferEnergy(creep);
+      if (creep.memory.role.startsWith("h")) {
+        retval = transferEnergy(creep);
+      }
       return retval;
     }
 

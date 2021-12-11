@@ -148,8 +148,8 @@ function tran(creep, flag, dest) {
         currTarget &&
         currTarget.store &&
         tower.store &&
-        currTarget.store.getUsedCapacity([RESOURCE_ENERGY]) > tower.store.getUsedCapacity([RESOURCE_ENERGY])
-
+        currTarget.store.getUsedCapacity([RESOURCE_ENERGY]) >
+          tower.store.getUsedCapacity([RESOURCE_ENERGY])
       ) {
         currTarget = tower;
         return true;
@@ -223,8 +223,11 @@ function tran(creep, flag, dest) {
     if (creep.pos.isNearTo(target)) {
       return -17;
     }
+
     if (retval !== OK) {
       creep.memory.path = null;
+
+      console.log(name + " m.err." + retval);
 
       creep.say("m.err." + retval);
       return retval;
@@ -239,12 +242,7 @@ function tran(creep, flag, dest) {
     creep.say("t.err");
   }
 
-  console.log("target: " + target);
-
-  if (retval) {
-    console.log(name + " here retval " + retval);
-    return retval;
-  }
+  return retval;
 }
 
 module.exports = tran;

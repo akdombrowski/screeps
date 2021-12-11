@@ -81,7 +81,7 @@ function tran(creep, flag, dest) {
 
   let extensionNeedsEnergy = false;
   if (!target) {
-    if (!Memory.e35n31Extensions) {
+    if (!Memory.e35n31Extensions || Memory.e35n31Extensions.length <= 0) {
       Memory.e35n31Extensions = Game.rooms[Memory.homeRoomName].find(
         FIND_STRUCTURES,
         {
@@ -107,9 +107,11 @@ function tran(creep, flag, dest) {
       },
     });
 
+    console.log(a);
+
     if (a) {
       target = a;
-      creep.memory.destID = target.id;
+      creep.memory.transferTargetId = target.id;
     }
   }
 
@@ -222,6 +224,8 @@ function tran(creep, flag, dest) {
     return ERR_TIRED;
   } else if (target) {
     creep.memory.transferTargetId = target.id;
+
+    console.log(name + " target for move to transfer energy " + target);
 
     retval = smartMove(creep, target, 1);
 

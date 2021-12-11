@@ -96,8 +96,6 @@ function moveAway(creep, nearbySources, nearbyCreeps) {
     retval = creep.moveByPath(pathFinderSearchResults.path);
   }
 
-  console.log(name + " retval of moveAway " + retval);
-
   return retval;
 }
 

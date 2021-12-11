@@ -66,15 +66,50 @@ function smartMove(
   if (!path) console.log(name + " no path");
 
   if (path) {
-    retval = creep.moveByPath(path);
+    try {
+      retval = creep.moveByPath(path);
+    } catch (e) {
+      console.log(name + " moveByPath failed " + path);
+
+      creep.memory.path = null;
+      retval = -16;
+    }
 
     if (retval === OK) {
-      creep.memory.path.shift();
+      if (creep.pos === path[1]) {
+        path.shift();
+      }
+      creep.memory.path = path;
     } else if (retval === ERR_NOT_FOUND) {
-      creep.memory.path = null;
-      return retval;
+      try {
+        path = JSON.stringify(path);
+        retval = creep.moveByPath(path);
+        if (retval === OK) {
+          path.shift();
+          creep.memory.path = path;
+        } else {
+          creep.memory.path = null;
+        }
+      } catch (e) {
+        creep.memory.path = null;
+      }
+
+      if (creep.pos === path[1]) {
+        path.shift();
+        retval = creep.moveByPath(path);
+        if (retval === OK) {
+          path.shift();
+          creep.memory.path = path;
+        } else {
+          creep.memory.path = null;
+        }
+      } else {
+        creep.memory.path = null;
+      }
     }
-  } else {
+  }
+
+  if (!path || retval != OK) {
     creep.memory.path = null;
     retval = creep.moveTo(destPos, {
       plainCost: 1,

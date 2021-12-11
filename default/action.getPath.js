@@ -87,10 +87,18 @@ function smartMove(
         }
       });
 
-      // // Avoid creeps in the room
-      // room.find(FIND_CREEPS).forEach(function (creep) {
-      //   costs.set(creep.pos.x, creep.pos.y, 0xff);
-      // });
+      let creepArr = pos.findInRange(FIND_CREEPS, 1);
+      if (!ignoreCreeps || creepArr.length > 0) {
+        // Avoid creeps in the room
+        if (creepArr.length > 0) {
+          let closeCreep = creepArr[0];
+          costs.set(closeCreep.pos.x, closeCreep.pos.y);
+        } else {
+          room.find(FIND_CREEPS).forEach(function (creep) {
+            costs.set(creep.pos.x, creep.pos.y, 0xff);
+          });
+        }
+      }
 
       return costs;
     },
@@ -140,7 +148,6 @@ function smartMove(
       maxOps: maxOps * 10,
       maxRooms: 1,
     });
-
 
     return ERR_NO_PATH;
   } else {

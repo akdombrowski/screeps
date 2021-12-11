@@ -47,6 +47,7 @@ function buildRoad(creep) {
     }
 
     if (creep.pos.inRangeTo(target, 3)) {
+
       if (
         creep.pos.findInRange(FIND_CREEPS, 1).pop().name != creep.name &&
         creep.pos.isNearTo(Game.getObjectById(Memory.source1eRm))

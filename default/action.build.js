@@ -1,8 +1,7 @@
 const smartMove = require("./action.smartMove");
 const getEnergy = require("./action.getEnergy");
-const moveAway = require("./action.moveAway");
-
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
+const checkIfBlockingSource = require("./checkIfBlockingSource");
 
 function build(creep) {
   let targetId = creep.memory.lastBuildID;
@@ -80,14 +79,8 @@ function build(creep) {
 
     if (target) {
       if (creep.pos.inRangeTo(target, 3)) {
-        const nearbySources = creep.pos.findInRange(FIND_SOURCES_ACTIVE, 1);
-        const nearbyCreeps = creep.pos.findInRange(FIND_CREEPS, 1);
-        if (
-          nearbySources.length > 0 &&
-          nearbyCreeps.length > 0
-        ) {
-          retval = moveAway(creep, nearbySources, nearbyCreeps);
-        }
+        checkIfBlockingSource(creep);
+
         retval = creep.build(target);
         creep.memory.b = targetId;
         creep.say("b");
@@ -124,3 +117,4 @@ function build(creep) {
 }
 
 module.exports = build;
+

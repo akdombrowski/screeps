@@ -1,18 +1,7 @@
 const getEnergy = require("./action.getEnergy.1");
-const getEnergyEE = require("./action.getEnergyEEast");
-const getEnergyN = require("./action.getEnergyNorth");
-const getEnergyNE = require("./action.getEnergyNE");
-const getEnergyNW = require("./action.getEnergyNW");
-const getEnergyW = require("./action.getEnergyWest");
-const getEnergyE = require("./action.getEnergyE");
 const smartMove = require("./action.smartMove");
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
 const build = require("./action.build");
-const buildE = require("./action.buildE");
-const buildEE = require("./action.buildEE");
-const buildNE = require("./action.buildNE");
-const buildN = require("./action.buildN");
-const buildNW = require("./action.buildNW");
 
 var roleWorker = {
   /** @param {Creep} creep **/

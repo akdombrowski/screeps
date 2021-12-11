@@ -19,7 +19,8 @@ function smartMove(
   let path = creep.memory.path;
   const rm = creep.room;
   const name = creep.name;
-  const pos = creep.pos;
+  const creepPos = creep.pos;
+  let lastCreepPos = creep.memory.lastCreepPos;
   let desPath;
   pathColor = pathColor || getRandomColor();
   pathMem = pathMem || Math.floor(Math.random() * 100);
@@ -44,6 +45,18 @@ function smartMove(
 
   if (moveAwayFromCreep(creep)) {
     path = null;
+  }
+
+  if (lastCreepPos) {
+    lastCreepPos = new RoomPosition(
+      lastCreepPos.x,
+      lastCreepPos.y,
+      lastCreepPos.roomName
+    );
+    if (lastCreepPos.isEqualTo(creepPos)) {
+      path = null;
+      ignoreCreeps = false;
+    }
   }
 
   // no path in memory.path. get one.
@@ -78,21 +91,25 @@ function smartMove(
     }
 
     if (retval === OK) {
+      creep.memory.lastCreepPos = creepPos;
+
       if (path[0] && path[0].x && creep.pos.isEqualTo(path[0].x, path[0].y)) {
         path.shift();
       }
 
       creep.memory.path = path;
     } else if (retval === ERR_NOT_FOUND) {
-      if (path[0] && path[0].x && creep.pos.isEqualTo(path[0].x, path[0].y)) {
+      if (path[0] && path[0].x && creepPos.isEqualTo(path[0].x, path[0].y)) {
         path.shift();
       }
 
       try {
+        creep.memory.lastCreepPos = creepPos;
+
         retval = creep.moveByPath(path);
 
         if (retval === OK) {
-          if (creep.pos.isEqualTo(path[0])) {
+          if (creepPos.isEqualTo(path[0])) {
             path.shift();
           }
 
@@ -165,7 +182,9 @@ function smartMove(
   //   }
   // }
 
-  if (retval != 0) console.log(name + " retval " + retval);
+  if (retval != 0) {
+    console.log(name + " retval " + retval + " creep.pos " + creepPos);
+  }
 
   if (retval === OK) {
     creep.say(destPos.x + "," + destPos.y);

@@ -110,8 +110,6 @@ function smartMove(
     maxRooms: 1,
   });
 
-  console.log(name + " path " + ret.path);
-
   if (ret.incomplete) {
     console.log(name + " need more ops for pathfinding");
 

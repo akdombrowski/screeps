@@ -81,33 +81,38 @@ function tran(creep, flag, dest) {
 
   let extensionNeedsEnergy = false;
   if (!target) {
+    let exts;
     if (!Memory.e35n31Extensions || Memory.e35n31Extensions.length <= 0) {
-      Memory.e35n31Extensions = Game.rooms[Memory.homeRoomName].find(
-        FIND_STRUCTURES,
-        {
-          filter: (struct) => {
-            return struct.structureType === STRUCTURE_EXTENSION;
-          },
-        }
-      );
+      exts = Game.rooms[Memory.homeRoomName].find(FIND_STRUCTURES, {
+        filter: (struct) => {
+          return struct.structureType === STRUCTURE_EXTENSION;
+        },
+      });
+      const extIDs = exts.map(function (ext) {
+        return ext.id;
+      });
+      Memory.e35n31Extensions = extIDs;
+    } else {
+      exts = Memory.e35n31Extensions.map(function (ext) {
+        return Game.getObjectById(ext);
+      });
     }
 
-    let a = creep.pos.findClosestByPath(Memory.e35n31Extensions, {
+    let a = creep.pos.findClosestByPath(exts, {
       filter: function (structure) {
         if (!structure.pos) {
           return false;
         }
 
         if (
-          structure.store[RESOURCE_ENERGY] <= 150 ||
+          structure.store[RESOURCE_ENERGY] <
+            structure.store.getCapacity(RESOURCE_ENERGY) ||
           !structure.store[RESOURCE_ENERGY]
         ) {
           return structure;
         }
       },
     });
-
-    console.log(a);
 
     if (a) {
       target = a;

@@ -83,7 +83,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   }
 
   if (target && target.pos.room && !target.energy && !targetedRm) {
-    retval = smartMove(creep, target, 1, false, null, null, null, 1);
+    retval = smartMove(creep, target, 1, true, null, null, null, 1);
     creep.say("ge.m." + retval);
     return retval;
   }
@@ -141,7 +141,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
     // Can't find sources, probably in a different room. Just head that way.
     if (!target) {
-      retval = smartMove(creep, flag, 1, false, null, null, null, 1);
+      retval = smartMove(creep, flag, 1, true, null, null, null, 1);
       return retval;
     }
     creep.say("flag");
@@ -261,7 +261,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       // Still tired
       creep.say("f." + creep.fatigue);
     } else {
-      retval = smartMove(creep, target, 1, false, null, null, null, 1);
+      retval = smartMove(creep, target, 1, true, null, null, null, 1);
 
       if (retval === OK) {
         creep.say(target.pos.x + "," + target.pos.y);

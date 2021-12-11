@@ -90,7 +90,7 @@ function tran(creep, flag, dest) {
           retval = ERR_TIRED;
         }
       } else {
-        retval = smartMove(creep, tower6, 3, false, null, null, null, 1);
+        retval = smartMove(creep, tower6, 3, true, null, null, null, 1);
       }
       return retval;
     } else if (creep.room.name === "E35N31" && direction === "west") {

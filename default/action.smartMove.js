@@ -48,10 +48,6 @@ function smartMove(
 
   // no path in memory.path. get one.
   if (!path || pathMem < 1) {
-
-    console.log(name + " getPath ");
-    console.log(name + " ignoreCreeps " + ignoreCreeps);
-
     getPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
     path = creep.memory.path;
   }

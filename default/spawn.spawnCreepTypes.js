@@ -110,15 +110,15 @@ function spawnCreepTypes(enAvail) {
 
   // 550
   let workerParts550 = [];
-  addPart(workerParts500, 2, CARRY);
-  addPart(workerParts500, 2, WORK);
-  addPart(workerParts500, 5, MOVE);
+  addPart(workerParts550, 2, CARRY);
+  addPart(workerParts550, 2, WORK);
+  addPart(workerParts550, 5, MOVE);
 
   // 550
   let harvesterParts550 = [];
-  addPart(workerParts500, 2, CARRY);
-  addPart(workerParts500, 3, WORK);
-  addPart(workerParts500, 3, MOVE);
+  addPart(harvesterParts550, 2, CARRY);
+  addPart(harvesterParts550, 3, WORK);
+  addPart(harvesterParts550, 3, MOVE);
 
   // 2500
   let moverParts = [];
@@ -416,9 +416,9 @@ function spawnCreepTypes(enAvail) {
     let direction = "south";
     let sourceId = Memory.source2;
     let parts = simpleParts500;
-    let spawnDirection = [BOTTOM];
+    let spawnDirection = [TOP];
 
-    if (harvesters.length < 3) {
+    if (harvesters.length < 1) {
       direction = "south";
       harvesters.push(name);
       retval = birthCreep(
@@ -446,7 +446,7 @@ function spawnCreepTypes(enAvail) {
     let direction = "south";
     let sourceId = Memory.source2;
     let parts = harvesterParts550;
-    let spawnDirection = [BOTTOM];
+    let spawnDirection = [TOP];
 
     if (harvesters.length < 2) {
       name = "h" + t;

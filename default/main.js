@@ -39,17 +39,46 @@ module.exports.loop = function () {
 
     // towersAttackInvader(invader, towers);
 
+    let containers = [];
+    let storages = [];
     let fixables = Game.spawns["Spawn1"].room.find(FIND_STRUCTURES, {
       filter: function (struct) {
         if (struct.structureType === STRUCTURE_ROAD) {
           return struct.hits < struct.hitsMax;
+        } else if (struct.structureType === STRUCTURE_STORAGE) {
+          storages.push(struct);
+        } else if (struct.structureType === STRUCTURE_CONTAINER) {
+          containers.push(struct);
         } else {
           return false;
         }
       },
     });
 
+    if (containers.length > 0) {
+      fixables = fixables.concat(containers);
+    }
+
+    if (storages.length > 0) {
+      fixables = fixables.concat(storages);
+    }
+
+    fixables.sort(function compareFn(firstEl, secondEl) {
+      if(firstEl.hits / firstEl.hitsMax <= 2) {
+        return firstEl;
+      }
+
+      if (secondEl.hits / secondEl.hitsMax <= 2) {
+        return secondEl;
+      }
+
+      if(firstEl.hitsMax - firstEl.hits > secondEl.hitsMax - secondEl.hits) {
+        return firstEl;
+      }
+    })
+
     Memory.e59s48fixables = fixables.map((f) => f.id);
+
 
     checkForAttackers();
 

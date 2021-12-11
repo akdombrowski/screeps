@@ -55,7 +55,6 @@ function smartMove(
     path = null;
   }
 
-  console.log(name + " " + creep.memory.path);
   // no path in memory.path. get one.
   if (!path || pathMem < 1) {
     getPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
@@ -70,8 +69,6 @@ function smartMove(
       creep.memory.path = null;
       return retval;
     }
-    console.log(name + " retval2 " + retval);
-    console.log(name + " " + creep.memory.path);
   } else {
     creep.memory.path = null;
     retval = creep.moveTo(destPos, {
@@ -132,8 +129,6 @@ function smartMove(
     creep.say("invalidTarget");
     creep.memory.path = null;
   } else if (retval === ERR_NO_PATH) {
-    console.log(name + " no path");
-
     creep.say("noPath");
     creep.memory.path = null;
   } else {

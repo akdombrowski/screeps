@@ -214,10 +214,10 @@ function spawnCreepTypes(enAvail) {
   const contrNW = Game.getObjectById("5bbcaeeb9099fc012e639c4a");
   const contrNWW = Game.getObjectById("5bbcaedb9099fc012e639a93");
 
-  const timeDigitsInName = 6;
+  const timeDigitsSlice = 2;
+  const t = Game.time.toString().slice(timeDigitsSlice);
 
   if (enAvail >= 300 && attackers.length < 1 && Memory.nAttackerId) {
-    let t = Game.time.toString().slice(timeDigitsInName);
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
@@ -240,7 +240,6 @@ function spawnCreepTypes(enAvail) {
       spawnDirection
     );
   } else if (enAvail >= 300 && !invaderId) {
-    let t = Game.time.toString().slice(timeDigitsInName);
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
@@ -327,7 +326,6 @@ function spawnCreepTypes(enAvail) {
   }
 
   if (enAvail >= 350 && !invaderId) {
-    let t = Game.time.toString().slice(timeDigitsInName);
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
@@ -357,7 +355,6 @@ function spawnCreepTypes(enAvail) {
   }
 
   if (enAvail >= 500) {
-    let t = Game.time.toString().slice(timeDigitsInName);
     let name = "att" + t;
     let chosenRole = "a";
     let direction = "south";
@@ -402,7 +399,6 @@ function spawnCreepTypes(enAvail) {
   }
 
   if (enAvail >= 500 && !invaderId) {
-    let t = Game.time.toString().slice(4);
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
@@ -433,7 +429,6 @@ function spawnCreepTypes(enAvail) {
   }
 
   if (enAvail >= 510 && !invaderId) {
-    let t = Game.time.toString().slice(4);
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
@@ -490,7 +485,6 @@ function spawnCreepTypes(enAvail) {
   // }
 
   if (enAvail >= 650) {
-    let t = Game.time.toString().slice(4);
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
@@ -565,7 +559,6 @@ function spawnCreepTypes(enAvail) {
   }
 
   if (enAvail >= 3750 && !invaderId) {
-    let t = Game.time.toString().slice(4);
     let name = "hXL" + t;
     let chosenRole = "h";
     let direction = "south";

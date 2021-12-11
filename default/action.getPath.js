@@ -18,7 +18,7 @@ function smartMove(
   let path = creep.memory.path;
   const rm = creep.room;
   const name = creep.name;
-  const pos = creep.pos;
+  const creepPos = creep.pos;
   let desPath;
   const roll = creep.memory.role;
   const direction = creep.memory.direction;
@@ -60,7 +60,7 @@ function smartMove(
 
   let goals = { pos: destPos, range: range };
 
-  let ret = PathFinder.search(pos, goals, {
+  let ret = PathFinder.search(creepPos, goals, {
     // We need to set the defaults costs higher so that we
     // can set the road cost lower in `roomCallback`
     plainCost: 2,
@@ -87,7 +87,7 @@ function smartMove(
         }
       });
 
-      let creepArr = pos.findInRange(FIND_CREEPS, 1);
+      let creepArr = creepPos.findInRange(FIND_CREEPS, 1);
       if (!ignoreCreeps || creepArr.length > 0) {
         // Avoid creeps in the room
         if (creepArr.length > 0) {
@@ -110,14 +110,19 @@ function smartMove(
     maxRooms: 1,
   });
 
+  console.log(name + " path " + ret.path);
+
   if (ret.incomplete) {
     console.log(name + " need more ops for pathfinding");
 
-    ret = PathFinder.search(pos, goals, {
+    ret = PathFinder.search(creepPos, goals, {
       // We need to set the defaults costs higher so that we
       // can set the road cost lower in `roomCallback`
       plainCost: 2,
       swampCost: 10,
+      flee: false,
+      maxOps: maxOps * 10,
+      maxRooms: 1,
 
       roomCallback: function (roomName) {
         let room = Game.rooms[roomName];
@@ -147,9 +152,6 @@ function smartMove(
 
         return costs;
       },
-      flee: false,
-      maxOps: maxOps * 10,
-      maxRooms: 1,
     });
 
     if (ret.incomplete) {

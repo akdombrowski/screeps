@@ -69,11 +69,7 @@ function upController(creep, flag) {
     } else if (creep.fatigue > 0) {
       creep.say("f." + creep.fatigue);
     } else {
-      console.log(name + " " + target);
-
       retval = smartMove(creep, target, 3, true, "#ffff80", 100, 10000, 1);
-
-      console.log(name + " retval " + retval);
 
       if (retval != OK) {
         creep.say("err." + retval);

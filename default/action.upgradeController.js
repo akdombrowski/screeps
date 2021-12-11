@@ -3,6 +3,8 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 
 function upController(creep, flag) {
+  const name = creep.name;
+
   if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
     creep.memory.up = true;
     creep.memory.getEnergy = false;
@@ -13,7 +15,7 @@ function upController(creep, flag) {
     return;
   }
 
-  if(creep.memory.up) {
+  if (creep.memory.up) {
     creep.memory.getEnergy = false;
   }
 
@@ -30,17 +32,25 @@ function upController(creep, flag) {
 
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-      filter: structure => {
+      filter: (structure) => {
         structure.type == STRUCTURE_CONTROLLER;
-      }
+      },
     });
     creep.memory.controller = target.pos;
   }
 
   if (creep.memory.up) {
     if (creep.room.name !== "E59S48") {
-      smartMove(creep, Game.getObjectById("59bbc5d22052a716c3cea137"), 3, true, "#290199", null, 10000);
-    } else if(creep.pos.inRangeTo(target, 3)) {
+      smartMove(
+        creep,
+        Game.getObjectById("59bbc5d22052a716c3cea137"),
+        3,
+        true,
+        "#290199",
+        null,
+        10000
+      );
+    } else if (creep.pos.inRangeTo(target, 3)) {
       retval = creep.upgradeController(target);
       if (retval == OK) {
         creep.say("uc");
@@ -56,11 +66,18 @@ function upController(creep, flag) {
         creep.memory.controller = null;
         creep.say("uc." + retval);
       }
+    } else if (creep.fatigue > 0) {
+      creep.say("f." + creep.fatigue);
     } else {
-        retval = smartMove(creep, target, 3);
-        if (retval === ERR_TIRED) {
-          creep.say("f." + creep.fatigue);
-        }
+      console.log(name + " " + target);
+
+      retval = smartMove(creep, target, 3, true, "#ffff80", 100, 10000, 1);
+
+      console.log(name + " retval " + retval);
+
+      if (retval != OK) {
+        creep.say("err." + retval);
+      }
     }
   } else {
     creep.say("uchH");

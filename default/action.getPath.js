@@ -55,7 +55,7 @@ function smartMove(
   }
 
   if (creep.memory.path) {
-    return creep.memory.path;
+    return OK;
   }
 
   let goals = { pos: destPos, range: range };
@@ -152,7 +152,12 @@ function smartMove(
       maxRooms: 1,
     });
 
-    return ERR_NO_PATH;
+    if (ret.incomplete) {
+      return ERR_NO_PATH;
+    } else {
+      creep.memory.path = ret.path;
+      return OK;
+    }
   } else {
     creep.memory.path = ret.path;
     return OK;

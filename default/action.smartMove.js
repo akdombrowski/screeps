@@ -52,16 +52,16 @@ function smartMove(
     path = creep.memory.path;
   }
 
-  if (
-    path &&
-    path[0] &&
-    path[0].pos &&
-    path[0].pos.x != creep.pos.x &&
-    path[0].pos.y != creep.pos.y
-  ) {
-    path = null;
-    return retval;
-  }
+  // if (
+  //   path &&
+  //   path[0] &&
+  //   path[0].pos &&
+  //   path[0].pos.x != creep.pos.x &&
+  //   path[0].pos.y != creep.pos.y
+  // ) {
+  //   path = null;
+  //   return retval;
+  // }
 
   if (!path) console.log(name + " no path");
 
@@ -69,23 +69,31 @@ function smartMove(
     try {
       retval = creep.moveByPath(path);
     } catch (e) {
-      console.log(name + " moveByPath failed " + path);
+      console.log(name + " moveByPath exception " + path);
 
       creep.memory.path = null;
       retval = -16;
     }
 
     if (retval === OK) {
-      if (creep.pos === path[1]) {
+      if (path[0] && path[0].x && creep.pos.isEqualTo(path[0].x, path[0].y)) {
         path.shift();
       }
+
       creep.memory.path = path;
     } else if (retval === ERR_NOT_FOUND) {
+      if (path[0] && path[0].x && creep.pos.isEqualTo(path[0].x, path[0].y)) {
+        path.shift();
+      }
+
       try {
-        path = JSON.stringify(path);
         retval = creep.moveByPath(path);
+
         if (retval === OK) {
-          path.shift();
+          if (creep.pos.isEqualTo(path[0])) {
+            path.shift();
+          }
+
           creep.memory.path = path;
         } else {
           creep.memory.path = null;
@@ -109,27 +117,27 @@ function smartMove(
     }
   }
 
-  if (!path || retval != OK) {
-    creep.memory.path = null;
-    retval = creep.moveTo(destPos, {
-      plainCost: 1,
-      swampCost: 2,
-      range: range,
-      ignoreCreeps: ignoreCreeps,
-      noPathFinding: false,
-      reusePath: pathMem,
-      maxOps: maxOps,
-      maxRooms: maxRms,
-      serializeMemory: true,
-      visualizePathStyle: {
-        fill: "transparent",
-        stroke: pathColor,
-        lineStyle: "dashed",
-        strokeWidth: 0.15,
-        opacity: 0.1,
-      },
-    });
-  }
+  // if (!path || retval != OK) {
+  //   creep.memory.path = null;
+  //   retval = creep.moveTo(destPos, {
+  //     plainCost: 1,
+  //     swampCost: 2,
+  //     range: range,
+  //     ignoreCreeps: ignoreCreeps,
+  //     noPathFinding: false,
+  //     reusePath: pathMem,
+  //     maxOps: maxOps,
+  //     maxRooms: maxRms,
+  //     serializeMemory: true,
+  //     visualizePathStyle: {
+  //       fill: "transparent",
+  //       stroke: pathColor,
+  //       lineStyle: "dashed",
+  //       strokeWidth: 0.15,
+  //       opacity: 0.1,
+  //     },
+  //   });
+  // }
 
   // // No path. Try finding path using maxOps.
   // if (!path) {

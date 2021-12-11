@@ -26,6 +26,7 @@ var roleWorker = {
     let homeRoomName = Memory.homeRoomName;
 
     if (
+      creep.getEnergy ||
       !creep.store[RESOURCE_ENERGY] ||
       creep.store[RESOURCE_ENERGY] <= 0 ||
       (creep.store.getFreeCapacity(RESOURCE_ENERGY) > 0 &&
@@ -115,7 +116,6 @@ var roleWorker = {
       ) {
         return buildNW(creep, Game.flags.nw, "E34N32");
       } else {
-
         return build(creep);
       }
     }

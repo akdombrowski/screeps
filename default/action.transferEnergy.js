@@ -51,12 +51,10 @@ function tran(creep, flag, dest) {
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {
     if (flag) {
       target = flag.pos.lookFor(LOOK_STRUCTURES).pop();
-    } else if (creep.memory.destID) {
-      target = Game.getObjectById(creep.memory.destID);
-      // target = creep.memory.destID.pos.lookFor(LOOK_STRUCTURES).pop();
-      console.log("target " + target);
     } else if (creep.memory.flag) {
       target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
+    } else if (creep.memory.transferTargetId) {
+      target = Game.getObjectById(creep.memory.transferTargetId);
     }
   }
 
@@ -68,6 +66,7 @@ function tran(creep, flag, dest) {
   ) {
     target = null;
     creep.memory.flag = null;
+    creep.memory.transferTargetId = null;
   }
 
   if (
@@ -82,46 +81,55 @@ function tran(creep, flag, dest) {
 
   let extensionNeedsEnergy = false;
   if (!target) {
-    let exts;
-
     if (!Memory.e35n31Extensions) {
-      exts = Game.rooms[Memory.homeRoomName].find(FIND_STRUCTURES, {
-        filter: (struct) => {
-          return struct.structureType === STRUCTURE_EXTENSION;
-        },
-      });
-      Memory.e35n31Extensions = [];
-      _.each(exts, (ext) => {
-        Memory.e35n31Extensions.push(ext.id);
-      });
-    } else {
-      let extsObjs = [];
-      _.each(Memory.e35n31Extensions, (val, key, collection) => {
-        extsObjs.push(Game.getObjectById(val));
-      });
-      exts = extsObjs;
+      Memory.e35n31Extensions = Game.rooms[Memory.homeRoomName].find(
+        FIND_STRUCTURES,
+        {
+          filter: (struct) => {
+            return struct.structureType === STRUCTURE_EXTENSION;
+          },
+        }
+      );
     }
 
-    let a = creep.pos.findClosestByPath(exts, {
+    let a = creep.pos.findClosestByPath(Memory.e35n31Extensions, {
       filter: function (structure) {
-        if (!structure) {
+        if (!structure.pos) {
           return false;
         }
-        let type = structure.structureType;
+
         if (
-          (type === STRUCTURE_EXTENSION ||
-            (structure.structureType === STRUCTURE_SPAWN &&
-              structure.name === "spawn2")) &&
-          (structure.store[RESOURCE_ENERGY] <= 150 ||
-            !structure.store[RESOURCE_ENERGY])
+          structure.store[RESOURCE_ENERGY] <= 150 ||
+          !structure.store[RESOURCE_ENERGY]
         ) {
-          return target;
+          return structure;
         }
       },
     });
+
     if (a) {
       target = a;
       creep.memory.destID = target.id;
+    }
+  }
+
+  // containers or storage
+  if (!target) {
+    if (!Memory.e35s48structs) {
+      let structs = creep.room.find(FIND_STRUCTURES, function (struct) {
+        let type = struct.type;
+        return (
+          (type === STRUCTURE_CONTAINER || type === STRUCTURE_STORAGE) &&
+          (!struct.store[RESOURCE_ENERGY] ||
+            struct.store.getFreeCapacity(RESOURCE_ENERGY))
+        );
+      });
+
+      if (structs && structs.length > 0) {
+        target = creep.pos.findClosestByPath(structs, {
+          filter: function (struct) {},
+        });
+      }
     }
   }
 
@@ -181,7 +189,7 @@ function tran(creep, flag, dest) {
           !name.startsWith("h")
         ) {
           return (
-            !structure.store ||
+            structure.store &&
             structure.store[RESOURCE_ENERGY] <
               structure.store.getCapacity(RESOURCE_ENERGY)
           );
@@ -202,9 +210,6 @@ function tran(creep, flag, dest) {
   if (target && creep.pos.inRangeTo(target, 1)) {
     creep.memory.path = null;
     creep.memory.transferTargetId = target.id;
-    if (target instanceof String || target instanceof Number) {
-      target = Game.getObjectById(target);
-    }
     retval = creep.transfer(target, RESOURCE_ENERGY);
     if (retval === OK) {
       creep.memory.path = null;
@@ -232,7 +237,7 @@ function tran(creep, flag, dest) {
       creep.say("m.err." + retval);
       return retval;
     } else if (retval === OK) {
-      creep.memory.destID = target.id;
+      creep.memory.transferTargetId = target.id;
       creep.say(target.pos.x + "," + target.pos.y);
       return retval;
     }

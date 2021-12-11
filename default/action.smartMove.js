@@ -38,11 +38,8 @@ function smartMove(
   }
 
   let destPos = dest;
-  if (destPos && (dest.room || dest.roomName)) {
-    let rmName = dest.roomName;
-    if (!rmName) {
-      rmName = dest.room.name;
-    }
+  if (destPos && dest.room) {
+    let rmName = dest.room.name;
 
     if (!(destPos instanceof RoomPosition)) {
       destPos = new RoomPosition(dest.pos.x, dest.pos.y, rmName);
@@ -61,8 +58,20 @@ function smartMove(
     path = creep.memory.path;
   }
 
+  if (
+    path &&
+    path[0] &&
+    path[0].pos &&
+    path[0].pos.x != creep.pos.x &&
+    path[0].pos.y != creep.pos.y
+  ) {
+    path = null;
+    return retval;
+  }
+
   if (path) {
     retval = creep.moveByPath(path);
+
     if (retval === OK) {
       creep.memory.path.shift();
     } else if (retval === ERR_NOT_FOUND) {

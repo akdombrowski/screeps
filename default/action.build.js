@@ -1,4 +1,5 @@
 const smartMove = require("./action.smartMove");
+const getEnergy = require("./action.getEnergy");
 
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
 
@@ -12,7 +13,8 @@ function build(creep) {
   if (creep.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
     building = true;
     creep.memory.building = building;
-  } else if (_.sum(creep.carry) <= 0) {
+  } else if (creep.store[RESOURCE_ENERGY] <= 0) {
+    getEnergy(creep);
   }
 
   if (building && creep.store[RESOURCE_ENERGY] > 0) {
@@ -78,6 +80,7 @@ function build(creep) {
         creep.say("f." + creep.fatigue);
       } else {
         retval = smartMove(creep, target, 3, false, null, null, 200, 1);
+
         // Couldn't move towards construction target
         if (retval === ERR_INVALID_TARGET || retval === ERR_INVALID_TARGET) {
           creep.say("m.inval");

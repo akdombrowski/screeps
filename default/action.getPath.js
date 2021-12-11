@@ -91,8 +91,11 @@ function smartMove(
       if (!ignoreCreeps || creepArr.length > 0) {
         // Avoid creeps in the room
         if (creepArr.length > 0) {
-          let closeCreep = creepArr[0];
-          costs.set(closeCreep.pos.x, closeCreep.pos.y);
+          for (const c of creepArr) {
+            if (c.pos) {
+              costs.set(c.pos.x, c.pos.y, 0xff);
+            }
+          }
         } else {
           room.find(FIND_CREEPS).forEach(function (creep) {
             costs.set(creep.pos.x, creep.pos.y, 0xff);

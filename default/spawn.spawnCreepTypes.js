@@ -462,7 +462,7 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (roadRepairers.length < 2) {
+    } else if (roadRepairers.length < 1) {
       parts = workerParts550;
       name = "rR" + t;
       roadRepairers.push(name);

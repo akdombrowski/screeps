@@ -13,6 +13,7 @@ var roleRepairer = {
 
     if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
       repair = true;
+      creep.memory.build = false;
       creep.memory.repair = repair;
       creep.memory.getEnergy = false;
       creep.say("r");
@@ -21,6 +22,7 @@ var roleRepairer = {
       creep.memory.getEnergy ||
       creep.store[RESOURCE_ENERGY] <= 0
     ) {
+      creep.memory.build = false;
       creep.memory.repair = false;
       creep.memory.getEnergy = true;
       creep.say("h");
@@ -28,6 +30,11 @@ var roleRepairer = {
       getEnergy(creep, Memory.homeRoomName);
 
       return;
+    }
+
+    if (creep.memory.build) {
+      build(creep);
+      creep.say("r.b");
     }
 
     if (repair) {
@@ -42,9 +49,7 @@ var roleRepairer = {
       }
 
       if (!target) {
-
         target = findRepairable(creep);
-        console.log("findfixables " + target);
       }
 
       if (target) {
@@ -83,6 +88,9 @@ var roleRepairer = {
         creep.memory.getEnergy = true;
         getEnergy(creep);
       } else {
+        console.log("me " + target);
+        creep.memory.build = true;
+        creep.memory.repair = false;
         build(creep);
         creep.say("r.b");
       }

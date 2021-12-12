@@ -92,11 +92,14 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   let sources;
   let useMoveTo = false;
   if (!creep.memory.lastSourceId) {
-    sources = ["59bbc5d22052a716c3cea136", "59bbc5d22052a716c3cea135"];
+    let source1 = Game.getObjectById("59bbc5d22052a716c3cea136");
+    let source2 = Game.getObjectById("59bbc5d22052a716c3cea135");
+    sources = [source1, source2];
     let randInt = getRandomInt(2);
 
-    target = Game.getObjectById(sources[randInt]);
-    creep.memory.lastSourceId = sources[randInt];
+    // target = Game.getObjectById(sources[randInt]);
+    target = creep.pos.findClosestByPath(sources);
+    creep.memory.lastSourceId = target.id;
     useMoveTo = true;
   } else if (creep.memory.lastSourceId) {
     target = Game.getObjectById(creep.memory.lastSourceId);
@@ -264,7 +267,6 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       if (retval === OK) {
         creep.say(target.pos.x + "," + target.pos.y);
       } else {
-        creep.memory.lastSourceId = null;
         creep.say("crap");
       }
     }

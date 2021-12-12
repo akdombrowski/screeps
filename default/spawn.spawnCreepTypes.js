@@ -420,7 +420,7 @@ function spawnCreepTypes(enAvail) {
     let parts = harvesterParts550;
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 2) {
+    if (harvesters.length < 3) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";
@@ -492,7 +492,7 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (harvesters.length < 3) {
+    } else if (harvesters.length < 5) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";

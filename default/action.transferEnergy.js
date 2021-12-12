@@ -34,6 +34,7 @@ function tran(creep, flag, dest) {
     creep.memory.path = null;
     creep.memory.transfer = false;
     creep.memory.transferTargetId = null;
+    creep.memory.lastSourceId = null;
     creep.memory.getEnergy = true;
     return -19;
   }

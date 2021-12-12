@@ -18,9 +18,8 @@ var roleRepairer = {
       creep.memory.getEnergy = false;
       creep.say("r");
     } else if (
-      !repair ||
-      creep.memory.getEnergy ||
-      creep.store[RESOURCE_ENERGY] <= 0
+      !repair &&
+      (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] <= 0)
     ) {
       creep.memory.build = false;
       creep.memory.repair = false;
@@ -85,7 +84,10 @@ var roleRepairer = {
             creep.say(target.pos.x + "," + target.pos.y);
           }
         }
-      } else if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
+      } else if (creep.store[RESOURCE_ENERGY] <= 0) {
+        console.log(
+          "creep.store[RESOURCE_ENERGY] " + creep.store[RESOURCE_ENERGY]
+        );
         creep.memory.repair = false;
         creep.memory.getEnergy = true;
         getEnergy(creep);

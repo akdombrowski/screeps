@@ -16,7 +16,7 @@ function build(creep) {
     return getEnergy(creep);
   }
 
-  if (building && creep.store[RESOURCE_ENERGY] > 0) {
+  if (building) {
     if (
       !target ||
       !CONSTRUCTION_COST[target.structureType] ||

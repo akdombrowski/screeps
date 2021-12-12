@@ -224,13 +224,15 @@ function tran(creep, flag, dest) {
 
   if (target && creep.pos.inRangeTo(target, 1)) {
     creep.memory.path = null;
-    creep.memory.transferTargetId = target.id;
+    creep.memory.transfer = false;
     retval = creep.transfer(target, RESOURCE_ENERGY);
     if (retval === OK) {
+      creep.memory.transferTargetId = target.id;
       creep.memory.path = null;
-      creep.memory.transferTargetId = null;
       creep.say("t");
       return retval;
+    } else {
+      creep.say("ouch");
     }
   } else if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);

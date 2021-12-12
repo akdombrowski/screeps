@@ -43,6 +43,10 @@ function smartMove(
     }
   }
 
+  if(creepPos.isEqualTo(destPos)) {
+    return OK;
+  }
+
   if (moveAwayFromCreep(creep)) {
     path = null;
   }
@@ -77,6 +81,11 @@ function smartMove(
   //   path = null;
   //   return retval;
   // }
+
+  console.log("path.length === 0 " + (path.length === 0));
+  console.log("path === null " + (path === null));
+  console.log(name + " path " + path);
+  console.log(name + " retval " + retval + " creep.pos " + creepPos);
 
   if (!path || !path[0] || path.length === 0) {
     console.log(name + " no path");
@@ -185,7 +194,7 @@ function smartMove(
   // }
 
   if (retval != 0) {
-    console.log("path.length " + path.length);
+    console.log("path.length === 0 " + (path.length === 0));
     console.log("path === null " + (path === null));
     console.log(name + " path " + path);
     console.log(name + " retval " + retval + " creep.pos " + creepPos);

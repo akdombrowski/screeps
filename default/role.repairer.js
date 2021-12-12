@@ -53,7 +53,7 @@ var roleRepairer = {
         target = findRepairable(creep);
       }
 
-      if(target.hits >= target.hitsMax) {
+      if (target.hits >= target.hitsMax) {
         target = null;
       }
 
@@ -85,10 +85,7 @@ var roleRepairer = {
             creep.say(target.pos.x + "," + target.pos.y);
           }
         }
-      } else if (
-        creep.store[RESOURCE_ENERGY] <
-        creep.store.getCapacity(RESOURCE_ENERGY) / 2
-      ) {
+      } else if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
         creep.memory.repair = false;
         creep.memory.getEnergy = true;
         getEnergy(creep);

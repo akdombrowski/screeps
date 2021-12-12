@@ -93,7 +93,6 @@ var roleRepairer = {
         creep.memory.getEnergy = true;
         getEnergy(creep);
       } else {
-        console.log("me " + target);
         creep.memory.build = true;
         creep.memory.repair = false;
         build(creep);

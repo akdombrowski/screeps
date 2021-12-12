@@ -7,8 +7,6 @@ function checkIfBlockingSource(creep) {
 
   // nearbyCreeps always includes self
   if (nearbySources.length > 0 && nearbyCreeps.length > 1) {
-    console.log(nearbySources);
-    console.log(nearbyCreeps);
     retval = moveAway(creep, nearbySources, nearbyCreeps);
   }
 

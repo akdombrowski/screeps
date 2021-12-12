@@ -33,6 +33,7 @@ var roleRepairer = {
     }
 
     if (creep.memory.build) {
+      console.log("build");
       build(creep);
       creep.say("r.b");
     }

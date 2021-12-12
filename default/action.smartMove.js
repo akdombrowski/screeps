@@ -60,10 +60,10 @@ function smartMove(
   }
 
   // no path in memory.path. get one.
-  if (!path || pathMem < 1) {
+  if (!path || path.length <= 0 || pathMem < 1) {
     getPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
     path = creep.memory.path;
-  } else if (path[0].x) {
+  } else if (path[0].x && !(path[0] instanceof RoomPosition)) {
     path = path.map((p) => new RoomPosition(p.x, p.y, p.roomName));
   }
 
@@ -78,7 +78,9 @@ function smartMove(
   //   return retval;
   // }
 
-  if (!path || !path[0]) console.log(name + " no path");
+  if (!path || !path[0] || path.length === 0) {
+    console.log(name + " no path");
+  }
 
   if (path) {
     try {
@@ -183,6 +185,8 @@ function smartMove(
   // }
 
   if (retval != 0) {
+    console.log("path.length " + path.length);
+    console.log("path === null " + (path === null));
     console.log(name + " path " + path);
     console.log(name + " retval " + retval + " creep.pos " + creepPos);
   }

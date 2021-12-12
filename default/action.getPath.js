@@ -1,7 +1,7 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const getRandomColor = require("./getRandomColor");
 
-function smartMove(
+function getPath(
   creep,
   dest,
   range,
@@ -164,4 +164,4 @@ function smartMove(
   }
 }
 
-module.exports = smartMove;
+module.exports = getPath;

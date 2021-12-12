@@ -26,6 +26,7 @@ module.exports.loop = function () {
     let rm = s1.room;
     Memory.rm = rm;
     Memory.homeRoomName = "E59S48";
+    Memory.northRoomName = "E59S47";
 
     let enAvail = rm.energyAvailable;
     let enCapRm = rm.energyCapacityAvailable;

@@ -14,6 +14,7 @@ const roleHarvester = {
     const fatigue = creep.fatigue;
     const rm = creep.room;
     const homeRmName = Memory.homeRoomName;
+    const northRmName = Memory.northRoomName;
     let retval = -16;
 
     if (creep.store.getFreeCapacity() <= 0) {
@@ -37,17 +38,20 @@ const roleHarvester = {
       creep.memory.path = null;
       creep.memory.transferTargetId = null;
 
-      switch (creep.memory.direction) {
-        case "s":
-          retval = getEnergy(creep, homeRmName);
-          break;
-        case "n":
-          retval = getEnergy(creep, "E59S47");
-          break;
-        default:
-          retval = getEnergy(creep, homeRmName);
-          break;
-      }
+      // switch (creep.memory.direction) {
+      //   case "s":
+      //     retval = getEnergy(creep, homeRmName);
+      //     break;
+      //   case "n":
+      //     retval = getEnergy(creep, northRmName);
+      //     break;
+      //   default:
+      //     retval = getEnergy(creep, homeRmName);
+      //     break;
+      // }
+
+      retval = getEnergy(creep, northRmName);
+
     } else if (creep.memory.transfer || creep.store[RESOURCE_ENERGY] > 0) {
       if (!creep.store[RESOURCE_ENERGY] || creep.store[RESOURCE_ENERGY] <= 0) {
         creep.memory.getEnergy = true;

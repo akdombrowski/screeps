@@ -193,7 +193,7 @@ function tran(creep, flag, dest) {
   }
 
   if (!target) {
-    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+    target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
       filter: (structure) => {
         if (
           structure.structureType === STRUCTURE_STORAGE &&

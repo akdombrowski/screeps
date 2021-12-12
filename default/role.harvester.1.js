@@ -34,6 +34,7 @@ const roleHarvester = {
       creep.memory.transferTower = false;
       creep.memory.getEnergy = true;
       creep.memory.transfer = false;
+      creep.memory.path = null;
       creep.memory.transferTargetId = null;
 
       retval = getEnergy(creep, homeRmName);

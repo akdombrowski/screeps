@@ -145,7 +145,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       target.store &&
       (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
   ) {
-    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+    target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
       filter: (struct) => {
         const type = struct.structureType;
 
@@ -264,6 +264,7 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   } else {
     // Something went wrong;
     target = null;
+    creep.memory.path = null;
     creep.memory.lastSourceId = target;
     creep.say("sad");
   }

@@ -1,4 +1,4 @@
-const getEnergy = require("./action.getEnergy.1");
+const getEnergy = require("./action.getEnergy");
 const smartMove = require("./action.smartMove");
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
 const build = require("./action.build");
@@ -24,6 +24,8 @@ var roleWorker = {
       creep.memory.working = false;
       creep.say("h");
       creep.memory.getEnergy = true;
+
+      console.log(name + " getting energy ");
 
       retval = getEnergy(creep, homeRoomName);
 

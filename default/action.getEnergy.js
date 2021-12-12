@@ -114,12 +114,15 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       sources.pop();
     }
 
-    if(!target){
+    if (!target) {
       let numCreepsBySource1 = source1.pos.findInRange(FIND_CREEPS, 5).length;
       let numCreepsBySource2 = source2.pos.findInRange(FIND_CREEPS, 5).length;
       if (numCreepsBySource1 > numCreepsBySource2 && source2.energy > 0) {
         target = source2;
-      } else if (numCreepsBySource2 > numCreepsBySource1 && source1.energy > 0) {
+      } else if (
+        numCreepsBySource2 > numCreepsBySource1 &&
+        source1.energy > 0
+      ) {
         target = source1;
       }
     }
@@ -133,6 +136,8 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   } else if (creep.memory.lastSourceId) {
     target = Game.getObjectById(creep.memory.lastSourceId);
   }
+
+  console.log(name + " target " + target);
 
   if (targetedRm && !target) {
     // if (lastSourceId) {

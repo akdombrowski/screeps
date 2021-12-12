@@ -100,9 +100,9 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     // target = Game.getObjectById(sources[randInt]);
 
     if (source1.energy <= 0) {
-      target = source2;
+      target = source2.energy > 0 ? source2 : null;
     } else if (source2.energy <= 0) {
-      target = source1;
+      target = source1.energy > 0 ? source1 : null;
     } else {
       let numCreepsBySource1 = source1.pos.findInRange(FIND_CREEPS, 5).length;
       let numCreepsBySource2 = source2.pos.findInRange(FIND_CREEPS, 5).length;

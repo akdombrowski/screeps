@@ -84,7 +84,7 @@ function smartMove(
   //   return retval;
   // }
 
-  if (!path || !path[0] || path.length === 0) {
+  if (path.length === 0 || !path || !path[0]) {
     console.log(name + " no path");
   }
 

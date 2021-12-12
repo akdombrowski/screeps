@@ -53,6 +53,10 @@ var roleRepairer = {
         target = findRepairable(creep);
       }
 
+      if(target.hits >= target.hitsMax) {
+        target = null;
+      }
+
       if (target) {
         creep.memory.lastRepairableStructId = target.id;
         if (creep.pos.inRangeTo(target, 3)) {

@@ -1,5 +1,6 @@
 const smartMove = require("./action.smartMove");
 const getEnergy = require("./action.getEnergy.1");
+const { checkIfBlockingSource } = require("./checkIfBlockingSource");
 
 function buildRoad(creep) {
   let name = creep.name;
@@ -47,6 +48,9 @@ function buildRoad(creep) {
     }
 
     if (creep.pos.inRangeTo(target, 3)) {
+      creep.memory.path = null;
+
+      checkIfBlockingSource(creep);
 
       if (
         creep.pos.findInRange(FIND_CREEPS, 1).pop().name != creep.name &&

@@ -64,11 +64,11 @@ module.exports.loop = function () {
     }
 
     fixables.sort(function compareFn(firstEl, secondEl) {
-      if (firstEl.hitsMax / firstEl.hits <= 2) {
+      if (firstEl.hitsMax / firstEl.hits >= 2) {
         return firstEl;
       }
 
-      if (secondEl.hits / secondEl.hitsMax <= 2) {
+      if (secondEl.hitsMax / secondEl.hits >= 2) {
         return secondEl;
       }
 

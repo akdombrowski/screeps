@@ -259,7 +259,7 @@ function spawnCreepTypes(enAvail) {
     let parts = simpleParts;
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 1) {
+    if (harvesters.length < 2) {
       harvesters.push(name);
       parts = simpleParts;
       retval = birthCreep(
@@ -276,34 +276,6 @@ function spawnCreepTypes(enAvail) {
       chosenRole = "upC";
       upControllers.push(name);
       parts = upContrParts;
-      retval = birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
-    } else if (workers.length < 1) {
-      name = "w" + t;
-      chosenRole = "worker";
-      workers.push(name);
-      parts = simpleParts;
-      retval = birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
-    } else if (roadBuilder.length < 1) {
-      name = "rB" + t;
-      chosenRole = "roadBuilder";
-      roadBuilder.push(name);
-      parts = simpleParts;
       retval = birthCreep(
         s1,
         parts,
@@ -462,6 +434,34 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
+    } else if (workers.length < 1) {
+      name = "w" + t;
+      chosenRole = "worker";
+      workers.push(name);
+      parts = workerParts550;
+      retval = birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (roadBuilder.length < 1) {
+      name = "rB" + t;
+      chosenRole = "roadBuilder";
+      roadBuilder.push(name);
+      parts = workerParts550;
+      retval = birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
     } else if (roadRepairers.length < 2) {
       parts = workerParts550;
       name = "rR" + t;
@@ -477,11 +477,25 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (workers.length < 2) {
+    } else if (workers.length < 3) {
       parts = workerParts550;
       name = "w" + t;
       workers.push(name);
       chosenRole = "w";
+      direction = "s";
+      retval = birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (harvesters.length < 3) {
+      name = "h" + t;
+      harvesters.push(name);
+      chosenRole = "h";
       direction = "s";
       retval = birthCreep(
         s1,

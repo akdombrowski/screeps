@@ -98,7 +98,15 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     let randInt = getRandomInt(2);
 
     // target = Game.getObjectById(sources[randInt]);
-    target = creep.pos.findClosestByPath(sources);
+    let numCreepsBySource1 = source1.pos.findInRange(FIND_CREEPS, 5).length;
+    let numCreepsBySource2 = source2.pos.findInRange(FIND_CREEPS, 5).length;
+
+    if (numCreepsBySource1 > numCreepsBySource2) {
+      target = numCreepsBySource2;
+    } else {
+      target = creep.pos.findClosestByPath(sources);
+    }
+
     creep.memory.lastSourceId = target.id;
     useMoveTo = true;
   } else if (creep.memory.lastSourceId) {

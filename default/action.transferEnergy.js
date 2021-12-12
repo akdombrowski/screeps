@@ -82,10 +82,16 @@ function tran(creep, flag, dest) {
   let extensionNeedsEnergy = false;
   if (!target) {
     let exts;
-    if (!Memory.e35n31Extensions || Memory.e35n31Extensions.length <= 0) {
-      exts = Game.rooms[Memory.homeRoomName].find(FIND_STRUCTURES, {
+    if (!Memory.e35n31Extensions || Memory.e35n31Extensions.length >= 0) {
+      exts = Game.rooms[Memory.homeRoomName].find(FIND_MY_STRUCTURES, {
         filter: (struct) => {
-          return struct.structureType === STRUCTURE_EXTENSION || struct.structureType === STRUCTURE_SPAWN;
+          if (
+            struct.structureType === STRUCTURE_SPAWN &&
+            struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+          ) {
+            target = struct;
+          }
+          return struct.structureType === STRUCTURE_EXTENSION;
         },
       });
       const extIDs = exts.map(function (ext) {
@@ -98,32 +104,34 @@ function tran(creep, flag, dest) {
       });
     }
 
-    let a = creep.pos.findClosestByPath(exts, {
-      filter: function (structure) {
-        if (!structure.pos) {
-          return false;
-        }
+    if (!target) {
+      let a = creep.pos.findClosestByPath(exts, {
+        filter: function (structure) {
+          if (!structure.pos) {
+            return false;
+          }
 
-        if (
-          structure.store[RESOURCE_ENERGY] <
-            structure.store.getCapacity(RESOURCE_ENERGY) ||
-          !structure.store[RESOURCE_ENERGY]
-        ) {
-          return structure;
-        }
-      },
-    });
+          if (
+            structure.store[RESOURCE_ENERGY] <
+              structure.store.getCapacity(RESOURCE_ENERGY) ||
+            !structure.store[RESOURCE_ENERGY]
+          ) {
+            return structure;
+          }
+        },
+      });
 
-    if (a) {
-      target = a;
-      creep.memory.transferTargetId = target.id;
+      if (a) {
+        target = a;
+        creep.memory.transferTargetId = target.id;
+      }
     }
   }
 
   // containers or storage
   if (!target) {
     if (!Memory.e35s48structs) {
-      let structs = creep.room.find(FIND_STRUCTURES, {
+      let structs = creep.room.find(FIND_MY_STRUCTURES, {
         filter: function (struct) {
           let type = struct.type;
           return (

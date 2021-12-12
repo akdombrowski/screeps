@@ -64,7 +64,7 @@ module.exports.loop = function () {
     }
 
     fixables.sort(function compareFn(firstEl, secondEl) {
-      if(firstEl.hits / firstEl.hitsMax <= 2) {
+      if (firstEl.hitsMax / firstEl.hits <= 2) {
         return firstEl;
       }
 
@@ -72,13 +72,12 @@ module.exports.loop = function () {
         return secondEl;
       }
 
-      if(firstEl.hitsMax - firstEl.hits > secondEl.hitsMax - secondEl.hits) {
+      if (firstEl.hitsMax - firstEl.hits > secondEl.hitsMax - secondEl.hits) {
         return firstEl;
       }
-    })
+    });
 
     Memory.e59s48fixables = fixables.map((f) => f.id);
-
 
     checkForAttackers();
 

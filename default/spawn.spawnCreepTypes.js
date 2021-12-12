@@ -506,6 +506,22 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
+    } else {
+      name = "upC" + t;
+      upControllers.push(name);
+      chosenRole = "upC";
+      direction = "s";
+
+      parts = workerParts550;
+      retval = birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
     }
 
     if (retval !== -16) {

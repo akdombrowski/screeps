@@ -84,7 +84,7 @@ function smartMove(
   //   return retval;
   // }
 
-  if (path.length === 0 || !path || !path[0]) {
+  if ((path && path.length === 0) || !path || !path[0]) {
     console.log(name + " no path");
   }
 
@@ -191,8 +191,8 @@ function smartMove(
   // }
 
   if (retval != 0) {
-    console.log("path.length === 0 " + (path.length === 0));
     console.log("path === null " + (path === null));
+    // console.log("path.length === 0 " + (path.length === 0));
     console.log(name + " path " + path);
     console.log(name + " retval " + retval + " creep.pos " + creepPos);
   }

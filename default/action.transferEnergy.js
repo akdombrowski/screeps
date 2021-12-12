@@ -85,13 +85,9 @@ function tran(creep, flag, dest) {
     if (!Memory.e35n31Extensions || Memory.e35n31Extensions.length >= 0) {
       exts = Game.rooms[Memory.homeRoomName].find(FIND_MY_STRUCTURES, {
         filter: (struct) => {
-          if (
-            struct.structureType === STRUCTURE_SPAWN &&
-            struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-          ) {
-            target = struct;
-          }
-          return struct.structureType === STRUCTURE_EXTENSION;
+          return (
+            struct.structureType === STRUCTURE_EXTENSION || STRUCTURE_SPAWN
+          );
         },
       });
       const extIDs = exts.map(function (ext) {
@@ -112,9 +108,9 @@ function tran(creep, flag, dest) {
           }
 
           if (
-            structure.store[RESOURCE_ENERGY] <
-              structure.store.getCapacity(RESOURCE_ENERGY) ||
-            !structure.store[RESOURCE_ENERGY]
+            (structure.store && !structure.store[RESOURCE_ENERGY]) ||
+            (structure.store &&
+              structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
           ) {
             return structure;
           }

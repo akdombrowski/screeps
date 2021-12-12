@@ -7,7 +7,7 @@ function findRepairable(creep) {
   let target;
 
   if (creep.room.name === Memory.homeRoomName && Memory.e59s48fixables) {
-    weakest = Memory.e59s48fixables.pop();
+    weakest = Memory.e59s48fixables.shift();
   } else if (creep.room.name === "E36N31") {
     weakest = Memory.e36n31fixables.pop();
   } else if (creep.room.name === "E36N32") {

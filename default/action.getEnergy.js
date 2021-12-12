@@ -131,8 +131,9 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       target = creep.pos.findClosestByPath(sources);
     }
 
-    creep.memory.lastSourceId = target.id;
-    useMoveTo = true;
+    if (target) {
+      creep.memory.lastSourceId = target.id;
+    }
   } else if (creep.memory.lastSourceId) {
     target = Game.getObjectById(creep.memory.lastSourceId);
   }

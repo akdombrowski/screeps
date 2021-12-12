@@ -20,6 +20,7 @@ function runRoles() {
   let i = 0;
   let crps = Game.creeps;
   let harvesters = [];
+  let harvestersN = [];
   let workers = [];
   let upControllers = [];
   let roadRepairers = [];
@@ -50,6 +51,13 @@ function runRoles() {
       }
 
       harvesters.push(name);
+      roleHarvester.run(creep);
+    } else if (roll === "hN" || roll === "harvesterN") {
+      if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
+        creep.memory.getEnergy = true;
+      }
+
+      harvestersN.push(name);
       roleHarvester.run(creep);
     } else if (roll && roll.startsWith("towerHarvester")) {
       towerHarvesters.push(name);

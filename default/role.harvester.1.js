@@ -37,7 +37,17 @@ const roleHarvester = {
       creep.memory.path = null;
       creep.memory.transferTargetId = null;
 
-      retval = getEnergy(creep, homeRmName);
+      switch (creep.memory.direction) {
+        case "s":
+          retval = getEnergy(creep, homeRmName);
+          break;
+        case "n":
+          retval = getEnergy(creep, "E59S47");
+          break;
+        default:
+          retval = getEnergy(creep, homeRmName);
+          break;
+      }
     } else if (creep.memory.transfer || creep.store[RESOURCE_ENERGY] > 0) {
       if (!creep.store[RESOURCE_ENERGY] || creep.store[RESOURCE_ENERGY] <= 0) {
         creep.memory.getEnergy = true;

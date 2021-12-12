@@ -107,9 +107,9 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
       let numCreepsBySource1 = source1.pos.findInRange(FIND_CREEPS, 5).length;
       let numCreepsBySource2 = source2.pos.findInRange(FIND_CREEPS, 5).length;
       if (numCreepsBySource1 > numCreepsBySource2) {
-        target = numCreepsBySource2;
+        target = source2;
       } else if (numCreepsBySource2 > numCreepsBySource1) {
-        target = numCreepsBySource1;
+        target = source1;
       }
     }
 

@@ -39,13 +39,22 @@ function tran(creep, flag, dest) {
     return -19;
   }
 
-  if (rmName !== "E59S48") {
-    retval = smartMove(creep, Game.flags.tower6.pos, 5, true, null, 10, 500, 8);
+  if (rmName !== "E59S48" && !creep.pos.isNearTo(Game.flags.northEntrance)) {
+    retval = smartMove(
+      creep,
+      Game.flags.northEntrance.pos,
+      1,
+      true,
+      null,
+      10,
+      500,
+      8
+    );
     return retval;
   }
 
-  if (pos.x < 1) {
-    retval = creep.move(RIGHT);
+  if(pos.y >= 48 || pos.y <= 1) {
+    retval = creep.move(BOTTOM);
     return retval;
   }
 

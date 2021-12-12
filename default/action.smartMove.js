@@ -44,10 +44,12 @@ function smartMove(
   }
 
   if (creepPos.inRangeTo(destPos, range)) {
+    creep.memory.path = null;
     return OK;
   }
 
   if (moveAwayFromCreep(creep)) {
+    creep.memory.path = null;
     path = null;
   }
 
@@ -57,8 +59,9 @@ function smartMove(
       lastCreepPos.y,
       lastCreepPos.roomName
     );
-    if (lastCreepPos.isEqualTo(creepPos)) {
+    if (lastCreepPos.isEqualTo(creepPos.x, creepPos.y)) {
       path = null;
+      creep.memory.path = null;
       ignoreCreeps = false;
     }
   }
@@ -88,6 +91,7 @@ function smartMove(
     console.log(name + " no path");
   }
 
+  creep.memory.lastCreepPos = creepPos;
   if (path) {
     try {
       retval = creep.moveByPath(path);
@@ -99,8 +103,6 @@ function smartMove(
     }
 
     if (retval === OK) {
-      creep.memory.lastCreepPos = creepPos;
-
       if (path[0] && path[0].x && creep.pos.isEqualTo(path[0].x, path[0].y)) {
         path.shift();
       }
@@ -112,8 +114,6 @@ function smartMove(
       }
 
       try {
-        creep.memory.lastCreepPos = creepPos;
-
         retval = creep.moveByPath(path);
 
         if (retval === OK) {

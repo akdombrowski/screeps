@@ -25,8 +25,6 @@ var roleWorker = {
       creep.say("h");
       creep.memory.getEnergy = true;
 
-      console.log(name + " getting energy ");
-
       retval = getEnergy(creep, homeRoomName);
 
       return retval;

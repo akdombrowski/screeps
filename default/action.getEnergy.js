@@ -137,8 +137,6 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
     target = Game.getObjectById(creep.memory.lastSourceId);
   }
 
-  console.log(name + " target " + target);
-
   if (targetedRm && !target) {
     // if (lastSourceId) {
     //   console.log(name + " getEnergy ");

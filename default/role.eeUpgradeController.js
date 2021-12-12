@@ -1,6 +1,6 @@
 const smartMove = require("./action.smartMove");
 const getEnergy = require("./action.getEnergyEEast");
-const ermgetEnergyEast = require("./action.getEnergy.1");
+const ermgetEnergyEast = require("./action.getEnergy");
 
 function eeUpContr(creep, rm, exit, exitDirection, entrance, controller) {
   /** creep controller reserve**/

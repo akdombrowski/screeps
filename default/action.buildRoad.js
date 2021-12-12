@@ -14,6 +14,7 @@ function buildRoad(creep) {
   ) {
     buildingRoad = true;
     creep.memory.buildingRoad = buildingRoad;
+    creep.memory.lastSourceId = null;
   } else if (creep.store[RESOURCE_ENERGY] <= 0) {
     creep.memory.getEnergy = true;
     creep.memory.buildingRoad = false;

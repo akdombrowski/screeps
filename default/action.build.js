@@ -12,6 +12,7 @@ function build(creep) {
   if (creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
     building = true;
     creep.memory.building = building;
+    creep.memory.lastSourceId = null;
   } else if (creep.store[RESOURCE_ENERGY] <= 0) {
     return getEnergy(creep);
   }

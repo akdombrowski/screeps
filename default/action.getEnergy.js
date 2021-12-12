@@ -101,19 +101,30 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
 
     if (source1.energy <= 0) {
       target = source2.energy > 0 ? source2 : null;
-    } else if (source2.energy <= 0) {
+    }
+
+    if (source2.energy <= 0) {
       target = source1.energy > 0 ? source1 : null;
-    } else {
+    }
+
+    if (source1.energy <= 0) {
+      source1.shift();
+    }
+    if (source2.energy <= 0) {
+      sources.pop();
+    }
+
+    if(!target){
       let numCreepsBySource1 = source1.pos.findInRange(FIND_CREEPS, 5).length;
       let numCreepsBySource2 = source2.pos.findInRange(FIND_CREEPS, 5).length;
-      if (numCreepsBySource1 > numCreepsBySource2) {
+      if (numCreepsBySource1 > numCreepsBySource2 && source2.energy > 0) {
         target = source2;
-      } else if (numCreepsBySource2 > numCreepsBySource1) {
+      } else if (numCreepsBySource2 > numCreepsBySource1 && source1.energy > 0) {
         target = source1;
       }
     }
 
-    if (!target) {
+    if (!target && sources.length > 0) {
       target = creep.pos.findClosestByPath(sources);
     }
 

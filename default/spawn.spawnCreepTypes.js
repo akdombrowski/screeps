@@ -477,7 +477,7 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (workers.length < 3) {
+    } else if (workers.length < 4) {
       parts = workerParts550;
       name = "w" + t;
       workers.push(name);
@@ -496,6 +496,21 @@ function spawnCreepTypes(enAvail) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";
+      direction = "s";
+      retval = birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (workers.length < 8) {
+      parts = workerParts550;
+      name = "w" + t;
+      workers.push(name);
+      chosenRole = "w";
       direction = "s";
       retval = birthCreep(
         s1,

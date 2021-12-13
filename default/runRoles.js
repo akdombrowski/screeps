@@ -92,9 +92,9 @@ function runRoles() {
       if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
         creep.memory.up = true;
       }
-      upControllers.push(creep.name);
+      upControllers.push(name);
 
-      upController(creep, Game.flags.e59s48controller, Memory.homeRoomName);
+      upController(creep, Game.flags.e59s48controller, Memory.homeRoomName, null, null);
     } else if (
       roll === "ucN" ||
       roll === "upControllerN" ||

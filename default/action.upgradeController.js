@@ -6,7 +6,6 @@ function upController(creep, flag, targetRoomName, exit, exitDirection) {
   const name = creep.name;
   const targetRoom = Game.rooms[targetRoomName];
   const creepPos = creep.pos;
-  const name = creep.name;
   const creepRoom = creep.room;
   const creepRoomName = creep.room.name;
   let retval = -16;

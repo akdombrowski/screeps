@@ -486,7 +486,7 @@ function spawnCreepTypes(enAvail) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";
-      direction = Memory.northRoomName;
+      direction = "north";
       retval = birthCreep(
         s1,
         parts,

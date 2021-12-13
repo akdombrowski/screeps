@@ -2,33 +2,53 @@ const smartMove = require("./action.smartMove");
 const getEnergyEast = require("./action.getEnergy.1");
 const ermgetEnergyEast = require("./action.getEnergy.1");
 
-function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
+function claimContr(
+  creep,
+  targetRoomName,
+  exit,
+  exitDirection,
+  entrance,
+  controllerID
+) {
   /** creep controller reserve**/
-  let centralContr = "5bbcaefa9099fc012e639e90";
+  let contrID = "5bbcaefa9099fc012e639e90";
+  let contr = Game.getObjectById(controllerID);
   let eContr = "5bbcaf0c9099fc012e63a0be";
   let eeContr = "5bbcaf1b9099fc012e63a2dd";
   let wContr = "5bbcaeeb9099fc012e639c4d";
-  let nContr = "5bbcaefa9099fc012e639e8b";
+  let nContrID = "59bbc5d22052a716c3cea133";
+  let nContr = Game.getObjectById("59bbc5d22052a716c3cea133");
   let neContr = "5bbcaf0c9099fc012e63a0b9";
-  
-  let path1 = creep.memory.path1;
-  let path2 = creep.memory.path2;
+
+  const direction = creep.memory.direction;
   let retval;
-  
+
+  if (creep.room.name != targetRoomName) {
+    if (creep.pos.isNearTo(exit)) {
+      return creep.move(exitDirection);
+    } else {
+      return smartMove(creep, exit, 0, true, null, null, null, 1);
+    }
+  }
+
+  retval = claimControlla(creep, contr);
+
   // smartMove(creep, Game.flags.Flag1);
   if (creep.room.name == "E35N31") {
-      if(creep.pos.isNearTo(Game.flags.eastExit)) {
-          creep.move(RIGHT);
-      } else {
-          
-    smartMove(creep, Game.flags.eastExit, 1);
-      }
+    if (creep.pos.isNearTo(Game.flags.eastExit)) {
+      creep.move(RIGHT);
+    } else {
+      smartMove(creep, Game.flags.eastExit, 1);
+    }
   } else if (creep.room.name == "E36N31") {
     smartMove(creep, Game.flags.eeEntrance1, 2);
-  } else if (creep.room.name === rm && creep.pos.x < Game.flags.eeEntrance1.pos.x) {
+  } else if (
+    creep.room.name === targetRoomName &&
+    creep.pos.x < Game.flags.eeEntrance1.pos.x
+  ) {
     smartMove(creep, Game.flags.eeEntrance1, 0);
-  } else if (creep.room.name === rm) {
-    let contr = Game.getObjectById(controller);
+  } else if (creep.room.name === targetRoomName) {
+    let contr = Game.getObjectById(controllerID);
     if (creep.pos.inRangeTo(contr, 1)) {
       creep.claimController(contr);
     } else {
@@ -48,3 +68,11 @@ function claimContr(creep, rm, exit, exitDirection, entrance, controller) {
 }
 
 module.exports = claimContr;
+function claimControlla(creep, nContr) {
+  if (creep.pos.isNearTo(nContr)) {
+    retval = creep.claim(nContr);
+  } else {
+    retval = smartMove(creep, nContr, 1, true, null, null, null, 1);
+  }
+  return retval;
+}

@@ -111,7 +111,7 @@ function runRoles() {
     } else if (roll === "c" || name.startsWith("c")) {
       claimers.push(name);
       roll = "c";
-      claim(creep, "E37N31", "", "", "", "5bbcaf1b9099fc012e63a2dd");
+      claim(creep, "E59S47", Game.flags.northExit, TOP, "", "59bbc5d22052a716c3cea133");
     } else if (roll === "a" || roll === "attacker" || name.startsWith("a")) {
       if (creep.memory.direction === "north") {
         attackers.push(name);

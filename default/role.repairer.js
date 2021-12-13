@@ -17,16 +17,12 @@ var roleRepairer = {
     let mem_direction = creep.memory.direction;
     let mem_getEnergy = creep.memory.getEnergy;
 
-    if (!mem_repair || creep.memory.getEnergy) {
-      if (creepRoomName != targetRoomName) {
-        if (creep.pos.isNearTo(exit)) {
-          retval = creep.move(exitDirection);
-        } else {
-          retval = smartMove(creep, exit, 0, true, null, null, null, 1);
-        }
+    if (creepRoomName != targetRoomName) {
+      if (creep.pos.isNearTo(exit)) {
+        retval = creep.move(exitDirection);
+      } else {
+        retval = smartMove(creep, exit, 0, true, null, null, null, 1);
       }
-
-      return retval;
     }
 
     if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {

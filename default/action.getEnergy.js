@@ -100,20 +100,18 @@ function vest(
       return retval;
     }
   } else if (targetedRmName != homeRoomName) {
-    creep.memory.lastSourceId = null;
-    lastSourceId = null;
-    creep.memory.path = null;
-
     if (creep.memory.lastSourceId) {
-      retval = smartMove(creep, target, 1, true, null, null, null, 1);
+      lastSourceId = creep.memory.lastSourceId;
+      target = Game.getObjectById(creep.memory.lastSourceId);
     } else {
-      let sources = creep.room.find(FIND_SOURCES_ACTIVE);
+      let sources = Game.rooms[targetedRmName].find(FIND_SOURCES_ACTIVE);
 
       target = chooseSource(creep, sources);
     }
 
     if (target) {
       creep.memory.lastSourceId = target.id;
+      lastSourceId = creep.memory.lastSourceId;
     }
 
     if (retval === OK) {
@@ -135,7 +133,13 @@ function vest(
     }
   }
 
-  if (target && target.pos.room && !target.energy && !targetedRmName) {
+  if (
+    target &&
+    target.pos &&
+    target.room &&
+    !target.energy &&
+    !targetedRmName
+  ) {
     retval = smartMove(creep, target, 1, true, null, null, null, 1);
     creep.say(target.pos.x + "," + target.pos.y);
     return retval;
@@ -143,7 +147,7 @@ function vest(
 
   // target = target || Game.getObjectById(lastSourceId);
   let sources;
-  if (!creep.memory.lastSourceId) {
+  if (targetedRmName === Memory.homeRoomName) {
     let source1 = Game.getObjectById("59bbc5d22052a716c3cea136");
     let source2 = Game.getObjectById("59bbc5d22052a716c3cea135");
     sources = [source1, source2];
@@ -157,7 +161,7 @@ function vest(
     if (target) {
       creep.memory.lastSourceId = target.id;
     }
-  } else if (creep.memory.lastSourceId) {
+  } else if (!target && creep.memory.lastSourceId) {
     target = Game.getObjectById(creep.memory.lastSourceId);
   }
 
@@ -311,7 +315,7 @@ function vest(
         creep.say("v");
         creep.memory.lastSourceId = target.id;
       } else {
-        creep.say("v." + retval);
+        creep.say(retval);
 
         creep.memory.lastSourceId = null;
       }
@@ -324,6 +328,8 @@ function vest(
       if (retval === OK) {
         creep.say(target.pos.x + "," + target.pos.y);
       } else {
+        console.log("getEnergy crap " + retval);
+
         creep.say("crap");
       }
     } else {
@@ -363,25 +369,27 @@ function chooseSource(creep, sources) {
     return null;
   }
 
+  if (!target && sources.length === 1) {
+    target = sources[0];
+  }
+
   if (!target && sources.length > 0) {
-    const numCreepsBySource1 = sources[0].pos.findInRange(
+    const numCreepsBySource0 = sources[0].pos.findInRange(
       FIND_CREEPS,
       5
     ).length;
-    const numCreepsBySource2 = sources[1].pos.findInRange(
+    const numCreepsBySource1 = sources[1].pos.findInRange(
       FIND_CREEPS,
       5
     ).length;
-    if (numCreepsBySource1 > numCreepsBySource2 && sources[1].energy > 0) {
+    if (numCreepsBySource0 > numCreepsBySource1 && sources[1].energy > 0) {
       target = sources[1];
     } else if (
-      numCreepsBySource2 > numCreepsBySource1 &&
+      numCreepsBySource1 > numCreepsBySource0 &&
       sources[0].energy > 0
     ) {
       target = sources[0];
     }
-  } else if (!target && sources.length === 1) {
-    target = sources[0];
   }
 
   if (!target && sources.length > 0) {

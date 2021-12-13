@@ -47,10 +47,12 @@ function getPath(
       destPos = new RoomPosition(dest.pos.x, dest.pos.y, rmName);
     }
   } else {
+    console.log("getPath no destPos");
     return null;
   }
 
   if (moveAwayFromCreep(creep)) {
+    console.log("getPath no moveawayfromcreep");
     path = null;
   }
 
@@ -111,7 +113,7 @@ function getPath(
   });
 
   if (ret.incomplete) {
-    console.log(name + " need more ops for pathfinding");
+    console.log(name + " getPath need more ops for pathfinding");
 
     ret = PathFinder.search(creepPos, goals, {
       // We need to set the defaults costs higher so that we
@@ -153,6 +155,7 @@ function getPath(
     });
 
     if (ret.incomplete) {
+      creep.memory.path = ret.path;
       return ERR_NO_PATH;
     } else {
       creep.memory.path = ret.path;

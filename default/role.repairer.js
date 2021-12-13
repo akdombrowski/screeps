@@ -10,6 +10,35 @@ var roleRepairer = {
     let repair = creep.memory.repair;
     let retval = -16;
     const lastRepairableStructId = creep.memory.lastRepairableStructId;
+    const name = creep.name;
+    const creepPos = creep.pos;
+    const creepRoom = creep.room;
+    const creepRoomName = creep.room.name;
+    const direction = creep.memory.direction;
+
+    if (
+      creep.memory.direction === "north" &&
+      (!creep.memory.repair || creep.memory.getEnergy)
+    ) {
+      if (creep.room.name != Memory.northRoomName) {
+        if (creep.pos.isNearTo(Game.flags.northExit)) {
+          return creep.move(TOP);
+        }
+
+        return smartMove(
+          creep,
+          Game.flags.northExit,
+          0,
+          true,
+          null,
+          null,
+          null,
+          1
+        );
+      } else if (creep.pos.y >= 48) {
+        return creep.move(TOP);
+      }
+    }
 
     if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
       repair = true;
@@ -26,13 +55,27 @@ var roleRepairer = {
       creep.memory.getEnergy = true;
       creep.say("h");
 
-      getEnergy(creep, Memory.homeRoomName);
+      switch (direction) {
+        case "s":
+        case "south":
+          retval = getEnergy(creep, Memory.homeRoomName);
+          break;
+        case "n":
+        case "north":
+          retval = getEnergy(creep, Memory.northRoomName);
+          break;
+        default:
+          retval = getEnergy(creep, Memory.homeRoomName);
+          break;
+      }
 
-      return;
+      return retval;
     }
 
     if (creep.memory.build) {
-      build(creep);
+      creep.memory.repair = false;
+      repair = false;
+      retval = build(creep);
       creep.say("r.b");
     }
 
@@ -47,30 +90,34 @@ var roleRepairer = {
         target = null;
       }
 
+      if (target && target.room && target.room.name != creep.room.name) {
+        target = null;
+      }
+
       if (!target) {
         target = findRepairable(creep);
       }
 
-      if (target.hits >= target.hitsMax) {
+      if (target && target.hits >= target.hitsMax) {
         target = null;
       }
 
       if (target) {
         creep.memory.lastRepairableStructId = target.id;
         if (creep.pos.inRangeTo(target, 3)) {
-          let retval = creep.repair(target);
+          retval = creep.repair(target);
 
           if (retval == OK) {
             creep.say("r");
           } else if (retval == ERR_NOT_ENOUGH_ENERGY) {
             creep.memory.repair = false;
-            getEnergy(creep);
+            retval = getEnergy(creep);
             creep.say("r.En");
           } else {
             creep.say("err." + retval);
           }
         } else {
-          smartMove(creep, target, 1);
+          retval = smartMove(creep, target, 1);
           creep.memory.rx = target.pos.x;
           creep.memory.ry = target.pos.y;
           if (creep.fatigue > 0) {
@@ -84,19 +131,18 @@ var roleRepairer = {
           }
         }
       } else if (creep.store[RESOURCE_ENERGY] <= 0) {
-        console.log(
-          "creep.store[RESOURCE_ENERGY] " + creep.store[RESOURCE_ENERGY]
-        );
         creep.memory.repair = false;
         creep.memory.getEnergy = true;
-        getEnergy(creep);
+        retval = getEnergy(creep);
       } else {
         creep.memory.build = true;
         creep.memory.repair = false;
-        build(creep);
+        retval = build(creep);
         creep.say("r.b");
       }
     }
+
+    return retval;
   },
 };
 

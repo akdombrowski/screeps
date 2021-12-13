@@ -8,8 +8,8 @@ function findRepairable(creep) {
 
   if (creep.room.name === Memory.homeRoomName && Memory.e59s48fixables) {
     weakest = Memory.e59s48fixables.shift();
-  } else if (creep.room.name === "E36N31") {
-    weakest = Memory.e36n31fixables.pop();
+  } else if (creep.room.name === Memory.northRoomName) {
+    weakest = Memory.e59s47fixables.shift();
   } else if (creep.room.name === "E36N32") {
     weakest = Memory.e36n32fixables.pop();
   } else if (creep.room.name === "E35N32") {

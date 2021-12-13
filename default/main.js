@@ -40,45 +40,9 @@ module.exports.loop = function () {
 
     // towersAttackInvader(invader, towers);
 
-    let containers = [];
-    let storages = [];
-    let fixables = Game.spawns["Spawn1"].room.find(FIND_STRUCTURES, {
-      filter: function (struct) {
-        if (struct.structureType === STRUCTURE_ROAD) {
-          return struct.hits < struct.hitsMax;
-        } else if (struct.structureType === STRUCTURE_STORAGE) {
-          storages.push(struct);
-        } else if (struct.structureType === STRUCTURE_CONTAINER) {
-          containers.push(struct);
-        } else {
-          return false;
-        }
-      },
-    });
+    Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
 
-    if (containers.length > 0) {
-      fixables = fixables.concat(containers);
-    }
-
-    if (storages.length > 0) {
-      fixables = fixables.concat(storages);
-    }
-
-    fixables.sort(function compareFn(firstEl, secondEl) {
-      if (firstEl.hitsMax / firstEl.hits >= 2) {
-        return firstEl;
-      }
-
-      if (secondEl.hitsMax / secondEl.hits >= 2) {
-        return secondEl;
-      }
-
-      if (firstEl.hitsMax - firstEl.hits > secondEl.hitsMax - secondEl.hits) {
-        return firstEl;
-      }
-    });
-
-    Memory.e59s48fixables = fixables.map((f) => f.id);
+    Memory.e59s47fixables = findFixables(Game.rooms[Memory.northRoomName]);
 
     checkForAttackers();
 
@@ -122,6 +86,52 @@ module.exports.loop = function () {
     Game.profiler.email(profilerDur);
   }
 };
+function findFixables(room) {
+  if (!room) {
+    return null;
+  }
+
+  let containers = [];
+  let storages = [];
+  let fixables = room.find(FIND_STRUCTURES, {
+    filter: function (struct) {
+      if (struct.structureType === STRUCTURE_ROAD) {
+        return struct.hits < struct.hitsMax;
+      } else if (struct.structureType === STRUCTURE_STORAGE) {
+        storages.push(struct);
+      } else if (struct.structureType === STRUCTURE_CONTAINER) {
+        containers.push(struct);
+      } else {
+        return false;
+      }
+    },
+  });
+
+  if (containers.length > 0) {
+    fixables = fixables.concat(containers);
+  }
+
+  if (storages.length > 0) {
+    fixables = fixables.concat(storages);
+  }
+
+  fixables.sort(function compareFn(firstEl, secondEl) {
+    if (firstEl.hitsMax / firstEl.hits >= 2) {
+      return firstEl;
+    }
+
+    if (secondEl.hitsMax / secondEl.hits >= 2) {
+      return secondEl;
+    }
+
+    if (firstEl.hitsMax - firstEl.hits > secondEl.hitsMax - secondEl.hits) {
+      return firstEl;
+    }
+  });
+
+  return fixables.map((f) => f.id);
+}
+
 function reCheckNumOfCreeps(crps) {
   let numCrps = Object.keys(crps).length;
   return numCrps;

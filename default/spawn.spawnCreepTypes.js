@@ -415,16 +415,16 @@ function spawnCreepTypes(enAvail) {
   if (enAvail >= 550 && !invaderId) {
     let name = "h" + t;
     let chosenRole = "h";
-    let direction = "south";
+    let direction = "north";
     let sourceId = Memory.source2;
     let parts = harvesterParts550;
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 3) {
+    if (harvesters.length < 4) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";
-      direction = "s";
+      direction = Memory.northRoomName;
       retval = birthCreep(
         s1,
         parts,
@@ -492,7 +492,7 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (harvesters.length < 5) {
+    } else if (harvesters.length < 6) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";

@@ -8,6 +8,7 @@ function build(creep) {
   let target = targetId ? Game.getObjectById(targetId) : null;
   let building = creep.memory.building || true;
   let retval = -16;
+  let direction = creep.memory.direction;
 
   if (creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
     building = true;
@@ -25,28 +26,52 @@ function build(creep) {
     ) {
       let extFound = false;
       let t;
-      Memory.e59s48sites = Game.rooms.E59S48.find(FIND_CONSTRUCTION_SITES, {
-        filter: (site) => {
-          let prog = site.progress;
-          let progTot = site.progressTotal;
-          let progLeft = progTot - prog;
-          let type = site.structureType;
-          if (progLeft <= 0) {
-            return false;
-          } else if (type === STRUCTURE_EXTENSION) {
-            extFound = true;
-            t = site;
-            return site;
-          } else {
-            return site;
-          }
-        },
-      });
-
       let arr = [];
-      _.forEach(Memory.e59s48sites, (site) => {
-        return arr.push(Game.getObjectById(site.id));
-      });
+      if (direction.startsWith("s")) {
+        Memory.e59s48sites = Game.rooms.E59S48.find(FIND_CONSTRUCTION_SITES, {
+          filter: (site) => {
+            let prog = site.progress;
+            let progTot = site.progressTotal;
+            let progLeft = progTot - prog;
+            let type = site.structureType;
+            if (progLeft <= 0) {
+              return false;
+            } else if (type === STRUCTURE_EXTENSION) {
+              extFound = true;
+              t = site;
+              return site;
+            } else {
+              return site;
+            }
+          },
+        });
+
+        _.forEach(Memory.e59s48sites, (site) => {
+          return arr.push(Game.getObjectById(site.id));
+        });
+      } else if (direction.startsWith("n")) {
+        Memory.e59s47sites = Game.rooms.E59S47.find(FIND_CONSTRUCTION_SITES, {
+          filter: (site) => {
+            let prog = site.progress;
+            let progTot = site.progressTotal;
+            let progLeft = progTot - prog;
+            let type = site.structureType;
+            if (progLeft <= 0) {
+              return false;
+            } else if (type === STRUCTURE_EXTENSION) {
+              extFound = true;
+              t = site;
+              return site;
+            } else {
+              return site;
+            }
+          },
+        });
+
+        _.forEach(Memory.e59s47sites, (site) => {
+          return arr.push(Game.getObjectById(site.id));
+        });
+      }
 
       if (arr) {
         try {

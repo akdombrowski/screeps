@@ -18,7 +18,6 @@ function vest(creep, sourceRmTargetedName, taskRm, flag, maxOps, path) {
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
 
-
   creep.memory.getEnergy = true;
   creep.memory.transfer = false;
 
@@ -45,48 +44,35 @@ function vest(creep, sourceRmTargetedName, taskRm, flag, maxOps, path) {
   let targetedRmName = sourceRmTargetedName;
   let isTargetStructure = false;
 
-  if (!targetedRmName) {
-    switch (sourceRmTargetedName) {
-      case northRoomName:
-        console.log("room target: E59S47");
-        console.log(
-          "creep.room.name !== sourceRmTargetedName " +
-            (creep.room.name !== sourceRmTargetedName)
-        );
-        target =
-          creep.room.name !== sourceRmTargetedName
-            ? Game.flags.northExit
-            : null;
-        targetedRmName = sourceRmTargetedName;
-        break;
-      case "E36N31":
-        target =
-          creep.room.name != sourceRmTargetedName ? Game.flags.east : null;
-        targetedRmName = Game.flags.east.room;
-        break;
-      case "E36N32":
-        target =
-          creep.room.name != sourceRmTargetedName
-            ? Game.flags.neSource1
-            : creep.room.name;
-        targetedRmName = Game.flags.neSource1.room;
-        break;
-      case "E35N32":
-        target =
-          creep.room.name != sourceRmTargetedName ? Game.flags.north1 : null;
-        targetedRmName = Game.flags.north1.room;
+  switch (sourceRmTargetedName) {
+    case northRoomName:
+      target =
+        creep.room.name !== sourceRmTargetedName ? Game.flags.northExit : null;
+      targetedRmName = sourceRmTargetedName;
+      break;
+    case "E36N31":
+      target = creep.room.name != sourceRmTargetedName ? Game.flags.east : null;
+      targetedRmName = Game.flags.east.room;
+      break;
+    case "E36N32":
+      target =
+        creep.room.name != sourceRmTargetedName
+          ? Game.flags.neSource1
+          : creep.room.name;
+      targetedRmName = Game.flags.neSource1.room;
+      break;
+    case "E35N32":
+      target =
+        creep.room.name != sourceRmTargetedName ? Game.flags.north1 : null;
+      targetedRmName = Game.flags.north1.room;
 
-        break;
-      default:
-        target =
-          creep.room.name != sourceRmTargetedName ? Game.flags.Flag1 : null;
-        targetedRmName = Memory.s1.room.name;
-        break;
-    }
+      break;
+    default:
+      target =
+        creep.room.name != sourceRmTargetedName ? Game.flags.Flag1 : null;
+      targetedRmName = Memory.s1.room.name;
+      break;
   }
-
-  console.log(name + " sourceRmTargetedName " + sourceRmTargetedName);
-  console.log(name + " target " + target);
 
   if (target) {
     if (
@@ -102,7 +88,10 @@ function vest(creep, sourceRmTargetedName, taskRm, flag, maxOps, path) {
     if (retval === OK) {
       creep.say(target.pos.x + "," + target.pos.y + " " + target.room.name);
       return retval;
-    } else {
+    } else if(retval === ERR_TIRED){
+      creep.say("f." + retval);
+      return retval;
+    }else {
       creep.say("cant." + retval);
       return retval;
     }

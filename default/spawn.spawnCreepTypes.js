@@ -89,7 +89,7 @@ function spawnCreepTypes(enAvail) {
   let wAttackDurationSafeCheck = Memory.wAttackDurationSafeCheck;
   let nwAttackDurationSafeCheck = Memory.nwAttackDurationSafeCheck;
   let nwwAttackDurationSafeCheck = Memory.nwwAttackDurationSafeCheck;
-  let roadBuilder = Memory.roadBuilder || [];
+  let roadBuilders = Memory.roadBuilders || [];
 
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
@@ -231,6 +231,9 @@ function spawnCreepTypes(enAvail) {
 
   let southCreeps = _.filter(harvesters, function (h) {
     return h.memory && h.memory.direction && h.memory.direction.startsWith("s");
+  });
+  let southRoadBuilders = _.filter(roadBuilders, function (rB) {
+    return rB.memory && rB.memory.direction && rB.memory.direction.startsWith("s");
   });
 
   if (enAvail >= 300 && Memory.AttackerId) {
@@ -501,7 +504,7 @@ function spawnCreepTypes(enAvail) {
         spawnDirection
       );
     } else if (harvesters.length < 7) {
-      name = "h" + t;
+      name = "hN" + t;
       harvesters.push(name);
       chosenRole = "h";
       direction = "north";
@@ -529,10 +532,10 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (roadBuilder.length < 1) {
+    } else if (southRoadBuilders.length < 1) {
       name = "rB" + t;
       chosenRole = "roadBuilder";
-      roadBuilder.push(name);
+      roadBuilders.push(name);
       direction = "south";
       parts = workerParts550;
       retval = birthCreep(
@@ -574,10 +577,10 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (roadBuilder.length < 2) {
+    } else if (roadBuilders.length < 2) {
       name = "rB" + t;
       chosenRole = "roadBuilder";
-      roadBuilder.push(name);
+      roadBuilders.push(name);
       direction = "north";
       parts = workerParts550;
       retval = birthCreep(
@@ -979,7 +982,7 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  Memory.roadBuilder = roadBuilder;
+  Memory.roadBuilder = roadBuilders;
   Memory.harvesters = harvesters;
   Memory.workers = workers;
   Memory.upControllers = upControllers;

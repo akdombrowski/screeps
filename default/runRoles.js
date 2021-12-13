@@ -84,15 +84,20 @@ function runRoles() {
         buildRoad(creep);
       }
       roadBuilder.push(name);
-    } else if (roll === "roadRepairer" && creep.memory.direction.startsWith("s")) {
+    } else if (roll === "roadRepairer") {
       roadRepairers.push(name);
-      roleRepairer.run(creep, Memory.homeRoomName, null, null);
-    } else if (
-      roll === "roadRepairer" &&
-      creep.memory.direction.startsWith("n")
-    ) {
-      roadRepairers.push(name);
-      roleRepairer.run(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+      if (creep.memory.direction.startsWith("s")) {
+        roleRepairer.run(creep, Memory.homeRoomName, null, null);
+      } else if (creep.memory.direction.startsWith("n")) {
+        roleRepairer.run(
+          creep,
+          Memory.northRoomName,
+          Game.flags.northExit,
+          TOP
+        );
+      } else {
+        roleRepairer.run(creep, Memory.homeRoomName, null, null);
+      }
     } else if (
       roll === "uc" ||
       roll === "upController" ||

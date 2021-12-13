@@ -40,7 +40,7 @@ function vest(
   }
 
   if (creep.room.name !== homeRoomName && creep.memory.role === "worker") {
-    retval = smartMove(creep, Game.flags.Flag1, 5, true, null, 10, 1000, 2);
+    retval = smartMove(creep, Game.flags.Flag1, 5, true, null, 10, 10000, 2);
     return retval;
   }
 
@@ -329,12 +329,14 @@ function vest(
     } else {
       creep.memory.lastSourceId = null;
       creep.memory.path = null;
+      console.log("getEnergy fart");
       creep.say("fart");
     }
   } else {
     // Something went wrong;
     target = null;
     creep.memory.lastSourceId = target;
+    console.log("getEnergy sad");
     creep.say("sad");
   }
   return retval;

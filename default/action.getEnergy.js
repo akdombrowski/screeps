@@ -147,22 +147,24 @@ function vest(
 
   // target = target || Game.getObjectById(lastSourceId);
   let sources;
-  if (targetedRmName === Memory.homeRoomName) {
-    let source1 = Game.getObjectById("59bbc5d22052a716c3cea136");
-    let source2 = Game.getObjectById("59bbc5d22052a716c3cea135");
-    sources = [source1, source2];
-    // 0 or 1 outcome
-    let randInt = getRandomInt(2);
+  if (!target && targetedRmName === Memory.homeRoomName) {
+    if (creep.memory.lastSourceId) {
+      target = Game.getObjectById(creep.memory.lastSourceId);
+    } else {
+      let source1 = Game.getObjectById("59bbc5d22052a716c3cea136");
+      let source2 = Game.getObjectById("59bbc5d22052a716c3cea135");
+      sources = [source1, source2];
+      // 0 or 1 outcome
+      let randInt = getRandomInt(2);
 
-    // target = Game.getObjectById(sources[randInt]);
+      // target = Game.getObjectById(sources[randInt]);
 
-    target = chooseSource(creep, sources);
+      target = chooseSource(creep, sources);
 
-    if (target) {
-      creep.memory.lastSourceId = target.id;
+      if (target) {
+        creep.memory.lastSourceId = target.id;
+      }
     }
-  } else if (!target && creep.memory.lastSourceId) {
-    target = Game.getObjectById(creep.memory.lastSourceId);
   }
 
   if (targetedRmName && !target) {
@@ -326,6 +328,7 @@ function vest(
       retval = smartMove(creep, target, 1, true, null, null, null, 1);
 
       if (retval === OK) {
+        creep.memory.lastSourceId = target.id;
         creep.say(target.pos.x + "," + target.pos.y);
       } else {
         console.log("getEnergy crap " + retval);
@@ -369,7 +372,15 @@ function chooseSource(creep, sources) {
     return null;
   }
 
-  if (!target && sources.length === 1) {
+  if (sources.length === 1) {
+    target = sources[0];
+  }
+
+  if (!target && creep.pos.inRangeTo(sources[0], 3)) {
+    target = sources[0];
+  }
+
+  if (!target && creep.pos.inRangeTo(sources[0], 3)) {
     target = sources[0];
   }
 

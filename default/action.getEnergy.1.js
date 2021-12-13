@@ -5,7 +5,7 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const vestEE = require("./action.getEnergyEEast");
 
-function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
+function vest(creep, sourceRmTargetedName, taskRm, flag, maxOps, path) {
   let tower = Game.getObjectById(Memory.tower1Id);
   let towers = [tower];
   let retval = -16;
@@ -39,35 +39,35 @@ function vest(creep, sourceRmTargeted, taskRm, flag, maxOps, path) {
   let target;
   let lastSourceId = creep.memory.lastSourceId;
   let numCrps = Object.keys(Game.creeps).length;
-  let targetedRm = Game.rooms[sourceRmTargeted];
+  let targetedRm = Game.rooms[sourceRmTargetedName];
   let isTargetStructure = false;
 
   if (!targetedRm) {
-    switch (sourceRmTargeted) {
+    switch (sourceRmTargetedName) {
       case "E34N31":
         target =
-          creep.room.name !== sourceRmTargeted ? Game.flags.westExit : null;
+          creep.room.name !== sourceRmTargetedName ? Game.flags.westExit : null;
         targetedRm = Game.flags.west.room;
         break;
       case "E36N31":
-        target = creep.room.name !== sourceRmTargeted ? Game.flags.east : null;
+        target = creep.room.name !== sourceRmTargetedName ? Game.flags.east : null;
         targetedRm = Game.flags.east.room;
         break;
       case "E36N32":
         target =
-          creep.room.name !== sourceRmTargeted
+          creep.room.name !== sourceRmTargetedName
             ? Game.flags.neSource1
             : creep.room.name;
         targetedRm = Game.flags.neSource1.room;
         break;
       case "E35N32":
         target =
-          creep.room.name !== sourceRmTargeted ? Game.flags.north1 : null;
+          creep.room.name !== sourceRmTargetedName ? Game.flags.north1 : null;
         targetedRm = Game.flags.north1.room;
 
         break;
       default:
-        target = creep.room.name !== sourceRmTargeted ? Game.flags.Flag1 : null;
+        target = creep.room.name !== sourceRmTargetedName ? Game.flags.Flag1 : null;
         targetedRm = Memory.s1.room;
         break;
     }

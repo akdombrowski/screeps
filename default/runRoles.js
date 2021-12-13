@@ -94,7 +94,14 @@ function runRoles() {
       }
       upControllers.push(name);
 
-      upController(creep, Game.flags.e59s48controller, Memory.homeRoomName, null, null);
+      upController(
+        creep,
+        Game.flags.e59s48controller,
+        Memory.homeRoomName,
+        null,
+        null,
+        "59bbc5d22052a716c3cea137"
+      );
     } else if (
       roll === "ucN" ||
       roll === "upControllerN" ||
@@ -107,7 +114,14 @@ function runRoles() {
       upControllers.push(name);
 
       creep.memory.controllerID = "59bbc5d22052a716c3cea133";
-      upController(creep, Game.flags.northController, "E59S47");
+      upController(
+        creep,
+        Game.flags.northController,
+        Memory.northRoomName,
+        Game.flags.northExit,
+        TOP,
+        "59bbc5d22052a716c3cea133"
+      );
     } else if (roll === "worker" || roll === "w") {
       workers.push(name);
 

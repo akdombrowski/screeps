@@ -2,14 +2,21 @@ const getEnergy = require("./action.getEnergy.1");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 
-function upController(creep, flag, targetRoomName, exit, exitDirection) {
+function upController(
+  creep,
+  flag,
+  targetRoomName,
+  exit,
+  exitDirection,
+  controllerID
+) {
   const name = creep.name;
   const targetRoom = Game.rooms[targetRoomName];
   const creepPos = creep.pos;
   const creepRoom = creep.room;
   const creepRoomName = creep.room.name;
+  const controller = Game.getObjectById(controllerID);
   let retval = -16;
-
 
   if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
     creep.memory.up = true;
@@ -17,11 +24,27 @@ function upController(creep, flag, targetRoomName, exit, exitDirection) {
   } else if (creep.store[RESOURCE_ENERGY] == 0) {
     creep.memory.up = false;
     creep.memory.getEnergy = true;
-    retval = getEnergy(creep);
+    retval = getEnergy(creep, targetRoomName);
     return retval;
   }
 
+  if (creepRoomName != targetRoomName) {
+    if (creep.pos.isNearTo(exit)) {
+      retval = creep.move(exitDirection);
+    } else {
+      retval = smartMove(creep, exit, 0, true, null, null, null, 1);
+    }
 
+    return retval;
+  } else {
+    if (creep.pos.inRangeTo(controller, 3)) {
+      retval = creep.upgradeController(controller);
+    } else {
+      retval = smartMove(creep, controller, 1, true, null, null, null, 1);
+    }
+
+    return retval;
+  }
 
   if (creep.memory.up) {
     creep.memory.getEnergy = false;

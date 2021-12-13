@@ -230,7 +230,7 @@ function spawnCreepTypes(enAvail) {
   const t = Game.time.toString().slice(timeDigitsSlice);
 
   let southCreeps = _.filter(harvesters, function (h) {
-    return h.memory.direction && h.memory.direction.startsWith("s");
+    return h.memory && h.memory.direction && h.memory.direction.startsWith("s");
   });
 
   if (enAvail >= 300 && Memory.AttackerId) {

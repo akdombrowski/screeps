@@ -34,8 +34,7 @@ function runRoles() {
     let creep = crps[name];
     let roll = creep.memory.role;
 
-
-    if(creep.spawning) {
+    if (creep.spawning) {
       continue;
     }
 
@@ -85,9 +84,15 @@ function runRoles() {
         buildRoad(creep);
       }
       roadBuilder.push(name);
-    } else if (roll === "roadRepairer") {
+    } else if (roll === "roadRepairer" && creep.memory.direction.startsWith("s")) {
       roadRepairers.push(name);
-      roleRepairer.run(creep);
+      roleRepairer.run(creep, Memory.homeRoomName, null, null);
+    } else if (
+      roll === "roadRepairer" &&
+      creep.memory.direction.startsWith("n")
+    ) {
+      roadRepairers.push(name);
+      roleRepairer.run(creep, Memory.northRoomName, Game.flags.northExit, TOP);
     } else if (
       roll === "uc" ||
       roll === "upController" ||

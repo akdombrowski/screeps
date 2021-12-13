@@ -6,48 +6,37 @@ const findRepairable = require("./action.findRepairableStruct");
 
 var roleRepairer = {
   /** @param {Creep} creep **/
-  run: function (creep) {
-    let repair = creep.memory.repair;
+  run: function (creep, targetRoomName, exit, exitDirection) {
+    let mem_repair = creep.memory.repair;
     let retval = -16;
     const lastRepairableStructId = creep.memory.lastRepairableStructId;
     const name = creep.name;
     const creepPos = creep.pos;
     const creepRoom = creep.room;
     const creepRoomName = creep.room.name;
-    const direction = creep.memory.direction;
+    let mem_direction = creep.memory.direction;
+    let mem_getEnergy = creep.memory.getEnergy;
 
-    if (
-      creep.memory.direction === "north" &&
-      (!creep.memory.repair || creep.memory.getEnergy)
-    ) {
-      if (creep.room.name != Memory.northRoomName) {
-        if (creep.pos.isNearTo(Game.flags.northExit)) {
-          return creep.move(TOP);
+    if (!mem_repair || creep.memory.getEnergy) {
+      if (creepRoomName != targetRoomName) {
+        if (creep.pos.isNearTo(exit)) {
+          retval = creep.move(exitDirection);
+        } else {
+          retval = smartMove(creep, exit, 0, true, null, null, null, 1);
         }
-
-        return smartMove(
-          creep,
-          Game.flags.northExit,
-          0,
-          true,
-          null,
-          null,
-          null,
-          1
-        );
-      } else if (creep.pos.y >= 48) {
-        return creep.move(TOP);
       }
+
+      return retval;
     }
 
     if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
-      repair = true;
+      mem_repair = true;
       creep.memory.build = false;
-      creep.memory.repair = repair;
+      creep.memory.repair = mem_repair;
       creep.memory.getEnergy = false;
       creep.say("r");
     } else if (
-      !repair &&
+      !mem_repair &&
       (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] <= 0)
     ) {
       creep.memory.build = false;
@@ -55,31 +44,19 @@ var roleRepairer = {
       creep.memory.getEnergy = true;
       creep.say("h");
 
-      switch (direction) {
-        case "s":
-        case "south":
-          retval = getEnergy(creep, Memory.homeRoomName);
-          break;
-        case "n":
-        case "north":
-          retval = getEnergy(creep, Memory.northRoomName);
-          break;
-        default:
-          retval = getEnergy(creep, Memory.homeRoomName);
-          break;
-      }
+      retval = getEnergy(creep, targetRoomName);
 
       return retval;
     }
 
     if (creep.memory.build) {
       creep.memory.repair = false;
-      repair = false;
+      mem_repair = false;
       retval = build(creep);
       creep.say("r.b");
     }
 
-    if (repair) {
+    if (mem_repair) {
       let struct;
       // will be null if lastRepairableStructId is null
       let target = Game.getObjectById(lastRepairableStructId);

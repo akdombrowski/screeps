@@ -34,6 +34,11 @@ function runRoles() {
     let creep = crps[name];
     let roll = creep.memory.role;
 
+
+    if(creep.spawning) {
+      continue;
+    }
+
     if (!roll && name.startsWith("harv")) {
       creep.memory.role = "h";
       roll = "h";

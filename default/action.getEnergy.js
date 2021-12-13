@@ -5,7 +5,7 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const vestEE = require("./action.getEnergyEEast");
 
-function vest(creep, sourceRmTargetedName, taskRm, flag, maxOps, path) {
+function vest(creep, sourceRmTargetedName, taskRm, flag, exit, exitDirection, targetRoomName) {
   let tower = Game.getObjectById(Memory.tower1Id);
   let retval = -16;
   let name = creep.name;
@@ -76,13 +76,11 @@ function vest(creep, sourceRmTargetedName, taskRm, flag, maxOps, path) {
 
   if (target) {
     if (
-      creep.pos.y >= 48 ||
-      creep.pos.y <= 1 ||
-      creep.pos.isNearTo(Game.flags.northExit)
+      creep.pos.isNearTo(exit)
     ) {
-      retval = creep.move(TOP);
+      retval = creep.move(exitDirection);
     } else {
-      retval = smartMove(creep, target, 1, true, null, null, 10000, 2);
+      retval = smartMove(creep, exit, 1, true, null, null, 10000, 1);
     }
 
     if (retval === OK) {
@@ -96,29 +94,46 @@ function vest(creep, sourceRmTargetedName, taskRm, flag, maxOps, path) {
       return retval;
     }
   } else if (targetedRmName != homeRoomName) {
-    if (
-      creep.pos.y >= 48 ||
-      creep.pos.y <= 1 ||
-      creep.pos.isNearTo(Game.flags.northEntrance)
-    ) {
-      retval = creep.move(TOP);
-    } else {
-      creep.memory.lastSourceId = null;
-      lastSourceId = null;
-      creep.memory.path = null;
-      if (creep.memory.lastSourceId) {
-        retval = smartMove(creep, target, 1, true, null, null, null, 1);
-      } else {
-        target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
-          filter: (structure) => {
-            return structure;
-          },
-        });
-      }
+    // if (
+    //   creep.pos.y >= 48 ||
+    //   creep.pos.y <= 1 ||
+    //   creep.pos.isNearTo(Game.flags.northEntrance)
+    // ) {
+    //   retval = creep.move(TOP);
+    // } else {
+    //   creep.memory.lastSourceId = null;
+    //   lastSourceId = null;
+    //   creep.memory.path = null;
+    //   if (creep.memory.lastSourceId) {
+    //     retval = smartMove(creep, target, 1, true, null, null, null, 1);
+    //   } else {
+    //     target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
+    //       filter: (structure) => {
+    //         return structure;
+    //       },
+    //     });
+    //   }
 
-      if (target) {
-        creep.memory.lastSourceId = target.id;
-      }
+    //   if (target) {
+    //     creep.memory.lastSourceId = target.id;
+    //   }
+    // }
+
+    creep.memory.lastSourceId = null;
+    lastSourceId = null;
+    creep.memory.path = null;
+    if (creep.memory.lastSourceId) {
+      retval = smartMove(creep, target, 1, true, null, null, null, 1);
+    } else {
+      target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
+        filter: (structure) => {
+          return structure;
+        },
+      });
+    }
+
+    if (target) {
+      creep.memory.lastSourceId = target.id;
     }
 
     if (retval === OK) {

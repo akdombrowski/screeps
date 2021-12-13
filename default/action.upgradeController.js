@@ -1,4 +1,4 @@
-const getEnergy = require("./action.getEnergy.1");
+const getEnergy = require("./action.getEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 
@@ -18,10 +18,12 @@ function upController(
   const controller = Game.getObjectById(controllerID);
   let retval = -16;
 
-  if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
+  if (
+    creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity(RESOURCE_ENERGY)
+  ) {
     creep.memory.up = true;
     creep.memory.getEnergy = false;
-  } else if (creep.store[RESOURCE_ENERGY] == 0) {
+  } else if (creep.store[RESOURCE_ENERGY] <= 0 || creep.memory.getEnergy) {
     creep.memory.up = false;
     creep.memory.getEnergy = true;
     retval = getEnergy(creep, targetRoomName);

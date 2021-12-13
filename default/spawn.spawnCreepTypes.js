@@ -229,18 +229,32 @@ function spawnCreepTypes(enAvail) {
   const timeDigitsSlice = 2;
   const t = Game.time.toString().slice(timeDigitsSlice);
 
-  if (enAvail >= 300 && attackers.length < 1 && Memory.nAttackerId) {
-    let name = "h" + t;
-    let chosenRole = "h";
+  if (enAvail >= 300 && Memory.AttackerId) {
+    let name = "att" + t;
+    let chosenRole = "attacker";
     let direction = "south";
     let sourceId = Memory.source2;
-    let parts = simpleParts;
-    let spawnDirection = [BOTTOM];
+    let parts = attackerParts;
+    let spawnDirection = [TOP];
 
-    parts = attackerParts;
-    name = "att" + t;
-    chosenRole = "attacker";
-    direction = "north";
+    attackers.push(name);
+    retval = birthCreep(
+      s1,
+      parts,
+      name,
+      chosenRole,
+      direction,
+      sourceId,
+      spawnDirection
+    );
+  } else if (enAvail >= 300 && Memory.nAttackerId) {
+    let name = "att" + t;
+    let chosenRole = "attacker";
+    let direction = "north";
+    let sourceId = Memory.nSource2;
+    let parts = attackerParts;
+    let spawnDirection = [TOP];
+
     attackers.push(name);
     retval = birthCreep(
       s1,

@@ -1,9 +1,9 @@
 const getAttackEvents = require("./invasion.getAttackEvents");
 function checkForAttackers() {
-  let nRm = Memory.nRm;
+  let nRm = Game.rooms[Memory.northRoomName];
   let eRm = Memory.eRm;
   let wRm = Memory.wRm;
-  let rm = Game.spawns.Spawn1.room;
+  let rm = Game.rooms[Memory.homeRoomName];
   let neRm = Memory.neRm;
   let nwRm = Memory.nwRm;
   let nwwRm = Memory.nwwRm;
@@ -17,7 +17,7 @@ function checkForAttackers() {
   const attackerCheckWaitTime = 100;
   let attackerId;
 
-  if (nRm && (!Memory.nAttackerId || Game.time >= wAttackDurationSafeCheck)) {
+  if (nRm && (!Memory.nAttackerId || Game.time >= nAttackDurationSafeCheck)) {
     attackerId = getAttackEvents(nRm);
     if (!attackerId) {
       let enemyCreeps = nRm.find(FIND_HOSTILE_STRUCTURES);

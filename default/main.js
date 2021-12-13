@@ -35,8 +35,11 @@ module.exports.loop = function () {
 
     Memory.source1 = "59bbc5d22052a716c3cea136";
     Memory.source2 = "59bbc5d22052a716c3cea135";
+    Memory.nSource1 = "59bbc5d22052a716c3cea131";
+    Memory.nSource2 = "59bbc5d22052a716c3cea132";
 
     Memory.attackDurationSafeCheck = 1000;
+    Memory.nattackDurationSafeCheck = 1000;
 
     // towersAttackInvader(invader, towers);
 

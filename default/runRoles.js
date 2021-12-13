@@ -15,6 +15,7 @@ const roleAttackerNW = require("./role.attackerNW");
 const roleAttackerNWW = require("./role.attackerNWW");
 const roleAttackerNE = require("./role.attackerNE");
 const buildRoad = require("./action.buildRoad");
+const roleReserver = require("./role.reserver");
 
 function runRoles() {
   let i = 0;
@@ -29,6 +30,7 @@ function runRoles() {
   let claimers = [];
   let linkGets = [];
   let towerHarvesters = [];
+  let reservers = [];
 
   for (let name in crps) {
     let creep = crps[name];
@@ -63,6 +65,16 @@ function runRoles() {
 
       harvestersN.push(name);
       roleHarvester.run(creep);
+    } else if (roll === "reserver") {
+      reservers.push(name);
+      roleReserver.run(
+        creep,
+        Memory.northRoomName,
+        Game.flags.northExit,
+        TOP,
+        Game.flags.northController,
+        "59bbc5d22052a716c3cea133"
+      );
     } else if (roll && roll.startsWith("towerHarvester")) {
       towerHarvesters.push(name);
       roleHarvesterToTower.run(creep);

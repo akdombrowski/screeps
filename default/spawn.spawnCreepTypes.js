@@ -229,6 +229,10 @@ function spawnCreepTypes(enAvail) {
   const timeDigitsSlice = 2;
   const t = Game.time.toString().slice(timeDigitsSlice);
 
+  let southCreeps = _.filter(harvesters, function (h) {
+    return h.memory.direction && h.memory.direction.startsWith("s");
+  });
+
   if (enAvail >= 300 && Memory.AttackerId) {
     let name = "att" + t;
     let chosenRole = "attacker";
@@ -482,7 +486,21 @@ function spawnCreepTypes(enAvail) {
     let parts = harvesterParts550;
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 7) {
+    if (southCreeps.length < 2) {
+      name = "h" + t;
+      harvesters.push(name);
+      chosenRole = "h";
+      direction = "south";
+      retval = birthCreep(
+        s1,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection
+      );
+    } else if (harvesters.length < 7) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";

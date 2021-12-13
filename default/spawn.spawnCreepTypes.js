@@ -437,6 +437,7 @@ function spawnCreepTypes(enAvail) {
     } else if (workers.length < 1) {
       name = "w" + t;
       chosenRole = "worker";
+      direction = "south";
       workers.push(name);
       parts = workerParts550;
       retval = birthCreep(
@@ -482,7 +483,7 @@ function spawnCreepTypes(enAvail) {
       name = "w" + t;
       workers.push(name);
       chosenRole = "w";
-      direction = "s";
+      direction = "south";
       retval = birthCreep(
         s1,
         parts,
@@ -496,7 +497,6 @@ function spawnCreepTypes(enAvail) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";
-      direction = "s";
       retval = birthCreep(
         s1,
         parts,
@@ -511,7 +511,7 @@ function spawnCreepTypes(enAvail) {
       name = "w" + t;
       workers.push(name);
       chosenRole = "w";
-      direction = "s";
+      direction = "south";
       retval = birthCreep(
         s1,
         parts,
@@ -525,7 +525,7 @@ function spawnCreepTypes(enAvail) {
       name = "upC" + t;
       upControllers.push(name);
       chosenRole = "upC";
-      direction = "s";
+      direction = "south";
 
       parts = workerParts550;
       retval = birthCreep(

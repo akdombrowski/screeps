@@ -92,9 +92,22 @@ function runRoles() {
       if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
         creep.memory.up = true;
       }
+      upControllers.push(creep.name);
+
+      upController(creep, Game.flags.e59s48controller, Memory.homeRoomName);
+    } else if (
+      roll === "ucN" ||
+      roll === "upControllerN" ||
+      roll === "upcN" ||
+      roll === "upCN"
+    ) {
+      if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
+        creep.memory.up = true;
+      }
       upControllers.push(name);
 
-      upController(creep, Game.flags.e59s48contr, "E59S48");
+      creep.memory.controllerID = "59bbc5d22052a716c3cea133";
+      upController(creep, Game.flags.northController, "E59S47");
     } else if (roll === "worker" || roll === "w") {
       workers.push(name);
 
@@ -111,7 +124,14 @@ function runRoles() {
     } else if (roll === "c" || name.startsWith("c")) {
       claimers.push(name);
       roll = "c";
-      claim(creep, "E59S47", Game.flags.northExit, TOP, "", "59bbc5d22052a716c3cea133");
+      claim(
+        creep,
+        "E59S47",
+        Game.flags.northExit,
+        TOP,
+        "",
+        "59bbc5d22052a716c3cea133"
+      );
     } else if (roll === "a" || roll === "attacker" || name.startsWith("a")) {
       if (creep.memory.direction === "north") {
         attackers.push(name);

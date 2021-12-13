@@ -2,8 +2,15 @@ const getEnergy = require("./action.getEnergy.1");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 
-function upController(creep, flag) {
+function upController(creep, flag, targetRoomName, exit, exitDirection) {
   const name = creep.name;
+  const targetRoom = Game.rooms[targetRoomName];
+  const creepPos = creep.pos;
+  const name = creep.name;
+  const creepRoom = creep.room;
+  const creepRoomName = creep.room.name;
+  let retval = -16;
+
 
   if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
     creep.memory.up = true;
@@ -11,9 +18,11 @@ function upController(creep, flag) {
   } else if (creep.store[RESOURCE_ENERGY] == 0) {
     creep.memory.up = false;
     creep.memory.getEnergy = true;
-    getEnergy(creep);
-    return;
+    retval = getEnergy(creep);
+    return retval;
   }
+
+
 
   if (creep.memory.up) {
     creep.memory.getEnergy = false;
@@ -22,8 +31,11 @@ function upController(creep, flag) {
   let target;
   if (flag) {
     target = flag;
-  } else if (creep.memory.controller) {
-    target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.controller);
+  } else if (creep.memory.controllerID) {
+    target = creep.room.lookForAt(
+      LOOK_STRUCTURES,
+      Game.getObjectById(creep.memory.controllerID)
+    );
   } else if (creep.memory.flag) {
     target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
   }

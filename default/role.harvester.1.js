@@ -50,8 +50,37 @@ const roleHarvester = {
       //     break;
       // }
 
-      retval = getEnergy(creep, northRmName, null, null, Game.flags.northExit, TOP, Memory.northRoomName);
-
+      if (creep.memory.direction.startsWith("s")) {
+        retval = getEnergy(
+          creep,
+          homeRmName,
+          null,
+          null,
+          null,
+          null,
+          homeRmName
+        );
+      } else if (creep.memory.direction.startsWith("n")) {
+        retval = getEnergy(
+          creep,
+          northRmName,
+          null,
+          null,
+          Game.flags.northExit,
+          TOP,
+          Memory.northRoomName
+        );
+      } else {
+        retval = getEnergy(
+          creep,
+          northRmName,
+          null,
+          null,
+          Game.flags.northExit,
+          TOP,
+          Memory.northRoomName
+        );
+      }
     } else if (creep.memory.transfer || creep.store[RESOURCE_ENERGY] > 0) {
       if (!creep.store[RESOURCE_ENERGY] || creep.store[RESOURCE_ENERGY] <= 0) {
         creep.memory.getEnergy = true;

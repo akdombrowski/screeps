@@ -5,7 +5,15 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const vestEE = require("./action.getEnergyEEast");
 
-function vest(creep, sourceRmTargetedName, taskRm, flag, exit, exitDirection, targetRoomName) {
+function vest(
+  creep,
+  sourceRmTargetedName,
+  taskRm,
+  flag,
+  exit,
+  exitDirection,
+  targetRoomName
+) {
   let tower = Game.getObjectById(Memory.tower1Id);
   let retval = -16;
   let name = creep.name;
@@ -75,9 +83,7 @@ function vest(creep, sourceRmTargetedName, taskRm, flag, exit, exitDirection, ta
   }
 
   if (target) {
-    if (
-      creep.pos.isNearTo(exit)
-    ) {
+    if (creep.pos.isNearTo(exit)) {
       retval = creep.move(exitDirection);
     } else {
       retval = smartMove(creep, exit, 1, true, null, null, 10000, 1);
@@ -86,50 +92,24 @@ function vest(creep, sourceRmTargetedName, taskRm, flag, exit, exitDirection, ta
     if (retval === OK) {
       creep.say(target.pos.x + "," + target.pos.y + " " + target.room.name);
       return retval;
-    } else if(retval === ERR_TIRED){
+    } else if (retval === ERR_TIRED) {
       creep.say("f." + retval);
       return retval;
-    }else {
+    } else {
       creep.say("cant." + retval);
       return retval;
     }
   } else if (targetedRmName != homeRoomName) {
-    // if (
-    //   creep.pos.y >= 48 ||
-    //   creep.pos.y <= 1 ||
-    //   creep.pos.isNearTo(Game.flags.northEntrance)
-    // ) {
-    //   retval = creep.move(TOP);
-    // } else {
-    //   creep.memory.lastSourceId = null;
-    //   lastSourceId = null;
-    //   creep.memory.path = null;
-    //   if (creep.memory.lastSourceId) {
-    //     retval = smartMove(creep, target, 1, true, null, null, null, 1);
-    //   } else {
-    //     target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
-    //       filter: (structure) => {
-    //         return structure;
-    //       },
-    //     });
-    //   }
-
-    //   if (target) {
-    //     creep.memory.lastSourceId = target.id;
-    //   }
-    // }
-
     creep.memory.lastSourceId = null;
     lastSourceId = null;
     creep.memory.path = null;
+
     if (creep.memory.lastSourceId) {
       retval = smartMove(creep, target, 1, true, null, null, null, 1);
     } else {
-      target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
-        filter: (structure) => {
-          return structure;
-        },
-      });
+      let sources = creep.room.find(FIND_SOURCES_ACTIVE);
+
+      target = chooseSource(creep, sources);
     }
 
     if (target) {
@@ -147,7 +127,8 @@ function vest(creep, sourceRmTargetedName, taskRm, flag, exit, exitDirection, ta
 
   if (lastSourceId) {
     target = Game.getObjectById(creep.memory.lastSourceId);
-    if (target.energy <= 0) {
+
+    if (target && target.energy <= 0) {
       target = null;
       creep.memory.lastSourceId = null;
       creep.memory.path = null;
@@ -171,37 +152,7 @@ function vest(creep, sourceRmTargetedName, taskRm, flag, exit, exitDirection, ta
 
     // target = Game.getObjectById(sources[randInt]);
 
-    if (source1.energy <= 0) {
-      target = source2.energy > 0 ? source2 : null;
-    }
-
-    if (source2.energy <= 0) {
-      target = source1.energy > 0 ? source1 : null;
-    }
-
-    if (source1.energy <= 0) {
-      source1.shift();
-    }
-    if (source2.energy <= 0) {
-      sources.pop();
-    }
-
-    if (!target) {
-      let numCreepsBySource1 = source1.pos.findInRange(FIND_CREEPS, 5).length;
-      let numCreepsBySource2 = source2.pos.findInRange(FIND_CREEPS, 5).length;
-      if (numCreepsBySource1 > numCreepsBySource2 && source2.energy > 0) {
-        target = source2;
-      } else if (
-        numCreepsBySource2 > numCreepsBySource1 &&
-        source1.energy > 0
-      ) {
-        target = source1;
-      }
-    }
-
-    if (!target && sources.length > 0) {
-      target = creep.pos.findClosestByPath(sources);
-    }
+    target = chooseSource(creep, sources);
 
     if (target) {
       creep.memory.lastSourceId = target.id;
@@ -387,6 +338,54 @@ function vest(creep, sourceRmTargetedName, taskRm, flag, exit, exitDirection, ta
     creep.say("sad");
   }
   return retval;
+}
+
+function chooseSource(creep, sources) {
+  if (sources.length <= 0) {
+    return null;
+  }
+
+  let target = null;
+  if (sources[0].energy <= 0) {
+    target = sources[1].energy > 0 ? sources[1] : null;
+    source1.shift();
+  }
+
+  if (sources[1] && sources[1] <= 0) {
+    target = sources[0].energy > 0 ? sources[0] : null;
+    sources.pop();
+  }
+
+  if (sources.length <= 0) {
+    // no sources have energy
+    return null;
+  }
+
+  if (!target && sources.length > 0) {
+    const numCreepsBySource1 = sources[0].pos.findInRange(
+      FIND_CREEPS,
+      5
+    ).length;
+    const numCreepsBySource2 = sources[1].pos.findInRange(
+      FIND_CREEPS,
+      5
+    ).length;
+    if (numCreepsBySource1 > numCreepsBySource2 && sources[1].energy > 0) {
+      target = sources[1];
+    } else if (
+      numCreepsBySource2 > numCreepsBySource1 &&
+      sources[0].energy > 0
+    ) {
+      target = sources[0];
+    }
+  } else if (!target && sources.length === 1) {
+    target = sources[0];
+  }
+
+  if (!target && sources.length > 0) {
+    target = creep.pos.findClosestByPath(sources);
+  }
+  return target;
 }
 
 function getRandomInt(max) {

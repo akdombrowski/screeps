@@ -53,7 +53,7 @@ function tran(creep, flag, dest) {
     return retval;
   }
 
-  if(pos.y >= 48 || pos.y <= 1) {
+  if (pos.y >= 48 || pos.y <= 1) {
     retval = creep.move(BOTTOM);
     return retval;
   }
@@ -96,7 +96,10 @@ function tran(creep, flag, dest) {
       exts = Game.rooms[Memory.homeRoomName].find(FIND_MY_STRUCTURES, {
         filter: (struct) => {
           return (
-            struct.structureType === STRUCTURE_EXTENSION || STRUCTURE_SPAWN
+            (struct.structureType === STRUCTURE_EXTENSION ||
+              struct.structureType === STRUCTURE_SPAWN) &&
+            struct.store &&
+            struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
           );
         },
       });
@@ -199,10 +202,6 @@ function tran(creep, flag, dest) {
   }
 
   if (!target) {
-    let spawns = [s1, spawn2];
-  }
-
-  if (!target) {
     target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
       filter: (structure) => {
         if (
@@ -241,8 +240,14 @@ function tran(creep, flag, dest) {
       creep.memory.path = null;
       creep.say("t");
       return retval;
-    } else {
+    } else if (retval = ERR_FULL) {
+      creep.memory.transferTargetId = null;
+      creep.memory.path = null;
+      creep.say("full");
+      return retval;
+    }else {
       creep.say("ouch");
+      return creep.move(BOTTOM);
     }
   } else if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);

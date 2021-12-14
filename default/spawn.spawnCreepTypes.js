@@ -80,6 +80,7 @@ function spawnCreepTypes(enAvail) {
   let harvesters = Memory.harvesters || [];
   let upControllers = Memory.upControllers || [];
   let roadRepairers = Memory.roadRepairers || [];
+  let roadBuilders = Memory.roadBuilders || [];
   let reservers = Memory.reservers || [];
   let towerHarvesters = Memory.towerHarvesters || [];
   let claimers = Memory.claimers || [];
@@ -90,7 +91,6 @@ function spawnCreepTypes(enAvail) {
   let wAttackDurationSafeCheck = Memory.wAttackDurationSafeCheck;
   let nwAttackDurationSafeCheck = Memory.nwAttackDurationSafeCheck;
   let nwwAttackDurationSafeCheck = Memory.nwwAttackDurationSafeCheck;
-  let roadBuilders = Memory.roadBuilders || [];
 
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
@@ -231,11 +231,14 @@ function spawnCreepTypes(enAvail) {
   const t = Game.time.toString().slice(timeDigitsSlice);
 
   let southCreeps = _.filter(harvesters, function (h) {
-    return h.memory && h.memory.direction && h.memory.direction.startsWith("s");
+    let c = Game.creeps[h];
+    return c.memory && c.memory.direction && c.memory.direction.startsWith("s");
   });
+
   let southRoadBuilders = _.filter(roadBuilders, function (rB) {
+    let c = Game.creeps[rB];
     return (
-      rB.memory && rB.memory.direction && rB.memory.direction.startsWith("s")
+      c.memory && c.memory.direction && c.memory.direction.startsWith("s")
     );
   });
 

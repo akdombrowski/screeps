@@ -100,7 +100,7 @@ function findFixables(room) {
         return struct.hits < struct.hitsMax;
       } else if (struct.structureType === STRUCTURE_STORAGE) {
         return struct.hits < struct.hitsMax;
-      } else if (structTAINER) {
+      } else if (struct.structureType === STRUCTURE_CONTAINER) {
         return struct.hits < struct.hitsMax;
       } else {
         return false;

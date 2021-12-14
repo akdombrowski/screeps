@@ -29,7 +29,6 @@ var roleWorker = {
 
       return retval;
     } else if (
-      !creep.memory.working &&
       creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity(RESOURCE_ENERGY)
     ) {
       creep.memory.working = true;
@@ -41,6 +40,8 @@ var roleWorker = {
 
     if (creep.memory.working) {
       return build(creep);
+    } else {
+      return retval;
     }
   },
 };

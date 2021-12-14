@@ -119,6 +119,8 @@ function findFixables(room) {
 
     if (firstEl.hitsMax - firstEl.hits > secondEl.hitsMax - secondEl.hits) {
       return firstEl;
+    } else {
+      return secondEl;
     }
   });
 

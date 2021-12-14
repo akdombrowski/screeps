@@ -30,7 +30,7 @@ function birthCreep(
         sourceId: sourceId,
         group: group,
       },
-      directions: [BOTTOM],
+      directions: spawnDirection,
     });
   } else {
     retval = Game.spawns.Spawn1.spawnCreep(parts, name, {
@@ -39,9 +39,11 @@ function birthCreep(
   }
 
   if (retval === OK) {
+    console.log();
     console.log("spawn1ed." + name);
     return retval;
   } else {
+    console.log();
     console.log("Spawn1 failed: " + retval + " " + name);
     if (Game.spawns.Spawn2) {
       retval = Game.spawns.Spawn2.spawnCreep(parts, name, {
@@ -51,12 +53,13 @@ function birthCreep(
           sourceId: sourceId,
           group: group,
         },
-        directions: [TOP],
+        directions: spawnDirection,
       });
     }
   }
 
   if (retval === OK) {
+    console.log();
     console.log("spawn2ed." + name);
     return retval;
   } else {
@@ -68,10 +71,11 @@ function birthCreep(
           sourceId: sourceId,
           group: group,
         },
-        directions: [TOP_RIGHT],
+        directions: spawnDirection,
       });
 
       if (retval === OK) {
+        console.log();
         console.log("spawn3ed." + name);
       }
     }
@@ -406,7 +410,7 @@ function spawnCreepTypes(enAvail) {
     let sourceId = Memory.source2;
     let parts = attackerParts500;
     let group = "attackersNW";
-    let spawnDirection = [BOTTOM];
+    let spawnDirection = [TOP];
 
     if (Memory.nwAttackerId && attackersNW.length < 2) {
       direction = "nw";

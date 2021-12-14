@@ -107,7 +107,7 @@ function build(creep) {
       if (creep.pos.inRangeTo(target, 3)) {
         creep.memory.path = null;
 
-        checkIfBlockingSource(creep);
+        checkIfBlockingSource(creep, 1);
 
         retval = creep.build(target);
         creep.memory.b = targetId;
@@ -123,7 +123,7 @@ function build(creep) {
           target = null;
           creep.memory.b = null;
         } else if (retval === OK && target) {
-          creep.say("m." + target.pos.x + "," + target.pos.y);
+          creep.say(target.pos.x + "," + target.pos.y);
           creep.memory.b = targetId;
         } else {
           creep.say("m." + retval);
@@ -134,7 +134,7 @@ function build(creep) {
     } else {
       // creep.memory.role = "r";
       // creep.memory.working = false;
-      creep.say("w.err");
+      creep.say("b.err");
       target = null;
       creep.memory.b = target;
     }

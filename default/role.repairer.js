@@ -49,7 +49,6 @@ var roleRepairer = {
       creep.memory.repair = false;
       mem_repair = false;
       retval = build(creep);
-      creep.say("r.b");
     }
 
     if (mem_repair) {

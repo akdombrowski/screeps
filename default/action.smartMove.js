@@ -10,7 +10,9 @@ function smartMove(
   pathColor,
   pathMem,
   maxOps,
-  maxRms
+  maxRms,
+  flee,
+  fleeFromCreeps
 ) {
   let s;
   let retval = -16;
@@ -31,7 +33,7 @@ function smartMove(
   if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
     return ERR_TIRED;
-  } else if (!dest) {
+  } else if (!dest && !flee) {
     console.log();
     console.log(name + " smartMove no destination");
 
@@ -44,6 +46,20 @@ function smartMove(
     if (!(destPos instanceof RoomPosition)) {
       destPos = new RoomPosition(dest.pos.x, dest.pos.y, dest.room.name);
     }
+  } else if (flee) {
+    let ret = PathFinder.search(
+      creep.pos,
+      { pos: new RoomPosition(25, 25, creep.room.name), range: 10 },
+      {
+        flee: true,
+        maxOps: maxOps,
+        maxRooms: 1,
+      }
+    );
+    retval = creep.moveByPath(ret.path);
+
+    creep.say("aaaaahhhhh");
+    return retval;
   }
 
   if (creepPos.inRangeTo(destPos, range)) {

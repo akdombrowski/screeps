@@ -28,6 +28,7 @@ function runRoles() {
   let roadRepairersE59S47 = [];
   let roadBuilders = [];
   let attackers = [];
+  let attackersE59S47 = [];
   let claimers = [];
   let linkGets = [];
   let towerHarvesters = [];
@@ -169,9 +170,6 @@ function runRoles() {
       roleController.run(creep);
     } else if (roll === "upgrader") {
       roleUpgrader.run(creep);
-    } else if (roll === "roadRepairer" || roll === "r") {
-      roadRepairers.push(name);
-      roleRepairer.run(creep);
     } else if (roll === "c" || name.startsWith("c")) {
       claimers.push(name);
       roll = "c";
@@ -185,7 +183,7 @@ function runRoles() {
       );
     } else if (roll === "a" || roll === "attacker" || name.startsWith("a")) {
       if (creep.memory.direction === "north") {
-        attackers.push(name);
+        attackersE59S47.push(name);
         roleAttackerN.run(creep);
       } else if (creep.memory.direction === "ne") {
         eattackers.push(name);
@@ -225,6 +223,7 @@ function runRoles() {
   Memory.roadRepairersE59S47 = roadRepairersE59S47;
   Memory.roadBuilders = roadBuilders;
   Memory.attackers = attackers;
+  Memory.attackersE59S47 = attackersE59S47;
   Memory.claimers = claimers;
   Memory.linkGets = linkGets;
   Memory.towerHarvesters = towerHarvesters;

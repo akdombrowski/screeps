@@ -4,7 +4,7 @@ const ermgetEnergyEast = require("./action.getEnergy.1");
 
 const roleAttacker = {
   /** **/
-  run: function(creep) {
+  run: function (creep) {
     let s1 = Game.spawns.Spawn1;
     let rm = creep.room;
     let creeps = Game.creeps;
@@ -16,7 +16,7 @@ const roleAttacker = {
     let transfer = creep.memory.transfer;
     let name = creep.name;
 
-    if (rm.name === "E35N31") {
+    if (rm.name === Memory.homeRoomName) {
       if (creep.pos.isNearTo(northExit)) {
         retval = creep.move(TOP);
       } else if (creep.pos.y > 2 && creep.pos.y < 49) {
@@ -26,9 +26,9 @@ const roleAttacker = {
       }
 
       return retval;
-    } else if (rm.name === "E35N32") {
+    } else if (rm.name === Memory.northRoomName) {
       if (creep.pos.y >= 48) {
-        retval = smartMove(creep, Game.flags.north1, 3);
+        retval = creep.move(TOP);
       }
     }
 
@@ -51,8 +51,11 @@ const roleAttacker = {
 
     if (creep.pos.isNearTo(invader)) {
       retval = creep.attack(invader);
-    } else {
+    } else if (invader) {
       retval = smartMove(creep, invader, 1);
+    } else {
+      creep.say("goodbye");
+      creep.suicide();
     }
     return retval;
   },

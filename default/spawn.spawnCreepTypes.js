@@ -598,7 +598,7 @@ function spawnCreepTypes(enAvail) {
         spawnDirection,
         group
       );
-    } else if (roadRepairersE59S47.length < 2) {
+    } else if (roadRepairersE59S47.length < 1) {
       parts = workerParts550;
       name = "rR" + t;
       roadRepairersE59S47.push(name);

@@ -218,6 +218,7 @@ function smartMove(
   } else {
     path = null;
 
+    console.log();
     console.log(name + " smartMove oops " + retval);
 
     creep.say("oops." + retval);

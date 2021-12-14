@@ -347,6 +347,7 @@ function vest(
         creep.memory.lastSourceId = target.id;
         creep.say(target.pos.x + "," + target.pos.y);
       } else {
+        console.log();
         console.log("getEnergy crap " + retval);
 
         creep.say("crap");
@@ -354,6 +355,8 @@ function vest(
     } else {
       creep.memory.lastSourceId = null;
       creep.memory.path = null;
+
+      console.log();
       console.log("getEnergy fart");
       creep.say("fart");
     }
@@ -362,7 +365,7 @@ function vest(
     target = null;
     creep.memory.lastSourceId = target;
     console.log();
-    console.log(name + " getEnergy sad");
+    console.log(name + " getEnergy sad no target");
     creep.say("sad");
   }
   return retval;

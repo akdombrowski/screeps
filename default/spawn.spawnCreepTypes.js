@@ -546,7 +546,7 @@ function spawnCreepTypes(enAvail) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 6) {
+    if (harvesters.length < 4) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";
@@ -561,7 +561,7 @@ function spawnCreepTypes(enAvail) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S47.length < 7) {
+    } else if (harvestersE59S47.length < 8) {
       name = "hN" + t;
       harvestersE59S47.push(name);
       chosenRole = "h";
@@ -611,7 +611,7 @@ function spawnCreepTypes(enAvail) {
         spawnDirection,
         group
       );
-    } else if (workers.length < 1) {
+    } else if (workers.length < 3) {
       name = "w" + t;
       chosenRole = "worker";
       direction = "south";

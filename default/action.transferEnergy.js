@@ -146,7 +146,7 @@ function tran(creep, flag, dest) {
           return (
             (type === STRUCTURE_CONTAINER || type === STRUCTURE_STORAGE) &&
             (!struct.store[RESOURCE_ENERGY] ||
-              struct.store.getFreeCapacity(RESOURCE_ENERGY))
+              struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
           );
         },
       });

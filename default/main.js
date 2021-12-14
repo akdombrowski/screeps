@@ -13,6 +13,7 @@ const linkTran = require("./action.linkTran");
 const linkTransfer = require("./linkTransfer");
 const profiler = require("./screeps-profiler");
 const findDecayed = require("./action.findDecayed");
+const { findFixables } = require("./findFixables");
 
 // This line monkey patches the global prototypes.
 profiler.enable();
@@ -90,44 +91,6 @@ module.exports.loop = function () {
     Game.profiler.email(profilerDur);
   }
 };
-function findFixables(room) {
-  if (!room) {
-    return null;
-  }
-
-  let fixables = room.find(FIND_STRUCTURES, {
-    filter: function (struct) {
-      if (struct.structureType === STRUCTURE_ROAD) {
-        return struct.hits < struct.hitsMax;
-      } else if (struct.structureType === STRUCTURE_STORAGE) {
-        return struct.hits < struct.hitsMax;
-      } else if (struct.structureType === STRUCTURE_CONTAINER) {
-        return struct.hits < struct.hitsMax;
-      } else {
-        return false;
-      }
-    },
-  });
-
-  fixables.sort(function compareFn(firstEl, secondEl) {
-    if (firstEl.hitsMax / firstEl.hits >= 2) {
-      return firstEl;
-    }
-
-    if (secondEl.hitsMax / secondEl.hits >= 2) {
-      return secondEl;
-    }
-
-    if (firstEl.hitsMax - firstEl.hits > secondEl.hitsMax - secondEl.hits) {
-      return firstEl;
-    } else {
-      return secondEl;
-    }
-  });
-
-  return fixables.map((f) => f.id);
-}
-
 function reCheckNumOfCreeps(crps) {
   let numCrps = Object.keys(crps).length;
   return numCrps;

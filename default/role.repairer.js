@@ -54,12 +54,33 @@ var roleRepairer = {
 
     if (mem_repair) {
       let struct;
+      Memory.lastSouthCheckFixables = Game.time;
       if (creep.memory.direction.startsWith("s")) {
-        Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
+        if (
+          !Memory.e59s48fixables ||
+          Memory.lastSouthCheckFixables - Game.time > 100
+        ) {
+          Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
+          Memory.lastSouthCheckFixables = Game.time;
+        }
       } else if (creep.memory.direction.startsWith("n")) {
-        Memory.e59s47fixables = findFixables(Game.rooms[Memory.northRoomName]);
+        if (
+          !Memory.e59s47fixables ||
+          Memory.lastNorthCheckFixables - Game.time > 100
+        ) {
+          Memory.e59s47fixables = findFixables(
+            Game.rooms[Memory.northRoomName]
+          );
+          Memory.lastNorthCheckFixables = Game.time;
+        }
       } else {
-        Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
+        if (
+          !Memory.e59s48fixables ||
+          Memory.lastSouthCheckFixables - Game.time > 100
+        ) {
+          Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
+          Memory.lastSouthCheckFixables = Game.time;
+        }
       }
 
       // will be null if lastRepairableStructId is null
@@ -87,6 +108,7 @@ var roleRepairer = {
         creep.memory.lastRepairableStructId = target.id;
         if (creep.pos.inRangeTo(target, 3)) {
           retval = creep.repair(target);
+          creep.memory.path = null;
 
           if (retval == OK) {
             creep.say("r");

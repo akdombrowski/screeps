@@ -76,13 +76,12 @@ function vest(
 
       break;
     default:
-      target =
-        creep.room.name != sourceRmTargetedName ? Game.flags.Flag1 : null;
+      target = null;
       targetedRmName = Memory.s1.room.name;
       break;
   }
 
-  if (target) {
+  if (target && targetedRmName != homeRoomName) {
     if (creep.pos.isNearTo(exit)) {
       retval = creep.move(exitDirection);
     } else {
@@ -147,7 +146,7 @@ function vest(
 
   // target = target || Game.getObjectById(lastSourceId);
   let sources;
-  if (!target && targetedRmName === Memory.homeRoomName) {
+  if (!target && creep.room.name === Memory.homeRoomName) {
     if (creep.memory.lastSourceId) {
       target = Game.getObjectById(creep.memory.lastSourceId);
     } else {
@@ -167,25 +166,24 @@ function vest(
     }
   }
 
-  if (targetedRmName && !target) {
-    if (!target || target.energy <= 0) {
-      target = Game.rooms[targetedRmName]
-        .find(FIND_SOURCES_ACTIVE, {
-          filter: (source) => {
-            if (
-              targetedRmName.name === targetedRmName.name &&
-              source.energy > 0
-            ) {
-              return source;
-            }
-          },
-        })
-        .pop();
-    }
+  if (!target || (target && target.energy <= 0)) {
 
-    if (target) {
-      creep.memory.lastSourceId = target.id;
-    }
+    target = Game.rooms[targetedRmName]
+      .find(FIND_SOURCES_ACTIVE, {
+        filter: (source) => {
+          if (
+            targetedRmName.name === targetedRmName.name &&
+            source.energy > 0
+          ) {
+            return source;
+          }
+        },
+      })
+      .pop();
+  }
+
+  if (target) {
+    creep.memory.lastSourceId = target.id;
   }
 
   // Do I need to pick up some dropped energy somewhere?

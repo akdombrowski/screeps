@@ -84,7 +84,12 @@ function buildRoad(creep) {
   } else {
     retval = ERR_NOT_ENOUGH_ENERGY;
     creep.memory.getEnergy = true;
-    getEnergy(creep);
+    if (creep.memory.direction.startsWith("n")) {
+      getEnergy(creep, Memory.northRoomName, null, null, null, null);
+    } else {
+      getEnergy(creep, Memory.homeRoomName, null, null, null, null);
+
+    }
   }
 
   return retval;

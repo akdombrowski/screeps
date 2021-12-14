@@ -57,7 +57,14 @@ function runRoles() {
         creep.memory.getEnergy = true;
       }
 
-      harvestersE59S47.push(name);
+      if (creep.memory.direction.startsWith("s")) {
+        harvesters.push(name);
+      } else if (creep.memory.direction.startsWith("n")) {
+        harvestersE59S47.push(name);
+      } else {
+        harvesters.push(name);
+      }
+
       roleHarvester.run(creep);
     } else if (roll === "hN" || roll === "harvesterN") {
       if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
@@ -108,8 +115,8 @@ function runRoles() {
           Memory.northRoomName,
           Game.flags.northExit,
           TOP
-          );
-        } else {
+        );
+      } else {
         roadRepairers.push(name);
         roleRepairer.run(creep, Memory.homeRoomName, null, null);
       }

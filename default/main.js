@@ -94,29 +94,19 @@ function findFixables(room) {
     return null;
   }
 
-  let containers = [];
-  let storages = [];
   let fixables = room.find(FIND_STRUCTURES, {
     filter: function (struct) {
       if (struct.structureType === STRUCTURE_ROAD) {
         return struct.hits < struct.hitsMax;
       } else if (struct.structureType === STRUCTURE_STORAGE) {
-        storages.push(struct);
-      } else if (struct.structureType === STRUCTURE_CONTAINER) {
-        containers.push(struct);
+        return struct.hits < struct.hitsMax;
+      } else if (structTAINER) {
+        return struct.hits < struct.hitsMax;
       } else {
         return false;
       }
     },
   });
-
-  if (containers.length > 0) {
-    fixables = fixables.concat(containers);
-  }
-
-  if (storages.length > 0) {
-    fixables = fixables.concat(storages);
-  }
 
   fixables.sort(function compareFn(firstEl, secondEl) {
     if (firstEl.hitsMax / firstEl.hits >= 2) {

@@ -357,7 +357,7 @@ function chooseSource(creep, sources) {
   let target = null;
   if (sources[0].energy <= 0) {
     target = sources[1].energy > 0 ? sources[1] : null;
-    source1.shift();
+    sources.shift();
   }
 
   if (sources[1] && sources[1] <= 0) {

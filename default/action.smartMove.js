@@ -32,7 +32,9 @@ function smartMove(
     creep.say("f." + creep.fatigue);
     return ERR_TIRED;
   } else if (!dest) {
-    console.log("smartMove no destination");
+    console.log();
+    console.log(name + " smartMove no destination");
+    console.log();
 
     creep.say("no destination");
     return retval;
@@ -219,7 +221,7 @@ function smartMove(
   } else {
     path = null;
 
-    console.log("smartMove oops " + retval);
+    console.log(name + " smartMove oops " + retval);
 
     creep.say("oops." + retval);
     creep.memory.path = path;

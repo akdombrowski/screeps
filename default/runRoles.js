@@ -25,6 +25,7 @@ function runRoles() {
   let workers = [];
   let upControllers = [];
   let roadRepairers = [];
+  let roadRepairersE59S47 = [];
   let roadBuilder = [];
   let attackers = [];
   let claimers = [];
@@ -96,18 +97,20 @@ function runRoles() {
         buildRoad(creep);
       }
       roadBuilder.push(name);
-    } else if (roll === "roadRepairer") {
-      roadRepairers.push(name);
       if (creep.memory.direction.startsWith("s")) {
+      } else if (roll === "roadRepairer") {
+        roadRepairers.push(name);
         roleRepairer.run(creep, Memory.homeRoomName, null, null);
       } else if (creep.memory.direction.startsWith("n")) {
+        roadRepairersE59S47.push(name);
         roleRepairer.run(
           creep,
           Memory.northRoomName,
           Game.flags.northExit,
           TOP
-        );
-      } else {
+          );
+        } else {
+        roadRepairers.push(name);
         roleRepairer.run(creep, Memory.homeRoomName, null, null);
       }
     } else if (
@@ -212,6 +215,7 @@ function runRoles() {
   Memory.workers = workers;
   Memory.upControllers = upControllers;
   Memory.roadRepairers = roadRepairers;
+  Memory.roadRepairersE59S47 = roadRepairersE59S47;
   Memory.roadBuilder = roadBuilder;
   Memory.attackers = attackers;
   Memory.claimers = claimers;

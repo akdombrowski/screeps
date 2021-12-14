@@ -17,7 +17,7 @@ var roleRepairer = {
     let mem_direction = creep.memory.direction;
     let mem_getEnergy = creep.memory.getEnergy;
 
-    if (creepRoomName != targetRoomName) {
+    if (targetRoomName && creepRoomName != targetRoomName) {
       if (creep.pos.isNearTo(exit)) {
         retval = creep.move(exitDirection);
       } else {

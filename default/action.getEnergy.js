@@ -167,7 +167,6 @@ function vest(
   }
 
   if (!target || (target && target.energy <= 0)) {
-
     target = Game.rooms[targetedRmName]
       .find(FIND_SOURCES_ACTIVE, {
         filter: (source) => {
@@ -351,21 +350,21 @@ function vest(
 }
 
 function chooseSource(creep, sources) {
-  if (sources.length <= 0) {
+  if (!sources || sources.length <= 0) {
     return null;
   }
 
   let target = null;
+
   if (sources[0].energy <= 0) {
     target = sources[1].energy > 0 ? sources[1] : null;
-    sources.shift();
   }
 
   if (sources[1] && sources[1] <= 0) {
     target = sources[0].energy > 0 ? sources[0] : null;
-    sources.pop();
   }
 
+  sources = sources.filter((s) => s.energy > 0);
   if (sources.length <= 0) {
     // no sources have energy
     return null;
@@ -379,8 +378,8 @@ function chooseSource(creep, sources) {
     target = sources[0];
   }
 
-  if (!target && creep.pos.inRangeTo(sources[0], 3)) {
-    target = sources[0];
+  if (!target && creep.pos.inRangeTo(sources[1], 3)) {
+    target = sources[1];
   }
 
   if (!target && sources.length > 0) {

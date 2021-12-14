@@ -34,7 +34,6 @@ function smartMove(
     creep.say("f." + creep.fatigue);
     return ERR_TIRED;
   } else if (!dest && !flee) {
-    console.log();
     console.log(name + " smartMove no destination");
 
     creep.say("no destination");
@@ -102,7 +101,6 @@ function smartMove(
   // }
 
   if ((path && path.length === 0) || !path || !path[0]) {
-    console.log();
     console.log(name + " smartMove no path");
   }
 
@@ -111,7 +109,6 @@ function smartMove(
     try {
       retval = creep.moveByPath(path);
     } catch (e) {
-      console.log();
       console.log(name + " moveByPath exception " + path);
 
       creep.memory.path = null;
@@ -207,7 +204,6 @@ function smartMove(
   // }
 
   if (retval != 0) {
-    console.log();
     console.log("path === null " + (path === null));
     console.log("path.length === 0 " + (path && path.length <= 0));
     console.log(name + " path " + path);
@@ -234,7 +230,6 @@ function smartMove(
   } else {
     path = null;
 
-    console.log();
     console.log(name + " smartMove oops " + retval);
 
     creep.say("oops." + retval);

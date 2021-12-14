@@ -39,11 +39,9 @@ function birthCreep(
   }
 
   if (retval === OK) {
-    console.log();
     console.log("spawn1ed." + name);
     return retval;
   } else {
-    console.log();
     console.log("Spawn1 failed: " + retval + " " + name);
     if (Game.spawns.Spawn2) {
       retval = Game.spawns.Spawn2.spawnCreep(parts, name, {
@@ -59,7 +57,6 @@ function birthCreep(
   }
 
   if (retval === OK) {
-    console.log();
     console.log("spawn2ed." + name);
     return retval;
   } else {
@@ -75,7 +72,6 @@ function birthCreep(
       });
 
       if (retval === OK) {
-        console.log();
         console.log("spawn3ed." + name);
       }
     }
@@ -261,7 +257,7 @@ function spawnCreepTypes(enAvail) {
       spawnDirection,
       group
     );
-  } else if (enAvail >= 500 && attackers.length < 2 &&  Memory.nAttackerId) {
+  } else if (enAvail >= 500 && attackers.length < 2 && Memory.nAttackerId) {
     let name = "att" + t;
     let chosenRole = "attacker";
     let direction = "north";

@@ -111,7 +111,6 @@ function vest(
 
     if (!target) {
       let sources = Game.rooms[targetedRmName].find(FIND_SOURCES_ACTIVE);
-      console.log();
       console.log(name + " getEnergy target " + target);
       target = chooseSource(creep, sources);
     }
@@ -207,7 +206,7 @@ function vest(
   // Do I need to pick up some dropped energy somewhere?
   retval = droppedDuty(creep);
   if (retval === OK) {
-    console.log(name + "droppedDuty");
+    console.log(name + " droppedDuty");
     return retval;
   }
 
@@ -347,7 +346,6 @@ function vest(
         creep.memory.lastSourceId = target.id;
         creep.say(target.pos.x + "," + target.pos.y);
       } else {
-        console.log();
         console.log("getEnergy crap " + retval);
 
         creep.say("crap");
@@ -356,16 +354,14 @@ function vest(
       creep.memory.lastSourceId = null;
       creep.memory.path = null;
 
-      console.log();
-      console.log("getEnergy fart");
+      console.log(name + " getEnergy fart, no target");
       creep.say("fart");
     }
   } else {
     // Something went wrong;
     target = null;
     creep.memory.lastSourceId = target;
-    console.log();
-    console.log(name + " getEnergy sad no target");
+    console.log(name + " getEnergy sad, no target");
     creep.say("sad");
   }
   return retval;

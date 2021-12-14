@@ -47,7 +47,6 @@ function getPath(
       destPos = new RoomPosition(dest.pos.x, dest.pos.y, rmName);
     }
   } else {
-    console.log();
     console.log(name + " getPath no destPos");
     return null;
   }
@@ -109,12 +108,12 @@ function getPath(
   });
 
   if (ret.incomplete) {
-    if (ret.path &&
+    if (
+      ret.path &&
       ret.path[ret.path.length - 1] &&
       ret.path[ret.path.length - 1].pos &&
-      !ret.path[ret.path.length - 1].pos.isNearTo(destPos)
+      !ret.path[ret.path.length - 1].pos.inRangeTo(destPos, range)
     ) {
-      console.log();
       console.log(name + " getPath need more ops for pathfinding");
 
       ret = PathFinder.search(creepPos, goals, {
@@ -163,8 +162,14 @@ function getPath(
         creep.memory.path = ret.path;
         return OK;
       }
-    } else {
-      console.log();
+    } else if (ret.path.length <= 0) {
+      // we have an incomplete and empty path!
+      creep.memory.path = null;
+      console.log("getpath ret.path.length is zero");
+      return ERR_NOT_FOUND;
+    } else if (ret.path) {
+      // we have an incomplete path, but the last position is in range to the destination. HOW DID THIS HAPPEN?!?
+      creep.memory.path = ret.path;
       return OK;
     }
   } else {

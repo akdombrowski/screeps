@@ -658,21 +658,6 @@ function spawnCreepTypes(enAvail) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S47.length < 9) {
-      name = "hN" + t;
-      harvestersE59S47.push(name);
-      chosenRole = "hN";
-      group = "harvestersE59S47";
-      retval = birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
     } else {
       name = "upC" + t;
       upControllers.push(name);
@@ -1021,7 +1006,7 @@ function spawnCreepTypes(enAvail) {
     }
   }
 
-  Memory.roadBuilder = roadBuilders;
+  Memory.roadBuilders = roadBuilders;
   Memory.reservers = reservers;
   Memory.harvesters = harvesters;
   Memory.harvestersE59S47 = harvestersE59S47;

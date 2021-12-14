@@ -26,7 +26,7 @@ function runRoles() {
   let upControllers = [];
   let roadRepairers = [];
   let roadRepairersE59S47 = [];
-  let roadBuilder = [];
+  let roadBuilders = [];
   let attackers = [];
   let claimers = [];
   let linkGets = [];
@@ -52,7 +52,7 @@ function runRoles() {
       roll = "roadBuilder";
     }
 
-    if (roll === "h" || roll === "harvester") {
+    if (roll === "h" || roll === "harvester" || roll.startsWith("h")) {
       if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
         creep.memory.getEnergy = true;
       }
@@ -71,7 +71,7 @@ function runRoles() {
         creep.memory.getEnergy = true;
       }
 
-      harvestersN.push(name);
+      harvestersE59S47.push(name);
       roleHarvester.run(creep);
     } else if (roll === "reserver") {
       reservers.push(name);
@@ -103,7 +103,7 @@ function runRoles() {
       } else {
         buildRoad(creep);
       }
-      roadBuilder.push(name);
+      roadBuilders.push(name);
     } else if (roll === "roadRepairer") {
       if (creep.memory.direction.startsWith("s")) {
         roadRepairers.push(name);
@@ -223,7 +223,7 @@ function runRoles() {
   Memory.upControllers = upControllers;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersE59S47 = roadRepairersE59S47;
-  Memory.roadBuilder = roadBuilder;
+  Memory.roadBuilders = roadBuilders;
   Memory.attackers = attackers;
   Memory.claimers = claimers;
   Memory.linkGets = linkGets;

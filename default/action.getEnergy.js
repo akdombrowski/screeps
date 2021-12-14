@@ -343,7 +343,8 @@ function vest(
     // Something went wrong;
     target = null;
     creep.memory.lastSourceId = target;
-    console.log("getEnergy sad");
+    console.log();
+    console.log(name + " getEnergy sad");
     creep.say("sad");
   }
   return retval;

@@ -34,7 +34,6 @@ function smartMove(
   } else if (!dest) {
     console.log();
     console.log(name + " smartMove no destination");
-    console.log();
 
     creep.say("no destination");
     return retval;
@@ -50,11 +49,6 @@ function smartMove(
   if (creepPos.inRangeTo(destPos, range)) {
     creep.memory.path = null;
     return OK;
-  }
-
-  if (moveAwayFromCreep(creep)) {
-    creep.memory.path = null;
-    path = null;
   }
 
   if (lastCreepPos) {
@@ -92,6 +86,7 @@ function smartMove(
   // }
 
   if ((path && path.length === 0) || !path || !path[0]) {
+    console.log();
     console.log(name + " smartMove no path");
   }
 
@@ -100,6 +95,7 @@ function smartMove(
     try {
       retval = creep.moveByPath(path);
     } catch (e) {
+      console.log();
       console.log(name + " moveByPath exception " + path);
 
       creep.memory.path = null;
@@ -195,13 +191,14 @@ function smartMove(
   // }
 
   if (retval != 0) {
+    console.log();
     console.log("path === null " + (path === null));
     console.log("path.length === 0 " + (path && path.length <= 0));
     console.log(name + " path " + path);
     console.log(name + " retval " + retval + " creep.pos " + creepPos);
   }
 
-  if (retval === OK || path.length <= 0) {
+  if (retval === OK || (path && path.length <= 0)) {
     retval = OK;
     creep.say(destPos.x + "," + destPos.y);
 

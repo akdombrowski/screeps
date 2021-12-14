@@ -78,6 +78,7 @@ function spawnCreepTypes(enAvail) {
   let linkGets = Memory.linkGets || [];
   let workers = Memory.workers || [];
   let harvesters = Memory.harvesters || [];
+  let harvestersE59S47 = Memory.harvestersE59S47 || [];
   let upControllers = Memory.upControllers || [];
   let roadRepairers = Memory.roadRepairers || [];
   let roadBuilders = Memory.roadBuilders || [];
@@ -539,9 +540,9 @@ function spawnCreepTypes(enAvail) {
         sourceId,
         spawnDirection
       );
-    } else if (harvesters.length < 7) {
+    } else if (harvestersE59S47.length < 7) {
       name = "hN" + t;
-      harvesters.push(name);
+      harvestersE59S47.push(name);
       chosenRole = "h";
       direction = "north";
       retval = birthCreep(
@@ -558,21 +559,6 @@ function spawnCreepTypes(enAvail) {
       chosenRole = "worker";
       direction = "south";
       workers.push(name);
-      parts = workerParts550;
-      retval = birthCreep(
-        s1,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection
-      );
-    } else if (southRoadBuilders.length < 1) {
-      name = "rB" + t;
-      chosenRole = "roadBuilder";
-      roadBuilders.push(name);
-      direction = "south";
       parts = workerParts550;
       retval = birthCreep(
         s1,
@@ -1021,6 +1007,7 @@ function spawnCreepTypes(enAvail) {
   Memory.roadBuilder = roadBuilders;
   Memory.reservers = reservers;
   Memory.harvesters = harvesters;
+  Memory.harvestersE59S47 = harvestersE59S47;
   Memory.workers = workers;
   Memory.upControllers = upControllers;
   Memory.roadRepairers = roadRepairers;

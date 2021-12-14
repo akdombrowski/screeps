@@ -21,7 +21,7 @@ function runRoles() {
   let i = 0;
   let crps = Game.creeps;
   let harvesters = [];
-  let harvestersN = [];
+  let harvestersE59S47 = [];
   let workers = [];
   let upControllers = [];
   let roadRepairers = [];
@@ -56,7 +56,7 @@ function runRoles() {
         creep.memory.getEnergy = true;
       }
 
-      harvesters.push(name);
+      harvestersE59S47.push(name);
       roleHarvester.run(creep);
     } else if (roll === "hN" || roll === "harvesterN") {
       if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
@@ -208,6 +208,7 @@ function runRoles() {
   }
 
   Memory.harvesters = harvesters;
+  Memory.harvestersE59S47 = harvestersE59S47;
   Memory.workers = workers;
   Memory.upControllers = upControllers;
   Memory.roadRepairers = roadRepairers;

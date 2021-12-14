@@ -104,8 +104,8 @@ function runRoles() {
         buildRoad(creep);
       }
       roadBuilder.push(name);
+    } else if (roll === "roadRepairer") {
       if (creep.memory.direction.startsWith("s")) {
-      } else if (roll === "roadRepairer") {
         roadRepairers.push(name);
         roleRepairer.run(creep, Memory.homeRoomName, null, null);
       } else if (creep.memory.direction.startsWith("n")) {

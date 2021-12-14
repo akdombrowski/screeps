@@ -3,6 +3,7 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const build = require("./action.build");
 const findRepairable = require("./action.findRepairableStruct");
+const { findFixables } = require("./findFixables");
 
 var roleRepairer = {
   /** @param {Creep} creep **/
@@ -53,6 +54,14 @@ var roleRepairer = {
 
     if (mem_repair) {
       let struct;
+      if (creep.memory.direction.startsWith("s")) {
+        Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
+      } else if (creep.memory.direction.startsWith("n")) {
+        Memory.e59s47fixables = findFixables(Game.rooms[Memory.northRoomName]);
+      } else {
+        Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
+      }
+
       // will be null if lastRepairableStructId is null
       let target = Game.getObjectById(lastRepairableStructId);
       let targetObj;

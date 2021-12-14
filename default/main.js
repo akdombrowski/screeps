@@ -43,11 +43,6 @@ module.exports.loop = function () {
     Memory.nattackDurationSafeCheck = 1000;
 
     // towersAttackInvader(invader, towers);
-    if (Game.time % 10 === 0) {
-      Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
-
-      Memory.e59s47fixables = findFixables(Game.rooms[Memory.northRoomName]);
-    }
 
     checkForAttackers();
 

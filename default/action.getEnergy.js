@@ -102,9 +102,17 @@ function vest(
     if (creep.memory.lastSourceId) {
       lastSourceId = creep.memory.lastSourceId;
       target = Game.getObjectById(creep.memory.lastSourceId);
-    } else {
-      let sources = Game.rooms[targetedRmName].find(FIND_SOURCES_ACTIVE);
 
+      if (target && target.pos.findInRange(FIND_CREEPS, 3).length > 5) {
+        creep.memory.lastSourceId = null;
+        target = null;
+      }
+    }
+
+    if (!target) {
+      let sources = Game.rooms[targetedRmName].find(FIND_SOURCES_ACTIVE);
+      console.log();
+      console.log(name + " getEnergy target " + target);
       target = chooseSource(creep, sources);
     }
 
@@ -122,13 +130,15 @@ function vest(
     }
   }
 
-  if (lastSourceId) {
+  if (creep.memory.lastSourceId) {
     target = Game.getObjectById(creep.memory.lastSourceId);
 
     if (target && target.energy <= 0) {
       target = null;
       creep.memory.lastSourceId = null;
       creep.memory.path = null;
+    } else if (target && target.pos.findInRange(FIND_CREEPS, 3).length > 5) {
+      target = null;
     }
   }
 
@@ -146,10 +156,20 @@ function vest(
 
   // target = target || Game.getObjectById(lastSourceId);
   let sources;
-  if (!target && creep.room.name === Memory.homeRoomName) {
+  if (
+    !target &&
+    creep.room.name === Memory.homeRoomName &&
+    sourceRmTargetedName === Memory.homeRoomName
+  ) {
     if (creep.memory.lastSourceId) {
       target = Game.getObjectById(creep.memory.lastSourceId);
-    } else {
+      if (target && target.pos.findInRange(FIND_CREEPS, 3).length > 8) {
+        creep.say("too busy");
+        target = null;
+      }
+    }
+
+    if (!target) {
       let source1 = Game.getObjectById("59bbc5d22052a716c3cea136");
       let source2 = Game.getObjectById("59bbc5d22052a716c3cea135");
       sources = [source1, source2];
@@ -157,7 +177,6 @@ function vest(
       let randInt = getRandomInt(2);
 
       // target = Game.getObjectById(sources[randInt]);
-
       target = chooseSource(creep, sources);
 
       if (target) {

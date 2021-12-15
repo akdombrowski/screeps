@@ -43,17 +43,6 @@ function runRoles() {
       continue;
     }
 
-    if (!roll && name.startsWith("harv")) {
-      creep.memory.role = "h";
-      roll = "h";
-    } else if (name.startsWith("upC")) {
-      creep.memory.role = "upC";
-      roll = "upC";
-    } else if (name.startsWith("rB")) {
-      creep.memory.role = "roadBuilder";
-      roll = "roadBuilder";
-    }
-
     if (roll === "h" || roll === "harvester" || roll.startsWith("h")) {
       if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
         creep.memory.getEnergy = true;

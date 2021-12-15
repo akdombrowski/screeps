@@ -308,7 +308,7 @@ function spawnCreepTypes(enAvail, spawns) {
       // when north controller is controlled change this to upControllersN
       name = "upCN" + t;
       chosenRole = "upCN";
-      upControllers.push(name);
+      upControllersE59S47.push(name);
       direction = "north";
       parts = upContrParts;
       group = "upControllersN";

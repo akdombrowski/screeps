@@ -297,7 +297,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 3) {
+    if (harvesters.length < 4) {
       harvesters.push(name);
       parts = simpleParts;
       retval = birthCreep(
@@ -526,7 +526,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 4) {
+    if (harvesters.length < 6) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";
@@ -593,7 +593,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 5) {
+    if (harvesters.length < 6) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";

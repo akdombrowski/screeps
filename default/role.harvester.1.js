@@ -17,11 +17,12 @@ const roleHarvester = {
     const northRmName = Memory.northRoomName;
     let retval = -16;
 
-    if (creep.store.getFreeCapacity() <= 0) {
+    if (creep.store.getFreeCapacity() <= 0 || creep.memory.transfer) {
       retval = ERR_FULL;
       creep.memory.getEnergy = false;
+      creep.memory.transfer = true;
       if (creep.memory.role.startsWith("h")) {
-        retval = transferEnergy(creep);
+        retval = transferEnergy(creep, null, null, Memory.homeRoomName, Game.flags.northEntrance, BOTTOM);
       }
       return retval;
     }

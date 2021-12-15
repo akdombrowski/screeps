@@ -5,7 +5,7 @@ const tranee = require("./action.transferEnergyEEast");
 const tranW = require("./action.transferEnergyW");
 const transEnTower = require("./action.transEnTower");
 
-function tran(creep, flag, dest) {
+function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   let targetId = creep.memory.transferTargetId;
   let target = Game.getObjectById(targetId);
   let rm = creep.room;
@@ -39,27 +39,57 @@ function tran(creep, flag, dest) {
     return -19;
   }
 
-  if (rmName !== "E59S48" && !creep.pos.isNearTo(Game.flags.northEntrance)) {
-    retval = smartMove(
-      creep,
-      Game.flags.northEntrance.pos,
-      1,
-      true,
-      null,
-      10,
-      500,
-      8
-    );
+  if (rmName != targetRoomName) {
+    if (creep.pos.isNearTo(exit)) {
+      retval = creep.move(exitDirection);
+    } else {
+      retval = smartMove(
+        creep,
+        exit,
+        1,
+        true,
+        null,
+        null,
+        null,
+        1,
+        false,
+        null
+      );
+    }
+
     return retval;
   }
 
-  if (pos.y >= 48 || pos.y <= 1) {
-    retval = creep.move(BOTTOM);
-    return retval;
-  }
+  // if (
+  //   rmName !== targetRoomName &&
+  //   !creep.pos.isNearTo(Game.flags.northEntrance)
+  // ) {
+  //   retval = smartMove(
+  //     creep,
+  //     Game.flags.northEntrance.pos,
+  //     1,
+  //     true,
+  //     null,
+  //     10,
+  //     100,
+  //     1,
+  //     false,
+  //     null
+  //   );
+  //   return retval;
+  // }
+
+  // if (
+  //   creep.pos.isNearTo(Game.flags.northEntrance) ||
+  //   pos.y >= 48 ||
+  //   pos.y <= 1
+  // ) {
+  //   retval = creep.move(BOTTOM);
+  //   return retval;
+  // }
 
   if (creep.memory.role === "h" || creep.memory.role === "harvester") {
-    if (flag) {
+    if (flag && flag.pos) {
       target = flag.pos.lookFor(LOOK_STRUCTURES).pop();
     } else if (creep.memory.flag) {
       target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
@@ -240,12 +270,12 @@ function tran(creep, flag, dest) {
       creep.memory.path = null;
       creep.say("t");
       return retval;
-    } else if (retval = ERR_FULL) {
+    } else if ((retval = ERR_FULL)) {
       creep.memory.transferTargetId = null;
       creep.memory.path = null;
       creep.say("full");
       return retval;
-    }else {
+    } else {
       creep.say("ouch");
       return creep.move(BOTTOM);
     }
@@ -256,10 +286,10 @@ function tran(creep, flag, dest) {
     creep.memory.transferTargetId = target.id;
 
     retval = smartMove(creep, target, 1);
-
     if (creep.pos.isNearTo(target)) {
       return -17;
     }
+
 
     if (retval !== OK) {
       creep.memory.path = null;

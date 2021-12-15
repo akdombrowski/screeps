@@ -350,7 +350,7 @@ function vest(
         creep.memory.lastSourceId = target.id;
         creep.say(target.pos.x + "," + target.pos.y);
       } else {
-        console.log("getEnergy crap " + retval);
+        console.log(name + " getEnergy smartmove crap " + retval + " target " + target);
 
         creep.say("crap");
       }

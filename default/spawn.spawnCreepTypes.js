@@ -250,6 +250,13 @@ function spawnCreepTypes(enAvail, spawns) {
   const timeDigitsSlice = 2;
   const t = Game.time.toString().slice(timeDigitsSlice);
 
+  //     #     #######  #######     #      #####   #    #
+  //    # #       #        #       # #    #     #  #   #
+  //   #   #      #        #      #   #   #        #  #
+  //  #     #     #        #     #     #  #        ###
+  //  #######     #        #     #######  #        #  #
+  //  #     #     #        #     #     #  #     #  #   #
+  //  #     #     #        #     #     #   #####   #    #
   if (enAvail >= 500 && Memory.AttackerId) {
     let name = "att" + t;
     let chosenRole = "attacker";
@@ -270,7 +277,16 @@ function spawnCreepTypes(enAvail, spawns) {
       spawnDirection,
       group
     );
-  } else if (enAvail >= 500 && attackers.length < 2 && Memory.nAttackerId) {
+  }
+
+  //     #     #######  #######     #      #####   #    #
+  //    # #       #        #       # #    #     #  #   #
+  //   #   #      #        #      #   #   #        #  #
+  //  #     #     #        #     #     #  #        ###
+  //  #######     #        #     #######  #        #  #
+  //  #     #     #        #     #     #  #     #  #   #
+  //  #     #     #        #     #     #   #####   #    #
+  if (enAvail >= 500 && attackers.length < 2 && Memory.nAttackerId) {
     let name = "att" + t;
     let chosenRole = "attacker";
     let direction = "north";
@@ -290,7 +306,16 @@ function spawnCreepTypes(enAvail, spawns) {
       spawnDirection,
       group
     );
-  } else if (enAvail >= 300 && !invaderId) {
+  }
+
+  //   #####     ###      ###
+  //  #     #   #   #    #   #
+  //        #  #     #  #     #
+  //   #####   #     #  #     #
+  //        #  #     #  #     #
+  //  #     #   #   #    #   #
+  //   #####     ###      ###
+  if (enAvail >= 300 && !invaderId) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
@@ -372,6 +397,13 @@ function spawnCreepTypes(enAvail, spawns) {
     }
   }
 
+  //   #####   #######    ###
+  //  #     #  #         #   #
+  //        #  #        #     #
+  //   #####   ######   #     #
+  //        #        #  #     #
+  //  #     #  #     #   #   #
+  //   #####    #####     ###
   if (enAvail >= 350 && !invaderId) {
     let name = "h" + t;
     let chosenRole = "h";
@@ -403,6 +435,13 @@ function spawnCreepTypes(enAvail, spawns) {
     }
   }
 
+  //     #     #######  #######     #      #####   #    #
+  //    # #       #        #       # #    #     #  #   #
+  //   #   #      #        #      #   #   #        #  #
+  //  #     #     #        #     #     #  #        ###
+  //  #######     #        #     #######  #        #  #
+  //  #     #     #        #     #     #  #     #  #   #
+  //  #     #     #        #     #     #   #####   #    #
   if (enAvail >= 500) {
     let name = "att" + t;
     let chosenRole = "a";
@@ -483,6 +522,13 @@ function spawnCreepTypes(enAvail, spawns) {
   //   }
   // }
 
+  //   #####   #           #     ###  #     #
+  //  #     #  #          # #     #   ##   ##
+  //  #        #         #   #    #   # # # #
+  //  #        #        #     #   #   #  #  #
+  //  #        #        #######   #   #     #
+  //  #     #  #        #     #   #   #     #
+  //   #####   #######  #     #  ###  #     #
   let northController = Game.getObjectById("59bbc5d22052a716c3cea133");
   if (enAvail >= 650 && !invaderId && northController && !northController.my) {
     let name = "h" + t;
@@ -519,6 +565,13 @@ function spawnCreepTypes(enAvail, spawns) {
     }
   }
 
+  //  #######  #######    ###
+  //  #        #         #   #
+  //  #        #        #     #
+  //  ######   ######   #     #
+  //        #        #  #     #
+  //  #     #  #     #   #   #
+  //   #####    #####     ###
   if (enAvail >= 550 && !invaderId) {
     let name = "h" + t;
     let chosenRole = "h";

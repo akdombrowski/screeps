@@ -743,9 +743,26 @@ function spawnCreepTypes(enAvail, spawns) {
       name = "upC" + t;
       upControllers.push(name);
       chosenRole = "upC";
-      direction = "south";
+      direction = "s";
       group = "upControllers";
       parts = upContrParts800;
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else {
+      parts = workerParts800;
+      name = "rR" + t;
+      roadRepairers.push(name);
+      chosenRole = "roadRepairer";
+      direction = "s";
+      group = "roadRepairers";
       retval = birthCreep(
         spawns,
         parts,

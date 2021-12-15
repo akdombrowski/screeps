@@ -4,6 +4,7 @@ const smartMove = require("./action.smartMove");
 const build = require("./action.build");
 const findRepairable = require("./action.findRepairableStruct");
 const { findFixables } = require("./findFixables");
+const { checkIfBlockingSource } = require("./checkIfBlockingSource");
 
 var roleRepairer = {
   /** @param {Creep} creep **/
@@ -120,6 +121,8 @@ var roleRepairer = {
       if (target) {
         creep.memory.lastRepairableStructId = target.id;
         if (creep.pos.inRangeTo(target, 3)) {
+          checkIfBlockingSource(creep, 1);
+
           retval = creep.repair(target);
           creep.memory.path = null;
 

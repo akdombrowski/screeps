@@ -116,7 +116,6 @@ function vest(
 
     if (!target) {
       let sources = Game.rooms[targetedRmName].find(FIND_SOURCES_ACTIVE);
-      console.log(name + " getEnergy target " + target);
       target = chooseSource(creep, sources);
     }
 

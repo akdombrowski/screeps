@@ -614,7 +614,6 @@ function spawnCreepTypes(enAvail, spawns) {
   }
 
   if (enAvail >= 800 && !invaderId) {
-    console.log("Greater than 800 " + enAvail)
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "north";

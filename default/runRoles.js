@@ -24,6 +24,7 @@ function runRoles() {
   let harvestersE59S47 = [];
   let workers = [];
   let upControllers = [];
+  let upControllersE59S47 = [];
   let roadRepairers = [];
   let roadRepairersE59S47 = [];
   let roadBuilders = [];
@@ -151,15 +152,27 @@ function runRoles() {
       }
       upControllers.push(name);
 
-      creep.memory.controllerID = "59bbc5d22052a716c3cea133";
-      upController(
-        creep,
-        Game.flags.northController,
-        Memory.northRoomName,
-        Game.flags.northExit,
-        TOP,
-        "59bbc5d22052a716c3cea133"
-      );
+      if (creep.memory.direction === "north") {
+        creep.memory.controllerID = "59bbc5d22052a716c3cea133";
+        upController(
+          creep,
+          Game.flags.northController,
+          Memory.northRoomName,
+          Game.flags.northExit,
+          TOP,
+          "59bbc5d22052a716c3cea133"
+        );
+      } else {
+        creep.memory.controllerID = "59bbc5d22052a716c3cea133";
+        upController(
+          creep,
+          Game.flags.northController,
+          Memory.northRoomName,
+          Game.flags.northExit,
+          TOP,
+          "59bbc5d22052a716c3cea133"
+        );
+      }
     } else if (roll === "worker" || roll === "w") {
       workers.push(name);
 
@@ -170,12 +183,12 @@ function runRoles() {
       roleController.run(creep);
     } else if (roll === "upgrader") {
       roleUpgrader.run(creep);
-    } else if (roll === "c" || name.startsWith("c")) {
+    } else if (roll === "c" || roll === "claimer") {
       claimers.push(name);
       roll = "c";
       claim(
         creep,
-        "E59S47",
+        Memory.northRoomName,
         Game.flags.northExit,
         TOP,
         "",
@@ -219,6 +232,7 @@ function runRoles() {
   Memory.harvestersE59S47 = harvestersE59S47;
   Memory.workers = workers;
   Memory.upControllers = upControllers;
+  Memory.upControllersE59S47 = upControllersE59S47;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersE59S47 = roadRepairersE59S47;
   Memory.roadBuilders = roadBuilders;

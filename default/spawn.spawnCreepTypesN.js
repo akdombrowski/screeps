@@ -56,15 +56,15 @@ function spawnCreepTypes(enAvail) {
   let nworkers = Memory.nworkers || [];
 
   let harvesters = Memory.harvesters || [];
+  let harvestersE59S47 = Memory.harvestersE59S47 || [];
   let upControllers = Memory.upControllers || [];
+  let upControllersE59S47 = Memory.upControllersE59S47 || [];
   let roadRepairers = Memory.roadRepairers || [];
-  let roadRepairersN = Memory.roadRepairersN || [];
-  let harvestersN = Memory.harvestersN || [];
+  let roadRepairersE59S47 = Memory.roadRepairersE59S47 || [];
   let westHarvesters = Memory.westHarvesters || [];
 
   let eastHarvesters = Memory.eastHarvesters || [];
-  let upControllersN = Memory.eastUpControllers || [];
-  let towerHarvestersN = Memory.towerHarvestersN || [];
+  let towerharvestersE59S47 = Memory.towerharvestersE59S47 || [];
   let eeUps = Memory.eeUps || [];
 
   let claimers = Memory.claimers || [];
@@ -79,7 +79,7 @@ function spawnCreepTypes(enAvail) {
   let s2 = Game.spawns.spawnN;
 
   let attackers = Memory.attackers || [];
-  let attackersN = Memory.eattackers || [];
+  let attackersE59S47 = Memory.attackersE59S47 || [];
 
   // 300
   let upContrParts = [];
@@ -122,6 +122,11 @@ function spawnCreepTypes(enAvail) {
   addPart(medsouthHvParts, 6, WORK);
   addPart(medsouthHvParts, 3, MOVE);
 
+  // 800
+  let attackerMedParts = [];
+  addPart(attackerMedParts, 8, ATTACK);
+  addPart(attackerMedParts, 3, MOVE);
+
   // 1000
   let mednewhvParts = [];
   addPart(mednewhvParts, 5, CARRY);
@@ -151,11 +156,6 @@ function spawnCreepTypes(enAvail) {
   addPart(southHvParts, 1, CARRY);
   addPart(southHvParts, 9, WORK);
   addPart(southHvParts, 3, MOVE);
-
-  // 800
-  let attackerMedParts = [];
-  addPart(attackerMedParts, 8, ATTACK);
-  addPart(attackerMedParts, 3, MOVE);
 
   // 1100
   let newhvParts = [];
@@ -203,24 +203,24 @@ function spawnCreepTypes(enAvail) {
     let birth = false;
     let buildRoom = "";
 
-    if (harvestersN.length < 1) {
-      harvestersN.push(name);
+    if (harvestersE59S47.length < 1) {
+      harvestersE59S47.push(name);
       parts = basicHv;
       sourceDir = "north";
       birth = true;
-    } else if (upControllersN.length < 1) {
+    } else if (upControllersE59S47.length < 1) {
       chosenRole = "upCN";
       name = chosenRole + t;
       direction = "n";
       parts = simpleParts;
-      upControllersN.push(name);
+      upControllersE59S47.push(name);
       birth = true;
-    } else if (attackersN.length < 1 && nAttackerId) {
+    } else if (attackersE59S47.length < 1 && nAttackerId) {
       console.log(
         "nattacker " +
           Memory.nAttackerId +
           " " +
-          attackersN.length +
+          attackersE59S47.length +
           " " +
           enAvail
       );
@@ -229,7 +229,7 @@ function spawnCreepTypes(enAvail) {
       chosenRole = "attacker";
       direction = "n";
       birth = true;
-      attackersN.push(name);
+      attackersE59S47.push(name);
     }
 
     if (birth) {
@@ -265,8 +265,8 @@ function spawnCreepTypes(enAvail) {
     let birth = false;
     let buildRoom = "";
 
-    if (harvestersN.length < 2 && !nAttackerId) {
-      harvestersN.push(name);
+    if (harvestersE59S47.length < 2 && !nAttackerId) {
+      harvestersE59S47.push(name);
       name = "h" + t + "N";
       sourceDir = "north2";
       birth = true;
@@ -305,31 +305,31 @@ function spawnCreepTypes(enAvail) {
   //   let birth = false;
   //   let buildRoom = "E35N32";
 
-  //   if (attackersN.length < 2 && nAttackerId) {
+  //   if (attackersE59S47.length < 2 && nAttackerId) {
   //     parts = attackerMedParts;
   //     name = "Natt" + t;
   //     chosenRole = "attackerN";
   //     direction = "n";
-  //     attackersN.push(name);
+  //     attackersE59S47.push(name);
   //     birth = true;
-  //   } else if (towerHarvestersN.length < 2) {
+  //   } else if (towerharvestersE59S47.length < 2) {
   //     chosenRole = "ntowerHarvester";
   //     name = chosenRole + t;
-  //     towerHarvestersN.push(name);
+  //     towerharvestersE59S47.push(name);
   //     harvesters.push(name);
   //     parts = mednewhvParts;
   //     sourceDir = "north";
   //     birth = true;
-  //   } else if (harvestersN.length < 3 && !nAttackerId) {
-  //     harvestersN.push(name);
+  //   } else if (harvestersE59S47.length < 3 && !nAttackerId) {
+  //     harvestersE59S47.push(name);
   //     name = "h" + t + "N";
   //     parts = mednewhvParts;
   //     sourceDir = "north1";
   //     birth = true;
-  //   } else if (towerHarvestersN.length < 3) {
+  //   } else if (towerharvestersE59S47.length < 3) {
   //     chosenRole = "ntowerHarvester";
   //     name = chosenRole + t;
-  //     towerHarvestersN.push(name);
+  //     towerharvestersE59S47.push(name);
   //     harvesters.push(name);
   //     parts = mednewhvParts;
   //     sourceDir = "north";
@@ -341,14 +341,14 @@ function spawnCreepTypes(enAvail) {
   //     name = chosenRole + t;
   //     parts = medworkerParts;
   //     birth = true;
-  //   } else if (harvestersN.length < 5 && !nAttackerId) {
-  //     harvestersN.push(name);
+  //   } else if (harvestersE59S47.length < 5 && !nAttackerId) {
+  //     harvestersE59S47.push(name);
   //     name = "h" + t + "N";
   //     parts = mednewhvParts;
   //     sourceDir = "north1";
   //     birth = true;
   //   } else if (nworkers.length < 4) {
-  //     upControllersN.push(name);
+  //     upControllersE59S47.push(name);
   //     chosenRole = "upCN";
   //     buildRoom = "E35N32";
   //     name = chosenRole + t;
@@ -388,30 +388,30 @@ function spawnCreepTypes(enAvail) {
     let sourceDir = "";
     let buildRoom = "E36N32";
 
-    if (attackersN.length < 3 && Memory.nAttackerId) {
+    if (attackersE59S47.length < 3 && Memory.nAttackerId) {
       parts = attackerBigParts;
       name = "Natt" + t;
       chosenRole = "attackerN";
       direction = "n";
-      attackersN.push(name);
+      attackersE59S47.push(name);
       birth = true;
-    } else if (towerHarvestersN.length < 3) {
+    } else if (towerharvestersE59S47.length < 3) {
       chosenRole = "ntowerHarvester";
       name = chosenRole + t;
-      towerHarvestersN.push(name);
+      towerharvestersE59S47.push(name);
       harvesters.push(name);
       parts = newhvParts;
       sourceDir = "north";
       birth = true;
-    } else if (harvestersN.length < 6) {
-      harvestersN.push(name);
+    } else if (harvestersE59S47.length < 6) {
+      harvestersE59S47.push(name);
       parts = newhvParts;
       sourceDir = "north";
-    } else if (upControllersN.length < 1) {
+    } else if (upControllersE59S47.length < 1) {
       chosenRole = "upCN";
       name = chosenRole + t;
       parts = workerParts;
-      upControllersN.push(name);
+      upControllersE59S47.push(name);
     } else if (nworkers.length < 3) {
       chosenRole = "nBuilder";
       name = chosenRole + t;
@@ -437,23 +437,23 @@ function spawnCreepTypes(enAvail) {
   }
 
   Memory.harvesters = harvesters;
+  Memory.harvestersE59S47 = harvestersE59S47;
   Memory.nworkers = nworkers;
   Memory.eworkers = eworkers;
   Memory.neworkers = neworkers;
   Memory.upControllers = upControllers;
-  Memory.upControllersN = upControllersN;
+  Memory.upControllersE59S47 = upControllersE59S47;
   Memory.roadRepairers = roadRepairers;
-  Memory.roadRepairersN = roadRepairersN;
+  Memory.roadRepairersE59S47 = roadRepairersE59S47;
   Memory.attackers = attackers;
+  Memory.attackersE59S47 = attackersE59S47;
   Memory.claimers = claimers;
   Memory.westHarvesters = westHarvesters;
   Memory.linkGets = linkGets;
 
-  Memory.attackersN = attackersN;
+  Memory.attackersE59S47 = attackersE59S47;
   Memory.eastHarvesters = eastHarvesters;
-  Memory.ermHarvesters = harvestersN;
-  Memory.harvestersN = harvestersN;
-  Memory.towerHarvestersN = towerHarvestersN;
+  Memory.towerharvestersE59S47 = towerharvestersE59S47;
 }
 
 module.exports = spawnCreepTypes;

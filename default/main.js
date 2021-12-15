@@ -61,7 +61,7 @@ module.exports.loop = function () {
     }
 
     if (Game.cpu.bucket > 25) {
-      spawnCreepTypes(enAvail);
+      spawnCreepTypes(enAvail, [Game.spawns.Spawn1]);
 
       // spawnToSource1Chain();
     } else {

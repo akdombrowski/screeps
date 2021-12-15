@@ -41,7 +41,7 @@ function birthCreep(
     }
 
     if (retval === OK) {
-      console.log("spawn1ed." + name);
+      console.log("spawn1ed." + name + " " + chosenRole + " " + group + " " + spawnDirection);
       return retval;
     }
   }

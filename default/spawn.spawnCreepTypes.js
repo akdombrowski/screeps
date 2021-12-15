@@ -1,10 +1,12 @@
 const spawnBackupCreeps = require("./spawnBackupCreeps");
+const profiler = require("./screeps-profiler");
 
 function addPart(arr, count, part) {
   for (let i = 0; i < count; i++) {
     arr.push(part);
   }
 }
+addPart = profiler.registerFN(addPart, "addPart");
 
 function birthCreep(
   spawns,
@@ -71,6 +73,7 @@ function birthCreep(
   }
   return retval;
 }
+birthCreep = profiler.registerFN(birthCreep, "birthCreep");
 
 function spawnCreepTypes(enAvail, spawns) {
   let linkGets = Memory.linkGets || [];
@@ -1143,5 +1146,6 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.linkGets = linkGets;
   Memory.towerHarvesters = towerHarvesters;
 }
+spawnCreepTypes = profiler.registerFN(spawnCreepTypes, "spawnCreepTypes");
 
 module.exports = spawnCreepTypes;

@@ -5,6 +5,7 @@ const build = require("./action.build");
 const findRepairable = require("./action.findRepairableStruct");
 const { findFixables } = require("./findFixables");
 const { checkIfBlockingSource } = require("./checkIfBlockingSource");
+const profiler = require("./screeps-profiler");
 
 var roleRepairer = {
   /** @param {Creep} creep **/

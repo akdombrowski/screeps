@@ -16,6 +16,7 @@ const roleAttackerNWW = require("./role.attackerNWW");
 const roleAttackerNE = require("./role.attackerNE");
 const buildRoad = require("./action.buildRoad");
 const roleReserver = require("./role.reserver");
+const profiler = require("./screeps-profiler");
 
 function runRoles() {
   let i = 0;
@@ -56,17 +57,17 @@ function runRoles() {
         harvesters.push(name);
       }
 
-      roleHarvester.run(creep);
+      roleHarvester(creep);
     } else if (roll === "hN" || roll === "harvesterN") {
       if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
         creep.memory.getEnergy = true;
       }
 
       harvestersE59S47.push(name);
-      roleHarvester.run(creep);
+      roleHarvester(creep);
     } else if (roll === "reserver") {
       reservers.push(name);
-      roleReserver.run(
+      roleReserver(
         creep,
         Memory.northRoomName,
         Game.flags.northExit,
@@ -232,4 +233,5 @@ function runRoles() {
   Memory.towerHarvesters = towerHarvesters;
 }
 
+runRoles = profiler.registerFN(runRoles, "runRoles");
 module.exports = runRoles;

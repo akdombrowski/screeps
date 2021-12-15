@@ -39,6 +39,63 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     return -19;
   }
 
+  switch (rm) {
+    case Memory.homeRoomName:
+      if (!Memory.extsInCurrentRoomE59S48) {
+        const extsInCurrentRoom = rm.find(FIND_MY_STRUCTURES, {
+          filter: {
+            function(struct) {
+              if (
+                struct.structureType === STRUCTURE_EXTENSION &&
+                struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+              ) {
+                return struct;
+              }
+            },
+          },
+        });
+
+        Memory.extsInCurrentRoomE59S48 = extsInCurrentRoom;
+      }
+      break;
+    case Memory.northRoomName:
+      if (!Memory.extsInCurrentRoomE59S47) {
+        const extsInCurrentRoom = rm.find(FIND_MY_STRUCTURES, {
+          filter: {
+            function(struct) {
+              if (
+                struct.structureType === STRUCTURE_EXTENSION &&
+                struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+              ) {
+                return struct;
+              }
+            },
+          },
+        });
+
+        Memory.extsInCurrentRoomE59S47 = extsInCurrentRoom;
+      }
+      break;
+    default:
+      if (!Memory.extsInCurrentRoomE59S48) {
+        const extsInCurrentRoom = rm.find(FIND_MY_STRUCTURES, {
+          filter: {
+            function(struct) {
+              if (
+                struct.structureType === STRUCTURE_EXTENSION &&
+                struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+              ) {
+                return struct;
+              }
+            },
+          },
+        });
+
+        Memory.extsInCurrentRoomE59S48 = extsInCurrentRoom;
+      }
+      break;
+  }
+
   if (rmName != targetRoomName) {
     if (creep.pos.isNearTo(exit)) {
       retval = creep.move(exitDirection);
@@ -289,7 +346,6 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     if (creep.pos.isNearTo(target)) {
       return -17;
     }
-
 
     if (retval !== OK) {
       creep.memory.path = null;

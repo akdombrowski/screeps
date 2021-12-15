@@ -58,6 +58,8 @@ function birthCreep(
             " " +
             group +
             " " +
+            direction +
+            " " +
             spawnDirection
         );
         return retval;

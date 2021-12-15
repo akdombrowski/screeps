@@ -584,7 +584,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 6) {
+    if (harvesters.length < 4) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";
@@ -651,7 +651,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 6) {
+    if (harvesters.length < 5) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";
@@ -666,7 +666,7 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S47.length < 8) {
+    } else if (harvestersE59S47.length < 10) {
       name = "hN" + t;
       harvestersE59S47.push(name);
       chosenRole = "h";

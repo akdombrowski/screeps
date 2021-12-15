@@ -4,7 +4,7 @@ const smartMove = require("./action.smartMove");
 
 function upController(
   creep,
-  flag,
+  controllerFlag,
   targetRoomName,
   exit,
   exitDirection,
@@ -36,7 +36,7 @@ function upController(
   } else if (creep.store[RESOURCE_ENERGY] <= 0 || creep.memory.getEnergy) {
     creep.memory.up = false;
     creep.memory.getEnergy = true;
-    retval = getEnergy(creep, targetRoomName);
+    retval = getEnergy(creep, targetRoomName, targetRoomName, null, Game.flags.northExit, TOP, targetRoomName);
     return retval;
   }
 
@@ -45,18 +45,15 @@ function upController(
   }
 
   let target;
-  if (flag) {
-    target = flag;
+  if (controllerFlag) {
+    target = creep.room.lookForAt(LOOK_STRUCTURES, controllerFlag).pop();
   } else if (creep.memory.controllerID) {
-    target = creep.room.lookForAt(
-      LOOK_STRUCTURES,
-      Game.getObjectById(creep.memory.controllerID)
-    );
+    target = creep.room
+      .lookForAt(LOOK_STRUCTURES, Game.getObjectById(creep.memory.controllerID))
+      .pop();
   } else if (creep.memory.flag) {
     target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
   }
-
-  target = Game.getObjectById("59bbc5d22052a716c3cea137");
 
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
@@ -68,17 +65,7 @@ function upController(
   }
 
   if (creep.memory.up) {
-    if (creep.room.name !== "E59S48") {
-      smartMove(
-        creep,
-        Game.getObjectById("59bbc5d22052a716c3cea137"),
-        3,
-        true,
-        "#290199",
-        null,
-        10000
-      );
-    } else if (creep.pos.inRangeTo(target, 3)) {
+    if (creep.pos.inRangeTo(target, 3)) {
       retval = creep.upgradeController(target);
       if (retval == OK) {
         creep.say("uc");

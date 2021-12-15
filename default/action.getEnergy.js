@@ -103,6 +103,11 @@ function vest(
       lastSourceId = creep.memory.lastSourceId;
       target = Game.getObjectById(creep.memory.lastSourceId);
 
+      if(target && target.room.name != targetedRmName) {
+        target = null
+        creep.memory.lastSourceId = null;
+      }
+
       if (target && target.pos.findInRange(FIND_CREEPS, 3).length > 5) {
         creep.memory.lastSourceId = null;
         target = null;

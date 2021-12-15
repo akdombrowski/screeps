@@ -120,7 +120,7 @@ function runRoles() {
       if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
         creep.memory.up = true;
       }
-      upControllersE59S47.push(name);
+      upControllers.push(name);
 
       upController(
         creep,

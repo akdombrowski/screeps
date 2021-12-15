@@ -111,7 +111,6 @@ var roleRepairer = {
 
       if (!target) {
         target = findRepairable(creep);
-        console.log(name + " target " + target);
       }
 
       if (target && target.hits >= target.hitsMax) {

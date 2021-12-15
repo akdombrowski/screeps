@@ -42,11 +42,7 @@ function claimContr(
     }
   } else if (creep.room.name == "E36N31") {
     smartMove(creep, Game.flags.eeEntrance1, 2);
-  } else if (
-    creep.room.name === targetRoomName &&
-    creep.pos.x < Game.flags.eeEntrance1.pos.x
-  ) {
-    smartMove(creep, Game.flags.eeEntrance1, 0);
+
   } else if (creep.room.name === targetRoomName) {
     let contr = Game.getObjectById(controllerID);
     if (creep.pos.inRangeTo(contr, 1)) {
@@ -70,7 +66,7 @@ function claimContr(
 module.exports = claimContr;
 function claimControlla(creep, nContr) {
   if (creep.pos.isNearTo(nContr)) {
-    retval = creep.claim(nContr);
+    retval = creep.claimController(nContr);
   } else {
     retval = smartMove(creep, nContr, 1, true, null, null, null, 1);
   }

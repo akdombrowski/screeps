@@ -31,7 +31,6 @@ var roleRepairer = {
       creep.memory.build = false;
       creep.memory.repair = mem_repair;
       creep.memory.getEnergy = false;
-      creep.say("r");
     } else if (
       !mem_repair &&
       (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] <= 0)
@@ -44,6 +43,13 @@ var roleRepairer = {
       retval = getEnergy(creep, targetRoomName);
 
       return retval;
+    } else if (creep.store[RESOURCE_ENERGY] <= 0) {
+      creep.memory.build = false;
+      creep.memory.repair = false;
+      creep.memory.getEnergy = true;
+      retval = getEnergy(creep);
+
+      return retval;
     }
 
     if (creep.memory.build) {
@@ -54,32 +60,39 @@ var roleRepairer = {
 
     if (mem_repair) {
       let struct;
-      Memory.lastSouthCheckFixables = Game.time;
-      if (creep.memory.direction.startsWith("s")) {
-        if (
-          !Memory.e59s48fixables ||
-          Memory.lastSouthCheckFixables - Game.time > 100
-        ) {
-          Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
-          Memory.lastSouthCheckFixables = Game.time;
-        }
-      } else if (creep.memory.direction.startsWith("n")) {
-        if (
-          !Memory.e59s47fixables ||
-          Memory.lastNorthCheckFixables - Game.time > 100
-        ) {
-          Memory.e59s47fixables = findFixables(
-            Game.rooms[Memory.northRoomName]
-          );
-          Memory.lastNorthCheckFixables = Game.time;
-        }
-      } else {
-        if (
-          !Memory.e59s48fixables ||
-          Memory.lastSouthCheckFixables - Game.time > 100
-        ) {
-          Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
-          Memory.lastSouthCheckFixables = Game.time;
+      if (!lastRepairableStructId) {
+        if (creep.memory.direction.startsWith("s")) {
+          if (
+            !Memory.e59s48fixables ||
+            Memory.e59s48fixables.length <= 0 ||
+            Memory.lastSouthCheckFixables - Game.time > 100
+          ) {
+            Memory.e59s48fixables = findFixables(
+              Game.rooms[Memory.homeRoomName]
+            );
+            Memory.lastSouthCheckFixables = Game.time;
+          }
+        } else if (creep.memory.direction.startsWith("n")) {
+          if (
+            !Memory.e59s47fixables ||
+            Memory.e59s47fixables.length <= 0 ||
+            Memory.lastNorthCheckFixables - Game.time > 100
+          ) {
+            Memory.e59s47fixables = findFixables(
+              Game.rooms[Memory.northRoomName]
+            );
+            Memory.lastNorthCheckFixables = Game.time;
+          }
+        } else {
+          if (
+            !Memory.e59s48fixables ||
+            Memory.lastSouthCheckFixables - Game.time > 100
+          ) {
+            Memory.e59s48fixables = findFixables(
+              Game.rooms[Memory.homeRoomName]
+            );
+            Memory.lastSouthCheckFixables = Game.time;
+          }
         }
       }
 
@@ -98,6 +111,7 @@ var roleRepairer = {
 
       if (!target) {
         target = findRepairable(creep);
+        console.log(name + " target " + target);
       }
 
       if (target && target.hits >= target.hitsMax) {
@@ -133,16 +147,12 @@ var roleRepairer = {
             creep.say(target.pos.x + "," + target.pos.y);
           }
         }
-      } else if (creep.store[RESOURCE_ENERGY] <= 0) {
-        creep.memory.repair = false;
-        creep.memory.getEnergy = true;
-        retval = getEnergy(creep);
-      } else {
-        creep.memory.build = true;
-        creep.memory.repair = false;
-        retval = build(creep);
-        creep.say("r.b");
       }
+    } else {
+      creep.memory.build = true;
+      creep.memory.repair = false;
+      retval = build(creep);
+      creep.say("r.b");
     }
 
     return retval;

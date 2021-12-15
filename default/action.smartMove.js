@@ -29,6 +29,7 @@ function smartMove(
   maxOps = maxOps || Math.floor(Math.random() * 500) + 1;
   maxRms = maxRms || 1;
   ignoreCreeps = ignoreCreeps || true;
+  flee = flee || false;
 
   if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
@@ -45,10 +46,13 @@ function smartMove(
     if (!(destPos instanceof RoomPosition)) {
       destPos = new RoomPosition(dest.pos.x, dest.pos.y, dest.room.name);
     }
-  } else if (flee) {
+  }
+
+
+  if (flee) {
     let ret = PathFinder.search(
       creep.pos,
-      { pos: new RoomPosition(25, 25, creep.room.name), range: 10 },
+      { pos: new RoomPosition(25, 25, creep.room.name), range: 20 },
       {
         flee: true,
         maxOps: maxOps,
@@ -57,7 +61,9 @@ function smartMove(
     );
     retval = creep.moveByPath(ret.path);
 
-    creep.say("aaaaahhhhh");
+    let px = ret.path.length > 0 ? ret.path[0].x : ""
+    let py = ret.path.length > 0 ? ret.path[0].y : ""
+    creep.say("ahh." + px + ",");
     return retval;
   }
 
@@ -85,7 +91,12 @@ function smartMove(
     path = creep.memory.path;
   }
 
-  if (path && path.length > 0 && path[0].x && !(path[0] instanceof RoomPosition)) {
+  if (
+    path &&
+    path.length > 0 &&
+    path[0].x &&
+    !(path[0] instanceof RoomPosition)
+  ) {
     path = path.map((p) => new RoomPosition(p.x, p.y, p.roomName));
   }
 

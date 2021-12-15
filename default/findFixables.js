@@ -35,6 +35,7 @@ function findFixables(room) {
     }
   });
 
+
   return fixables.map((f) => f.id);
 }
 exports.findFixables = findFixables;

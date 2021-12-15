@@ -62,7 +62,23 @@ var roleRepairer = {
 
     if (mem_repair) {
       let struct;
-      if (!lastRepairableStructId) {
+
+
+
+      // will be null if lastRepairableStructId is null
+      let target = Game.getObjectById(lastRepairableStructId);
+      let targetObj;
+      let targetType = creep.memory.targetType;
+
+      if (target && target.hits >= target.hitsMax) {
+        target = null;
+      }
+
+      if (target && target.room && target.room.name != creep.room.name) {
+        target = null;
+      }
+
+      if (!target) {
         if (creep.memory.direction.startsWith("s")) {
           if (
             !Memory.e59s48fixables ||
@@ -96,22 +112,7 @@ var roleRepairer = {
             Memory.lastSouthCheckFixables = Game.time;
           }
         }
-      }
 
-      // will be null if lastRepairableStructId is null
-      let target = Game.getObjectById(lastRepairableStructId);
-      let targetObj;
-      let targetType = creep.memory.targetType;
-
-      if (target && target.hits >= target.hitsMax) {
-        target = null;
-      }
-
-      if (target && target.room && target.room.name != creep.room.name) {
-        target = null;
-      }
-
-      if (!target) {
         target = findRepairable(creep);
       }
 

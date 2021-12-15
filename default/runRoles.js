@@ -139,7 +139,7 @@ function runRoles() {
       if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
         creep.memory.up = true;
       }
-      upControllers.push(name);
+      upControllersE59S47.push(name);
 
       if (creep.memory.direction === "north") {
         creep.memory.controllerID = "59bbc5d22052a716c3cea133";

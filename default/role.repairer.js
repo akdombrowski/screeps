@@ -143,12 +143,17 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
           creep.say(target.pos.x + "," + target.pos.y);
         }
       }
+    } else {
+      creep.memory.build = true;
+      creep.memory.repair = false;
+      retval = build(creep);
+      creep.say("b");
     }
   } else {
     creep.memory.build = true;
     creep.memory.repair = false;
     retval = build(creep);
-    creep.say("r.b");
+    creep.say("b");
   }
 
   return retval;

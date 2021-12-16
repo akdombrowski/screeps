@@ -170,11 +170,14 @@ function droppedDuty(creep) {
       if (droppedTarget) {
         if (creep.pos.isNearTo(droppedTarget)) {
           creep.say("pu");
-          // if(!droppedTarget.resourceType) {
-          //   droppedTarget = droppedTarget.pos.lookFor(LOOK_RESOURCES).pop();
-          // }
+          if(!droppedTarget.resourceType) {
+            droppedTarget = droppedTarget.pos.lookFor(LOOK_RESOURCES).pop();
+          }
 
           retval = creep.pickup(droppedTarget);
+          if (retval != OK) {
+            retval = creep.harvest(droppedTarget);
+          }
           return retval;
         } else {
           creep.say("m.pu");

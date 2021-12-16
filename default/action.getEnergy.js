@@ -104,8 +104,8 @@ function vest(
       lastSourceId = creep.memory.lastSourceId;
       target = Game.getObjectById(creep.memory.lastSourceId);
 
-      if(target && target.room.name != targetedRmName) {
-        target = null
+      if (target && target.room.name != targetedRmName) {
+        target = null;
         creep.memory.lastSourceId = null;
       }
 
@@ -211,8 +211,12 @@ function vest(
   // Do I need to pick up some dropped energy somewhere?
   retval = droppedDuty(creep);
   if (retval === OK) {
-    console.log(name + " droppedDuty OK");
     return retval;
+  } else if (retval === ERR_TIRED) {
+    creep.say("f." + creep.fatigue)
+    return retval;
+  }else if (retval != -16) {
+    console.log(name + " droppedCreep retval " + retval);
   }
 
   // See if there's a particular target from a previous trip
@@ -351,7 +355,9 @@ function vest(
         creep.memory.lastSourceId = target.id;
         creep.say(target.pos.x + "," + target.pos.y);
       } else {
-        console.log(name + " getEnergy smartmove crap " + retval + " target " + target);
+        console.log(
+          name + " getEnergy smartmove crap " + retval + " target " + target
+        );
 
         creep.say("crap");
       }

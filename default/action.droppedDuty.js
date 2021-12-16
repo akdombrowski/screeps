@@ -10,6 +10,147 @@ function droppedDuty(creep) {
   let tombstoneTarget = Game.getObjectById(Memory.tombstoneTargetId);
   let target;
 
+  let droppedResourcesHome = Memory.droppedResourcesHome;
+  let tombstonesHome = Memory.tombstonesHome;
+  let droppedResourcesNorth = Memory.droppedResourcesNorth;
+  let tombstonesNorth = Memory.tombstonesNorth;
+
+  // need to finish north side and then implement finding resource if creep is a pickerUpper
+  // if (cRm.name === Memory.homeRoomName) {
+  //   if (!droppedResourcesHome || droppedResourcesHome.length <= 0) {
+  //     Memory.droppedResourcesHome = cRm.find(FIND_DROPPED_RESOURCES);
+  //     droppedResourcesHome = Memory.droppedResourcesHome;
+  //   }
+
+  //   if (
+  //     (!droppedResourcesHome || droppedResourcesHome.length <= 0) &&
+  //     (!tombstonesHome || tombstonesHome.length <= 0)
+  //   ) {
+  //     cRm.find(FIND_TOMBSTONES);
+  //     Memory.tombstonesHome = tombstonesHome;
+  //   }
+
+  //   if (droppedResourcesHome) {
+  //     let resourcesPickerUppers = [];
+  //     for (const d in droppedResourcesHome) {
+  //       if (d.pos) {
+  //         resourcesPickerUppers.push({
+  //           [d.pos.findClosestByPath(FIND_MY_CREEPS, {
+  //             filter: function (c) {
+  //               return (
+  //                 c.getActiveBodyparts(CARRY) > 0 &&
+  //                 c.getActiveBodyparts(MOVE) > 0
+  //               );
+  //             },
+  //           })]: d.pos,
+  //         });
+  //       }
+  //     }
+
+  //     Memory.resourcesPickerUppers = resourcesPickerUppers;
+  //   }
+
+  //   if (
+  //     !Memory.resourcesPickerUppers ||
+  //     Memory.resourcesPickerUppers.length <= 0
+  //   ) {
+  //     let tombstonePickers = [];
+  //     for (const t in tombstonesHome) {
+  //       if (t.pos) {
+  //         tombstonePickers.push({
+  //           [t.pos.findClosestByPath(FIND_MY_CREEPS, {
+  //             filter: function (c) {
+  //               return (
+  //                 c.getActiveBodyparts(CARRY) > 0 &&
+  //                 c.getActiveBodyparts(MOVE) > 0
+  //               );
+  //             },
+  //           })]: t.pos,
+  //         });
+  //       }
+  //     }
+
+  //     Memory.tombstonePickers = tombstonePickers;
+  //   } else if (Memory.resourcesPickerUppers) {
+  //     let isMe = Memory.resourcesPickerUppers
+  //       .keys()
+  //       .find((value) => value === creep.name);
+
+  //     creep.memory.resourcesPickerUpper = isMe;
+  //     creep.memory.resourcePosX =
+  //       Memory.resourcesPickerUppers[creep.name].pos.x;
+  //     creep.memory.resourcePosY =
+  //       Memory.resourcesPickerUppers[creep.name].pos.y;
+  //   }
+
+  //   if (
+  //     !creep.memory.resourcePickerUpper &&
+  //     Memory.tombstonePickers &&
+  //     Memory.tombstonePickers.length > 0
+  //   ) {
+  //     let isMe = Memory.tombstonePickers
+  //       .keys()
+  //       .find((value) => value === creep.name);
+  //     creep.memory.tombstonePicker = isMe;
+  //   }
+  // } else if (cRm.name === Memory.northRoomName) {
+  //   if (!droppedResourcesNorth || droppedResourcesNorth.length <= 0) {
+  //     Memory.droppedResourcesNorth = cRm.find(FIND_DROPPED_RESOURCES);
+  //     droppedResourcesNorth = Memory.droppedResourcesNorth;
+  //   }
+
+  //   if (
+  //     (!droppedResourcesHome || droppedResourcesHome.length <= 0) &&
+  //     (!tombstonesNorth || tombstonesNorth.length <= 0)
+  //   ) {
+  //     cRm.find(FIND_TOMBSTONES);
+  //     Memory.tombstonesNorth = tombstonesNorth;
+  //   }
+
+  //   if (droppedResourcesNorth) {
+  //     let resourcesPickerUppersNorth = [];
+  //     for (const d in droppedResourcesNorth) {
+  //       if (d.pos) {
+  //         resourcesPickerUppersNorth.push({
+  //           [d.pos.findClosestByPath(FIND_MY_CREEPS, {
+  //             filter: function (c) {
+  //               return (
+  //                 c.getActiveBodyparts(CARRY) > 0 &&
+  //                 c.getActiveBodyparts(MOVE) > 0
+  //               );
+  //             },
+  //           })]: d.pos,
+  //         });
+  //       }
+  //     }
+
+  //     Memory.resourcesPickerUppersNorth = resourcesPickerUppersNorth;
+  //   }
+
+  //   if (
+  //     !Memory.resourcesPickerUppersNorth ||
+  //     Memory.resourcesPickerUppersNorth.length <= 0
+  //   ) {
+  //     let tombstonePickersNorth = [];
+  //     for (const t in tombstonesNorth) {
+  //       if (t.pos) {
+  //         tombstonePickersNorth.push({
+  //           [t.pos.findClosestByPath(FIND_MY_CREEPS, {
+  //             filter: function (c) {
+  //               return (
+  //                 c.getActiveBodyparts(CARRY) > 0 &&
+  //                 c.getActiveBodyparts(MOVE) > 0
+  //               );
+  //             },
+  //           })]: t.pos,
+  //         });
+  //       }
+  //     }
+
+  //     Memory.tombstonePickersNorth = tombstonePickersNorth;
+  //   }
+  // }
+
   if (!droppedPickerUpper || droppedPickerUpper === name) {
     droppedTarget = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
       filter: (source) => {
@@ -23,19 +164,17 @@ function droppedDuty(creep) {
       droppedTarget = creep.pos.findClosestByPath(FIND_TOMBSTONES);
     }
 
-    console.log(name + " droppedPickerUpper:" + droppedTarget);
     if (droppedTarget) {
       creep.memory.droppedTargetId = droppedTarget.id;
       Memory.droppedPickerUpperName = name;
       if (droppedTarget) {
         if (creep.pos.isNearTo(droppedTarget)) {
           creep.say("pu");
-          if(!droppedTarget.resourceType) {
-            droppedTarget = droppedTarget.pos.lookFor(LOOK_RESOURCES).pop();
-          }
+          // if(!droppedTarget.resourceType) {
+          //   droppedTarget = droppedTarget.pos.lookFor(LOOK_RESOURCES).pop();
+          // }
 
           retval = creep.pickup(droppedTarget);
-          console.log(creep + " retval " + retval)
           return retval;
         } else {
           creep.say("m.pu");

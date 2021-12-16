@@ -91,7 +91,7 @@ function runRoles() {
       if (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] <= 0) {
         creep.memory.getEnergy = true;
 
-        roleHarvester.run(creep);
+        roleHarvester(creep);
       } else {
         buildRoad(creep);
       }
@@ -99,10 +99,10 @@ function runRoles() {
     } else if (roll === "roadRepairer") {
       if (creep.memory.direction.startsWith("s")) {
         roadRepairers.push(name);
-        roleRepairer.run(creep, Memory.homeRoomName, null, null);
+        roleRepairer(creep, Memory.homeRoomName, null, null);
       } else if (creep.memory.direction.startsWith("n")) {
         roadRepairersE59S47.push(name);
-        roleRepairer.run(
+        roleRepairer(
           creep,
           Memory.northRoomName,
           Game.flags.northExit,
@@ -110,7 +110,7 @@ function runRoles() {
         );
       } else {
         roadRepairers.push(name);
-        roleRepairer.run(creep, Memory.homeRoomName, null, null);
+        roleRepairer(creep, Memory.homeRoomName, null, null);
       }
     } else if (
       roll === "uc" ||

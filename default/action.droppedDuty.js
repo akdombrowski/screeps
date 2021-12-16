@@ -1,4 +1,5 @@
 const smartMove = require("./action.smartMove");
+const profiler = require("./screeps-profiler");
 function droppedDuty(creep) {
   let retval = -16;
   let name = creep.name;
@@ -12,19 +13,14 @@ function droppedDuty(creep) {
   if (!droppedPickerUpper || droppedPickerUpper === name) {
     droppedTarget = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
       filter: (source) => {
-        if (
-          source.resourceType === RESOURCE_ENERGY &&
-          source.pos.x < 41 &&
-          source.pos.y > 8 &&
-          source.room === cRm
-        ) {
+        if (source.resourceType === RESOURCE_ENERGY && source.room === cRm) {
           return source;
         }
       },
     });
-    if (droppedTarget) {
-      console.log(name + " droppedPickerUpper:" + droppedTarget);
 
+    console.log(name + " droppedPickerUpper:" + droppedTarget);
+    if (droppedTarget) {
       creep.memory.droppedTargetId = droppedTarget.id;
       Memory.droppedPickerUpperName = name;
       if (droppedTarget) {
@@ -41,4 +37,6 @@ function droppedDuty(creep) {
     }
   }
 }
+
+droppedDuty = profiler.registerFN(droppedDuty, "droppedDuty");
 exports.droppedDuty = droppedDuty;

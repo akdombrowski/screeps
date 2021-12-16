@@ -1,4 +1,5 @@
 const moveAway = require("./action.moveAway");
+const profiler = require("./screeps-profiler");
 
 function checkIfBlockingSource(creep, range) {
   const nearbySources = creep.pos.findInRange(FIND_SOURCES_ACTIVE, range);
@@ -12,4 +13,9 @@ function checkIfBlockingSource(creep, range) {
 
   return retval;
 }
+
+checkIfBlockingSource = profiler.registerFN(
+  checkIfBlockingSource,
+  "checkIfBlockingSource"
+);
 exports.checkIfBlockingSource = checkIfBlockingSource;

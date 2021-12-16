@@ -2,6 +2,7 @@ const smartMove = require("./action.smartMove");
 const getEnergy = require("./action.getEnergy");
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
 const { checkIfBlockingSource } = require("./checkIfBlockingSource");
+const profiler = require("./screeps-profiler");
 
 function build(creep) {
   let targetId = creep.memory.lastBuildID;
@@ -144,4 +145,5 @@ function build(creep) {
   return retval;
 }
 
+build = profiler.registerFN(build, "build");
 module.exports = build;

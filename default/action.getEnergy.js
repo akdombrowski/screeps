@@ -4,6 +4,7 @@ const transferEnergy = require("./action.transferEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const vestEE = require("./action.getEnergyEEast");
+const profiler = require("./screeps-profiler");
 
 function vest(
   creep,
@@ -432,5 +433,7 @@ function chooseSource(creep, sources) {
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
+getRandomInt = profiler.registerFN(getRandomInt, "getRandomInt");
 
+vest = profiler.registerFN(vest, "vest");
 module.exports = vest;

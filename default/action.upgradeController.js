@@ -1,6 +1,7 @@
 const getEnergy = require("./action.getEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
+const profiler = require("./screeps-profiler");
 
 function upController(
   creep,
@@ -96,4 +97,5 @@ function upController(
   }
 }
 
+upController = profiler.registerFN(upController, "upController");
 module.exports = upController;

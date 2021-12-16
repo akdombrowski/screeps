@@ -96,4 +96,5 @@ function buildRoad(creep) {
   return retval;
 }
 
+buildRoad = profiler.registerFN(buildRoad, "buildRoad");
 module.exports = buildRoad;

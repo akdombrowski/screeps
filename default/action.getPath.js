@@ -1,5 +1,6 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const getRandomColor = require("./getRandomColor");
+const profiler = require("./screeps-profiler");
 
 function getPath(
   creep,
@@ -178,4 +179,5 @@ function getPath(
   }
 }
 
+getPath = profiler.registerFN(getPath, "getPath");
 module.exports = getPath;

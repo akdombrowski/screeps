@@ -209,14 +209,16 @@ function vest(
   }
 
   // Do I need to pick up some dropped energy somewhere?
-  retval = droppedDuty(creep);
-  if (retval === OK) {
-    return retval;
-  } else if (retval === ERR_TIRED) {
-    creep.say("drop." + creep.fatigue)
-    return retval;
-  }else if (retval != -16) {
-    console.log(name + " droppedCreep retval " + retval);
+  if (!name.startsWith("upC")) {
+    retval = droppedDuty(creep);
+    if (retval === OK) {
+      return retval;
+    } else if (retval === ERR_TIRED) {
+      creep.say("drop." + creep.fatigue);
+      return retval;
+    } else if (retval != -16) {
+      console.log(name + " droppedCreep retval " + retval);
+    }
   }
 
   // See if there's a particular target from a previous trip

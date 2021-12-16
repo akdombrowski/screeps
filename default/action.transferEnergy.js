@@ -332,7 +332,6 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       null
       );
       target = null;
-      console.log(name + " " + retval)
     return retval
   }
 

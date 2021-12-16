@@ -213,7 +213,7 @@ function vest(
   if (retval === OK) {
     return retval;
   } else if (retval === ERR_TIRED) {
-    creep.say("f." + creep.fatigue)
+    creep.say("drop." + creep.fatigue)
     return retval;
   }else if (retval != -16) {
     console.log(name + " droppedCreep retval " + retval);

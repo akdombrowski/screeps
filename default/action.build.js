@@ -20,6 +20,24 @@ function build(creep) {
   }
 
   if (building) {
+    if ((creep.room.name = Memory.homeRoomName)) {
+      target = Game.getObjectById("61b8f17a0d45b7dc36e21105");
+      if (target && target.progress < target.progressTotal) {
+        // good, keep target
+      } else {
+        target = null;
+      }
+    }
+
+    if ((creep.room.name = Memory.northRoomName)) {
+      target = Game.getObjectById("59bbc5d22052a716c3cea133");
+      if (target && target.progress < target.progressTotal) {
+        // good, keep target
+      } else {
+        target = null;
+      }
+    }
+
     if (
       !target ||
       !CONSTRUCTION_COST[target.structureType] ||

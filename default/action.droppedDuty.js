@@ -19,6 +19,10 @@ function droppedDuty(creep) {
       },
     });
 
+    if (!droppedTarget) {
+      droppedTarget = creep.pos.findClosestByPath(FIND_TOMBSTONES);
+    }
+
     console.log(name + " droppedPickerUpper:" + droppedTarget);
     if (droppedTarget) {
       creep.memory.droppedTargetId = droppedTarget.id;
@@ -26,7 +30,12 @@ function droppedDuty(creep) {
       if (droppedTarget) {
         if (creep.pos.isNearTo(droppedTarget)) {
           creep.say("pu");
+          if(!droppedTarget.resourceType) {
+            droppedTarget = droppedTarget.pos.lookFor(LOOK_RESOURCES).pop();
+          }
+
           retval = creep.pickup(droppedTarget);
+          console.log(creep + " retval " + retval)
           return retval;
         } else {
           creep.say("m.pu");
@@ -34,8 +43,13 @@ function droppedDuty(creep) {
           return retval;
         }
       }
+    } else {
+      Memory.droppedPickerUpperName = null;
+      retval = ERR_NOT_FOUND;
     }
   }
+
+  return retval;
 }
 
 droppedDuty = profiler.registerFN(droppedDuty, "droppedDuty");

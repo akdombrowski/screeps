@@ -211,7 +211,7 @@ function vest(
   // Do I need to pick up some dropped energy somewhere?
   retval = droppedDuty(creep);
   if (retval === OK) {
-    console.log(name + " droppedDuty");
+    console.log(name + " droppedDuty OK");
     return retval;
   }
 

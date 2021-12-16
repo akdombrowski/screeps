@@ -151,6 +151,8 @@ function checkProgress(numCrps, rm) {
         rmProgPerc +
         "%"
     );
+
+    Game.profiler.email(100);
   }
 }
 

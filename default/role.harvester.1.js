@@ -114,6 +114,7 @@ function roleHarvester(creep) {
       creep.memory.buildRoad = false;
 
       retval = transEnTower(creep, 2000);
+      // return retval;
     }
 
     // didn't give energy to tower. build road.

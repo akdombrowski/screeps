@@ -244,7 +244,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     }
   }
 
-  if (!target && enAvail > 1000) {
+  if (!target && enAvail > 500) {
     let towers = creep.room.find(FIND_MY_STRUCTURES, {
       filter: { structureType: STRUCTURE_TOWER },
     });

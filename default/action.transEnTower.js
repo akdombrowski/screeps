@@ -30,6 +30,7 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
     creep.memory.transferTower = true;
   } else {
     creep.memory.transferTower = false;
+    creep.memory.getEnergy = true;
     return ERR_NOT_ENOUGH_ENERGY;
   }
 

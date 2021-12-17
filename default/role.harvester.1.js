@@ -115,6 +115,9 @@ function roleHarvester(creep) {
 
       retval = transEnTower(creep, 2000);
       // return retval;
+      if(retval === OK || retval === ERR_TIRED) {
+        return retval;
+      }
     }
 
     // didn't give energy to tower. build road.

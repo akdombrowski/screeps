@@ -39,61 +39,63 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     return -19;
   }
 
-  switch (rm) {
-    case Memory.homeRoomName:
-      if (!Memory.extsInCurrentRoomE59S48) {
-        const extsInCurrentRoom = rm.find(FIND_MY_STRUCTURES, {
-          filter: {
-            function(struct) {
-              if (
-                struct.structureType === STRUCTURE_EXTENSION &&
-                struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-              ) {
-                return struct;
-              }
+  if (!target) {
+    switch (rm) {
+      case Memory.homeRoomName:
+        if (!Memory.extsInCurrentRoome59s48extensionsSpawns) {
+          const extsInCurrentRoom = rm.find(FIND_MY_STRUCTURES, {
+            filter: {
+              function(struct) {
+                if (
+                  struct.structureType === STRUCTURE_EXTENSION &&
+                  struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+                ) {
+                  return struct;
+                }
+              },
             },
-          },
-        });
+          });
 
-        Memory.extsInCurrentRoomE59S48 = extsInCurrentRoom;
-      }
-      break;
-    case Memory.northRoomName:
-      if (!Memory.extsInCurrentRoomE59S47) {
-        const extsInCurrentRoom = rm.find(FIND_MY_STRUCTURES, {
-          filter: {
-            function(struct) {
-              if (
-                struct.structureType === STRUCTURE_EXTENSION &&
-                struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-              ) {
-                return struct;
-              }
+          Memory.extsInCurrentRoome59s48extensionsSpawns = extsInCurrentRoom;
+        }
+        break;
+      case Memory.northRoomName:
+        if (!Memory.extsInCurrentRoomE59S47) {
+          const extsInCurrentRoom = rm.find(FIND_MY_STRUCTURES, {
+            filter: {
+              function(struct) {
+                if (
+                  struct.structureType === STRUCTURE_EXTENSION &&
+                  struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+                ) {
+                  return struct;
+                }
+              },
             },
-          },
-        });
+          });
 
-        Memory.extsInCurrentRoomE59S47 = extsInCurrentRoom;
-      }
-      break;
-    default:
-      if (!Memory.extsInCurrentRoomE59S48) {
-        const extsInCurrentRoom = rm.find(FIND_MY_STRUCTURES, {
-          filter: {
-            function(struct) {
-              if (
-                struct.structureType === STRUCTURE_EXTENSION &&
-                struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-              ) {
-                return struct;
-              }
+          Memory.extsInCurrentRoomE59S47 = extsInCurrentRoom;
+        }
+        break;
+      default:
+        if (!Memory.extsInCurrentRoome59s48extensionsSpawns) {
+          const extsInCurrentRoom = rm.find(FIND_MY_STRUCTURES, {
+            filter: {
+              function(struct) {
+                if (
+                  struct.structureType === STRUCTURE_EXTENSION &&
+                  struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+                ) {
+                  return struct;
+                }
+              },
             },
-          },
-        });
+          });
 
-        Memory.extsInCurrentRoomE59S48 = extsInCurrentRoom;
-      }
-      break;
+          Memory.extsInCurrentRoome59s48extensionsSpawns = extsInCurrentRoom;
+        }
+        break;
+    }
   }
 
   if (rmName != targetRoomName) {
@@ -164,86 +166,93 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     target = null;
     creep.memory.flag = null;
     creep.memory.transferTargetId = null;
+    creep.memory.path = null;
   }
 
   if (
     target &&
     target.structureType === STRUCTURE_TOWER &&
     rm &&
-    enAvail < 1000
+    enAvail < 500
   ) {
     target = null;
+    creep.memory.path = null;
     creep.memory.flag = null;
   }
 
   let extensionNeedsEnergy = false;
   if (!target) {
     let exts;
-    if (!Memory.e35n31Extensions || Memory.e35n31Extensions.length >= 0) {
-      exts = Game.rooms[Memory.homeRoomName].find(FIND_MY_STRUCTURES, {
-        filter: (struct) => {
-          return (
-            (struct.structureType === STRUCTURE_EXTENSION ||
-              struct.structureType === STRUCTURE_SPAWN) &&
-            struct.store &&
-            struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-          );
-        },
-      });
-      const extIDs = exts.map(function (ext) {
-        return ext.id;
-      });
-      Memory.e35n31Extensions = extIDs;
+    if (
+      !Memory.e59s48extensionsSpawns ||
+      Memory.e59s48extensionsSpawns.length <= 0
+    ) {
+      Memory.e59s48extensionsSpawns = findStructs(
+        exts,
+        [STRUCTURE_EXTENSION, STRUCTURE_SPAWN],
+        Memory.homeRoomName
+      );
     } else {
-      exts = Memory.e35n31Extensions.map(function (ext) {
-        return Game.getObjectById(ext);
-      });
+      Memory.e59s48extensionsSpawns = Memory.e59s48extensionsSpawns.filter(
+        (struct) =>
+          struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+      );
     }
 
-    if (!target) {
-      let a = creep.pos.findClosestByPath(exts, {
-        filter: function (structure) {
-          if (!structure.pos) {
-            return false;
-          }
+    exts = Memory.e59s48extensionsSpawns.map(function (ext) {
+      return Game.getObjectById(ext);
+    });
 
-          if (
-            (structure.store && !structure.store[RESOURCE_ENERGY]) ||
-            (structure.store &&
-              structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
-          ) {
-            return structure;
-          }
-        },
-      });
+    // find closest ext or spawn by path
+    let a = creep.pos.findClosestByPath(exts, {
+      filter: function (structure) {
+        if (!structure.pos) {
+          return false;
+        }
 
-      if (a) {
-        target = a;
-        creep.memory.transferTargetId = target.id;
-      }
+        if (
+          !structure.store[RESOURCE_ENERGY] ||
+          (structure.store &&
+            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
+        ) {
+          return true;
+        }
+
+        return false;
+      },
+    });
+
+    if (a) {
+      target = a;
+      creep.memory.transferTargetId = target.id;
+
+      // remove the target from list
+      _.pull(Memory.e59s48extensionsSpawns, target.id);
+    } else {
+      // target is still null
     }
   }
 
   // containers or storage
   if (!target) {
-    if (!Memory.e35s48structs) {
-      let structs = creep.room.find(FIND_MY_STRUCTURES, {
-        filter: function (struct) {
-          let type = struct.type;
-          return (
-            (type === STRUCTURE_CONTAINER || type === STRUCTURE_STORAGE) &&
-            (!struct.store[RESOURCE_ENERGY] ||
-              struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
-          );
-        },
-      });
+    let structs = creep.room.find(FIND_MY_STRUCTURES, {
+      filter: function (struct) {
+        let type = struct.type;
+        return (
+          (type === STRUCTURE_CONTAINER || type === STRUCTURE_STORAGE) &&
+          (!struct.store[RESOURCE_ENERGY] ||
+            struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
+        );
+      },
+    });
 
-      if (structs && structs.length > 0) {
-        target = creep.pos.findClosestByPath(structs);
-      }
+    // find closest container or storage
+    if (structs && structs.length > 0) {
+      target = creep.pos.findClosestByPath(structs);
     }
   }
 
+  // towers
   if (!target && enAvail > 500) {
     let towers = creep.room.find(FIND_MY_STRUCTURES, {
       filter: { structureType: STRUCTURE_TOWER },
@@ -288,13 +297,11 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     }
   }
 
+  // storage or containers
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
       filter: (structure) => {
-        if (
-          structure.structureType === STRUCTURE_STORAGE &&
-          !name.startsWith("h")
-        ) {
+        if (structure.structureType === STRUCTURE_STORAGE) {
           return (
             structure.store &&
             structure.store[RESOURCE_ENERGY] <
@@ -305,9 +312,8 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
           structure.store
         ) {
           return (
-            !structure.store ||
             structure.store[RESOURCE_ENERGY] <
-              structure.store.getCapacity(RESOURCE_ENERGY)
+            structure.store.getCapacity(RESOURCE_ENERGY)
           );
         }
       },
@@ -318,7 +324,10 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     target = Game.spawns.Spawn1;
   }
 
-  if(target === Game.spawns.Spawn1 && target.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
+  if (
+    target === Game.spawns.Spawn1 &&
+    target.store.getFreeCapacity(RESOURCE_ENERGY) <= 0
+  ) {
     retval = smartMove(
       creep,
       Game.spawns.Spawn1,
@@ -330,9 +339,9 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       1,
       true,
       null
-      );
-      target = null;
-    return retval
+    );
+    target = null;
+    return retval;
   }
 
   if (target && creep.pos.inRangeTo(target, 1)) {
@@ -347,7 +356,18 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     } else if ((retval = ERR_FULL)) {
       creep.memory.transferTargetId = null;
       creep.memory.path = null;
-      retval = smartMove(creep, target, 10, true, null, null, null, 1, true, null)
+      retval = smartMove(
+        creep,
+        target,
+        10,
+        true,
+        null,
+        null,
+        null,
+        1,
+        true,
+        null
+      );
       creep.say("full");
       return retval;
     } else {
@@ -387,3 +407,19 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
 }
 
 module.exports = tran;
+function findStructs(exts, structTypes, targetRoomName) {
+  exts = Game.rooms[targetRoomName].find(FIND_MY_STRUCTURES, {
+    filter: (struct) => {
+      for (let i = 0; i < structTypes.length; i++) {
+        if (structTypes[i] === struct.structureType) {
+          return struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+        }
+      }
+    },
+  });
+  const extIDs = exts.map(function (ext) {
+    return ext.id;
+  });
+
+  return extIDs;
+}

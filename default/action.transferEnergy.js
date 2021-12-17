@@ -4,6 +4,7 @@ const traneRm = require("./action.transferEnergyeRm");
 const tranee = require("./action.transferEnergyEEast");
 const tranW = require("./action.transferEnergyW");
 const transEnTower = require("./action.transEnTower");
+const profiler = require("./screeps-profiler");
 
 function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   let targetId = creep.memory.transferTargetId;
@@ -406,7 +407,9 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   return retval;
 }
 
+tran = profiler.registerFN(tran, "tran");
 module.exports = tran;
+
 function findStructs(exts, structTypes, targetRoomName) {
   exts = Game.rooms[targetRoomName].find(FIND_MY_STRUCTURES, {
     filter: (struct) => {
@@ -423,3 +426,5 @@ function findStructs(exts, structTypes, targetRoomName) {
 
   return extIDs;
 }
+
+findStructs = profiler.registerFN(findStructs, "findStructs");

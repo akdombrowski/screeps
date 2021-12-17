@@ -75,8 +75,8 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
     }
 
     if (!target) {
+      const timeToPassForRecheck = 50;
       if (creep.memory.direction.startsWith("s")) {
-        const timeToPassForRecheck = 50;
         if (
           !Memory.e59s48fixables ||
           Memory.e59s48fixables.length <= 0 ||
@@ -98,7 +98,8 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
         }
       } else {
         if (
-          !Memory.e59s48fixables || Memory.e59s48fixables.length <= 0 ||
+          !Memory.e59s48fixables ||
+          Memory.e59s48fixables.length <= 0 ||
           Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
         ) {
           Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);

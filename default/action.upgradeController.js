@@ -92,7 +92,8 @@ function upController(
       }
     }
   } else {
-    creep.say("uchH");
+    creep.say("h");
+    creep.memory.getEnergy = true;
     getEnergy(creep);
   }
 }

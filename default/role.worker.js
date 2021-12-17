@@ -4,7 +4,14 @@ const yucreepin = require("./action.checkForAnotherCreepNearMe");
 const build = require("./action.build");
 const profiler = require("./screeps-profiler");
 
-function roleWorker(creep, flag, workRoom) {
+function roleWorker(
+  creep,
+  flag,
+  workRoom,
+  exit,
+  exitDirection,
+  targetRoomName
+) {
   let s1 = Game.getObjectById(Memory.s1);
   let name = creep.name;
   let direction = creep.memory.direction;
@@ -12,6 +19,32 @@ function roleWorker(creep, flag, workRoom) {
   let pos = creep.pos;
   let retval = -16;
   let homeRoomName = Memory.homeRoomName;
+
+  if (rm.name != targetRoomName) {
+    if (creep.pos.isNearTo(exit)) {
+      retval = creep.move(exitDirection);
+    } else {
+      if (exit && exit.pos) {
+        creep.say(exit.pos.x + "," + exit.pos.y);
+        retval = smartMove(
+          creep,
+          exit,
+          1,
+          true,
+          null,
+          null,
+          null,
+          1,
+          false,
+          null
+        );
+      } else {
+        console.log(name + " bogus exit in roleWorker");
+      }
+    }
+
+    return retval;
+  }
 
   if (
     creep.getEnergy ||

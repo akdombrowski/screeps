@@ -161,7 +161,20 @@ function runRoles() {
     } else if (roll === "worker" || roll === "w") {
       workers.push(name);
 
-      roleWorker(creep);
+      if (creep.memory.direction.startsWith("s")) {
+        roleWorker(creep, null, null, null, null, Memory.homeRoomName);
+      } else if (creep.memory.direction.startsWith("n")) {
+        roleWorker(
+          creep,
+          null,
+          null,
+          Game.flags.northExit,
+          TOP,
+          Memory.northRoomName
+        );
+      } else {
+        roleWorker(creep, null, null, null, null, Memory.homeRoomName);
+      }
     } else if (roll === "healer") {
       hele(creep);
     } else if (roll === "controller") {

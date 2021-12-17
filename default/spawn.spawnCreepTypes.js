@@ -327,7 +327,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 4) {
+    if (Game.creeps.length < 4) {
       harvesters.push(name);
       parts = simpleParts;
       retval = birthCreep(
@@ -340,7 +340,33 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (upControllers.length < 1) {
+    }
+
+    if (retval !== -16) {
+      console.log("spawningS " + name + " " + retval);
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
+  }
+
+  //   #####     ###      ###
+  //  #     #   #   #    #   #
+  //        #  #     #  #     #
+  //   #####   #     #  #     #
+  //        #  #     #  #     #
+  //  #     #   #   #    #   #
+  //   #####     ###      ###
+  if (enAvail >= 300 && !invaderId) {
+    let name = "h" + t;
+    let chosenRole = "h";
+    let direction = "south";
+    let sourceId = Memory.source2;
+    let parts = simpleParts;
+    let group = "harvesters";
+    let spawnDirection = [TOP];
+
+    if (upControllers.length < 1) {
       name = "upC" + t;
       chosenRole = "upC";
       upControllers.push(name);
@@ -416,7 +442,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 3) {
+    if (Game.creeps.length < 6) {
       harvesters.push(name);
       retval = birthCreep(
         spawns,
@@ -584,7 +610,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 4) {
+    if (harvesters.length < 4 && Game.creeps.length < 10) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";

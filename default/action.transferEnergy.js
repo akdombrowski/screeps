@@ -40,65 +40,6 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     return -19;
   }
 
-  if (!target) {
-    switch (rm) {
-      case Memory.homeRoomName:
-        if (!Memory.extsInCurrentRoome59s48extensionsSpawns) {
-          const extsInCurrentRoom = rm.find(FIND_MY_STRUCTURES, {
-            filter: {
-              function(struct) {
-                if (
-                  struct.structureType === STRUCTURE_EXTENSION &&
-                  struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-                ) {
-                  return struct;
-                }
-              },
-            },
-          });
-
-          Memory.extsInCurrentRoome59s48extensionsSpawns = extsInCurrentRoom;
-        }
-        break;
-      case Memory.northRoomName:
-        if (!Memory.extsInCurrentRoomE59S47) {
-          const extsInCurrentRoom = rm.find(FIND_MY_STRUCTURES, {
-            filter: {
-              function(struct) {
-                if (
-                  struct.structureType === STRUCTURE_EXTENSION &&
-                  struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-                ) {
-                  return struct;
-                }
-              },
-            },
-          });
-
-          Memory.extsInCurrentRoomE59S47 = extsInCurrentRoom;
-        }
-        break;
-      default:
-        if (!Memory.extsInCurrentRoome59s48extensionsSpawns) {
-          const extsInCurrentRoom = rm.find(FIND_MY_STRUCTURES, {
-            filter: {
-              function(struct) {
-                if (
-                  struct.structureType === STRUCTURE_EXTENSION &&
-                  struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-                ) {
-                  return struct;
-                }
-              },
-            },
-          });
-
-          Memory.extsInCurrentRoome59s48extensionsSpawns = extsInCurrentRoom;
-        }
-        break;
-    }
-  }
-
   if (rmName != targetRoomName) {
     if (creep.pos.isNearTo(exit)) {
       retval = creep.move(exitDirection);
@@ -196,7 +137,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     } else {
       Memory.e59s48extensionsSpawns = Memory.e59s48extensionsSpawns.filter(
         (struct) =>
-          struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+          struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) <= 0
       );
     }
 
@@ -420,6 +361,7 @@ function findStructs(exts, structTypes, targetRoomName) {
       }
     },
   });
+
   const extIDs = exts.map(function (ext) {
     return ext.id;
   });

@@ -161,7 +161,7 @@ function runRoles() {
     } else if (roll === "worker" || roll === "w") {
       workers.push(name);
 
-      roleWorker.run(creep);
+      roleWorker(creep);
     } else if (roll === "healer") {
       hele(creep);
     } else if (roll === "controller") {

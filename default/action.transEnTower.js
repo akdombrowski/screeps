@@ -58,9 +58,9 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
 
 
       // Skip tower 6 for south creeps
-      if (creep.memory.direction === "south" && tower.id === tower6.id) {
-        return;
-      }
+      // if (creep.memory.direction === "south") {
+      //   return;
+      // }
 
       if (!tower.store[RESOURCE_ENERGY] || tower.store[RESOURCE_ENERGY] <= 0) {
         currTarget = tower;

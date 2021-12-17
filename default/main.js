@@ -39,6 +39,8 @@ module.exports.loop = function () {
     Memory.nSource1 = "59bbc5d22052a716c3cea131";
     Memory.nSource2 = "59bbc5d22052a716c3cea132";
 
+    Memory.tower1Id = "61bc38d236c34cfe01fad9cd";
+
     Memory.attackDurationSafeCheck = 1000;
     Memory.nattackDurationSafeCheck = 1000;
 

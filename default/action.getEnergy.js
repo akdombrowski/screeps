@@ -6,7 +6,7 @@ const smartMove = require("./action.smartMove");
 const vestEE = require("./action.getEnergyEEast");
 const profiler = require("./screeps-profiler");
 
-function vest(
+function getEnergy(
   creep,
   sourceRmTargetedName,
   taskRm,
@@ -443,5 +443,5 @@ function getRandomInt(max) {
 }
 getRandomInt = profiler.registerFN(getRandomInt, "getRandomInt");
 
-vest = profiler.registerFN(vest, "vest");
-module.exports = vest;
+getEnergy = profiler.registerFN(getEnergy, "getEnergy");
+module.exports = getEnergy;

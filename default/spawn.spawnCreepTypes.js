@@ -260,12 +260,12 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 500 && Memory.AttackerId) {
+  if (enAvail >= 500 && Memory.invaderId) {
     let name = "att" + t;
     let chosenRole = "attacker";
     let direction = "south";
     let sourceId = Memory.source2;
-    let parts = attackerParts5;
+    let parts = attackerParts500;
     let spawnDirection = [TOP];
     let group = "attackers";
 

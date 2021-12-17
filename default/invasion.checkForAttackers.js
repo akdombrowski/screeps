@@ -116,7 +116,7 @@ function checkForAttackers() {
     invader = enemyCreeps.pop();
 
     Memory.invaderId = invader ? invader.id : null;
-    sAttackDurationSafeCheck = Game.time + attackerCheckWaitTime;
+    Memory.attackDurationSafeCheck = Game.time + attackerCheckWaitTime;
   }
 
   if (

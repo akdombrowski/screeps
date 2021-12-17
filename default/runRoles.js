@@ -102,12 +102,7 @@ function runRoles() {
         roleRepairer(creep, Memory.homeRoomName, null, null);
       } else if (creep.memory.direction.startsWith("n")) {
         roadRepairersE59S47.push(name);
-        roleRepairer(
-          creep,
-          Memory.northRoomName,
-          Game.flags.northExit,
-          TOP
-        );
+        roleRepairer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
       } else {
         roadRepairers.push(name);
         roleRepairer(creep, Memory.homeRoomName, null, null);
@@ -198,6 +193,7 @@ function runRoles() {
         attackersNWW.push(name);
         roleAttackerNWW.run(creep);
       } else {
+        let invader = Game.getObjectById(Memory.invaderId);
         attackers.push(name);
         if (creep.pos.isNearTo(invader)) {
           creep.attack(invader);

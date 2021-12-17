@@ -14,6 +14,11 @@ const linkTransfer = require("./linkTransfer");
 const profiler = require("./screeps-profiler");
 const findDecayed = require("./action.findDecayed");
 const { findFixables } = require("./findFixables");
+const { checkProgress } = require("./checkProgress");
+const { deleteDeadCreeps } = require("./deleteDeadCreeps");
+const { areCreepsDying } = require("./areCreepsDying");
+const { towersAttackInvader } = require("./towersAttackInvader");
+const { reCheckNumOfCreeps } = require("./reCheckNumOfCreeps");
 
 // This line monkey patches the global prototypes.
 profiler.enable();
@@ -44,7 +49,9 @@ module.exports.loop = function () {
     Memory.attackDurationSafeCheck = 1000;
     Memory.nattackDurationSafeCheck = 1000;
 
-    // towersAttackInvader(invader, towers);
+    let towers = [];
+    towers.push(Game.getObjectById(Memory.tower1Id));
+    towersAttackInvader(Memory.invader, towers);
 
     checkForAttackers();
 
@@ -88,81 +95,4 @@ module.exports.loop = function () {
     Game.profiler.email(profilerDur);
   }
 };
-function reCheckNumOfCreeps(crps) {
-  let numCrps = Object.keys(crps).length;
-  return numCrps;
-}
 
-function deleteDeadCreeps() {
-  for (let name in Memory.creeps) {
-    if (!Game.creeps[name]) {
-      delete Memory.creeps[name];
-      Memory.droppedPickerUpperName = null;
-      console.log("del.", name);
-    }
-  }
-}
-
-function areCreepsDying(numCrps) {
-  if (numCrps < 4 && Object.keys(Memory.creeps).length >= 4) {
-    Game.notify("Creeps are dying. " + numCrps + " left.");
-  } else if (numCrps < 10 && Object.keys(Memory.creeps).length >= 10) {
-    Game.notify("Less than 10 creeps left.");
-  }
-}
-
-function checkProgress(numCrps, rm) {
-  if (Game.time % 3600 == 0) {
-    if (!Memory.rmProg) {
-      Memory.rmProg = 0;
-    }
-
-    let rmControllerId = "59bbc5d22052a716c3cea137";
-    let rmController = Game.getObjectById(rmControllerId);
-    const rmLvl = rmController.level;
-    const rmProg = rmController.progress;
-    const rmProgTotal = rmController.progressTotal;
-    const rmProgPerc = (rmProg / rmProgTotal) * 100;
-
-    Memory.rmProg = rmProg;
-
-    console.log("Creeps: " + numCrps);
-
-    console.log(
-      "S: " +
-        rmLvl +
-        ":" +
-        rmProg / 1000 +
-        "/" +
-        rmProgTotal / 1000 +
-        " - " +
-        rmProgPerc +
-        "%"
-    );
-
-    let enAvail = rm.energyAvailable;
-    let enCap = rm.energyCapacityAvailable;
-    console.log("S:" + enAvail + "," + enCap);
-
-    Game.notify(
-      rmLvl +
-        ":" +
-        rmProg / 1000 +
-        "/" +
-        rmProgTotal / 1000 +
-        "\n" +
-        rmProgPerc +
-        "%"
-    );
-
-    Game.profiler.email(100);
-  }
-}
-
-function towersAttackInvader(invader, towers) {
-  if (invader) {
-    for (let i = 0; i < towers.length; i++) {
-      towers[i].attack(invader);
-    }
-  }
-}

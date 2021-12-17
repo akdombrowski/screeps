@@ -1,6 +1,7 @@
 const smartMove = require("./action.smartMove");
 const getEnergyEast = require("./action.getEnergy.1");
 const ermgetEnergyEast = require("./action.getEnergy.1");
+const profiler = require("./screeps-profiler");
 
 function claimContr(
   creep,
@@ -42,7 +43,6 @@ function claimContr(
     }
   } else if (creep.room.name == "E36N31") {
     smartMove(creep, Game.flags.eeEntrance1, 2);
-
   } else if (creep.room.name === targetRoomName) {
     let contr = Game.getObjectById(controllerID);
     if (creep.pos.inRangeTo(contr, 1)) {
@@ -63,7 +63,9 @@ function claimContr(
   }
 }
 
+claimContr = profiler.registerFN(claimContr, "claimContr");
 module.exports = claimContr;
+
 function claimControlla(creep, nContr) {
   if (creep.pos.isNearTo(nContr)) {
     retval = creep.claimController(nContr);
@@ -72,3 +74,5 @@ function claimControlla(creep, nContr) {
   }
   return retval;
 }
+
+claimControlla = profiler.registerFN(claimControlla, "claimControlla");

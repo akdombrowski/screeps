@@ -11,7 +11,7 @@ function findRepairable(repairer) {
   } else if (repairer.room.name === Memory.northRoomName) {
     weakest = Memory.e59s47fixables.shift();
   } else if (repairer.room.name === Memory.deepSouthRoomName) {
-    weakest = Memory.e59s49.fixables.pop();
+    weakest = Memory.e59s49fixables.shift();
   } else if (repairer.room.name === "E35N32") {
     weakest = Memory.e35n32fixables.pop();
   }

@@ -161,6 +161,26 @@ function runRoles() {
           "59bbc5d22052a716c3cea133"
         );
       }
+    } else if (
+      roll === "ucdS" ||
+      roll === "upControllerdS" ||
+      roll === "upcdS" ||
+      roll === "upCdS"
+    ) {
+      if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
+        creep.memory.up = true;
+      }
+      upControllersE59S49.push(name);
+
+      creep.memory.controllerID = "59bbc5d22052a716c3cea13a";
+      upController(
+        creep,
+        Game.flags.northController,
+        Memory.deepSouthRoomName,
+        Game.flags.southExit,
+        BOTTOM,
+        "59bbc5d22052a716c3cea13a"
+      );
     } else if (roll === "worker" || roll === "w") {
       workers.push(name);
 
@@ -189,11 +209,11 @@ function runRoles() {
       roll = "c";
       claim(
         creep,
-        Memory.northRoomName,
-        Game.flags.northExit,
-        TOP,
+        Memory.deepSouthRoomName,
+        Game.flags.southExit,
+        BOTTOM,
         "",
-        "59bbc5d22052a716c3cea133"
+        "59bbc5d22052a716c3cea13a"
       );
     } else if (roll === "a" || roll === "attacker" || name.startsWith("a")) {
       if (creep.memory.direction === "north") {

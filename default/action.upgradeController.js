@@ -49,9 +49,7 @@ function upController(
   if (controllerFlag) {
     target = creep.room.lookForAt(LOOK_STRUCTURES, controllerFlag).pop();
   } else if (creep.memory.controllerID) {
-    target = creep.room
-      .lookForAt(LOOK_STRUCTURES, Game.getObjectById(creep.memory.controllerID))
-      .pop();
+    target = Game.getObjectById(creep.memory.controllerID)
   } else if (creep.memory.flag) {
     target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
   }

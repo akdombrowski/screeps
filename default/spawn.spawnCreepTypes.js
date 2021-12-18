@@ -83,6 +83,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let harvestersE59S49 = Memory.harvestersE59S49 || [];
   let upControllers = Memory.upControllers || [];
   let upControllersE59S47 = Memory.upControllersE59S47 || [];
+  let upControllersE59S49 = Memory.upControllersE59S49 || [];
   let roadRepairers = Memory.roadRepairers || [];
   let roadRepairersE59S47 = Memory.roadRepairersE59S47 || [];
   let roadBuilders = Memory.roadBuilders || [];
@@ -562,10 +563,11 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #     #  #        #     #   #   #     #
   //   #####   #######  #     #  ###  #     #
   let northController = Game.getObjectById("59bbc5d22052a716c3cea133");
-  if (enAvail >= 650 && !invaderId && northController && !northController.my) {
+  let deepSouthController = Game.getObjectById("59bbc5d22052a716c3cea13a");
+  if (enAvail >= 650 && !invaderId && deepSouthController && !deepSouthController.my) {
     let name = "h" + t;
     let chosenRole = "h";
-    let direction = "south";
+    let direction = "deepSouth";
     let sourceId = Memory.source2;
     let parts = simpleParts500;
     let group = "claimers";
@@ -575,7 +577,7 @@ function spawnCreepTypes(enAvail, spawns) {
       name = "c" + t;
       chosenRole = "c";
       claimers.push(name);
-      direction = "north";
+      direction = "deepSouth";
       parts = claimerParts;
       retval = birthCreep(
         spawns,
@@ -718,12 +720,29 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 2) {
+    } else if (harvestersE59S49.length < 4) {
       name = "hdS" + t;
       harvestersE59S49.push(name);
       chosenRole = "h";
       direction = "dS";
       group = "harvestersE59S49";
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (upControllersE59S49.length < 1) {
+      name = "upC" + t;
+      upControllersE59S49.push(name);
+      chosenRole = "upCdS";
+      direction = "deepSouth";
+      group = "upControllersE59S49";
+      parts = upContrParts800;
       retval = birthCreep(
         spawns,
         parts,
@@ -1176,6 +1195,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.workers = workers;
   Memory.upControllers = upControllers;
   Memory.upControllersE59S47 = upControllersE59S47;
+  Memory.upControllersE59S49 = upControllersE59S49;
   Memory.roadRepairers = roadRepairers;
   Memory.attackers = attackers;
   Memory.attackersE59S47 = attackersE59S47;

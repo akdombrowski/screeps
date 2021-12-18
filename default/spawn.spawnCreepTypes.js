@@ -80,6 +80,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let workers = Memory.workers || [];
   let harvesters = Memory.harvesters || [];
   let harvestersE59S47 = Memory.harvestersE59S47 || [];
+  let harvestersE59S49 = Memory.harvestersE59S49 || [];
   let upControllers = Memory.upControllers || [];
   let upControllersE59S47 = Memory.upControllersE59S47 || [];
   let roadRepairers = Memory.roadRepairers || [];
@@ -610,7 +611,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 4 ) {
+    if (harvesters.length < 4) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";
@@ -668,14 +669,13 @@ function spawnCreepTypes(enAvail, spawns) {
     }
   }
 
-
-// ..#######....#####.....#####..
-// .##.....##..##...##...##...##.
-// .##.....##.##.....##.##.....##
-// ..#######..##.....##.##.....##
-// .##.....##.##.....##.##.....##
-// .##.....##..##...##...##...##.
-// ..#######....#####.....#####..
+  // ..#######....#####.....#####..
+  // .##.....##..##...##...##...##.
+  // .##.....##.##.....##.##.....##
+  // ..#######..##.....##.##.....##
+  // .##.....##.##.....##.##.....##
+  // .##.....##..##...##...##...##.
+  // ..#######....#####.....#####..
   if (enAvail >= 800 && !invaderId) {
     let name = "h" + t;
     let chosenRole = "h";
@@ -706,6 +706,22 @@ function spawnCreepTypes(enAvail, spawns) {
       chosenRole = "h";
       direction = "north";
       group = "harvestersE59S47";
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (harvestersE59S49.length < 2) {
+      name = "hdS" + t;
+      harvestersE59S49.push(name);
+      chosenRole = "h";
+      direction = "dS";
+      group = "harvestersE59S49";
       retval = birthCreep(
         spawns,
         parts,
@@ -1154,6 +1170,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.reservers = reservers;
   Memory.harvesters = harvesters;
   Memory.harvestersE59S47 = harvestersE59S47;
+  Memory.harvestersE59S49 = harvestersE59S49;
   Memory.workers = workers;
   Memory.upControllers = upControllers;
   Memory.upControllersE59S47 = upControllersE59S47;

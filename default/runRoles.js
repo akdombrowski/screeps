@@ -23,6 +23,7 @@ function runRoles() {
   let crps = Game.creeps;
   let harvesters = [];
   let harvestersE59S47 = [];
+  let harvestersE59S49 = [];
   let workers = [];
   let upControllers = [];
   let upControllersE59S47 = [];
@@ -231,6 +232,7 @@ function runRoles() {
 
   Memory.harvesters = harvesters;
   Memory.harvestersE59S47 = harvestersE59S47;
+  Memory.harvestersE59S49 = harvestersE59S49;
   Memory.workers = workers;
   Memory.upControllers = upControllers;
   Memory.upControllersE59S47 = upControllersE59S47;

@@ -21,7 +21,7 @@ function roleHarvester(creep) {
     retval = ERR_FULL;
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
-    if (creep.memory.role.startsWith("h")) {
+    if (creep.memory.direction.startsWith("n")) {
       retval = transferEnergy(
         creep,
         null,
@@ -29,6 +29,15 @@ function roleHarvester(creep) {
         Memory.homeRoomName,
         Game.flags.northEntrance,
         BOTTOM
+      );
+    } else if (creep.memory.direction.startsWith("dS")) {
+      retval = transferEnergy(
+        creep,
+        null,
+        null,
+        Memory.homeRoomName,
+        Game.flags.southEntrance,
+        TOP
       );
     }
     return retval;

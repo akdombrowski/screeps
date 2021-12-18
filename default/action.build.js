@@ -69,8 +69,8 @@ function build(creep) {
         if (!target) {
           _.forEach(Memory.e59s48sites, (site) => {
             const siteObj = Game.getObjectById(site.id);
-            if (siteObj.progress >= siteObj.progressTotal) {
-              return arr.push(siteObj);
+            if (siteObj.progress < siteObj.progressTotal) {
+              arr.push(siteObj);
             }
           });
         }
@@ -85,7 +85,7 @@ function build(creep) {
               return false;
             } else if (type === STRUCTURE_EXTENSION) {
               extFound = true;
-              t = site;
+              target = site;
               return site;
             } else {
               return site;
@@ -93,9 +93,14 @@ function build(creep) {
           },
         });
 
-        _.forEach(Memory.e59s47sites, (site) => {
-          return arr.push(Game.getObjectById(site.id));
-        });
+        if (!target) {
+          _.forEach(Memory.e59s47sites, (site) => {
+            const siteObj = Game.getObjectById(site.id);
+            if (siteObj.progress < siteObj.progressTotal) {
+              arr.push(siteObj);
+            }
+          });
+        }
       }
 
       if (arr) {

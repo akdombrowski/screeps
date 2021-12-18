@@ -42,12 +42,7 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
 
     retval = getEnergy(creep, targetRoomName);
 
-    return retval;
-  } else if (creep.store[RESOURCE_ENERGY] <= 0) {
-    creep.memory.build = false;
-    creep.memory.repair = false;
-    creep.memory.getEnergy = true;
-    retval = getEnergy(creep);
+    // console.log(name + " getEnergy retval in repairer " + retval);
 
     return retval;
   }

@@ -17,7 +17,7 @@ function roleHarvester(creep) {
   const deepSouthRmName = Memory.deepSouthRoomName;
   let retval = -16;
 
-  if (creep.store.getFreeCapacity() <= 0 || creep.memory.transfer) {
+  if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0 || creep.memory.transfer) {
     retval = ERR_FULL;
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
@@ -38,6 +38,15 @@ function roleHarvester(creep) {
         Memory.homeRoomName,
         Game.flags.southEntrance,
         TOP
+      );
+    } else {
+      retval = transferEnergy(
+        creep,
+        null,
+        null,
+        Memory.homeRoomName,
+        null,
+        null
       );
     }
     return retval;

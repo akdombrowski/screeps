@@ -42,6 +42,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
 
   if (rmName != targetRoomName) {
     if (creep.pos.isNearTo(exit)) {
+      creep.say(exitDirection);
       retval = creep.move(exitDirection);
     } else {
       retval = smartMove(

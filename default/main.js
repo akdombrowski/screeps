@@ -56,11 +56,12 @@ module.exports.loop = function () {
     towersAttackInvader(Memory.invader, towers);
 
 
+
     const timeToPassForRecheck = 100;
     for(let i = 0; i < towers.length; i++) {
       let t = towers[i];
       let target = null;
-      if (t.room.name === Memory.homeRoomName) {
+      if (t.room.name === Memory.homeRoomName && !Memory.invaderId) {
         if (
           !Memory.e59s48fixables ||
           Memory.e59s48fixables.length <= 0 ||
@@ -69,7 +70,7 @@ module.exports.loop = function () {
           Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
           Memory.lastSouthCheckFixables = Game.time;
         }
-      } else if (t.room.name === Memory.northRoomName) {
+      } else if (t.room.name === Memory.northRoomName && !Memory.nAttackerId) {
         if (
           !Memory.e59s47fixables ||
           Memory.e59s47fixables.length <= 0 ||

@@ -4,6 +4,7 @@ function checkForAttackers() {
   let eRm = Memory.eRm;
   let wRm = Memory.wRm;
   let rm = Game.rooms[Memory.homeRoomName];
+  let dSRm = Game.rooms[Memory.deepSouthRoomName];
   let neRm = Memory.neRm;
   let nwRm = Memory.nwRm;
   let nwwRm = Memory.nwwRm;
@@ -13,9 +14,53 @@ function checkForAttackers() {
   let attackDurationSafeCheck = Memory.attackDurationSafeCheck;
   let neAttackDurationSafeCheck = Memory.neAttackDurationSafeCheck;
   let nwAttackDurationSafeCheck = Memory.nwAttackDurationSafeCheck;
+  let dSAttackDurationSafeCheck = Memory.dSAttackDurationSafeCheck;
   let nwwAttackDurationSafeCheck = Memory.nwwAttackDurationSafeCheck;
   const attackerCheckWaitTime = 100;
   let attackerId;
+
+  if (Game.getObjectById(Memory.invaderId) === null) {
+    Memory.invaderId = null;
+  }
+
+  if (Game.getObjectById(Memory.nAttackerId) === null) {
+    Memory.nAttackerId = null;
+  }
+
+  if (Game.getObjectById(Memory.dSAttackerId) === null) {
+    Memory.dSAttackerId = null;
+  }
+
+  if (
+    dSRm &&
+    (!Memory.dSAttackerId || Game.time >= dSAttackDurationSafeCheck)
+  ) {
+    attackerId = getAttackEvents(dSRm);
+    if (!attackerId) {
+      let enemyCreeps = dSRm.find(FIND_HOSTILE_STRUCTURES);
+
+      if (!enemyCreeps) {
+        enemyCreeps = dSRm.find(FIND_HOSTILE_CREEPS);
+      }
+
+      if (!enemyCreeps) {
+        enemyCreeps = dSRm.find(FIND_HOSTILE_SPAWNS);
+      }
+
+      if (enemyCreeps) {
+        let enemyCreep = enemyCreeps.pop();
+        if (enemyCreep) {
+          console.log("nrm enemyCreep spotted ");
+          attackerId = enemyCreep.id;
+        }
+      }
+    }
+    Memory.dSAttackerId = attackerId;
+    if (attackerId) {
+      Memory.dSAttackDurationSafeCheck = Game.time + attackerCheckWaitTime;
+      console.log("dSAttacker:" + attackerId);
+    }
+  }
 
   if (nRm && (!Memory.nAttackerId || Game.time >= nAttackDurationSafeCheck)) {
     attackerId = getAttackEvents(nRm);

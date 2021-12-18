@@ -1,9 +1,7 @@
 const smartMove = require("./action.smartMove");
-const getEnergy = require("./action.getEnergyEEast");
-const ermgetEnergyEast = require("./action.getEnergy.1");
 const profiler = require("./screeps-profiler");
 
-function roleAttackerN(creep) {
+function roleAttackerdS(creep) {
   let s1 = Game.spawns.Spawn1;
   let rm = creep.room;
   let creeps = Game.creeps;
@@ -11,27 +9,22 @@ function roleAttackerN(creep) {
   let invader;
   let retval;
   let northExit = Game.flags.northExit;
+  let southExit = Game.flags.southExit;
   let getEnergy = creep.memory.getEnergy;
   let transfer = creep.memory.transfer;
   let name = creep.name;
 
   if (rm.name === Memory.homeRoomName) {
-    if (creep.pos.isNearTo(northExit)) {
-      retval = creep.move(TOP);
-    } else if (creep.pos.y > 2 && creep.pos.y < 49) {
-      retval = smartMove(creep, northExit.pos, 1);
+    if (creep.pos.isNearTo(southExit)) {
+      retval = creep.move(BOTTOM);
     } else {
-      retval = creep.move(TOP);
+      retval = smartMove(creep, southExit, 1);
     }
 
     return retval;
-  } else if (rm.name === Memory.northRoomName) {
-    if (creep.pos.y >= 48) {
-      retval = creep.move(TOP);
-    }
   }
 
-  let enemyCreep = Game.getObjectById(Memory.nAttackerId);
+  let enemyCreep = Game.getObjectById(Memory.dSAttackerId);
   if (enemyCreep) {
     invader = enemyCreep;
   } else {
@@ -53,11 +46,12 @@ function roleAttackerN(creep) {
   } else if (invader) {
     retval = smartMove(creep, invader, 1);
   } else {
+    Memory.dSAttackerId = null;
     creep.say("goodbye");
     creep.suicide();
   }
   return retval;
 }
 
-roleAttackerN = profiler.registerFN(roleAttackerN, "roleAttackerN");
-module.exports = roleAttackerN;
+roleAttackerdS = profiler.registerFN(roleAttackerdS, "roleAttackerdS");
+module.exports = roleAttackerdS;

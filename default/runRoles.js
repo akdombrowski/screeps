@@ -11,6 +11,7 @@ const claimContr = require("./action.claimContr");
 const roleHarvesterToTower = require("./role.harvester.ToTower");
 const claim = require("./action.claimIt");
 const roleAttackerN = require("./role.attackerN");
+const roleAttackerdS = require("./role.attackerdS");
 const roleAttackerNW = require("./role.attackerNW");
 const roleAttackerNWW = require("./role.attackerNWW");
 const roleAttackerNE = require("./role.attackerNE");
@@ -34,6 +35,7 @@ function runRoles() {
   let roadBuilders = [];
   let attackers = [];
   let attackersE59S47 = [];
+  let attackersE59S49 = [];
   let claimers = [];
   let linkGets = [];
   let towerHarvesters = [];
@@ -223,7 +225,10 @@ function runRoles() {
     } else if (roll === "a" || roll === "attacker" || name.startsWith("a")) {
       if (creep.memory.direction === "north") {
         attackersE59S47.push(name);
-        roleAttackerN.run(creep);
+        roleAttackerN(creep);
+      } else if (creep.memory.direction === "deepSouth") {
+        attackersE59S49.push(name);
+        roleAttackerdS(creep);
       } else if (creep.memory.direction === "ne") {
         eattackers.push(name);
         roleAttackerNE.run(creep);
@@ -268,6 +273,7 @@ function runRoles() {
   Memory.roadBuilders = roadBuilders;
   Memory.attackers = attackers;
   Memory.attackersE59S47 = attackersE59S47;
+  Memory.attackersE59S49 = attackersE59S49;
   Memory.claimers = claimers;
   Memory.linkGets = linkGets;
   Memory.towerHarvesters = towerHarvesters;

@@ -53,7 +53,7 @@ module.exports.loop = function () {
 
     let towers = [];
     towers.push(Game.getObjectById(Memory.tower1Id));
-    towersAttackInvader(Memory.invader, towers);
+    towersAttackInvader(Game.getObjectById(Memory.invaderId), towers);
 
 
 

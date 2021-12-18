@@ -34,22 +34,22 @@ function chooseSource(creep, sources) {
     target = sources[0];
   }
 
-  if (!target && creep.pos.inRangeTo(sources[0], 3)) {
+  if (!target && creep.pos.inRangeTo(sources[0], 2)) {
     target = sources2[0];
   }
 
-  if (!target && creep.pos.inRangeTo(sources[1], 3)) {
+  if (!target && creep.pos.inRangeTo(sources[1], 2)) {
     target = sources[1];
   }
 
   if (!target && sources.length > 0) {
     const numCreepsBySource0 = sources[0].pos.findInRange(
       FIND_CREEPS,
-      5
+      3
     ).length;
     const numCreepsBySource1 = sources[1].pos.findInRange(
       FIND_CREEPS,
-      5
+      3
     ).length;
 
     if (numCreepsBySource0 > numCreepsBySource1) {

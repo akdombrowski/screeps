@@ -737,7 +737,7 @@ function spawnCreepTypes(enAvail, spawns) {
         group
       );
     } else if (upControllersE59S49.length < 1) {
-      name = "upC" + t;
+      name = "upCdS" + t;
       upControllersE59S49.push(name);
       chosenRole = "upCdS";
       direction = "deepSouth";

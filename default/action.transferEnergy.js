@@ -62,34 +62,6 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     return retval;
   }
 
-  // if (
-  //   rmName !== targetRoomName &&
-  //   !creep.pos.isNearTo(Game.flags.northEntrance)
-  // ) {
-  //   retval = smartMove(
-  //     creep,
-  //     Game.flags.northEntrance.pos,
-  //     1,
-  //     true,
-  //     null,
-  //     10,
-  //     100,
-  //     1,
-  //     false,
-  //     null
-  //   );
-  //   return retval;
-  // }
-
-  // if (
-  //   creep.pos.isNearTo(Game.flags.northEntrance) ||
-  //   pos.y >= 48 ||
-  //   pos.y <= 1
-  // ) {
-  //   retval = creep.move(BOTTOM);
-  //   return retval;
-  // }
-
   if (flag && flag.pos) {
     target = flag.pos.lookFor(LOOK_STRUCTURES).pop();
   } else if (creep.memory.flag) {
@@ -101,8 +73,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   if (
     target &&
     target.store[RESOURCE_ENERGY] &&
-    target.store.getUsedCapacity(RESOURCE_ENERGY) >=
-      target.store.getCapacity(RESOURCE_ENERGY)
+    target.store.getFreeCapacity(RESOURCE_ENERGY) <= 0
   ) {
     target = null;
     creep.memory.flag = null;
@@ -155,11 +126,10 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       // remove the target from list
       _.pull(Memory.e59s48extensionsSpawns, target.id);
     } else {
+      // didn't find an extension that needed energy
       // target is still null
     }
   }
-
-
 
   // towers
   if (!target && enAvail > 500) {

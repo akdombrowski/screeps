@@ -709,6 +709,9 @@ function spawnCreepTypes(enAvail, spawns) {
     }
   }
 
+  //
+  //
+  //
   // ..#######....#####.....#####..
   // .##.....##..##...##...##...##.
   // .##.....##.##.....##.##.....##
@@ -716,6 +719,9 @@ function spawnCreepTypes(enAvail, spawns) {
   // .##.....##.##.....##.##.....##
   // .##.....##..##...##...##...##.
   // ..#######....#####.....#####..
+  //
+  //
+  //
   if (enAvail >= 800 && !invaderId) {
     let name = "h" + t;
     let chosenRole = "h";
@@ -725,7 +731,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 4) {
+    if (harvesters.length < 6) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";

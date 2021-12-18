@@ -112,14 +112,14 @@ function getEnergy(
         creep.memory.lastSourceId = null;
       }
 
-      if (target && target.pos.findInRange(FIND_CREEPS, 3).length > 5) {
+      if (target && target.pos.findInRange(FIND_CREEPS, 2).length > 5) {
         creep.memory.lastSourceId = null;
         target = null;
       }
     }
 
     if (!target && Game.rooms[targetedRmName]) {
-      let sources = Game.rooms[targetedRmName].find(FIND_SOURCES_ACTIVE);
+      let sources = Game.rooms[targetedRmName].find(FIND_SOURCES);
       target = chooseSource(creep, sources);
     }
 

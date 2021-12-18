@@ -101,7 +101,6 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       Memory.e59s48extensionsSpawns.length <= 0
     ) {
       Memory.e59s48extensionsSpawns = findStructs(
-        exts,
         [STRUCTURE_EXTENSION, STRUCTURE_SPAWN],
         Memory.homeRoomName
       );
@@ -288,8 +287,8 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
 tran = profiler.registerFN(tran, "tran");
 module.exports = tran;
 
-function findStructs(exts, structTypes, targetRoomName) {
-  exts = Game.rooms[targetRoomName].find(FIND_MY_STRUCTURES, {
+function findStructs(structTypes, targetRoomName) {
+  let structs = Game.rooms[targetRoomName].find(FIND_MY_STRUCTURES, {
     filter: (struct) => {
       for (let i = 0; i < structTypes.length; i++) {
         if (structTypes[i] === struct.structureType) {
@@ -299,9 +298,7 @@ function findStructs(exts, structTypes, targetRoomName) {
     },
   });
 
-  const extIDs = exts.map(function (ext) {
-    return ext.id;
-  });
+  const extIDs = structs.map((ext) => ext.id);
 
   return extIDs;
 }

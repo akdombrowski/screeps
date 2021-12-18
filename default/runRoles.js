@@ -27,6 +27,7 @@ function runRoles() {
   let workers = [];
   let upControllers = [];
   let upControllersE59S47 = [];
+  let upControllersE59S49 = [];
   let roadRepairers = [];
   let roadRepairersE59S47 = [];
   let roadBuilders = [];
@@ -256,6 +257,7 @@ function runRoles() {
   Memory.workers = workers;
   Memory.upControllers = upControllers;
   Memory.upControllersE59S47 = upControllersE59S47;
+  Memory.upControllersE59S49 = upControllersE59S49;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersE59S47 = roadRepairersE59S47;
   Memory.roadBuilders = roadBuilders;

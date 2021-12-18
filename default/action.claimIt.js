@@ -53,7 +53,7 @@ function claimContr(
       if (retval === ERR_TIRED) {
         creep.say("f." + creep.fatigue);
       } else {
-        creep.say("p2up." + retval);
+        creep.say("ctr." + contr.pos.x + "," + contr.pos.y);
       }
     }
   } else if (creep.room.name === "E36N32") {

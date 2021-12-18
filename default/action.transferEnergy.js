@@ -123,7 +123,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   }
 
   let extensionNeedsEnergy = false;
-  if (!target && creep.room === Memory.homeRoomName) {
+  if (!target && creep.room.name === Memory.homeRoomName) {
     let exts;
     if (
       !Memory.e59s48extensionsSpawns ||
@@ -146,22 +146,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     });
 
     // find closest ext or spawn by path
-    let a = creep.pos.findClosestByPath(exts, {
-      filter: function (structure) {
-        if (!structure.pos) {
-          return false;
-        }
-
-        if (
-          structure.store &&
-          structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-        ) {
-          return true;
-        }
-
-        return false;
-      },
-    });
+    let a = creep.pos.findClosestByPath(exts);
 
     if (a) {
       target = a;
@@ -174,23 +159,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     }
   }
 
-  // containers or storage
-  if (!target) {
-    let structs = creep.room.find(FIND_MY_STRUCTURES, {
-      filter: function (struct) {
-        let type = struct.type;
-        return (
-          (type === STRUCTURE_CONTAINER || type === STRUCTURE_STORAGE) &&
-          struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-        );
-      },
-    });
 
-    // find closest container or storage
-    if (structs && structs.length > 0) {
-      target = creep.pos.findClosestByPath(structs);
-    }
-  }
 
   // towers
   if (!target && enAvail > 500) {
@@ -239,7 +208,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
 
   // storage or containers
   if (!target) {
-    target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: (structure) => {
         if (structure.structureType === STRUCTURE_STORAGE) {
           return (

@@ -90,14 +90,12 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   //   return retval;
   // }
 
-  if (creep.memory.role === "h" || creep.memory.role === "harvester") {
-    if (flag && flag.pos) {
-      target = flag.pos.lookFor(LOOK_STRUCTURES).pop();
-    } else if (creep.memory.flag) {
-      target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
-    } else if (creep.memory.transferTargetId) {
-      target = Game.getObjectById(creep.memory.transferTargetId);
-    }
+  if (flag && flag.pos) {
+    target = flag.pos.lookFor(LOOK_STRUCTURES).pop();
+  } else if (creep.memory.flag) {
+    target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
+  } else if (creep.memory.transferTargetId) {
+    target = Game.getObjectById(creep.memory.transferTargetId);
   }
 
   if (
@@ -120,11 +118,12 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   ) {
     target = null;
     creep.memory.path = null;
+    creep.memory.transferTargetId = null;
     creep.memory.flag = null;
   }
 
   let extensionNeedsEnergy = false;
-  if (!target) {
+  if (!target && creep.room === Memory.homeRoomName) {
     let exts;
     if (
       !Memory.e59s48extensionsSpawns ||
@@ -138,7 +137,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     } else {
       Memory.e59s48extensionsSpawns = Memory.e59s48extensionsSpawns.filter(
         (struct) =>
-          struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) <= 0
+          struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
       );
     }
 
@@ -154,9 +153,8 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
         }
 
         if (
-          !structure.store[RESOURCE_ENERGY] ||
-          (structure.store &&
-            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
+          structure.store &&
+          structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
         ) {
           return true;
         }
@@ -183,8 +181,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
         let type = struct.type;
         return (
           (type === STRUCTURE_CONTAINER || type === STRUCTURE_STORAGE) &&
-          (!struct.store[RESOURCE_ENERGY] ||
-            struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
+          struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
         );
       },
     });

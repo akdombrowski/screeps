@@ -17,7 +17,10 @@ function roleHarvester(creep) {
   const deepSouthRmName = Memory.deepSouthRoomName;
   let retval = -16;
 
-  if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0 || creep.memory.transfer) {
+  if (
+    creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0 ||
+    creep.memory.transfer
+  ) {
     retval = ERR_FULL;
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
@@ -144,23 +147,22 @@ function roleHarvester(creep) {
 
       retval = transEnTower(creep, 2000);
       // return retval;
-      if(retval === OK || retval === ERR_TIRED) {
+      if (retval === OK || retval === ERR_TIRED) {
         return retval;
       }
     }
 
     // didn't give energy to tower. build road.
     if (
-      (direction === "south" &&
-        retval != OK &&
+      creep.memory.buildRoad ||
+      (retval != OK &&
         !creep.memory.transfer &&
         !creep.memory.transferTower &&
         creep.room.find(FIND_CONSTRUCTION_SITES, {
           filter: (site) => {
             return site.structureType === STRUCTURE_ROAD;
           },
-        })) ||
-      creep.memory.buildRoad
+        }))
     ) {
       retval = buildRoad(creep);
       if (retval === OK) {
@@ -181,7 +183,7 @@ function roleHarvester(creep) {
   } else {
     creep.memory.getEnergy = true;
   }
-};
+}
 
 roleHarvester = profiler.registerFN(roleHarvester, "roleHarvester");
 module.exports = roleHarvester;

@@ -30,7 +30,6 @@ function build(creep) {
     }
 
     if (creep.room.name === Memory.northRoomName) {
-      target = Game.getObjectById("59bbc5d22052a716c3cea133");
       if (target && target.progress < target.progressTotal) {
         // good, keep target
       } else {
@@ -58,6 +57,9 @@ function build(creep) {
               return false;
             } else if (type === STRUCTURE_EXTENSION) {
               extFound = true;
+              target = site;
+              return true;
+            } else if (type === STRUCTURE_SPAWN) {
               target = site;
               return true;
             } else {

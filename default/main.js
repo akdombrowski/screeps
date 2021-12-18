@@ -19,6 +19,7 @@ const { deleteDeadCreeps } = require("./deleteDeadCreeps");
 const { areCreepsDying } = require("./areCreepsDying");
 const { towersAttackInvader } = require("./towersAttackInvader");
 const { reCheckNumOfCreeps } = require("./reCheckNumOfCreeps");
+const findRepairable = require("./action.findRepairableStruct");
 
 // This line monkey patches the global prototypes.
 profiler.enable();
@@ -33,6 +34,7 @@ module.exports.loop = function () {
     Memory.rm = rm;
     Memory.homeRoomName = "E59S48";
     Memory.northRoomName = "E59S47";
+    Memory.deepSouthRoomName = "E59S49";
 
     let enAvail = rm.energyAvailable;
     let enCapRm = rm.energyCapacityAvailable;
@@ -52,6 +54,66 @@ module.exports.loop = function () {
     let towers = [];
     towers.push(Game.getObjectById(Memory.tower1Id));
     towersAttackInvader(Memory.invader, towers);
+
+
+    const timeToPassForRecheck = 100;
+    for(let i = 0; i < towers.length; i++) {
+      let t = towers[i];
+      let target = null;
+      if (t.room.name === Memory.homeRoomName) {
+        if (
+          !Memory.e59s48fixables ||
+          Memory.e59s48fixables.length <= 0 ||
+          Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
+        ) {
+          Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
+          Memory.lastSouthCheckFixables = Game.time;
+        }
+      } else if (t.room.name === Memory.northRoomName) {
+        if (
+          !Memory.e59s47fixables ||
+          Memory.e59s47fixables.length <= 0 ||
+          Memory.lastNorthCheckFixables - Game.time > timeToPassForRecheck
+        ) {
+          Memory.e59s47fixables = findFixables(
+            Game.rooms[Memory.northRoomName]
+          );
+          Memory.lastNorthCheckFixables = Game.time;
+        }
+      } else {
+        if (
+          !Memory.e59s48fixables ||
+          Memory.e59s48fixables.length <= 0 ||
+          Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
+        ) {
+          Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
+          Memory.lastSouthCheckFixables = Game.time;
+        }
+      }
+      target = findRepairable(t);
+      if(target) {
+        t.repair(target);
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     checkForAttackers();
 

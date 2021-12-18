@@ -20,20 +20,21 @@ function build(creep) {
   }
 
   if (building) {
-    if ((creep.room.name === Memory.homeRoomName)) {
-      target = Game.getObjectById("61b8f17a0d45b7dc36e21105");
+    if (creep.room.name === Memory.homeRoomName) {
       if (target && target.progress < target.progressTotal) {
         // good, keep target
       } else {
+        creep.memory.lastBuildID = null;
         target = null;
       }
     }
 
-    if ((creep.room.name === Memory.northRoomName)) {
+    if (creep.room.name === Memory.northRoomName) {
       target = Game.getObjectById("59bbc5d22052a716c3cea133");
       if (target && target.progress < target.progressTotal) {
         // good, keep target
       } else {
+        creep.memory.lastBuildID = null;
         target = null;
       }
     }
@@ -57,17 +58,22 @@ function build(creep) {
               return false;
             } else if (type === STRUCTURE_EXTENSION) {
               extFound = true;
-              t = site;
-              return site;
+              target = site;
+              return true;
             } else {
-              return site;
+              return true;
             }
           },
         });
 
-        _.forEach(Memory.e59s48sites, (site) => {
-          return arr.push(Game.getObjectById(site.id));
-        });
+        if (!target) {
+          _.forEach(Memory.e59s48sites, (site) => {
+            const siteObj = Game.getObjectById(site.id);
+            if (siteObj.progress >= siteObj.progressTotal) {
+              return arr.push(siteObj);
+            }
+          });
+        }
       } else if (direction.startsWith("n")) {
         Memory.e59s47sites = Game.rooms.E59S47.find(FIND_CONSTRUCTION_SITES, {
           filter: (site) => {

@@ -14,6 +14,7 @@ function roleHarvester(creep) {
   const rm = creep.room;
   const homeRmName = Memory.homeRoomName;
   const northRmName = Memory.northRoomName;
+  const deepSouthRmName = Memory.deepSouthRoomName;
   let retval = -16;
 
   if (creep.store.getFreeCapacity() <= 0 || creep.memory.transfer) {
@@ -68,6 +69,16 @@ function roleHarvester(creep) {
         Game.flags.northExit,
         TOP,
         Memory.northRoomName
+      );
+    } else if (creep.memory.direction.startsWith("dS")) {
+      retval = getEnergy(
+        creep,
+        deepSouthRmName,
+        null,
+        null,
+        Game.flags.southExit,
+        BOTTOM,
+        Memory.deepSouthRoomName
       );
     } else {
       retval = getEnergy(

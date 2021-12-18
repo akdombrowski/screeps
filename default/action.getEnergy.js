@@ -26,6 +26,7 @@ function getEnergy(
   let range = 1;
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
+  const deepSouthRoomName = Memory.deepSouthRoomName;
 
   creep.memory.getEnergy = true;
   creep.memory.transfer = false;
@@ -59,9 +60,9 @@ function getEnergy(
         creep.room.name !== sourceRmTargetedName ? Game.flags.northExit : null;
       targetedRmName = sourceRmTargetedName;
       break;
-    case "E36N31":
-      target = creep.room.name != sourceRmTargetedName ? Game.flags.east : null;
-      targetedRmName = Game.flags.east.room;
+    case deepSouthRoomName:
+      target = creep.room.name != sourceRmTargetedName ? Game.flags.southExit : null;
+      targetedRmName = sourceRmTargetedName;
       break;
     case "E36N32":
       target =
@@ -115,7 +116,7 @@ function getEnergy(
       }
     }
 
-    if (!target) {
+    if (!target && Game.rooms[targetedRmName]) {
       let sources = Game.rooms[targetedRmName].find(FIND_SOURCES_ACTIVE);
       target = chooseSource(creep, sources);
     }

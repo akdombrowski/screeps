@@ -202,6 +202,15 @@ function runRoles() {
           TOP,
           Memory.northRoomName
         );
+      } else if (creep.memory.direction.startsWith("deepSouth")) {
+        roleWorker(
+          creep,
+          null,
+          null,
+          Game.flags.southExit,
+          BOTTOM,
+          Memory.deepSouthRoomName
+        );
       } else {
         roleWorker(creep, null, null, null, null, Memory.homeRoomName);
       }

@@ -113,6 +113,33 @@ function build(creep) {
             }
           });
         }
+      } else if (direction.startsWith("deepSouth")) {
+        Memory.e59s49sites = Game.rooms.E59S49.find(FIND_CONSTRUCTION_SITES, {
+          filter: (site) => {
+            let prog = site.progress;
+            let progTot = site.progressTotal;
+            let progLeft = progTot - prog;
+            let type = site.structureType;
+            if (progLeft <= 0) {
+              return false;
+            } else if (type === STRUCTURE_EXTENSION) {
+              extFound = true;
+              target = site;
+              return site;
+            } else {
+              return site;
+            }
+          },
+        });
+
+        if (!target) {
+          _.forEach(Memory.e59s49sites, (site) => {
+            const siteObj = Game.getObjectById(site.id);
+            if (siteObj.progress < siteObj.progressTotal) {
+              arr.push(siteObj);
+            }
+          });
+        }
       }
 
       if (arr) {

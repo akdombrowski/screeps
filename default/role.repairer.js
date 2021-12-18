@@ -91,6 +91,17 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
           );
           Memory.lastNorthCheckFixables = Game.time;
         }
+      } else if (creep.memory.direction.startsWith("deepSouth")) {
+        if (
+          !Memory.e59s49fixables ||
+          Memory.e59s49fixables.length <= 0 ||
+          Memory.lastDeepSouthCheckFixables - Game.time > timeToPassForRecheck
+        ) {
+          Memory.e59s49fixables = findFixables(
+            Game.rooms[Memory.deepSouthRoomName]
+          );
+          Memory.lastDeepSouthCheckFixables = Game.time;
+        }
       } else {
         if (
           !Memory.e59s48fixables ||

@@ -62,7 +62,8 @@ function getEnergy(
       targetedRmName = sourceRmTargetedName;
       break;
     case deepSouthRoomName:
-      target = creep.room.name != sourceRmTargetedName ? Game.flags.southExit : null;
+      target =
+        creep.room.name != sourceRmTargetedName ? Game.flags.southExit : null;
       targetedRmName = sourceRmTargetedName;
       break;
     case "E36N32":
@@ -245,12 +246,12 @@ function getEnergy(
       target.store &&
       (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
   ) {
-    target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: (struct) => {
         const type = struct.structureType;
 
         if (
-          (type === STRUCTURE_CONTAINER || type === STRUCTURE_LINK) &&
+          type === STRUCTURE_CONTAINER &&
           struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
         ) {
           // console.log("name: " + structure)
@@ -289,6 +290,29 @@ function getEnergy(
         return retval;
       }
     }
+  }
+
+  // get from link
+  if (
+    !target ||
+    (target &&
+      target.store &&
+      (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
+  ) {
+    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+      filter: (struct) => {
+        const type = struct.structureType;
+
+        if (
+          type === STRUCTURE_LINK &&
+          struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
+        ) {
+          // console.log("name: " + structure)
+          return struct;
+        }
+      },
+    });
+    isTargetStructure = target ? true : false;
   }
 
   if (

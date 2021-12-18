@@ -30,6 +30,7 @@ function build(creep) {
     }
 
     if (creep.room.name === Memory.northRoomName) {
+      target = Game.getObjectById("61b99488d7e4319e2767aef1");
       if (target && target.progress < target.progressTotal) {
         // good, keep target
       } else {

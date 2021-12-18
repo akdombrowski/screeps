@@ -37,7 +37,15 @@ function upController(
   } else if (creep.store[RESOURCE_ENERGY] <= 0 || creep.memory.getEnergy) {
     creep.memory.up = false;
     creep.memory.getEnergy = true;
-    retval = getEnergy(creep, targetRoomName, targetRoomName, null, Game.flags.northExit, TOP, targetRoomName);
+    retval = getEnergy(
+      creep,
+      targetRoomName,
+      targetRoomName,
+      null,
+      Game.flags.northExit,
+      TOP,
+      targetRoomName
+    );
     return retval;
   }
 
@@ -49,50 +57,58 @@ function upController(
   if (controllerFlag) {
     target = creep.room.lookForAt(LOOK_STRUCTURES, controllerFlag).pop();
   } else if (creep.memory.controllerID) {
-    target = Game.getObjectById(creep.memory.controllerID)
+    target = Game.getObjectById(creep.memory.controllerID);
   } else if (creep.memory.flag) {
     target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
   }
 
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-      filter: (structure) => {
-        structure.type == STRUCTURE_CONTROLLER;
-      },
+      filter: (structure) => structure.structureType === STRUCTURE_CONTROLLER,
     });
-    creep.memory.controller = target.pos;
+
+    if (target) {
+      creep.memory.controllerID = target.id;
+    } else {
+      console.log(name + " upgrade Controller target " + target);
+    }
   }
 
-  if (creep.memory.up) {
-    if (creep.pos.inRangeTo(target, 3)) {
-      retval = creep.upgradeController(target);
-      if (retval == OK) {
-        creep.say("uc");
-      } else if (retval === ERR_NOT_IN_RANGE) {
-        creep.say("uc" + target.pos.x + "," + target.pos.y);
-      } else if (retval === ERR_NOT_ENOUGH_RESOURCES) {
-        creep.say("uc");
-        creep.memory.up = false;
-        creep.memory.getEnergy = true;
-        getEnergy(creep);
-        return retval;
-      } else {
-        creep.memory.controller = null;
-        creep.say("uc." + retval);
-      }
-    } else if (creep.fatigue > 0) {
-      creep.say("f." + creep.fatigue);
-    } else {
-      retval = smartMove(creep, target, 3, true, "#ffff80", 100, 10000, 1);
 
-      if (retval != OK) {
-        creep.say("err." + retval);
+  if (target) {
+    if (creep.memory.up) {
+      if (creep.pos.inRangeTo(target, 3)) {
+        retval = creep.upgradeController(target);
+        if (retval == OK) {
+          creep.say("uc");
+        } else if (retval === ERR_NOT_IN_RANGE) {
+          creep.say("uc" + target.pos.x + "," + target.pos.y);
+        } else if (retval === ERR_NOT_ENOUGH_RESOURCES) {
+          creep.say("uc");
+          creep.memory.up = false;
+          creep.memory.getEnergy = true;
+          getEnergy(creep);
+          return retval;
+        } else {
+          creep.memory.controller = null;
+          creep.say("uc." + retval);
+        }
+      } else if (creep.fatigue > 0) {
+        creep.say("f." + creep.fatigue);
+      } else {
+        retval = smartMove(creep, target, 3, true, "#ffff80", 100, 10000, 1);
+
+        if (retval != OK) {
+          creep.say("err." + retval);
+        }
       }
     }
-  } else {
+  }
+
+  if (!creep.memory.up) {
     creep.say("h");
     creep.memory.getEnergy = true;
-    getEnergy(creep);
+    retval = getEnergy(creep);
   }
 }
 

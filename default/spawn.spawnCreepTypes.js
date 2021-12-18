@@ -86,6 +86,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let upControllersE59S49 = Memory.upControllersE59S49 || [];
   let roadRepairers = Memory.roadRepairers || [];
   let roadRepairersE59S47 = Memory.roadRepairersE59S47 || [];
+  let roadRepairersE59S49 = Memory.roadRepairersE59S49 || [];
   let roadBuilders = Memory.roadBuilders || [];
   let reservers = Memory.reservers || [];
   let towerHarvesters = Memory.towerHarvesters || [];
@@ -787,6 +788,23 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
+    } else if (roadRepairersE59S49.length < 4) {
+      parts = workerParts800;
+      name = "rRdS" + t;
+      roadRepairersE59S49.push(name);
+      chosenRole = "roadRepairer";
+      direction = "deepSouth";
+      group = "roadRepairersE59S49";
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
     } else if (roadRepairers.length < 3) {
       parts = workerParts800;
       name = "rR" + t;
@@ -1197,6 +1215,8 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.upControllersE59S47 = upControllersE59S47;
   Memory.upControllersE59S49 = upControllersE59S49;
   Memory.roadRepairers = roadRepairers;
+  Memory.roadRepairersE59S47 = roadRepairersE59S47;
+  Memory.roadRepairersE59S49 = roadRepairersE59S49;
   Memory.attackers = attackers;
   Memory.attackersE59S47 = attackersE59S47;
   Memory.claimers = claimers;

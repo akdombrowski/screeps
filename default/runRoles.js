@@ -30,6 +30,7 @@ function runRoles() {
   let upControllersE59S49 = [];
   let roadRepairers = [];
   let roadRepairersE59S47 = [];
+  let roadRepairersE59S49 = [];
   let roadBuilders = [];
   let attackers = [];
   let attackersE59S47 = [];
@@ -107,6 +108,9 @@ function runRoles() {
       } else if (creep.memory.direction.startsWith("n")) {
         roadRepairersE59S47.push(name);
         roleRepairer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+      } else if (creep.memory.direction.startsWith("n")) {
+        roadRepairersE59S49.push(name);
+        roleRepairer(creep, Memory.deepSouthRoomName, Game.flags.southExit, BOTTOM);
       } else {
         roadRepairers.push(name);
         roleRepairer(creep, Memory.homeRoomName, null, null);
@@ -260,6 +264,7 @@ function runRoles() {
   Memory.upControllersE59S49 = upControllersE59S49;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersE59S47 = roadRepairersE59S47;
+  Memory.roadRepairersE59S49 = roadRepairersE59S49;
   Memory.roadBuilders = roadBuilders;
   Memory.attackers = attackers;
   Memory.attackersE59S47 = attackersE59S47;

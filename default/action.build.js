@@ -23,16 +23,25 @@ function build(creep) {
     if (creep.room.name === Memory.homeRoomName) {
       if (target && target.progress < target.progressTotal) {
         // good, keep target
+        creep.memory.lastBuildID = target.id;
       } else {
         creep.memory.lastBuildID = null;
         target = null;
       }
-    }
-
-    if (creep.room.name === Memory.northRoomName) {
+    } else if (creep.room.name === Memory.northRoomName) {
       target = Game.getObjectById("61b99488d7e4319e2767aef1");
       if (target && target.progress < target.progressTotal) {
         // good, keep target
+        creep.memory.lastBuildID = target.id;
+      } else {
+        creep.memory.lastBuildID = null;
+        target = null;
+      }
+    } else if (creep.room.name === Memory.deepSouthRoomName) {
+      target = Game.getObjectById("61bdf95dd2a271e6c6079154");
+      if (target && target.progress < target.progressTotal) {
+        // good, keep target
+        creep.memory.lastBuildID = target.id;
       } else {
         creep.memory.lastBuildID = null;
         target = null;

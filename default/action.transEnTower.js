@@ -1,6 +1,7 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const traneRm = require("./action.transferEnergyeRm");
+const profiler = require("./screeps-profiler");
 
 function tranToTower(creep, minRmEnAvail, flag, dest) {
   let target;
@@ -145,4 +146,5 @@ function tranToTower(creep, minRmEnAvail, flag, dest) {
   return retval;
 }
 
+tranToTower = profiler.registerFN(tranToTower, "tranToTower");
 module.exports = tranToTower;

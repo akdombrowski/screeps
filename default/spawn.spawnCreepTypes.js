@@ -254,6 +254,8 @@ function spawnCreepTypes(enAvail, spawns) {
   const timeDigitsSlice = 2;
   const t = Game.time.toString().slice(timeDigitsSlice);
 
+  const numOfCreepsTotal = Object.keys(Game.creeps).length;
+
   //     #     #######  #######     #      #####   #    #
   //    # #       #        #       # #    #     #  #   #
   //   #   #      #        #      #   #   #        #  #
@@ -328,7 +330,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (Game.creeps.length < 4) {
+    if (numOfCreepsTotal < 6) {
       harvesters.push(name);
       parts = simpleParts;
       retval = birthCreep(
@@ -443,7 +445,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (Game.creeps.length < 6) {
+    if (numOfCreepsTotal < 10) {
       harvesters.push(name);
       retval = birthCreep(
         spawns,
@@ -602,7 +604,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //        #        #  #     #
   //  #     #  #     #   #   #
   //   #####    #####     ###
-  if (enAvail >= 550 && !invaderId && Game.creeps.length < 10) {
+  if (enAvail >= 550 && !invaderId && numOfCreepsTotal < 12) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "north";

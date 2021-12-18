@@ -110,7 +110,7 @@ function runRoles() {
       } else if (creep.memory.direction.startsWith("n")) {
         roadRepairersE59S47.push(name);
         roleRepairer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
-      } else if (creep.memory.direction.startsWith("n")) {
+      } else if (creep.memory.direction.startsWith("deepSouth")) {
         roadRepairersE59S49.push(name);
         roleRepairer(creep, Memory.deepSouthRoomName, Game.flags.southExit, BOTTOM);
       } else {

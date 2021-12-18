@@ -49,7 +49,6 @@ function smartMove(
     }
   }
 
-
   if (flee) {
     let ret = PathFinder.search(
       creep.pos,
@@ -62,8 +61,8 @@ function smartMove(
     );
     retval = creep.moveByPath(ret.path);
 
-    let px = ret.path.length > 0 ? ret.path[0].x : ""
-    let py = ret.path.length > 0 ? ret.path[0].y : ""
+    let px = ret.path.length > 0 ? ret.path[0].x : "";
+    let py = ret.path.length > 0 ? ret.path[0].y : "";
     creep.say("ahh." + px + ",");
     return retval;
   }
@@ -128,6 +127,12 @@ function smartMove(
     }
 
     if (retval === OK) {
+      creep.room.visual.poly(path, {
+        stroke: pathColor,
+        lineStyle: "dashed",
+        opacity: 0.25,
+      });
+
       if (path[0] && path[0].x && creep.pos.isEqualTo(path[0].x, path[0].y)) {
         path.shift();
       }
@@ -142,6 +147,11 @@ function smartMove(
         retval = creep.moveByPath(path);
 
         if (retval === OK) {
+          creep.room.visual.poly(path, {
+            stroke: pathColor,
+            lineStyle: "dashed",
+            opacity: 0.25,
+          });
           if (creepPos.isEqualTo(path[0])) {
             path.shift();
           }
@@ -158,6 +168,11 @@ function smartMove(
         path.shift();
         retval = creep.moveByPath(path);
         if (retval === OK) {
+          creep.room.visual.poly(path, {
+            stroke: pathColor,
+            lineStyle: "dashed",
+            opacity: 0.25,
+          });
           path.shift();
           creep.memory.path = path;
         } else {
@@ -225,6 +240,11 @@ function smartMove(
   if (retval === OK || (path && path.length <= 0)) {
     retval = OK;
     creep.say(destPos.x + "," + destPos.y);
+    creep.room.visual.poly(path, {
+      stroke: pathColor,
+      lineStyle: "dashed",
+      opacity: 0.25,
+    });
 
     if (creep.pos.inRangeTo(dest, range)) {
       creep.memory.path = null;

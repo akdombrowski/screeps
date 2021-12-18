@@ -19,13 +19,23 @@ function chooseSource(creep, sources) {
   let sources2 = sources.filter((s) => s.energy > 0);
   // no sources have energy
   if (sources2.length <= 0) {
+    // if we have more than two sources
     if (sources.length > 1) {
-      if (sources[0].ticksToRegeneration < sources[1].ticksToRegeneration) {
+      if (
+        sources[0].ticksToRegeneration < sources[1].ticksToRegeneration &&
+        sources[0].ticksToRegeneration < 50
+      ) {
         target = sources[0];
-      } else {
+      } else if (
+        sources[1].ticksToRegeneration < sources[0].ticksToRegeneration &&
+        sources[1].ticksToRegeneration < 50
+      ) {
         target = sources[1];
+      } else {
+        target = null;
       }
-    } else {
+    } else if (sources[0].ticksToRegeneration < 50) {
+      // only one source available. it will regen soon, so go to it
       target = sources[0];
     }
   }

@@ -183,7 +183,7 @@ function runRoles() {
       creep.memory.controllerID = "59bbc5d22052a716c3cea13a";
       retval = upController(
         creep,
-        Game.flags.northController,
+        Game.flags.deepSouthController,
         Memory.deepSouthRoomName,
         Game.flags.southExit,
         BOTTOM,

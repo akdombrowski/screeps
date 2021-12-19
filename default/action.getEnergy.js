@@ -388,10 +388,10 @@ function getEnergy(
         null
       );
 
-      if (name.startsWith("upCdS")) {
-        console.log(name + " source target in getEnergy " + target);
-        console.log(name + " smartMove in getEnergy " + retval);
-      }
+      // if (name.startsWith("upCdS")) {
+      //   console.log(name + " source target in getEnergy " + target);
+      //   console.log(name + " smartMove in getEnergy " + retval);
+      // }
 
       if (retval === OK) {
         creep.memory.lastSourceId = target.id;

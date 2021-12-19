@@ -71,9 +71,9 @@ function upController(
       );
     }
 
-    if (name.startsWith("upCdS")) {
-      console.log(name + " upC retval " + retval);
-    }
+    // if (name.startsWith("upCdS")) {
+    //   console.log(name + " upC retval " + retval);
+    // }
 
     return retval;
   }

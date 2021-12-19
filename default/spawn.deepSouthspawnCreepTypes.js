@@ -404,41 +404,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (upControllers.length < 1) {
-      name = "upC" + t;
-      chosenRole = "upC";
-      upControllers.push(name);
-      parts = upContrParts;
-      group = "upControllers";
-      retval = deepSouthbirthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    } else if (upControllersE59S47.length < 1) {
-      // when north controller is controlled change this to upControllersN
-      name = "upCN" + t;
-      chosenRole = "upCN";
-      upControllersE59S47.push(name);
-      direction = "north";
-      parts = upContrParts;
-      group = "upControllersN";
-      retval = deepSouthbirthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    } else if (upControllersE59S49.length < 1) {
+    if (upControllersE59S49.length < 2) {
       name = "upCdS" + t;
       upControllersE59S49.push(name);
       chosenRole = "upCdS";
@@ -446,22 +412,6 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       group = "upControllersE59S49";
       parts = upContrParts;
 
-      retval = deepSouthbirthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    } else if (roadRepairers.length < 1) {
-      name = "rR" + t;
-      chosenRole = "roadRepairer";
-      roadRepairers.push(name);
-      parts = simpleParts;
-      group = "roadRepairers";
       retval = deepSouthbirthCreep(
         spawns,
         parts,

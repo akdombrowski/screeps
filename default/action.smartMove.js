@@ -97,6 +97,21 @@ function smartMove(
   if (!path || path.length <= 0 || pathMem < 1) {
     getPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
     path = creep.memory.path;
+    // if (name.startsWith("upCdS")) {
+    //   console.log(name + " path in smartMove " + path);
+    //   console.log(name + " dest in smartMove " + dest);
+    //   console.log(
+    //     name +
+    //       " lastCreepPos in smartMove " +
+    //       new RoomPosition(
+    //         lastCreepPos.x,
+    //         lastCreepPos.y,
+    //         lastCreepPos.roomName
+    //       )
+    //   );
+    //   console.log(name + " creepPos in smartMove " + creep.pos);
+    //   console.log(name + " ignoreCreeps in smartMove " + ignoreCreeps);
+    // }
   }
 
   if (
@@ -128,10 +143,10 @@ function smartMove(
     try {
       retval = creep.moveByPath(path);
 
-      if (name.startsWith("upCdS")) {
-        console.log(name + " path in smartMove " + path);
-        console.log(name + " moveByPath in smartMove " + retval);
-      }
+      // if (name.startsWith("upCdS")) {
+      //   console.log(name + " path in smartMove " + path);
+      //   console.log(name + " moveByPath in smartMove " + retval);
+      // }
     } catch (e) {
       console.log(name + " moveByPath exception " + path);
 

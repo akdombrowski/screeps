@@ -124,7 +124,10 @@ function roleHarvester(creep) {
         Game.flags.northEntrance,
         BOTTOM
       );
-    } else if (creep.memory.direction.startsWith("deepSouth")) {
+    } else if (
+      creep.memory.direction.startsWith("deepSouth") ||
+      creep.memory.direction.startsWith("dS")
+    ) {
       retval = transferEnergy(
         creep,
         null,
@@ -171,11 +174,11 @@ function roleHarvester(creep) {
 
     // didn't give energy to tower. build road.
     if (
-      creep.memory.buildRoad ||
       retval != OK ||
-      (!creep.memory.transfer && !creep.memory.transferTower)
+      (!creep.memory.transfer &&
+        !creep.memory.transferTower &&
+        !creep.memory.getEnergy)
     ) {
-
       retval = build(creep);
       if (retval === OK) {
         creep.memory.buildRoad = true;
@@ -195,7 +198,16 @@ function roleHarvester(creep) {
     if (retval != OK) {
       creep.say("sad." + retval);
     }
+  } else if (creep.memory.buildRoad) {
+    creep.memory.transfer = false;
+    creep.memory.getEnergy = false;
+
+    retval = build(creep);
+    if (retval === OK) {
+      creep.memory.buildRoad = true;
+    }
   } else {
+    creep.memory.buildRoad = false;
     creep.memory.transfer = false;
     creep.memory.getEnergy = true;
   }

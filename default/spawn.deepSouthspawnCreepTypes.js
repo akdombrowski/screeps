@@ -754,7 +754,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       name = "hdS" + t;
       harvestersE59S49.push(name);
       chosenRole = "h";
-      direction = "dS";
+      directoin = "deepSouth";
       group = "harvestersE59S49";
       retval = deepSouthbirthCreep(
         spawns,

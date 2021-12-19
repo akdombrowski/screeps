@@ -32,7 +32,10 @@ function roleHarvester(creep) {
         Game.flags.northEntrance,
         BOTTOM
       );
-    } else if (creep.memory.direction.startsWith("dS")) {
+    } else if (
+      creep.memory.direction.startsWith("dS") ||
+      creep.memory.direction.startsWith("deepSouth")
+    ) {
       retval = transferEnergy(
         creep,
         null,

@@ -41,26 +41,80 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   }
 
   if (rmName != targetRoomName) {
-    if (creep.pos.isNearTo(exit)) {
-      creep.say(exitDirection);
-      retval = creep.move(exitDirection);
-    } else {
-      creep.say(targetRoomName);
-      retval = smartMove(
-        creep,
-        exit,
-        1,
-        true,
-        null,
-        null,
-        null,
-        1,
-        false,
-        null
-      );
+    let exts = [];
+
+    if (!target && creep.room.name === Memory.homeRoomName) {
+      if (!Memory.e59s48extensionsSpawns) {
+        let structs = creep.room.find(FIND_MY_STRUCTURES, {
+          filter: (struct) => {
+            let type = struct.structureType;
+            if (type === STRUCTURE_SPAWN || type === STRUCTURE_EXTENSION) {
+              return struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+            } else {
+              return false;
+            }
+          },
+        });
+        Memory.e59s48extensionsSpawns = structs.map((struct) => struct.id);
+      }
+
+      exts = Memory.e59s48extensionsSpawns;
+    } else if (!target && creep.room.name === Memory.northRoomName) {
+      if (!Memory.e59s47extensionsSpawns) {
+        let structs = creep.room.find(FIND_MY_STRUCTURES, {
+          filter: (struct) => {
+            let type = struct.structureType;
+            if (type === STRUCTURE_SPAWN || type === STRUCTURE_EXTENSION) {
+              return struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+            } else {
+              return false;
+            }
+          },
+        });
+        Memory.e59s47extensionsSpawns = structs.map((struct) => struct.id);
+      }
+
+      exts = Memory.e59s47extensionsSpawns;
+    } else if (!target && creep.room.name === Memory.deepSouthRoomName) {
+      if (!Memory.e59s49extensionsSpawns) {
+        let structs = creep.room.find(FIND_MY_STRUCTURES, {
+          filter: (struct) => {
+            let type = struct.structureType;
+            if (type === STRUCTURE_SPAWN || type === STRUCTURE_EXTENSION) {
+              return struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+            } else {
+              return false;
+            }
+          },
+        });
+        Memory.e59s49extensionsSpawns = structs.map((struct) => struct.id);
+      }
+
+      exts = Memory.e59s49extensionsSpawns;
     }
 
-    return retval;
+    if (!exts || exts.length <= 0) {
+      if (creep.pos.isNearTo(exit)) {
+        creep.say(exitDirection);
+        retval = creep.move(exitDirection);
+      } else {
+        creep.say(targetRoomName);
+        retval = smartMove(
+          creep,
+          exit,
+          1,
+          true,
+          null,
+          null,
+          null,
+          1,
+          false,
+          null
+        );
+      }
+
+      return retval;
+    }
   }
 
   if (flag && flag.pos) {

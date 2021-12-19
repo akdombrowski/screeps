@@ -56,10 +56,10 @@ function build(creep) {
       let extFound = false;
       let t;
       let arr = [];
+      let arrIDs = [];
       if (creep.room.name === Memory.homeRoomName) {
         if (!Memory.e59s48sites || Memory.e59s48sites.length <= 0) {
-
-          Memory.e59s48sites = Game.rooms.E59S48.find(FIND_CONSTRUCTION_SITES, {
+          arr = Game.rooms.E59S48.find(FIND_CONSTRUCTION_SITES, {
             filter: (site) => {
               let prog = site.progress;
               let progTot = site.progressTotal;
@@ -79,83 +79,172 @@ function build(creep) {
               }
             },
           });
+
+          Memory.e59s48sites = arr.map(arr, (site) => site.id);
         }
 
+        let sites = [];
         if (!target) {
-          target = Memory.e59s48sites.shift();
+          _.forEach(Memory.e59s48sites, (id) => {
+            const siteObj = Game.getObjectById(id);
+            if (siteObj && siteObj.progress < siteObj.progressTotal) {
+              sites.push(siteObj);
+            }
+          });
+          if (sites) {
+            try {
+              target = creep.pos.findClosestByPath(sites, {
+                filter: (site) => {
+                  return site.progress < site.progressTotal;
+                },
+              });
+              // target = creep.pos.findClosestByPath(arr);
+
+              if (target && !target.id) {
+                target = null;
+                creep.memory.buildTarget = null;
+                Memory.e59s48sites = null;
+                return retval;
+              } else if (t) {
+                target = t;
+                targetId = target.id;
+                if (targetId === null) {
+                  target = null;
+                }
+              } else {
+                target = t || target;
+                targetId = target ? target.id : null;
+              }
+            } catch (e) {
+              Memory.e59s48sites = null;
+            }
+          }
         }
       } else if (creep.room.name === Memory.northRoomName) {
-        Memory.e59s47sites = Game.rooms.E59S47.find(FIND_CONSTRUCTION_SITES, {
-          filter: (site) => {
-            let prog = site.progress;
-            let progTot = site.progressTotal;
-            let progLeft = progTot - prog;
-            let type = site.structureType;
-            if (progLeft <= 0) {
-              return false;
-            } else if (type === STRUCTURE_EXTENSION) {
-              extFound = true;
-              target = site;
-              return site;
-            } else {
-              return site;
-            }
-          },
-        });
-
-        if (!target) {
-          target = Memory.e59s47sites.shift();
-        }
-      } else if (creep.room.name === Memory.deepSouthRoomName) {
-        Memory.e59s49sites = Game.rooms.E59S49.find(FIND_CONSTRUCTION_SITES, {
-          filter: (site) => {
-            let prog = site.progress;
-            let progTot = site.progressTotal;
-            let progLeft = progTot - prog;
-            let type = site.structureType;
-            if (progLeft <= 0) {
-              return false;
-            } else if (type === STRUCTURE_EXTENSION) {
-              extFound = true;
-              target = site;
-              return site;
-            } else {
-              return site;
-            }
-          },
-        });
-
-        if (!target) {
-          target = Memory.e59s49sites.shift();
-        }
-      }
-
-      if (!target && arr) {
-        try {
-          target = creep.pos.findClosestByPath(arr, {
+        if (!Memory.e59s47sites || Memory.e59s47sites.length <= 0) {
+          arr = Game.rooms.E59S47.find(FIND_CONSTRUCTION_SITES, {
             filter: (site) => {
-              return site.progress < site.progressTotal;
+              let prog = site.progress;
+              let progTot = site.progressTotal;
+              let progLeft = progTot - prog;
+              let type = site.structureType;
+              if (progLeft <= 0) {
+                return false;
+              } else if (type === STRUCTURE_EXTENSION) {
+                extFound = true;
+                target = site;
+                return true;
+              } else if (type === STRUCTURE_SPAWN) {
+                target = site;
+                return true;
+              } else {
+                return true;
+              }
             },
           });
-          // target = creep.pos.findClosestByPath(arr);
 
-          if (target && !target.id) {
-            target = null;
-            creep.memory.buildTarget = null;
-            Memory.e59s48sites = null;
-            return retval;
-          } else if (t) {
-            target = t;
-            targetId = target.id;
-            if (targetId === null) {
-              target = null;
+          Memory.e59s47sites = arr.map(arr, (site) => site.id);
+        }
+
+        let sites = [];
+        if (!target) {
+          _.forEach(Memory.e59s47sites, (id) => {
+            const siteObj = Game.getObjectById(id);
+            if (siteObj.progress < siteObj.progressTotal) {
+              sites.push(siteObj);
             }
-          } else {
-            target = t || target;
-            targetId = target ? target.id : null;
+          });
+          if (sites) {
+            try {
+              target = creep.pos.findClosestByPath(sites, {
+                filter: (site) => {
+                  return site.progress < site.progressTotal;
+                },
+              });
+              // target = creep.pos.findClosestByPath(arr);
+
+              if (target && !target.id) {
+                target = null;
+                creep.memory.buildTarget = null;
+                Memory.e59s47sites = null;
+                return retval;
+              } else if (t) {
+                target = t;
+                targetId = target.id;
+                if (targetId === null) {
+                  target = null;
+                }
+              } else {
+                target = t || target;
+                targetId = target ? target.id : null;
+              }
+            } catch (e) {
+              Memory.e59s47sites = null;
+            }
           }
-        } catch (e) {
-          Memory.e59s48sites = null;
+        }
+      } else if (creep.room.name === Memory.deepSouthRoomName) {
+        if (!Memory.e59s49sites || Memory.e59s49sites.length <= 0) {
+          arr = Game.rooms.E59S49.find(FIND_CONSTRUCTION_SITES, {
+            filter: (site) => {
+              let prog = site.progress;
+              let progTot = site.progressTotal;
+              let progLeft = progTot - prog;
+              let type = site.structureType;
+              if (progLeft <= 0) {
+                return false;
+              } else if (type === STRUCTURE_EXTENSION) {
+                extFound = true;
+                target = site;
+                return true;
+              } else if (type === STRUCTURE_SPAWN) {
+                target = site;
+                return true;
+              } else {
+                return true;
+              }
+            },
+          });
+
+          Memory.e59s49sites = arr.map(arr, (site) => site.id);
+        }
+
+        let sites = [];
+        if (!target) {
+          _.forEach(Memory.e59s49sites, (id) => {
+            const siteObj = Game.getObjectById(id);
+            if (siteObj.progress < siteObj.progressTotal) {
+              sites.push(siteObj);
+            }
+          });
+          if (sites) {
+            try {
+              target = creep.pos.findClosestByPath(sites, {
+                filter: (site) => {
+                  return site.progress < site.progressTotal;
+                },
+              });
+              // target = creep.pos.findClosestByPath(arr);
+
+              if (target && !target.id) {
+                target = null;
+                creep.memory.buildTarget = null;
+                Memory.e59s49sites = null;
+                return retval;
+              } else if (t) {
+                target = t;
+                targetId = target.id;
+                if (targetId === null) {
+                  target = null;
+                }
+              } else {
+                target = t || target;
+                targetId = target ? target.id : null;
+              }
+            } catch (e) {
+              Memory.e59s49sites = null;
+            }
+          }
         }
       }
     }

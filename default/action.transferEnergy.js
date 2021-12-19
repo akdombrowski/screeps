@@ -93,7 +93,17 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       exts = Memory.e59s49extensionsSpawns;
     }
 
-    if (!exts || exts.length <= 0) {
+    if ((!exts || exts.length) <= 0 && creep.room.name != targetRoomName) {
+      if (creep.room.name === Memory.northRoomName) {
+        // if in the north room but target is not north, head south
+        exitDirection = BOTTOM;
+        exit = Game.flags.northEntrance;
+      } else if (creep.room.name === Memory.deepSouthRoomName) {
+        // if in the deepSouth room but target room is not deepSouth, head north
+        exitDirection = TOP;
+        exit = Game.flags.southEntrance;
+      }
+
       if (creep.pos.isNearTo(exit)) {
         creep.say(exitDirection);
         retval = creep.move(exitDirection);

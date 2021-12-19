@@ -208,7 +208,7 @@ function smartMove(
     // path doesn't match creep's location
     creep.say("no match");
     creep.memory.path = null;
-  } else if (retval === ERR_INVALID_TARGET || retval === ERR_NOT_FOUND) {
+  } else if (retval === ERR_INVALID_TARGET) {
     creep.say("invalidTarget");
     creep.memory.path = null;
   } else if (retval === ERR_NO_PATH) {
@@ -217,7 +217,7 @@ function smartMove(
   } else {
     path = null;
 
-    console.log(name + " smartMove oops " + retval);
+    // console.log(name + " smartMove oops " + retval);
 
     creep.say("oops." + retval);
     creep.memory.path = path;
@@ -249,7 +249,7 @@ successfulMove = profiler.registerFN(successfulMove, "successfulMove");
 function checkIfValidPath(path, name) {
   let retval = -16;
   if ((path && path.length === 0) || !path || !path[0]) {
-    console.log(name + " smartMove no path");
+    // console.log(name + " smartMove no path");
     retval = ERR_NOT_FOUND;
   }
   return retval;

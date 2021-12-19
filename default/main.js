@@ -13,13 +13,12 @@ const linkTran = require("./action.linkTran");
 const linkTransfer = require("./linkTransfer");
 const profiler = require("./screeps-profiler");
 const findDecayed = require("./action.findDecayed");
-const { findFixables } = require("./findFixables");
 const { checkProgress } = require("./checkProgress");
 const { deleteDeadCreeps } = require("./deleteDeadCreeps");
 const { areCreepsDying } = require("./areCreepsDying");
 const { towersAttackInvader } = require("./towersAttackInvader");
 const { reCheckNumOfCreeps } = require("./reCheckNumOfCreeps");
-const findRepairable = require("./action.findRepairableStruct");
+const { towerRepair } = require("./towerRepair");
 
 // This line monkey patches the global prototypes.
 profiler.enable();
@@ -29,8 +28,8 @@ module.exports.loop = function () {
 
     let s1 = Game.spawns.Spawn1;
     let northS1 = Game.spawns.NorthSpawn1;
-    Memory.northS1 = northS1;
     Memory.s1 = s1;
+    Memory.northS1 = northS1;
 
     let rm = s1.room;
     Memory.rm = rm;
@@ -56,6 +55,8 @@ module.exports.loop = function () {
     let towers = [];
     towers.push(Game.getObjectById(Memory.tower1Id));
     towersAttackInvader(Game.getObjectById(Memory.invaderId), towers);
+
+    towerRepair(towers);
 
     checkForAttackers();
 

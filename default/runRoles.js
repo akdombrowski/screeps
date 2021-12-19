@@ -40,6 +40,7 @@ function runRoles() {
   let linkGets = [];
   let towerHarvesters = [];
   let reservers = [];
+  let retval = -16;
 
   for (let name in crps) {
     let creep = crps[name];
@@ -180,13 +181,13 @@ function runRoles() {
       upControllersE59S49.push(name);
 
       creep.memory.controllerID = "59bbc5d22052a716c3cea13a";
-      upController(
+      retval = upController(
         creep,
         Game.flags.northController,
         Memory.deepSouthRoomName,
         Game.flags.southExit,
         BOTTOM,
-        "59bbc5d22052a716c3cea13a"
+        creep.memory.controllerID
       );
     } else if (roll === "worker" || roll === "w") {
       workers.push(name);

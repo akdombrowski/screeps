@@ -35,6 +35,7 @@ function smartMove(
 
   if (creep.fatigue > 0) {
     creep.say("f." + creep.fatigue);
+    creep.memory.stuck = false;
     return ERR_TIRED;
   } else if (!dest && !flee) {
     console.log(name + " smartMove no destination");
@@ -43,37 +44,10 @@ function smartMove(
     return retval;
   }
 
-  let destPos = dest;
-  if (destPos && dest.room) {
-    if (!(destPos instanceof RoomPosition)) {
-      destPos = new RoomPosition(dest.pos.x, dest.pos.y, dest.room.name);
-    }
-  }
+  let destPos = getDestPos(dest);
 
   if (flee) {
-    let ret = PathFinder.search(
-      creep.pos,
-      { pos: new RoomPosition(25, 25, creep.room.name), range: 20 },
-      {
-        flee: true,
-        maxOps: maxOps,
-        maxRooms: 1,
-      }
-    );
-    retval = creep.moveByPath(ret.path);
-
-    let px = ret.path.length > 0 ? ret.path[0].x : "";
-    let py = ret.path.length > 0 ? ret.path[0].y : "";
-    creep.say("ah!" + px + "," + py);
-    if (retval === OK || retval === ERR_TIRED) {
-      creep.room.visual.poly(path, {
-        stroke: pathColor,
-        strokeWidth: 0.1,
-        lineStyle: "dashed",
-        opacity: 0.2,
-      });
-    }
-    return retval;
+    return flee(creep, maxOps, path, pathColor);
   }
 
   if (creepPos.inRangeTo(destPos, range)) {
@@ -149,78 +123,26 @@ function smartMove(
   //   return retval;
   // }
 
-  if ((path && path.length === 0) || !path || !path[0]) {
-    console.log(name + " smartMove no path");
-  }
+  retval = checkIfValidPath(path, name);
 
   creep.memory.lastCreepPos = creepPos;
   if (path) {
-    try {
-      retval = creep.moveByPath(path);
-
-      // if (name.startsWith("upCdS")) {
-      //   console.log(name + " path in smartMove " + path);
-      //   console.log(name + " moveByPath in smartMove " + retval);
-      // }
-    } catch (e) {
-      console.log(name + " moveByPath exception " + path);
-
-      creep.memory.path = null;
-      retval = -16;
-    }
+    retval = tryMoveByPath(creep, path, name);
 
     if (retval === OK) {
-      creep.room.visual.poly(path, {
-        stroke: pathColor,
-        lineStyle: "dashed",
-        opacity: 0.25,
-      });
-
-      if (path[0] && path[0].x && creep.pos.isEqualTo(path[0].x, path[0].y)) {
-        path.shift();
-      }
-
-      creep.memory.path = path;
+      setVisualAndPathInMemory(creep, path, pathColor);
     } else if (retval === ERR_NOT_FOUND) {
-      if (path[0] && path[0].x && creepPos.isEqualTo(path[0].x, path[0].y)) {
-        path.shift();
-      }
+      shiftPathIfNecessary(path, creepPos);
 
-      try {
-        retval = creep.moveByPath(path);
+      retval = retryMoveByPathAfterERR_NOT_FOUND(
+        creep,
+        path,
+        pathColor,
+        creepPos
+      );
 
-        if (retval === OK) {
-          creep.room.visual.poly(path, {
-            stroke: pathColor,
-            lineStyle: "dashed",
-            opacity: 0.25,
-          });
-          if (creepPos.isEqualTo(path[0])) {
-            path.shift();
-          }
-
-          creep.memory.path = path;
-        } else {
-          creep.memory.path = null;
-        }
-      } catch (e) {
-        creep.memory.path = null;
-      }
-
-      if (creep.pos === path[1]) {
-        path.shift();
-        retval = creep.moveByPath(path);
-        if (retval === OK) {
-          creep.room.visual.poly(path, {
-            stroke: pathColor,
-            lineStyle: "dashed",
-            opacity: 0.25,
-          });
-          path.shift();
-          creep.memory.path = path;
-        } else {
-          creep.memory.path = null;
-        }
+      if (retval != OK) {
+        retval = retryMoveByPathAfterShiftingPath(creep, path, pathColor);
       } else {
         creep.memory.path = null;
       }
@@ -281,17 +203,7 @@ function smartMove(
   // }
 
   if (retval === OK || (path && path.length <= 0)) {
-    retval = OK;
-    creep.say(destPos.x + "," + destPos.y);
-    creep.room.visual.poly(path, {
-      stroke: pathColor,
-      lineStyle: "dashed",
-      opacity: 0.25,
-    });
-
-    if (creep.pos.inRangeTo(dest, range)) {
-      creep.memory.path = null;
-    }
+    retval = successfulMove(creep, destPos, path, pathColor, dest, range);
   } else if (retval === ERR_NOT_FOUND) {
     // path doesn't match creep's location
     creep.say("no match");
@@ -317,3 +229,176 @@ function smartMove(
 
 smartMove = profiler.registerFN(smartMove, "smartMove");
 module.exports = smartMove;
+function successfulMove(creep, destPos, path, pathColor, dest, range) {
+  let retval = OK;
+  creep.say(destPos.x + "," + destPos.y);
+  creep.room.visual.poly(path, {
+    stroke: pathColor,
+    lineStyle: "dashed",
+    opacity: 0.25,
+  });
+
+  if (creep.pos.inRangeTo(dest, range)) {
+    creep.memory.path = null;
+  }
+  return retval;
+}
+
+successfulMove = profiler.registerFN(successfulMove, "successfulMove");
+
+function checkIfValidPath(path, name) {
+  let retval = -16;
+  if ((path && path.length === 0) || !path || !path[0]) {
+    console.log(name + " smartMove no path");
+    retval = ERR_NOT_FOUND;
+  }
+  return retval;
+}
+
+checkIfValidPath = profiler.registerFN(checkIfValidPath, "checkIfValidPath");
+
+function retryMoveByPathAfterShiftingPath(creep, path, pathColor) {
+  let retval = -16;
+  if (creep.pos === path[1]) {
+    path.shift();
+    retval = creep.moveByPath(path);
+    if (retval === OK) {
+      creep.room.visual.poly(path, {
+        stroke: pathColor,
+        lineStyle: "dashed",
+        opacity: 0.25,
+      });
+      path.shift();
+      creep.memory.path = path;
+    } else {
+      creep.memory.path = null;
+    }
+  }
+  return retval;
+}
+
+retryMoveByPathAfterShiftingPath = profiler.registerFN(
+  retryMoveByPathAfterShiftingPath,
+  "retryMoveByPathAfterShiftingPath"
+);
+
+function retryMoveByPathAfterERR_NOT_FOUND(creep, path, pathColor, creepPos) {
+  let retval = -16;
+  try {
+    retval = creep.moveByPath(path);
+
+    if (retval === OK) {
+      creep.room.visual.poly(path, {
+        stroke: pathColor,
+        lineStyle: "dashed",
+        opacity: 0.25,
+      });
+      if (creepPos.isEqualTo(path[0])) {
+        path.shift();
+      }
+
+      creep.memory.path = path;
+    } else {
+      creep.memory.path = null;
+    }
+  } catch (e) {
+    creep.memory.path = null;
+  }
+  return retval;
+}
+
+retryMoveByPathAfterERR_NOT_FOUND = profiler.registerFN(
+  retryMoveByPathAfterERR_NOT_FOUND,
+  "retryMoveByPathAfterERR_NOT_FOUND"
+);
+
+function shiftPathIfNecessary(path, creepPos) {
+  if (path[0] && path[0].x && creepPos.isEqualTo(path[0].x, path[0].y)) {
+    path.shift();
+  }
+}
+
+shiftPathIfNecessary = profiler.registerFN(
+  shiftPathIfNecessary,
+  "shiftPathIfNecessary"
+);
+
+function setVisualAndPathInMemory(creep, path, pathColor) {
+  creep.room.visual.poly(path, {
+    stroke: pathColor,
+    lineStyle: "dashed",
+    opacity: 0.25,
+  });
+
+  if (path[0] && path[0].x && creep.pos.isEqualTo(path[0].x, path[0].y)) {
+    path.shift();
+  }
+
+  creep.memory.path = path;
+}
+
+setVisualAndPathInMemory = profiler.registerFN(
+  setVisualAndPathInMemory,
+  "setVisualAndPathInMemory"
+);
+
+function tryMoveByPath(creep, path, name) {
+  let retval = -16;
+  try {
+    retval = creep.moveByPath(path);
+
+    // if (name.startsWith("upCdS")) {
+    //   console.log(name + " path in smartMove " + path);
+    //   console.log(name + " moveByPath in smartMove " + retval);
+    // }
+  } catch (e) {
+    console.log(name + " moveByPath exception " + path);
+
+    creep.memory.path = null;
+    retval = -16;
+  }
+
+  return retval;
+}
+
+tryMoveByPath = profiler.registerFN(tryMoveByPath, "tryMoveByPath");
+
+function flee(creep, maxOps, path, pathColor) {
+  let ret = PathFinder.search(
+    creep.pos,
+    { pos: new RoomPosition(25, 25, creep.room.name), range: 20 },
+    {
+      flee: true,
+      maxOps: maxOps,
+      maxRooms: 1,
+    }
+  );
+  retval = creep.moveByPath(ret.path);
+
+  let px = ret.path.length > 0 ? ret.path[0].x : "";
+  let py = ret.path.length > 0 ? ret.path[0].y : "";
+  creep.say("ah!" + px + "," + py);
+  if (retval === OK || retval === ERR_TIRED) {
+    creep.room.visual.poly(path, {
+      stroke: pathColor,
+      strokeWidth: 0.1,
+      lineStyle: "dashed",
+      opacity: 0.2,
+    });
+  }
+  return retval;
+}
+
+flee = profiler.registerFN(flee, "flee");
+
+function getDestPos(dest) {
+  let destPos = dest;
+  if (destPos && dest.room) {
+    if (!(destPos instanceof RoomPosition)) {
+      destPos = new RoomPosition(dest.pos.x, dest.pos.y, dest.room.name);
+    }
+  }
+  return destPos;
+}
+
+getDestPos = profiler.registerFN(getDestPos, "getDestPos");

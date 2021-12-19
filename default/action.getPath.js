@@ -85,8 +85,8 @@ function getPath(
         }
       });
 
-      let creepArr = creepPos.findInRange(FIND_CREEPS, 1);
-      if (!ignoreCreeps || creepArr.length > 0) {
+      if (!ignoreCreeps) {
+        let creepArr = creepPos.findInRange(FIND_CREEPS, 1);
         // Avoid creeps in the room
         if (creepArr.length > 0) {
           for (const c of creepArr) {
@@ -94,10 +94,6 @@ function getPath(
               costs.set(c.pos.x, c.pos.y, 0xff);
             }
           }
-        } else {
-          room.find(FIND_CREEPS).forEach(function (creep) {
-            costs.set(creep.pos.x, creep.pos.y, 0xff);
-          });
         }
       }
 

@@ -23,6 +23,7 @@ function smartMove(
   const rm = creep.room;
   const name = creep.name;
   const creepPos = creep.pos;
+  let stuck = creep.memory.stuck;
   let lastCreepPos = creep.memory.lastCreepPos;
   let desPath;
   pathColor = pathColor || getRandomColor();
@@ -87,9 +88,22 @@ function smartMove(
       lastCreepPos.roomName
     );
     if (lastCreepPos.isEqualTo(creepPos.x, creepPos.y)) {
+      if (stuck) {
+        retval = creep.moveTo(dest);
+
+        if (retval === OK) {
+          creep.memory.stuck = false;
+        }
+
+        return retval;
+      }
+
+      creep.memory.stuck = true;
       path = null;
       creep.memory.path = null;
       ignoreCreeps = false;
+    } else {
+      creep.memory.stuck = false;
     }
   }
 
@@ -97,6 +111,7 @@ function smartMove(
   if (!path || path.length <= 0 || pathMem < 1) {
     getPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
     path = creep.memory.path;
+
     // if (name.startsWith("upCdS")) {
     //   console.log(name + " path in smartMove " + path);
     //   console.log(name + " dest in smartMove " + dest);

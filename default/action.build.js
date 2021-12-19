@@ -81,7 +81,6 @@ function build(creep) {
           });
 
           if (arr && arr.length > 0) {
-            console.log("arr " + (arr instanceof Array));
             Memory.e59s48sites = arr.map((site) => site.id);
           } else {
             Memory.e59s48sites = null;
@@ -154,7 +153,6 @@ function build(creep) {
           });
 
           if (arr && arr.length > 0) {
-            console.log("arr " + (arr instanceof Array));
             Memory.e59s47sites = arr.map((site) => site.id);
           } else {
             Memory.e59s47sites = null;
@@ -227,7 +225,6 @@ function build(creep) {
           });
 
           if (arr && arr.length > 0) {
-            console.log("arr " + (arr instanceof Array));
             Memory.e59s49sites = arr.map((site) => site.id);
 
             if (!target) {

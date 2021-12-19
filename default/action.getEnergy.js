@@ -93,13 +93,13 @@ function getEnergy(
     }
 
     if (retval === OK) {
-      creep.say(target.pos.x + "," + target.pos.y + " " + target.room.name);
+      creep.say(target.room.name);
       return retval;
     } else if (retval === ERR_TIRED) {
       creep.say("f." + retval);
       return retval;
     } else {
-      creep.say("cant." + retval);
+      creep.say("getEnergy." + retval);
       return retval;
     }
   } else if (targetedRmName != homeRoomName) {

@@ -124,7 +124,7 @@ function roleHarvester(creep) {
         Game.flags.northEntrance,
         BOTTOM
       );
-    } else if (creep.memory.direction.startsWith("dS")) {
+    } else if (creep.memory.direction.startsWith("deepSouth")) {
       retval = transferEnergy(
         creep,
         null,
@@ -142,10 +142,6 @@ function roleHarvester(creep) {
         null,
         null
       );
-
-      if (!(retval === OK || retval === ERR_TIRED)) {
-        console.log(name + " harvester transfer energy " + retval);
-      }
     }
 
     if (retval === ERR_TIRED) {

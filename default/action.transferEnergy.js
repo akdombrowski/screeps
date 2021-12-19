@@ -129,6 +129,74 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       // didn't find an extension that needed energy
       // target is still null
     }
+  } else if (!target && creep.room.name === Memory.northRoomName) {
+    let exts;
+    if (
+      !Memory.e59s47extensionsSpawns ||
+      Memory.e59s47extensionsSpawns.length <= 0
+    ) {
+      Memory.e59s47extensionsSpawns = findStructs(
+        [STRUCTURE_EXTENSION, STRUCTURE_SPAWN],
+        Memory.homeRoomName
+      );
+    } else {
+      Memory.e59s47extensionsSpawns = Memory.e59s47extensionsSpawns.filter(
+        (struct) =>
+          struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+      );
+    }
+
+    exts = Memory.e59s47extensionsSpawns.map(function (ext) {
+      return Game.getObjectById(ext);
+    });
+
+    // find closest ext or spawn by path
+    let a = creep.pos.findClosestByPath(exts);
+
+    if (a) {
+      target = a;
+      creep.memory.transferTargetId = target.id;
+
+      // remove the target from list
+      _.pull(Memory.e59s47extensionsSpawns, target.id);
+    } else {
+      // didn't find an extension that needed energy
+      // target is still null
+    }
+  } else if (!target && creep.room.name === Memory.deepSouthRoomName) {
+    let exts;
+    if (
+      !Memory.e59s49extensionsSpawns ||
+      Memory.e59s49extensionsSpawns.length <= 0
+    ) {
+      Memory.e59s49extensionsSpawns = findStructs(
+        [STRUCTURE_EXTENSION, STRUCTURE_SPAWN],
+        Memory.homeRoomName
+      );
+    } else {
+      Memory.e59s49extensionsSpawns = Memory.e59s49extensionsSpawns.filter(
+        (struct) =>
+          struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+      );
+    }
+
+    exts = Memory.e59s49extensionsSpawns.map(function (ext) {
+      return Game.getObjectById(ext);
+    });
+
+    // find closest ext or spawn by path
+    let a = creep.pos.findClosestByPath(exts);
+
+    if (a) {
+      target = a;
+      creep.memory.transferTargetId = target.id;
+
+      // remove the target from list
+      _.pull(Memory.e59s49extensionsSpawns, target.id);
+    } else {
+      // didn't find an extension that needed energy
+      // target is still null
+    }
   }
 
   // towers
@@ -180,15 +248,10 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   if (!target) {
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: (structure) => {
-        if (structure.structureType === STRUCTURE_STORAGE) {
-          return (
-            structure.store &&
-            structure.store[RESOURCE_ENERGY] <
-              structure.store.getCapacity(RESOURCE_ENERGY)
-          );
-        } else if (
-          structure.structureType === STRUCTURE_CONTAINER &&
-          structure.store
+        if (
+          structure.store &&
+          (structure.structureType === STRUCTURE_STORAGE ||
+            structure.structureType === STRUCTURE_CONTAINER)
         ) {
           return (
             structure.store[RESOURCE_ENERGY] <

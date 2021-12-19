@@ -127,10 +127,6 @@ function smartMove(
   if (path) {
     try {
       retval = creep.moveByPath(path);
-
-      if (name.startsWith("rRdS")) {
-        console.log(name + " smartMove moveByPath retval " + retval);
-      }
     } catch (e) {
       console.log(name + " moveByPath exception " + path);
 

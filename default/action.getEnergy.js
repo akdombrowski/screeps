@@ -382,13 +382,6 @@ function getEnergy(
     } else if (target) {
       retval = smartMove(creep, target, 1, true, null, null, null, 1, false, null);
 
-      if (creep.name.startsWith("rRdS")) {
-        console.log(name + " target " + target);
-        console.log(name + " path " + creep.memory.path);
-
-        console.log(name + " smartMove in getEnergy retval " + retval);
-      }
-
       if (retval === OK) {
         creep.memory.lastSourceId = target.id;
         creep.say(target.pos.x + "," + target.pos.y);

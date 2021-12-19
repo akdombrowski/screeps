@@ -63,7 +63,7 @@ function smartMove(
 
     let px = ret.path.length > 0 ? ret.path[0].x : "";
     let py = ret.path.length > 0 ? ret.path[0].y : "";
-    creep.say("ahh." + px + "," + py);
+    creep.say("ah!" + px + "," + py);
     if(retval === OK || retval === ERR_TIRED) {
       creep.room.visual.poly(path, {
         stroke: pathColor,

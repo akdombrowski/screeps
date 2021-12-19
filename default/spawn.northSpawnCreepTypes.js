@@ -397,30 +397,13 @@ function northSpawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (upControllersE59S47.length < 5) {
+    } else if (upControllersE59S47.length < 1) {
       name = "upCN" + t;
       direction = "north";
       sourceId = Memory.nSource1;
       group = "upControllersE59S47";
-      spawnDirection = BOTTOM;
+      spawnDirection = [BOTTOM];
       upControllersE59S47.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    } else {
-      name = "rRN" + t;
-      direction = "north";
-      sourceId = Memory.nSource1;
-      group = "roadRepairersE59S47";
-      spawnDirection = BOTTOM;
-      roadRepairersE59S47.push(name);
       retval = birthCreep(
         spawns,
         parts,
@@ -772,7 +755,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "north";
-    let sourceId = Memory.source2;
+    let sourceId = Memory.nSource1;
     let parts = harvesterParts550;
     let group = "harvesters";
     let spawnDirection = [BOTTOM];
@@ -815,6 +798,24 @@ function northSpawnCreepTypes(enAvail, spawns) {
       chosenRole = "roadRepairer";
       direction = "south";
       group = "roadRepairers";
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else {
+      name = "upCN" + t;
+      upControllersE59S47.push(name);
+      chosenRole = "upCN";
+      direction = "north";
+      group = "upControllersE59S47";
+      parts = workerParts550;
+
       retval = birthCreep(
         spawns,
         parts,

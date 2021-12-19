@@ -21,8 +21,10 @@ function upController(
 
   if (creepRoomName != targetRoomName) {
     if (creep.pos.isNearTo(exit)) {
+      creep.say(exitDirection);
       retval = creep.move(exitDirection);
     } else {
+      creep.say(targetRoomName);
       retval = smartMove(creep, exit, 0, true, null, null, null, 1);
     }
 

@@ -28,6 +28,8 @@ module.exports.loop = function () {
     let lastEnAvail = Memory.enAvail || 0;
 
     let s1 = Game.spawns.Spawn1;
+    let northS1 = Game.spawns.NorthSpawn1;
+    Memory.northS1 = northS1;
     Memory.s1 = s1;
 
     let rm = s1.room;
@@ -55,67 +57,6 @@ module.exports.loop = function () {
     towers.push(Game.getObjectById(Memory.tower1Id));
     towersAttackInvader(Game.getObjectById(Memory.invaderId), towers);
 
-
-
-    const timeToPassForRecheck = 100;
-    for(let i = 0; i < towers.length; i++) {
-      let t = towers[i];
-      let target = null;
-      if (t.room.name === Memory.homeRoomName && !Memory.invaderId) {
-        if (
-          !Memory.e59s48fixables ||
-          Memory.e59s48fixables.length <= 0 ||
-          Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
-        ) {
-          Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
-          Memory.lastSouthCheckFixables = Game.time;
-        }
-      } else if (t.room.name === Memory.northRoomName && !Memory.nAttackerId) {
-        if (
-          !Memory.e59s47fixables ||
-          Memory.e59s47fixables.length <= 0 ||
-          Memory.lastNorthCheckFixables - Game.time > timeToPassForRecheck
-        ) {
-          Memory.e59s47fixables = findFixables(
-            Game.rooms[Memory.northRoomName]
-          );
-          Memory.lastNorthCheckFixables = Game.time;
-        }
-      } else {
-        if (
-          !Memory.e59s48fixables ||
-          Memory.e59s48fixables.length <= 0 ||
-          Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
-        ) {
-          Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
-          Memory.lastSouthCheckFixables = Game.time;
-        }
-      }
-      target = findRepairable(t);
-      if(target) {
-        t.repair(target);
-      }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     checkForAttackers();
 
     let crps = Memory.creeps || [];
@@ -133,7 +74,7 @@ module.exports.loop = function () {
     }
 
     if (Game.cpu.bucket > 25) {
-      spawnCreepTypes(enAvail, [Game.spawns.Spawn1]);
+      spawnCreepTypes(enAvail, [s1, northS1]);
 
       // spawnToSource1Chain();
     } else {
@@ -158,4 +99,3 @@ module.exports.loop = function () {
     Game.profiler.email(profilerDur);
   }
 };
-

@@ -4,6 +4,7 @@ const roleTower = require("role.tower");
 const spawnToSource1Chain = require("./action.spawnToSource1Chain");
 const smartMove = require("./action.smartMove");
 const spawnCreepTypes = require("./spawn.spawnCreepTypes");
+const deepSouthspawnCreepTypes = require("./spawn.deepSouthspawnCreepTypes");
 const spawnCreepTypeseRm = require("./spawn.eRmspawnCreepTypes");
 const spawnCreepTypeseeRm = require("./spawn.eeRmspawnCreepTypes");
 const spawnCreepTypesNE = require("./spawn.spawnCreepTypesNE");
@@ -28,17 +29,27 @@ module.exports.loop = function () {
 
     let s1 = Game.spawns.Spawn1;
     let northS1 = Game.spawns.NorthSpawn1;
+    let deepSouthS1 = Game.spawns.deepSouthSpawn1;
     Memory.s1 = s1;
     Memory.northS1 = northS1;
+    Memory.deepSouthS1 = deepSouthS1;
 
     let rm = s1.room;
     Memory.rm = rm;
+    // let northRm = northS1.room;
+    // Memory.northRm = northRm;
+    let deepSouthRm = deepSouthS1.room;
+    Memory.deepSouthRm = deepSouthRm;
     Memory.homeRoomName = "E59S48";
     Memory.northRoomName = "E59S47";
     Memory.deepSouthRoomName = "E59S49";
 
     let enAvail = rm.energyAvailable;
     let enCapRm = rm.energyCapacityAvailable;
+    // let northEnAvail = northRm.energyAvailable;
+    // let northEnCapRm = northRm.energyCapacityAvailable;
+    let deepSouthEnAvail = deepSouthRm.energyAvailable;
+    let deepSouthEnCapRm = deepSouthRm.energyCapacityAvailable;
     Memory.enAvail = enAvail;
     Memory.enCapRm = enCapRm;
 
@@ -75,7 +86,10 @@ module.exports.loop = function () {
     }
 
     if (Game.cpu.bucket > 25) {
-      spawnCreepTypes(enAvail, [s1, northS1]);
+        spawnCreepTypes(enAvail, [s1]);
+        // spawnCreepTypes(northEnAvail, [northS1]);
+        deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);
+
 
       // spawnToSource1Chain();
     } else {

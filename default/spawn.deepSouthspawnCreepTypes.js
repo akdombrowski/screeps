@@ -53,7 +53,7 @@ function deepSouthbirthCreep(
 
       if (retval === OK) {
         console.log(
-          "spawn1ed." +
+          "dSSpawn1ed." +
             name +
             " " +
             chosenRole +
@@ -381,7 +381,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningdS " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -480,7 +480,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningdS " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -535,7 +535,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningdS " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -567,7 +567,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //   }
 
   //   if (retval !== -16) {
-  //     console.log("spawningS " + name + " " + retval);
+  //     console.log("spawningdS " + name + " " + retval);
   //   }
   //   if (retval === OK || retval === ERR_BUSY) {
   //     return retval;
@@ -616,7 +616,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningdS " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -690,7 +690,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningdS " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -888,11 +888,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     } else {
       // south road repairer, roadRepairers
       parts = workerParts800;
-      name = "rRN" + t;
-      roadRepairersE59S47.push(name);
+      name = "rRdS" + t;
+      roadRepairersE59S49.push(name);
       chosenRole = "roadRepairer";
       direction = "north";
-      group = "roadRepairersE59S47";
+      group = "roadRepairersE59S49";
       retval = deepSouthbirthCreep(
         spawns,
         parts,
@@ -906,7 +906,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningdS " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -920,7 +920,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //   let direction = "south";
   //   let sourceId = Memory.source2;
   //   let parts = medsouthHvParts;
-  //   let spawnDirection = [BOTTOM];
+  //   let spawnDirection = [TOP];
 
   //   if (harvestersS.length < 3) {
   //     harvestersS.push(name);
@@ -942,7 +942,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //   let direction = "south";
   //   let sourceId = Memory.source2;
   //   let parts = simpleParts;
-  //   let spawnDirection = [BOTTOM];
+  //   let spawnDirection = [TOP];
 
   //   if (claimersW.length < 1 && (!contrW || !contrW.my)) {
   //     parts = claimerParts;
@@ -1003,7 +1003,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //   }
 
   //   if (retval !== -16) {
-  //     console.log("spawningS " + name + " " + retval);
+  //     console.log("spawningdS " + name + " " + retval);
   //   }
   //   if (retval === OK || retval === ERR_BUSY) {
   //     return retval;
@@ -1016,7 +1016,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let direction = "south";
     let sourceId = Memory.source2;
     let parts = newhvParts;
-    let spawnDirection = [BOTTOM];
+    let spawnDirection = [TOP];
     let birth = false;
     let buildRoom = "E36N32";
 
@@ -1224,7 +1224,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection
       );
       if (retval !== -16) {
-        console.log("spawningS " + name + " " + retval);
+        console.log("spawningdS " + name + " " + retval);
       }
       if (retval === OK || retval === ERR_BUSY) {
         return retval;

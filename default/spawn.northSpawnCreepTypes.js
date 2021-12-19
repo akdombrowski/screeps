@@ -53,7 +53,7 @@ function birthCreep(
 
       if (retval === OK) {
         console.log(
-          "spawn1ed." +
+          "nSpawn1ed." +
             name +
             " " +
             chosenRole +
@@ -273,7 +273,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let direction = "south";
     let sourceId = Memory.source2;
     let parts = attackerParts500;
-    let spawnDirection = [TOP];
+    let spawnDirection = [BOTTOM];
     let group = "attackers";
 
     attackers.push(name);
@@ -287,6 +287,13 @@ function northSpawnCreepTypes(enAvail, spawns) {
       spawnDirection,
       group
     );
+
+    if (retval !== -16) {
+      console.log("spawningN " + name + " " + retval);
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
   }
 
   //     #     #######  #######     #      #####   #    #
@@ -303,7 +310,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let sourceId = Memory.nSource2;
     let parts = attackerParts500;
     let group = "attackersN";
-    let spawnDirection = [TOP];
+    let spawnDirection = [BOTTOM];
 
     attackersE59S47.push(name);
     retval = birthCreep(
@@ -316,6 +323,13 @@ function northSpawnCreepTypes(enAvail, spawns) {
       spawnDirection,
       group
     );
+
+    if (retval !== -16) {
+      console.log("spawningN " + name + " " + retval);
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
   }
 
   //     #     #######  #######     #      #####   #    #
@@ -332,7 +346,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let sourceId = Memory.nSource2;
     let parts = attackerParts500;
     let group = "attackersN";
-    let spawnDirection = [TOP];
+    let spawnDirection = [BOTTOM];
 
     attackersE59S49.push(name);
     retval = birthCreep(
@@ -345,6 +359,13 @@ function northSpawnCreepTypes(enAvail, spawns) {
       spawnDirection,
       group
     );
+
+    if (retval !== -16) {
+      console.log("spawningN " + name + " " + retval);
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
   }
 
   //   #####     ###      ###
@@ -361,7 +382,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let sourceId = Memory.source2;
     let parts = simpleParts;
     let group = "harvesters";
-    let spawnDirection = [TOP];
+    let spawnDirection = [BOTTOM];
 
     if (numOfCreepsTotal < 6) {
       harvesters.push(name);
@@ -413,7 +434,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningN " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -434,7 +455,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let sourceId = Memory.source2;
     let parts = simpleParts;
     let group = "harvesters";
-    let spawnDirection = [TOP];
+    let spawnDirection = [BOTTOM];
 
     if (upControllers.length < 1) {
       name = "upC" + t;
@@ -471,7 +492,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningN " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -492,7 +513,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let sourceId = Memory.source2;
     let parts = simpleParts;
     let group = "harvesters";
-    let spawnDirection = [TOP];
+    let spawnDirection = [BOTTOM];
 
     if (upControllersE59S47.length < 2) {
       // when north controller is controlled change this to upControllersN
@@ -515,7 +536,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningN " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -536,7 +557,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let sourceId = Memory.source2;
     let parts = simpleParts;
     let group = "harvesters";
-    let spawnDirection = [TOP];
+    let spawnDirection = [BOTTOM];
 
     if (upControllersE59S49.length < 2) {
       name = "upCdS" + t;
@@ -559,7 +580,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningN " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -580,7 +601,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let sourceId = Memory.source1;
     let parts = simpleParts350;
     let group = "harvesters";
-    let spawnDirection = [TOP];
+    let spawnDirection = [BOTTOM];
 
     if (numOfCreepsTotal < 10) {
       harvesters.push(name);
@@ -597,7 +618,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningN " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -618,7 +639,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let sourceId = Memory.source2;
     let parts = attackerParts500;
     let group = "attackersNW";
-    let spawnDirection = [TOP];
+    let spawnDirection = [BOTTOM];
 
     if (Memory.nwAttackerId && attackersNW.length < 2) {
       direction = "nw";
@@ -652,7 +673,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningN " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -666,7 +687,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
   //   let sourceId = Memory.source2;
   //   let parts = simpleParts500;
   //   let group = "reservers";
-  //   let spawnDirection = [TOP];
+  //   let spawnDirection = [BOTTOM];
 
   //   if (reservers.length < 1) {
   //     reservers.push(name);
@@ -684,7 +705,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
   //   }
 
   //   if (retval !== -16) {
-  //     console.log("spawningS " + name + " " + retval);
+  //     console.log("spawningN " + name + " " + retval);
   //   }
   //   if (retval === OK || retval === ERR_BUSY) {
   //     return retval;
@@ -712,7 +733,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let sourceId = Memory.source2;
     let parts = simpleParts500;
     let group = "claimers";
-    let spawnDirection = [TOP];
+    let spawnDirection = [BOTTOM];
 
     if (claimers.length < 1) {
       name = "c" + t;
@@ -733,7 +754,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningN " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -754,7 +775,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let sourceId = Memory.source2;
     let parts = harvesterParts550;
     let group = "harvesters";
-    let spawnDirection = [TOP];
+    let spawnDirection = [BOTTOM];
 
     if (harvesters.length < 4) {
       name = "h" + t;
@@ -807,7 +828,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningN " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -834,7 +855,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let sourceId = Memory.source2;
     let parts = harvesterParts800;
     let group = "harvesters";
-    let spawnDirection = [TOP];
+    let spawnDirection = [BOTTOM];
 
     if (harvesters.length < 6) {
       name = "h" + t;
@@ -1023,7 +1044,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningN " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -1120,7 +1141,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
   //   }
 
   //   if (retval !== -16) {
-  //     console.log("spawningS " + name + " " + retval);
+  //     console.log("spawningN " + name + " " + retval);
   //   }
   //   if (retval === OK || retval === ERR_BUSY) {
   //     return retval;
@@ -1341,7 +1362,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
         spawnDirection
       );
       if (retval !== -16) {
-        console.log("spawningS " + name + " " + retval);
+        console.log("spawningN " + name + " " + retval);
       }
       if (retval === OK || retval === ERR_BUSY) {
         return retval;

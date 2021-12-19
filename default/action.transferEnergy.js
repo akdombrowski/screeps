@@ -43,10 +43,6 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   if (creepRoomName != targetRoomName) {
     let exts = [];
 
-    console.log(
-      name + " initial target " + (target ? target.room.name : "no target")
-    );
-
     if (!target && creepRoomName === Memory.homeRoomName) {
       if (
         !Memory.e59s48extensionsSpawns ||
@@ -54,7 +50,6 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       ) {
         let structs = creep.room.find(FIND_MY_STRUCTURES, {
           filter: (struct) => {
-            console.log(struct);
             let type = struct.structureType;
             if (type === STRUCTURE_SPAWN || type === STRUCTURE_EXTENSION) {
               return struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
@@ -70,17 +65,12 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       target = Game.getObjectById(exts.pop());
       Memory.e59s48extensionsSpawns.pop();
     } else if (!target && creepRoomName === Memory.northRoomName) {
-      console.log(
-        name + " " + creepRoomName + " " + Memory.e59s47extensionsSpawns
-      );
       if (
         !Memory.e59s47extensionsSpawns ||
         Memory.e59s47extensionsSpawns.length <= 0
       ) {
         let structs = creep.room.find(FIND_MY_STRUCTURES, {
           filter: (struct) => {
-            console.log("struct " + struct);
-
             let type = struct.structureType;
             if (type === STRUCTURE_SPAWN || type === STRUCTURE_EXTENSION) {
               return struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
@@ -117,11 +107,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       target = Game.getObjectById(exts.pop());
       Memory.e59s49extensionsSpawns.pop();
     }
-
-    console.log(name + " in room " + creepRoomName);
-    console.log(name + " targeting " + targetRoomName);
-    console.log(name + " exts " + exts);
-    if ((!exts || exts.length) <= 0) {
+    if (!target) {
       if (creep.room.name === Memory.northRoomName) {
         // if in the north room but target is not north, head south
         exitDirection = BOTTOM;

@@ -4,6 +4,7 @@ const roleTower = require("role.tower");
 const spawnToSource1Chain = require("./action.spawnToSource1Chain");
 const smartMove = require("./action.smartMove");
 const spawnCreepTypes = require("./spawn.spawnCreepTypes");
+const northSpawnCreepTypes = require("./spawn.northSpawnCreepTypes");
 const deepSouthspawnCreepTypes = require("./spawn.deepSouthspawnCreepTypes");
 const spawnCreepTypeseRm = require("./spawn.eRmspawnCreepTypes");
 const spawnCreepTypeseeRm = require("./spawn.eeRmspawnCreepTypes");
@@ -86,7 +87,7 @@ module.exports.loop = function () {
     runRoles();
 
     spawnCreepTypes(enAvail, [s1]);
-    // spawnCreepTypes(northEnAvail, [northS1]);
+    northSpawnCreepTypes(northEnAvail, [northS1]);
     deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);
 
     // if (Game.cpu.bucket > 30) {

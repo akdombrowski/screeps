@@ -49,6 +49,7 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
     (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] <= 0)
   ) {
     creep.memory.build = false;
+    creep.memory.lastBuildID = null;
     creep.memory.repair = false;
     creep.memory.getEnergy = true;
     creep.say("h");

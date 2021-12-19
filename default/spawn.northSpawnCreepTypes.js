@@ -353,7 +353,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
   //        #  #     #  #     #
   //  #     #   #   #    #   #
   //   #####     ###      ###
-  if (enAvail >= 300 && !invaderId) {
+  if (enAvail >= 300 && !nAttackerId) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
@@ -365,6 +365,40 @@ function northSpawnCreepTypes(enAvail, spawns) {
     if (numOfCreepsTotal < 6) {
       harvesters.push(name);
       parts = simpleParts;
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (upControllersE59S47.length < 5) {
+      name = "upCN" + t;
+      direction = "north";
+      sourceId = Memory.nSource1;
+      group = "upControllersE59S47";
+      spawnDirection = BOTTOM;
+      upControllersE59S47.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else {
+      name = "rRN" + t;
+      direction = "north";
+      sourceId = Memory.nSource1;
+      group = "roadRepairersE59S47";
+      spawnDirection = BOTTOM;
+      roadRepairersE59S47.push(name);
       retval = birthCreep(
         spawns,
         parts,
@@ -417,7 +451,49 @@ function northSpawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (upControllersE59S47.length < 1) {
+    } else if (roadRepairers.length < 1) {
+      name = "rR" + t;
+      chosenRole = "roadRepairer";
+      roadRepairers.push(name);
+      parts = simpleParts;
+      group = "roadRepairers";
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    }
+
+    if (retval !== -16) {
+      console.log("spawningS " + name + " " + retval);
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
+  }
+
+  //   #####     ###      ###
+  //  #     #   #   #    #   #
+  //        #  #     #  #     #
+  //   #####   #     #  #     #
+  //        #  #     #  #     #
+  //  #     #   #   #    #   #
+  //   #####     ###      ###
+  if (enAvail >= 300 && !nAttackerId) {
+    let name = "h" + t;
+    let chosenRole = "h";
+    let direction = "south";
+    let sourceId = Memory.source2;
+    let parts = simpleParts;
+    let group = "harvesters";
+    let spawnDirection = [TOP];
+
+    if (upControllersE59S47.length < 2) {
       // when north controller is controlled change this to upControllersN
       name = "upCN" + t;
       chosenRole = "upCN";
@@ -435,7 +511,33 @@ function northSpawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (upControllersE59S49.length < 1) {
+    }
+
+    if (retval !== -16) {
+      console.log("spawningS " + name + " " + retval);
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
+  }
+
+  //   #####     ###      ###
+  //  #     #   #   #    #   #
+  //        #  #     #  #     #
+  //   #####   #     #  #     #
+  //        #  #     #  #     #
+  //  #     #   #   #    #   #
+  //   #####     ###      ###
+  if (enAvail >= 300 && !dSAttackerId) {
+    let name = "hdS" + t;
+    let chosenRole = "h";
+    let direction = "deepSouth";
+    let sourceId = Memory.source2;
+    let parts = simpleParts;
+    let group = "harvesters";
+    let spawnDirection = [TOP];
+
+    if (upControllersE59S49.length < 2) {
       name = "upCdS" + t;
       upControllersE59S49.push(name);
       chosenRole = "upCdS";
@@ -443,22 +545,6 @@ function northSpawnCreepTypes(enAvail, spawns) {
       group = "upControllersE59S49";
       parts = upContrParts;
 
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    } else if (roadRepairers.length < 1) {
-      name = "rR" + t;
-      chosenRole = "roadRepairer";
-      roadRepairers.push(name);
-      parts = simpleParts;
-      group = "roadRepairers";
       retval = birthCreep(
         spawns,
         parts,

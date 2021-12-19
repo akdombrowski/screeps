@@ -176,7 +176,8 @@ function roleHarvester(creep) {
     // didn't give energy to tower. build road.
     if (
       creep.memory.buildRoad ||
-      (retval != OK && !creep.memory.transfer && !creep.memory.transferTower)
+      retval != OK ||
+      (!creep.memory.transfer && !creep.memory.transferTower)
     ) {
       console.log(name + " harvester build");
 

@@ -199,10 +199,6 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     });
   }
 
-  if (!target) {
-    target = Game.spawns.Spawn1;
-  }
-
   // if (
   //   target === Game.spawns.Spawn1 &&
   //   target.store.getFreeCapacity(RESOURCE_ENERGY) <= 0

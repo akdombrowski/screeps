@@ -56,7 +56,7 @@ function build(creep) {
       let extFound = false;
       let t;
       let arr = [];
-      if (direction.startsWith("s")) {
+      if (creep.room.name === Memory.homeRoomName) {
         Memory.e59s48sites = Game.rooms.E59S48.find(FIND_CONSTRUCTION_SITES, {
           filter: (site) => {
             let prog = site.progress;
@@ -86,7 +86,7 @@ function build(creep) {
             }
           });
         }
-      } else if (direction.startsWith("n")) {
+      } else if (creep.room.name === Memory.northRoomName) {
         Memory.e59s47sites = Game.rooms.E59S47.find(FIND_CONSTRUCTION_SITES, {
           filter: (site) => {
             let prog = site.progress;
@@ -113,7 +113,7 @@ function build(creep) {
             }
           });
         }
-      } else if (direction.startsWith("deepSouth")) {
+      } else if (creep.room.name === Memory.deepSouthRoomName) {
         Memory.e59s49sites = Game.rooms.E59S49.find(FIND_CONSTRUCTION_SITES, {
           filter: (site) => {
             let prog = site.progress;

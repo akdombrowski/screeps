@@ -59,7 +59,7 @@ function runRoles() {
         harvesters.push(name);
       } else if (creep.memory.direction.startsWith("n")) {
         harvestersE59S47.push(name);
-      } else if (creep.memory.direction.startsWith("dS")) {
+      } else if (creep.memory.direction.startsWith("deepSouth")) {
         harvestersE59S49.push(name);
       } else {
         harvesters.push(name);

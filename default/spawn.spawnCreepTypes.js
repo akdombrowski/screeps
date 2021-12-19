@@ -242,6 +242,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let wAttackerId = Memory.wAttackerId;
   let nAttackerId = Memory.nAttackerId;
   let neAttackerId = Memory.neAttackerId;
+  let dSAttackerId = Memory.dSAttackerId;
   let invaderId = Memory.invaderId;
 
   let retval = -16;
@@ -266,7 +267,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 500 && Memory.invaderId) {
+  if (enAvail >= 500 && invaderId) {
     let name = "att" + t;
     let chosenRole = "attacker";
     let direction = "south";
@@ -295,13 +296,13 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 500 && attackersE59S47.length < 3 && Memory.nAttackerId) {
+  if (enAvail >= 500 && attackersE59S47.length < 3 && nAttackerId) {
     let name = "att" + t;
     let chosenRole = "attacker";
     let direction = "north";
     let sourceId = Memory.nSource2;
     let parts = attackerParts500;
-    let group = "attackersN";
+    let group = "attackersE59S47";
     let spawnDirection = [TOP];
 
     attackersE59S47.push(name);
@@ -324,13 +325,13 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 500 && attackersE59S49.length < 3 && Memory.dSAttackerId) {
-    let name = "att" + t;
+  if (enAvail >= 500 && attackersE59S49.length < 3 && dSAttackerId) {
+    let name = "dSatt" + t;
     let chosenRole = "attacker";
-    let direction = "north";
-    let sourceId = Memory.nSource2;
+    let direction = "deepSouth";
+    let sourceId = Memory.dSSource2;
     let parts = attackerParts500;
-    let group = "attackersN";
+    let group = "attackersE59S49";
     let spawnDirection = [TOP];
 
     attackersE59S49.push(name);
@@ -784,7 +785,7 @@ function spawnCreepTypes(enAvail, spawns) {
       name = "hdS" + t;
       harvestersE59S49.push(name);
       chosenRole = "h";
-      directoin = "deepSouth";
+      direction = "deepSouth";
       group = "harvestersE59S49";
       retval = birthCreep(
         spawns,

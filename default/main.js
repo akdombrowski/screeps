@@ -28,7 +28,7 @@ module.exports.loop = function () {
     let lastEnAvail = Memory.enAvail || 0;
 
     let s1 = Game.spawns.Spawn1;
-    let northS1 = Game.spawns.NorthSpawn1;
+    let northS1 = Game.spawns.Spawn2e59s47_1;
     let deepSouthS1 = Game.spawns.deepSouthSpawn1;
     Memory.s1 = s1;
     Memory.northS1 = northS1;
@@ -36,22 +36,26 @@ module.exports.loop = function () {
 
     let rm = s1.room;
     Memory.rm = rm;
-    // let northRm = northS1.room;
-    // Memory.northRm = northRm;
-    let deepSouthRm = deepSouthS1.room;
-    Memory.deepSouthRm = deepSouthRm;
+    let northRoom = northS1.room;
+    Memory.northRoom = northRoom;
+    let deepSouthRoom = deepSouthS1.room;
+    Memory.deepSouthRoom = deepSouthRoom;
     Memory.homeRoomName = "E59S48";
     Memory.northRoomName = "E59S47";
     Memory.deepSouthRoomName = "E59S49";
 
     let enAvail = rm.energyAvailable;
     let enCapRm = rm.energyCapacityAvailable;
-    // let northEnAvail = northRm.energyAvailable;
-    // let northEnCapRm = northRm.energyCapacityAvailable;
-    let deepSouthEnAvail = deepSouthRm.energyAvailable;
-    let deepSouthEnCapRm = deepSouthRm.energyCapacityAvailable;
+    let northEnAvail = northRoom.energyAvailable;
+    let northEnCapRm = northRoom.energyCapacityAvailable;
+    let deepSouthEnAvail = deepSouthRoom.energyAvailable;
+    let deepSouthEnCapRm = deepSouthRoom.energyCapacityAvailable;
     Memory.enAvail = enAvail;
     Memory.enCapRm = enCapRm;
+    Memory.northEnAvail = northEnAvail;
+    Memory.northEnCapRoom = northEnCapRm;
+    Memory.deepSouthEnAvail = deepSouthEnAvail;
+    Memory.deepSouthEnCapRm = deepSouthEnCapRm;
 
     Memory.source1 = "59bbc5d22052a716c3cea136";
     Memory.source2 = "59bbc5d22052a716c3cea135";

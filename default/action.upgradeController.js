@@ -74,8 +74,13 @@ function upController(
     }
   }
 
-
   if (target) {
+    new RoomVisual(creep.room.name).text("💥", target.pos.x, target.pos.y, {
+      color: "red",
+      font: 1.8,
+      opacity: 0.5,
+    });
+
     if (creep.memory.up) {
       if (creep.pos.inRangeTo(target, 3)) {
         retval = creep.upgradeController(target);

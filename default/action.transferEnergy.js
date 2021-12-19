@@ -9,8 +9,8 @@ const profiler = require("./screeps-profiler");
 function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   let targetId = creep.memory.transferTargetId;
   let target = Game.getObjectById(targetId);
-  let rm = creep.room;
-  let rmName = rm.name;
+  let creepRoom = creep.room;
+  let creepRoomName = creepRoom.name;
   let name = creep.name;
   let pos = creep.pos;
   let direction = creep.memory.direction;
@@ -25,7 +25,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   let tower5 = Game.getObjectById(Memory.tower5Id);
   let tower6 = Game.getObjectById(Memory.tower6Id);
   let towers = [tower1, tower2, tower3, tower4, tower5, tower6];
-  let enAvail = rm.energyAvailable;
+  let enAvail = creepRoom.energyAvailable;
   let retval = -16;
 
   if (
@@ -40,13 +40,21 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     return -19;
   }
 
-  if (rmName != targetRoomName) {
+  if (creepRoomName != targetRoomName) {
     let exts = [];
 
-    if (!target && creep.room.name === Memory.homeRoomName) {
-      if (!Memory.e59s48extensionsSpawns) {
+    console.log(
+      name + " initial target " + (target ? target.room.name : "no target")
+    );
+
+    if (!target && creepRoomName === Memory.homeRoomName) {
+      if (
+        !Memory.e59s48extensionsSpawns ||
+        Memory.e59s48extensionsSpawns.length <= 0
+      ) {
         let structs = creep.room.find(FIND_MY_STRUCTURES, {
           filter: (struct) => {
+            console.log(struct);
             let type = struct.structureType;
             if (type === STRUCTURE_SPAWN || type === STRUCTURE_EXTENSION) {
               return struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
@@ -59,10 +67,20 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       }
 
       exts = Memory.e59s48extensionsSpawns;
-    } else if (!target && creep.room.name === Memory.northRoomName) {
-      if (!Memory.e59s47extensionsSpawns) {
+      target = Game.getObjectById(exts.pop());
+      Memory.e59s48extensionsSpawns.pop();
+    } else if (!target && creepRoomName === Memory.northRoomName) {
+      console.log(
+        name + " " + creepRoomName + " " + Memory.e59s47extensionsSpawns
+      );
+      if (
+        !Memory.e59s47extensionsSpawns ||
+        Memory.e59s47extensionsSpawns.length <= 0
+      ) {
         let structs = creep.room.find(FIND_MY_STRUCTURES, {
           filter: (struct) => {
+            console.log("struct " + struct);
+
             let type = struct.structureType;
             if (type === STRUCTURE_SPAWN || type === STRUCTURE_EXTENSION) {
               return struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
@@ -75,8 +93,13 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       }
 
       exts = Memory.e59s47extensionsSpawns;
-    } else if (!target && creep.room.name === Memory.deepSouthRoomName) {
-      if (!Memory.e59s49extensionsSpawns) {
+      target = Game.getObjectById(exts.pop());
+      Memory.e59s47extensionsSpawns.pop();
+    } else if (!target && creepRoomName === Memory.deepSouthRoomName) {
+      if (
+        !Memory.e59s49extensionsSpawns ||
+        Memory.e59s49extensionsSpawns.length <= 0
+      ) {
         let structs = creep.room.find(FIND_MY_STRUCTURES, {
           filter: (struct) => {
             let type = struct.structureType;
@@ -91,9 +114,14 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       }
 
       exts = Memory.e59s49extensionsSpawns;
+      target = Game.getObjectById(exts.pop());
+      Memory.e59s49extensionsSpawns.pop();
     }
 
-    if ((!exts || exts.length) <= 0 && creep.room.name != targetRoomName) {
+    console.log(name + " in room " + creepRoomName);
+    console.log(name + " targeting " + targetRoomName);
+    console.log(name + " exts " + exts);
+    if ((!exts || exts.length) <= 0) {
       if (creep.room.name === Memory.northRoomName) {
         // if in the north room but target is not north, head south
         exitDirection = BOTTOM;
@@ -149,7 +177,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   if (
     target &&
     target.structureType === STRUCTURE_TOWER &&
-    rm &&
+    creepRoom &&
     enAvail < 500
   ) {
     target = null;

@@ -39,15 +39,38 @@ function upController(
   } else if (creep.store[RESOURCE_ENERGY] <= 0 || creep.memory.getEnergy) {
     creep.memory.up = false;
     creep.memory.getEnergy = true;
-    retval = getEnergy(
-      creep,
-      targetRoomName,
-      targetRoomName,
-      null,
-      Game.flags.northExit,
-      TOP,
-      targetRoomName
-    );
+    if (creep.memory.direction === "south") {
+      retval = getEnergy(
+        creep,
+        targetRoomName,
+        targetRoomName,
+        null,
+        null,
+        null,
+        targetRoomName
+      );
+    } else if (creep.memory.direction === "north") {
+      retval = getEnergy(
+        creep,
+        targetRoomName,
+        targetRoomName,
+        null,
+        Game.flags.northExit,
+        TOP,
+        targetRoomName
+      );
+    } else if (creep.memory.direction === "deepSouth") {
+      retval = getEnergy(
+        creep,
+        targetRoomName,
+        targetRoomName,
+        null,
+        Game.flags.southExit,
+        BOTTOM,
+        targetRoomName
+      );
+    }
+
     return retval;
   }
 

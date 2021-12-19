@@ -64,7 +64,7 @@ function smartMove(
     let px = ret.path.length > 0 ? ret.path[0].x : "";
     let py = ret.path.length > 0 ? ret.path[0].y : "";
     creep.say("ah!" + px + "," + py);
-    if(retval === OK || retval === ERR_TIRED) {
+    if (retval === OK || retval === ERR_TIRED) {
       creep.room.visual.poly(path, {
         stroke: pathColor,
         strokeWidth: 0.1,
@@ -127,6 +127,10 @@ function smartMove(
   if (path) {
     try {
       retval = creep.moveByPath(path);
+
+      if (name.startsWith("rRdS")) {
+        console.log(name + " smartMove moveByPath retval " + retval);
+      }
     } catch (e) {
       console.log(name + " moveByPath exception " + path);
 

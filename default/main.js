@@ -79,11 +79,7 @@ module.exports.loop = function () {
     deleteDeadCreeps();
     crps = Game.creeps;
 
-    if (Game.cpu.bucket > 15) {
-      runRoles();
-    } else {
-      console.log("low cpu bucket: " + Game.cpu.bucket);
-    }
+    runRoles();
 
     spawnCreepTypes(enAvail, [s1]);
     // spawnCreepTypes(northEnAvail, [northS1]);

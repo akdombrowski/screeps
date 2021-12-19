@@ -137,7 +137,7 @@ function getEnergy(
     }
   }
 
-  if (creep.memory.lastSourceId) {
+  if (!target && creep.memory.lastSourceId) {
     target = Game.getObjectById(creep.memory.lastSourceId);
 
     if (target && target.energy <= 0) {
@@ -192,13 +192,16 @@ function getEnergy(
     }
   }
 
-  if (!target || (target && target.energy <= 0)) {
+  if (
+    !target ||
+    (target && target.store && target.store[RESOURCE_ENERGY] <= 0)
+  ) {
     target = Game.rooms[targetedRmName]
       .find(FIND_SOURCES_ACTIVE, {
         filter: (source) => {
           if (
             targetedRmName.name === targetedRmName.name &&
-            source.energy > 0
+            source.store[RESOURCE_ENERGY] > 0
           ) {
             return source;
           }
@@ -377,7 +380,14 @@ function getEnergy(
       // Still tired
       creep.say("f." + creep.fatigue);
     } else if (target) {
-      retval = smartMove(creep, target, 1, true, null, null, null, 1);
+      retval = smartMove(creep, target, 1, true, null, null, null, 1, false, null);
+
+      if (creep.name.startsWith("rRdS")) {
+        console.log(name + " target " + target);
+        console.log(name + " path " + creep.memory.path);
+
+        console.log(name + " smartMove in getEnergy retval " + retval);
+      }
 
       if (retval === OK) {
         creep.memory.lastSourceId = target.id;

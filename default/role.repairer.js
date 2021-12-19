@@ -43,10 +43,24 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
     creep.memory.getEnergy = true;
     creep.say("h");
 
-    retval = getEnergy(creep, targetRoomName);
+    if(creep.memory.direction === "south") {
 
-    // console.log(name + " getEnergy retval in repairer " + retval);
+      retval = getEnergy(creep, targetRoomName, targetRoomName, null, null, null, targetRoomName);
+    } else if (creep.memory.direction === "north") {
+      retval = getEnergy(creep, targetRoomName, targetRoomName, null, Game.flags.northExit, TOP, targetRoomName);
+    } else if (creep.memory.direction === "deepSouth") {
+      retval = getEnergy(creep, targetRoomName, targetRoomName, null, Game.flags.southExit, BOTTOM, targetRoomName);
+    }
 
+    if (name.startsWith("rRdS")) {
+      console.log(
+        name +
+          " getEnergy retval in repairer " +
+          retval +
+          " targetRoomName " +
+          targetRoomName
+      );
+    }
     return retval;
   }
 

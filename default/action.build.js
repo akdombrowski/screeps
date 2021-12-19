@@ -80,7 +80,17 @@ function build(creep) {
             },
           });
 
-          Memory.e59s48sites = arr.map(arr, (site) => site.id);
+          if (arr && arr.length > 0) {
+            console.log("arr " + (arr instanceof Array));
+            Memory.e59s48sites = arr.map((site) => site.id);
+          } else {
+            Memory.e59s48sites = null;
+          }
+
+          if (!target) {
+            arr.shift();
+            Memory.e59s48sites.shift();
+          }
         }
 
         let sites = [];
@@ -121,7 +131,7 @@ function build(creep) {
           }
         }
       } else if (creep.room.name === Memory.northRoomName) {
-        if (!Memory.e59s47sites || Memory.e59s47sites.length <= 0) {
+        if (Memory.e59s47sites || Memory.e59s47sites.length <= 0) {
           arr = Game.rooms.E59S47.find(FIND_CONSTRUCTION_SITES, {
             filter: (site) => {
               let prog = site.progress;
@@ -143,14 +153,24 @@ function build(creep) {
             },
           });
 
-          Memory.e59s47sites = arr.map(arr, (site) => site.id);
+          if (arr && arr.length > 0) {
+            console.log("arr " + (arr instanceof Array));
+            Memory.e59s47sites = arr.map((site) => site.id);
+          } else {
+            Memory.e59s47sites = null;
+          }
+
+          if (!target) {
+            arr.shift();
+            Memory.e59s47sites.shift();
+          }
         }
 
         let sites = [];
         if (!target) {
           _.forEach(Memory.e59s47sites, (id) => {
             const siteObj = Game.getObjectById(id);
-            if (siteObj.progress < siteObj.progressTotal) {
+            if (siteObj && siteObj.progress < siteObj.progressTotal) {
               sites.push(siteObj);
             }
           });
@@ -206,14 +226,24 @@ function build(creep) {
             },
           });
 
-          Memory.e59s49sites = arr.map(arr, (site) => site.id);
+          if (arr && arr.length > 0) {
+            console.log("arr " + (arr instanceof Array));
+            Memory.e59s49sites = arr.map((site) => site.id);
+
+            if (!target) {
+              arr.shift();
+              Memory.e59s49sites.shift();
+            }
+          } else {
+            Memory.e59s49sites = null;
+          }
         }
 
         let sites = [];
         if (!target) {
           _.forEach(Memory.e59s49sites, (id) => {
             const siteObj = Game.getObjectById(id);
-            if (siteObj.progress < siteObj.progressTotal) {
+            if (siteObj && siteObj.progress < siteObj.progressTotal) {
               sites.push(siteObj);
             }
           });

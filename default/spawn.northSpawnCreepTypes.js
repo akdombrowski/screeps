@@ -751,7 +751,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
   //        #        #  #     #
   //  #     #  #     #   #   #
   //   #####    #####     ###
-  if (enAvail >= 550 && !invaderId && numOfCreepsTotal < 12) {
+  if (enAvail >= 550 && !nAttackerId) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "north";

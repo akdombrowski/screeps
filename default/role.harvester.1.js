@@ -111,16 +111,8 @@ function roleHarvester(creep) {
       );
     }
   } else if (creep.memory.transfer && creep.store[RESOURCE_ENERGY] > 0) {
-    if (!creep.store[RESOURCE_ENERGY] || creep.store[RESOURCE_ENERGY] <= 0) {
-      creep.memory.getEnergy = true;
-      creep.memory.transEnTower = false;
-      creep.memory.transfer = false;
-      creep.memory.buildRoad = false;
-      return ERR_NOT_ENOUGH_RESOURCES;
-    }
     creep.memory.transEnTower = false;
     creep.memory.getEnergy = false;
-    creep.memory.transfer = true;
     retval = -16;
 
     if (creep.memory.direction.startsWith("n")) {
@@ -150,6 +142,10 @@ function roleHarvester(creep) {
         null,
         null
       );
+
+      if (!(retval === OK || retval === ERR_TIRED)) {
+        console.log(name + " harvester transfer energy " + retval);
+      }
     }
 
     if (retval === ERR_TIRED) {
@@ -166,27 +162,32 @@ function roleHarvester(creep) {
       return retval;
     }
 
-    if (retval !== OK && direction === "south") {
-      creep.memory.transferTower = true;
-      creep.memory.buildRoad = false;
+    // if (retval !== OK && direction === "south") {
+    //   creep.memory.transferTower = true;
+    //   creep.memory.buildRoad = false;
 
-      retval = transEnTower(creep, 2000);
-      // return retval;
-      if (retval === OK || retval === ERR_TIRED) {
-        return retval;
-      }
-    }
+    //   retval = transEnTower(creep, 2000);
+    //   // return retval;
+    //   if (retval === OK || retval === ERR_TIRED) {
+    //     return retval;
+    //   }
+    // }
 
     // didn't give energy to tower. build road.
     if (
       creep.memory.buildRoad ||
       (retval != OK && !creep.memory.transfer && !creep.memory.transferTower)
     ) {
+      console.log(name + " harvester build");
+
       retval = build(creep);
       if (retval === OK) {
         creep.memory.buildRoad = true;
       }
     } else if (retval === OK && creep.memory.transferTower) {
+      creep.memory.buildRoad = false;
+      creep.memory.getEnergy = false;
+      creep.memory.transfer = true;
       creep.say("tower");
     }
 

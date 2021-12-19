@@ -202,25 +202,25 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     target = Game.spawns.Spawn1;
   }
 
-  if (
-    target === Game.spawns.Spawn1 &&
-    target.store.getFreeCapacity(RESOURCE_ENERGY) <= 0
-  ) {
-    retval = smartMove(
-      creep,
-      Game.spawns.Spawn1,
-      1,
-      false,
-      null,
-      null,
-      null,
-      1,
-      true,
-      null
-    );
-    target = null;
-    return retval;
-  }
+  // if (
+  //   target === Game.spawns.Spawn1 &&
+  //   target.store.getFreeCapacity(RESOURCE_ENERGY) <= 0
+  // ) {
+  //   retval = smartMove(
+  //     creep,
+  //     Game.spawns.Spawn1,
+  //     1,
+  //     false,
+  //     null,
+  //     null,
+  //     null,
+  //     1,
+  //     true,
+  //     null
+  //   );
+  //   target = null;
+  //   return retval;
+  // }
 
   if (target && creep.pos.inRangeTo(target, 1)) {
     creep.memory.path = null;

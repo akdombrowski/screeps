@@ -21,7 +21,6 @@ function roleHarvester(creep) {
     creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0 ||
     creep.memory.transfer
   ) {
-    retval = ERR_FULL;
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
     if (creep.memory.direction.startsWith("n")) {
@@ -52,7 +51,6 @@ function roleHarvester(creep) {
         null
       );
     }
-    return retval;
   }
 
   if (
@@ -112,7 +110,7 @@ function roleHarvester(creep) {
         Memory.northRoomName
       );
     }
-  } else if (creep.memory.transfer || creep.store[RESOURCE_ENERGY] > 0) {
+  } else if (creep.memory.transfer && creep.store[RESOURCE_ENERGY] > 0) {
     if (!creep.store[RESOURCE_ENERGY] || creep.store[RESOURCE_ENERGY] <= 0) {
       creep.memory.getEnergy = true;
       creep.memory.transEnTower = false;
@@ -125,7 +123,34 @@ function roleHarvester(creep) {
     creep.memory.transfer = true;
     retval = -16;
 
-    retval = transferEnergy(creep);
+    if (creep.memory.direction.startsWith("n")) {
+      retval = transferEnergy(
+        creep,
+        null,
+        null,
+        Memory.homeRoomName,
+        Game.flags.northEntrance,
+        BOTTOM
+      );
+    } else if (creep.memory.direction.startsWith("dS")) {
+      retval = transferEnergy(
+        creep,
+        null,
+        null,
+        Memory.homeRoomName,
+        Game.flags.southEntrance,
+        TOP
+      );
+    } else {
+      retval = transferEnergy(
+        creep,
+        null,
+        null,
+        Memory.homeRoomName,
+        null,
+        null
+      );
+    }
 
     if (retval === ERR_TIRED) {
       creep.say("f." + fatigue);
@@ -155,16 +180,9 @@ function roleHarvester(creep) {
     // didn't give energy to tower. build road.
     if (
       creep.memory.buildRoad ||
-      (retval != OK &&
-        !creep.memory.transfer &&
-        !creep.memory.transferTower &&
-        creep.room.find(FIND_CONSTRUCTION_SITES, {
-          filter: (site) => {
-            return site.structureType === STRUCTURE_ROAD;
-          },
-        }))
+      (retval != OK && !creep.memory.transfer && !creep.memory.transferTower)
     ) {
-      retval = buildRoad(creep);
+      retval = build(creep);
       if (retval === OK) {
         creep.memory.buildRoad = true;
       }
@@ -181,6 +199,7 @@ function roleHarvester(creep) {
       creep.say("sad." + retval);
     }
   } else {
+    creep.memory.transfer = false;
     creep.memory.getEnergy = true;
   }
 }

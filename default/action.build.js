@@ -29,7 +29,6 @@ function build(creep) {
         target = null;
       }
     } else if (creep.room.name === Memory.northRoomName) {
-      target = Game.getObjectById("61b99488d7e4319e2767aef1");
       if (target && target.progress < target.progressTotal) {
         // good, keep target
         creep.memory.lastBuildID = target.id;
@@ -38,7 +37,6 @@ function build(creep) {
         target = null;
       }
     } else if (creep.room.name === Memory.deepSouthRoomName) {
-      target = Game.getObjectById("61bdf95dd2a271e6c6079154");
       if (target && target.progress < target.progressTotal) {
         // good, keep target
         creep.memory.lastBuildID = target.id;
@@ -87,7 +85,8 @@ function build(creep) {
           }
 
           if (!target) {
-            arr.shift();
+            target = arr.shift();
+            creep.memory.lastBuildID = target.id;
             Memory.e59s48sites.shift();
           }
         }
@@ -159,7 +158,8 @@ function build(creep) {
           }
 
           if (!target) {
-            arr.shift();
+            target = arr.shift();
+            creep.memory.lastBuildID = target.id;
             Memory.e59s47sites.shift();
           }
         }
@@ -228,7 +228,8 @@ function build(creep) {
             Memory.e59s49sites = arr.map((site) => site.id);
 
             if (!target) {
-              arr.shift();
+              target = arr.shift();
+              creep.memory.lastBuildID = target.id;
               Memory.e59s49sites.shift();
             }
           } else {

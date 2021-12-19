@@ -120,20 +120,14 @@ function getEnergy(
 
     if (!target && Game.rooms[targetedRmName]) {
       let sources = Game.rooms[targetedRmName].find(FIND_SOURCES);
-      target = chooseSource(creep, sources);
+      if (sources.length > 0) {
+        target = chooseSource(creep, sources);
+      }
     }
 
     if (target) {
       creep.memory.lastSourceId = target.id;
       lastSourceId = creep.memory.lastSourceId;
-    }
-
-    if (retval === OK) {
-      creep.say("TOP");
-      return retval;
-    } else if (retval != -16) {
-      creep.say("cant." + retval);
-      return retval;
     }
   }
 
@@ -158,6 +152,7 @@ function getEnergy(
   ) {
     retval = smartMove(creep, target, 1, true, null, null, null, 1);
     creep.say(target.pos.x + "," + target.pos.y);
+
     return retval;
   }
 
@@ -327,7 +322,7 @@ function getEnergy(
     creep.memory.path = null;
     target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
       filter: (structure) => {
-        if (structure.pos.findInRange(FIND_CREEPS, 2).length <= 1) {
+        if (structure.pos.findInRange(FIND_CREEPS, 2).length <= 4) {
           return structure;
         }
       },
@@ -380,7 +375,23 @@ function getEnergy(
       // Still tired
       creep.say("f." + creep.fatigue);
     } else if (target) {
-      retval = smartMove(creep, target, 1, true, null, null, null, 1, false, null);
+      retval = smartMove(
+        creep,
+        target,
+        1,
+        true,
+        null,
+        null,
+        null,
+        1,
+        false,
+        null
+      );
+
+      if (name.startsWith("upCdS")) {
+        console.log(name + " source target in getEnergy " + target);
+        console.log(name + " smartMove in getEnergy " + retval);
+      }
 
       if (retval === OK) {
         creep.memory.lastSourceId = target.id;

@@ -53,14 +53,14 @@ function chooseSource(creep, sources) {
   }
 
   if (!target && sources.length > 0) {
-    const numCreepsBySource0 = sources[0].pos.findInRange(
+    const numCreepsBySource0 = sources[0] ? sources[0].pos.findInRange(
       FIND_CREEPS,
       3
-    ).length;
-    const numCreepsBySource1 = sources[1].pos.findInRange(
+    ).length : Infinity;
+    const numCreepsBySource1 = sources[1] ?sources[1].pos.findInRange(
       FIND_CREEPS,
       3
-    ).length;
+    ).length : Infinity;
 
     if (numCreepsBySource0 > numCreepsBySource1) {
       target = sources[1];

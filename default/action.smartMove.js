@@ -127,6 +127,11 @@ function smartMove(
   if (path) {
     try {
       retval = creep.moveByPath(path);
+
+      if (name.startsWith("upCdS")) {
+        console.log(name + " path in smartMove " + path);
+        console.log(name + " moveByPath in smartMove " + retval);
+      }
     } catch (e) {
       console.log(name + " moveByPath exception " + path);
 

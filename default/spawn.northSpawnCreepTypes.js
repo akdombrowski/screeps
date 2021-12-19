@@ -241,6 +241,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
   let eAttackerId = Memory.eAttackerId;
   let wAttackerId = Memory.wAttackerId;
   let nAttackerId = Memory.nAttackerId;
+  let dSAttackerId = Memory.dSAttackerId;
   let neAttackerId = Memory.neAttackerId;
   let invaderId = Memory.invaderId;
 

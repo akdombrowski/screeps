@@ -57,6 +57,7 @@ function build(creep) {
       let t;
       let arr = [];
       if (creep.room.name === Memory.homeRoomName) {
+        console.log(creep.name)
         Memory.e59s48sites = Game.rooms.E59S48.find(FIND_CONSTRUCTION_SITES, {
           filter: (site) => {
             let prog = site.progress;

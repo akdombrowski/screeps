@@ -107,7 +107,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
 
-  let s1 = Game.spawns.Spawn1;
+  let s1 = Game.spawns.deepSouthSpawn1;
 
   // 200
   let upContrParts = [];
@@ -395,7 +395,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //        #  #     #  #     #
   //  #     #   #   #    #   #
   //   #####     ###      ###
-  if (enAvail >= 300 && !invaderId) {
+  console.log("enAvail " + enAvail);
+  if (enAvail >= 300 && !Memory.dSAttackerId) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
@@ -472,10 +473,27 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
+    } else {
+      parts = simpleParts;
+      name = "rRdS" + t;
+      roadRepairersE59S49.push(name);
+      chosenRole = "roadRepairer";
+      direction = "deepSouth";
+      group = "roadRepairersE59S49";
+      retval = deepSouthbirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningdS " + name + " " + retval);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -489,7 +507,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //        #        #  #     #
   //  #     #  #     #   #   #
   //   #####    #####     ###
-  if (enAvail >= 350 && !invaderId) {
+  if (enAvail >= 350 && !Memory.dSAttackerId) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
@@ -663,7 +681,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //        #        #  #     #
   //  #     #  #     #   #   #
   //   #####    #####     ###
-  if (enAvail >= 550 && !invaderId && numOfCreepsTotal < 12) {
+  if (enAvail >= 550 && !Memory.dSAttackerId && numOfCreepsTotal < 12) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "north";
@@ -743,7 +761,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //
   //
   //
-  if (enAvail >= 800 && !invaderId) {
+  if (enAvail >= 800 && !Memory.dSAttackerId) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "north";

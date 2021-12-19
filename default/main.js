@@ -85,16 +85,9 @@ module.exports.loop = function () {
       console.log("low cpu bucket: " + Game.cpu.bucket);
     }
 
-    if (Game.cpu.bucket > 25) {
-        spawnCreepTypes(enAvail, [s1]);
-        // spawnCreepTypes(northEnAvail, [northS1]);
-        deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);
-
-
-      // spawnToSource1Chain();
-    } else {
-      console.log("low cpu bucket: " + Game.cpu.bucket);
-    }
+    spawnCreepTypes(enAvail, [s1]);
+    // spawnCreepTypes(northEnAvail, [northS1]);
+    deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);
 
     // if (Game.cpu.bucket > 30) {
     //   linkTransfer(linkSpawn, slinkMiddle);

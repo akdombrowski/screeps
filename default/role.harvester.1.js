@@ -179,7 +179,6 @@ function roleHarvester(creep) {
       retval != OK ||
       (!creep.memory.transfer && !creep.memory.transferTower)
     ) {
-      console.log(name + " harvester build");
 
       retval = build(creep);
       if (retval === OK) {

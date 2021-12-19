@@ -104,7 +104,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
 
-  let s1 = Game.spawns.Spawn1;
+  let s1 = Game.spawns.deepSouthSpawn1;
 
   // 200
   let upContrParts = [];

@@ -20,10 +20,13 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
 
   if (targetRoomName && creepRoomName != targetRoomName) {
     if (creep.pos.isNearTo(exit)) {
+      creep.say(exitDirection);
       retval = creep.move(exitDirection);
     } else {
+      creep.say(targetRoomName);
       retval = smartMove(creep, exit, 0, true, null, null, null, 1);
     }
+    return retval;
   }
 
   if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {

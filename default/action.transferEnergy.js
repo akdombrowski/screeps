@@ -60,12 +60,6 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       );
     }
 
-    if (name.startsWith("hdS")) {
-      console.log(
-        name + " transfer Energy move to target room retval2 " + retval
-      );
-      console.log(name + " exit " + exit);
-    }
     return retval;
   }
 

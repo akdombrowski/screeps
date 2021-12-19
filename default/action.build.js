@@ -57,35 +57,32 @@ function build(creep) {
       let t;
       let arr = [];
       if (creep.room.name === Memory.homeRoomName) {
-        console.log(creep.name)
-        Memory.e59s48sites = Game.rooms.E59S48.find(FIND_CONSTRUCTION_SITES, {
-          filter: (site) => {
-            let prog = site.progress;
-            let progTot = site.progressTotal;
-            let progLeft = progTot - prog;
-            let type = site.structureType;
-            if (progLeft <= 0) {
-              return false;
-            } else if (type === STRUCTURE_EXTENSION) {
-              extFound = true;
-              target = site;
-              return true;
-            } else if (type === STRUCTURE_SPAWN) {
-              target = site;
-              return true;
-            } else {
-              return true;
-            }
-          },
-        });
+        if (!Memory.e59s48sites || Memory.e59s48sites.length <= 0) {
+
+          Memory.e59s48sites = Game.rooms.E59S48.find(FIND_CONSTRUCTION_SITES, {
+            filter: (site) => {
+              let prog = site.progress;
+              let progTot = site.progressTotal;
+              let progLeft = progTot - prog;
+              let type = site.structureType;
+              if (progLeft <= 0) {
+                return false;
+              } else if (type === STRUCTURE_EXTENSION) {
+                extFound = true;
+                target = site;
+                return true;
+              } else if (type === STRUCTURE_SPAWN) {
+                target = site;
+                return true;
+              } else {
+                return true;
+              }
+            },
+          });
+        }
 
         if (!target) {
-          _.forEach(Memory.e59s48sites, (site) => {
-            const siteObj = Game.getObjectById(site.id);
-            if (siteObj.progress < siteObj.progressTotal) {
-              arr.push(siteObj);
-            }
-          });
+          target = Memory.e59s48sites.shift();
         }
       } else if (creep.room.name === Memory.northRoomName) {
         Memory.e59s47sites = Game.rooms.E59S47.find(FIND_CONSTRUCTION_SITES, {
@@ -107,12 +104,7 @@ function build(creep) {
         });
 
         if (!target) {
-          _.forEach(Memory.e59s47sites, (site) => {
-            const siteObj = Game.getObjectById(site.id);
-            if (siteObj.progress < siteObj.progressTotal) {
-              arr.push(siteObj);
-            }
-          });
+          target = Memory.e59s47sites.shift();
         }
       } else if (creep.room.name === Memory.deepSouthRoomName) {
         Memory.e59s49sites = Game.rooms.E59S49.find(FIND_CONSTRUCTION_SITES, {
@@ -134,16 +126,11 @@ function build(creep) {
         });
 
         if (!target) {
-          _.forEach(Memory.e59s49sites, (site) => {
-            const siteObj = Game.getObjectById(site.id);
-            if (siteObj.progress < siteObj.progressTotal) {
-              arr.push(siteObj);
-            }
-          });
+          target = Memory.e59s49sites.shift();
         }
       }
 
-      if (arr) {
+      if (!target && arr) {
         try {
           target = creep.pos.findClosestByPath(arr, {
             filter: (site) => {

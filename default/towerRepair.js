@@ -1,5 +1,6 @@
 const { findFixables } = require("./findFixables");
 const findRepairable = require("./action.findRepairableStruct");
+const profiler = require("./screeps-profiler");
 
 function towerRepair(towers) {
   const timeToPassForRecheck = 100;
@@ -41,4 +42,6 @@ function towerRepair(towers) {
     }
   }
 }
+
+towerRepair = profiler.registerFN(towerRepair, "towerRepair");
 exports.towerRepair = towerRepair;

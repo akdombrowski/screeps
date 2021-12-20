@@ -107,12 +107,19 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       target = Game.getObjectById(exts.pop());
       Memory.e59s49extensionsSpawns.pop();
     }
+
     if (!target) {
-      if (creep.room.name === Memory.northRoomName) {
+      if (
+        targetRoomName != Memory.northRoomName &&
+        creep.room.name === Memory.northRoomName
+      ) {
         // if in the north room but target is not north, head south
         exitDirection = BOTTOM;
         exit = Game.flags.northEntrance;
-      } else if (creep.room.name === Memory.deepSouthRoomName) {
+      } else if (
+        targetRoomName != Memory.deepSouthRoomName &&
+        creep.room.name === Memory.deepSouthRoomName
+      ) {
         // if in the deepSouth room but target room is not deepSouth, head north
         exitDirection = TOP;
         exit = Game.flags.southEntrance;
@@ -172,7 +179,6 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     creep.memory.flag = null;
   }
 
-  let extensionNeedsEnergy = false;
   if (!target && creep.room.name === Memory.homeRoomName) {
     let exts;
     if (
@@ -258,9 +264,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       );
     }
 
-    exts = Memory.e59s49extensionsSpawns.map(function (ext) {
-      return Game.getObjectById(ext);
-    });
+    exts = Memory.e59s49extensionsSpawns.map((ext) => Game.getObjectById(ext));
 
     // find closest ext or spawn by path
     let a = creep.pos.findClosestByPath(exts);

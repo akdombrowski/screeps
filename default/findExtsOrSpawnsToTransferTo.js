@@ -28,6 +28,7 @@ function findExtsOrSpawnsToTransferTo(
     _.pull(memExtensions, target.id);
   } else {
     // didn't find an extension that needed energy
+    // check for spawns
     memSpawns = checkForSpawns(targetRoomName, creep);
 
     exts = mapIDsToGameObjs(memSpawns);

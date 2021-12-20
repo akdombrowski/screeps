@@ -401,7 +401,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let direction = "deepSouth";
     let sourceId = Memory.source2;
     let parts = simpleParts;
-    let group = "harvesters";
+    let group = "harvestersE59S49";
     let spawnDirection = [TOP];
 
     if (upControllersE59S49.length < 1) {

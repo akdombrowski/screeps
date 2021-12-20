@@ -359,7 +359,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   if (enAvail >= 300 && !Memory.dSAttackerId) {
     let name = "h" + t;
     let chosenRole = "h";
-    let direction = "south";
+    let direction = "deepSouth";
     let sourceId = Memory.source2;
     let parts = simpleParts;
     let group = "harvesters";
@@ -677,6 +677,42 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       chosenRole = "roadRepairer";
       direction = "south";
       group = "roadRepairers";
+      retval = deepSouthbirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (upControllersE59S49.length < 4) {
+      name = "upCdS" + t;
+      upControllersE59S49.push(name);
+      chosenRole = "upCdS";
+      direction = "deepSouth";
+      group = "upControllersE59S49";
+      parts = upContrParts;
+
+      retval = deepSouthbirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else {
+      name = "upCdS" + t;
+      upControllersE59S49.push(name);
+      chosenRole = "upCdS";
+      direction = "deepSouth";
+      group = "upControllersE59S49";
+      parts = upContrParts;
+
       retval = deepSouthbirthCreep(
         spawns,
         parts,

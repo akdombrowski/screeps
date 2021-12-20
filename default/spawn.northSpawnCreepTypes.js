@@ -775,6 +775,23 @@ function northSpawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
+    } else if(roadRepairersE59S47.length < 2 ){
+      parts = workerParts550;
+      name = "rR" + t;
+      roadRepairersE59S47.push(name);
+      chosenRole = "roadRepairer";
+      direction = "north";
+      group = "roadRepairers";
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
     } else if (harvestersE59S47.length < 16) {
       name = "hN" + t;
       harvestersE59S47.push(name);

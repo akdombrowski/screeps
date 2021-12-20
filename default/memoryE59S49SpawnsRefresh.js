@@ -3,7 +3,7 @@ const { findMyStructs } = require("./findMyStructs");
 
 function memoryE59S49SpawnsRefresh() {
   if (!Memory.e59s49spawns || Memory.e59s49spawns.length <= 0) {
-    Memory.e59s49spawns = findMyStructs([STRUCTURE_SPAWN], Memory.homeRoomName);
+    Memory.e59s49spawns = findMyStructs([STRUCTURE_SPAWN], Memory.deepSouthRoomName);
   } else {
     Memory.e59s49spawns = Memory.e59s49spawns.filter(
       (struct) => struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0

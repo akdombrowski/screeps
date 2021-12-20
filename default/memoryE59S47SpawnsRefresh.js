@@ -3,7 +3,7 @@ const profiler = require("./screeps-profiler");
 
 function memoryE59S47SpawnsRefresh() {
   if (!Memory.e59s47spawns || Memory.e59s47spawns.length <= 0) {
-    Memory.e59s47spawns = findMyStructs([STRUCTURE_SPAWN], Memory.homeRoomName);
+    Memory.e59s47spawns = findMyStructs([STRUCTURE_SPAWN], Memory.northRoomName);
   } else {
     Memory.e59s47spawns = Memory.e59s49spawns.filter(
       (struct) =>

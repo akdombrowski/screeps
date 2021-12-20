@@ -156,8 +156,6 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     minAmountOfEnAvailToTransferToTower
   );
 
-  if (target) {
-
   if (
     !target &&
     creepRoomName === Memory.homeRoomName &&

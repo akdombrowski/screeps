@@ -47,8 +47,6 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   }
 
   if (creepRoomName != targetRoomName) {
-    let exts = [];
-
     if (!target && creepRoomName === Memory.homeRoomName) {
       let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
         creep,

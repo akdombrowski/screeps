@@ -357,7 +357,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //  #     #   #   #    #   #
   //   #####     ###      ###
   if (enAvail >= 300 && !Memory.dSAttackerId) {
-    let name = "h" + t;
+    let name = "hdS" + t;
     let chosenRole = "h";
     let direction = "deepSouth";
     let sourceId = Memory.source2;
@@ -365,7 +365,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvestersE59S49.length < 1) {
+    if (harvestersE59S49.length < 4) {
       harvestersE59S49.push(name);
       parts = simpleParts;
       retval = deepSouthbirthCreep(
@@ -396,9 +396,9 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //  #     #   #   #    #   #
   //   #####     ###      ###
   if (enAvail >= 300 && !Memory.dSAttackerId) {
-    let name = "h" + t;
+    let name = "hdS" + t;
     let chosenRole = "h";
-    let direction = "south";
+    let direction = "deepSouth";
     let sourceId = Memory.source2;
     let parts = simpleParts;
     let group = "harvesters";
@@ -410,8 +410,38 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       chosenRole = "upCdS";
       direction = "deepSouth";
       group = "upControllersE59S49";
-      parts = upContrParts200;
+      parts = simpleParts;
 
+      retval = deepSouthbirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (roadRepairersE59S49.length < 2) {
+      parts = simpleParts;
+      name = "rRdS" + t;
+      roadRepairersE59S49.push(name);
+      chosenRole = "roadRepairer";
+      direction = "deepSouth";
+      group = "roadRepairersE59S49";
+      retval = deepSouthbirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else {
+      harvestersE59S49.push(name);
+      parts = simpleParts;
       retval = deepSouthbirthCreep(
         spawns,
         parts,

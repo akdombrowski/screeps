@@ -249,11 +249,7 @@ function build(creep) {
           });
           if (sites) {
             try {
-              target = creep.pos.findClosestByPath(sites, {
-                filter: (site) => {
-                  return site.progress < site.progressTotal;
-                },
-              });
+              target = creep.pos.findClosestByPath(sites);
               // target = creep.pos.findClosestByPath(arr);
 
               if (target && !target.id) {

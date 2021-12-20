@@ -312,8 +312,9 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
 
     if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
       creep.memory.transfer = false;
+      creep.memory.transferTargetId = null;
     }
-
+    creep.memory.transferTargetId = target.id;
     retval = creep.transfer(target, RESOURCE_ENERGY);
 
     if (retval === OK) {
@@ -350,7 +351,9 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
           " target: " +
           target +
           " target.pos: " +
-          target.pos
+          target.pos +
+          " creep.pos: " +
+          creep.pos
       );
 
       creep.say("m.err." + retval);

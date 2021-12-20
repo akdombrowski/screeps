@@ -200,8 +200,22 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     let currTarget = towers[0];
     let prevTarget = towers[0];
 
-
+    //
+    //
+    //
+    //
+    // .########..#######..########...#######...##.
+    // ....##....##.....##.##.....##.##.....##.####
+    // ....##....##.....##.##.....##.##.....##..##.
+    // ....##....##.....##.##.....##.##.....##.....
+    // ....##....##.....##.##.....##.##.....##..##.
+    // ....##....##.....##.##.....##.##.....##.####
+    // ....##.....#######..########...#######...##.
+    //
     // CHANGE TO FINDING FIRST TOWER THAT DOESN'T HAVE ENOUGH ENERGY
+    //
+    //
+    //
     _.each(towers, (tower) => {
       // tower doesn't exist or doesn't have an energy component
       if (!tower) {
@@ -340,5 +354,3 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
 
 tran = profiler.registerFN(tran, "tran");
 module.exports = tran;
-
-

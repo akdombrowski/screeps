@@ -406,6 +406,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     creep.memory.transferTargetId = target.id;
 
     retval = smartMove(creep, target, 1);
+
     if (creep.pos.isNearTo(target)) {
       return -17;
     }

@@ -12,7 +12,7 @@ function findExtsOrSpawnsToTransferTo(
 ) {
   let exts;
 
-  memExtensions = checkForExtensions(targetRoomName);
+  memExtensions = checkForExtensions(targetRoomName, creep);
 
   exts = mapIDsToGameObjs(memExtensions);
 

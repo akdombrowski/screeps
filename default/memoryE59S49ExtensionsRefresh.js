@@ -1,7 +1,7 @@
 const profiler = require("./screeps-profiler");
 const { findMyStructs } = require("./findMyStructs");
 
-function memoryE59S49ExtensionsRefresh() {
+function memoryE59S49ExtensionsRefresh(creep) {
   if (Memory.e59s49extensions && Memory.e59s49extensions.length > 0) {
     Memory.e59s49extensions = Memory.e59s49extensions.filter(
       (struct) =>

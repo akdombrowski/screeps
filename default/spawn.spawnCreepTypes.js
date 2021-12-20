@@ -765,7 +765,7 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S47.length < 10) {
+    } else if (harvestersE59S47.length < 6) {
       name = "hN" + t;
       harvestersE59S47.push(name);
       chosenRole = "h";
@@ -848,7 +848,7 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairersE59S49.length < 4) {
+    } else if (roadRepairersE59S49.length < 10) {
       parts = workerParts800;
       name = "rRdS" + t;
       roadRepairersE59S49.push(name);

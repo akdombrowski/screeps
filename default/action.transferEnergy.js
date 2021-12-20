@@ -6,10 +6,11 @@ const tranW = require("./action.transferEnergyW");
 const transEnTower = require("./action.transEnTower");
 const profiler = require("./screeps-profiler");
 const { before } = require("lodash");
-const { mapIDsToGameObjs } = require("./mapIDsToGameObjs");
-const { checkForExtensions } = require("./checkForExtensions");
-const { checkForSpawns } = require("./checkForSpawns");
 const { checkIfOkToTransferToTower } = require("./checkIfOkToTransferToTower");
+const {
+  findExtsOrSpawnsToTransferTo,
+} = require("./findExtsOrSpawnsToTransferTo");
+const { fleeFromTargetBecauseFull } = require("./fleeFromTargetBecauseFull");
 
 function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   let targetId = creep.memory.transferTargetId;
@@ -199,6 +200,8 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     let currTarget = towers[0];
     let prevTarget = towers[0];
 
+
+    // CHANGE TO FINDING FIRST TOWER THAT DOESN'T HAVE ENOUGH ENERGY
     _.each(towers, (tower) => {
       // tower doesn't exist or doesn't have an energy component
       if (!tower) {
@@ -289,21 +292,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       creep.say("t");
       return retval;
     } else if (retval === ERR_FULL) {
-      creep.memory.transferTargetId = null;
-      creep.memory.path = null;
-      retval = smartMove(
-        creep,
-        target,
-        10,
-        true,
-        null,
-        null,
-        null,
-        1,
-        true,
-        null
-      );
-      creep.say("full");
+      retval = fleeFromTargetBecauseFull(creep, retval, target);
       return retval;
     } else {
       creep.say("ouch");
@@ -352,46 +341,4 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
 tran = profiler.registerFN(tran, "tran");
 module.exports = tran;
 
-function findExtsOrSpawnsToTransferTo(
-  creep,
-  target,
-  targetRoomName,
-  memExtensions,
-  memSpawns
-) {
-  let exts;
-  checkForExtensions(targetRoomName);
 
-  exts = mapIDsToGameObjs(memExtensions);
-
-  // find closest ext or spawn by path
-  let a = creep.pos.findClosestByPath(exts);
-
-  if (a) {
-    target = a;
-    creep.memory.transferTargetId = target.id;
-
-    // remove the target from list
-    _.pull(memExtensions, target.id);
-  } else {
-    // didn't find an extension that needed energy
-    checkForSpawns(targetRoomName);
-
-    exts = mapIDsToGameObjs(memSpawns);
-
-    // find closest ext or spawn by path
-    let a = creep.pos.findClosestByPath(exts);
-
-    if (a) {
-      target = a;
-      creep.memory.transferTargetId = target.id;
-
-      // remove the target from list
-      _.pull(memSpawns, target.id);
-    } else {
-      // found neither spawn nor extension that needs energy
-      // target still null
-    }
-  }
-  return { target: target, memExtensions: memExtensions, memSpawns: memSpawns };
-}

@@ -85,14 +85,12 @@ function getPath(
         }
       });
 
-      if (!ignoreCreeps) {
-        let creepArr = creepPos.findInRange(FIND_CREEPS, 1);
+      let creepArr = creepPos.findInRange(FIND_CREEPS, 1);
+      if (!ignoreCreeps || creepArr.length > 1) {
         // Avoid creeps in the room
-        if (creepArr.length > 0) {
-          for (const c of creepArr) {
-            if (c.pos) {
-              costs.set(c.pos.x, c.pos.y, 0xff);
-            }
+        for (const c of creepArr) {
+          if (c.pos) {
+            costs.set(c.pos.x, c.pos.y, 0xff);
           }
         }
       }

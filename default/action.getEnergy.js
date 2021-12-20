@@ -106,16 +106,6 @@ function getEnergy(
     if (creep.memory.lastSourceId) {
       lastSourceId = creep.memory.lastSourceId;
       target = Game.getObjectById(creep.memory.lastSourceId);
-
-      if (target && target.room.name != targetedRmName) {
-        target = null;
-        creep.memory.lastSourceId = null;
-      }
-
-      if (target && target.pos.findInRange(FIND_CREEPS, 2).length > 5) {
-        creep.memory.lastSourceId = null;
-        target = null;
-      }
     }
 
     if (!target && Game.rooms[targetedRmName]) {
@@ -138,8 +128,6 @@ function getEnergy(
       target = null;
       creep.memory.lastSourceId = null;
       creep.memory.path = null;
-    } else if (target && target.pos.findInRange(FIND_CREEPS, 3).length > 5) {
-      target = null;
     }
   }
 

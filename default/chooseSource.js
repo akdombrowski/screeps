@@ -71,11 +71,6 @@ function chooseSource(creep, sources) {
     target = creep.pos.findClosestByPath(sources);
   }
 
-  if (target && target.pos.findInRange(FIND_CREEPS, 2).length > 8) {
-    creep.memory.lastSourceId = null;
-    target = null;
-  }
-
   return target;
 }
 

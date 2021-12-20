@@ -49,74 +49,41 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     let exts = [];
 
     if (!target && creepRoomName === Memory.homeRoomName) {
-      if (
-        !Memory.e59s48extensionsSpawns ||
-        Memory.e59s48extensionsSpawns.length <= 0
-      ) {
-        let structs = creep.room.find(FIND_MY_STRUCTURES, {
-          filter: (struct) => {
-            let type = struct.structureType;
-            if (type === STRUCTURE_SPAWN || type === STRUCTURE_EXTENSION) {
-              return struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-            } else {
-              return false;
-            }
-          },
-        });
-        Memory.e59s48extensionsSpawns = structs.map((struct) => struct.id);
-      }
+      let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+        creep,
+        target,
+        Memory.homeRoomName,
+        Memory.e59s48extensions,
+        Memory.e59s48spawns
+      );
 
-      exts = Memory.e59s48extensionsSpawns;
-      if (exts && exts.length > 0) {
-        target = Game.getObjectById(exts.pop());
-        Memory.e59s48extensionsSpawns.pop();
-      }
+      target = transferTargetsAndMemoryObjects.target;
+      Memory.e59s48extensions = transferTargetsAndMemoryObjects.memExtensions;
+      Memory.e59s48spawns = transferTargetsAndMemoryObjects.memSpawns;
     } else if (!target && creepRoomName === Memory.northRoomName) {
-      if (
-        !Memory.e59s47extensionsSpawns ||
-        Memory.e59s47extensionsSpawns.length <= 0
-      ) {
-        let structs = creep.room.find(FIND_MY_STRUCTURES, {
-          filter: (struct) => {
-            let type = struct.structureType;
-            if (type === STRUCTURE_SPAWN || type === STRUCTURE_EXTENSION) {
-              return struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-            } else {
-              return false;
-            }
-          },
-        });
-        Memory.e59s47extensionsSpawns = structs.map((struct) => struct.id);
-      }
+      let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+        creep,
+        target,
+        Memory.northRoomName,
+        Memory.e59s47extensions,
+        Memory.e59s47spawns
+      );
 
-      exts = Memory.e59s47extensionsSpawns;
-      if (exts && exts.length > 0) {
-        target = Game.getObjectById(exts.pop());
-        Memory.e59s47extensionsSpawns.pop();
-      }
+      target = transferTargetsAndMemoryObjects.target;
+      Memory.e59s47extensions = transferTargetsAndMemoryObjects.memExtensions;
+      Memory.e59s47spawns = transferTargetsAndMemoryObjects.memSpawns;
     } else if (!target && creepRoomName === Memory.deepSouthRoomName) {
-      if (
-        !Memory.e59s49extensionsSpawns ||
-        Memory.e59s49extensionsSpawns.length <= 0
-      ) {
-        let structs = creep.room.find(FIND_MY_STRUCTURES, {
-          filter: (struct) => {
-            let type = struct.structureType;
-            if (type === STRUCTURE_SPAWN || type === STRUCTURE_EXTENSION) {
-              return struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-            } else {
-              return false;
-            }
-          },
-        });
-        Memory.e59s49extensionsSpawns = structs.map((struct) => struct.id);
-      }
+      let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+        creep,
+        target,
+        Memory.deepSouthRoomName,
+        Memory.e59s49extensions,
+        Memory.e59s49spawns
+      );
 
-      exts = Memory.e59s49extensionsSpawns;
-      if (exts && exts.length > 0) {
-        target = Game.getObjectById(exts.pop());
-        Memory.e59s49extensionsSpawns.pop();
-      }
+      target = transferTargetsAndMemoryObjects.target;
+      Memory.e59s49extensions = transferTargetsAndMemoryObjects.memExtensions;
+      Memory.e59s49spawns = transferTargetsAndMemoryObjects.memSpawns;
     }
 
     if (!target) {
@@ -178,7 +145,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     creep.memory.path = null;
   }
 
-  const minAmountOfEnAvailToTransferToTower = 500
+  const minAmountOfEnAvailToTransferToTower = 500;
   target = checkIfOkToTransferToTower(
     target,
     enAvail,
@@ -187,110 +154,41 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   );
 
   if (!target && creep.room.name === Memory.homeRoomName) {
-    let exts;
-    checkForExtensions(Memory.homeRoomName);
+    let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+      creep,
+      target,
+      Memory.homeRoomName,
+      Memory.e59s48extensions,
+      Memory.e59s48spawns
+    );
 
-    exts = mapIDsToGameObjs(Memory.e59s48extensions);
-
-    // find closest ext or spawn by path
-    let a = creep.pos.findClosestByPath(exts);
-
-    if (a) {
-      target = a;
-      creep.memory.transferTargetId = target.id;
-
-      // remove the target from list
-      _.pull(Memory.e59s48extensions, target.id);
-    } else {
-      // didn't find an extension that needed energy
-      checkForSpawns(Memory.homeRoomName);
-
-      exts = mapIDsToGameObjs(Memory.e59s48spawns);
-
-      // find closest ext or spawn by path
-      let a = creep.pos.findClosestByPath(exts);
-
-      if (a) {
-        target = a;
-        creep.memory.transferTargetId = target.id;
-
-        // remove the target from list
-        _.pull(Memory.e59s48spawns, target.id);
-      } else {
-        // found neither spawn nor extension that needs energy
-        // target still null
-      }
-    }
+    target = transferTargetsAndMemoryObjects.target;
+    Memory.e59s48extensions = transferTargetsAndMemoryObjects.memExtensions;
+    Memory.e59s48spawns = transferTargetsAndMemoryObjects.memSpawns;
   } else if (!target && creep.room.name === Memory.northRoomName) {
-    let exts;
-    checkForExtensions(Memory.northRoomName);
+    let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+      creep,
+      target,
+      Memory.northRoomName,
+      Memory.e59s47extensions,
+      Memory.e59s47spawns
+    );
 
-    exts = mapIDsToGameObjs(Memory.e59s47extensions);
-
-    // find closest ext or spawn by path
-    let a = creep.pos.findClosestByPath(exts);
-
-    if (a) {
-      target = a;
-      creep.memory.transferTargetId = target.id;
-
-      // remove the target from list
-      _.pull(Memory.e59s47extensions, target.id);
-    } else {
-      // didn't find an extension that needed energy
-      checkForSpawns(Memory.northRoomName);
-
-      exts = mapIDsToGameObjs(Memory.e59s47spawns);
-
-      // find closest ext or spawn by path
-      let a = creep.pos.findClosestByPath(exts);
-
-      if (a) {
-        target = a;
-        creep.memory.transferTargetId = target.id;
-
-        // remove the target from list
-        _.pull(Memory.e59s47spawns, target.id);
-      } else {
-        // found neither spawn nor extension that needs energy
-        // target still null
-      }
-    }
+    target = transferTargetsAndMemoryObjects.target;
+    Memory.e59s47extensions = transferTargetsAndMemoryObjects.memExtensions;
+    Memory.e59s47spawns = transferTargetsAndMemoryObjects.memSpawns;
   } else if (!target && creep.room.name === Memory.deepSouthRoomName) {
-    let exts;
-    checkForExtensions(Memory.deepSouthRoomName);
+    let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+      creep,
+      target,
+      Memory.deepSouthRoomName,
+      Memory.e59s49extensions,
+      Memory.e59s49spawns
+    );
 
-    exts = mapIDsToGameObjs(Memory.e59s49extensions);
-
-    // find closest ext or spawn by path
-    let a = creep.pos.findClosestByPath(exts);
-
-    if (a) {
-      target = a;
-      creep.memory.transferTargetId = target.id;
-
-      // remove the target from list
-      _.pull(Memory.e59s49extensions, target.id);
-    } else {
-      // didn't find an extension that needed energy
-      checkForSpawns(Memory.deepSouthRoomName);
-
-      exts = mapIDsToGameObjs(Memory.e59s49spawns);
-
-      // find closest ext or spawn by path
-      let a = creep.pos.findClosestByPath(exts);
-
-      if (a) {
-        target = a;
-        creep.memory.transferTargetId = target.id;
-
-        // remove the target from list
-        _.pull(Memory.e59s49spawns, target.id);
-      } else {
-        // found neither spawn nor extension that needs energy
-        // target still null
-      }
-    }
+    target = transferTargetsAndMemoryObjects.target;
+    Memory.e59s49extensions = transferTargetsAndMemoryObjects.memExtensions;
+    Memory.e59s49spawns = transferTargetsAndMemoryObjects.memSpawns;
   }
 
   // towers
@@ -454,4 +352,46 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
 tran = profiler.registerFN(tran, "tran");
 module.exports = tran;
 
+function findExtsOrSpawnsToTransferTo(
+  creep,
+  target,
+  targetRoomName,
+  memExtensions,
+  memSpawns
+) {
+  let exts;
+  checkForExtensions(targetRoomName);
 
+  exts = mapIDsToGameObjs(memExtensions);
+
+  // find closest ext or spawn by path
+  let a = creep.pos.findClosestByPath(exts);
+
+  if (a) {
+    target = a;
+    creep.memory.transferTargetId = target.id;
+
+    // remove the target from list
+    _.pull(memExtensions, target.id);
+  } else {
+    // didn't find an extension that needed energy
+    checkForSpawns(targetRoomName);
+
+    exts = mapIDsToGameObjs(memSpawns);
+
+    // find closest ext or spawn by path
+    let a = creep.pos.findClosestByPath(exts);
+
+    if (a) {
+      target = a;
+      creep.memory.transferTargetId = target.id;
+
+      // remove the target from list
+      _.pull(memSpawns, target.id);
+    } else {
+      // found neither spawn nor extension that needs energy
+      // target still null
+    }
+  }
+  return { target: target, memExtensions: memExtensions, memSpawns: memSpawns };
+}

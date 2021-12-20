@@ -5,6 +5,11 @@ const tranee = require("./action.transferEnergyEEast");
 const tranW = require("./action.transferEnergyW");
 const transEnTower = require("./action.transEnTower");
 const profiler = require("./screeps-profiler");
+const { before } = require("lodash");
+const { mapIDsToGameObjs } = require("./mapIDsToGameObjs");
+const { checkForExtensions } = require("./checkForExtensions");
+const { checkForSpawns } = require("./checkForSpawns");
+const { checkIfOkToTransferToTower } = require("./checkIfOkToTransferToTower");
 
 function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   let targetId = creep.memory.transferTargetId;
@@ -62,8 +67,10 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       }
 
       exts = Memory.e59s48extensionsSpawns;
-      target = Game.getObjectById(exts.pop());
-      Memory.e59s48extensionsSpawns.pop();
+      if (exts && exts.length > 0) {
+        target = Game.getObjectById(exts.pop());
+        Memory.e59s48extensionsSpawns.pop();
+      }
     } else if (!target && creepRoomName === Memory.northRoomName) {
       if (
         !Memory.e59s47extensionsSpawns ||
@@ -83,8 +90,10 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       }
 
       exts = Memory.e59s47extensionsSpawns;
-      target = Game.getObjectById(exts.pop());
-      Memory.e59s47extensionsSpawns.pop();
+      if (exts && exts.length > 0) {
+        target = Game.getObjectById(exts.pop());
+        Memory.e59s47extensionsSpawns.pop();
+      }
     } else if (!target && creepRoomName === Memory.deepSouthRoomName) {
       if (
         !Memory.e59s49extensionsSpawns ||
@@ -104,8 +113,10 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       }
 
       exts = Memory.e59s49extensionsSpawns;
-      target = Game.getObjectById(exts.pop());
-      Memory.e59s49extensionsSpawns.pop();
+      if (exts && exts.length > 0) {
+        target = Game.getObjectById(exts.pop());
+        Memory.e59s49extensionsSpawns.pop();
+      }
     }
 
     if (!target) {
@@ -167,38 +178,19 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     creep.memory.path = null;
   }
 
-  if (
-    target &&
-    target.structureType === STRUCTURE_TOWER &&
-    creepRoom &&
-    enAvail < 500
-  ) {
-    target = null;
-    creep.memory.path = null;
-    creep.memory.transferTargetId = null;
-    creep.memory.flag = null;
-  }
+  const minAmountOfEnAvailToTransferToTower = 500
+  target = checkIfOkToTransferToTower(
+    target,
+    enAvail,
+    creep,
+    minAmountOfEnAvailToTransferToTower
+  );
 
   if (!target && creep.room.name === Memory.homeRoomName) {
     let exts;
-    if (
-      !Memory.e59s48extensionsSpawns ||
-      Memory.e59s48extensionsSpawns.length <= 0
-    ) {
-      Memory.e59s48extensionsSpawns = findStructs(
-        [STRUCTURE_EXTENSION, STRUCTURE_SPAWN],
-        Memory.homeRoomName
-      );
-    } else {
-      Memory.e59s48extensionsSpawns = Memory.e59s48extensionsSpawns.filter(
-        (struct) =>
-          struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-      );
-    }
+    checkForExtensions(Memory.homeRoomName);
 
-    exts = Memory.e59s48extensionsSpawns.map(function (ext) {
-      return Game.getObjectById(ext);
-    });
+    exts = mapIDsToGameObjs(Memory.e59s48extensions);
 
     // find closest ext or spawn by path
     let a = creep.pos.findClosestByPath(exts);
@@ -208,31 +200,32 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       creep.memory.transferTargetId = target.id;
 
       // remove the target from list
-      _.pull(Memory.e59s48extensionsSpawns, target.id);
+      _.pull(Memory.e59s48extensions, target.id);
     } else {
       // didn't find an extension that needed energy
-      // target is still null
+      checkForSpawns(Memory.homeRoomName);
+
+      exts = mapIDsToGameObjs(Memory.e59s48spawns);
+
+      // find closest ext or spawn by path
+      let a = creep.pos.findClosestByPath(exts);
+
+      if (a) {
+        target = a;
+        creep.memory.transferTargetId = target.id;
+
+        // remove the target from list
+        _.pull(Memory.e59s48spawns, target.id);
+      } else {
+        // found neither spawn nor extension that needs energy
+        // target still null
+      }
     }
   } else if (!target && creep.room.name === Memory.northRoomName) {
     let exts;
-    if (
-      !Memory.e59s47extensionsSpawns ||
-      Memory.e59s47extensionsSpawns.length <= 0
-    ) {
-      Memory.e59s47extensionsSpawns = findStructs(
-        [STRUCTURE_EXTENSION, STRUCTURE_SPAWN],
-        Memory.homeRoomName
-      );
-    } else {
-      Memory.e59s47extensionsSpawns = Memory.e59s47extensionsSpawns.filter(
-        (struct) =>
-          struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-      );
-    }
+    checkForExtensions(Memory.northRoomName);
 
-    exts = Memory.e59s47extensionsSpawns.map(function (ext) {
-      return Game.getObjectById(ext);
-    });
+    exts = mapIDsToGameObjs(Memory.e59s47extensions);
 
     // find closest ext or spawn by path
     let a = creep.pos.findClosestByPath(exts);
@@ -242,29 +235,32 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       creep.memory.transferTargetId = target.id;
 
       // remove the target from list
-      _.pull(Memory.e59s47extensionsSpawns, target.id);
+      _.pull(Memory.e59s47extensions, target.id);
     } else {
       // didn't find an extension that needed energy
-      // target is still null
+      checkForSpawns(Memory.northRoomName);
+
+      exts = mapIDsToGameObjs(Memory.e59s47spawns);
+
+      // find closest ext or spawn by path
+      let a = creep.pos.findClosestByPath(exts);
+
+      if (a) {
+        target = a;
+        creep.memory.transferTargetId = target.id;
+
+        // remove the target from list
+        _.pull(Memory.e59s47spawns, target.id);
+      } else {
+        // found neither spawn nor extension that needs energy
+        // target still null
+      }
     }
   } else if (!target && creep.room.name === Memory.deepSouthRoomName) {
     let exts;
-    if (
-      !Memory.e59s49extensionsSpawns ||
-      Memory.e59s49extensionsSpawns.length <= 0
-    ) {
-      Memory.e59s49extensionsSpawns = findStructs(
-        [STRUCTURE_EXTENSION, STRUCTURE_SPAWN],
-        Memory.homeRoomName
-      );
-    } else {
-      Memory.e59s49extensionsSpawns = Memory.e59s49extensionsSpawns.filter(
-        (struct) =>
-          struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-      );
-    }
+    checkForExtensions(Memory.deepSouthRoomName);
 
-    exts = Memory.e59s49extensionsSpawns.map((ext) => Game.getObjectById(ext));
+    exts = mapIDsToGameObjs(Memory.e59s49extensions);
 
     // find closest ext or spawn by path
     let a = creep.pos.findClosestByPath(exts);
@@ -274,10 +270,26 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       creep.memory.transferTargetId = target.id;
 
       // remove the target from list
-      _.pull(Memory.e59s49extensionsSpawns, target.id);
+      _.pull(Memory.e59s49extensions, target.id);
     } else {
       // didn't find an extension that needed energy
-      // target is still null
+      checkForSpawns(Memory.deepSouthRoomName);
+
+      exts = mapIDsToGameObjs(Memory.e59s49spawns);
+
+      // find closest ext or spawn by path
+      let a = creep.pos.findClosestByPath(exts);
+
+      if (a) {
+        target = a;
+        creep.memory.transferTargetId = target.id;
+
+        // remove the target from list
+        _.pull(Memory.e59s49spawns, target.id);
+      } else {
+        // found neither spawn nor extension that needs energy
+        // target still null
+      }
     }
   }
 
@@ -442,20 +454,4 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
 tran = profiler.registerFN(tran, "tran");
 module.exports = tran;
 
-function findStructs(structTypes, targetRoomName) {
-  let structs = Game.rooms[targetRoomName].find(FIND_MY_STRUCTURES, {
-    filter: (struct) => {
-      for (let i = 0; i < structTypes.length; i++) {
-        if (structTypes[i] === struct.structureType) {
-          return struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-        }
-      }
-    },
-  });
 
-  const extIDs = structs.map((ext) => ext.id);
-
-  return extIDs;
-}
-
-findStructs = profiler.registerFN(findStructs, "findStructs");

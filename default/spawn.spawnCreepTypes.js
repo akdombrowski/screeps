@@ -132,9 +132,9 @@ function spawnCreepTypes(enAvail, spawns) {
 
   // 800
   let harvesterParts800 = [];
-  addPart(harvesterParts800, 4, CARRY);
-  addPart(harvesterParts800, 3, WORK);
-  addPart(harvesterParts800, 6, MOVE);
+  addPart(harvesterParts800, 2, CARRY);
+  addPart(harvesterParts800, 6, WORK);
+  addPart(harvesterParts800, 2, MOVE);
 
   // 800
   let workerParts800 = [];
@@ -750,7 +750,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 8) {
+    if (harvesters.length < 6) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";
@@ -765,7 +765,7 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S47.length < 1) {
+    } else if (harvestersE59S47.length < 16) {
       name = "hN" + t;
       harvestersE59S47.push(name);
       chosenRole = "h";

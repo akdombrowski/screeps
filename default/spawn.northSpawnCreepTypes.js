@@ -542,7 +542,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [BOTTOM];
 
-    if (upControllersE59S49.length < 2) {
+    if (upControllersE59S49.length < 1) {
       name = "upCdS" + t;
       upControllersE59S49.push(name);
       chosenRole = "upCdS";
@@ -760,7 +760,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [BOTTOM];
 
-    if (harvesters.length < 6) {
+    if (harvesters.length < 2) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";
@@ -775,7 +775,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S47.length < 1) {
+    } else if (harvestersE59S47.length < 4) {
       name = "hN" + t;
       harvestersE59S47.push(name);
       chosenRole = "h";
@@ -791,7 +791,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (upControllersE59S47.length < 4) {
+    } else if (upControllersE59S47.length < 2) {
       name = "upCN" + t;
       upControllersE59S47.push(name);
       chosenRole = "upCN";

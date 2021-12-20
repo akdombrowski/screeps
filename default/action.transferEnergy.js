@@ -418,7 +418,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
         name +
           " move to target failed in transferEnergy m.err." +
           retval +
-          " target " +
+          " target: " +
           target
       );
 
@@ -430,7 +430,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       return retval;
     }
   } else {
-    console.log(name + " transferEnergy no target " + target);
+    console.log(name + " transferEnergy no target: " + target);
 
     creep.memory.path = null;
     creep.say("t.err");

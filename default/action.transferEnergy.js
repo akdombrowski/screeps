@@ -378,7 +378,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       creep.memory.path = null;
       creep.say("t");
       return retval;
-    } else if ((retval = ERR_FULL)) {
+    } else if (retval === ERR_FULL) {
       creep.memory.transferTargetId = null;
       creep.memory.path = null;
       retval = smartMove(

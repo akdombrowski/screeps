@@ -366,10 +366,13 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
 
   if (target && creep.pos.inRangeTo(target, 1)) {
     creep.memory.path = null;
+
     if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
       creep.memory.transfer = false;
     }
+
     retval = creep.transfer(target, RESOURCE_ENERGY);
+
     if (retval === OK) {
       creep.memory.transferTargetId = target.id;
       creep.memory.path = null;

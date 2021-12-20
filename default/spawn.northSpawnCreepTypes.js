@@ -498,7 +498,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [BOTTOM];
 
-    if (upControllersE59S47.length < 2) {
+    if (upControllersE59S47.length < 1) {
       // when north controller is controlled change this to upControllersN
       name = "upCN" + t;
       chosenRole = "upCN";
@@ -760,7 +760,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [BOTTOM];
 
-    if (harvesters.length < 4) {
+    if (harvesters.length < 6) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";
@@ -791,7 +791,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairers.length < 1) {
+    } else if (roadRepairers.length < 4) {
       parts = workerParts550;
       name = "rR" + t;
       roadRepairers.push(name);

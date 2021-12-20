@@ -69,9 +69,9 @@ function roleHarvester(creep) {
     creep.memory.getEnergy = true;
 
 
-    if (creep.memory.direction.startsWith("s")) {
+    if (creep.memory.direction === "south") {
       retval = getEnergy(creep, homeRmName, null, null, null, null, homeRmName);
-    } else if (creep.memory.direction.startsWith("n")) {
+    } else if (creep.memory.direction === "north") {
       retval = getEnergy(
         creep,
         northRmName,
@@ -81,7 +81,7 @@ function roleHarvester(creep) {
         TOP,
         Memory.northRoomName
       );
-    } else if (creep.memory.direction.startsWith("dS")) {
+    } else if (creep.memory.direction === "deepSouth") {
       retval = getEnergy(
         creep,
         deepSouthRmName,

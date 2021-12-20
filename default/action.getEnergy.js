@@ -196,7 +196,8 @@ function getEnergy(
         filter: (source) => {
           if (
             targetedRmName.name === targetedRmName.name &&
-            source.store && source.store[RESOURCE_ENERGY] > 0
+            source.store &&
+            source.store[RESOURCE_ENERGY] > 0
           ) {
             return source;
           }

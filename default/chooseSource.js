@@ -53,14 +53,12 @@ function chooseSource(creep, sources) {
   }
 
   if (!target && sources.length > 0) {
-    const numCreepsBySource0 = sources[0] ? sources[0].pos.findInRange(
-      FIND_CREEPS,
-      3
-    ).length : Infinity;
-    const numCreepsBySource1 = sources[1] ?sources[1].pos.findInRange(
-      FIND_CREEPS,
-      3
-    ).length : Infinity;
+    const numCreepsBySource0 = sources[0]
+      ? sources[0].pos.findInRange(FIND_CREEPS, 3).length
+      : Infinity;
+    const numCreepsBySource1 = sources[1]
+      ? sources[1].pos.findInRange(FIND_CREEPS, 3).length
+      : Infinity;
 
     if (numCreepsBySource0 > numCreepsBySource1) {
       target = sources[1];
@@ -71,6 +69,11 @@ function chooseSource(creep, sources) {
 
   if (!target && sources.length > 0) {
     target = creep.pos.findClosestByPath(sources);
+  }
+
+  if (target && target.pos.findInRange(FIND_CREEPS, 2).length > 8) {
+    creep.memory.lastSourceId = null;
+    target = null;
   }
 
   return target;

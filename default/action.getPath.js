@@ -85,7 +85,7 @@ function getPath(
         }
       });
 
-      let creepArr = creepPos.findInRange(FIND_CREEPS, 1);
+      let creepArr = creepPos.findInRange(FIND_CREEPS, 2);
       if (!ignoreCreeps || creepArr.length > 1) {
         // Avoid creeps in the room
         for (const c of creepArr) {
@@ -108,8 +108,8 @@ function getPath(
       ret.path[ret.path.length - 1] &&
       ret.path[ret.path.length - 1].pos &&
       !ret.path[ret.path.length - 1].pos.inRangeTo(destPos, range)
-    ) {
-      console.log(name + " getPath need more ops for pathfinding");
+      ) {
+        console.log(name + " getPath need more ops for pathfinding");
 
       ret = PathFinder.search(creepPos, goals, {
         // We need to set the defaults costs higher so that we

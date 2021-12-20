@@ -66,6 +66,7 @@ function smartMove(
         creep.memory.path = null;
         retval = creep.moveTo(dest, {
           reusePath: 50,
+          serializeMemory: false,
           ignoreCreeps: false,
           maxRooms: 1,
           maxOps: 100,
@@ -81,6 +82,10 @@ function smartMove(
 
         if (retval === OK) {
           creep.memory.stuck = false;
+          if (creep.memory._move.path instanceof String) {
+            path = Room.deserializePath(creep.memory._move.path);
+          }
+          creep.memory.path = path;
         }
 
         return retval;
@@ -104,7 +109,9 @@ function smartMove(
   if (
     path &&
     path.length > 0 &&
+    path[0] &&
     path[0].x &&
+    path[0].roomName &&
     !(path[0] instanceof RoomPosition)
   ) {
     path = path.map((p) => new RoomPosition(p.x, p.y, p.roomName));
@@ -330,9 +337,9 @@ function setVisualAndPathInMemory(creep, path, pathColor) {
 
   if (path[0] && path[0].x && creep.pos.isEqualTo(path[0].x, path[0].y)) {
     path.shift();
+    creep.memory.path = path;
   }
 
-  creep.memory.path = path;
 }
 
 setVisualAndPathInMemory = profiler.registerFN(
@@ -350,7 +357,7 @@ function tryMoveByPath(creep, path, name) {
     //   console.log(name + " moveByPath in smartMove " + retval);
     // }
   } catch (e) {
-    console.log(name + " moveByPath exception " + path);
+    console.log(name + " moveByPath exception path: " + path);
 
     creep.memory.path = null;
     retval = -16;

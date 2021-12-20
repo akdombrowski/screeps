@@ -153,27 +153,27 @@ function spawnCreepTypes(enAvail, spawns) {
 
   // 800
   let harvesterParts800 = [];
-  addPart(harvesterParts800, 2, CARRY);
-  addPart(harvesterParts800, 6, WORK);
-  addPart(harvesterParts800, 2, MOVE);
+  addPart(harvesterParts800, 1, CARRY);
+  addPart(harvesterParts800, 7, WORK);
+  addPart(harvesterParts800, 1, MOVE);
 
   // 800
   let workerParts800 = [];
-  addPart(workerParts800, 2, CARRY);
+  addPart(workerParts800, 1, CARRY);
   addPart(workerParts800, 5, WORK);
-  addPart(workerParts800, 4, MOVE);
+  addPart(workerParts800, 5, MOVE);
 
   // 800
   let upContrParts800 = [];
-  addPart(upContrParts800, 3, CARRY);
-  addPart(upContrParts800, 6, WORK);
+  addPart(upContrParts800, 1, CARRY);
+  addPart(upContrParts800, 7, WORK);
   addPart(upContrParts800, 1, MOVE);
 
   // 1100
   let medsouthHvParts1100 = [];
-  addPart(medsouthHvParts1100, 10, CARRY);
-  addPart(medsouthHvParts1100, 1, WORK);
-  addPart(medsouthHvParts1100, 10, MOVE);
+  addPart(medsouthHvParts1100, 1, CARRY);
+  addPart(medsouthHvParts1100, 10, WORK);
+  addPart(medsouthHvParts1100, 1, MOVE);
 
   // 2500
   let moverParts2500 = [];
@@ -181,21 +181,21 @@ function spawnCreepTypes(enAvail, spawns) {
 
   // 2750
   let newhvParts2750 = [];
-  addPart(newhvParts2750, 1, CARRY);
+  addPart(newhvParts2750, 2, CARRY);
   addPart(newhvParts2750, 25, WORK);
-  addPart(newhvParts2750, 24, MOVE);
+  addPart(newhvParts2750, 23, MOVE);
 
   // 2900
   let workerParts2900 = [];
-  addPart(workerParts2900, 1, CARRY);
+  addPart(workerParts2900, 2, CARRY);
   addPart(workerParts2900, 25, WORK);
-  addPart(workerParts2900, 24, MOVE);
+  addPart(workerParts2900, 23, MOVE);
 
   // 3000
   let upContrPartsBig3000 = [];
-  addPart(upContrPartsBig3000, 16, CARRY);
-  addPart(upContrPartsBig3000, 12, WORK);
-  addPart(upContrPartsBig3000, 22, MOVE);
+  addPart(upContrPartsBig3000, 2, CARRY);
+  addPart(upContrPartsBig3000, 25, WORK);
+  addPart(upContrPartsBig3000, 10, MOVE);
 
   // 3000
   let bigclaimerParts3000 = [];
@@ -212,13 +212,13 @@ function spawnCreepTypes(enAvail, spawns) {
   let repairerParts3000 = [];
   addPart(repairerParts3000, 1, CARRY);
   addPart(repairerParts3000, 25, WORK);
-  addPart(repairerParts3000, 24, MOVE);
+  addPart(repairerParts3000, 9, MOVE);
 
   // 3000
   let largeLinkGetsParts3000 = [];
-  addPart(largeLinkGetsParts3000, 20, CARRY);
-  addPart(largeLinkGetsParts3000, 10, WORK);
-  addPart(largeLinkGetsParts3000, 20, MOVE);
+  addPart(largeLinkGetsParts3000, 4, CARRY);
+  addPart(largeLinkGetsParts3000, 25, WORK);
+  addPart(largeLinkGetsParts3000, 6, MOVE);
 
   // 3250
   let bigAttackerParts3250 = [];
@@ -232,9 +232,9 @@ function spawnCreepTypes(enAvail, spawns) {
   addPart(southHvParts3750, 24, MOVE);
 
   let rezzyParts = [CLAIM, MOVE];
-  let basicCarry300 = [CARRY, CARRY, CARRY, WORK, MOVE];
+  let basicCarry300 = [CARRY, WORK, WORK, MOVE];
   let basicHv200 = [CARRY, WORK, MOVE];
-  let simpleParts = [CARRY, WORK, WORK, MOVE];
+  let simpleParts300 = [CARRY, WORK, WORK, MOVE];
   let simpleParts350 = [CARRY, WORK, WORK, MOVE, MOVE];
   let simpleParts500 = [CARRY, WORK, WORK, WORK, WORK, MOVE];
 
@@ -359,13 +359,13 @@ function spawnCreepTypes(enAvail, spawns) {
     let chosenRole = "h";
     let direction = "south";
     let sourceId = Memory.source2;
-    let parts = simpleParts;
+    let parts = simpleParts300;
     let group = "harvesters";
     let spawnDirection = [TOP];
 
     if (numOfCreepsTotal < 6) {
       harvesters.push(name);
-      parts = simpleParts;
+      parts = simpleParts300;
       retval = birthCreep(
         spawns,
         parts,
@@ -398,7 +398,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let chosenRole = "h";
     let direction = "south";
     let sourceId = Memory.source2;
-    let parts = simpleParts;
+    let parts = simpleParts300;
     let group = "harvesters";
     let spawnDirection = [TOP];
 
@@ -458,7 +458,7 @@ function spawnCreepTypes(enAvail, spawns) {
       name = "rR" + t;
       chosenRole = "roadRepairer";
       roadRepairers.push(name);
-      parts = simpleParts;
+      parts = simpleParts300;
       group = "roadRepairers";
       retval = birthCreep(
         spawns,

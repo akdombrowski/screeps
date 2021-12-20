@@ -775,7 +775,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S47.length < 4) {
+    } else if (harvestersE59S47.length < 8) {
       name = "hN" + t;
       harvestersE59S47.push(name);
       chosenRole = "h";

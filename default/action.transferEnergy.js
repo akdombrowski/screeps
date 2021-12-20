@@ -59,6 +59,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       );
 
       target = transferTargetsAndMemoryObjects.target;
+
       Memory.e59s48extensions = transferTargetsAndMemoryObjects.memExtensions;
       Memory.e59s48spawns = transferTargetsAndMemoryObjects.memSpawns;
     } else if (!target && creepRoomName === Memory.northRoomName) {
@@ -164,6 +165,7 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     );
 
     target = transferTargetsAndMemoryObjects.target;
+
     Memory.e59s48extensions = transferTargetsAndMemoryObjects.memExtensions;
     Memory.e59s48spawns = transferTargetsAndMemoryObjects.memSpawns;
   } else if (!target && creep.room.name === Memory.northRoomName) {

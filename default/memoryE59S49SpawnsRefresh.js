@@ -9,6 +9,8 @@ function memoryE59S49SpawnsRefresh() {
       (struct) => struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
     );
   }
+
+  return Memory.e59s49spawns;
 }
 exports.memoryE59S49SpawnsRefresh = memoryE59S49SpawnsRefresh;
 memoryE59S49SpawnsRefresh = profiler.registerFN(

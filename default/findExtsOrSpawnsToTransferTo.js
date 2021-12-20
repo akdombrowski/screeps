@@ -11,7 +11,8 @@ function findExtsOrSpawnsToTransferTo(
   memSpawns
 ) {
   let exts;
-  checkForExtensions(targetRoomName);
+
+  memExtensions = checkForExtensions(targetRoomName);
 
   exts = mapIDsToGameObjs(memExtensions);
 
@@ -26,7 +27,7 @@ function findExtsOrSpawnsToTransferTo(
     _.pull(memExtensions, target.id);
   } else {
     // didn't find an extension that needed energy
-    checkForSpawns(targetRoomName);
+    memSpawns = checkForSpawns(targetRoomName);
 
     exts = mapIDsToGameObjs(memSpawns);
 

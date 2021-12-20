@@ -9,9 +9,12 @@ function memoryE59S48ExtensionsRefresh() {
     );
   } else {
     Memory.e59s48extensions = Memory.e59s48extensions.filter(
-      (struct) => struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+      (struct) =>
+        struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
     );
   }
+
+  return Memory.e59s48extensions;
 }
 exports.memoryE59S48ExtensionsRefresh = memoryE59S48ExtensionsRefresh;
 memoryE59S48ExtensionsRefresh = profiler.registerFN(

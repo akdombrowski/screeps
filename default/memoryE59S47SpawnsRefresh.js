@@ -10,6 +10,8 @@ function memoryE59S47SpawnsRefresh() {
         struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
     );
   }
+
+  return Memory.e59s47spawns;
 }
 memoryE59S47SpawnsRefresh = profiler.registerFN(
   memoryE59S47SpawnsRefresh,

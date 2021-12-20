@@ -47,45 +47,48 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
   }
 
   if (creepRoomName != targetRoomName) {
-    if (!target && creepRoomName === Memory.homeRoomName) {
-      let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-        creep,
-        target,
-        Memory.homeRoomName,
-        Memory.e59s48extensions,
-        Memory.e59s48spawns
-      );
+    if (!target) {
+      if (creepRoomName === Memory.homeRoomName) {
+        let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+          creep,
+          target,
+          Memory.homeRoomName,
+          Memory.e59s48extensions,
+          Memory.e59s48spawns
+        );
 
-      target = transferTargetsAndMemoryObjects.target;
+        target = transferTargetsAndMemoryObjects.target;
 
-      Memory.e59s48extensions = transferTargetsAndMemoryObjects.memExtensions;
-      Memory.e59s48spawns = transferTargetsAndMemoryObjects.memSpawns;
-    } else if (!target && creepRoomName === Memory.northRoomName) {
-      let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-        creep,
-        target,
-        Memory.northRoomName,
-        Memory.e59s47extensions,
-        Memory.e59s47spawns
-      );
+        Memory.e59s48extensions = transferTargetsAndMemoryObjects.memExtensions;
+        Memory.e59s48spawns = transferTargetsAndMemoryObjects.memSpawns;
+      } else if (creepRoomName === Memory.northRoomName) {
+        let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+          creep,
+          target,
+          Memory.northRoomName,
+          Memory.e59s47extensions,
+          Memory.e59s47spawns
+        );
 
-      target = transferTargetsAndMemoryObjects.target;
-      Memory.e59s47extensions = transferTargetsAndMemoryObjects.memExtensions;
-      Memory.e59s47spawns = transferTargetsAndMemoryObjects.memSpawns;
-    } else if (!target && creepRoomName === Memory.deepSouthRoomName) {
-      let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-        creep,
-        target,
-        Memory.deepSouthRoomName,
-        Memory.e59s49extensions,
-        Memory.e59s49spawns
-      );
+        target = transferTargetsAndMemoryObjects.target;
+        Memory.e59s47extensions = transferTargetsAndMemoryObjects.memExtensions;
+        Memory.e59s47spawns = transferTargetsAndMemoryObjects.memSpawns;
+      } else if (creepRoomName === Memory.deepSouthRoomName) {
+        let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+          creep,
+          target,
+          Memory.deepSouthRoomName,
+          Memory.e59s49extensions,
+          Memory.e59s49spawns
+        );
 
-      target = transferTargetsAndMemoryObjects.target;
-      Memory.e59s49extensions = transferTargetsAndMemoryObjects.memExtensions;
-      Memory.e59s49spawns = transferTargetsAndMemoryObjects.memSpawns;
+        target = transferTargetsAndMemoryObjects.target;
+        Memory.e59s49extensions = transferTargetsAndMemoryObjects.memExtensions;
+        Memory.e59s49spawns = transferTargetsAndMemoryObjects.memSpawns;
+      }
     }
 
+    // check if we got a target for an ext or spawn
     if (!target) {
       if (
         targetRoomName != Memory.northRoomName &&
@@ -153,7 +156,13 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     minAmountOfEnAvailToTransferToTower
   );
 
-  if (!target && creep.room.name === Memory.homeRoomName) {
+  if (target) {
+
+  if (
+    !target &&
+    creepRoomName === Memory.homeRoomName &&
+    targetRoomName === Memory.homeRoomName
+  ) {
     let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
       creep,
       target,
@@ -165,8 +174,13 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     target = transferTargetsAndMemoryObjects.target;
 
     Memory.e59s48extensions = transferTargetsAndMemoryObjects.memExtensions;
+
     Memory.e59s48spawns = transferTargetsAndMemoryObjects.memSpawns;
-  } else if (!target && creep.room.name === Memory.northRoomName) {
+  } else if (
+    !target &&
+    creepRoomName === Memory.northRoomName &&
+    targetRoomName === Memory.northRoomName
+  ) {
     let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
       creep,
       target,
@@ -178,7 +192,11 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
     target = transferTargetsAndMemoryObjects.target;
     Memory.e59s47extensions = transferTargetsAndMemoryObjects.memExtensions;
     Memory.e59s47spawns = transferTargetsAndMemoryObjects.memSpawns;
-  } else if (!target && creep.room.name === Memory.deepSouthRoomName) {
+  } else if (
+    !target &&
+    creepRoomName === Memory.deepSouthRoomName &&
+    targetRoomName === Memory.deepSouthRoomName
+  ) {
     let transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
       creep,
       target,
@@ -332,7 +350,9 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
           " move to target failed in transferEnergy m.err." +
           retval +
           " target: " +
-          target
+          target +
+          " target.pos: " +
+          target.pos
       );
 
       creep.say("m.err." + retval);
@@ -343,7 +363,15 @@ function tran(creep, flag, dest, targetRoomName, exit, exitDirection) {
       return retval;
     }
   } else {
-    console.log(name + " transferEnergy no target: " + target);
+    console.log(
+      name +
+        " transferEnergy no target: " +
+        target +
+        " creep.pos: " +
+        creep.pos +
+        " targetRoomName: " +
+        targetRoomName
+    );
 
     creep.memory.path = null;
     creep.say("t.err");

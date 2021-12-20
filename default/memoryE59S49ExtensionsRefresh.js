@@ -5,7 +5,7 @@ function memoryE59S49ExtensionsRefresh() {
   if (!Memory.e59s49extensions || Memory.e59s49extensions.length <= 0) {
     Memory.e59s49extensions = findMyStructs(
       [STRUCTURE_EXTENSION],
-      Memory.homeRoomName
+      Memory.deepSouthRoomName
     );
   } else {
     Memory.e59s49extensions = Memory.e59s49extensions.filter(

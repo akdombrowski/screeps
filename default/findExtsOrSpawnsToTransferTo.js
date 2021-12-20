@@ -17,7 +17,8 @@ function findExtsOrSpawnsToTransferTo(
   exts = mapIDsToGameObjs(memExtensions);
 
   // find closest ext or spawn by path
-  let a = creep.pos.findClosestByPath(exts);
+  // let a = creep.pos.findClosestByPath(exts);
+  let a = exts.pop();
 
   if (a) {
     target = a;

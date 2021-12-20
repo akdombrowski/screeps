@@ -63,22 +63,11 @@ function roleHarvester(creep) {
   ) {
     creep.memory.buildRoad = false;
     creep.memory.transferTower = false;
-    creep.memory.getEnergy = true;
     creep.memory.transfer = false;
     creep.memory.path = null;
     creep.memory.transferTargetId = null;
+    creep.memory.getEnergy = true;
 
-    // switch (creep.memory.direction) {
-    //   case "s":
-    //     retval = getEnergy(creep, homeRmName);
-    //     break;
-    //   case "n":
-    //     retval = getEnergy(creep, northRmName);
-    //     break;
-    //   default:
-    //     retval = getEnergy(creep, homeRmName);
-    //     break;
-    // }
 
     if (creep.memory.direction.startsWith("s")) {
       retval = getEnergy(creep, homeRmName, null, null, null, null, homeRmName);

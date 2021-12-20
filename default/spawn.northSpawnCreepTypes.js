@@ -791,13 +791,14 @@ function northSpawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairers.length < 4) {
+    } else if (upControllersE59S47.length < 4) {
+      name = "upCN" + t;
+      upControllersE59S47.push(name);
+      chosenRole = "upCN";
+      direction = "north";
+      group = "upControllersE59S47";
       parts = workerParts550;
-      name = "rR" + t;
-      roadRepairers.push(name);
-      chosenRole = "roadRepairer";
-      direction = "south";
-      group = "roadRepairers";
+
       retval = birthCreep(
         spawns,
         parts,
@@ -809,13 +810,12 @@ function northSpawnCreepTypes(enAvail, spawns) {
         group
       );
     } else {
-      name = "upCN" + t;
-      upControllersE59S47.push(name);
-      chosenRole = "upCN";
-      direction = "north";
-      group = "upControllersE59S47";
       parts = workerParts550;
-
+      name = "rR" + t;
+      roadRepairers.push(name);
+      chosenRole = "roadRepairer";
+      direction = "south";
+      group = "roadRepairers";
       retval = birthCreep(
         spawns,
         parts,

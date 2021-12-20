@@ -750,7 +750,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 6) {
+    if (harvesters.length < 8) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";

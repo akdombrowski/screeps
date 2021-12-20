@@ -126,6 +126,18 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   addPart(linkGetsParts300, 2, WORK);
   addPart(linkGetsParts300, 1, MOVE);
 
+  // 450
+  let harvester450 = [];
+  addPart(harvester450, 1, CARRY);
+  addPart(harvester450, 3, WORK);
+  addPart(harvester450, 2, MOVE);
+
+  // 450
+  let repairer450 = [];
+  addPart(repairer450, 1, CARRY);
+  addPart(repairer450, 3, WORK);
+  addPart(repairer450, 2, MOVE);
+
   // 500
   let workerParts500 = [];
   addPart(workerParts500, 1, CARRY);
@@ -422,26 +434,13 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairersE59S49.length < 2) {
+    } else if (roadRepairersE59S49.length < 1) {
       parts = simpleParts;
       name = "rRdS" + t;
       roadRepairersE59S49.push(name);
       chosenRole = "roadRepairer";
       direction = "deepSouth";
       group = "roadRepairersE59S49";
-      retval = deepSouthbirthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    } else {
-      harvestersE59S49.push(name);
-      parts = simpleParts;
       retval = deepSouthbirthCreep(
         spawns,
         parts,
@@ -478,6 +477,83 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
+    if (harvesters.length < 4) {
+      harvesters.push(name);
+      retval = deepSouthbirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (upControllersE59S49.length < 1) {
+      name = "upCdS" + t;
+      upControllersE59S49.push(name);
+      chosenRole = "upCdS";
+      direction = "deepSouth";
+      group = "upControllersE59S49";
+      parts = simpleParts350;
+
+      retval = deepSouthbirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (harvestersE59S49.length < 4) {
+      harvestersE59S49.push(name);
+      parts = simpleParts350;
+      direction = "deepSouth";
+      chosenRole = "h";
+      retval = deepSouthbirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    }
+
+    if (retval !== -16) {
+      console.log("spawningdS " + name + " " + retval);
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
+  }
+
+  //
+  //
+  //
+  // .##........########...#####..
+  // .##....##..##........##...##.
+  // .##....##..##.......##.....##
+  // .##....##..#######..##.....##
+  // .#########.......##.##.....##
+  // .......##..##....##..##...##.
+  // .......##...######....#####..
+  //
+  //
+  //
+  if (enAvail >= 450 && !Memory.dSAttackerId) {
+    let name = "hdS" + t;
+    let chosenRole = "h";
+    let direction = "deepSouth";
+    let sourceId = Memory.source1;
+    let parts = harvester450;
+    let group = "harvesters";
+    let spawnDirection = [TOP];
+
     if (harvesters.length < 6) {
       harvesters.push(name);
       retval = deepSouthbirthCreep(
@@ -496,7 +572,6 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       chosenRole = "upCdS";
       direction = "deepSouth";
       group = "upControllersE59S49";
-      parts = simpleParts350;
 
       retval = deepSouthbirthCreep(
         spawns,
@@ -510,7 +585,6 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       );
     } else if (harvestersE59S49.length < 8) {
       harvestersE59S49.push(name);
-      parts = simpleParts350;
       direction = "deepSouth";
       chosenRole = "h";
       retval = deepSouthbirthCreep(
@@ -524,7 +598,6 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         group
       );
     } else {
-      parts = simpleParts350;
       name = "rRdS" + t;
       roadRepairersE59S49.push(name);
       chosenRole = "roadRepairer";

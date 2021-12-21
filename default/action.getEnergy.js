@@ -95,22 +95,6 @@ function getEnergy(
     }
   }
 
-  if (
-    target &&
-    creep.memory.direction === "deepSouth" &&
-    name.startsWith("rRdS")
-  ) {
-    console.log(
-      name +
-        " target: " +
-        target +
-        " target.room " +
-        target.room +
-        " creep.room: " +
-        creep.room
-    );
-  }
-
   if (target) {
     creep.memory.lastSourceId = target.id;
     lastSourceId = creep.memory.lastSourceId;

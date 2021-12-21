@@ -98,8 +98,6 @@ function getEnergy(
     }
   }
 
-
-
   if (target && target.energy <= 0) {
     target = null;
     creep.memory.lastSourceId = null;
@@ -194,19 +192,21 @@ function getEnergy(
       (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
   ) {
     creep.memory.lastSourceId = null;
-    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: (struct) => {
-        const type = struct.structureType;
+    target = creep.room
+      .find(FIND_STRUCTURES, {
+        filter: (struct) => {
+          const type = struct.structureType;
 
-        if (
-          type === STRUCTURE_CONTAINER &&
-          struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
-        ) {
-          // console.log("name: " + structure)
-          return struct;
-        }
-      },
-    });
+          if (
+            type === STRUCTURE_CONTAINER &&
+            struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
+          ) {
+            // console.log("name: " + structure)
+            return struct;
+          }
+        },
+      })
+      .pop();
     isTargetStructure = target ? true : false;
   }
 
@@ -248,19 +248,21 @@ function getEnergy(
       (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
   ) {
     creep.memory.lastSourceId = null;
-    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-      filter: (struct) => {
-        const type = struct.structureType;
+    target = creep.room
+      .find(FIND_STRUCTURES, {
+        filter: (struct) => {
+          const type = struct.structureType;
 
-        if (
-          type === STRUCTURE_LINK &&
-          struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
-        ) {
-          // console.log("name: " + structure)
-          return struct;
-        }
-      },
-    });
+          if (
+            type === STRUCTURE_LINK &&
+            struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
+          ) {
+            // console.log("name: " + structure)
+            return struct;
+          }
+        },
+      })
+      .pop();
     isTargetStructure = target ? true : false;
   }
 
@@ -274,7 +276,7 @@ function getEnergy(
     creep.memory.path = null;
     target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
       filter: (structure) => {
-        if (structure.pos.findInRange(FIND_CREEPS, 2).length <= 4) {
+        if (structure.pos.findInRange(FIND_CREEPS, 2).length < 8) {
           return structure;
         }
       },
@@ -340,17 +342,20 @@ function getEnergy(
         null
       );
 
-      // if (name.startsWith("upCdS")) {
-      //   console.log(name + " source target in getEnergy " + target);
-      //   console.log(name + " smartMove in getEnergy " + retval);
-      // }
-
       if (retval === OK) {
         creep.memory.lastSourceId = target.id;
         creep.say(target.pos.x + "," + target.pos.y);
       } else {
         console.log(
-          name + " getEnergy smartmove crap " + retval + " target " + target
+          name +
+            " getEnergy smartmove crap " +
+            retval +
+            " target " +
+            target +
+            " target.pos: " +
+            target.pos +
+            " creep.pos: " +
+            creep.pos
         );
 
         creep.say("crap");
@@ -369,6 +374,7 @@ function getEnergy(
     console.log(name + " getEnergy sad, no target");
     creep.say("sad");
   }
+
   return retval;
 }
 

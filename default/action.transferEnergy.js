@@ -166,7 +166,7 @@ function tran(
     creep.memory.path = null;
   }
 
-  const minAmountOfEnAvailToTransferToTower = 500;
+  const minAmountOfEnAvailToTransferToTower = 300;
   target = checkIfOkToTransferToTower(
     target,
     enAvail,

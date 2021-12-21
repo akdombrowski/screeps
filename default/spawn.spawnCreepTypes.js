@@ -661,7 +661,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //        #        #  #     #
   //  #     #  #     #   #   #
   //   #####    #####     ###
-  if (enAvail >= 550 && !invaderId && numOfCreepsTotal < 12) {
+  if (enAvail >= 550 && !invaderId) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "north";
@@ -670,7 +670,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 1) {
+    if (harvesters.length < 8) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";

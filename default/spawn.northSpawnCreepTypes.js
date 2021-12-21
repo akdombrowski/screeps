@@ -143,8 +143,8 @@ function northSpawnCreepTypes(enAvail, spawns) {
   // 550
   let harvesterParts550 = [];
   addPart(harvesterParts550, 1, CARRY);
-  addPart(harvesterParts550, 4, WORK);
-  addPart(harvesterParts550, 2, MOVE);
+  addPart(harvesterParts550, 3, WORK);
+  addPart(harvesterParts550, 4, MOVE);
 
   // 650
   let claimerParts650 = [];
@@ -154,25 +154,25 @@ function northSpawnCreepTypes(enAvail, spawns) {
   // 800
   let harvesterParts800 = [];
   addPart(harvesterParts800, 1, CARRY);
-  addPart(harvesterParts800, 7, WORK);
-  addPart(harvesterParts800, 1, MOVE);
+  addPart(harvesterParts800, 5, WORK);
+  addPart(harvesterParts800, 5, MOVE);
 
   // 800
   let workerParts800 = [];
   addPart(workerParts800, 1, CARRY);
-  addPart(workerParts800, 7, WORK);
-  addPart(workerParts800, 1, MOVE);
+  addPart(workerParts800, 5, WORK);
+  addPart(workerParts800, 5, MOVE);
 
   // 800
   let upContrParts800 = [];
   addPart(upContrParts800, 1, CARRY);
-  addPart(upContrParts800, 7, WORK);
-  addPart(upContrParts800, 1, MOVE);
+  addPart(upContrParts800, 5, WORK);
+  addPart(upContrParts800, 5, MOVE);
 
   // 1100
   let medsouthHvParts1100 = [];
-  addPart(medsouthHvParts1100, 10, CARRY);
-  addPart(medsouthHvParts1100, 1, WORK);
+  addPart(medsouthHvParts1100, 2, CARRY);
+  addPart(medsouthHvParts1100, 5, WORK);
   addPart(medsouthHvParts1100, 10, MOVE);
 
   // 2500
@@ -775,7 +775,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if(roadRepairersE59S47.length < 2 ){
+    } else if (roadRepairersE59S47.length < 2) {
       parts = workerParts550;
       name = "rR" + t;
       roadRepairersE59S47.push(name);

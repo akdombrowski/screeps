@@ -125,9 +125,9 @@ function spawnCreepTypes(enAvail, spawns) {
 
   // 500
   let workerParts500 = [];
-  addPart(workerParts500, 7, CARRY);
-  addPart(workerParts500, 1, WORK);
-  addPart(workerParts500, 1, MOVE);
+  addPart(workerParts500, 1, CARRY);
+  addPart(workerParts500, 2, WORK);
+  addPart(workerParts500, 5, MOVE);
 
   // 500
   let attackerParts500 = [];
@@ -154,8 +154,8 @@ function spawnCreepTypes(enAvail, spawns) {
   // 800
   let harvesterParts800 = [];
   addPart(harvesterParts800, 1, CARRY);
-  addPart(harvesterParts800, 7, WORK);
-  addPart(harvesterParts800, 1, MOVE);
+  addPart(harvesterParts800, 5, WORK);
+  addPart(harvesterParts800, 5, MOVE);
 
   // 800
   let workerParts800 = [];
@@ -166,8 +166,8 @@ function spawnCreepTypes(enAvail, spawns) {
   // 800
   let upContrParts800 = [];
   addPart(upContrParts800, 1, CARRY);
-  addPart(upContrParts800, 7, WORK);
-  addPart(upContrParts800, 1, MOVE);
+  addPart(upContrParts800, 5, WORK);
+  addPart(upContrParts800, 5, MOVE);
 
   // 1100
   let medsouthHvParts1100 = [];

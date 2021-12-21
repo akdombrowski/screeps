@@ -6,7 +6,7 @@ const build = require("./action.build");
 const transEnTower = require("./action.transEnTower");
 const profiler = require("./screeps-profiler");
 
-function roleHarvester(creep) {
+function roleHarvester(creep, extensions, spawns) {
   const name = creep.name;
   const direction = creep.memory.direction;
   const sourceDir = creep.memory.sourceDir;
@@ -21,40 +21,51 @@ function roleHarvester(creep) {
     creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0 ||
     creep.memory.transfer
   ) {
+    let ret = null;
     creep.memory.lastSourceId = null;
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
+
     if (creep.memory.direction.startsWith("n")) {
-      retval = transferEnergy(
+      ret = transferEnergy(
         creep,
         null,
         null,
         Memory.homeRoomName,
         Game.flags.northEntrance,
-        BOTTOM
+        BOTTOM,
+        extensions,
+        spawns
       );
     } else if (
       creep.memory.direction.startsWith("dS") ||
       creep.memory.direction.startsWith("deepSouth")
     ) {
-      retval = transferEnergy(
+      ret = transferEnergy(
         creep,
         null,
         null,
         Memory.homeRoomName,
         Game.flags.southEntrance,
-        TOP
+        TOP,
+        extensions,
+        spawns
       );
     } else {
-      retval = transferEnergy(
+      ret = transferEnergy(
         creep,
         null,
         null,
         Memory.homeRoomName,
         null,
-        null
+        null,
+        extensions,
+        spawns
       );
     }
+    retval = ret.retval;
+    extensions = ret.extensions;
+    spawns = ret.spawns;
   }
 
   if (
@@ -68,7 +79,6 @@ function roleHarvester(creep) {
     creep.memory.path = null;
     creep.memory.transferTargetId = null;
     creep.memory.getEnergy = true;
-
 
     if (creep.memory.direction === "south") {
       retval = getEnergy(creep, homeRmName, null, null, null, null, homeRmName);
@@ -104,12 +114,13 @@ function roleHarvester(creep) {
       );
     }
   } else if (creep.memory.transfer && creep.store[RESOURCE_ENERGY] > 0) {
+    let ret = null;
     creep.memory.transEnTower = false;
     creep.memory.getEnergy = false;
     retval = -16;
 
     if (creep.memory.direction.startsWith("n")) {
-      retval = transferEnergy(
+      ret = transferEnergy(
         creep,
         null,
         null,
@@ -121,7 +132,7 @@ function roleHarvester(creep) {
       creep.memory.direction.startsWith("deepSouth") ||
       creep.memory.direction.startsWith("dS")
     ) {
-      retval = transferEnergy(
+      ret = transferEnergy(
         creep,
         null,
         null,
@@ -130,28 +141,25 @@ function roleHarvester(creep) {
         TOP
       );
     } else {
-      retval = transferEnergy(
-        creep,
-        null,
-        null,
-        Memory.homeRoomName,
-        null,
-        null
-      );
+      ret = transferEnergy(creep, null, null, Memory.homeRoomName, null, null);
     }
+
+    retval = ret.retval;
+    extensions = ret.extensions;
+    spawns = ret.spawns;
 
     if (retval === ERR_TIRED) {
       creep.say("f." + fatigue);
-      return retval;
+      return { retval: retval, extensions: extensions, spawns: spawns };
     }
 
     if (retval === -17) {
-      return retval;
+      return { retval: retval, extensions: extensions, spawns: spawns };
     }
 
     if (retval === -5 || retval === -2) {
       creep.memory.path = null;
-      return retval;
+      return { retval: retval, extensions: extensions, spawns: spawns };
     }
 
     // if (retval !== OK && direction === "south") {
@@ -204,6 +212,8 @@ function roleHarvester(creep) {
     creep.memory.transfer = false;
     creep.memory.getEnergy = true;
   }
+
+  return { retval: retval, extensions: extensions, spawns: spawns };
 }
 
 roleHarvester = profiler.registerFN(roleHarvester, "roleHarvester");

@@ -1,21 +1,23 @@
 const profiler = require("./screeps-profiler");
 const { findMyStructs } = require("./findMyStructs");
 
-function memoryE59S47ExtensionsRefresh(creep) {
-  if (global.e59s47extensions && global.e59s47extensions.length > 0) {
-    global.e59s47extensions = global.e59s47extensions.filter(
+function memoryE59S47ExtensionsRefresh(creep, extensions) {
+  if (extensions && extensions.length > 0) {
+    extensions = extensions.filter(
       (struct) =>
         struct.store && struct.store.getFreeCapacity(RESOURCE_ENERGY) > 0
     );
   }
 
-  if (!global.e59s47extensions || global.e59s47extensions.length <= 0) {
-    global.e59s47extensions = findMyStructs(
+  if (!extensions || extensions.length <= 0) {
+    extensions = findMyStructs(
       [STRUCTURE_EXTENSION],
       Memory.northRoomName
     );
   }
-  return global.e59s47extensions;
+
+  Memory.e59s47extensions = extensions;
+  return extensions;
 }
 exports.memoryE59S47ExtensionsRefresh = memoryE59S47ExtensionsRefresh;
 memoryE59S47ExtensionsRefresh = profiler.registerFN(

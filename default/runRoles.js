@@ -45,6 +45,12 @@ function runRoles() {
   for (let name in crps) {
     let creep = crps[name];
     let roll = creep.memory.role;
+    let e59s48extensions = Memory.e59s48extensions;
+    let e59s47extensions = Memory.e59s47extensions;
+    let e59s49extensions = Memory.e59s49extensions;
+    let e59s48spawns = Memory.e59s48spawns;
+    let e59s47spawns = Memory.e59s47spawns;
+    let e59s49spawns = Memory.e59s49spawns;
 
     if (creep.spawning) {
       continue;
@@ -57,15 +63,18 @@ function runRoles() {
 
       if (creep.memory.direction.startsWith("s")) {
         harvesters.push(name);
+        let ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
       } else if (creep.memory.direction.startsWith("n")) {
         harvestersE59S47.push(name);
+        let ret = roleHarvester(creep, e59s47extensions, e59s47spawns);
       } else if (creep.memory.direction.startsWith("deepSouth")) {
         harvestersE59S49.push(name);
+        let ret = roleHarvester(creep, e59s49extensions, e59s49spawns);
       } else {
         harvesters.push(name);
+        let ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
       }
 
-      roleHarvester(creep);
     } else if (roll === "hN" || roll === "harvesterN") {
       if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
         creep.memory.getEnergy = true;

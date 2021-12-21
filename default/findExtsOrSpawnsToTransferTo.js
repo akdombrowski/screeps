@@ -7,14 +7,15 @@ function findExtsOrSpawnsToTransferTo(
   creep,
   target,
   targetRoomName,
-  memExtensions,
-  memSpawns
+  extensions,
+  spawns
 ) {
   let exts;
 
-  memExtensions = checkForExtensions(targetRoomName, creep);
+  extensions = checkForExtensions(targetRoomName, creep, extensions);
 
-  exts = mapIDsToGameObjs(memExtensions);
+  exts = mapIDsToGameObjs(extensions);
+
 
   // find closest ext or spawn by path
   let a = creep.pos.findClosestByRange(exts);
@@ -24,20 +25,14 @@ function findExtsOrSpawnsToTransferTo(
     target = a;
     creep.memory.transferTargetId = target.id;
 
-    console.log(creep.name + " 0memExts in findExtsOrSpawns: " + memExtensions);
-    console.log(creep.name  + " 0memExts length in findExtsOrSpawns: " + memExtensions.length);
-
     // remove the target from list
-    _.pull(memExtensions, target.id);
-
-    console.log(creep.name + " 1memExts length in findExtsOrSpawns: " + memExtensions.length);
-    console.log(creep.name + " 1memExts in findExtsOrSpawns: " + memExtensions);
+    _.pull(extensions, target.id);
   } else {
     // didn't find an extension that needed energy
     // check for spawns
-    memSpawns = checkForSpawns(targetRoomName, creep);
+    spawns = checkForSpawns(targetRoomName, creep, spawns);
 
-    exts = mapIDsToGameObjs(memSpawns);
+    exts = mapIDsToGameObjs(spawns);
 
     // find closest ext or spawn by path
     let a = creep.pos.findClosestByPath(exts);
@@ -47,13 +42,14 @@ function findExtsOrSpawnsToTransferTo(
       creep.memory.transferTargetId = target.id;
 
       // remove the target from list
-      _.pull(memSpawns, target.id);
+      _.pull(spawns, target.id);
     } else {
       // found neither spawn nor extension that needs energy
       // target still null
     }
   }
-  return { target: target, memExtensions: memExtensions, memSpawns: memSpawns };
+
+  return { target: target, extensions: extensions, spawns: spawns };
 }
 exports.findExtsOrSpawnsToTransferTo = findExtsOrSpawnsToTransferTo;
 findExtsOrSpawnsToTransferTo = profiler.registerFN(

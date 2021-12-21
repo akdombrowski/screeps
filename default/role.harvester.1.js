@@ -21,6 +21,7 @@ function roleHarvester(creep) {
     creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0 ||
     creep.memory.transfer
   ) {
+    creep.memory.lastSourceId = null;
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
     if (creep.memory.direction.startsWith("n")) {

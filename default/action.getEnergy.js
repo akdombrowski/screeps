@@ -39,6 +39,7 @@ function getEnergy(
   if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
     console.log(name + " resetting getEnergy");
 
+    creep.memory.lastSourceId = null;
     creep.memory.path = null;
     creep.memory.getEnergy = false;
     creep.memory.getEnergyTargetId = null;
@@ -48,6 +49,8 @@ function getEnergy(
 
   creep.memory.getEnergy = true;
   creep.memory.transfer = false;
+
+  target = Game.getObjectById(creep.memory.lastSourceId);
 
   if (!target && creepRoomName != targetRoomName) {
     if (
@@ -95,28 +98,12 @@ function getEnergy(
     }
   }
 
-  if (target) {
-    creep.memory.lastSourceId = target.id;
-    lastSourceId = creep.memory.lastSourceId;
-  }
+
 
   if (target && target.energy <= 0) {
     target = null;
     creep.memory.lastSourceId = null;
     creep.memory.path = null;
-  }
-
-  if (
-    target &&
-    target.pos &&
-    target.room &&
-    !target.energy &&
-    !targetedRmName
-  ) {
-    retval = smartMove(creep, target, 1, true, null, null, null, 1);
-    creep.say(target.pos.x + "," + target.pos.y);
-
-    return retval;
   }
 
   // target = target || Game.getObjectById(lastSourceId);
@@ -169,10 +156,6 @@ function getEnergy(
       .pop();
   }
 
-  if (target) {
-    creep.memory.lastSourceId = target.id;
-  }
-
   // // Do I need to pick up some dropped energy somewhere?
   // if (!name.startsWith("upC")) {
   //   retval = droppedDuty(creep);
@@ -189,6 +172,7 @@ function getEnergy(
   // See if there's a particular target from a previous trip
   // or one that's been specified.
   if (flag && !target) {
+    creep.memory.lastSourceId = null;
     target = creep.room.lookForAt(LOOK_SOURCES, flag).pop();
 
     // Can't find sources, probably in a different room. Just head that way.
@@ -199,6 +183,7 @@ function getEnergy(
     }
   } else if (creep.memory.flag && !target) {
     creep.say("flag");
+    creep.memory.lastSourceId = null;
     target = creep.room.lookForAt(LOOK_SOURCES, creep.memory.flag).pop();
   }
 
@@ -208,6 +193,7 @@ function getEnergy(
       target.store &&
       (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
   ) {
+    creep.memory.lastSourceId = null;
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: (struct) => {
         const type = struct.structureType;
@@ -261,6 +247,7 @@ function getEnergy(
       target.store &&
       (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
   ) {
+    creep.memory.lastSourceId = null;
     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
       filter: (struct) => {
         const type = struct.structureType;
@@ -283,6 +270,7 @@ function getEnergy(
       target.store &&
       (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
   ) {
+    creep.memory.lastSourceId = null;
     creep.memory.path = null;
     target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
       filter: (structure) => {

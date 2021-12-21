@@ -251,6 +251,10 @@ function spawnCreepTypes(enAvail, spawns) {
     return;
   }
 
+
+  let northController = Game.getObjectById("59bbc5d22052a716c3cea133");
+  let deepSouthController = Game.getObjectById("59bbc5d22052a716c3cea13a");
+
   const contrW = Game.getObjectById("5bbcaeeb9099fc012e639c4d");
   const contrNW = Game.getObjectById("5bbcaeeb9099fc012e639c4a");
   const contrNWW = Game.getObjectById("5bbcaedb9099fc012e639a93");
@@ -418,24 +422,24 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-      // } else if (upControllersE59S47.length < 1) {
-      //   // when north controller is controlled change this to upControllersN
-      //   name = "upCN" + t;
-      //   chosenRole = "upCN";
-      //   upControllersE59S47.push(name);
-      //   direction = "north";
-      //   parts = upContrParts200;
-      //   group = "upControllersN";
-      //   retval = birthCreep(
-      //     spawns,
-      //     parts,
-      //     name,
-      //     chosenRole,
-      //     direction,
-      //     sourceId,
-      //     spawnDirection,
-      //     group
-      //   );
+      } else if (northController && northController.my && upControllersE59S47.length < 1) {
+        // when north controller is controlled change this to upControllersN
+        name = "upCN" + t;
+        chosenRole = "upCN";
+        upControllersE59S47.push(name);
+        direction = "north";
+        parts = upContrParts200;
+        group = "upControllersN";
+        retval = birthCreep(
+          spawns,
+          parts,
+          name,
+          chosenRole,
+          direction,
+          sourceId,
+          spawnDirection,
+          group
+        );
     } else if (upControllersE59S49.length < 1) {
       name = "upCdS" + t;
       upControllersE59S49.push(name);
@@ -612,19 +616,12 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #        #        #######   #   #     #
   //  #     #  #        #     #   #   #     #
   //   #####   #######  #     #  ###  #     #
-  let northController = Game.getObjectById("59bbc5d22052a716c3cea133");
-  let deepSouthController = Game.getObjectById("59bbc5d22052a716c3cea13a");
-  if (
-    enAvail >= 650 &&
-    !invaderId &&
-    deepSouthController &&
-    !deepSouthController.my
-  ) {
+  if (enAvail >= 650 && !invaderId && !nAttackerId && northController && !northController.my) {
     let name = "h" + t;
     let chosenRole = "h";
-    let direction = "deepSouth";
-    let sourceId = Memory.source2;
-    let parts = simpleParts500;
+    let direction = "north";
+    let sourceId = Memory.nSource2;
+    let parts = claimerParts650;
     let group = "claimers";
     let spawnDirection = [TOP];
 

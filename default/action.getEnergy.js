@@ -91,10 +91,19 @@ function getEnergy(
     return retval;
   }
 
-  if (!target && Game.rooms[targetedRmName]) {
+  if (
+    (!target && Game.rooms[targetedRmName]) ||
+    (target && target.room.name != creep.room.name)
+  ) {
     let sources = Game.rooms[targetedRmName].find(FIND_SOURCES);
+    let chosenSource = null;
     if (sources.length > 0) {
-      target = chooseSource(creep, sources);
+      chosenSource = chooseSource(creep, sources);
+    }
+
+    if(chosenSource) {
+      target = chosenSource;
+      creep.memory.lastSourceId = target.id;
     }
   }
 
@@ -193,21 +202,38 @@ function getEnergy(
       (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
   ) {
     creep.memory.lastSourceId = null;
-    target = creep.room
-      .find(FIND_STRUCTURES, {
-        filter: (struct) => {
-          const type = struct.structureType;
+    if (creep.memory.direction === "deepSouth") {
+      target = Game.rooms[Memory.homeRoomName]
+        .find(FIND_STRUCTURES, {
+          filter: (struct) => {
+            const type = struct.structureType;
 
-          if (
-            type === STRUCTURE_CONTAINER &&
-            struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
-          ) {
-            // console.log("name: " + structure)
-            return struct;
-          }
-        },
-      })
-      .pop();
+            if (
+              type === STRUCTURE_CONTAINER &&
+              struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
+            ) {
+              return struct;
+            }
+          },
+        })
+        .pop();
+    } else {
+      target = creep.room
+        .find(FIND_STRUCTURES, {
+          filter: (struct) => {
+            const type = struct.structureType;
+
+            if (
+              type === STRUCTURE_CONTAINER &&
+              struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
+            ) {
+              return struct;
+            }
+          },
+        })
+        .pop();
+    }
+
     isTargetStructure = target ? true : false;
   }
 

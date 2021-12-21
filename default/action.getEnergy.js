@@ -101,7 +101,7 @@ function getEnergy(
       chosenSource = chooseSource(creep, sources);
     }
 
-    if(chosenSource) {
+    if (chosenSource) {
       target = chosenSource;
       creep.memory.lastSourceId = target.id;
     }
@@ -147,16 +147,15 @@ function getEnergy(
 
   if (
     !target ||
-    (target && target.store && target.store[RESOURCE_ENERGY] <= 0)
+    (target &&
+      target.store &&
+      target.store[RESOURCE_ENERGY] <= 0 &&
+      Game.rooms[targetRoomName])
   ) {
-    target = Game.rooms[targetedRmName]
+    target = Game.rooms[targetRoomName]
       .find(FIND_SOURCES_ACTIVE, {
         filter: (source) => {
-          if (
-            targetedRmName.name === targetedRmName.name &&
-            source.store &&
-            source.store[RESOURCE_ENERGY] > 0
-          ) {
+          if (source.store && source.store[RESOURCE_ENERGY] > 0) {
             return source;
           }
         },

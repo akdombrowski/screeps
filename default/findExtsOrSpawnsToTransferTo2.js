@@ -3,19 +3,16 @@ const { mapIDsToGameObjs } = require("./mapIDsToGameObjs");
 const { checkForExtensions } = require("./checkForExtensions");
 const { checkForSpawns } = require("./checkForSpawns");
 
-function findExtsOrSpawnsToTransferTo(
+function findExtsOrSpawnsToTransferTo2(
   creep,
   target,
   targetRoomName,
   memExtensions,
   memSpawns
 ) {
-  let exts;
+  let exts = mapIDsToGameObjs(memExtensions);
 
-  memExtensions = checkForExtensions(targetRoomName, creep);
-
-  exts = mapIDsToGameObjs(memExtensions);
-
+  console.log("exts: " + exts);
   // find closest ext or spawn by path
   let a = creep.pos.findClosestByRange(exts);
   // let a = exts.pop();
@@ -24,23 +21,15 @@ function findExtsOrSpawnsToTransferTo(
     target = a;
     creep.memory.transferTargetId = target.id;
 
-    console.log(creep.name + " 0memExts in findExtsOrSpawns: " + memExtensions);
-    console.log(creep.name  + " 0memExts length in findExtsOrSpawns: " + memExtensions.length);
-
     // remove the target from list
     _.pull(memExtensions, target.id);
-
-    console.log(creep.name + " 1memExts length in findExtsOrSpawns: " + memExtensions.length);
-    console.log(creep.name + " 1memExts in findExtsOrSpawns: " + memExtensions);
   } else {
     // didn't find an extension that needed energy
     // check for spawns
-    memSpawns = checkForSpawns(targetRoomName, creep);
-
-    exts = mapIDsToGameObjs(memSpawns);
+    let spawns = mapIDsToGameObjs(memSpawns);
 
     // find closest ext or spawn by path
-    let a = creep.pos.findClosestByPath(exts);
+    let a = creep.pos.findClosestByRange(spawns);
 
     if (a) {
       target = a;
@@ -51,12 +40,13 @@ function findExtsOrSpawnsToTransferTo(
     } else {
       // found neither spawn nor extension that needs energy
       // target still null
+      creep.memory.transferTargetId = null;
     }
   }
   return { target: target, memExtensions: memExtensions, memSpawns: memSpawns };
 }
-exports.findExtsOrSpawnsToTransferTo = findExtsOrSpawnsToTransferTo;
-findExtsOrSpawnsToTransferTo = profiler.registerFN(
-  findExtsOrSpawnsToTransferTo,
-  "findExtsOrSpawnsToTransferTo"
+exports.findExtsOrSpawnsToTransferTo2 = findExtsOrSpawnsToTransferTo2;
+findExtsOrSpawnsToTransferTo2 = profiler.registerFN(
+  findExtsOrSpawnsToTransferTo2,
+  "findExtsOrSpawnsToTransferTo2"
 );

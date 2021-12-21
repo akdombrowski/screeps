@@ -363,7 +363,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (numOfCreepsTotal < 6) {
+    if (numOfCreepsTotal < 10) {
       harvesters.push(name);
       parts = simpleParts300;
       retval = birthCreep(

@@ -21,6 +21,18 @@ const { areCreepsDying } = require("./areCreepsDying");
 const { towersAttackInvader } = require("./towersAttackInvader");
 const { reCheckNumOfCreeps } = require("./reCheckNumOfCreeps");
 const { towerRepair } = require("./towerRepair");
+const {
+  memoryE59S48ExtensionsRefresh,
+} = require("./memoryE59S48ExtensionsRefresh");
+const {
+  memoryE59S47ExtensionsRefresh,
+} = require("./memoryE59S47ExtensionsRefresh");
+const {
+  memoryE59S49ExtensionsRefresh,
+} = require("./memoryE59S49ExtensionsRefresh");
+const { memoryE59S48SpawnsRefresh } = require("./memoryE59S48SpawnsRefresh");
+const { memoryE59S47SpawnsRefresh } = require("./memoryE59S47SpawnsRefresh");
+const { memoryE59S49SpawnsRefresh } = require("./memoryE59S49SpawnsRefresh");
 
 // This line monkey patches the global prototypes.
 profiler.enable();
@@ -37,8 +49,8 @@ module.exports.loop = function () {
 
     let rm = s1.room;
     Memory.rm = rm;
-    let northRoom = northS1.room;
-    Memory.northRoom = northRoom;
+    // let northRoom = northS1.room;
+    // Memory.northRoom = northRoom;
     let deepSouthRoom = deepSouthS1.room;
     Memory.deepSouthRoom = deepSouthRoom;
     Memory.homeRoomName = "E59S48";
@@ -47,14 +59,13 @@ module.exports.loop = function () {
 
     let enAvail = rm.energyAvailable;
     let enCapRm = rm.energyCapacityAvailable;
-    let northEnAvail = northRoom.energyAvailable;
-    let northEnCapRm = northRoom.energyCapacityAvailable;
+    // let northEnAvail = northRoom.energyAvailable;
+    // let northEnCapRm = northRoom.energyCapacityAvailable;
     let deepSouthEnAvail = deepSouthRoom.energyAvailable;
     let deepSouthEnCapRm = deepSouthRoom.energyCapacityAvailable;
     Memory.enAvail = enAvail;
-    Memory.enCapRm = enCapRm;
-    Memory.northEnAvail = northEnAvail;
-    Memory.northEnCapRoom = northEnCapRm;
+    // Memory.enCapRm = enCapRm;
+    // Memory.northEnAvaioom = northEnCapRm;
     Memory.deepSouthEnAvail = deepSouthEnAvail;
     Memory.deepSouthEnCapRm = deepSouthEnCapRm;
 
@@ -87,8 +98,24 @@ module.exports.loop = function () {
     runRoles();
 
     spawnCreepTypes(enAvail, [s1]);
-    northSpawnCreepTypes(northEnAvail, [northS1]);
+    // northSpawnCreepTypes(northEnAvail, [northS1]);
     deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);
+
+    // if (Game.time % 20) {
+    //   memoryE59S48ExtensionsRefresh();
+
+    //   memoryE59S47ExtensionsRefresh();
+
+    //   memoryE59S49ExtensionsRefresh();
+    // }
+
+    // if (Game.time % 20) {
+    //   memoryE59S48SpawnsRefresh();
+
+    //   memoryE59S47SpawnsRefresh();
+
+    //   memoryE59S49SpawnsRefresh();
+    // }
 
     // if (Game.cpu.bucket > 30) {
     //   linkTransfer(linkSpawn, slinkMiddle);

@@ -114,6 +114,7 @@ function getEnergy(
     if (creep.memory.lastSourceId) {
       target = Game.getObjectById(creep.memory.lastSourceId);
       if (target && target.pos.findInRange(FIND_CREEPS, 3).length > 8) {
+        console.log("too busy " + target.pos);
         creep.say("too busy");
         target = null;
       }
@@ -371,7 +372,7 @@ function getEnergy(
     // Something went wrong;
     target = null;
     creep.memory.lastSourceId = target;
-    console.log(name + " getEnergy sad, no target");
+    // console.log(name + " getEnergy sad, no target");
     creep.say("sad");
   }
 

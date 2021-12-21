@@ -19,7 +19,7 @@ function getEnergy(
   let tower = Game.getObjectById(Memory.tower1Id);
   let retval = -16;
   let name = creep.name;
-  let rmName = creep.room.name;
+  let creepRoomName = creep.room.name;
   let rm = creep.rm;
   let pos = creep ? creep.pos : null;
   let roll = creep.memory.role;
@@ -28,6 +28,10 @@ function getEnergy(
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
   const deepSouthRoomName = Memory.deepSouthRoomName;
+  let target;
+  let lastSourceId = creep.memory.lastSourceId;
+  let targetedRmName = sourceRmTargetedName;
+  let isTargetStructure = false;
 
   creep.memory.getEnergy = true;
   creep.memory.transfer = false;
@@ -42,93 +46,80 @@ function getEnergy(
     return OK;
   }
 
-  if (creep.room.name !== homeRoomName && creep.memory.role === "worker") {
-    retval = smartMove(creep, Game.flags.Flag1, 5, true, null, 10, 10000, 2);
-    return retval;
-  }
-
   creep.memory.getEnergy = true;
   creep.memory.transfer = false;
 
-  let target;
-  let lastSourceId = creep.memory.lastSourceId;
-  let targetedRmName = sourceRmTargetedName;
-  let isTargetStructure = false;
+  if (!target && creepRoomName != targetRoomName) {
+    if (
+      targetRoomName != Memory.northRoomName &&
+      creepRoomName === Memory.northRoomName
+    ) {
+      // if in the north room but target is not north, head south
+      exitDirection = BOTTOM;
+      exit = Game.flags.northEntrance;
+    } else if (
+      targetRoomName != Memory.deepSouthRoomName &&
+      creepRoomName === Memory.deepSouthRoomName
+    ) {
+      // if in the deepSouth room but target room is not deepSouth, head north
+      exitDirection = TOP;
+      exit = Game.flags.southEntrance;
+    }
 
-  switch (sourceRmTargetedName) {
-    case northRoomName:
-      target =
-        creep.room.name !== sourceRmTargetedName ? Game.flags.northExit : null;
-      targetedRmName = sourceRmTargetedName;
-      break;
-    case deepSouthRoomName:
-      target =
-        creep.room.name != sourceRmTargetedName ? Game.flags.southExit : null;
-      targetedRmName = sourceRmTargetedName;
-      break;
-    case "E36N32":
-      target =
-        creep.room.name != sourceRmTargetedName
-          ? Game.flags.neSource1
-          : creep.room.name;
-      targetedRmName = Game.flags.neSource1.room;
-      break;
-    case "E35N32":
-      target =
-        creep.room.name != sourceRmTargetedName ? Game.flags.north1 : null;
-      targetedRmName = Game.flags.north1.room;
-
-      break;
-    default:
-      target = null;
-      targetedRmName = Memory.s1.room.name;
-      break;
-  }
-
-  if (target && targetedRmName != homeRoomName) {
     if (creep.pos.isNearTo(exit)) {
+      creep.say(exitDirection);
       retval = creep.move(exitDirection);
     } else {
-      retval = smartMove(creep, exit, 1, true, null, null, 10000, 1);
+      creep.say(targetRoomName);
+      retval = smartMove(
+        creep,
+        exit,
+        1,
+        true,
+        null,
+        null,
+        null,
+        1,
+        false,
+        null
+      );
     }
 
-    if (retval === OK) {
-      creep.say(target.room.name);
-      return retval;
-    } else if (retval === ERR_TIRED) {
-      creep.say("f." + retval);
-      return retval;
-    } else {
-      creep.say("getEnergy." + retval);
-      return retval;
-    }
-  } else if (targetedRmName != homeRoomName) {
-    if (creep.memory.lastSourceId) {
-      lastSourceId = creep.memory.lastSourceId;
-      target = Game.getObjectById(creep.memory.lastSourceId);
-    }
+    return retval;
+  }
 
-    if (!target && Game.rooms[targetedRmName]) {
-      let sources = Game.rooms[targetedRmName].find(FIND_SOURCES);
-      if (sources.length > 0) {
-        target = chooseSource(creep, sources);
-      }
-    }
-
-    if (target) {
-      creep.memory.lastSourceId = target.id;
-      lastSourceId = creep.memory.lastSourceId;
+  if (!target && Game.rooms[targetedRmName]) {
+    let sources = Game.rooms[targetedRmName].find(FIND_SOURCES);
+    if (sources.length > 0) {
+      target = chooseSource(creep, sources);
     }
   }
 
-  if (!target && creep.memory.lastSourceId) {
-    target = Game.getObjectById(creep.memory.lastSourceId);
+  if (
+    target &&
+    creep.memory.direction === "deepSouth" &&
+    name.startsWith("rRdS")
+  ) {
+    console.log(
+      name +
+        " target: " +
+        target +
+        " target.room " +
+        target.room +
+        " creep.room: " +
+        creep.room
+    );
+  }
 
-    if (target && target.energy <= 0) {
-      target = null;
-      creep.memory.lastSourceId = null;
-      creep.memory.path = null;
-    }
+  if (target) {
+    creep.memory.lastSourceId = target.id;
+    lastSourceId = creep.memory.lastSourceId;
+  }
+
+  if (target && target.energy <= 0) {
+    target = null;
+    creep.memory.lastSourceId = null;
+    creep.memory.path = null;
   }
 
   if (

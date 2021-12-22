@@ -467,7 +467,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 1) {
+    } else if (harvestersE59S49.length < 3) {
       harvestersE59S49.push(name);
       parts = simpleParts;
       direction = "deepSouth";

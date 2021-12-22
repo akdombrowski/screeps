@@ -690,7 +690,7 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-      } else if (harvestersE59S47.length < 2) {
+      } else if (!nAttackerId && harvestersE59S47.length < 2) {
         name = "hN" + t;
         harvestersE59S47.push(name);
         chosenRole = "h";

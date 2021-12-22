@@ -65,6 +65,14 @@ function tran(
     creep.memory.transferTargetId = target.id;
   }
 
+  if (!target) {
+    if (flag && flag.pos) {
+      target = flag.pos.lookFor(LOOK_STRUCTURES).pop();
+    } else if (creep.memory.flag) {
+      target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
+    }
+  }
+
   if (creepRoomName != targetRoomName) {
     if (!target) {
       let transferTargetsAndMemoryObjects;
@@ -145,14 +153,6 @@ function tran(
 
       return { retval: retval, extensions: extensions, spawns: spawns };
     }
-  }
-
-  if (flag && flag.pos) {
-    target = flag.pos.lookFor(LOOK_STRUCTURES).pop();
-  } else if (creep.memory.flag) {
-    target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
-  } else if (creep.memory.transferTargetId) {
-    target = Game.getObjectById(creep.memory.transferTargetId);
   }
 
   if (

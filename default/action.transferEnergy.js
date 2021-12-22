@@ -58,7 +58,7 @@ function tran(
   if (
     !target &&
     creepRoomName === Memory.homeRoomName &&
-    creepRoom.energyAvailable >= 300 &&
+    creepRoom.energyAvailable >= 500 &&
     tower1.store[RESOURCE_ENERGY] < 950
   ) {
     target = tower1;

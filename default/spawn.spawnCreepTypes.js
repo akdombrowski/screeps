@@ -742,8 +742,7 @@ function spawnCreepTypes(enAvail, spawns) {
     enAvail >= 650 &&
     !invaderId &&
     !nAttackerId &&
-    northController &&
-    !northController.my
+    (!northController || (northController && !northController.my))
   ) {
     let name = "hN" + t;
     let chosenRole = "h";
@@ -755,7 +754,7 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (claimers.length < 1) {
       name = "cN" + t;
-      chosenRole = "claim";
+      chosenRole = "claimer";
       claimers.push(name);
       direction = "north";
       parts = claimerParts650;

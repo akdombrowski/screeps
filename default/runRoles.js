@@ -237,14 +237,13 @@ function runRoles() {
       roleUpgrader.run(creep);
     } else if (roll === "c" || roll === "claimer") {
       claimers.push(name);
-      roll = "c";
       claim(
         creep,
-        Memory.deepSouthRoomName,
-        Game.flags.southExit,
-        BOTTOM,
+        Memory.northRoomName,
+        Game.flags.northExit,
+        TOP,
         "",
-        "59bbc5d22052a716c3cea13a"
+        Memory.northController
       );
     } else if (roll === "a" || roll === "attacker" || name.startsWith("a")) {
       if (creep.memory.direction === "north") {

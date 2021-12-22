@@ -17,26 +17,29 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
   const creepRoomName = creep.room.name;
   let mem_direction = creep.memory.direction;
   let mem_getEnergy = creep.memory.getEnergy;
+  let target = Game.getObjectById(creep.memory.lastSourceId);
 
-  if (targetRoomName && creepRoomName != targetRoomName) {
-    if (creepRoomName === Memory.northRoomName) {
-      // if in the north room but target is not north, head south
-      exitDirection = BOTTOM;
-      exit = Game.flags.northEntrance;
-    } else if (creepRoomName === Memory.deepSouthRoomName) {
-      // if in the deepSouth room but target room is not deepSouth, head north
-      exitDirection = TOP;
-      exit = Game.flags.southEntrance;
-    }
+  if (!target) {
+    if (targetRoomName && creepRoomName != targetRoomName) {
+      if (creepRoomName === Memory.northRoomName) {
+        // if in the north room but target is not north, head south
+        exitDirection = BOTTOM;
+        exit = Game.flags.northEntrance;
+      } else if (creepRoomName === Memory.deepSouthRoomName) {
+        // if in the deepSouth room but target room is not deepSouth, head north
+        exitDirection = TOP;
+        exit = Game.flags.southEntrance;
+      }
 
-    if (creep.pos.isNearTo(exit)) {
-      creep.say(exitDirection);
-      retval = creep.move(exitDirection);
-    } else {
-      creep.say(targetRoomName);
-      retval = smartMove(creep, exit, 0, true, null, null, null, 1);
+      if (creep.pos.isNearTo(exit)) {
+        creep.say(exitDirection);
+        retval = creep.move(exitDirection);
+      } else {
+        creep.say(targetRoomName);
+        retval = smartMove(creep, exit, 0, true, null, null, null, 1);
+      }
+      return retval;
     }
-    return retval;
   }
 
   if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {

@@ -57,6 +57,8 @@ module.exports.loop = function () {
     Memory.northRoomName = "E59S47";
     Memory.deepSouthRoomName = "E59S49";
 
+    Memory.northControllerID = "59bbc5d22052a716c3cea133";
+
     let enAvail = rm.energyAvailable;
     let enCapRm = rm.energyCapacityAvailable;
     // let northEnAvail = northRoom.energyAvailable;

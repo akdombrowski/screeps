@@ -45,15 +45,19 @@ function claimContr(
     smartMove(creep, Game.flags.eeEntrance1, 2);
   } else if (creep.room.name === targetRoomName) {
     let contr = Game.getObjectById(controllerID);
-    if (creep.pos.inRangeTo(contr, 1)) {
-      creep.claimController(contr);
+    if (!creep) {
+      console.log("no creep wtf");
     } else {
-      retval = smartMove(creep, contr, 1);
-
-      if (retval === ERR_TIRED) {
-        creep.say("f." + creep.fatigue);
+      if (creep.pos.inRangeTo(contr, 1)) {
+        creep.claimController(contr);
       } else {
-        creep.say("ctr." + contr.pos.x + "," + contr.pos.y);
+        retval = smartMove(creep, contr, 1);
+
+        if (retval === ERR_TIRED) {
+          creep.say("f." + creep.fatigue);
+        } else {
+          creep.say("ctr." + contr.pos.x + "," + contr.pos.y);
+        }
       }
     }
   } else if (creep.room.name === "E36N32") {

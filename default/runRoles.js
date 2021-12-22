@@ -74,7 +74,6 @@ function runRoles() {
         harvesters.push(name);
         let ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
       }
-
     } else if (roll === "hN" || roll === "harvesterN") {
       if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
         creep.memory.getEnergy = true;
@@ -246,6 +245,15 @@ function runRoles() {
         Memory.northControllerID
       );
     } else if (roll === "cN" || roll === "claimerN") {
+      let northController = Game.getObjectById(Memory.northControllerID);
+
+      if (northController) {
+        console.log("safeModeCooldown: " + northController.safeModeCooldown);
+        console.log("ticksToEnd: " + northController.reservation.ticksToEnd);
+      } else {
+        console.log("no ctrlr");
+      }
+
       claimers.push(name);
       claim(
         creep,

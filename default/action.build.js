@@ -101,6 +101,19 @@ function build(creep) {
               sites.push(siteObj);
             }
           });
+
+          Memory.e59s48sites = Memory.e59s48sites.filter((id) => {
+            let site = Game.getObjectById(id);
+            if (!site) {
+              return false;
+            }
+
+            if (site.progress < site.progressTotal) {
+              return true;
+            }
+
+            return false;
+          });
           if (sites) {
             try {
               target = creep.pos.findClosestByPath(sites, {
@@ -174,6 +187,19 @@ function build(creep) {
               sites.push(siteObj);
             }
           });
+
+          Memory.e59s47sites = Memory.e59s47sites.filter((id) => {
+            let site = Game.getObjectById(id);
+            if (!site) {
+              return false;
+            }
+
+            if (site.progress < site.progressTotal) {
+              return true;
+            }
+
+            return false;
+          });
           if (sites) {
             try {
               target = creep.pos.findClosestByPath(sites, {
@@ -246,6 +272,19 @@ function build(creep) {
             if (siteObj && siteObj.progress < siteObj.progressTotal) {
               sites.push(siteObj);
             }
+          });
+
+          Memory.e59s49sites = Memory.e59s49sites.filter((id) => {
+            let site = Game.getObjectById(id);
+            if (!site) {
+              return false;
+            }
+
+            if (site.progress < site.progressTotal) {
+              return true;
+            }
+
+            return false;
           });
           if (sites) {
             try {

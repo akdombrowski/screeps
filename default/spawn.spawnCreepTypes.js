@@ -805,8 +805,8 @@ function spawnCreepTypes(enAvail, spawns) {
         !northController.my &&
         (!northController.reservation ||
           northController.reservation.ticksToEnd <= 0) &&
-        (!northController.safeModeCooldown ||
-          northController.safeModeCooldown <= 0)))
+        (!northController.safeMode ||
+          northController.safeMode <= 0)))
   ) {
     let name = "hN" + t;
     let chosenRole = "h";

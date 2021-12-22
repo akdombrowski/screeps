@@ -591,7 +591,6 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //
   //
   //
-  console.log(enAvail)
   if (enAvail >= 450 && !Memory.dSAttackerId) {
     let name = "hdS" + t;
     let chosenRole = "h";

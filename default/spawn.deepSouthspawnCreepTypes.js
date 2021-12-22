@@ -591,6 +591,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //
   //
   //
+  console.log(enAvail)
   if (enAvail >= 450 && !Memory.dSAttackerId) {
     let name = "hdS" + t;
     let chosenRole = "h";
@@ -629,7 +630,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairersE59S49.length < 6) {
+    } else if (roadRepairersE59S49.length < 12) {
       name = "rRdS" + t;
       roadRepairersE59S49.push(name);
       chosenRole = "roadRepairer";

@@ -55,63 +55,23 @@ function tran(
     return { retval: -19, extensions: extensions, spawns: spawns };
   }
 
-  if (
-    !target &&
-    creepRoomName === Memory.homeRoomName &&
-    creepRoom.energyAvailable >= 450 &&
-    tower1.store[RESOURCE_ENERGY] < 950
-  ) {
-    target = tower1;
-    creep.memory.transferTargetId = target.id;
-  }
+  const minRoomEnergy = 450;
+  const maxTowerEnergy = 950;
+  target = checkTransferToTower(
+    creepRoom,
+    tower1,
+    creep,
+    minRoomEnergy,
+    maxTowerEnergy
+  );
 
   if (!target) {
-    if (flag && flag.pos) {
-      target = flag.pos.lookFor(LOOK_STRUCTURES).pop();
-    } else if (creep.memory.flag) {
-      target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
-    }
+    target = checkForFlagTarget(flag, creep, extensions, spawns);
   }
 
   if (creepRoomName != targetRoomName) {
     if (!target) {
-      let transferTargetsAndMemoryObjects;
-      if (
-        creepRoomName === Memory.homeRoomName &&
-        creep.memory.direction != "deepSouth"
-      ) {
-        transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-          creep,
-          target,
-          Memory.homeRoomName,
-          extensions,
-          spawns
-        );
-      } else if (creepRoomName === Memory.northRoomName) {
-        transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-          creep,
-          target,
-          Memory.northRoomName,
-          extensions,
-          spawns
-        );
-      } else if (creepRoomName === Memory.deepSouthRoomName) {
-        transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-          creep,
-          target,
-          Memory.deepSouthRoomName,
-          extensions,
-          spawns
-        );
-      }
-
-      target = transferTargetsAndMemoryObjects.target;
-      extensions = transferTargetsAndMemoryObjects.extensions;
-      spawns = transferTargetsAndMemoryObjects.spawns;
-
-      if (target) {
-        creep.memory.transferTargetId = target.id;
-      }
+      ({ target, extensions, spawns } = findExtsOrSpawnsForRoom(creep));
     }
 
     // check if we got a target for an ext or spawn or from memory
@@ -397,3 +357,91 @@ function tran(
 
 tran = profiler.registerFN(tran, "tran");
 module.exports = tran;
+
+function findExtsOrSpawnsForRoom(creep, extensions, spawns) {
+  let creepRoom = creep.room;
+  let creepRoomName = creepRoom.name;
+  const direction = creep.memory.direction;
+  let target = null;
+  let transferTargetsAndMemoryObjects = null;
+
+  if (creepRoomName === Memory.homeRoomName && direction != "deepSouth") {
+    transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+      creep,
+      target,
+      Memory.homeRoomName,
+      extensions,
+      spawns
+    );
+  } else if (creepRoomName === Memory.northRoomName) {
+    transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+      creep,
+      target,
+      Memory.northRoomName,
+      extensions,
+      spawns
+    );
+  } else if (creepRoomName === Memory.deepSouthRoomName) {
+    transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+      creep,
+      target,
+      Memory.deepSouthRoomName,
+      extensions,
+      spawns
+    );
+  }
+
+  target = transferTargetsAndMemoryObjects.target;
+  extensions = transferTargetsAndMemoryObjects.extensions;
+  spawns = transferTargetsAndMemoryObjects.spawns;
+
+  if (target) {
+    creep.memory.transferTargetId = target.id;
+  }
+  return { target, extensions, spawns };
+}
+
+findExtsOrSpawnsForRoom = profiler.registerFN(
+  findExtsOrSpawnsForRoom,
+  "findExtsOrSpawnsForRoom"
+);
+
+function checkForFlagTarget(flag, creep) {
+  let target = null;
+  if (flag && flag.pos) {
+    target = flag.pos.lookFor(LOOK_STRUCTURES).pop();
+  } else if (creep.memory.flag) {
+    target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
+  }
+  return target;
+}
+
+checkForFlagTarget = profiler.registerFN(
+  checkForFlagTarget,
+  "checkForFlagTarget"
+);
+
+function checkTransferToTower(
+  creepRoom,
+  tower,
+  creep,
+  minRoomEnergy,
+  maxTowerEnergy
+) {
+  let target = null;
+  if (
+    creepRoom &&
+    creepRoom.name === Memory.homeRoomName &&
+    creepRoom.energyAvailable >= 450 &&
+    tower.store[RESOURCE_ENERGY] < 950
+  ) {
+    target = tower;
+    creep.memory.transferTargetId = target.id;
+  }
+  return target;
+}
+
+checkTransferToTower = profiler.registerFN(
+  checkTransferToTower,
+  "checkTransferToTower"
+);

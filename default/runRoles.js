@@ -217,7 +217,7 @@ function runRoles() {
           TOP,
           Memory.northRoomName
         );
-      } else if (creep.memory.direction.startsWith("deepSouth")) {
+      } else if (creep.memory.direction === "deepSouth") {
         roleWorker(
           creep,
           null,

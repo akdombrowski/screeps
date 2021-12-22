@@ -253,7 +253,8 @@ function runRoles() {
         Game.flags.northExit,
         TOP,
         "",
-        Memory.northController
+        Memory.northController,
+        Game.flags.northController
       );
     } else if (roll === "a" || roll === "attacker" || name.startsWith("a")) {
       if (creep.memory.direction === "north") {

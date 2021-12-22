@@ -9,17 +9,19 @@ function claimContr(
   exit,
   exitDirection,
   entrance,
-  controllerID
+  controllerID,
+  controllerFlag
 ) {
   /** creep controller reserve**/
   let contrID = "5bbcaefa9099fc012e639e90";
-  let contr = Game.getObjectById(controllerID);
+  let ctrlr = Game.getObjectById(controllerID);
   let eContr = "5bbcaf0c9099fc012e63a0be";
   let eeContr = "5bbcaf1b9099fc012e63a2dd";
   let wContr = "5bbcaeeb9099fc012e639c4d";
   let nContrID = "59bbc5d22052a716c3cea133";
   let nContr = Game.getObjectById("59bbc5d22052a716c3cea133");
   let neContr = "5bbcaf0c9099fc012e63a0b9";
+  let target = null;
 
   const direction = creep.memory.direction;
   let retval;
@@ -32,7 +34,7 @@ function claimContr(
     }
   }
 
-  retval = claimControlla(creep, contr);
+  retval = claimControlla(creep, ctrlr);
 
   // smartMove(creep, Game.flags.Flag1);
   if (creep.room.name == "E35N31") {
@@ -44,19 +46,24 @@ function claimContr(
   } else if (creep.room.name == "E36N31") {
     smartMove(creep, Game.flags.eeEntrance1, 2);
   } else if (creep.room.name === targetRoomName) {
-    let ctrlr = Game.getObjectById(controllerID);
     if (!ctrlr) {
-      console.log("no ctrlr wtf");
+      if (controllerFlag) {
+        target = controllerFlag;
+      }
     } else {
-      if (creep.pos.inRangeTo(ctrlr, 1)) {
-        creep.claimController(ctrlr);
+      target = ctrlr;
+    }
+
+    if (target) {
+      if (creep.pos.inRangeTo(target, 1)) {
+        creep.claimController(target);
       } else {
-        retval = smartMove(creep, ctrlr, 1);
+        retval = smartMove(creep, target, 1);
 
         if (retval === ERR_TIRED) {
           creep.say("f." + creep.fatigue);
         } else {
-          creep.say("ctr." + ctrlr.pos.x + "," + ctrlr.pos.y);
+          creep.say("target" + target.pos.x + "," + target.pos.y);
         }
       }
     }

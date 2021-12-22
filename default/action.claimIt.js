@@ -79,7 +79,13 @@ module.exports = claimContr;
 
 function claimControlla(creep, ctrlr) {
   if (creep.pos.isNearTo(ctrlr)) {
-    retval = creep.claimController(ctrlr);
+    if (ctrlr.safeModeCooldown > 0) {
+      creep.attackController(ctrlr);
+    } else if (ctrlr.reservation.ticksToEnd > 0) {
+      creep.attackController(ctrlr);
+    } else {
+      retval = creep.claimController(ctrlr);
+    }
   } else {
     retval = smartMove(creep, ctrlr, 1, true, null, null, null, 1);
   }

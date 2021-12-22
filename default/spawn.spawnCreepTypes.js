@@ -675,7 +675,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 8) {
+    if (harvesters.length < 14) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";
@@ -771,7 +771,15 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #        #        #######   #   #     #
   //  #     #  #        #     #   #   #     #
   //   #####   #######  #     #  ###  #     #
-  if (
+  if(northController) {
+
+    console.log("safeModeCooldown: " + northController.safeModeCooldown);
+    console.log("ticksToEnd: " + northController.reservation.ticksToEnd);
+  } else {
+    console.log("no ctrlr");
+
+  }
+    if (
     enAvail >= 650 &&
     !invaderId &&
     !nAttackerId &&
@@ -880,7 +888,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 10) {
+    if (harvesters.length < 16) {
       name = "h" + t;
       harvesters.push(name);
       chosenRole = "h";

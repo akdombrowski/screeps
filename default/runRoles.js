@@ -243,7 +243,7 @@ function runRoles() {
         Game.flags.northExit,
         TOP,
         "",
-        Memory.northController
+        Memory.northControllerID
       );
     } else if (roll === "cN" || roll === "claimerN") {
       claimers.push(name);

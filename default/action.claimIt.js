@@ -44,19 +44,19 @@ function claimContr(
   } else if (creep.room.name == "E36N31") {
     smartMove(creep, Game.flags.eeEntrance1, 2);
   } else if (creep.room.name === targetRoomName) {
-    let contr = Game.getObjectById(controllerID);
-    if (!creep) {
-      console.log("no creep wtf");
+    let ctrlr = Game.getObjectById(controllerID);
+    if (!ctrlr) {
+      console.log("no ctrlr wtf");
     } else {
-      if (creep.pos.inRangeTo(contr, 1)) {
-        creep.claimController(contr);
+      if (creep.pos.inRangeTo(ctrlr, 1)) {
+        creep.claimController(ctrlr);
       } else {
-        retval = smartMove(creep, contr, 1);
+        retval = smartMove(creep, ctrlr, 1);
 
         if (retval === ERR_TIRED) {
           creep.say("f." + creep.fatigue);
         } else {
-          creep.say("ctr." + contr.pos.x + "," + contr.pos.y);
+          creep.say("ctr." + ctrlr.pos.x + "," + ctrlr.pos.y);
         }
       }
     }
@@ -70,11 +70,11 @@ function claimContr(
 claimContr = profiler.registerFN(claimContr, "claimContr");
 module.exports = claimContr;
 
-function claimControlla(creep, nContr) {
-  if (creep.pos.isNearTo(nContr)) {
-    retval = creep.claimController(nContr);
+function claimControlla(creep, ctrlr) {
+  if (creep.pos.isNearTo(ctrlr)) {
+    retval = creep.claimController(ctrlr);
   } else {
-    retval = smartMove(creep, nContr, 1, true, null, null, null, 1);
+    retval = smartMove(creep, ctrlr, 1, true, null, null, null, 1);
   }
   return retval;
 }

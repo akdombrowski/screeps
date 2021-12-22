@@ -370,7 +370,7 @@ function getEnergy(
 
       if (retval === OK) {
         creep.memory.lastSourceId = target.id;
-        creep.say(target.pos.x + "," + target.pos.y);
+        creep.say(target.pos.x + "," + target.pos.y + "💨");
       } else {
         console.log(
           name +
@@ -391,7 +391,7 @@ function getEnergy(
       creep.memory.path = null;
 
       console.log(name + " getEnergy fart, no target");
-      creep.say("fart");
+      creep.say("    💨    ");
     }
   } else {
     // Something went wrong;

@@ -550,7 +550,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (numOfCreepsTotal < 30) {
+    if (numOfCreepsTotal < 25) {
       harvesters.push(name);
       retval = birthCreep(
         spawns,
@@ -771,11 +771,15 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #        #        #######   #   #     #
   //  #     #  #        #     #   #   #     #
   //   #####   #######  #     #  ###  #     #
-    if (
+  if (
     enAvail >= 650 &&
     !invaderId &&
     !nAttackerId &&
-    (!northController || (northController && !northController.my))
+    (!northController ||
+      (northController &&
+        !northController.my &&
+        (!northController.safeModeCooldown ||
+          northController.safeModeCooldown <= 0)))
   ) {
     let name = "hN" + t;
     let chosenRole = "h";

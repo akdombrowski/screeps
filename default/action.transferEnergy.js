@@ -97,11 +97,11 @@ function tran(
         );
       }
 
-        target = transferTargetsAndMemoryObjects.target;
-        extensions = transferTargetsAndMemoryObjects.extensions;
-        spawns = transferTargetsAndMemoryObjects.spawns;
+      target = transferTargetsAndMemoryObjects.target;
+      extensions = transferTargetsAndMemoryObjects.extensions;
+      spawns = transferTargetsAndMemoryObjects.spawns;
 
-      if(target) {
+      if (target) {
         creep.memory.transferTargetId = target.id;
       }
     }
@@ -176,12 +176,13 @@ function tran(
 
   if (!target) {
     let transferTargetsAndMemoryObjects = {};
+    creep.memory.transferTargetId = null;
     if (
       !target &&
       creepRoomName === Memory.homeRoomName &&
       targetRoomName === Memory.homeRoomName
     ) {
-       transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+      transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
         creep,
         target,
         Memory.homeRoomName,
@@ -321,12 +322,13 @@ function tran(
   if (target && creep.pos.inRangeTo(target, 1)) {
     creep.memory.path = null;
 
+    creep.memory.transferTargetId = target.id;
+    retval = creep.transfer(target, RESOURCE_ENERGY);
+
     if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
       creep.memory.transfer = false;
       creep.memory.transferTargetId = null;
     }
-    creep.memory.transferTargetId = target.id;
-    retval = creep.transfer(target, RESOURCE_ENERGY);
 
     if (retval === OK) {
       creep.memory.transferTargetId = target.id;

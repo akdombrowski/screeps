@@ -34,8 +34,6 @@ function claimContr(
     }
   }
 
-  retval = claimControlla(creep, ctrlr);
-
   // smartMove(creep, Game.flags.Flag1);
   if (creep.room.name == "E35N31") {
     if (creep.pos.isNearTo(Game.flags.eastExit)) {
@@ -55,17 +53,7 @@ function claimContr(
     }
 
     if (target) {
-      if (creep.pos.inRangeTo(target, 1)) {
-        creep.claimController(target);
-      } else {
-        retval = smartMove(creep, target, 1);
-
-        if (retval === ERR_TIRED) {
-          creep.say("f." + creep.fatigue);
-        } else {
-          creep.say("target" + target.pos.x + "," + target.pos.y);
-        }
-      }
+      claimControlla(creep, target);
     }
   } else if (creep.room.name === "E36N32") {
     getEnergyEast(creep, "E36N31");
@@ -78,15 +66,22 @@ claimContr = profiler.registerFN(claimContr, "claimContr");
 module.exports = claimContr;
 
 function claimControlla(creep, ctrlr) {
+  console.log("creep.pos.isNearTo(ctrlr): " + creep.pos.isNearTo(ctrlr));
+
   if (creep.pos.isNearTo(ctrlr)) {
+    console.log("reservation: " + ctrlr.reservation);
     if (ctrlr.safeModeCooldown > 0) {
+      creep.say("att");
       creep.attackController(ctrlr);
-    } else if (ctrlr.reservation.ticksToEnd > 0) {
+    } else if (ctrlr.reservation && ctrlr.reservation.ticksToEnd > 0) {
+      creep.say("att");
       creep.attackController(ctrlr);
     } else {
+      creep.say("claim");
       retval = creep.claimController(ctrlr);
     }
   } else {
+    creep.say(ctrlr.pos.x + "," + ctrlr.pos.y);
     retval = smartMove(creep, ctrlr, 1, true, null, null, null, 1);
   }
   return retval;

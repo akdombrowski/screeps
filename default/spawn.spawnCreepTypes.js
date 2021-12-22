@@ -690,22 +690,22 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-      // } else if (harvestersE59S47.length < 1) {
-      //   name = "hN" + t;
-      //   harvestersE59S47.push(name);
-      //   chosenRole = "h";
-      //   direction = "north";
-      //   group = "harvestersE59S47";
-      //   retval = birthCreep(
-      //     spawns,
-      //     parts,
-      //     name,
-      //     chosenRole,
-      //     direction,
-      //     sourceId,
-      //     spawnDirection,
-      //     group
-      //   );
+      } else if (harvestersE59S47.length < 2) {
+        name = "hN" + t;
+        harvestersE59S47.push(name);
+        chosenRole = "h";
+        direction = "north";
+        group = "harvestersE59S47";
+        retval = birthCreep(
+          spawns,
+          parts,
+          name,
+          chosenRole,
+          direction,
+          sourceId,
+          spawnDirection,
+          group
+        );
     } else if (roadRepairers.length < 1) {
       parts = workerParts550;
       name = "rR" + t;

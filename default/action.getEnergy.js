@@ -332,7 +332,7 @@ function getEnergy(
     }
 
     // I'm right next to the target. Harvest.
-    if (creep.pos.isNearTo(target)) {
+    if (target && creep.pos.isNearTo(target)) {
       if (isTargetStructure) {
         retval = creep.withdraw(target, RESOURCE_ENERGY);
         if (retval != OK) {
@@ -372,6 +372,7 @@ function getEnergy(
         creep.memory.lastSourceId = target.id;
         creep.say(target.pos.x + "," + target.pos.y + "💨");
       } else {
+        creep.memory.lastSourceId = null;
         console.log(
           name +
             " getEnergy smartmove crap " +

@@ -413,7 +413,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (numOfCreepsTotal < 20) {
+    if (numOfCreepsTotal < 10) {
       harvesters.push(name);
       parts = simpleParts300;
       retval = birthCreep(
@@ -595,7 +595,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (numOfCreepsTotal < 25) {
+    if (numOfCreepsTotal < 20) {
       harvesters.push(name);
       retval = birthCreep(
         spawns,
@@ -616,93 +616,6 @@ function spawnCreepTypes(enAvail, spawns) {
       return retval;
     }
   }
-
-  //     #     #######  #######     #      #####   #    #
-  //    # #       #        #       # #    #     #  #   #
-  //   #   #      #        #      #   #   #        #  #
-  //  #     #     #        #     #     #  #        ###
-  //  #######     #        #     #######  #        #  #
-  //  #     #     #        #     #     #  #     #  #   #
-  //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 500) {
-    let name = "att" + t;
-    let chosenRole = "a";
-    let direction = "south";
-    let sourceId = Memory.source2;
-    let parts = attackerParts500;
-    let group = "attackersNW";
-    let spawnDirection = [TOP];
-
-    if (Memory.nwAttackerId && attackersNW.length < 2) {
-      direction = "nw";
-      name += "NW";
-      attackersNW.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    } else if (Memory.nwwAttackerId && attackersNWW.length < 2) {
-      direction = "nww";
-      name += "NWW";
-      group = "attackersNWW";
-      attackersNWW.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    }
-
-    if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
-    }
-    if (retval === OK || retval === ERR_BUSY) {
-      return retval;
-    }
-  }
-
-  // if (enAvail >= 650 && !invaderId) {
-  //   let name = "resN" + t;
-  //   let chosenRole = "reserver";
-  //   let direction = "north";
-  //   let sourceId = Memory.source2;
-  //   let parts = simpleParts500;
-  //   let group = "reservers";
-  //   let spawnDirection = [TOP];
-
-  //   if (reservers.length < 1) {
-  //     reservers.push(name);
-  //     parts = claimerParts;
-  //     retval = birthCreep(
-  //       spawns,
-  //       parts,
-  //       name,
-  //       chosenRole,
-  //       direction,
-  //       sourceId,
-  //       spawnDirection,
-  //       group
-  //     );
-  //   }
-
-  //   if (retval !== -16) {
-  //     console.log("spawningS " + name + " " + retval);
-  //   }
-  //   if (retval === OK || retval === ERR_BUSY) {
-  //     return retval;
-  //   }
-  // }
 
   //  #######  #######    ###
   //  #        #         #   #
@@ -751,7 +664,7 @@ function spawnCreepTypes(enAvail, spawns) {
       //     spawnDirection,
       //     group
       //   );
-    } else if (roadRepairers.length < 1) {
+    } else if (roadRepairers.length < 2) {
       parts = workerParts550;
       name = "rR" + t;
       roadRepairers.push(name);
@@ -799,6 +712,22 @@ function spawnCreepTypes(enAvail, spawns) {
       //     spawnDirection,
       //     group
       //   );
+    } else {
+      name = "upC" + t;
+      chosenRole = "upC";
+      upControllers.push(name);
+      parts = workerParts550;
+      group = "upControllers";
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
     }
 
     if (retval !== -16) {
@@ -808,6 +737,50 @@ function spawnCreepTypes(enAvail, spawns) {
       return retval;
     }
   }
+
+  //
+  //
+  //
+  // .########..########..######.
+  // .##.....##.##.......##....##
+  // .##.....##.##.......##......
+  // .########..######....######.
+  // .##...##...##.............##
+  // .##....##..##.......##....##
+  // .##.....##.########..######.
+  //
+  //
+  //
+  // if (enAvail >= 650 && !invaderId) {
+  //   let name = "resN" + t;
+  //   let chosenRole = "reserver";
+  //   let direction = "north";
+  //   let sourceId = Memory.source2;
+  //   let parts = claimerParts;
+  //   let group = "reservers";
+  //   let spawnDirection = [TOP];
+
+  //   if (reservers.length < 1) {
+  //     reservers.push(name);
+  //     retval = birthCreep(
+  //       spawns,
+  //       parts,
+  //       name,
+  //       chosenRole,
+  //       direction,
+  //       sourceId,
+  //       spawnDirection,
+  //       group
+  //     );
+  //   }
+
+  //   if (retval !== -16) {
+  //     console.log("spawningS " + name + " " + retval);
+  //   }
+  //   if (retval === OK || retval === ERR_BUSY) {
+  //     return retval;
+  //   }
+  // }
 
   //   #####   #           #     ###  #     #
   //  #     #  #          # #     #   ##   ##

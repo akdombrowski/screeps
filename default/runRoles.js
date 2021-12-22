@@ -137,14 +137,12 @@ function runRoles() {
       }
     } else if (roll === "viewer") {
       if (creep.memory.direction.startsWith("s")) {
-
         viewersE59S48.push(name);
         roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
       } else if (creep.memory.direction.startsWith("n")) {
         viewersE59S47.push(name);
         roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
       } else if (creep.memory.direction.startsWith("deepSouth")) {
-
         viewersE59S49.push(name);
         roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
       } else {
@@ -267,11 +265,16 @@ function runRoles() {
     } else if (roll === "cN" || roll === "claimerN") {
       let northController = Game.getObjectById(Memory.northControllerID);
 
-      if (northController) {
+      if (northController && northController.safeModeCooldown < 100) {
         console.log("safeModeCooldown: " + northController.safeModeCooldown);
+      } else if (
+        northController &&
+        northController.reservation &&
+        northController.reservation.ticksToEnd < 100
+      ) {
         console.log("ticksToEnd: " + northController.reservation.ticksToEnd);
       } else {
-        console.log("no ctrlr");
+        // console.log("no ctrlr");
       }
 
       claimers.push(name);

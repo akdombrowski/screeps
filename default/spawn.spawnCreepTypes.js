@@ -91,6 +91,8 @@ function spawnCreepTypes(enAvail, spawns) {
   let reservers = Memory.reservers || [];
   let towerHarvesters = Memory.towerHarvesters || [];
   let claimers = Memory.claimers || [];
+  let claimersE59S47 = Memory.claimersE59S47 || [];
+  let claimersE59S49 = Memory.claimersE59S49 || [];
   let attackers = Memory.attackers || [];
   let attackersE59S47 = Memory.attackersE59S47 || [];
   let attackersE59S49 = Memory.attackersE59S49 || [];
@@ -754,7 +756,7 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (claimers.length < 1) {
       name = "cN" + t;
-      chosenRole = "claimer";
+      chosenRole = "claimerN";
       claimers.push(name);
       direction = "north";
       parts = claimerParts650;
@@ -1378,6 +1380,8 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.attackersE59S47 = attackersE59S47;
   Memory.attackersE59S49 = attackersE59S49;
   Memory.claimers = claimers;
+  Memory.claimersE59S47 = claimersE59S47;
+  Memory.claimersE59S49 = claimersE59S49;
   Memory.linkGets = linkGets;
   Memory.towerHarvesters = towerHarvesters;
 }

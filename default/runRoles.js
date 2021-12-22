@@ -245,6 +245,16 @@ function runRoles() {
         "",
         Memory.northController
       );
+    } else if (roll === "cN" || roll === "claimerN") {
+      claimers.push(name);
+      claim(
+        creep,
+        Memory.northRoomName,
+        Game.flags.northExit,
+        TOP,
+        "",
+        Memory.northController
+      );
     } else if (roll === "a" || roll === "attacker" || name.startsWith("a")) {
       if (creep.memory.direction === "north") {
         attackersE59S47.push(name);

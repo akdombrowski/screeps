@@ -95,7 +95,6 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
     creep.memory.repair = false;
     mem_repair = false;
     retval = build(creep);
-    console.log("retval: " + retval);
   }
 
   if (mem_repair) {

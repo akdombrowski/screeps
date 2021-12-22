@@ -24,50 +24,66 @@ function claimContr(
   let target = null;
 
   const direction = creep.memory.direction;
-  let retval;
+  let retval = -16;
 
   if (creep.room.name != targetRoomName) {
     if (creep.pos.isNearTo(exit)) {
-      return creep.move(exitDirection);
+      retval = creep.move(exitDirection);
     } else {
-      return smartMove(creep, exit, 0, true, null, null, null, 1);
+      retval = smartMove(
+        creep,
+        exit,
+        0,
+        true,
+        null,
+        null,
+        null,
+        1,
+        false,
+        null
+      );
     }
   } else {
     if (!ctrlr) {
       if (controllerFlag) {
-        target = controllerFlag;
+        target = controllerFlag.pos.lookFor(LOOK_STRUCTURES).pop();
       }
     } else {
       target = ctrlr;
     }
 
     if (target) {
-      claimControlla(creep, target);
+      retval = claimControlla(creep, target);
     }
   }
+
+  return retval;
 }
 
 claimContr = profiler.registerFN(claimContr, "claimContr");
 module.exports = claimContr;
 
 function claimControlla(creep, ctrlr) {
+  let retval = -16;
   if (creep.pos.isNearTo(ctrlr)) {
     console.log("ctrlr: " + ctrlr);
-    console.log("reservation: " + ctrlr.reservation);
-    if (ctrlr.safeModeCooldown > 0) {
+    console.log("reservation: " + JSON.stringify(ctrlr.reservation));
+    console.log("safeMode: " + ctrlr.safeMode);
+    if (ctrlr.safeMode && ctrlr.safeMode > 0) {
       creep.say("att");
-      creep.attackController(ctrlr);
+      retval = creep.attackController(ctrlr);
     } else if (ctrlr.reservation && ctrlr.reservation.ticksToEnd > 0) {
       creep.say("att");
-      creep.attackController(ctrlr);
+      retval = creep.attackController(ctrlr);
     } else {
       creep.say("claim");
       retval = creep.claimController(ctrlr);
     }
   } else {
     creep.say(ctrlr.pos.x + "," + ctrlr.pos.y);
-    retval = smartMove(creep, ctrlr, 1, true, null, null, null, 1);
+    retval = smartMove(creep, ctrlr, 1, true, null, null, null, 1, false, null);
   }
+
   return retval;
 }
 

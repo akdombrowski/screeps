@@ -93,6 +93,9 @@ function spawnCreepTypes(enAvail, spawns) {
   let claimers = Memory.claimers || [];
   let claimersE59S47 = Memory.claimersE59S47 || [];
   let claimersE59S49 = Memory.claimersE59S49 || [];
+  let viewers = Memory.viewers || [];
+  let viewersE59S47 = Memory.viewersE59S47 || [];
+  let viewersE59S49 = Memory.viewersE59S49 || [];
   let attackers = Memory.attackers || [];
   let attackersE59S47 = Memory.attackersE59S47 || [];
   let attackersE59S49 = Memory.attackersE59S49 || [];
@@ -107,6 +110,10 @@ function spawnCreepTypes(enAvail, spawns) {
   let numCrps = Object.keys(crps).length;
 
   let s1 = Game.spawns.deepSouthSpawn1;
+
+  // 200
+  let viewRoom50 = [];
+  addPart(viewRoom50, 1, MOVE);
 
   // 200
   let upContrParts200 = [];
@@ -352,13 +359,51 @@ function spawnCreepTypes(enAvail, spawns) {
     );
   }
 
-  //   #####     ###      ###
-  //  #     #   #   #    #   #
-  //        #  #     #  #     #
-  //   #####   #     #  #     #
-  //        #  #     #  #     #
-  //  #     #   #   #    #   #
-  //   #####     ###      ###
+  // .########...#####..
+  // .##........##...##.
+  // .##.......##.....##
+  // .#######..##.....##
+  // .......##.##.....##
+  // .##....##..##...##.
+  // ..######....#####..
+  if (enAvail >= 50) {
+    let name = "vN" + t;
+    let chosenRole = "viewer";
+    let direction = "north";
+    let sourceId = Memory.nsource2;
+    let parts = viewRoom50;
+    let group = "viewersE59S47";
+    let spawnDirection = [TOP];
+
+    if (viewersE59S47.length < 1) {
+      viewersE59S47.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    }
+
+    if (retval !== -16) {
+      console.log("spawningS " + name + " " + retval);
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
+  }
+
+  // ..#######....#####.....#####..
+  // .##.....##..##...##...##...##.
+  // ........##.##.....##.##.....##
+  // ..#######..##.....##.##.....##
+  // ........##.##.....##.##.....##
+  // .##.....##..##...##...##...##.
+  // ..#######....#####.....#####..
   if (enAvail >= 300 && !invaderId) {
     let name = "h" + t;
     let chosenRole = "h";
@@ -690,22 +735,22 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-      } else if (!nAttackerId && harvestersE59S47.length < 2) {
-        name = "hN" + t;
-        harvestersE59S47.push(name);
-        chosenRole = "h";
-        direction = "north";
-        group = "harvestersE59S47";
-        retval = birthCreep(
-          spawns,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection,
-          group
-        );
+      // } else if (!nAttackerId && harvestersE59S47.length < 2) {
+      //   name = "hN" + t;
+      //   harvestersE59S47.push(name);
+      //   chosenRole = "h";
+      //   direction = "north";
+      //   group = "harvestersE59S47";
+      //   retval = birthCreep(
+      //     spawns,
+      //     parts,
+      //     name,
+      //     chosenRole,
+      //     direction,
+      //     sourceId,
+      //     spawnDirection,
+      //     group
+      //   );
     } else if (roadRepairers.length < 1) {
       parts = workerParts550;
       name = "rR" + t;
@@ -778,7 +823,8 @@ function spawnCreepTypes(enAvail, spawns) {
     (!northController ||
       (northController &&
         !northController.my &&
-        (!northController.reservation || northController.reservation.ticksToEnd <= 0)))
+        (!northController.reservation ||
+          northController.reservation.ticksToEnd <= 0)))
   ) {
     let name = "hN" + t;
     let chosenRole = "h";
@@ -1398,6 +1444,9 @@ function spawnCreepTypes(enAvail, spawns) {
     }
   }
 
+  Memory.viewers = viewers;
+  Memory.viewersE59S47 = viewersE59S47;
+  Memory.viewersE59S49 = viewersE59S49;
   Memory.roadBuilders = roadBuilders;
   Memory.reservers = reservers;
   Memory.harvesters = harvesters;

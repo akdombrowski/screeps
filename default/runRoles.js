@@ -18,6 +18,7 @@ const roleAttackerNE = require("./role.attackerNE");
 const buildRoad = require("./action.buildRoad");
 const roleReserver = require("./role.reserver");
 const profiler = require("./screeps-profiler");
+const roleViewer = require("./role.viewer");
 
 function runRoles() {
   let i = 0;
@@ -40,6 +41,9 @@ function runRoles() {
   let linkGets = [];
   let towerHarvesters = [];
   let reservers = [];
+  let viewers = [];
+  let viewersE59S47 = [];
+  let viewersE59S49 = [];
   let retval = -16;
 
   for (let name in crps) {
@@ -127,6 +131,22 @@ function runRoles() {
           Game.flags.southExit,
           BOTTOM
         );
+      } else {
+        roadRepairers.push(name);
+        roleRepairer(creep, Memory.homeRoomName, null, null);
+      }
+    } else if (roll === "viewer") {
+      if (creep.memory.direction.startsWith("s")) {
+
+        viewersE59S48.push(name);
+        roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+      } else if (creep.memory.direction.startsWith("n")) {
+        viewersE59S47.push(name);
+        roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+      } else if (creep.memory.direction.startsWith("deepSouth")) {
+
+        viewersE59S49.push(name);
+        roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
       } else {
         roadRepairers.push(name);
         roleRepairer(creep, Memory.homeRoomName, null, null);
@@ -319,6 +339,9 @@ function runRoles() {
   Memory.claimers = claimers;
   Memory.linkGets = linkGets;
   Memory.towerHarvesters = towerHarvesters;
+  Memory.viewers = viewers;
+  Memory.viewersE59S47 = viewersE59S47;
+  Memory.viewersE59S49 = viewersE59S49;
 }
 
 runRoles = profiler.registerFN(runRoles, "runRoles");

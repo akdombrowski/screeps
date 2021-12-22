@@ -467,7 +467,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 4) {
+    } else if (harvestersE59S49.length < 3) {
       harvestersE59S49.push(name);
       parts = simpleParts;
       direction = "deepSouth";
@@ -612,7 +612,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (upControllersE59S49.length < 2) {
+    } else if (upControllersE59S49.length < 1) {
       name = "upCdS" + t;
       upControllersE59S49.push(name);
       chosenRole = "upCdS";
@@ -629,7 +629,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairersE59S49.length < 12) {
+    } else if (roadRepairersE59S49.length < 2) {
       name = "rRdS" + t;
       roadRepairersE59S49.push(name);
       chosenRole = "roadRepairer";
@@ -798,7 +798,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //        #        #  #     #
   //  #     #  #     #   #   #
   //   #####    #####     ###
-  if (enAvail >= 550 && !Memory.dSAttackerId && numOfCreepsTotal < 12) {
+  if (enAvail >= 550 && !Memory.dSAttackerId) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "north";
@@ -822,23 +822,23 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S47.length < 1) {
-      name = "hN" + t;
-      harvestersE59S47.push(name);
-      chosenRole = "h";
-      direction = "north";
-      group = "harvestersE59S47";
-      retval = deepSouthbirthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    } else if (roadRepairers.length < 1) {
+    // } else if (harvestersE59S47.length < 1) {
+    //   name = "hN" + t;
+    //   harvestersE59S47.push(name);
+    //   chosenRole = "h";
+    //   direction = "north";
+    //   group = "harvestersE59S47";
+    //   retval = deepSouthbirthCreep(
+    //     spawns,
+    //     parts,
+    //     name,
+    //     chosenRole,
+    //     direction,
+    //     sourceId,
+    //     spawnDirection,
+    //     group
+    //   );
+    } else if (roadRepairers.length < 4) {
       parts = workerParts550;
       name = "rR" + t;
       roadRepairers.push(name);
@@ -855,7 +855,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (upControllersE59S49.length < 4) {
+    } else if (upControllersE59S49.length < 8) {
       name = "upCdS" + t;
       upControllersE59S49.push(name);
       chosenRole = "upCdS";

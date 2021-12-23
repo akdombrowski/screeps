@@ -1,7 +1,7 @@
 const transferEnergy = require("./action.transferEnergy");
 const buildRoad = require("./action.buildRoad");
 const transferEnergyeRm = require("./action.transferEnergyeRm");
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 
 function vest(creep, flag, path) {
     creep.memory.direction = "east";
@@ -30,7 +30,7 @@ function vest(creep, flag, path) {
         Memory.ermNeHarvesters = ermNeHarvesters;
     }
 
-    
+
     if (creep.room.name === "E35N31") {
         if (creep.pos.isNearTo(Game.flags.eastExit)) {
             creep.move(RIGHT);

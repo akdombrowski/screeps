@@ -1,4 +1,4 @@
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 const getEnergy = require("./action.getEnergy");
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
 const { checkIfBlockingSource } = require("./utilities.checkIfBlockingSource");

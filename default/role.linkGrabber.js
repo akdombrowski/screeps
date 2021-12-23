@@ -4,7 +4,7 @@ const getEnergyNorth = require("./action.getEnergyNorth");
 const getEnergyEast = require("./action.getEnergyEast");
 const getEnergyWest = require("./action.getEnergyWest");
 const buildRoad = require("./action.buildRoad");
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 
 const roleLinkGrabber = {
   /** @param {Creep} creep **/

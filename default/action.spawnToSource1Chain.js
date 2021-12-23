@@ -8,7 +8,7 @@
  *
  */
 const chainMove = require("./chainMove");
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 const supplyChain = require("./supplyChain");
 const spawnChain = require("./spawnHarvesterChain");
 

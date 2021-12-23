@@ -1,5 +1,5 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 const traneRm = require("./action.transferEnergyeRm");
 const tranee = require("./action.transferEnergyEEast");
 const tranW = require("./action.transferEnergyW");

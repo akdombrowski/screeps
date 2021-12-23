@@ -1,5 +1,5 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 
 function tranNE(creep, flag, dest) {
   let target;

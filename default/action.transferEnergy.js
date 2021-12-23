@@ -102,8 +102,9 @@ function tran(
         targetRoomName != Memory.deepSouthRoomName &&
         creep.room.name === Memory.deepSouthRoomName
       ) {
-        // if in the deepSouth room but target room is not deepSouth, head north
+        // if in the deepSouth room but target room is not deepSouth
         if (targetRoomName != Memory.e58s49RoomName) {
+          // if target name is not the SW room, then head north to home room
           exitDirection = TOP;
           exit = Game.flags.southEntrance;
         }

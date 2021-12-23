@@ -6,14 +6,22 @@ const tranW = require("./action.transferEnergyW");
 const transEnTower = require("./action.transEnTower");
 const profiler = require("./screeps-profiler");
 const { before } = require("lodash");
-const { checkIfOkToTransferToTower } = require("./transfer.checkIfOkToTransferToTower");
+const {
+  checkIfOkToTransferToTower,
+} = require("./transfer.checkIfOkToTransferToTower");
 const {
   findExtsOrSpawnsToTransferTo,
 } = require("./find.findExtsOrSpawnsToTransferTo");
-const { fleeFromTargetBecauseFull } = require("./move.fleeFromTargetBecauseFull");
+const {
+  fleeFromTargetBecauseFull,
+} = require("./move.fleeFromTargetBecauseFull");
 const { sayTired } = require("./say.sayTired");
-const { findExtsOrSpawnsForRoom } = require("./transfer.findExtsOrSpawnsForRoom");
-const { checkForFlagTargetStructure } = require("./checkForFlagTargetStructure");
+const {
+  findExtsOrSpawnsForRoom,
+} = require("./transfer.findExtsOrSpawnsForRoom");
+const {
+  checkForFlagTargetStructure,
+} = require("./checkForFlagTargetStructure");
 
 function tran(
   creep,
@@ -95,8 +103,10 @@ function tran(
         creep.room.name === Memory.deepSouthRoomName
       ) {
         // if in the deepSouth room but target room is not deepSouth, head north
-        exitDirection = TOP;
-        exit = Game.flags.southEntrance;
+        if (targetRoomName != Memory.e58s49RoomName) {
+          exitDirection = TOP;
+          exit = Game.flags.southEntrance;
+        }
       } else if (
         targetRoomName != Memory.e58s49RoomName &&
         creep.room.name === Memory.e58s49RoomName

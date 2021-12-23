@@ -8,6 +8,9 @@ const {
 const {
   memoryE59S48ExtensionsRefresh,
 } = require("./getEnergy.memoryE59S48ExtensionsRefresh");
+const {
+  memoryE58S48ExtensionsRefresh,
+} = require("./getEnergy.memoryE58S48ExtensionsRefresh");
 
 function checkForExtensions(targetRoomName, creep, extensions) {
   let exts = [];
@@ -21,6 +24,9 @@ function checkForExtensions(targetRoomName, creep, extensions) {
       break;
     case Memory.deepSouthRoomName:
       exts = memoryE59S49ExtensionsRefresh(creep, extensions);
+      break;
+    case Memory.e58s49RoomName:
+      exts = memoryE58S49ExtensionsRefresh(creep, extensions);
       break;
     default:
       exts = memoryE59S48ExtensionsRefresh(creep, extensions);

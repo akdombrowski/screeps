@@ -600,7 +600,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 9) {
+    if (harvesters.length < 7) {
       harvesters.push(name);
       retval = deepSouthbirthCreep(
         spawns,
@@ -612,7 +612,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 2) {
+    } else if (harvestersE59S49.length < 3) {
       harvestersE59S49.push(name);
       direction = "deepSouth";
       chosenRole = "h";
@@ -643,7 +643,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairersE59S49.length < 2) {
+    } else if (roadRepairersE59S49.length < 1) {
       name = "rRdS" + t;
       roadRepairersE59S49.push(name);
       chosenRole = "roadRepairer";
@@ -836,7 +836,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 3) {
+    } else if (harvestersE59S49.length < 4) {
       harvestersE59S49.push(name);
       direction = "deepSouth";
       chosenRole = "h";
@@ -867,7 +867,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       //     spawnDirection,
       //     group
       //   );
-    } else if (roadRepairers.length < 6) {
+    } else if (roadRepairers.length < 2) {
       parts = workerParts550;
       name = "rR" + t;
       roadRepairers.push(name);
@@ -884,7 +884,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (upControllersE59S49.length < 8) {
+    } else if (upControllersE59S49.length < 1) {
       name = "upCdS" + t;
       upControllersE59S49.push(name);
       chosenRole = "upCdS";
@@ -903,10 +903,12 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         group
       );
     } else {
-      name = "h" + t;
-      harvesters.push(name);
-      chosenRole = "h";
-      direction = "south";
+      parts = workerParts550;
+      name = "rRdS" + t;
+      roadRepairersE59S49.push(name);
+      chosenRole = "roadRepairer";
+      direction = "deepSouth";
+      group = "roadRepairersE59S49";
       retval = deepSouthbirthCreep(
         spawns,
         parts,

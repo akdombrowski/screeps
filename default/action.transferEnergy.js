@@ -11,6 +11,7 @@ const {
   findExtsOrSpawnsToTransferTo,
 } = require("./findExtsOrSpawnsToTransferTo");
 const { fleeFromTargetBecauseFull } = require("./fleeFromTargetBecauseFull");
+const { sayTired } = require("./say.sayTired");
 
 function tran(
   creep,
@@ -304,7 +305,7 @@ function tran(
       return { retval: result, extensions: extensions, spawns: spawns };
     }
   } else if (creep.fatigue > 0) {
-    creep.say("f." + creep.fatigue);
+    sayTired(creep);
     return { retval: ERR_TIRED, extensions: extensions, spawns: spawns };
   } else if (target) {
     creep.memory.transferTargetId = target.id;
@@ -330,11 +331,11 @@ function tran(
           creep.pos
       );
 
-      creep.say("m.err." + retval);
+      creep.say("m.err." + retval + "🤐");
       return { retval: retval, extensions: extensions, spawns: spawns };
     } else if (retval === OK) {
       creep.memory.transferTargetId = target.id;
-      creep.say(target.pos.x + "," + target.pos.y);
+      creep.say("t." + target.pos.x + "," + target.pos.y);
       return { retval: retval, extensions: extensions, spawns: spawns };
     }
   } else {
@@ -349,7 +350,7 @@ function tran(
     );
 
     creep.memory.path = null;
-    creep.say("t.err");
+    creep.say("t.err🤐");
   }
 
   return { retval: retval, extensions: extensions, spawns: spawns };

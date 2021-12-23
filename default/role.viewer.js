@@ -3,8 +3,8 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const build = require("./action.build");
 const findRepairable = require("./action.findRepairableStruct");
-const { findFixables } = require("./findFixables");
-const { checkIfBlockingSource } = require("./checkIfBlockingSource");
+const { findFixables } = require("./find.findFixables");
+const { checkIfBlockingSource } = require("./utilities.checkIfBlockingSource");
 const profiler = require("./screeps-profiler");
 
 function roleViewer(creep, targetRoomName, exit, exitDirection) {

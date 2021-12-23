@@ -5,7 +5,7 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./action.smartMove");
 const vestEE = require("./action.getEnergyEEast");
 const profiler = require("./screeps-profiler");
-const { chooseSource } = require("./chooseSource");
+const { chooseSource } = require("./getEnergy.chooseSource");
 
 function getEnergy(
   creep,

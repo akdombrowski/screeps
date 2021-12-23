@@ -1,7 +1,7 @@
 const profiler = require("./screeps-profiler");
-const { mapIDsToGameObjs } = require("./mapIDsToGameObjs");
+const { mapIDsToGameObjs } = require("./utilties.mapIDsToGameObjs");
 const { checkForExtensions } = require("./checkForExtensions");
-const { checkForSpawns } = require("./checkForSpawns");
+const { checkForSpawns } = require("./getEnergy.checkForSpawns");
 
 function findExtsOrSpawnsToTransferTo2(
   creep,

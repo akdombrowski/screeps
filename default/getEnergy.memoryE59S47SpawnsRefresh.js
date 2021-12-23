@@ -1,4 +1,4 @@
-const { findMyStructs } = require("./findMyStructs");
+const { findMyStructs } = require("./find.findMyStructs");
 const profiler = require("./screeps-profiler");
 
 function memoryE59S47SpawnsRefresh(creep, spawns) {

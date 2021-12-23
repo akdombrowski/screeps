@@ -12,27 +12,27 @@ const spawnCreepTypesNE = require("./spawn.spawnCreepTypesNE");
 const spawnCreepTypesN = require("./spawn.spawnCreepTypesN");
 const runRoles = require("./runRoles");
 const linkTran = require("./action.linkTran");
-const linkTransfer = require("./linkTransfer");
+const linkTransfer = require("./action.linkTransfer");
 const profiler = require("./screeps-profiler");
 const findDecayed = require("./action.findDecayed");
-const { checkProgress } = require("./checkProgress");
-const { deleteDeadCreeps } = require("./deleteDeadCreeps");
+const { checkProgress } = require("./game.checkProgress");
+const { deleteDeadCreeps } = require("./utilities.deleteDeadCreeps");
 const { areCreepsDying } = require("./areCreepsDying");
 const { towersAttackInvader } = require("./towersAttackInvader");
-const { reCheckNumOfCreeps } = require("./reCheckNumOfCreeps");
+const { reCheckNumOfCreeps } = require("./utilities.reCheckNumOfCreeps");
 const { towerRepair } = require("./towerRepair");
 const {
   memoryE59S48ExtensionsRefresh,
-} = require("./memoryE59S48ExtensionsRefresh");
+} = require("./getEnergy.memoryE59S48ExtensionsRefresh");
 const {
   memoryE59S47ExtensionsRefresh,
-} = require("./memoryE59S47ExtensionsRefresh");
+} = require("./getEnergy.memoryE59S47ExtensionsRefresh");
 const {
   memoryE59S49ExtensionsRefresh,
-} = require("./memoryE59S49ExtensionsRefresh");
-const { memoryE59S48SpawnsRefresh } = require("./memoryE59S48SpawnsRefresh");
-const { memoryE59S47SpawnsRefresh } = require("./memoryE59S47SpawnsRefresh");
-const { memoryE59S49SpawnsRefresh } = require("./memoryE59S49SpawnsRefresh");
+} = require("./getEnergy.memoryE59S49ExtensionsRefresh");
+const { memoryE59S48SpawnsRefresh } = require("./getEnergy.memoryE59S48SpawnsRefresh");
+const { memoryE59S47SpawnsRefresh } = require("./getEnergy.memoryE59S47SpawnsRefresh");
+const { memoryE59S49SpawnsRefresh } = require("./getEnergy.memoryE59S49SpawnsRefresh");
 
 // This line monkey patches the global prototypes.
 profiler.enable();

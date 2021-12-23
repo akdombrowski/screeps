@@ -6,12 +6,14 @@ const tranW = require("./action.transferEnergyW");
 const transEnTower = require("./action.transEnTower");
 const profiler = require("./screeps-profiler");
 const { before } = require("lodash");
-const { checkIfOkToTransferToTower } = require("./checkIfOkToTransferToTower");
+const { checkIfOkToTransferToTower } = require("./transfer.checkIfOkToTransferToTower");
 const {
   findExtsOrSpawnsToTransferTo,
-} = require("./findExtsOrSpawnsToTransferTo");
-const { fleeFromTargetBecauseFull } = require("./fleeFromTargetBecauseFull");
+} = require("./find.findExtsOrSpawnsToTransferTo");
+const { fleeFromTargetBecauseFull } = require("./move.fleeFromTargetBecauseFull");
 const { sayTired } = require("./say.sayTired");
+const { findExtsOrSpawnsForRoom } = require("./transfer.findExtsOrSpawnsForRoom");
+const { checkForFlagTargetStructure } = require("./checkForFlagTargetStructure");
 
 function tran(
   creep,
@@ -67,7 +69,7 @@ function tran(
   );
 
   if (!target) {
-    target = checkForFlagTarget(flag, creep, extensions, spawns);
+    target = checkForFlagTargetStructure(flag, creep, extensions, spawns);
   }
 
   if (creepRoomName != targetRoomName) {
@@ -294,13 +296,13 @@ function tran(
     if (retval === OK) {
       creep.memory.transferTargetId = target.id;
       creep.memory.path = null;
-      creep.say("t");
+      creep.say("t🤑");
       return { retval: retval, extensions: extensions, spawns: spawns };
     } else if (retval === ERR_FULL) {
       retval = fleeFromTargetBecauseFull(creep, retval, target);
       return { retval: retval, extensions: extensions, spawns: spawns };
     } else {
-      creep.say("ouch");
+      creep.say("ouch🤕");
       let result = creep.move(BOTTOM);
       return { retval: result, extensions: extensions, spawns: spawns };
     }
@@ -335,7 +337,7 @@ function tran(
       return { retval: retval, extensions: extensions, spawns: spawns };
     } else if (retval === OK) {
       creep.memory.transferTargetId = target.id;
-      creep.say("t." + target.pos.x + "," + target.pos.y);
+      creep.say("t." + target.pos.x + "," + target.pos.y + "🏃");
       return { retval: retval, extensions: extensions, spawns: spawns };
     }
   } else {
@@ -358,69 +360,6 @@ function tran(
 
 tran = profiler.registerFN(tran, "tran");
 module.exports = tran;
-
-function findExtsOrSpawnsForRoom(creep, extensions, spawns) {
-  let creepRoom = creep.room;
-  let creepRoomName = creepRoom.name;
-  const direction = creep.memory.direction;
-  let target = null;
-  let transferTargetsAndMemoryObjects = null;
-
-  if (creepRoomName === Memory.homeRoomName && direction != "deepSouth") {
-    transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-      creep,
-      target,
-      Memory.homeRoomName,
-      extensions,
-      spawns
-    );
-  } else if (creepRoomName === Memory.northRoomName) {
-    transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-      creep,
-      target,
-      Memory.northRoomName,
-      extensions,
-      spawns
-    );
-  } else if (creepRoomName === Memory.deepSouthRoomName) {
-    transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-      creep,
-      target,
-      Memory.deepSouthRoomName,
-      extensions,
-      spawns
-    );
-  }
-
-  target = transferTargetsAndMemoryObjects.target;
-  extensions = transferTargetsAndMemoryObjects.extensions;
-  spawns = transferTargetsAndMemoryObjects.spawns;
-
-  if (target) {
-    creep.memory.transferTargetId = target.id;
-  }
-  return { target, extensions, spawns };
-}
-
-findExtsOrSpawnsForRoom = profiler.registerFN(
-  findExtsOrSpawnsForRoom,
-  "findExtsOrSpawnsForRoom"
-);
-
-function checkForFlagTarget(flag, creep) {
-  let target = null;
-  if (flag && flag.pos) {
-    target = flag.pos.lookFor(LOOK_STRUCTURES).pop();
-  } else if (creep.memory.flag) {
-    target = creep.room.lookForAt(LOOK_STRUCTURES, creep.memory.flag).pop();
-  }
-  return target;
-}
-
-checkForFlagTarget = profiler.registerFN(
-  checkForFlagTarget,
-  "checkForFlagTarget"
-);
 
 function checkTransferToTower(
   creepRoom,

@@ -1,13 +1,13 @@
 const profiler = require("./screeps-profiler");
 const {
   memoryE59S49ExtensionsRefresh,
-} = require("./memoryE59S49ExtensionsRefresh");
+} = require("./getEnergy.memoryE59S49ExtensionsRefresh");
 const {
   memoryE59S47ExtensionsRefresh,
-} = require("./memoryE59S47ExtensionsRefresh");
+} = require("./getEnergy.memoryE59S47ExtensionsRefresh");
 const {
   memoryE59S48ExtensionsRefresh,
-} = require("./memoryE59S48ExtensionsRefresh");
+} = require("./getEnergy.memoryE59S48ExtensionsRefresh");
 
 function checkForExtensions(targetRoomName, creep, extensions) {
   let exts = [];

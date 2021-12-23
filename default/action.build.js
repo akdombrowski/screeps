@@ -1,7 +1,7 @@
 const smartMove = require("./action.smartMove");
 const getEnergy = require("./action.getEnergy");
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
-const { checkIfBlockingSource } = require("./checkIfBlockingSource");
+const { checkIfBlockingSource } = require("./utilities.checkIfBlockingSource");
 const profiler = require("./screeps-profiler");
 
 function build(creep) {

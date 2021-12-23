@@ -1,4 +1,4 @@
-const { findFixables } = require("./findFixables");
+const { findFixables } = require("./find.findFixables");
 const findRepairable = require("./action.findRepairableStruct");
 const profiler = require("./screeps-profiler");
 

@@ -1,5 +1,5 @@
 const profiler = require("./screeps-profiler");
-const { findMyStructs } = require("./findMyStructs");
+const { findMyStructs } = require("./find.findMyStructs");
 
 function memoryE59S49SpawnsRefresh(creep, spawns) {
   if (spawns && spawns.length > 0) {

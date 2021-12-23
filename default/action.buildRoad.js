@@ -1,6 +1,6 @@
 const smartMove = require("./action.smartMove");
 const getEnergy = require("./action.getEnergy.1");
-const { checkIfBlockingSource } = require("./checkIfBlockingSource");
+const { checkIfBlockingSource } = require("./utilities.checkIfBlockingSource");
 const profiler = require("./screeps-profiler");
 
 function buildRoad(creep) {

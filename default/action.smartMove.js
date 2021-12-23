@@ -81,11 +81,21 @@ function smartMove(
         });
 
         if (retval === OK) {
+          let newPathArray = [];
           creep.memory.stuck = false;
-          if (creep.memory._move.path instanceof String) {
-            path = Room.deserializePath(creep.memory._move.path);
-          }
-          creep.memory.path = path;
+
+          path = creep.memory._move.path;
+
+          path.forEach((step) => {
+            // console.log(JSON.stringify(step));
+            let px = step.x + step.dx;
+            let py = step.y + step.dy;
+            let roomName = creep.room.name;
+            let pos = new RoomPosition(px, py, roomName);
+            newPathArray.push(pos);
+          });
+
+          creep.memory.path = newPathArray;
         }
 
         return retval;
@@ -339,7 +349,6 @@ function setVisualAndPathInMemory(creep, path, pathColor) {
     path.shift();
     creep.memory.path = path;
   }
-
 }
 
 setVisualAndPathInMemory = profiler.registerFN(

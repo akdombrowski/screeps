@@ -1,6 +1,6 @@
 const getEnergy = require("./action.getEnergy.1");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 
 function upController(creep, flag, room) {
   let controllerId = "5bbcaefa9099fc012e639e8b";

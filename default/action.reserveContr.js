@@ -1,4 +1,4 @@
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 
 function reserveContr(creep, rm, exit, exitDirection, entrance, controller) {
   /** creep controller reserve**/

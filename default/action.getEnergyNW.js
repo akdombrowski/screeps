@@ -2,7 +2,7 @@ const transferEnergy = require("./action.transferEnergyEEast");
 const buildRoad = require("./action.buildRoad");
 const transferEnergyE = require("./action.transferEnergyeRm");
 const transferEnergyNW = require("./action.transferEnergyNW");
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 
 function checkForCreepsNearSource(creep, range, sources) {
   let target = sources[0];

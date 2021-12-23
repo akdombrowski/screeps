@@ -1,4 +1,4 @@
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 const getEnergy = require("./action.getEnergyEEast");
 const ermgetEnergyEast = require("./action.getEnergy");
 const profiler = require("./screeps-profiler");

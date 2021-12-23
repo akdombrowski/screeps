@@ -1,6 +1,6 @@
 const getEnergy = require("./action.getEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 const build = require("./action.build");
 const findRepairable = require("./action.findRepairableStruct");
 const { findFixables } = require("./find.findFixables");

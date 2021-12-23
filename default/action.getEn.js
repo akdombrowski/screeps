@@ -2,7 +2,7 @@ const transferEnergy = require("./action.transferEnergyEEast");
 const buildRoad = require("./action.buildRoad");
 const transferEnergyE = require("./action.transferEnergyeRm");
 const transEn = require("./action.transEn");
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 
 function sourceWithLessCreeps(
   creep,

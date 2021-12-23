@@ -1,4 +1,4 @@
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 
 function build(creep, flag, room) {
   let targetId = "5e60f7da11457a06d70b09a8";

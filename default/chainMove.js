@@ -1,4 +1,4 @@
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 function chainMove(pullerName, creepNames, destPos, rngToDest) {
   /** creep chain moving **/
   let puller = Game.creeps[pullerName];

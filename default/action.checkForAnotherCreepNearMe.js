@@ -1,4 +1,4 @@
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 
 function creepinMeOut(creep) {
   let targetId = creep.memory.targetId;

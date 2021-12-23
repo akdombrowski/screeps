@@ -1,4 +1,4 @@
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 
 function linkTran(linkEntrance, linkExit, flag, dest) {
   let retval = -16;

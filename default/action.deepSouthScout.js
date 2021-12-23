@@ -2,7 +2,7 @@ const transferEnergy = require("./action.transferEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const buildRoad = require("./action.buildRoad");
 
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 function scoutDeepSouth(creep, flag, path) {
   creep.memory.direction = "deepSouth";
   const northExit = Game.flags.deepSouthExit;

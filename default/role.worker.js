@@ -1,5 +1,5 @@
 const getEnergy = require("./action.getEnergy");
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
 const build = require("./action.build");
 const profiler = require("./screeps-profiler");

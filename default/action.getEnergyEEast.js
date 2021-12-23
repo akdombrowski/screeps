@@ -1,6 +1,6 @@
 const transferEnergy = require("./action.transferEnergyEEast");
 const transferEnergyeRm = require("./action.transferEnergyeRm");
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 
 function vest(creep, flag, path) {
   creep.memory.direction = "eeast";

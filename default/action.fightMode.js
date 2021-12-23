@@ -1,4 +1,4 @@
-const smartMove = require("./action.smartMove");
+const smartMove = require("./move.smartMove");
 
 function fight(creep, tagetId) {
   targetId = targetId || creep.memory.targetId;

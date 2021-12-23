@@ -1,7 +1,7 @@
 const profiler = require("./screeps-profiler");
 const { findMyStructs } = require("./find.findMyStructs");
 
-function memoryE58S48ExtensionsRefresh(creep, extensions) {
+function memoryE58S49ExtensionsRefresh(creep, extensions) {
   const waitTimeToRecheck = 10;
 
   if (!Memory.laste58s48ExtCheckTime) {
@@ -26,8 +26,8 @@ function memoryE58S48ExtensionsRefresh(creep, extensions) {
   // console.log("Memory.e58s48extensions: " + Memory.e58s48extensions);
   return extensions;
 }
-exports.memoryE58S48ExtensionsRefresh = memoryE58S48ExtensionsRefresh;
-memoryE58S48ExtensionsRefresh = profiler.registerFN(
-  memoryE58S48ExtensionsRefresh,
-  "memoryE58S48ExtensionsRefresh"
+exports.memoryE58S49ExtensionsRefresh = memoryE58S49ExtensionsRefresh;
+memoryE58S49ExtensionsRefresh = profiler.registerFN(
+  memoryE58S49ExtensionsRefresh,
+  "memoryE58S49ExtensionsRefresh"
 );

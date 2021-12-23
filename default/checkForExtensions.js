@@ -9,8 +9,8 @@ const {
   memoryE59S48ExtensionsRefresh,
 } = require("./getEnergy.memoryE59S48ExtensionsRefresh");
 const {
-  memoryE58S48ExtensionsRefresh,
-} = require("./getEnergy.memoryE58S48ExtensionsRefresh");
+  memoryE58S49ExtensionsRefresh,
+} = require("./getEnergy.memoryE58S49ExtensionsRefresh");
 
 function checkForExtensions(targetRoomName, creep, extensions) {
   let exts = [];

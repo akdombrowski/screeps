@@ -17,7 +17,7 @@ function memoryE58S49SpawnsRefresh(creep, spawns) {
 
   return spawns;
 }
-exports.memoryE59S49SpawnsRefresh = memoryE58S49SpawnsRefresh;
+exports.memoryE58S49SpawnsRefresh = memoryE58S49SpawnsRefresh;
 memoryE58S49SpawnsRefresh = profiler.registerFN(
   memoryE58S49SpawnsRefresh,
   "memoryE58S49SpawnsRefresh"

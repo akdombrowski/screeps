@@ -132,6 +132,12 @@ function spawnCreepTypes(enAvail, spawns) {
   addPart(linkGetsParts300, 2, WORK);
   addPart(linkGetsParts300, 1, MOVE);
 
+  // 450
+  let harvesterParts450 = [];
+  addPart(harvesterParts450, 1, CARRY);
+  addPart(harvesterParts450, 2, WORK);
+  addPart(harvesterParts450, 4, MOVE);
+
   // 500
   let workerParts500 = [];
   addPart(workerParts500, 1, CARRY);
@@ -619,6 +625,133 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
+    }
+
+    if (retval !== -16) {
+      console.log("spawningS " + name + " " + retval);
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
+  }
+
+  //
+  //
+  //
+  // .##........########...#####..
+  // .##....##..##........##...##.
+  // .##....##..##.......##.....##
+  // .##....##..#######..##.....##
+  // .#########.......##.##.....##
+  // .......##..##....##..##...##.
+  // .......##...######....#####..
+  //
+  //
+  //
+  if (enAvail >= 450 && !invaderId && numOfCreepsTotal < 25) {
+    let name = "h" + t;
+    let chosenRole = "h";
+    let direction = "south";
+    let sourceId = Memory.source2;
+    let parts = harvesterParts450;
+    let group = "harvesters";
+    let spawnDirection = [TOP];
+
+    if (harvesters.length < 10) {
+      name = "h" + t;
+      harvesters.push(name);
+      chosenRole = "h";
+      direction = "south";
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+      // } else if (!nAttackerId && harvestersE59S47.length < 2) {
+      //   name = "hN" + t;
+      //   harvestersE59S47.push(name);
+      //   chosenRole = "h";
+      //   direction = "north";
+      //   group = "harvestersE59S47";
+      //   retval = birthCreep(
+      //     spawns,
+      //     parts,
+      //     name,
+      //     chosenRole,
+      //     direction,
+      //     sourceId,
+      //     spawnDirection,
+      //     group
+      //   );
+    } else if (roadRepairers.length < 1) {
+      name = "rR" + t;
+      roadRepairers.push(name);
+      chosenRole = "roadRepairer";
+      direction = "south";
+      group = "roadRepairers";
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (harvesters.length < 12) {
+      name = "h" + t;
+      harvesters.push(name);
+      chosenRole = "h";
+      direction = "south";
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+      // } else if (harvestersE59S47.length < 1) {
+      //   name = "hN" + t;
+      //   harvestersE59S47.push(name);
+      //   chosenRole = "h";
+      //   direction = "north";
+      //   group = "harvestersE59S47";
+      //   retval = birthCreep(
+      //     spawns,
+      //     parts,
+      //     name,
+      //     chosenRole,
+      //     direction,
+      //     sourceId,
+      //     spawnDirection,
+      //     group
+      //   );
+      // } else {
+      //   parts = workerParts550;
+      //   name = "rR" + t;
+      //   roadRepairers.push(name);
+      //   chosenRole = "roadRepairer";
+      //   direction = "south";
+      //   group = "roadRepairers";
+      //   retval = birthCreep(
+      //     spawns,
+      //     parts,
+      //     name,
+      //     chosenRole,
+      //     direction,
+      //     sourceId,
+      //     spawnDirection,
+      //     group
+      //   );
     }
 
     if (retval !== -16) {

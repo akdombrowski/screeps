@@ -44,6 +44,8 @@ function runRoles() {
   let viewers = [];
   let viewersE59S47 = [];
   let viewersE59S49 = [];
+  let creepsE59S48 = [];
+  let creepsE59S49 = [];
   let retval = -16;
 
   for (let name in crps) {
@@ -58,6 +60,12 @@ function runRoles() {
 
     if (creep.spawning) {
       continue;
+    }
+
+    if (creep.memory.direction === "south") {
+      creepsE59S48.push(name);
+    } else if (creep.memory.direction === "deepSouth") {
+      creepsE59S49.push(name);
     }
 
     if (roll === "h" || roll === "harvester" || roll.startsWith("h")) {
@@ -345,6 +353,8 @@ function runRoles() {
   Memory.viewers = viewers;
   Memory.viewersE59S47 = viewersE59S47;
   Memory.viewersE59S49 = viewersE59S49;
+  Memory.creepsE59S48 = creepsE59S48;
+  Memory.creepsE59S49 = creepsE59S49;
 }
 
 runRoles = profiler.registerFN(runRoles, "runRoles");

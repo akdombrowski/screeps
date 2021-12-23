@@ -53,6 +53,7 @@ function runRoles() {
   let e59s48extensions = Memory.e59s48extensions;
   let e59s47extensions = Memory.e59s47extensions;
   let e59s49extensions = Memory.e59s49extensions;
+  let e58s49extensions = Memory.e58s49extensions;
   let e59s48spawns = Memory.e59s48spawns;
   let e59s47spawns = Memory.e59s47spawns;
   let e59s49spawns = Memory.e59s49spawns;
@@ -89,7 +90,7 @@ function runRoles() {
         harvestersE59S49.push(name);
         ret = roleHarvester(creep, e59s49extensions, e59s49spawns);
       } else if (creep.memory.direction === "e58s49") {
-        harvestersE59S49.push(name);
+        harvestersE58S49.push(name);
         ret = roleHarvester(creep, e58s49extensions, e58s49spawns);
       } else {
         creep.memory.direction = "south";

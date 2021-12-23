@@ -62,7 +62,7 @@ function getEnergy(
       exit = Game.flags.northEntrance;
     } else if (
       targetRoomName != Memory.deepSouthRoomName &&
-      creepRoomName === Memory.deepSouthRoomName
+      creepRoomName === Memory.deepSouthRoomName && targetRoomName != Memory.e58s49RoomName
     ) {
       // if in the deepSouth room but target room is not deepSouth, head north
       exitDirection = TOP;
@@ -71,15 +71,35 @@ function getEnergy(
       targetRoomName != Memory.e58s49RoomName &&
       creepRoomName === Memory.e58s49RoomName
     ) {
-      // if in the deepSouth room but target room is not deepSouth, head north
-      exitDirection = RIGHT;
-      exit = Game.flags.e59s49Entrance;
+        // if in the SW room but target room is not SW, head to deepSouth
+        exitDirection = RIGHT;
+        exit = Game.flags.e59s49Entrance;
+
+
+    } else if (
+      targetRoomName != Memory.homeRoomName &&
+      creepRoomName === Memory.homeRoomName
+    ) {
+        if(targetRoomName === Memory.e58s49RoomName) {
+            exitDirection = BOTTOM;
+            exit = Game.flags.southExit;
+        } else {
+            // if in the room but target room is not deepSouth, head north
+            exitDirection = BOTTOM;
+            exit = Game.flags.southExit;
+        }
+
     }
 
     if (creep.pos.isNearTo(exit)) {
       creep.say(exitDirection);
       retval = creep.move(exitDirection);
     } else {
+      if (name.startsWith("hSW")) {
+        console.log(name + " targetRoomName " + targetRoomName);
+        console.log(name + " exit " + exit);
+      }
+
       creep.say(targetRoomName);
       retval = smartMove(
         creep,

@@ -32,6 +32,14 @@ function findExtsOrSpawnsForRoom(creep, extensions, spawns) {
       extensions,
       spawns
     );
+  } else if (creepRoomName === Memory.e58s49RoomName) {
+    transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+      creep,
+      target,
+      Memory.e58s49RoomName,
+      extensions,
+      spawns
+    );
   }
 
   target = transferTargetsAndMemoryObjects.target;

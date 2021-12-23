@@ -74,7 +74,11 @@ function tran(
 
   if (creepRoomName != targetRoomName) {
     if (!target) {
-      ({ target, extensions, spawns } = findExtsOrSpawnsForRoom(creep));
+      ({ target, extensions, spawns } = findExtsOrSpawnsForRoom(
+        creep,
+        extensions,
+        spawns
+      ));
     }
 
     // check if we got a target for an ext or spawn or from memory
@@ -99,7 +103,7 @@ function tran(
       ) {
         // if in the deepSouth room but target room is not deepSouth, head north
         exitDirection = RIGHT;
-        exit = Game.flags.e59s49Entrance;
+        exit = Game.flags.e59s49Exit;
       }
 
       if (creep.pos.isNearTo(exit)) {

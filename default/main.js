@@ -56,7 +56,7 @@ module.exports.loop = function () {
     Memory.homeRoomName = "E59S48";
     Memory.northRoomName = "E59S47";
     Memory.deepSouthRoomName = "E59S49";
-    Memory.e58s49RoomName = "E59S49";
+    Memory.e58s49RoomName = "E58S49";
 
     Memory.northControllerID = "59bbc5d22052a716c3cea133";
 

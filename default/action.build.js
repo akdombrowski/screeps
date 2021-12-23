@@ -40,7 +40,7 @@ function build(creep) {
       }
     } else if (creep.room.name === Memory.deepSouthRoomName) {
       // tower construction site
-      // target = Game.getObjectById("61c45a353762ce2f67126fe2");
+      target = Game.getObjectById("61c4c432be69f647d60e0a1d");
       if (target && target.progress < target.progressTotal) {
         // good, keep target
         creep.memory.lastBuildID = target.id;
@@ -368,18 +368,21 @@ function build(creep) {
             }
           });
 
-          Memory.e58s49sites = Memory.e58s49sites.filter((id) => {
-            let site = Game.getObjectById(id);
-            if (!site) {
+          if (Memory.e58s49sites) {
+            Memory.e58s49sites = Memory.e58s49sites.filter((id) => {
+              let site = Game.getObjectById(id);
+              if (!site) {
+                return false;
+              }
+
+              if (site.progress < site.progressTotal) {
+                return true;
+              }
+
               return false;
-            }
+            });
+          }
 
-            if (site.progress < site.progressTotal) {
-              return true;
-            }
-
-            return false;
-          });
           if (sites) {
             try {
               target = creep.pos.findClosestByPath(sites);

@@ -30,9 +30,15 @@ const {
 const {
   memoryE59S49ExtensionsRefresh,
 } = require("./getEnergy.memoryE59S49ExtensionsRefresh");
-const { memoryE59S48SpawnsRefresh } = require("./getEnergy.memoryE59S48SpawnsRefresh");
-const { memoryE59S47SpawnsRefresh } = require("./getEnergy.memoryE59S47SpawnsRefresh");
-const { memoryE59S49SpawnsRefresh } = require("./getEnergy.memoryE59S49SpawnsRefresh");
+const {
+  memoryE59S48SpawnsRefresh,
+} = require("./getEnergy.memoryE59S48SpawnsRefresh");
+const {
+  memoryE59S47SpawnsRefresh,
+} = require("./getEnergy.memoryE59S47SpawnsRefresh");
+const {
+  memoryE59S49SpawnsRefresh,
+} = require("./getEnergy.memoryE59S49SpawnsRefresh");
 
 // This line monkey patches the global prototypes.
 profiler.enable();
@@ -78,6 +84,7 @@ module.exports.loop = function () {
     Memory.nSource2 = "59bbc5d22052a716c3cea132";
 
     Memory.tower1Id = "61bc38d236c34cfe01fad9cd";
+    Memory.dSTower1Id = "61c492d3227d7cef1df2ce6e";
 
     Memory.attackDurationSafeCheck = 1000;
     Memory.nattackDurationSafeCheck = 1000;

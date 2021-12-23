@@ -93,6 +93,13 @@ function tran(
         // if in the deepSouth room but target room is not deepSouth, head north
         exitDirection = TOP;
         exit = Game.flags.southEntrance;
+      } else if (
+        targetRoomName != Memory.e58s49RoomName &&
+        creep.room.name === Memory.e58s49RoomName
+      ) {
+        // if in the deepSouth room but target room is not deepSouth, head north
+        exitDirection = RIGHT;
+        exit = Game.flags.e59s49Entrance;
       }
 
       if (creep.pos.isNearTo(exit)) {
@@ -173,6 +180,18 @@ function tran(
         creep,
         target,
         Memory.deepSouthRoomName,
+        extensions,
+        spawns
+      );
+    } else if (
+      !target &&
+      creepRoomName === Memory.e58s49RoomName &&
+      targetRoomName === Memory.e58s49RoomName
+    ) {
+      transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+        creep,
+        target,
+        Memory.e58s49RoomName,
         extensions,
         spawns
       );

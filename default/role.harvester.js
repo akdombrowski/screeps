@@ -15,6 +15,7 @@ function roleHarvester(creep, extensions, spawns) {
   const homeRmName = Memory.homeRoomName;
   const northRmName = Memory.northRoomName;
   const deepSouthRmName = Memory.deepSouthRoomName;
+  const e58s49RmName = Memory.e58s49RoomName;
   let retval = -16;
 
   if (
@@ -51,7 +52,30 @@ function roleHarvester(creep, extensions, spawns) {
         extensions,
         spawns
       );
+    } else if (creep.memory.direction === "e58s49") {
+      ret = transferEnergy(
+        creep,
+        null,
+        null,
+        Memory.deepSouthRoomName,
+        Game.flags.e59s49Entrance,
+        RIGHT,
+        extensions,
+        spawns
+      );
+    } else if (creep.memory.direction === "south") {
+      ret = transferEnergy(
+        creep,
+        null,
+        null,
+        Memory.homeRoomName,
+        null,
+        null,
+        extensions,
+        spawns
+      );
     } else {
+      creep.memory.direction = "south";
       ret = transferEnergy(
         creep,
         null,
@@ -102,7 +126,18 @@ function roleHarvester(creep, extensions, spawns) {
         BOTTOM,
         Memory.deepSouthRoomName
       );
+    } else if (creep.memory.direction === "e58s49") {
+      retval = getEnergy(
+        creep,
+        e58s49RmName,
+        null,
+        null,
+        Game.flags.e58s49Exit,
+        LEFT,
+        Memory.e58s49RoomName
+      );
     } else {
+      creep.memory.direction = "south";
       retval = getEnergy(
         creep,
         northRmName,
@@ -126,7 +161,9 @@ function roleHarvester(creep, extensions, spawns) {
         null,
         Memory.homeRoomName,
         Game.flags.northEntrance,
-        BOTTOM
+        BOTTOM,
+        extensions,
+        spawns
       );
     } else if (
       creep.memory.direction.startsWith("deepSouth") ||
@@ -138,10 +175,32 @@ function roleHarvester(creep, extensions, spawns) {
         null,
         Memory.homeRoomName,
         Game.flags.southEntrance,
-        TOP
+        TOP,
+        extensions,
+        spawns
+      );
+    } else if (creep.memory.direction === "e58s49") {
+      ret = transferEnergy(
+        creep,
+        null,
+        null,
+        Memory.deepSouthRoomName,
+        Game.flags.e59s49Entrance,
+        RIGHT,
+        extensions,
+        spawns
       );
     } else {
-      ret = transferEnergy(creep, null, null, Memory.homeRoomName, null, null);
+      ret = transferEnergy(
+        creep,
+        null,
+        null,
+        Memory.homeRoomName,
+        null,
+        null,
+        extensions,
+        spawns
+      );
     }
 
     retval = ret.retval;

@@ -26,18 +26,22 @@ function runRoles() {
   let harvesters = [];
   let harvestersE59S47 = [];
   let harvestersE59S49 = [];
+  let harvestersE58S49 = [];
   let workers = [];
   let upControllers = [];
   let upControllersE59S47 = [];
   let upControllersE59S49 = [];
+  let upControllersE58S49 = [];
   let roadRepairers = [];
   let roadRepairersE59S47 = [];
   let roadRepairersE59S49 = [];
+  let roadRepairersE58S49 = [];
   let roadBuilders = [];
   let attackers = [];
   let attackersE59S47 = [];
   let attackersE59S49 = [];
   let claimers = [];
+  let claimersE58S49 = [];
   let linkGets = [];
   let towerHarvesters = [];
   let reservers = [];
@@ -46,17 +50,19 @@ function runRoles() {
   let viewersE59S49 = [];
   let creepsE59S48 = [];
   let creepsE59S49 = [];
+  let e59s48extensions = Memory.e59s48extensions;
+  let e59s47extensions = Memory.e59s47extensions;
+  let e59s49extensions = Memory.e59s49extensions;
+  let e59s48spawns = Memory.e59s48spawns;
+  let e59s47spawns = Memory.e59s47spawns;
+  let e59s49spawns = Memory.e59s49spawns;
+  let e58s49spawns = Memory.e58s49spawns;
   let retval = -16;
 
   for (let name in crps) {
     let creep = crps[name];
     let roll = creep.memory.role;
-    let e59s48extensions = Memory.e59s48extensions;
-    let e59s47extensions = Memory.e59s47extensions;
-    let e59s49extensions = Memory.e59s49extensions;
-    let e59s48spawns = Memory.e59s48spawns;
-    let e59s47spawns = Memory.e59s47spawns;
-    let e59s49spawns = Memory.e59s49spawns;
+    let ret = -16;
 
     if (creep.spawning) {
       continue;
@@ -73,26 +79,23 @@ function runRoles() {
         creep.memory.getEnergy = true;
       }
 
-      if (creep.memory.direction.startsWith("s")) {
+      if (creep.memory.direction === "south") {
         harvesters.push(name);
-        let ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
-      } else if (creep.memory.direction.startsWith("n")) {
+        ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
+      } else if (creep.memory.direction === "north") {
         harvestersE59S47.push(name);
-        let ret = roleHarvester(creep, e59s47extensions, e59s47spawns);
-      } else if (creep.memory.direction.startsWith("deepSouth")) {
+        ret = roleHarvester(creep, e59s47extensions, e59s47spawns);
+      } else if (creep.memory.direction === "deepSouth") {
         harvestersE59S49.push(name);
-        let ret = roleHarvester(creep, e59s49extensions, e59s49spawns);
+        ret = roleHarvester(creep, e59s49extensions, e59s49spawns);
+      } else if (creep.memory.direction === "e58s49") {
+        harvestersE59S49.push(name);
+        ret = roleHarvester(creep, e58s49extensions, e58s49spawns);
       } else {
+        creep.memory.direction = "south";
         harvesters.push(name);
-        let ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
+        ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
       }
-    } else if (roll === "hN" || roll === "harvesterN") {
-      if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
-        creep.memory.getEnergy = true;
-      }
-
-      harvestersE59S47.push(name);
-      roleHarvester(creep);
     } else if (roll === "reserver") {
       reservers.push(name);
       roleReserver(
@@ -103,27 +106,9 @@ function runRoles() {
         Game.flags.northController,
         "59bbc5d22052a716c3cea133"
       );
-    } else if (roll && roll.startsWith("towerHarvester")) {
-      towerHarvesters.push(name);
-      roleHarvesterToTower.run(creep);
     } else if (roll && roll.startsWith("linkGet")) {
       linkGets.push(name);
       roleLinkGet.run(creep);
-    } else if (roll === "newharvester") {
-      if (!creep.pos.isNearTo(source2)) {
-        smartMove(creep, source2, 1);
-      } else {
-        creep.harvest(source2);
-      }
-    } else if (roll === "roadBuilder") {
-      if (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] <= 0) {
-        creep.memory.getEnergy = true;
-
-        roleHarvester(creep);
-      } else {
-        buildRoad(creep);
-      }
-      roadBuilders.push(name);
     } else if (roll === "roadRepairer") {
       if (creep.memory.direction.startsWith("s")) {
         roadRepairers.push(name);
@@ -139,6 +124,9 @@ function runRoles() {
           Game.flags.southExit,
           BOTTOM
         );
+      } else if (creep.memory.direction === "e58s49") {
+        roadRepairersE59S49.push(name);
+        roleRepairer(creep, Memory.e58s49RoomName, Game.flags.e58s49Exit, LEFT);
       } else {
         roadRepairers.push(name);
         roleRepairer(creep, Memory.homeRoomName, null, null);
@@ -197,7 +185,28 @@ function runRoles() {
           TOP,
           "59bbc5d22052a716c3cea133"
         );
+      } else if (creep.memory.direction === "e58s49") {
+        creep.memory.controllerID = "59bbc5c12052a716c3ce9faa";
+        upController(
+          creep,
+          Game.flags.e58s49Controller,
+          Memory.e58s49RoomName,
+          Game.flags.e58s49Exit,
+          LEFT,
+          "59bbc5c12052a716c3ce9faa"
+        );
+      } else if (creep.memory.direction === "south") {
+        creep.memory.controllerID = "59bbc5d22052a716c3cea133";
+        upController(
+          creep,
+          Game.flags.northController,
+          Memory.northRoomName,
+          Game.flags.northExit,
+          TOP,
+          "59bbc5d22052a716c3cea133"
+        );
       } else {
+        creep.memory.direction = "south";
         creep.memory.controllerID = "59bbc5d22052a716c3cea133";
         upController(
           creep,
@@ -336,18 +345,22 @@ function runRoles() {
   Memory.harvesters = harvesters;
   Memory.harvestersE59S47 = harvestersE59S47;
   Memory.harvestersE59S49 = harvestersE59S49;
+  Memory.harvestersE58S49 = harvestersE58S49;
   Memory.workers = workers;
   Memory.upControllers = upControllers;
   Memory.upControllersE59S47 = upControllersE59S47;
   Memory.upControllersE59S49 = upControllersE59S49;
+  Memory.upControllersE58S49 = upControllersE58S49;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersE59S47 = roadRepairersE59S47;
   Memory.roadRepairersE59S49 = roadRepairersE59S49;
+  Memory.roadRepairersE58S49 = roadRepairersE58S49;
   Memory.roadBuilders = roadBuilders;
   Memory.attackers = attackers;
   Memory.attackersE59S47 = attackersE59S47;
   Memory.attackersE59S49 = attackersE59S49;
   Memory.claimers = claimers;
+  Memory.claimersE58S49 = claimersE58S49;
   Memory.linkGets = linkGets;
   Memory.towerHarvesters = towerHarvesters;
   Memory.viewers = viewers;

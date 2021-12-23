@@ -67,6 +67,13 @@ function getEnergy(
       // if in the deepSouth room but target room is not deepSouth, head north
       exitDirection = TOP;
       exit = Game.flags.southEntrance;
+    } else if (
+      targetRoomName != Memory.e58s49RoomName &&
+      creepRoomName === Memory.e58s49RoomName
+    ) {
+      // if in the deepSouth room but target room is not deepSouth, head north
+      exitDirection = RIGHT;
+      exit = Game.flags.e59s49Entrance;
     }
 
     if (creep.pos.isNearTo(exit)) {

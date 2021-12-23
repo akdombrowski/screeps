@@ -1,5 +1,5 @@
 const smartMove = require("./action.smartMove");
-const getEnergyEast = require("./action.getEnergy.1");
+const getEnergyEast = require("./action.getEnergy");
 const ermgetEnergyEast = require("./action.erm.getEnergyEast");
 
 function claimContr(creep, rm, exit, exitDirection, entrance, controller) {

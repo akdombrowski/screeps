@@ -1,5 +1,5 @@
 const smartMove = require("./action.smartMove");
-const getEnergy = require("./action.getEnergy.1");
+const getEnergy = require("./action.getEnergy");
 const { checkIfBlockingSource } = require("./utilities.checkIfBlockingSource");
 const profiler = require("./screeps-profiler");
 

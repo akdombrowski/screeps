@@ -1,6 +1,4 @@
 const smartMove = require("./action.smartMove");
-const getEnergyEast = require("./action.getEnergy.1");
-const ermgetEnergyEast = require("./action.getEnergy.1");
 const profiler = require("./screeps-profiler");
 
 function claimContr(

@@ -1,6 +1,6 @@
 const smartMove = require("./action.smartMove");
 const getEnergy = require("./action.getEnergyEEast");
-const ermgetEnergyEast = require("./action.getEnergy.1");
+const ermgetEnergyEast = require("./action.getEnergy");
 const profiler = require("./screeps-profiler");
 
 function roleAttackerN(creep) {

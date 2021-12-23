@@ -107,44 +107,6 @@ function getEnergy(
     }
   }
 
-  if (target && target.energy <= 0) {
-    target = null;
-    creep.memory.lastSourceId = null;
-    creep.memory.path = null;
-  }
-
-  // target = target || Game.getObjectById(lastSourceId);
-  let sources;
-  if (
-    !target &&
-    creep.room.name === Memory.homeRoomName &&
-    sourceRmTargetedName === Memory.homeRoomName
-  ) {
-    if (creep.memory.lastSourceId) {
-      target = Game.getObjectById(creep.memory.lastSourceId);
-      if (target && target.pos.findInRange(FIND_CREEPS, 3).length > 8) {
-        console.log("too busy " + target.pos);
-        creep.say("too busy");
-        target = null;
-      }
-    }
-
-    if (!target) {
-      let source1 = Game.getObjectById("59bbc5d22052a716c3cea136");
-      let source2 = Game.getObjectById("59bbc5d22052a716c3cea135");
-      sources = [source1, source2];
-      // 0 or 1 outcome
-      let randInt = getRandomInt(2);
-
-      // target = Game.getObjectById(sources[randInt]);
-      target = chooseSource(creep, sources);
-
-      if (target) {
-        creep.memory.lastSourceId = target.id;
-      }
-    }
-  }
-
   if (
     !target ||
     (target &&
@@ -236,7 +198,7 @@ function getEnergy(
     isTargetStructure = target ? true : false;
   }
 
-  // If i don't have a target yet. Check containers and storage units
+  // If i don't have a target yet. Check storage units
   //  for energy.
   if (!target) {
     let southStorageStructures = ["61b469b5b87275b8511dfebf"];
@@ -295,8 +257,10 @@ function getEnergy(
   if (
     !target ||
     (target &&
-      target.store &&
-      (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
+      (target.energy <= 0 ||
+        (target.store &&
+          (!target.store[RESOURCE_ENERGY] ||
+            target.store[RESOURCE_ENERGY] < 50))))
   ) {
     creep.memory.lastSourceId = null;
     creep.memory.path = null;

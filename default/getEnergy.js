@@ -218,61 +218,61 @@ function getEnergy(
     isTargetStructure = target ? true : false;
   }
 
-  // If i don't have a target yet. Check storage units
-  //  for energy.
-  if (!target) {
-    let southStorageStructures = ["61b469b5b87275b8511dfebf"];
-    target = Game.getObjectById(southStorageStructures[0]);
-    let storageCreep = creep.room.lookForAt(LOOK_CREEPS, 43, 9).pop();
-    let storageCreep2 = creep.room.lookForAt(LOOK_CREEPS, 44, 9).pop();
-    if (
-      !target ||
-      !target.store[RESOURCE_ENERGY] ||
-      target.store[RESOURCE_ENERGY] < 400
-    ) {
-      target = null;
-    }
-    if (
-      target &&
-      storageCreep &&
-      storageCreep.name !== name &&
-      storageCreep2 &&
-      storageCreep2.name !== name &&
-      pos &&
-      creep
-    ) {
-      if (creep.pos.inRangeTo(target, 5)) {
-        creep.say("wait");
-        return retval;
-      }
-    }
-  }
+  // // If i don't have a target yet. Check storage units
+  // //  for energy.
+  // if (!target) {
+  //   let southStorageStructures = ["61b469b5b87275b8511dfebf"];
+  //   target = Game.getObjectById(southStorageStructures[0]);
+  //   let storageCreep = creep.room.lookForAt(LOOK_CREEPS, 43, 9).pop();
+  //   let storageCreep2 = creep.room.lookForAt(LOOK_CREEPS, 44, 9).pop();
+  //   if (
+  //     !target ||
+  //     !target.store[RESOURCE_ENERGY] ||
+  //     target.store[RESOURCE_ENERGY] < 400
+  //   ) {
+  //     target = null;
+  //   }
+  //   if (
+  //     target &&
+  //     storageCreep &&
+  //     storageCreep.name !== name &&
+  //     storageCreep2 &&
+  //     storageCreep2.name !== name &&
+  //     pos &&
+  //     creep
+  //   ) {
+  //     if (creep.pos.inRangeTo(target, 5)) {
+  //       creep.say("wait");
+  //       return retval;
+  //     }
+  //   }
+  // }
 
-  // get from link
-  if (
-    !target ||
-    (target &&
-      target.store &&
-      (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
-  ) {
-    creep.memory.lastSourceId = null;
-    target = creep.room
-      .find(FIND_STRUCTURES, {
-        filter: (struct) => {
-          const type = struct.structureType;
+  // // get from link
+  // if (
+  //   !target ||
+  //   (target &&
+  //     target.store &&
+  //     (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
+  // ) {
+  //   creep.memory.lastSourceId = null;
+  //   target = creep.room
+  //     .find(FIND_STRUCTURES, {
+  //       filter: (struct) => {
+  //         const type = struct.structureType;
 
-          if (
-            type === STRUCTURE_LINK &&
-            struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
-          ) {
-            // console.log("name: " + structure)
-            return struct;
-          }
-        },
-      })
-      .pop();
-    isTargetStructure = target ? true : false;
-  }
+  //         if (
+  //           type === STRUCTURE_LINK &&
+  //           struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
+  //         ) {
+  //           // console.log("name: " + structure)
+  //           return struct;
+  //         }
+  //       },
+  //     })
+  //     .pop();
+  //   isTargetStructure = target ? true : false;
+  // }
 
   if (
     !target ||
@@ -284,13 +284,7 @@ function getEnergy(
   ) {
     creep.memory.lastSourceId = null;
     creep.memory.path = null;
-    target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE, {
-      filter: (structure) => {
-        if (structure.pos.findInRange(FIND_CREEPS, 2).length < 8) {
-          return structure;
-        }
-      },
-    });
+    target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
   }
 
   if (target) {

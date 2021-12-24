@@ -1,4 +1,4 @@
-const getEnergy = require("./getEnergy.action.getEnergy");
+const getEnergy = require("./getEnergy");
 const transferEnergy = require("./action.transferEnergy");
 const buildRoad = require("./action.buildRoad");
 const smartMove = require("./move.smartMove");

@@ -1,6 +1,6 @@
 const smartMove = require("./move.smartMove");
 const getEnergy = require("./action.getEnergyEEast");
-const ermgetEnergyEast = require("./getEnergy.action.getEnergy");
+const ermgetEnergyEast = require("./getEnergy");
 
 const roleAttacker = {
   /** **/

@@ -1,4 +1,4 @@
-const getEnergy = require("./getEnergy.action.getEnergy");
+const getEnergy = require("./getEnergy");
 const smartMove = require("./move.smartMove");
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
 const build = require("./action.build");

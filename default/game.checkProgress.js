@@ -1,26 +1,25 @@
 const profiler = require("./screeps-profiler");
 
-function checkProgress(numCrps, rooms, intervalInTicks) {
-  if (Game.time % 3600 == 0) {
-    if (!Memory.rmProg) {
-      Memory.rmProg = 0;
-    }
-
-    let rmControllerId = "59bbc5d22052a716c3cea137";
-    let rmController = Game.getObjectById(rmControllerId);
+function checkProgress(numCrps, rooms, intervalInGameTime) {
+  if (Game.time % intervalInGameTime == 0) {
     let emailMessage = "";
+
+    console.log("Total # of Creeps: " + numCrps);
     rooms.forEach((room) => {
+      const rmController = room.controller;
       const rmLvl = rmController.level;
       const rmProg = rmController.progress;
       const rmProgTotal = rmController.progressTotal;
       const rmProgPerc = (rmProg / rmProgTotal) * 100;
+      const enAvail = room.energyAvailable;
+      const enCap = room.energyCapacityAvailable;
 
-      Memory.rmProg = rmProg;
+      Memory[room.name + "Progess"] = rmProg;
 
-      console.log("Creeps: " + numCrps);
+      console.log("Total # of " + room.name + " Creeps: " + Memory["creeps" + room.name]);
 
       console.log(
-        rm.name +
+        room.name +
           " Level " +
           rmLvl +
           ". progress:" +
@@ -32,9 +31,7 @@ function checkProgress(numCrps, rooms, intervalInTicks) {
           "%"
       );
 
-      let enAvail = rm.energyAvailable;
-      let enCap = rm.energyCapacityAvailable;
-      console.log(rm.name + ":" + enAvail + "," + enCap);
+      console.log(room.name + ":" + enAvail + "," + enCap);
 
       emailMessage =
         emailMessage +

@@ -7,7 +7,7 @@
  * mod.thing == 'a thing'; // true
  *
  */
-const chainMove = require("./chainMove");
+const chainMove = require("./move.chainMove");
 const smartMove = require("./move.smartMove");
 const supplyChain = require("./supplyChain");
 const spawnChain = require("./spawnHarvesterChain");

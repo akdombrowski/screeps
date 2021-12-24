@@ -18,9 +18,9 @@ const findDecayed = require("./action.findDecayed");
 const { checkProgress } = require("./game.checkProgress");
 const { deleteDeadCreeps } = require("./utilities.deleteDeadCreeps");
 const { areCreepsDying } = require("./areCreepsDying");
-const { towersAttackInvader } = require("./towersAttackInvader");
+const { towersAttackInvader } = require("./invasion.towersAttackInvader");
 const { reCheckNumOfCreeps } = require("./utilities.reCheckNumOfCreeps");
-const { towerRepair } = require("./towerRepair");
+const { towerRepair } = require("./action.towerRepair");
 const {
   memoryE59S48ExtensionsRefresh,
 } = require("./getEnergy.memoryE59S48ExtensionsRefresh");

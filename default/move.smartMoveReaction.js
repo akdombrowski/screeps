@@ -1,5 +1,5 @@
 const profiler = require("./screeps-profiler");
-const { successfulMove } = require("./successfulMove");
+const { successfulMove } = require("./move.successfulMove");
 
 function smartMoveReaction(
   retval,

@@ -2,18 +2,18 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const getPath = require("./action.getPath");
 const getRandomColor = require("./utilities.getRandomColor");
 const profiler = require("./screeps-profiler");
-const { getDestPos } = require("./getDestPos");
-const { tryMoveByPath } = require("./tryMoveByPath");
-const { setVisualAndPathInMemory } = require("./setVisualAndPathInMemory");
-const { shiftPathIfNecessary } = require("./shiftPathIfNecessary");
+const { getDestPos } = require("./move.getDestPos");
+const { tryMoveByPath } = require("./move.tryMoveByPath");
+const { setVisualAndPathInMemory } = require("./move.setVisualAndPathInMemory");
+const { shiftPathIfNecessary } = require("./move.shiftPathIfNecessary");
 const {
   retryMoveByPathAfterERR_NOT_FOUND,
-} = require("./retryMoveByPathAfterERR_NOT_FOUND");
+} = require("./move.retryMoveByPathAfterERR_NOT_FOUND");
 const {
   retryMoveByPathAfterShiftingPath,
-} = require("./retryMoveByPathAfterShiftingPath");
-const { checkIfValidPath } = require("./checkIfValidPath");
-const { smartMoveReaction } = require("./smartMoveReaction");
+} = require("./move.retryMoveByPathAfterShiftingPath");
+const { checkIfValidPath } = require("./move.checkIfValidPath");
+const { smartMoveReaction } = require("./move.smartMoveReaction");
 
 function smartMove(
   creep,

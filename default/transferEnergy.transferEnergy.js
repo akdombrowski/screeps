@@ -22,7 +22,10 @@ const {
 const {
   checkForFlagTargetStructure,
 } = require("./checkForFlagTargetStructure");
-const { checkTransferToTower } = require("./transferEnergy.checkTransferToTower");
+const {
+  checkTransferToTower,
+} = require("./transferEnergy.checkTransferToTower");
+const { doesTargetNeedEnergy } = require("./doesTargetNeedEnergy");
 
 function tran(
   creep,
@@ -69,7 +72,7 @@ function tran(
   }
 
   if (creep.room.name === Memory.homeRoomName) {
-    const minRoomEnergy = 450;
+    const minRoomEnergy = 0;
     const maxTowerEnergy = 950;
 
     target = checkTransferToTower(
@@ -80,7 +83,7 @@ function tran(
       maxTowerEnergy
     );
   } else if (creep.room.name - Memory.deepSouthRoomName) {
-    const minRoomEnergy = 450;
+    const minRoomEnergy = 400;
     const maxTowerEnergy = 950;
 
     target = checkTransferToTower(
@@ -92,6 +95,12 @@ function tran(
     );
   }
 
+  // if we got a tower to transfer to remember its id
+  if (target) {
+    creep.memory.transferTargetId = target.id;
+  }
+
+  // check if there's a structure at the flag given needing energy
   if (!target) {
     target = checkForFlagTargetStructure(flag, creep, extensions, spawns);
   }
@@ -104,7 +113,7 @@ function tran(
       spawns = spa;
     }
 
-    // check if we got a target for an ext or spawn or from memory
+    // check if we got a target for an ext or spawn
     if (!target) {
       if (creep.room.name === Memory.northRoomName) {
         // if in the north room but target is not north, head south
@@ -146,24 +155,7 @@ function tran(
     }
   }
 
-  if (
-    target &&
-    target.store[RESOURCE_ENERGY] &&
-    target.store.getFreeCapacity(RESOURCE_ENERGY) <= 0
-  ) {
-    target = null;
-    creep.memory.flag = null;
-    creep.memory.transferTargetId = null;
-    creep.memory.path = null;
-  }
-
-  const minAmountOfEnAvailToTransferToTower = 300;
-  target = checkIfOkToTransferToTower(
-    target,
-    enAvail,
-    creep,
-    minAmountOfEnAvailToTransferToTower
-  );
+  target = doesTargetNeedEnergy(target, creep);
 
   if (!target) {
     let transferTargetsAndMemoryObjects = {};
@@ -358,5 +350,4 @@ function tran(
 
 tran = profiler.registerFN(tran, "tran");
 module.exports = tran;
-
 

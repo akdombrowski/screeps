@@ -7,6 +7,7 @@ function towerRepair(towers) {
   for (let i = 0; i < towers.length; i++) {
     let t = towers[i];
     let target = null;
+    let minEnergyToKeepForInvaders = 0;
     if (t.room.name === Memory.homeRoomName && !Memory.invaderId) {
       if (!Memory.e59s48fixables ||
         Memory.e59s48fixables.length <= 0 ||

@@ -152,51 +152,13 @@ function tran(
   if (!target) {
     let transferTargetsAndMemoryObjects = {};
     creep.memory.transferTargetId = null;
-    if (
-      creepRoomName === Memory.homeRoomName &&
-      targetRoomName === Memory.homeRoomName
-    ) {
-      transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-        creep,
-        target,
-        Memory.homeRoomName,
-        extensions,
-        spawns
-      );
-    } else if (
-      creepRoomName === Memory.northRoomName &&
-      targetRoomName === Memory.northRoomName
-    ) {
-      transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-        creep,
-        target,
-        Memory.northRoomName,
-        extensions,
-        spawns
-      );
-    } else if (
-      creepRoomName === Memory.deepSouthRoomName &&
-      targetRoomName === Memory.deepSouthRoomName
-    ) {
-      transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-        creep,
-        target,
-        Memory.deepSouthRoomName,
-        extensions,
-        spawns
-      );
-    } else if (
-      creepRoomName === Memory.e58s49RoomName &&
-      targetRoomName === Memory.e58s49RoomName
-    ) {
-      transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-        creep,
-        target,
-        Memory.e58s49RoomName,
-        extensions,
-        spawns
-      );
-    }
+    transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
+      creep,
+      target,
+      targetRoomName,
+      extensions,
+      spawns
+    );
 
     target = transferTargetsAndMemoryObjects.target;
     extensions = transferTargetsAndMemoryObjects.extensions;

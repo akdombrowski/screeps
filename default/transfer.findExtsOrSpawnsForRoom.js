@@ -1,5 +1,7 @@
 const profiler = require("./screeps-profiler");
-const { findExtsOrSpawnsToTransferTo } = require("./find.findExtsOrSpawnsToTransferTo");
+const {
+  findExtsOrSpawnsToTransferTo,
+} = require("./find.findExtsOrSpawnsToTransferTo");
 
 function findExtsOrSpawnsForRoom(creep, extensions, spawns) {
   let creepRoom = creep.room;
@@ -16,35 +18,21 @@ function findExtsOrSpawnsForRoom(creep, extensions, spawns) {
       extensions,
       spawns
     );
-  } else if (creepRoomName === Memory.northRoomName) {
+  } else {
     transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
       creep,
       target,
-      Memory.northRoomName,
-      extensions,
-      spawns
-    );
-  } else if (creepRoomName === Memory.deepSouthRoomName) {
-    transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-      creep,
-      target,
-      Memory.deepSouthRoomName,
-      extensions,
-      spawns
-    );
-  } else if (creepRoomName === Memory.e58s49RoomName) {
-    transferTargetsAndMemoryObjects = findExtsOrSpawnsToTransferTo(
-      creep,
-      target,
-      Memory.e58s49RoomName,
+      creep.room.name,
       extensions,
       spawns
     );
   }
 
-  target = transferTargetsAndMemoryObjects.target;
-  extensions = transferTargetsAndMemoryObjects.extensions;
-  spawns = transferTargetsAndMemoryObjects.spawns;
+  if (transferTargetsAndMemoryObjects) {
+    target = transferTargetsAndMemoryObjects.target;
+    extensions = transferTargetsAndMemoryObjects.extensions;
+    spawns = transferTargetsAndMemoryObjects.spawns;
+  }
 
   if (target) {
     creep.memory.transferTargetId = target.id;

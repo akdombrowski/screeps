@@ -54,7 +54,7 @@ module.exports.loop = function () {
     Memory.deepSouthS1 = deepSouthS1.id;
 
     let rm = s1.room;
-    Memory.rm = rm;
+    Memory.rm = rm.id;
     // let northRoom = northS1.room;
     // Memory.northRoom = northRoom;
     let deepSouthRoom = deepSouthS1.room;
@@ -143,7 +143,8 @@ module.exports.loop = function () {
     //   console.log("low cpu bucket: " + Game.cpu.bucket);
     // }
 
-    checkProgress(numCrps, rm);
+    let rooms = [rm, deepSouthRoom];
+    checkProgress(numCrps, rooms, 3600);
   });
 
   // Profiler stats

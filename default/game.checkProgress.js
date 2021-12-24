@@ -1,6 +1,6 @@
 const profiler = require("./screeps-profiler");
 
-function checkProgress(numCrps, rm) {
+function checkProgress(numCrps, rooms, intervalInTicks) {
   if (Game.time % 3600 == 0) {
     if (!Memory.rmProg) {
       Memory.rmProg = 0;
@@ -8,41 +8,51 @@ function checkProgress(numCrps, rm) {
 
     let rmControllerId = "59bbc5d22052a716c3cea137";
     let rmController = Game.getObjectById(rmControllerId);
-    const rmLvl = rmController.level;
-    const rmProg = rmController.progress;
-    const rmProgTotal = rmController.progressTotal;
-    const rmProgPerc = (rmProg / rmProgTotal) * 100;
+    let emailMessage = "";
+    rooms.forEach((room) => {
+      const rmLvl = rmController.level;
+      const rmProg = rmController.progress;
+      const rmProgTotal = rmController.progressTotal;
+      const rmProgPerc = (rmProg / rmProgTotal) * 100;
 
-    Memory.rmProg = rmProg;
+      Memory.rmProg = rmProg;
 
-    console.log("Creeps: " + numCrps);
+      console.log("Creeps: " + numCrps);
 
-    console.log(
-      "S: " +
+      console.log(
+        rm.name +
+          " Level " +
+          rmLvl +
+          ". progress:" +
+          rmProg / 1000 +
+          "/" +
+          rmProgTotal / 1000 +
+          "\n" +
+          rmProgPerc +
+          "%"
+      );
+
+      let enAvail = rm.energyAvailable;
+      let enCap = rm.energyCapacityAvailable;
+      console.log(rm.name + ":" + enAvail + "," + enCap);
+
+      emailMessage =
+        emailMessage +
+        " \n" +
+        rm.name +
+        " Level " +
         rmLvl +
-        ":" +
-        rmProg / 1000 +
-        "/" +
-        rmProgTotal / 1000 +
-        " - " +
-        rmProgPerc +
-        "%"
-    );
-
-    let enAvail = rm.energyAvailable;
-    let enCap = rm.energyCapacityAvailable;
-    console.log("S:" + enAvail + "," + enCap);
-
-    Game.notify(
-      rmLvl +
-        ":" +
+        ". progress:" +
         rmProg / 1000 +
         "/" +
         rmProgTotal / 1000 +
         "\n" +
         rmProgPerc +
-        "%"
-    );
+        "%. # of " +
+        rm.name +
+        " creeps: " +
+        Memory.homeRoomCreeps;
+    });
 
     Game.profiler.email(100);
   }

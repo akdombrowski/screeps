@@ -713,7 +713,7 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvesters.length < 16) {
+    } else if (harvesters.length < 18) {
       name = "h" + t;
       chosenRole = "h";
       direction = "south";

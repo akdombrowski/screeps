@@ -143,8 +143,8 @@ function runRoles() {
         viewersE59S49.push(name);
         roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
       } else {
-        roadRepairers.push(name);
-        roleRepairer(creep, Memory.homeRoomName, null, null);
+        viewersE59S48.push(name);
+        roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
       }
     } else if (
       roll === "uc" ||

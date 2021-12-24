@@ -12,9 +12,9 @@ function roleHarvester(creep, extensions, spawns) {
   const sourceDir = creep.memory.sourceDir;
   const fatigue = creep.fatigue;
   const rm = creep.room;
-  const homeRmName = Memory.homeRoomName;
-  const northRmName = Memory.northRoomName;
-  const deepSouthRmName = Memory.deepSouthRoomName;
+  const homeRoomName = Memory.homeRoomName;
+  const northRoomName = Memory.northRoomName;
+  const deepSouthRoomName = Memory.deepSouthRoomName;
   const e58s49RmName = Memory.e58s49RoomName;
   let retval = -16;
 
@@ -32,7 +32,7 @@ function roleHarvester(creep, extensions, spawns) {
         creep,
         null,
         null,
-        Memory.homeRoomName,
+        homeRoomName,
         Game.flags.northEntrance,
         BOTTOM,
         extensions,
@@ -40,13 +40,13 @@ function roleHarvester(creep, extensions, spawns) {
       );
     } else if (
       creep.memory.direction.startsWith("dS") ||
-      creep.memory.direction.startsWith("deepSouth")
+      creep.memory.direction === "deepSouth"
     ) {
       ret = transferEnergy(
         creep,
         null,
         null,
-        Memory.homeRoomName,
+        deepSouthRoomName,
         Game.flags.southEntrance,
         TOP,
         extensions,
@@ -57,7 +57,7 @@ function roleHarvester(creep, extensions, spawns) {
         creep,
         null,
         null,
-        Memory.deepSouthRoomName,
+        deepSouthRoomName, // bring energy back to dS room
         Game.flags.e59s49Entrance,
         RIGHT,
         extensions,
@@ -68,7 +68,7 @@ function roleHarvester(creep, extensions, spawns) {
         creep,
         null,
         null,
-        Memory.homeRoomName,
+        homeRoomName,
         null,
         null,
         extensions,
@@ -80,7 +80,7 @@ function roleHarvester(creep, extensions, spawns) {
         creep,
         null,
         null,
-        Memory.homeRoomName,
+        homeRoomName,
         null,
         null,
         extensions,
@@ -105,26 +105,26 @@ function roleHarvester(creep, extensions, spawns) {
     creep.memory.getEnergy = true;
 
     if (creep.memory.direction === "south") {
-      retval = getEnergy(creep, homeRmName, null, null, null, null, homeRmName);
+      retval = getEnergy(creep, homeRoomName, null, null, null, null, homeRoomName);
     } else if (creep.memory.direction === "north") {
       retval = getEnergy(
         creep,
-        northRmName,
+        northRoomName,
         null,
         null,
         Game.flags.northExit,
         TOP,
-        Memory.northRoomName
+        northRoomName
       );
     } else if (creep.memory.direction === "deepSouth") {
       retval = getEnergy(
         creep,
-        deepSouthRmName,
+        deepSouthRoomName,
         null,
         null,
         Game.flags.southExit,
         BOTTOM,
-        Memory.deepSouthRoomName
+        deepSouthRoomName
       );
     } else if (creep.memory.direction === "e58s49") {
       retval = getEnergy(
@@ -134,18 +134,18 @@ function roleHarvester(creep, extensions, spawns) {
         null,
         Game.flags.e58s49Exit,
         LEFT,
-        Memory.e58s49RoomName
+        e58s49RoomName
       );
     } else {
       creep.memory.direction = "south";
       retval = getEnergy(
         creep,
-        northRmName,
+        homeRoomName,
         null,
         null,
         Game.flags.northExit,
         TOP,
-        Memory.northRoomName
+        homeRoomName
       );
     }
   } else if (creep.memory.transfer && creep.store[RESOURCE_ENERGY] > 0) {
@@ -159,7 +159,7 @@ function roleHarvester(creep, extensions, spawns) {
         creep,
         null,
         null,
-        Memory.homeRoomName,
+        homeRoomName,
         Game.flags.northEntrance,
         BOTTOM,
         extensions,
@@ -173,7 +173,7 @@ function roleHarvester(creep, extensions, spawns) {
         creep,
         null,
         null,
-        Memory.homeRoomName,
+        deepSouthRoomName,
         Game.flags.southEntrance,
         TOP,
         extensions,
@@ -184,7 +184,7 @@ function roleHarvester(creep, extensions, spawns) {
         creep,
         null,
         null,
-        Memory.deepSouthRoomName,
+        deepSouthRoomName,
         Game.flags.e59s49Entrance,
         RIGHT,
         extensions,

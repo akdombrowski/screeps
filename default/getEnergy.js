@@ -28,6 +28,7 @@ function getEnergy(
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
   const deepSouthRoomName = Memory.deepSouthRoomName;
+  const e58s49RoomName = Memory.e58s49RoomName;
   let lastSourceId = creep.memory.lastSourceId;
   let target = Game.getObjectById(lastSourceId);
   let targetedRmName = sourceRmTargetedName;
@@ -50,36 +51,36 @@ function getEnergy(
 
   if (!target && creepRoomName != targetRoomName) {
     if (
-      targetRoomName != Memory.northRoomName &&
-      creepRoomName === Memory.northRoomName
+      targetRoomName != northRoomName &&
+      creepRoomName === northRoomName
     ) {
       // if in the north room but target is not north, head south
       exitDirection = BOTTOM;
       exit = Game.flags.northEntrance;
     } else if (
-      targetRoomName != Memory.deepSouthRoomName &&
-      creepRoomName === Memory.deepSouthRoomName &&
-      targetRoomName != Memory.e58s49RoomName
+      targetRoomName != deepSouthRoomName &&
+      creepRoomName === deepSouthRoomName &&
+      targetRoomName != e58s49RoomName
     ) {
       // if in the deepSouth room but target room is not deepSouth, head north
       exitDirection = TOP;
       exit = Game.flags.southEntrance;
     } else if (
-      targetRoomName != Memory.e58s49RoomName &&
-      creepRoomName === Memory.e58s49RoomName
+      targetRoomName != e58s49RoomName &&
+      creepRoomName === e58s49RoomName
     ) {
       // if in the SW room but target room is not SW, head to deepSouth
       exitDirection = RIGHT;
       exit = Game.flags.e59s49Entrance;
     } else if (
-      targetRoomName != Memory.homeRoomName &&
-      creepRoomName === Memory.homeRoomName
+      targetRoomName != homeRoomName &&
+      creepRoomName === homeRoomName
     ) {
-      if (targetRoomName === Memory.e58s49RoomName) {
+      if (targetRoomName === e58s49RoomName) {
         exitDirection = BOTTOM;
         exit = Game.flags.southExit;
       } else {
-        // if in the room but target room is not deepSouth, head north
+        // if in the room but target room is not SW nor in homeroom, head south
         exitDirection = BOTTOM;
         exit = Game.flags.southExit;
       }
@@ -180,7 +181,7 @@ function getEnergy(
   ) {
     creep.memory.lastSourceId = null;
     if (creep.memory.direction === "deepSouth") {
-      target = Game.rooms[Memory.homeRoomName]
+      target = Game.rooms[homeRoomName]
         .find(FIND_STRUCTURES, {
           filter: (struct) => {
             const type = struct.structureType;

@@ -96,8 +96,13 @@ module.exports.loop = function () {
     dSTowers.push(Game.getObjectById(Memory.dSTower1Id));
     towersAttackInvader(Game.getObjectById(Memory.dSAttackerId), dSTowers);
 
-    towerRepair(towers);
-    towerRepair(dSTowers);
+    if (!Memory.invaderId) {
+      towerRepair(towers);
+    }
+
+    if (!Memory.dSAttackerId) {
+      towerRepair(dSTowers);
+    }
 
     checkForAttackers();
 

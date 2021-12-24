@@ -154,7 +154,10 @@ function droppedDuty(creep) {
   if (!droppedPickerUpper || droppedPickerUpper === creepName) {
     droppedTarget = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
       filter: (source) => {
-        if (source.resourceType === RESOURCE_ENERGY && source.room === creepRoom) {
+        if (
+          source.resourceType === RESOURCE_ENERGY &&
+          source.room === creepRoom
+        ) {
           return source;
         }
       },
@@ -168,10 +171,11 @@ function droppedDuty(creep) {
       creep.memory.lastSourceId = droppedTarget.id;
       creep.memory.droppedTargetId = droppedTarget.id;
       Memory.droppedPickerUpperName = creepName;
+
       if (droppedTarget) {
         if (creep.pos.isNearTo(droppedTarget)) {
           creep.say("pu");
-          if(!droppedTarget.resourceType) {
+          if (!droppedTarget.resourceType) {
             droppedTarget = droppedTarget.pos.lookFor(LOOK_RESOURCES).pop();
           }
 
@@ -183,6 +187,13 @@ function droppedDuty(creep) {
         } else {
           creep.say("m.pu");
           retval = smartMove(creep, droppedTarget, 1);
+
+          if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
+            creep.memory.lastSourceId = null;
+            creep.memory.droppedTargetId = null;
+            Memory.droppedPickerUpperName = null;
+          }
+
           return retval;
         }
       }

@@ -165,7 +165,7 @@ function droppedDuty(creep) {
     }
 
     if (droppedTarget) {
-      creep.memory.transferTargetId = droppedTarget.id;
+      creep.memory.lastSourceId = droppedTarget.id;
       creep.memory.droppedTargetId = droppedTarget.id;
       Memory.droppedPickerUpperName = creepName;
       if (droppedTarget) {

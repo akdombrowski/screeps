@@ -3,6 +3,7 @@ const profiler = require("./screeps-profiler");
 function doesTargetNeedEnergy(target, creep, minOpenEnergyCapacity) {
   if (
     target &&
+    target.store &&
     target.store[RESOURCE_ENERGY] &&
     target.store.getFreeCapacity(RESOURCE_ENERGY) >= minOpenEnergyCapacity
   ) {

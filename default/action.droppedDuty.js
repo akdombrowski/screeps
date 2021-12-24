@@ -5,7 +5,8 @@ function droppedDuty(creep) {
   let creepName = creep.name;
   let creepRoom = creep.room;
   let droppedTarget = Game.getObjectById(creep.memory.droppedTargetId);
-  let droppedPickerUpper = Memory.droppedPickerUpperName;
+  let droppedPickerUpperName =
+    Memory[creep.room.name + "" + droppedPickerUpperName];
   let tombstoneHunter = Memory.tombstoneHunterName;
   let tombstoneTarget = Game.getObjectById(Memory.tombstoneTargetId);
   let target;
@@ -151,7 +152,7 @@ function droppedDuty(creep) {
   //   }
   // }
 
-  if (!droppedPickerUpper || droppedPickerUpper === creepName) {
+  if (!droppedPickerUpperName || droppedPickerUpperName === creepName) {
     droppedTarget = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
       filter: (source) => {
         if (
@@ -170,7 +171,7 @@ function droppedDuty(creep) {
     if (droppedTarget) {
       creep.memory.lastSourceId = droppedTarget.id;
       creep.memory.droppedTargetId = droppedTarget.id;
-      Memory.droppedPickerUpperName = creepName;
+      Memory[creep.room.name + "" + droppedPickerUpperName] = creepName;
 
       if (droppedTarget) {
         if (creep.pos.isNearTo(droppedTarget)) {
@@ -185,8 +186,8 @@ function droppedDuty(creep) {
           }
           return retval;
         } else {
-          creep.say("m.pu");
           retval = smartMove(creep, droppedTarget, 1);
+          creep.say("m.pu" + dropped.target.pos.x + "," + droppedTarget.pos.y);
 
           if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
             creep.memory.lastSourceId = null;

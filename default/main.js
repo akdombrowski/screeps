@@ -47,7 +47,7 @@ module.exports.loop = function () {
     let lastEnAvail = Memory.enAvail || 0;
 
     let s1 = Game.spawns.Spawn1;
-    let northS1 = Game.spawns.Spawn2e59s47_1;
+    // let northS1 = Game.spawns.e59s47Spawn1;
     let deepSouthS1 = Game.spawns.deepSouthSpawn1;
     Memory.s1 = s1.id;
     // Memory.northS1 = northS1.id;
@@ -73,7 +73,7 @@ module.exports.loop = function () {
     let deepSouthEnAvail = deepSouthRoom.energyAvailable;
     let deepSouthEnCapRm = deepSouthRoom.energyCapacityAvailable;
     Memory.enAvail = enAvail;
-    // Memory.enCapRm = enCapRm;
+    Memory.enCapRm = enCapRm;
     // Memory.northEnAvaioom = northEnCapRm;
     Memory.deepSouthEnAvail = deepSouthEnAvail;
     Memory.deepSouthEnCapRm = deepSouthEnCapRm;

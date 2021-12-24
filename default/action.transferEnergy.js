@@ -82,36 +82,26 @@ function tran(
 
   if (creepRoomName != targetRoomName) {
     if (!target) {
-      ({ target, extensions, spawns } = findExtsOrSpawnsForRoom(
-        creep,
-        extensions,
-        spawns
-      ));
+      ({ tar, ext, spa } = findExtsOrSpawnsForRoom(creep, extensions, spawns));
+      target = tar;
+      extensions = ext;
+      spawns = spa;
     }
 
     // check if we got a target for an ext or spawn or from memory
     if (!target) {
-      if (
-        targetRoomName != Memory.northRoomName &&
-        creep.room.name === Memory.northRoomName
-      ) {
+      if (creep.room.name === Memory.northRoomName) {
         // if in the north room but target is not north, head south
         exitDirection = BOTTOM;
         exit = Game.flags.northEntrance;
-      } else if (
-        targetRoomName != Memory.deepSouthRoomName &&
-        creep.room.name === Memory.deepSouthRoomName
-      ) {
+      } else if (creep.room.name === Memory.deepSouthRoomName) {
         // if in the deepSouth room but target room is not deepSouth
         if (targetRoomName != Memory.e58s49RoomName) {
           // if target name is not the SW room, then head north to home room
           exitDirection = TOP;
           exit = Game.flags.southEntrance;
         }
-      } else if (
-        targetRoomName != Memory.e58s49RoomName &&
-        creep.room.name === Memory.e58s49RoomName
-      ) {
+      } else if (creep.room.name === Memory.e58s49RoomName) {
         // if in the deepSouth room but target room is not deepSouth, head north
         exitDirection = RIGHT;
         exit = Game.flags.e59s49Exit;

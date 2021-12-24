@@ -22,6 +22,7 @@ const {
 const {
   checkForFlagTargetStructure,
 } = require("./checkForFlagTargetStructure");
+const { checkTransferToTower } = require("./transfer.checkTransferToTower");
 
 function tran(
   creep,
@@ -358,27 +359,4 @@ function tran(
 tran = profiler.registerFN(tran, "tran");
 module.exports = tran;
 
-function checkTransferToTower(
-  creepRoom,
-  tower,
-  creep,
-  minRoomEnergy,
-  maxTowerEnergy
-) {
-  let target = null;
-  if (
-    creepRoom &&
-    creepRoom.name === Memory.homeRoomName &&
-    creepRoom.energyAvailable >= 450 &&
-    tower.store[RESOURCE_ENERGY] < 950
-  ) {
-    target = tower;
-    creep.memory.transferTargetId = target.id;
-  }
-  return target;
-}
 
-checkTransferToTower = profiler.registerFN(
-  checkTransferToTower,
-  "checkTransferToTower"
-);

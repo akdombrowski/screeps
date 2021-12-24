@@ -23,7 +23,7 @@ function getEnergy(
   let rm = creep.rm;
   let pos = creep ? creep.pos : null;
   let roll = creep.memory.role;
-  let s1RmEnAvail = Memory.s1.room.energyAvailable;
+  let s1RmEnAvail = Game.getObjectById(Memory.s1).room.energyAvailable;
   let range = 1;
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;

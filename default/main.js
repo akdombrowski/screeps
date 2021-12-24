@@ -49,9 +49,9 @@ module.exports.loop = function () {
     let s1 = Game.spawns.Spawn1;
     let northS1 = Game.spawns.Spawn2e59s47_1;
     let deepSouthS1 = Game.spawns.deepSouthSpawn1;
-    Memory.s1 = s1;
-    Memory.northS1 = northS1;
-    Memory.deepSouthS1 = deepSouthS1;
+    Memory.s1 = s1.id;
+    // Memory.northS1 = northS1.id;
+    Memory.deepSouthS1 = deepSouthS1.id;
 
     let rm = s1.room;
     Memory.rm = rm;

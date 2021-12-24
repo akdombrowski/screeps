@@ -71,39 +71,42 @@ function tran(
     return { retval: -19, extensions: extensions, spawns: spawns };
   }
 
-  if (creep.room.name === Memory.homeRoomName) {
-    const minRoomEnergy = 0;
-    const maxTowerEnergy = 950;
+  if (!target) {
+    if (creep.room.name === Memory.homeRoomName) {
+      const minRoomEnergy = 0;
+      const maxTowerEnergy = 950;
 
-    target = checkTransferToTower(
-      creepRoom,
-      tower1,
-      creep,
-      minRoomEnergy,
-      maxTowerEnergy
-    );
-  } else if (creep.room.name - Memory.deepSouthRoomName) {
-    const minRoomEnergy = 400;
-    const maxTowerEnergy = 950;
+      target = checkTransferToTower(
+        creepRoom,
+        tower1,
+        creep,
+        minRoomEnergy,
+        maxTowerEnergy
+      );
+    } else if (creep.room.name - Memory.deepSouthRoomName) {
+      const minRoomEnergy = 400;
+      const maxTowerEnergy = 950;
 
-    target = checkTransferToTower(
-      creepRoom,
-      dSTower1,
-      creep,
-      minRoomEnergy,
-      maxTowerEnergy
-    );
+      target = checkTransferToTower(
+        creepRoom,
+        dSTower1,
+        creep,
+        minRoomEnergy,
+        maxTowerEnergy
+      );
+    }
   }
 
-  // if we got a tower to transfer to remember its id
-  if (target) {
-    creep.memory.transferTargetId = target.id;
-  }
+  // check if target needs energy transferred to it
+  target = doesTargetNeedEnergy(target, creep, 50);
 
   // check if there's a structure at the flag given needing energy
   if (!target) {
     target = checkForFlagTargetStructure(flag, creep, extensions, spawns);
   }
+
+  // check if target needs energy transferred to it
+  target = doesTargetNeedEnergy(target, creep, 50);
 
   if (creepRoomName != targetRoomName) {
     if (!target) {
@@ -155,7 +158,7 @@ function tran(
     }
   }
 
-  target = doesTargetNeedEnergy(target, creep);
+  target = doesTargetNeedEnergy(target, creep, 50);
 
   if (!target) {
     let transferTargetsAndMemoryObjects = {};
@@ -350,4 +353,3 @@ function tran(
 
 tran = profiler.registerFN(tran, "tran");
 module.exports = tran;
-

@@ -1,10 +1,10 @@
 const profiler = require("./screeps-profiler");
 
-function checkProgress(numCrps, rooms, intervalInGameTime) {
+function checkProgress(totalNumberOfCreeps, rooms, intervalInGameTime) {
   if (Game.time % intervalInGameTime == 0) {
     let emailMessage = "";
 
-    console.log("Total # of Creeps: " + numCrps);
+    console.log("Total # of Creeps: " + totalNumberOfCreeps);
     rooms.forEach((room) => {
       const rmController = room.controller;
       const rmLvl = rmController.level;
@@ -16,7 +16,7 @@ function checkProgress(numCrps, rooms, intervalInGameTime) {
 
       Memory[room.name + "Progess"] = rmProg;
 
-      console.log("Total # of " + room.name + " Creeps: " + Memory["creeps" + room.name]);
+      console.log("Total # of " + room.name + " Creeps: " + Memory["creeps" + room.name].length);
 
       console.log(
         room.name +
@@ -31,12 +31,12 @@ function checkProgress(numCrps, rooms, intervalInGameTime) {
           "%"
       );
 
-      console.log(room.name + ":" + enAvail + "," + enCap);
+      console.log(room.name + " energy: " + enAvail + "," + enCap);
 
       emailMessage =
         emailMessage +
         " \n" +
-        rm.name +
+        room.name +
         " Level " +
         rmLvl +
         ". progress:" +
@@ -46,7 +46,7 @@ function checkProgress(numCrps, rooms, intervalInGameTime) {
         "\n" +
         rmProgPerc +
         "%. # of " +
-        rm.name +
+        room.name +
         " creeps: " +
         Memory.homeRoomCreeps;
     });

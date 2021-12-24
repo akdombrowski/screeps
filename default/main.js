@@ -92,8 +92,12 @@ module.exports.loop = function () {
     let towers = [];
     towers.push(Game.getObjectById(Memory.tower1Id));
     towersAttackInvader(Game.getObjectById(Memory.invaderId), towers);
+    let dSTowers = [];
+    dSTowers.push(Game.getObjectById(Memory.dSTower1Id));
+    towersAttackInvader(Game.getObjectById(Memory.dSAttackerId), dSTowers);
 
     towerRepair(towers);
+    towerRepair(dSTowers);
 
     checkForAttackers();
 

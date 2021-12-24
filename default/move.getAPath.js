@@ -1,4 +1,5 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
+const profiler = require("./screeps-profiler");
 
 function findAPath(
   destPos,
@@ -53,6 +54,9 @@ function findAPath(
 
   return null;
 }
+
+findAPath = profiler.registerFN(findAPath, "findAPath");
+
 function getAPath(
   creep,
   dest,
@@ -189,5 +193,7 @@ function getAPath(
   creep.memory.path = path;
   return path;
 }
+
+getAPath = profiler.registerFN(getAPath, "getAPath");
 
 module.exports = getAPath;

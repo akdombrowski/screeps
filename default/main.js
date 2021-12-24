@@ -98,12 +98,23 @@ module.exports.loop = function () {
 
   const timeToPassForRecheck = 100;
   const minEnergyToKeepForInvaders = 200;
+  const repairInterval = 2;
     if (!Memory.invaderId) {
-      towerRepair(towers, timeToPassForRecheck, minEnergyToKeepForInvaders);
+      towerRepair(
+        towers,
+        timeToPassForRecheck,
+        minEnergyToKeepForInvaders,
+        repairInterval
+      );
     }
 
     if (!Memory.dSAttackerId) {
-      towerRepair(dSTowers, timeToPassForRecheck, minEnergyToKeepForInvaders, 10);
+      towerRepair(
+        dSTowers,
+        timeToPassForRecheck,
+        minEnergyToKeepForInvaders,
+        repairInterval
+      );
     }
 
     checkForAttackers();

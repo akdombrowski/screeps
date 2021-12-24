@@ -108,6 +108,16 @@ function getEnergy(
     return retval;
   }
 
+  if (!target) {
+    retval = droppedDuty(creep);
+
+    if(retval === OK) {
+      return retval;
+    } else {
+      target = null;
+    }
+  }
+
   if (
     (!target && Game.rooms[targetedRmName]) ||
     (target && target.room.name != creep.room.name)
@@ -283,6 +293,8 @@ function getEnergy(
     creep.memory.path = null;
     target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
   }
+
+
 
   if (target) {
     if (target instanceof String || target instanceof Number) {

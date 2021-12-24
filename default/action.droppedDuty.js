@@ -2,8 +2,8 @@ const smartMove = require("./move.smartMove");
 const profiler = require("./screeps-profiler");
 function droppedDuty(creep) {
   let retval = -16;
-  let name = creep.name;
-  let cRm = creep.room;
+  let creepName = creep.name;
+  let creepRoom = creep.room;
   let droppedTarget = Game.getObjectById(creep.memory.droppedTargetId);
   let droppedPickerUpper = Memory.droppedPickerUpperName;
   let tombstoneHunter = Memory.tombstoneHunterName;
@@ -151,10 +151,10 @@ function droppedDuty(creep) {
   //   }
   // }
 
-  if (!droppedPickerUpper || droppedPickerUpper === name) {
+  if (!droppedPickerUpper || droppedPickerUpper === creepName) {
     droppedTarget = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
       filter: (source) => {
-        if (source.resourceType === RESOURCE_ENERGY && source.room === cRm) {
+        if (source.resourceType === RESOURCE_ENERGY && source.room === creepRoom) {
           return source;
         }
       },
@@ -165,8 +165,9 @@ function droppedDuty(creep) {
     }
 
     if (droppedTarget) {
+      creep.memory.transferTargetId = droppedTarget.id;
       creep.memory.droppedTargetId = droppedTarget.id;
-      Memory.droppedPickerUpperName = name;
+      Memory.droppedPickerUpperName = creepName;
       if (droppedTarget) {
         if (creep.pos.isNearTo(droppedTarget)) {
           creep.say("pu");

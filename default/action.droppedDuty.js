@@ -5,8 +5,7 @@ function droppedDuty(creep) {
   let creepName = creep.name;
   let creepRoom = creep.room;
   let droppedTarget = Game.getObjectById(creep.memory.droppedTargetId);
-  let droppedPickerUpperName =
-    Memory[creep.room.name + "" + droppedPickerUpperName];
+  let droppedPickerUpperName = Memory[creep.room.name + "droppedPickerUpper"];
   let tombstoneHunter = Memory.tombstoneHunterName;
   let tombstoneTarget = Game.getObjectById(Memory.tombstoneTargetId);
   let target;
@@ -153,16 +152,21 @@ function droppedDuty(creep) {
   // }
 
   if (!droppedPickerUpperName || droppedPickerUpperName === creepName) {
-    droppedTarget = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
-      filter: (source) => {
-        if (
-          source.resourceType === RESOURCE_ENERGY &&
-          source.room === creepRoom
-        ) {
-          return source;
-        }
-      },
-    });
+    if (creep.memory.droppedTargetId) {
+      droppedTarget = Game.getObjectById(creep.memory.droppedTargetId);
+    } else {
+      droppedTarget = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
+        filter: (droppedResource) => {
+          if (
+            droppedResource.resourceType === RESOURCE_ENERGY &&
+            droppedResource.room === creepRoom &&
+            droppedResource.amount >= 50
+          ) {
+            return droppedResource;
+          }
+        },
+      });
+    }
 
     if (!droppedTarget) {
       droppedTarget = creep.pos.findClosestByPath(FIND_TOMBSTONES);
@@ -171,7 +175,7 @@ function droppedDuty(creep) {
     if (droppedTarget) {
       creep.memory.lastSourceId = droppedTarget.id;
       creep.memory.droppedTargetId = droppedTarget.id;
-      Memory[creep.room.name + "" + droppedPickerUpperName] = creepName;
+      Memory[creep.room.name + "droppedPickerUpper"] = creepName;
 
       if (droppedTarget) {
         if (creep.pos.isNearTo(droppedTarget)) {
@@ -181,13 +185,15 @@ function droppedDuty(creep) {
           }
 
           retval = creep.pickup(droppedTarget);
+          console.log(creep.name + " pickup retval: " + retval);
+          console.log(creep.name + " target: " + droppedTarget);
           if (retval != OK) {
             retval = creep.harvest(droppedTarget);
           }
           return retval;
         } else {
           retval = smartMove(creep, droppedTarget, 1);
-          creep.say("m.pu" + dropped.target.pos.x + "," + droppedTarget.pos.y);
+          creep.say("m.pu" + droppedTarget.pos.x + "," + droppedTarget.pos.y);
 
           if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
             creep.memory.lastSourceId = null;

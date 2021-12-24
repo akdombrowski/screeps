@@ -4,10 +4,10 @@ const profiler = require("./screeps-profiler");
 
 function towerRepair(towers) {
   const timeToPassForRecheck = 100;
+  const minEnergyToKeepForInvaders = 200;
   for (let i = 0; i < towers.length; i++) {
     let t = towers[i];
     let target = null;
-    let minEnergyToKeepForInvaders = 0;
     if (t.room.name === Memory.homeRoomName && !Memory.invaderId) {
       if (!Memory.e59s48fixables ||
         Memory.e59s48fixables.length <= 0 ||
@@ -38,7 +38,7 @@ function towerRepair(towers) {
       }
     }
     target = findRepairable(t);
-    if (target) {
+    if (target && t.store[RESOURCE_ENERGY] > minEnergyToKeepForInvaders) {
       t.repair(target);
     }
   }

@@ -6,9 +6,8 @@ function checkIfOkToTransferToTower(
   creep,
   minAmountOfEnAvail
 ) {
-  if (target &&
-    target.structureType === STRUCTURE_TOWER &&
-    creep.room &&
+  if (!target ||
+    target.structureType != STRUCTURE_TOWER ||
     enAvail < minAmountOfEnAvail) {
     target = null;
     creep.memory.path = null;

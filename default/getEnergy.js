@@ -50,10 +50,7 @@ function getEnergy(
   }
 
   if (!target && creepRoomName != targetRoomName) {
-    if (
-      targetRoomName != northRoomName &&
-      creepRoomName === northRoomName
-    ) {
+    if (targetRoomName != northRoomName && creepRoomName === northRoomName) {
       // if in the north room but target is not north, head south
       exitDirection = BOTTOM;
       exit = Game.flags.northEntrance;
@@ -108,10 +105,10 @@ function getEnergy(
     return retval;
   }
 
-  if (!target) {
+  if (!target || Memory[creep.room.name + "droppedPickerUpper"] === name) {
     retval = droppedDuty(creep);
 
-    if(retval === OK) {
+    if (retval === OK) {
       return retval;
     } else {
       target = null;
@@ -293,8 +290,6 @@ function getEnergy(
     creep.memory.path = null;
     target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
   }
-
-
 
   if (target) {
     if (target instanceof String || target instanceof Number) {

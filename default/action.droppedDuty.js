@@ -185,27 +185,37 @@ function droppedDuty(creep) {
           }
 
           retval = creep.pickup(droppedTarget);
-          console.log(creep.name + " pickup retval: " + retval);
-          console.log(creep.name + " target: " + droppedTarget);
           if (retval != OK) {
             retval = creep.harvest(droppedTarget);
           }
-          return retval;
-        } else {
-          retval = smartMove(creep, droppedTarget, 1);
-          creep.say("m.pu" + droppedTarget.pos.x + "," + droppedTarget.pos.y);
 
-          if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
+          if (retval === OK) {
             creep.memory.lastSourceId = null;
             creep.memory.droppedTargetId = null;
-            Memory.droppedPickerUpperName = null;
+            Memory[creep.room.name + "droppedPickerUpper"] = null;
           }
+
+          return retval;
+        } else {
+          retval = smartMove(
+            creep,
+            droppedTarget,
+            1,
+            true,
+            null,
+            null,
+            null,
+            1,
+            false,
+            null
+          );
+          creep.say("m.pu" + droppedTarget.pos.x + "," + droppedTarget.pos.y);
 
           return retval;
         }
       }
     } else {
-      Memory.droppedPickerUpperName = null;
+      Memory[creep.room.name + "droppedPickerUpper"] = null;
       retval = ERR_NOT_FOUND;
     }
   }

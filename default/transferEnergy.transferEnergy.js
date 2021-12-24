@@ -8,7 +8,7 @@ const profiler = require("./screeps-profiler");
 const { before } = require("lodash");
 const {
   checkIfOkToTransferToTower,
-} = require("./transfer.checkIfOkToTransferToTower");
+} = require("./transferEnergy.checkIfOkToTransferToTower");
 const {
   findExtsOrSpawnsToTransferTo,
 } = require("./find.findExtsOrSpawnsToTransferTo");
@@ -22,7 +22,7 @@ const {
 const {
   checkForFlagTargetStructure,
 } = require("./checkForFlagTargetStructure");
-const { checkTransferToTower } = require("./transfer.checkTransferToTower");
+const { checkTransferToTower } = require("./transferEnergy.checkTransferToTower");
 
 function tran(
   creep,

@@ -28,8 +28,8 @@ function getEnergy(
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
   const deepSouthRoomName = Memory.deepSouthRoomName;
-  let target;
   let lastSourceId = creep.memory.lastSourceId;
+  let target = Game.getObjectById(lastSourceId);
   let targetedRmName = sourceRmTargetedName;
   let isTargetStructure = false;
 
@@ -47,11 +47,6 @@ function getEnergy(
     creep.memory.transfer = true;
     return OK;
   }
-
-  creep.memory.getEnergy = true;
-  creep.memory.transfer = false;
-
-  target = Game.getObjectById(creep.memory.lastSourceId);
 
   if (!target && creepRoomName != targetRoomName) {
     if (

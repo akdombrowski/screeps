@@ -59,6 +59,8 @@ function tran(
   let enAvail = creepRoom.energyAvailable;
   let retval = -16;
 
+  creep.memory.lastSourceId = null;
+
   if (
     !creep.store[RESOURCE_ENERGY] ||
     creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0

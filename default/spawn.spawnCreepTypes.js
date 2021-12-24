@@ -380,43 +380,43 @@ function spawnCreepTypes(enAvail, spawns) {
     );
   }
 
-  // .########...#####..
-  // .##........##...##.
-  // .##.......##.....##
-  // .#######..##.....##
-  // .......##.##.....##
-  // .##....##..##...##.
-  // ..######....#####..
-  if (enAvail >= 50) {
-    let name = "vN" + t;
-    let chosenRole = "viewer";
-    let direction = "north";
-    let sourceId = Memory.nsource2;
-    let parts = viewRoom50;
-    let group = "viewersE59S47";
-    let spawnDirection = [TOP];
+  // // .########...#####..
+  // // .##........##...##.
+  // // .##.......##.....##
+  // // .#######..##.....##
+  // // .......##.##.....##
+  // // .##....##..##...##.
+  // // ..######....#####..
+  // if (enAvail >= 50) {
+  //   let name = "vN" + t;
+  //   let chosenRole = "viewer";
+  //   let direction = "north";
+  //   let sourceId = Memory.nsource2;
+  //   let parts = viewRoom50;
+  //   let group = "viewersE59S47";
+  //   let spawnDirection = [TOP];
 
-    if (viewersE59S47.length < 1) {
-      viewersE59S47.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    }
+  //   if (viewersE59S47.length < 1) {
+  //     viewersE59S47.push(name);
+  //     retval = birthCreep(
+  //       spawns,
+  //       parts,
+  //       name,
+  //       chosenRole,
+  //       direction,
+  //       sourceId,
+  //       spawnDirection,
+  //       group
+  //     );
+  //   }
 
-    if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
-    }
-    if (retval === OK || retval === ERR_BUSY) {
-      return retval;
-    }
-  }
+  //   if (retval !== -16) {
+  //     console.log("spawningS " + name + " " + retval);
+  //   }
+  //   if (retval === OK || retval === ERR_BUSY) {
+  //     return retval;
+  //   }
+  // }
 
   // ..#######....#####.....#####..
   // .##.....##..##...##...##...##.

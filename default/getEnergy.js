@@ -35,6 +35,7 @@ function getEnergy(
 
   creep.memory.getEnergy = true;
   creep.memory.transfer = false;
+  creep.memory.transferTargetId = null;
 
   if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
     console.log(name + " resetting getEnergy");

@@ -1,4 +1,4 @@
-const transferEnergy = require("./action.transferEnergy");
+const transferEnergy = require("./transferEnergy.transferEnergy");
 const transferEnergyN = require("./action.transferEnergyN");
 const buildRoad = require("./action.buildRoad");
 const transferEnergyeRm = require("./action.transferEnergyeRm");

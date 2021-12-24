@@ -491,29 +491,29 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (
-      northController &&
-      northController.my &&
-      !nAttackerId &&
-      upControllersE59S47.length < 1
-    ) {
-      // when north controller is controlled change this to upControllersN
-      name = "upCN" + t;
-      chosenRole = "upCN";
-      upControllersE59S47.push(name);
-      direction = "north";
-      parts = upContrParts200;
-      group = "upControllersN";
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
+      // } else if (
+      //   northController &&
+      //   northController.my &&
+      //   !nAttackerId &&
+      //   upControllersE59S47.length < 1
+      // ) {
+      //   // when north controller is controlled change this to upControllersN
+      //   name = "upCN" + t;
+      //   chosenRole = "upCN";
+      //   upControllersE59S47.push(name);
+      //   direction = "north";
+      //   parts = upContrParts200;
+      //   group = "upControllersN";
+      //   retval = birthCreep(
+      //     spawns,
+      //     parts,
+      //     name,
+      //     chosenRole,
+      //     direction,
+      //     sourceId,
+      //     spawnDirection,
+      //     group
+      //   );
     } else if (upControllersE59S49.length < 1) {
       name = "upCdS" + t;
       chosenRole = "upCdS";
@@ -559,49 +559,49 @@ function spawnCreepTypes(enAvail, spawns) {
     }
   }
 
-  //   #####     ###      ###
-  //  #     #   #   #    #   #
-  //        #  #     #  #     #
-  //   #####   #     #  #     #
-  //        #  #     #  #     #
-  //  #     #   #   #    #   #
-  //   #####     ###      ###
-  if (enAvail >= 300 && !nAttackerId && northController && northController.my) {
-    let name = "h" + t;
-    let chosenRole = "h";
-    let direction = "south";
-    let sourceId = Memory.source2;
-    let parts = simpleParts300;
-    let group = "harvesters";
-    let spawnDirection = [TOP];
+  // //   #####     ###      ###
+  // //  #     #   #   #    #   #
+  // //        #  #     #  #     #
+  // //   #####   #     #  #     #
+  // //        #  #     #  #     #
+  // //  #     #   #   #    #   #
+  // //   #####     ###      ###
+  // if (enAvail >= 300 && !nAttackerId && northController && northController.my) {
+  //   let name = "h" + t;
+  //   let chosenRole = "h";
+  //   let direction = "south";
+  //   let sourceId = Memory.source2;
+  //   let parts = simpleParts300;
+  //   let group = "harvesters";
+  //   let spawnDirection = [TOP];
 
-    if (upControllersE59S47.length < 1) {
-      // when north controller is controlled change this to upControllersN
-      name = "upCN" + t;
-      chosenRole = "upCN";
-      direction = "north";
-      parts = upContrParts200;
-      group = "upControllersN";
-      upControllersE59S47.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    }
-
-    if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
-    }
-    if (retval === OK || retval === ERR_BUSY) {
-      return retval;
-    }
-  }
+  //   if (upControllersE59S47.length < 1) {
+  //     // when north controller is controlled change this to upControllersN
+  //     name = "upCN" + t;
+  //     chosenRole = "upCN";
+  //     direction = "north";
+  //     parts = upContrParts200;
+  //     group = "upControllersN";
+  //     upControllersE59S47.push(name);
+  //     retval = birthCreep(
+  //       spawns,
+  //       parts,
+  //       name,
+  //       chosenRole,
+  //       direction,
+  //       sourceId,
+  //       spawnDirection,
+  //       group
+  //     );
+  //   }
+  //
+  //   if (retval !== -16) {
+  //     console.log("spawningS " + name + " " + retval);
+  //   }
+  //   if (retval === OK || retval === ERR_BUSY) {
+  //     return retval;
+  //   }
+  // }
 
   //   #####   #######    ###
   //  #     #  #         #   #
@@ -729,7 +729,7 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-      // } else if (harvestersE59S47.length < 1) {
+      // } else if (!nAttackerId && harvestersE59S47.length < 1) {
       //   name = "hN" + t;
       //   harvestersE59S47.push(name);
       //   chosenRole = "h";

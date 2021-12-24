@@ -50,6 +50,7 @@ function tran(
   let tower4 = Game.getObjectById(Memory.tower4Id);
   let tower5 = Game.getObjectById(Memory.tower5Id);
   let tower6 = Game.getObjectById(Memory.tower6Id);
+  let dSTower1 = Game.getObjectById(Memory.dSTower1Id);
   let towers = [tower1, tower2, tower3, tower4, tower5, tower6];
   let enAvail = creepRoom.energyAvailable;
   let retval = -16;
@@ -66,15 +67,29 @@ function tran(
     return { retval: -19, extensions: extensions, spawns: spawns };
   }
 
-  const minRoomEnergy = 450;
-  const maxTowerEnergy = 950;
-  target = checkTransferToTower(
-    creepRoom,
-    tower1,
-    creep,
-    minRoomEnergy,
-    maxTowerEnergy
-  );
+  if (creep.room.name === Memory.homeRoomName) {
+    const minRoomEnergy = 450;
+    const maxTowerEnergy = 950;
+
+    target = checkTransferToTower(
+      creepRoom,
+      tower1,
+      creep,
+      minRoomEnergy,
+      maxTowerEnergy
+    );
+  } else if (creep.room.name - Memory.deepSouthRoomName) {
+    const minRoomEnergy = 450;
+    const maxTowerEnergy = 950;
+
+    target = checkTransferToTower(
+      creepRoom,
+      dSTower1,
+      creep,
+      minRoomEnergy,
+      maxTowerEnergy
+    );
+  }
 
   if (!target) {
     target = checkForFlagTargetStructure(flag, creep, extensions, spawns);

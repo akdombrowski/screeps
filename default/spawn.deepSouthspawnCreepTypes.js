@@ -141,6 +141,17 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   addPart(linkGetsParts300, 2, WORK);
   addPart(linkGetsParts300, 1, MOVE);
 
+  // 350
+  let rangedAttackerParts350 = [];
+  addPart(rangedAttackerParts350, 1, MOVE);
+  addPart(rangedAttackerParts350, 2, RANGED_ATTACK);
+
+  // 400
+  let rangedAttackerParts400 = [];
+  addPart(rangedAttackerParts400, 5, TOUGH);
+  addPart(rangedAttackerParts400, 1, MOVE);
+  addPart(rangedAttackerParts400, 2, RANGED_ATTACK);
+
   // 450
   let harvester450 = [];
   addPart(harvester450, 1, CARRY);
@@ -163,6 +174,12 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   let attackerParts500 = [];
   addPart(attackerParts500, 5, MOVE);
   addPart(attackerParts500, 3, ATTACK);
+
+  // 550
+  let rangedAttackerParts550 = [];
+  addPart(rangedAttackerParts550, 5, TOUGH);
+  addPart(rangedAttackerParts550, 1, MOVE);
+  addPart(rangedAttackerParts550, 3, RANGED_ATTACK);
 
   // 550
   let workerParts550 = [];
@@ -325,12 +342,12 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 200 && rangedAttackersE59S49.length < 1) {
+  if (enAvail >= 400 && rangedAttackersE59S49.length < 1) {
     let name = "aRdS" + t;
     let chosenRole = "rangedAttacker";
     let direction = "deepSouth";
     let sourceId = Memory.nSource2;
-    let parts = rangedAttackerParts200;
+    let parts = rangedAttackerParts400;
     let group = "rangedttackersE59S49";
     let spawnDirection = [TOP];
 
@@ -355,12 +372,12 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 200 && rangedAttackers.length < 0) {
+  if (enAvail >= 400 && rangedAttackers.length < 0) {
     let name = "aR" + t;
     let chosenRole = "rangedAttacker";
     let direction = "south";
     let sourceId = Memory.nSource2;
-    let parts = rangedAttackerParts200;
+    let parts = rangedAttackerParts400;
     let group = "rangedttackersE59S48";
     let spawnDirection = [TOP];
 

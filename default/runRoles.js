@@ -317,7 +317,7 @@ function runRoles() {
         Memory.northController,
         Game.flags.northController
       );
-    } else if (roll === "a" || roll === "attacker" || name.startsWith("a")) {
+    } else if (roll === "a" || roll === "attacker") {
       if (creep.memory.direction === "north") {
         creepsE59S47.push(name);
         attackersE59S47.push(name);

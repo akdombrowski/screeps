@@ -414,7 +414,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 350 && attackersE59S49.length < 1) {
+  if (enAvail >= 350 && attackersE59S49.length < 0) {
     let name = "aRdS" + t;
     let chosenRole = "rangedAttacker";
     let direction = "deepSouth";
@@ -444,7 +444,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 400 && attackersE59S49.length < 2) {
+  if (enAvail >= 400 && attackersE59S49.length < 0) {
     let name = "aRdS" + t;
     let chosenRole = "rangedAttacker";
     let direction = "deepSouth";

@@ -105,13 +105,15 @@ function getEnergy(
     return retval;
   }
 
-  if (!target || Memory[creep.room.name + "droppedPickerUpper"] === name) {
+  if (
+    !target ||
+    Memory[creep.room.name + "droppedPickerUpper"] === name ||
+    !Memory[creep.room.name + "droppedPickerUpper"]
+  ) {
     retval = droppedDuty(creep);
 
-    if (retval === OK) {
+    if (retval === OK || retval === ERR_TIRED) {
       return retval;
-    } else {
-      target = null;
     }
   }
 
@@ -129,6 +131,32 @@ function getEnergy(
       target = chosenSource;
       creep.memory.lastSourceId = target.id;
     }
+  }
+
+  if (
+    !target ||
+    (target &&
+      target.store &&
+      (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50) || target.energy <= 0)
+  ) {
+    creep.memory.lastSourceId = null;
+
+    target = creep.room
+      .find(FIND_STRUCTURES, {
+        filter: (struct) => {
+          const type = struct.structureType;
+
+          if (
+            type === STRUCTURE_CONTAINER &&
+            struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
+          ) {
+            return struct;
+          }
+        },
+      })
+      .pop();
+
+    isTargetStructure = target ? true : false;
   }
 
   if (
@@ -178,48 +206,6 @@ function getEnergy(
     creep.say("flag");
     creep.memory.lastSourceId = null;
     target = creep.room.lookForAt(LOOK_SOURCES, creep.memory.flag).pop();
-  }
-
-  if (
-    !target ||
-    (target &&
-      target.store &&
-      (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50))
-  ) {
-    creep.memory.lastSourceId = null;
-    if (creep.memory.direction === "deepSouth") {
-      target = Game.rooms[homeRoomName]
-        .find(FIND_STRUCTURES, {
-          filter: (struct) => {
-            const type = struct.structureType;
-
-            if (
-              type === STRUCTURE_CONTAINER &&
-              struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
-            ) {
-              return struct;
-            }
-          },
-        })
-        .pop();
-    } else {
-      target = creep.room
-        .find(FIND_STRUCTURES, {
-          filter: (struct) => {
-            const type = struct.structureType;
-
-            if (
-              type === STRUCTURE_CONTAINER &&
-              struct.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
-            ) {
-              return struct;
-            }
-          },
-        })
-        .pop();
-    }
-
-    isTargetStructure = target ? true : false;
   }
 
   // // If i don't have a target yet. Check storage units

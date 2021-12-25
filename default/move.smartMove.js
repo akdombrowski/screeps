@@ -67,6 +67,14 @@ function smartMove(
     return OK;
   }
 
+  if (path && path instanceof String) {
+    try {
+      path = Room.deserializePath(path);
+    } catch (e) {
+      console.error("deserializing path from memory: " + e);
+    }
+  }
+
   if (lastCreepPos) {
     lastCreepPos = new RoomPosition(
       lastCreepPos.x,
@@ -122,12 +130,6 @@ function smartMove(
     }
   }
 
-  // no path in memory.path. get one.
-  if (!path || path.length <= 0 || pathMem < 1) {
-    getPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
-    path = creep.memory.path;
-  }
-
   if (
     path &&
     path.length > 0 &&
@@ -139,16 +141,11 @@ function smartMove(
     path = path.map((p) => new RoomPosition(p.x, p.y, p.roomName));
   }
 
-  // if (
-  //   path &&
-  //   path[0] &&
-  //   path[0].pos &&
-  //   path[0].pos.x != creep.pos.x &&
-  //   path[0].pos.y != creep.pos.y
-  // ) {
-  //   path = null;
-  //   return retval;
-  // }
+  // no path in memory.path. get one.
+  if (!path || path.length <= 0 || pathMem < 1) {
+    getPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
+    path = creep.memory.path;
+  }
 
   retval = checkIfValidPath(path, name);
 
@@ -244,5 +241,3 @@ function smartMove(
 
 smartMove = profiler.registerFN(smartMove, "smartMove");
 module.exports = smartMove;
-
-

@@ -98,12 +98,16 @@ function getPath(
           let fatigueRecoverablePerTick = numberOfMoveBodyParts * 2;
           if (c.pos) {
             if (c.fatigue > fatigueRecoverablePerTick) {
+              // creep isn't moving due to fatigue
               costs.set(c.pos.x, c.pos.y, 0xff);
-            } else if(c.memory) {
+            } else if (c.memory) {
               let path = c.memory.path;
-              if (path) {
+
+              if (path && path.length > 0) {
+                // creep has a path and no fatigue
                 costs.set(path[0].x, path[0].y, 0xff);
               } else {
+                // creep has no path, likely not moving
                 costs.set(c.pos.x, c.pos.y, 0xff);
               }
             }

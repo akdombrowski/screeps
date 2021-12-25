@@ -11,6 +11,7 @@ function tryMoveByPath(creep, path, name) {
     // }
   } catch (e) {
     console.log(name + " moveByPath exception path: " + path);
+    console.log(e);
 
     creep.memory.path = null;
     retval = -16;

@@ -12,6 +12,10 @@ function smartMoveReaction(
 ) {
   if (retval === OK || (path && path.length <= 0)) {
     retval = successfulMove(creep, destPos, path, pathColor, dest, range);
+
+    if (creep.pos.inRangeTo(dest, range)) {
+      path = null;
+    }
   } else if (retval === ERR_NOT_FOUND) {
     // path doesn't match creep's location
     path = null;
@@ -29,7 +33,12 @@ function smartMoveReaction(
     // second chance path was also out of range
   }
 
-  creep.memory.path = JSON.stringify(path);
+  if (path) {
+    creep.memory.path = path;
+  } else {
+    creep.memory.path = null;
+  }
+
   return path;
 }
 exports.smartMoveReaction = smartMoveReaction;

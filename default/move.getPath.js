@@ -99,7 +99,7 @@ function getPath(
           if (c.pos) {
             if (c.fatigue > fatigueRecoverablePerTick) {
               costs.set(c.pos.x, c.pos.y, 0xff);
-            } else {
+            } else if(c.memory) {
               let path = c.memory.path;
               if (path) {
                 costs.set(path[0].x, path[0].y, 0xff);

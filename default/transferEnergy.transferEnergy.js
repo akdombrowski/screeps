@@ -75,7 +75,7 @@ function tran(
 
   if (!target) {
     if (creep.room.name === Memory.homeRoomName) {
-      const minRoomEnergy = 0;
+      const minRoomEnergy = 300;
       const maxTowerEnergy = 950;
 
       target = checkTransferToTower(

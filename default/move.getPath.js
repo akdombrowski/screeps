@@ -89,8 +89,24 @@ function getPath(
       if (!ignoreCreeps || creepArr.length > 1) {
         // Avoid creeps in the room
         for (const c of creepArr) {
+          // body parts array of creep
+          let bodyParts = c.body;
+          // new array with just the MOVE body parts
+          let moveBodyParts = bodyParts.filter((part) => part === MOVE);
+          let numberOfMoveBodyParts = moveBodyParts.length;
+          // how much fatigue this creep can recover from in a game tick
+          let fatigueRecoverablePerTick = numberOfMoveBodyParts * 2;
           if (c.pos) {
-            costs.set(c.pos.x, c.pos.y, 0xff);
+            if (c.fatigue > fatigueRecoverablePerTick) {
+              costs.set(c.pos.x, c.pos.y, 0xff);
+            } else {
+              let path = c.memory.path;
+              if (path) {
+                costs.set(path[0].x, path[0].y, 0xff);
+              } else {
+                costs.set(c.pos.x, c.pos.y, 0xff);
+              }
+            }
           }
         }
       }
@@ -108,8 +124,8 @@ function getPath(
       ret.path[ret.path.length - 1] &&
       ret.path[ret.path.length - 1].pos &&
       !ret.path[ret.path.length - 1].pos.inRangeTo(destPos, range)
-      ) {
-        console.log(name + " getPath need more ops for pathfinding");
+    ) {
+      console.log(name + " getPath need more ops for pathfinding");
 
       ret = PathFinder.search(creepPos, goals, {
         // We need to set the defaults costs higher so that we

@@ -791,7 +791,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 3) {
+    } else if (harvestersE59S49.length < 5) {
       name = "hdS" + t;
       group = "harvestersE59S49";
       direction = "deepSouth";
@@ -840,7 +840,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairers.length < 2) {
+    } else if (roadRepairers.length < 6) {
       parts = workerParts550;
       name = "rR" + t;
       roadRepairers.push(name);

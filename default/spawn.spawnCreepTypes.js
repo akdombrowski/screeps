@@ -325,7 +325,37 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 400) {
+  if (enAvail >= 350 && rangedAttackers.length < 1) {
+    let name = "aR" + t;
+    let chosenRole = "rangedAttacker";
+    let direction = "south";
+    let sourceId = Memory.source2;
+    let parts = rangedAttackerParts350;
+    let spawnDirection = [TOP];
+    let group = "rangedAttackers";
+
+    creepsE59S48.push(name);
+    rangedAttackers.push(name);
+    retval = birthCreep(
+      spawns,
+      parts,
+      name,
+      chosenRole,
+      direction,
+      sourceId,
+      spawnDirection,
+      group
+    );
+  }
+
+  //     #     #######  #######     #      #####   #    #
+  //    # #       #        #       # #    #     #  #   #
+  //   #   #      #        #      #   #   #        #  #
+  //  #     #     #        #     #     #  #        ###
+  //  #######     #        #     #######  #        #  #
+  //  #     #     #        #     #     #  #     #  #   #
+  //  #     #     #        #     #     #   #####   #    #
+  if (enAvail >= 400 && rangedAttackers.length < 2) {
     let name = "aR" + t;
     let chosenRole = "rangedAttacker";
     let direction = "south";
@@ -384,7 +414,37 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 400 && attackersE59S49.length < 1) {
+  if (enAvail >= 350 && attackersE59S49.length < 1) {
+    let name = "aRdS" + t;
+    let chosenRole = "rangedAttacker";
+    let direction = "deepSouth";
+    let sourceId = Memory.dSSource2;
+    let parts = rangedAttackerParts350;
+    let group = "rangedAttackersE59S49";
+    let spawnDirection = [TOP];
+
+    creepsE59S49.push(name);
+    rangedAttackersE59S49.push(name);
+    retval = birthCreep(
+      spawns,
+      parts,
+      name,
+      chosenRole,
+      direction,
+      sourceId,
+      spawnDirection,
+      group
+    );
+  }
+
+  //     #     #######  #######     #      #####   #    #
+  //    # #       #        #       # #    #     #  #   #
+  //   #   #      #        #      #   #   #        #  #
+  //  #     #     #        #     #     #  #        ###
+  //  #######     #        #     #######  #        #  #
+  //  #     #     #        #     #     #  #     #  #   #
+  //  #     #     #        #     #     #   #####   #    #
+  if (enAvail >= 400 && attackersE59S49.length < 2) {
     let name = "aRdS" + t;
     let chosenRole = "rangedAttacker";
     let direction = "deepSouth";

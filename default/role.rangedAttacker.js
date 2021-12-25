@@ -16,6 +16,7 @@ function roleRangedAttacker(creep) {
   let isTransferring = creep.memory.transfer;
   const homeRoomName = Memory.homeRoomName;
   const deepSouthRoomName = Memory.deepSouthRoomName;
+
   if (creep) {
     let enemyCreep = Game.getObjectById(Memory.invaderId);
     if (enemyCreep) {

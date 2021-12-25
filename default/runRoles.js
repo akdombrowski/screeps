@@ -55,6 +55,7 @@ function runRoles() {
   let viewersE59S49 = [];
   let creepsE59S48 = [];
   let creepsE59S49 = [];
+  let creepsE59S47 = [];
   let e59s48extensions = Memory.e59s48extensions;
   let e59s47extensions = Memory.e59s47extensions;
   let e59s49extensions = Memory.e59s49extensions;
@@ -182,6 +183,7 @@ function runRoles() {
       upControllersE59S47.push(name);
 
       if (creep.memory.direction === "north") {
+        creepsE59S47.push(name);
         creep.memory.controllerID = "59bbc5d22052a716c3cea133";
         upController(
           creep,
@@ -192,6 +194,7 @@ function runRoles() {
           "59bbc5d22052a716c3cea133"
         );
       } else if (creep.memory.direction === "e58s49") {
+        creepsE58S49.push(name);
         creep.memory.controllerID = "59bbc5c12052a716c3ce9faa";
         upController(
           creep,
@@ -202,6 +205,7 @@ function runRoles() {
           "59bbc5c12052a716c3ce9faa"
         );
       } else if (creep.memory.direction === "south") {
+        creepsE59S48.push(name);
         creep.memory.controllerID = "59bbc5d22052a716c3cea133";
         upController(
           creep,
@@ -212,6 +216,7 @@ function runRoles() {
           "59bbc5d22052a716c3cea133"
         );
       } else {
+        creepsE59S48.push(name);
         creep.memory.direction = "south";
         creep.memory.controllerID = "59bbc5d22052a716c3cea133";
         upController(
@@ -233,6 +238,7 @@ function runRoles() {
         creep.memory.up = true;
       }
       upControllersE59S49.push(name);
+      creepsE59S49.push(name);
 
       creep.memory.controllerID = "59bbc5d22052a716c3cea13a";
       retval = upController(
@@ -301,6 +307,7 @@ function runRoles() {
       }
 
       claimers.push(name);
+      creepsE59S47.push(name);
       claim(
         creep,
         Memory.northRoomName,
@@ -312,22 +319,16 @@ function runRoles() {
       );
     } else if (roll === "a" || roll === "attacker" || name.startsWith("a")) {
       if (creep.memory.direction === "north") {
+        creepsE59S47.push(name);
         attackersE59S47.push(name);
         roleAttackerN(creep);
       } else if (creep.memory.direction === "deepSouth") {
+        creepsE59S49.push(name);
         attackersE59S49.push(name);
         roleAttackerdS(creep);
-      } else if (creep.memory.direction === "ne") {
-        eattackers.push(name);
-        roleAttackerNE.run(creep);
-      } else if (creep.memory.direction === "nw") {
-        attackersNW.push(name);
-        roleAttackerNW.run(creep);
-      } else if (creep.memory.direction === "nww") {
-        attackersNWW.push(name);
-        roleAttackerNWW.run(creep);
       } else {
         let invader = Game.getObjectById(Memory.invaderId);
+        creepsE59S48.push(name);
         attackers.push(name);
         if (creep.pos.isNearTo(invader)) {
           creep.attack(invader);
@@ -340,23 +341,30 @@ function runRoles() {
           }
         }
       }
-    } else if (roll === "aR" || roll === "rangedAttacker" || name.startsWith("aR")) {
-      if (creep.memory.direction === "north") {
-        rangedAttackersE59S47.push(name);
-        roleRangedAttacker(creep);
-      } else if (creep.memory.direction === "deepSouth") {
-        rangedAttackersE59S49.push(name);
-        roleRangedAttackerdS(creep);
+    } else if (
+      roll === "aR" ||
+      roll === "rangedAttacker" ||
+      name.startsWith("aR")
+      ) {
+        if (creep.memory.direction === "north") {
+          creepsE59S47.push(name);
+          rangedAttackersE59S47.push(name);
+          roleRangedAttacker(creep);
+        } else if (creep.memory.direction === "deepSouth") {
+          creepsE59S49.push(name);
+          rangedAttackersE59S49.push(name);
+          roleRangedAttackerdS(creep);
+        } else {
+          creepsE59S48.push(name);
+          rangedAttackers.push(name);
+          roleRangedAttacker(creep);
+        }
+      } else if (roll == "hChain") {
+      } else if (roll == "transferer") {
+      } else if (roll == "mover") {
       } else {
-        rangedAttackers.push(name);
-        roleRangedAttacker(creep);
+        creep.memory.role = "h";
       }
-    } else if (roll == "hChain") {
-    } else if (roll == "transferer") {
-    } else if (roll == "mover") {
-    } else {
-      creep.memory.role = "h";
-    }
   }
 
   Memory.harvesters = harvesters;
@@ -388,6 +396,7 @@ function runRoles() {
   Memory.viewersE59S49 = viewersE59S49;
   Memory.creepsE59S48 = creepsE59S48;
   Memory.creepsE59S49 = creepsE59S49;
+  Memory.creepsE59S47 = creepsE59S47;
 }
 
 runRoles = profiler.registerFN(runRoles, "runRoles");

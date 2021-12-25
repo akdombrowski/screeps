@@ -96,6 +96,9 @@ function spawnCreepTypes(enAvail, spawns) {
   let viewers = Memory.viewers || [];
   let viewersE59S47 = Memory.viewersE59S47 || [];
   let viewersE59S49 = Memory.viewersE59S49 || [];
+  let rangedAttackers = Memory.rangedAttackers || [];
+  let rangedAttackersE59S47 = Memory.rangedAttackersE59S47 || [];
+  let rangedAttackersE59S49 = Memory.rangedAttackersE59S49 || [];
   let attackers = Memory.attackers || [];
   let attackersE59S47 = Memory.attackersE59S47 || [];
   let attackersE59S49 = Memory.attackersE59S49 || [];
@@ -107,6 +110,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let nwwAttackDurationSafeCheck = Memory.nwwAttackDurationSafeCheck;
   let creepsE59S48 = Memory.creepsE59S48 || [];
   let creepsE59S49 = Memory.creepsE59S49 || [];
+  let creepsE59S47 = Memory.creepsE59S47 || [];
 
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
@@ -123,6 +127,11 @@ function spawnCreepTypes(enAvail, spawns) {
   addPart(upContrParts200, 1, WORK);
   addPart(upContrParts200, 1, MOVE);
 
+  // 200
+  let rangedAttackerParts200 = [];
+  addPart(rangedAttackerParts200, 1, MOVE);
+  addPart(rangedAttackerParts200, 1, RANGED_ATTACK);
+
   // 290
   let attackerParts290 = [];
   addPart(attackerParts290, 1, MOVE);
@@ -133,6 +142,17 @@ function spawnCreepTypes(enAvail, spawns) {
   addPart(linkGetsParts300, 1, CARRY);
   addPart(linkGetsParts300, 2, WORK);
   addPart(linkGetsParts300, 1, MOVE);
+
+  // 350
+  let rangedAttackerParts350 = [];
+  addPart(rangedAttackerParts350, 1, MOVE);
+  addPart(rangedAttackerParts350, 2, RANGED_ATTACK);
+
+  // 400
+  let rangedAttackerParts400 = [];
+  addPart(rangedAttackerParts400, 5, TOUGH);
+  addPart(rangedAttackerParts400, 1, MOVE);
+  addPart(rangedAttackerParts400, 2, RANGED_ATTACK);
 
   // 450
   let harvesterParts450 = [];
@@ -150,6 +170,12 @@ function spawnCreepTypes(enAvail, spawns) {
   let attackerParts500 = [];
   addPart(attackerParts500, 5, MOVE);
   addPart(attackerParts500, 3, ATTACK);
+
+  // 550
+  let rangedAttackerParts550 = [];
+  addPart(rangedAttackerParts550, 5, TOUGH);
+  addPart(rangedAttackerParts550, 1, MOVE);
+  addPart(rangedAttackerParts550, 3, RANGED_ATTACK);
 
   // 550
   let upContrParts550 = [];
@@ -299,17 +325,17 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 500 && invaderId) {
-    let name = "att" + t;
-    let chosenRole = "attacker";
+  if (enAvail >= 400) {
+    let name = "aR" + t;
+    let chosenRole = "rangedAttacker";
     let direction = "south";
     let sourceId = Memory.source2;
-    let parts = attackerParts500;
+    let parts = rangedAttackerParts400;
     let spawnDirection = [TOP];
-    let group = "attackers";
+    let group = "rangedAttackers";
 
     creepsE59S48.push(name);
-    attackers.push(name);
+    rangedAttackers.push(name);
     retval = birthCreep(
       spawns,
       parts,
@@ -358,16 +384,17 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 500 && attackersE59S49.length < 3 && dSAttackerId) {
-    let name = "dSatt" + t;
-    let chosenRole = "attacker";
+  if (enAvail >= 400 && attackersE59S49.length < 1) {
+    let name = "aRdS" + t;
+    let chosenRole = "rangedAttacker";
     let direction = "deepSouth";
     let sourceId = Memory.dSSource2;
-    let parts = attackerParts500;
-    let group = "attackersE59S49";
+    let parts = rangedAttackerParts400;
+    let group = "rangedAttackersE59S49";
     let spawnDirection = [TOP];
 
-    attackersE59S49.push(name);
+    creepsE59S49.push(name);
+    rangedAttackersE59S49.push(name);
     retval = birthCreep(
       spawns,
       parts,
@@ -680,22 +707,22 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-      } else if (!nAttackerId && harvestersE59S47.length < 2) {
-        name = "hN" + t;
-        harvestersE59S47.push(name);
-        chosenRole = "h";
-        direction = "north";
-        group = "harvestersE59S47";
-        retval = birthCreep(
-          spawns,
-          parts,
-          name,
-          chosenRole,
-          direction,
-          sourceId,
-          spawnDirection,
-          group
-        );
+    } else if (!nAttackerId && harvestersE59S47.length < 2) {
+      name = "hN" + t;
+      harvestersE59S47.push(name);
+      chosenRole = "h";
+      direction = "north";
+      group = "harvestersE59S47";
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
     } else if (roadRepairers.length < 1) {
       name = "rR" + t;
       chosenRole = "roadRepairer";
@@ -703,6 +730,23 @@ function spawnCreepTypes(enAvail, spawns) {
       group = "roadRepairers";
       creepsE59S48.push(name);
       roadRepairers.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (roadRepairers.length < 1) {
+      name = "rR" + t;
+      chosenRole = "roadRepairer";
+      direction = "south";
+      group = "roadRepairersE59S47";
+      creepsE59S47.push(name);
+      roadRepairersE59S47.push(name);
       retval = birthCreep(
         spawns,
         parts,
@@ -1593,6 +1637,9 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersE59S47 = roadRepairersE59S47;
   Memory.roadRepairersE59S49 = roadRepairersE59S49;
+  Memory.rangedAttackers = rangedAttackers;
+  Memory.rangedAttackersE59S47 = rangedAttackersE59S47;
+  Memory.rangedAttackersE59S49 = rangedAttackersE59S49;
   Memory.attackers = attackers;
   Memory.attackersE59S47 = attackersE59S47;
   Memory.attackersE59S49 = attackersE59S49;
@@ -1603,6 +1650,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.towerHarvesters = towerHarvesters;
   Memory.creepsE59S48 = creepsE59S48;
   Memory.creepsE59S49 = creepsE59S49;
+  Memory.creepsE59S47 = creepsE59S47;
 }
 spawnCreepTypes = profiler.registerFN(spawnCreepTypes, "spawnCreepTypes");
 

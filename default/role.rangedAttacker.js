@@ -40,8 +40,10 @@ function roleRangedAttacker(creep) {
     if (invader) {
       if (creep.pos.inRangeTo(invader, distanceToInvader)) {
         retval = creep.rangedAttack(invader);
+        creep.say("a:" + retval);
       } else {
         retval = smartMove(creep, invader, distanceToInvader);
+        creep.say(invader.pos.x + "," + invader.pos.y + ":" + retval);
       }
     } else {
       // no attacker in creepRoom

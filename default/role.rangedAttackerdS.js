@@ -11,6 +11,7 @@ function roleRangedAttackerdS(creep) {
   let retval;
   let northExit = Game.flags.northExit;
   let southExit = Game.flags.southExit;
+  let southEntrance = Game.flags.southEntrance;
   let getEnergy = creep.memory.getEnergy;
   let transfer = creep.memory.transfer;
   let creepName = creep.name;
@@ -41,6 +42,7 @@ function roleRangedAttackerdS(creep) {
         retval = creep.rangedAttack(invader);
       } else {
         retval = smartMove(creep, invader, distanceToInvader);
+        creep.say(invader.pos.x + "," + invader.pos.y + ":" + retval);
       }
     } else {
       // no attacker in creepRoom
@@ -61,7 +63,7 @@ function roleRangedAttackerdS(creep) {
           } else {
             retval = smartMove(
               creep,
-              Game.flags.SouthExit,
+              southExit,
               1,
               true,
               null,
@@ -71,6 +73,7 @@ function roleRangedAttackerdS(creep) {
               false,
               null
             );
+            creep.say(southExit);
           }
         } else if (!creep.pos.inRangeTo(southExit, distanceToFlagForPatrol)) {
           // no attacker in home room, move near southExit to guard it

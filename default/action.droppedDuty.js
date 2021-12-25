@@ -6,6 +6,8 @@ function droppedDuty(creep) {
   let creepRoom = creep.room;
   let droppedTarget = Game.getObjectById(creep.memory.droppedTargetId);
   let droppedPickerUpperName = Memory[creep.room.name + "droppedPickerUpper"];
+  let droppedPickerUpperNames =
+    Memory[creep.room.name + "droppedPickerUpperNames"];
   let tombstoneHunter = Memory.tombstoneHunterName;
   let tombstoneTarget = Game.getObjectById(Memory.tombstoneTargetId);
   let target;
@@ -14,147 +16,22 @@ function droppedDuty(creep) {
   let tombstonesHome = Memory.tombstonesHome;
   let droppedResourcesNorth = Memory.droppedResourcesNorth;
   let tombstonesNorth = Memory.tombstonesNorth;
+  let amIOnDroppedDuty;
 
-  // need to finish north side and then implement finding resource if creep is a pickerUpper
-  // if (cRm.name === Memory.homeRoomName) {
-  //   if (!droppedResourcesHome || droppedResourcesHome.length <= 0) {
-  //     Memory.droppedResourcesHome = cRm.find(FIND_DROPPED_RESOURCES);
-  //     droppedResourcesHome = Memory.droppedResourcesHome;
-  //   }
+  if (droppedPickerUpperNames) {
+    amIOnDroppedDuty = droppedPickerUpperNames.includes(creepName);
 
-  //   if (
-  //     (!droppedResourcesHome || droppedResourcesHome.length <= 0) &&
-  //     (!tombstonesHome || tombstonesHome.length <= 0)
-  //   ) {
-  //     cRm.find(FIND_TOMBSTONES);
-  //     Memory.tombstonesHome = tombstonesHome;
-  //   }
-
-  //   if (droppedResourcesHome) {
-  //     let resourcesPickerUppers = [];
-  //     for (const d in droppedResourcesHome) {
-  //       if (d.pos) {
-  //         resourcesPickerUppers.push({
-  //           [d.pos.findClosestByPath(FIND_MY_CREEPS, {
-  //             filter: function (c) {
-  //               return (
-  //                 c.getActiveBodyparts(CARRY) > 0 &&
-  //                 c.getActiveBodyparts(MOVE) > 0
-  //               );
-  //             },
-  //           })]: d.pos,
-  //         });
-  //       }
-  //     }
-
-  //     Memory.resourcesPickerUppers = resourcesPickerUppers;
-  //   }
-
-  //   if (
-  //     !Memory.resourcesPickerUppers ||
-  //     Memory.resourcesPickerUppers.length <= 0
-  //   ) {
-  //     let tombstonePickers = [];
-  //     for (const t in tombstonesHome) {
-  //       if (t.pos) {
-  //         tombstonePickers.push({
-  //           [t.pos.findClosestByPath(FIND_MY_CREEPS, {
-  //             filter: function (c) {
-  //               return (
-  //                 c.getActiveBodyparts(CARRY) > 0 &&
-  //                 c.getActiveBodyparts(MOVE) > 0
-  //               );
-  //             },
-  //           })]: t.pos,
-  //         });
-  //       }
-  //     }
-
-  //     Memory.tombstonePickers = tombstonePickers;
-  //   } else if (Memory.resourcesPickerUppers) {
-  //     let isMe = Memory.resourcesPickerUppers
-  //       .keys()
-  //       .find((value) => value === creep.name);
-
-  //     creep.memory.resourcesPickerUpper = isMe;
-  //     creep.memory.resourcePosX =
-  //       Memory.resourcesPickerUppers[creep.name].pos.x;
-  //     creep.memory.resourcePosY =
-  //       Memory.resourcesPickerUppers[creep.name].pos.y;
-  //   }
-
-  //   if (
-  //     !creep.memory.resourcePickerUpper &&
-  //     Memory.tombstonePickers &&
-  //     Memory.tombstonePickers.length > 0
-  //   ) {
-  //     let isMe = Memory.tombstonePickers
-  //       .keys()
-  //       .find((value) => value === creep.name);
-  //     creep.memory.tombstonePicker = isMe;
-  //   }
-  // } else if (cRm.name === Memory.northRoomName) {
-  //   if (!droppedResourcesNorth || droppedResourcesNorth.length <= 0) {
-  //     Memory.droppedResourcesNorth = cRm.find(FIND_DROPPED_RESOURCES);
-  //     droppedResourcesNorth = Memory.droppedResourcesNorth;
-  //   }
-
-  //   if (
-  //     (!droppedResourcesHome || droppedResourcesHome.length <= 0) &&
-  //     (!tombstonesNorth || tombstonesNorth.length <= 0)
-  //   ) {
-  //     cRm.find(FIND_TOMBSTONES);
-  //     Memory.tombstonesNorth = tombstonesNorth;
-  //   }
-
-  //   if (droppedResourcesNorth) {
-  //     let resourcesPickerUppersNorth = [];
-  //     for (const d in droppedResourcesNorth) {
-  //       if (d.pos) {
-  //         resourcesPickerUppersNorth.push({
-  //           [d.pos.findClosestByPath(FIND_MY_CREEPS, {
-  //             filter: function (c) {
-  //               return (
-  //                 c.getActiveBodyparts(CARRY) > 0 &&
-  //                 c.getActiveBodyparts(MOVE) > 0
-  //               );
-  //             },
-  //           })]: d.pos,
-  //         });
-  //       }
-  //     }
-
-  //     Memory.resourcesPickerUppersNorth = resourcesPickerUppersNorth;
-  //   }
-
-  //   if (
-  //     !Memory.resourcesPickerUppersNorth ||
-  //     Memory.resourcesPickerUppersNorth.length <= 0
-  //   ) {
-  //     let tombstonePickersNorth = [];
-  //     for (const t in tombstonesNorth) {
-  //       if (t.pos) {
-  //         tombstonePickersNorth.push({
-  //           [t.pos.findClosestByPath(FIND_MY_CREEPS, {
-  //             filter: function (c) {
-  //               return (
-  //                 c.getActiveBodyparts(CARRY) > 0 &&
-  //                 c.getActiveBodyparts(MOVE) > 0
-  //               );
-  //             },
-  //           })]: t.pos,
-  //         });
-  //       }
-  //     }
-
-  //     Memory.tombstonePickersNorth = tombstonePickersNorth;
-  //   }
-  // }
+    droppedPickerUpperNames = droppedPickerUpperNames.filter(
+      (name) => Game.creeps[name]
+    );
+  } else {
+    Memory[creep.room.name + "droppedPickerUpperNames"] = [];
+  }
 
   if (
-    !droppedPickerUpperName ||
-    droppedPickerUpperName === creepName ||
-    !Game.creeps[droppedPickerUpperName]
+    !droppedPickerUpperNames ||
+    amIOnDroppedDuty ||
+    droppedPickerUpperNames.length < 3
   ) {
     if (creep.memory.droppedTargetId) {
       droppedTarget = Game.getObjectById(creep.memory.droppedTargetId);
@@ -175,7 +52,7 @@ function droppedDuty(creep) {
     if (droppedTarget) {
       creep.memory.lastSourceId = droppedTarget.id;
       creep.memory.droppedTargetId = droppedTarget.id;
-      Memory[creep.room.name + "droppedPickerUpper"] = creepName;
+      Memory[creep.room.name + "droppedPickerUpperNames"].push(creepName);
 
       if (droppedTarget) {
         if (creep.pos.isNearTo(droppedTarget)) {
@@ -189,7 +66,10 @@ function droppedDuty(creep) {
           if (retval === OK) {
             creep.memory.lastSourceId = null;
             creep.memory.droppedTargetId = null;
-            Memory[creep.room.name + "droppedPickerUpper"] = null;
+            _.pull(
+              Memory[creep.room.name + "droppedPickerUpperNames"],
+              creepName
+            );
           }
 
           return retval;
@@ -212,7 +92,7 @@ function droppedDuty(creep) {
         }
       }
     } else {
-      Memory[creep.room.name + "droppedPickerUpper"] = null;
+      _.pull(Memory[creep.room.name + "droppedPickerUpperNames"], creepName);
       retval = ERR_NOT_FOUND;
     }
   }

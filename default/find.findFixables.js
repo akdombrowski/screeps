@@ -15,6 +15,8 @@ function findFixables(room) {
         return struct.hits < struct.hitsMax;
       } else if (struct.structureType === STRUCTURE_TOWER) {
         return struct.hits < struct.hitsMax;
+      } else if (struct.structureType === STRUCTURE_SPAWN) {
+        return struct.hits < struct.hitsMax;
       } else {
         return false;
       }

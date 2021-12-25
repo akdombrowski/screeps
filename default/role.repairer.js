@@ -2,10 +2,9 @@ const getEnergy = require("./getEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./move.smartMove");
 const build = require("./action.build");
-const findRepairable = require("./action.findRepairableStruct");
-const { findFixables } = require("./find.findFixables");
 const { checkIfBlockingSource } = require("./utilities.checkIfBlockingSource");
 const profiler = require("./screeps-profiler");
+const { findFixablesForCreep } = require("./find.findFixablesForCreep");
 
 function roleRepairer(creep, targetRoomName, exit, exitDirection) {
   let mem_repair = creep.memory.repair;
@@ -114,50 +113,7 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
     }
 
     if (!target) {
-      const timeToPassForRecheck = 50;
-      if (creep.memory.direction.startsWith("s")) {
-        if (
-          !Memory.e59s48fixables ||
-          Memory.e59s48fixables.length <= 0 ||
-          Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
-        ) {
-          Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
-          Memory.lastSouthCheckFixables = Game.time;
-        }
-      } else if (creep.memory.direction.startsWith("n")) {
-        if (
-          !Memory.e59s47fixables ||
-          Memory.e59s47fixables.length <= 0 ||
-          Memory.lastNorthCheckFixables - Game.time > timeToPassForRecheck
-        ) {
-          Memory.e59s47fixables = findFixables(
-            Game.rooms[Memory.northRoomName]
-          );
-          Memory.lastNorthCheckFixables = Game.time;
-        }
-      } else if (creep.memory.direction.startsWith("deepSouth")) {
-        if (
-          !Memory.e59s49fixables ||
-          Memory.e59s49fixables.length <= 0 ||
-          Memory.lastDeepSouthCheckFixables - Game.time > timeToPassForRecheck
-        ) {
-          Memory.e59s49fixables = findFixables(
-            Game.rooms[Memory.deepSouthRoomName]
-          );
-          Memory.lastDeepSouthCheckFixables = Game.time;
-        }
-      } else {
-        if (
-          !Memory.e59s48fixables ||
-          Memory.e59s48fixables.length <= 0 ||
-          Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
-        ) {
-          Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
-          Memory.lastSouthCheckFixables = Game.time;
-        }
-      }
-
-      target = findRepairable(creep);
+      target = findFixablesForCreep(creep, target);
     }
 
     if (target && target.hits >= target.hitsMax) {
@@ -213,3 +169,4 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
 
 roleRepairer = profiler.registerFN(roleRepairer, "roleRepairer");
 module.exports = roleRepairer;
+

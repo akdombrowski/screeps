@@ -800,13 +800,13 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairers.length < 1) {
-      name = "rR" + t;
+    } else if (roadRepairersE59S49.length < 1) {
+      name = "rRdS" + t;
       chosenRole = "roadRepairer";
-      direction = "south";
-      group = "roadRepairersE59S47";
-      creepsE59S47.push(name);
-      roadRepairersE59S47.push(name);
+      direction = "deepSouth";
+      group = "roadRepairersE59S49";
+      creepsE59S49.push(name);
+      roadRepairersE59S49.push(name);
       retval = birthCreep(
         spawns,
         parts,

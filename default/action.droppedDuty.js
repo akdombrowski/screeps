@@ -168,10 +168,6 @@ function droppedDuty(creep) {
       });
     }
 
-    if (!droppedTarget) {
-      droppedTarget = creep.pos.findClosestByPath(FIND_TOMBSTONES);
-    }
-
     if (droppedTarget) {
       creep.memory.lastSourceId = droppedTarget.id;
       creep.memory.droppedTargetId = droppedTarget.id;
@@ -181,12 +177,9 @@ function droppedDuty(creep) {
         if (creep.pos.isNearTo(droppedTarget)) {
           creep.say("pu");
           if (!droppedTarget.resourceType) {
-            droppedTarget = droppedTarget.pos.lookFor(LOOK_RESOURCES).pop();
-          }
-
-          retval = creep.pickup(droppedTarget);
-          if (retval != OK) {
-            retval = creep.harvest(droppedTarget);
+            retval = creep.withdraw(droppedTarget, RESOURCE_ENERGY);
+          } else {
+            retval = creep.pickup(droppedTarget);
           }
 
           if (retval === OK) {

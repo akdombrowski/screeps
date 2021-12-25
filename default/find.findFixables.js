@@ -1,3 +1,5 @@
+const profiler = require("./screeps-profiler");
+
 function findFixables(room) {
   if (!room) {
     return null;
@@ -10,6 +12,8 @@ function findFixables(room) {
       } else if (struct.structureType === STRUCTURE_STORAGE) {
         return struct.hits < struct.hitsMax;
       } else if (struct.structureType === STRUCTURE_CONTAINER) {
+        return struct.hits < struct.hitsMax;
+      } else if (struct.structureType === STRUCTURE_TOWER) {
         return struct.hits < struct.hitsMax;
       } else {
         return false;
@@ -35,7 +39,8 @@ function findFixables(room) {
     }
   });
 
-
   return fixables.map((f) => f.id);
 }
+
+findFixables = profiler.registerFN(findFixables, "findFixables");
 exports.findFixables = findFixables;

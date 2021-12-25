@@ -1,3 +1,5 @@
+const profiler = require("./screeps-profiler");
+
 function findRepairable(repairer) {
   let fixables = [];
   let lessThan10Perc = [];
@@ -12,8 +14,6 @@ function findRepairable(repairer) {
     weakest = Memory.e59s47fixables.shift();
   } else if (repairer.room.name === Memory.deepSouthRoomName) {
     weakest = Memory.e59s49fixables.shift();
-  } else if (repairer.room.name === "E35N32") {
-    weakest = Memory.e35n32fixables.pop();
   }
 
   if (weakest) {
@@ -24,5 +24,7 @@ function findRepairable(repairer) {
 
   return target;
 }
+
+findRepairable = profiler.registerFN(findRepairable, "findRepairable");
 
 module.exports = findRepairable;

@@ -39,6 +39,7 @@ const {
 const {
   memoryE59S49SpawnsRefresh,
 } = require("./getEnergy.memoryE59S49SpawnsRefresh");
+const { towerHeal } = require("./tower.heal");
 
 // This line monkey patches the global prototypes.
 profiler.enable();
@@ -96,25 +97,44 @@ module.exports.loop = function () {
     dSTowers.push(Game.getObjectById(Memory.dSTower1Id));
     towersAttackInvader(Game.getObjectById(Memory.dSAttackerId), dSTowers);
 
-  const timeToPassForRecheck = 100;
-  const minEnergyToKeepForInvaders = 200;
-  const repairInterval = 2;
+    const timeToPassForRecheck = 100;
+    const minEnergyToKeepForInvaders = 200;
+    const healInterval = 1;
+    const repairInterval = 2;
     if (!Memory.invaderId) {
-      towerRepair(
+      retval = towerHeal(
         towers,
         timeToPassForRecheck,
         minEnergyToKeepForInvaders,
-        repairInterval
+        healInterval
       );
+
+      if (retval != OK) {
+        towerRepair(
+          towers,
+          timeToPassForRecheck,
+          minEnergyToKeepForInvaders,
+          repairInterval
+        );
+      }
     }
 
     if (!Memory.dSAttackerId) {
-      towerRepair(
+      retval = towerHeal(
         dSTowers,
         timeToPassForRecheck,
         minEnergyToKeepForInvaders,
-        repairInterval
+        healInterval
       );
+
+      if (retval != OK) {
+        towerRepair(
+          dSTowers,
+          timeToPassForRecheck,
+          minEnergyToKeepForInvaders,
+          repairInterval
+        );
+      }
     }
 
     checkForAttackers();

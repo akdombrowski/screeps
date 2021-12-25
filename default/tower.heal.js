@@ -1,68 +1,81 @@
 const { findFixables } = require("./find.findFixables");
 const findRepairable = require("./action.findRepairableStruct");
 const profiler = require("./screeps-profiler");
+const { findHealables } = require("./find.findHealables");
+const findHealable = require("./action.findHealableCreep");
 
-function towerRepair(
+function towerHeal(
   towers,
   timeToPassForRecheck,
   minEnergyToKeepForInvaders,
   repairInterval
 ) {
+  let retval = -16;
+
   if (Game.time % repairInterval === 0) {
     for (let i = 0; i < towers.length; i++) {
       let t = towers[i];
       let target = null;
+
       if (t.room.name === Memory.homeRoomName && !Memory.invaderId) {
         if (
-          !Memory.e59s48fixables ||
-          Memory.e59s48fixables.length <= 0 ||
-          Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
+          !Memory.e59s48healables ||
+          Memory.e59s48healables.length <= 0 ||
+          Memory.lastSouthCheckHealables - Game.time > timeToPassForRecheck
         ) {
-          Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
-          Memory.lastSouthCheckFixables = Game.time;
+          Memory.e59s48healables = findHealables(
+            Game.rooms[Memory.homeRoomName]
+          );
+          Memory.lastSouthCheckHealables = Game.time;
         }
       } else if (t.room.name === Memory.northRoomName && !Memory.nAttackerId) {
         if (
-          !Memory.e59s47fixables ||
-          Memory.e59s47fixables.length <= 0 ||
-          Memory.lastNorthCheckFixables - Game.time > timeToPassForRecheck
+          !Memory.e59s47healables ||
+          Memory.e59s47healables.length <= 0 ||
+          Memory.lastNorthCheckHealables - Game.time > timeToPassForRecheck
         ) {
-          Memory.e59s47fixables = findFixables(
+          Memory.e59s47healables = findHealables(
             Game.rooms[Memory.northRoomName]
           );
-          Memory.lastNorthCheckFixables = Game.time;
+          Memory.lastNorthCheckHealables = Game.time;
         }
       } else if (
         t.room.name === Memory.deepSouthRoomName &&
         !Memory.dSAttackerId
       ) {
         if (
-          !Memory.e59s49fixables ||
-          Memory.e59s49fixables.length <= 0 ||
-          Memory.lastDeepSouthCheckFixables - Game.time > timeToPassForRecheck
+          !Memory.e59s49healables ||
+          Memory.e59s49healables.length <= 0 ||
+          Memory.lastDeepSouthCheckHealables - Game.time > timeToPassForRecheck
         ) {
-          Memory.e59s49fixables = findFixables(
+          Memory.e59s49healables = findHealables(
             Game.rooms[Memory.deepSouthRoomName]
           );
-          Memory.lastDeepSouthCheckFixables = Game.time;
+          Memory.lastDeepSouthCheckHealables = Game.time;
         }
       } else {
         if (
-          !Memory.e59s48fixables ||
-          Memory.e59s48fixables.length <= 0 ||
-          Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
+          !Memory.e59s48healables ||
+          Memory.e59s48healables.length <= 0 ||
+          Memory.lastSouthCheckHealables - Game.time > timeToPassForRecheck
         ) {
-          Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
-          Memory.lastSouthCheckFixables = Game.time;
+          Memory.e59s48healables = findHealables(
+            Game.rooms[Memory.homeRoomName]
+          );
+          Memory.lastSouthCheckHealables = Game.time;
         }
       }
-      target = findRepairable(t);
-      if (target && t.store[RESOURCE_ENERGY] > minEnergyToKeepForInvaders) {
-        t.repair(target);
+
+      target = findHealable(t);
+
+      if (target) {
+        retval = t.heal(target);
       }
     }
   }
+
+  return retval;
 }
 
-towerRepair = profiler.registerFN(towerRepair, "towerRepair");
-exports.towerRepair = towerRepair;
+towerHeal = profiler.registerFN(towerHeal, "towerHeal");
+exports.towerHeal = towerHeal;

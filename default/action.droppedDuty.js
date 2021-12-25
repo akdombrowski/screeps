@@ -151,7 +151,11 @@ function droppedDuty(creep) {
   //   }
   // }
 
-  if (!droppedPickerUpperName || droppedPickerUpperName === creepName) {
+  if (
+    !droppedPickerUpperName ||
+    droppedPickerUpperName === creepName ||
+    !Game.creeps[droppedPickerUpperName]
+  ) {
     if (creep.memory.droppedTargetId) {
       droppedTarget = Game.getObjectById(creep.memory.droppedTargetId);
     } else {

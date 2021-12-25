@@ -108,11 +108,7 @@ function getEnergy(
     return retval;
   }
 
-  if (
-    !target ||
-    Memory[creep.room.name + "droppedPickerUpper"] === name ||
-    !Memory[creep.room.name + "droppedPickerUpper"]
-  ) {
+  if (!target) {
     retval = droppedDuty(creep);
 
     if (retval === OK || retval === ERR_TIRED) {

@@ -37,10 +37,12 @@ function roleRangedAttacker(creep) {
 
     const distanceToInvader = 3;
     const distanceToFlagForPatrol = 10;
-    if (creep.pos.inRangeTo(invader, distanceToInvader)) {
-      retval = creep.rangedAttack(invader);
-    } else if (invader) {
-      retval = smartMove(creep, invader, distanceToInvader);
+    if (invader) {
+      if (creep.pos.inRangeTo(invader, distanceToInvader)) {
+        retval = creep.rangedAttack(invader);
+      } else {
+        retval = smartMove(creep, invader, distanceToInvader);
+      }
     } else {
       // no attacker in creepRoom
       Memory.dSAttackerId = null;

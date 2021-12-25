@@ -19,6 +19,8 @@ const buildRoad = require("./action.buildRoad");
 const roleReserver = require("./role.reserver");
 const profiler = require("./screeps-profiler");
 const roleViewer = require("./role.viewer");
+const roleRangedAttacker = require("./role.rangedAttacker");
+const roleRangedAttackerdS = require("./role.rangedAttackerdS");
 
 function runRoles() {
   let i = 0;
@@ -37,6 +39,9 @@ function runRoles() {
   let roadRepairersE59S49 = [];
   let roadRepairersE58S49 = [];
   let roadBuilders = [];
+  let rangedAttackers = [];
+  let rangedAttackersE59S47 = [];
+  let rangedAttackersE59S49 = [];
   let attackers = [];
   let attackersE59S47 = [];
   let attackersE59S49 = [];
@@ -335,6 +340,17 @@ function runRoles() {
           }
         }
       }
+    } else if (roll === "aR" || roll === "rangedAttacker" || name.startsWith("aR")) {
+      if (creep.memory.direction === "north") {
+        rangedAttackersE59S47.push(name);
+        roleRangedAttacker(creep);
+      } else if (creep.memory.direction === "deepSouth") {
+        rangedAttackersE59S49.push(name);
+        roleRangedAttackerdS(creep);
+      } else {
+        rangedAttackers.push(name);
+        roleRangedAttacker(creep);
+      }
     } else if (roll == "hChain") {
     } else if (roll == "transferer") {
     } else if (roll == "mover") {
@@ -357,6 +373,9 @@ function runRoles() {
   Memory.roadRepairersE59S49 = roadRepairersE59S49;
   Memory.roadRepairersE58S49 = roadRepairersE58S49;
   Memory.roadBuilders = roadBuilders;
+  Memory.rangedAttackers = rangedAttackers;
+  Memory.rangedAttackersE59S47 = rangedAttackersE59S47;
+  Memory.rangedAttackersE59S49 = rangedAttackersE59S49;
   Memory.attackers = attackers;
   Memory.attackersE59S47 = attackersE59S47;
   Memory.attackersE59S49 = attackersE59S49;

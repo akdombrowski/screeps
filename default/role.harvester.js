@@ -15,7 +15,7 @@ function roleHarvester(creep, extensions, spawns) {
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
   const deepSouthRoomName = Memory.deepSouthRoomName;
-  const e58s49RmName = Memory.e58s49RoomName;
+  const e58s49RoomName = Memory.e58s49RoomName;
   let retval = -16;
 
   if (
@@ -129,7 +129,7 @@ function roleHarvester(creep, extensions, spawns) {
     } else if (creep.memory.direction === "e58s49") {
       retval = getEnergy(
         creep,
-        e58s49RmName,
+        e58s49RoomName,
         null,
         null,
         Game.flags.e58s49Exit,

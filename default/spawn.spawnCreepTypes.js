@@ -636,6 +636,23 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
+    } else if (creepsE59S48.length < 10) {
+      name = "h" + t;
+      group = "harvesters";
+      direction = "south";
+      creepsE59S48.push(name);
+      harvesters.push(name);
+      parts = simpleParts300;
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
     }
 
     if (retval !== -16) {

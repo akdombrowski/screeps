@@ -643,7 +643,7 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (creepsE59S48.length < 15) {
+    } else if (creepsE59S48.length < 20) {
       console.log("creepsE59S48: " + creepsE59S48.length);
       name = "h" + t;
       group = "harvesters";
@@ -767,7 +767,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (creepsE59S48.length < 20) {
+    if (creepsE59S48.length < 24) {
       console.log("creepsE59S48: " + creepsE59S48.length);
       harvesters.push(name);
       creepsE59S48.push(name);
@@ -868,7 +868,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 4) {
+    if (harvesters.length < 12) {
       console.log("harvesters: " + harvesters.length);
       name = "h" + t;
       chosenRole = "h";

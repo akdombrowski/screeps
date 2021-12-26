@@ -73,11 +73,6 @@ function tran(
     return { retval: -19, extensions: extensions, spawns: spawns };
   }
 
-   if (creepRoom.name === Memory.deepSouthRoomName) {
-     console.log(creep.name);
-     console.log("target: " + target);
-   }
-
   if (!target) {
     if (creep.room.name === Memory.homeRoomName) {
       const minRoomEnergy = 300;
@@ -108,19 +103,8 @@ function tran(
     }
   }
 
-   if (creepRoom.name === Memory.deepSouthRoomName) {
-     console.log(creep.name);
-     console.log("target2: " + target);
-   }
-
   // check if target needs energy transferred to it
   target = doesTargetNeedEnergy(target, creep, 50);
-
-
-   if (creepRoom.name === Memory.deepSouthRoomName) {
-     console.log(creep.name);
-     console.log("target3: " + target);
-   }
 
   // check if there's a structure at the flag given needing energy
   if (!target) {

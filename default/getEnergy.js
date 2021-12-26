@@ -113,6 +113,11 @@ function getEnergy(
 
     if (retval === OK || retval === ERR_TIRED) {
       return retval;
+    } else {
+      _.remove(
+        Memory[creep.room.name + "droppedPickerUpperNames"],
+        (name) => name === creep.name
+      );
     }
   }
 
@@ -294,7 +299,6 @@ function getEnergy(
     isPickupResource = true;
   }
 
-
   // find tombstones
   if (
     !target ||
@@ -333,7 +337,7 @@ function getEnergy(
       if (target.resourceType === RESOURCE_ENERGY) {
         isPickupResource = true;
       }
-      if(target.deathTime) {
+      if (target.deathTime) {
         isTargetStructure = true;
       }
     }

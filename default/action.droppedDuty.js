@@ -26,6 +26,7 @@ function droppedDuty(creep) {
     );
   } else {
     Memory[creep.room.name + "droppedPickerUpperNames"] = [];
+    droppedPickerUpperNames = [];
   }
 
   if (
@@ -66,9 +67,9 @@ function droppedDuty(creep) {
           if (retval === OK) {
             creep.memory.lastSourceId = null;
             creep.memory.droppedTargetId = null;
-            _.pull(
+            _.remove(
               Memory[creep.room.name + "droppedPickerUpperNames"],
-              creepName
+              (name) => name === creep.name
             );
           }
 

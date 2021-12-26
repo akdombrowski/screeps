@@ -779,7 +779,23 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 10) {
+    if (harvestersE59S49.length < 2) {
+      name = "hdS" + t;
+      direction = "deepSouth";
+      group = "harvestersE59S49";
+      harvestersE59S49.push(name);
+      creepsE59S49.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (harvesters.length < 10) {
       harvesters.push(name);
       creepsE59S48.push(name);
       retval = birthCreep(

@@ -14,7 +14,7 @@ function checkTransferToTower(
     (creepRoom &&
       creepRoom.energyAvailable >= minRoomEnergy &&
       tower.store[RESOURCE_ENERGY] < maxTowerEnergy) ||
-    tower.store[RESOURCE_ENERGY] <= minTowerEnergy
+    tower.store[RESOURCE_ENERGY] < minTowerEnergy
   ) {
     target = tower;
     creep.memory.transferTargetId = target.id;

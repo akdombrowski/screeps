@@ -526,7 +526,41 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (numOfCreepsTotal < 10) {
+    if (harvesters.length < 4) {
+      name = "hdS" + t;
+      direction = "south";
+      group = "harvesters";
+      creepsE59S48.push(name);
+      harvesters.push(name);
+      parts = simpleParts300;
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (harvestersE59S49.length < 2) {
+      name = "hdS" + t;
+      direction = "deepSouth";
+      group = "harvestersE59S49";
+      creepsE59S49.push(name);
+      harvestersE59S49.push(name);
+      parts = simpleParts300;
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (numOfCreepsTotal < 10) {
       creepsE59S48.push(name);
       harvesters.push(name);
       parts = simpleParts300;

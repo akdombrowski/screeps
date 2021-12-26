@@ -106,7 +106,6 @@ function runRoles() {
     }
 
     if (roll) {
-      console.log("roll: " + roll);
       if (roll === "h" || roll === "harvester" || roll.startsWith("h")) {
         if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
           creep.memory.getEnergy = true;
@@ -115,7 +114,6 @@ function runRoles() {
         if (creep.memory.direction === "south") {
           harvesters.push(name);
           ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
-          console.log(ret);
         } else if (creep.memory.direction === "north") {
           harvestersE59S47.push(name);
           ret = roleHarvester(creep, e59s47extensions, e59s47spawns);

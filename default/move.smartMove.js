@@ -75,7 +75,7 @@ function smartMove(
     }
   }
 
-  if (lastCreepPos) {
+  if (lastCreepPos && lastCreepPos.x) {
     lastCreepPos = new RoomPosition(
       lastCreepPos.x,
       lastCreepPos.y,
@@ -85,7 +85,7 @@ function smartMove(
       if (stuck) {
         creep.memory.path = null;
         retval = creep.moveTo(dest, {
-          reusePath: 50,
+          reusePath: 0,
           serializeMemory: false,
           ignoreCreeps: false,
           maxRooms: 1,
@@ -95,27 +95,33 @@ function smartMove(
             fill: "transparent",
             stroke: pathColor,
             lineStyle: "dashed",
-            strokeWidth: 0.15,
+            strokeWidth: 0.25,
             opacity: 0.2,
           },
         });
+
+        // if (creep.name.startsWith("hdS")) {
+        //   console.log("retval0: " + retval);
+        // }
 
         if (retval === OK) {
           let newPathArray = [];
           creep.memory.stuck = false;
 
-          path = creep.memory._move.path;
+          if (creep.memory._move) {
+            path = creep.memory._move.path;
 
-          path.forEach((step) => {
-            // console.log(JSON.stringify(step));
-            let px = step.x + step.dx;
-            let py = step.y + step.dy;
-            let roomName = creep.room.name;
-            let pos = new RoomPosition(px, py, roomName);
-            newPathArray.push(pos);
-          });
+            path.forEach((step) => {
+              // console.log(JSON.stringify(step));
+              let px = step.x + step.dx;
+              let py = step.y + step.dy;
+              let roomName = creep.room.name;
+              let pos = new RoomPosition(px, py, roomName);
+              newPathArray.push(pos);
+            });
 
-          creep.memory.path = newPathArray;
+            creep.memory.path = newPathArray;
+          }
         }
 
         return retval;
@@ -141,10 +147,18 @@ function smartMove(
     path = path.map((p) => new RoomPosition(p.x, p.y, p.roomName));
   }
 
+  // if(creep.name.startsWith("hdS")) {
+  //   console.log("path: " + path)
+  // }
+
   // no path in memory.path. get one.
   if (!path || path.length <= 0 || pathMem < 1) {
     getPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
     path = creep.memory.path;
+
+    // if(creep.name.startsWith("hdS")) {
+    //   console.log("path2: " + path)
+    // }
   }
 
   retval = checkIfValidPath(path, name);
@@ -153,7 +167,12 @@ function smartMove(
   if (path) {
     retval = tryMoveByPath(creep, path, name);
 
+    // if(creep.name.startsWith("hdS")) {
+    //   console.log("retval: " + retval)
+    // }
+
     if (retval === OK) {
+      creep.memory.lastCreepPos = creep.pos;
       setVisualAndPathInMemory(creep, path, pathColor);
     } else if (retval === ERR_NOT_FOUND) {
       shiftPathIfNecessary(path, creepPos);

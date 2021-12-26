@@ -1,7 +1,7 @@
 const profiler = require("./screeps-profiler");
 
 function checkIfValidPath(path, name) {
-  let retval = -16;
+  let retval = OK;
   if ((path && path.length === 0) || !path || !path[0]) {
     // console.log(name + " smartMove no path");
     retval = ERR_NOT_FOUND;

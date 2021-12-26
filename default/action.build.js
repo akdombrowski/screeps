@@ -41,7 +41,7 @@ function build(creep) {
       }
     } else if (creep.room.name === Memory.deepSouthRoomName) {
       // tower construction site
-      target = Game.getObjectById("61c83e7ebe69f6842e0e44e8");
+      target = Game.getObjectById("61c83e8a3762ce546612aee7");
       if (target && target.progress < target.progressTotal) {
         // good, keep target
         creep.memory.lastBuildID = target.id;

@@ -106,10 +106,12 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
 
     if (target && target.hits >= target.hitsMax) {
       target = null;
+      creep.memory.path = null;
     }
 
     if (target && target.room && target.room.name != creep.room.name) {
       target = null;
+      creep.memory.path = null;
     }
 
     if (!target) {
@@ -118,6 +120,7 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
 
     if (target && target.hits >= target.hitsMax) {
       target = null;
+      creep.memory.path = null;
     }
 
     if (target) {

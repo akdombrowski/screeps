@@ -601,7 +601,7 @@ function spawnCreepTypes(enAvail, spawns) {
       //     spawnDirection,
       //     group
       //   );
-    } else if (upControllersE59S49.length < 1) {
+    } else if (upControllersE59S49.length < 1 && !dSAttackerId) {
       name = "upCdS" + t;
       chosenRole = "upCdS";
       direction = "deepSouth";
@@ -779,7 +779,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvestersE59S49.length < 2) {
+    if (harvestersE59S49.length < 2 && !dSAttackerId) {
       name = "hdS" + t;
       direction = "deepSouth";
       group = "harvestersE59S49";
@@ -889,7 +889,7 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairersE59S49.length < 1) {
+    } else if (roadRepairersE59S49.length < 1 && !dSAttackerId) {
       name = "rRdS" + t;
       chosenRole = "roadRepairer";
       direction = "deepSouth";

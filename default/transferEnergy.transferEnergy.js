@@ -77,24 +77,28 @@ function tran(
     if (creep.room.name === Memory.homeRoomName) {
       const minRoomEnergy = 300;
       const maxTowerEnergy = 950;
+      const minTowerEnergy = 300;
 
       target = checkTransferToTower(
         creepRoom,
         tower1,
         creep,
         minRoomEnergy,
-        maxTowerEnergy
-      );
-    } else if (creep.room.name - Memory.deepSouthRoomName) {
-      const minRoomEnergy = 300;
-      const maxTowerEnergy = 950;
+        maxTowerEnergy,
+        minTowerEnergy
+        );
+      } else if (creep.room.name - Memory.deepSouthRoomName) {
+        const minRoomEnergy = 300;
+        const maxTowerEnergy = 950;
+        const minTowerEnergy = 300;
 
       target = checkTransferToTower(
         creepRoom,
         dSTower1,
         creep,
         minRoomEnergy,
-        maxTowerEnergy
+        maxTowerEnergy,
+        minTowerEnergy
       );
     }
   }

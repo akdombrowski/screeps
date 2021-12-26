@@ -35,7 +35,7 @@ function roleRangedAttackerdS(creep) {
       invader = enemies.pop();
     }
 
-    const distanceToInvader = 3;
+    const distanceToInvader = 2;
     const distanceToFlagForPatrol = 10;
     if (invader) {
       if (creep.pos.inRangeTo(invader, distanceToInvader)) {
@@ -44,6 +44,10 @@ function roleRangedAttackerdS(creep) {
         creep.memory.path = null;
         retval = smartMove(creep, invader, distanceToInvader);
         creep.say(invader.pos.x + "," + invader.pos.y + ":" + retval);
+        if (creep.pos.inRangeTo(invader, 3)) {
+          retval = creep.rangedAttack(invader);
+          creep.say("a:" + retval);
+        }
       }
     } else {
       // no attacker in creepRoom

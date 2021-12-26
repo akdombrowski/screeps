@@ -290,7 +290,7 @@ function getEnergy(
   ) {
     creep.memory.lastSourceId = null;
     creep.memory.path = null;
-    target = creep.room.find(FIND_DROPPED_RESOURCES).pop();
+    target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
     isPickupResource = true;
   }
 
@@ -306,7 +306,7 @@ function getEnergy(
   ) {
     creep.memory.lastSourceId = null;
     creep.memory.path = null;
-    target = creep.pos.findClosestByRange(FIND_TOMBSTONES).pop();
+    target = creep.pos.findClosestByRange(FIND_TOMBSTONES);
     isTargetStructure = true;
   }
 

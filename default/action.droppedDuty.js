@@ -24,8 +24,11 @@ function droppedDuty(creep) {
     droppedPickerUpperNames = droppedPickerUpperNames.filter(
       (name) => Game.creeps[name]
     );
+
+    Memory[creepRoom.name + "droppedPickerUpperNames"] =
+      droppedPickerUpperNames;
   } else {
-    Memory[creep.room.name + "droppedPickerUpperNames"] = [];
+    Memory[creepRoom.name + "droppedPickerUpperNames"] = [];
     droppedPickerUpperNames = [];
   }
 
@@ -69,7 +72,7 @@ function droppedDuty(creep) {
             creep.memory.droppedTargetId = null;
             _.remove(
               Memory[creep.room.name + "droppedPickerUpperNames"],
-              (name) => name === creep.name
+              (name) => name === creepName
             );
           }
 

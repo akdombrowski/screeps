@@ -109,16 +109,12 @@ function getEnergy(
   }
 
   if (!target) {
-    retval = droppedDuty(creep);
+    _.remove(
+      Memory[creep.room.name + "droppedPickerUpperNames"],
+      (name) => name === creep.name
+    );
 
-    if (retval === OK || retval === ERR_TIRED) {
-      return retval;
-    } else {
-      _.remove(
-        Memory[creep.room.name + "droppedPickerUpperNames"],
-        (name) => name === creep.name
-      );
-    }
+    retval = droppedDuty(creep);
   }
 
   if (

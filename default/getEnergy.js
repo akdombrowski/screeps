@@ -115,6 +115,11 @@ function getEnergy(
     );
 
     retval = droppedDuty(creep);
+  } else {
+    Memory[creep.room.name + "droppedPickerUpperNames"] = _.without(
+      Memory[creep.room.name + "droppedPickerUpperNames"],
+      creep.name
+    );
   }
 
   if (

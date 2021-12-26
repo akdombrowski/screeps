@@ -42,6 +42,7 @@ function roleRangedAttacker(creep) {
         retval = creep.rangedAttack(invader);
         creep.say("a:" + retval);
       } else {
+        creep.memory.path = null;
         retval = smartMove(creep, invader, distanceToInvader);
         creep.say(invader.pos.x + "," + invader.pos.y + ":" + retval);
       }

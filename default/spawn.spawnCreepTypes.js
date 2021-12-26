@@ -698,6 +698,7 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (upControllersE59S47.length < 1) {
       // when north controller is controlled change this to upControllersN
+      console.log("upControllersE59S47: " + upControllersE59S47.length);
       name = "upCN" + t;
       chosenRole = "upCN";
       direction = "north";
@@ -741,6 +742,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
 
     if (creepsE59S48.length < 10) {
+      console.log("creepsE59S48: " + creepsE59S48.length);
       harvesters.push(name);
       creepsE59S48.push(name);
       retval = birthCreep(
@@ -841,6 +843,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
 
     if (harvesters.length < 4) {
+      console.log("harvesters: " + harvesters.length);
       name = "h" + t;
       chosenRole = "h";
       direction = "south";
@@ -873,6 +876,7 @@ function spawnCreepTypes(enAvail, spawns) {
       //     group
       //   );
     } else if (roadRepairers.length < 1) {
+      console.log("roadRepairers: " + roadRepairers.length);
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "south";
@@ -890,6 +894,7 @@ function spawnCreepTypes(enAvail, spawns) {
         group
       );
     } else if (roadRepairersE59S49.length < 1 && !dSAttackerId) {
+      console.log("roadRepairersE59S49: " + roadRepairersE59S49.length);
       name = "rRdS" + t;
       chosenRole = "roadRepairer";
       direction = "deepSouth";
@@ -907,6 +912,7 @@ function spawnCreepTypes(enAvail, spawns) {
         group
       );
     } else if (creepsE59S48.length < 15) {
+      console.log("creepsE59S48: " + creepsE59S48.length);
       name = "h" + t;
       chosenRole = "h";
       direction = "south";
@@ -972,7 +978,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //        #        #  #     #
   //  #     #  #     #   #   #
   //   #####    #####     ###
-  if (enAvail >= 550 && !invaderId && numOfCreepsTotal < 25) {
+  if (enAvail >= 550 && !invaderId) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "south";
@@ -982,6 +988,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
 
     if (harvesters.length < 10) {
+      console.log("harvesters: " + harvesters.length);
       name = "h" + t;
       chosenRole = "h";
       direction = "south";
@@ -997,23 +1004,8 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (!nAttackerId && harvestersE59S47.length < 2) {
-      name = "hN" + t;
-      harvestersE59S47.push(name);
-      chosenRole = "h";
-      direction = "north";
-      group = "harvestersE59S47";
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
     } else if (roadRepairers.length < 16) {
+      console.log("roadRepairers: " + roadRepairers.length);
       parts = workerParts550;
       name = "rR" + t;
       chosenRole = "roadRepairer";
@@ -1032,6 +1024,7 @@ function spawnCreepTypes(enAvail, spawns) {
         group
       );
     } else if (harvesters.length < 12) {
+      console.log("harvesters: " + roadRepairers.length);
       name = "h" + t;
       chosenRole = "h";
       direction = "south";
@@ -1108,6 +1101,7 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (upControllersE59S47.length < 2) {
       // when north controller is controlled change this to upControllersN
+      console.log("upControllersE59S47: " + upControllersE59S47.length);
       name = "upCN" + t;
       chosenRole = "upCN";
       direction = "north";

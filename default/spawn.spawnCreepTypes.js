@@ -206,6 +206,12 @@ function spawnCreepTypes(enAvail, spawns) {
   addPart(harvesterParts750, 4, MOVE);
 
   // 800
+  let rangedAttackerParts800 = [];
+  addPart(rangedAttackerParts800, 5, TOUGH);
+  addPart(rangedAttackerParts800, 9, MOVE);
+  addPart(rangedAttackerParts800, 2, RANGED_ATTACK);
+
+  // 800
   let harvesterParts800 = [];
   addPart(harvesterParts800, 1, CARRY);
   addPart(harvesterParts800, 5, WORK);

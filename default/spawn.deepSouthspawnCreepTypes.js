@@ -148,8 +148,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
 
   // 400
   let rangedAttackerParts400 = [];
-  addPart(rangedAttackerParts400, 4, TOUGH);
-  addPart(rangedAttackerParts400, 5, MOVE);
+  addPart(rangedAttackerParts400, 5, TOUGH);
+  addPart(rangedAttackerParts400, 4, MOVE);
   addPart(rangedAttackerParts400, 1, RANGED_ATTACK);
 
   // 450
@@ -178,8 +178,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   // 550
   let rangedAttackerParts550 = [];
   addPart(rangedAttackerParts550, 5, TOUGH);
-  addPart(rangedAttackerParts550, 1, MOVE);
-  addPart(rangedAttackerParts550, 3, RANGED_ATTACK);
+  addPart(rangedAttackerParts550, 7, MOVE);
+  addPart(rangedAttackerParts550, 1, RANGED_ATTACK);
 
   // 550
   let workerParts550 = [];
@@ -355,35 +355,6 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
 
     creepsE59S48.push(name);
     rangedAttackers.push(name);
-    retval = deepSouthbirthCreep(
-      spawns,
-      parts,
-      name,
-      chosenRole,
-      direction,
-      sourceId,
-      spawnDirection,
-      group
-    );
-  }
-
-  //     #     #######  #######     #      #####   #    #
-  //    # #       #        #       # #    #     #  #   #
-  //   #   #      #        #      #   #   #        #  #
-  //  #     #     #        #     #     #  #        ###
-  //  #######     #        #     #######  #        #  #
-  //  #     #     #        #     #     #  #     #  #   #
-  //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 500 && attackersE59S47.length < 0 && Memory.nAttackerId) {
-    let name = "att" + t;
-    let chosenRole = "attacker";
-    let direction = "north";
-    let sourceId = Memory.nSource2;
-    let parts = attackerParts500;
-    let group = "attackersN";
-    let spawnDirection = [TOP];
-
-    attackersE59S47.push(name);
     retval = deepSouthbirthCreep(
       spawns,
       parts,

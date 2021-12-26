@@ -70,9 +70,9 @@ function droppedDuty(creep) {
           if (retval === OK) {
             creep.memory.lastSourceId = null;
             creep.memory.droppedTargetId = null;
-            _.remove(
+            Memory[creep.room.name + "droppedPickerUpperNames"] = _.without(
               Memory[creep.room.name + "droppedPickerUpperNames"],
-              (name) => name === creepName
+              creepName
             );
           }
 

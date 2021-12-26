@@ -28,7 +28,9 @@ function checkTransferToTower(
   ) {
     target = tower;
     creep.memory.transferTargetId = target.id;
-    console.log("target: " + target);
+    if (creepRoom.name === Memory.deepSouthRoomName) {
+      console.log("target: " + target);
+    }
   }
 
   return target;

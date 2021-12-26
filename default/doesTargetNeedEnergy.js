@@ -1,11 +1,11 @@
 const profiler = require("./screeps-profiler");
 
-function doesTargetNeedEnergy(target, creep, minOpenEnergyCapacity) {
+function doesTargetNeedEnergy(target, creep, minFreeEnergyCapacity) {
   if (
     target &&
     target.store &&
     target.store[RESOURCE_ENERGY] &&
-    target.store.getFreeCapacity(RESOURCE_ENERGY) >= minOpenEnergyCapacity
+    target.store.getFreeCapacity(RESOURCE_ENERGY) >= minFreeEnergyCapacity
   ) {
     return target;
   } else {

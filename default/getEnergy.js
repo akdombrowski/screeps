@@ -275,7 +275,7 @@ function getEnergy(
   ) {
     creep.memory.lastSourceId = null;
     creep.memory.path = null;
-    target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
+    target = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
   }
 
   let isPickupResource = false;

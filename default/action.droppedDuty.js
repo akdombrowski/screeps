@@ -96,7 +96,12 @@ function droppedDuty(creep) {
         }
       }
     } else {
-      _.pull(Memory[creep.room.name + "droppedPickerUpperNames"], creepName);
+      creep.memory.droppedTargetId = null
+      creep.memory.lastSourceId = null;
+      Memory[creep.room.name + "droppedPickerUpperNames"] = _.without(
+        Memory[creep.room.name + "droppedPickerUpperNames"],
+        creepName
+      );
       retval = ERR_NOT_FOUND;
     }
   }

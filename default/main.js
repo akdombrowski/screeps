@@ -87,21 +87,37 @@ module.exports.loop = function () {
     Memory.tower1Id = "61bc38d236c34cfe01fad9cd";
     Memory.dSTower1Id = "61c492d3227d7cef1df2ce6e";
 
-    Memory.attackDurationSafeCheck = 1000;
-    Memory.nattackDurationSafeCheck = 1000;
+    Memory.attackDurationSafeCheck = 10;
+    Memory.nattackDurationSafeCheck = 10;
+    Memory.dSAttackDurationSafeCheck = 10;
+
+    checkForAttackers();
 
     let towers = [];
     towers.push(Game.getObjectById(Memory.tower1Id));
-    towersAttackInvader(Game.getObjectById(Memory.invaderId), towers);
+    // let invader = Game.rooms[Memory.homeRoomName]
+    //   .find(FIND_HOSTILE_CREEPS)
+    //   .pop();
+    // if (invader) {
+    //   Memory.invaderId = invader.id;
+    //   console.log("invaderId:" + Memory.invaderId);
+    // }
+
+    towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S48), towers);
     let dSTowers = [];
     dSTowers.push(Game.getObjectById(Memory.dSTower1Id));
-    towersAttackInvader(Game.getObjectById(Memory.dSAttackerId), dSTowers);
+    // Memory.dSAttackerId = Game.rooms[Memory.deepSouthRoomName]
+    //   .find(FIND_HOSTILE_CREEPS)
+    //   .pop()
+    //   ? Game.rooms[Memory.deepSouthRoomName].find(FIND_HOSTILE_CREEPS).pop().id
+    //   : null;
+    towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S49), dSTowers);
 
     const timeToPassForRecheck = 100;
     const minEnergyToKeepForInvaders = 300;
     const healInterval = 1;
     const repairInterval = 2;
-    if (!Memory.invaderId) {
+    if (!Memory.invaderIDE59S48) {
       retval = towerHeal(
         towers,
         timeToPassForRecheck,
@@ -119,7 +135,7 @@ module.exports.loop = function () {
       }
     }
 
-    if (!Memory.dSAttackerId) {
+    if (!Memory.invaderIDE59S49) {
       retval = towerHeal(
         dSTowers,
         timeToPassForRecheck,
@@ -136,8 +152,6 @@ module.exports.loop = function () {
         );
       }
     }
-
-    checkForAttackers();
 
     let crps = Memory.creeps || [];
     Memory.creeps = crps;

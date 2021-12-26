@@ -85,7 +85,7 @@ function getPath(
         }
       });
 
-      let creepArr = creepPos.findInRange(FIND_CREEPS, 2);
+      let creepArr = creepPos.findInRange(FIND_CREEPS, 3);
       if (!ignoreCreeps || creepArr.length > 1) {
         // Avoid creeps in the room
         for (const c of creepArr) {
@@ -160,6 +160,36 @@ function getPath(
               costs.set(struct.pos.x, struct.pos.y, 0xff);
             }
           });
+
+          let creepArr = creepPos.findInRange(FIND_CREEPS, 3);
+          if (!ignoreCreeps || creepArr.length > 1) {
+            // Avoid creeps in the room
+            for (const c of creepArr) {
+              // body parts array of creep
+              let bodyParts = c.body;
+              // new array with just the MOVE body parts
+              let moveBodyParts = bodyParts.filter((part) => part === MOVE);
+              let numberOfMoveBodyParts = moveBodyParts.length;
+              // how much fatigue this creep can recover from in a game tick
+              let fatigueRecoverablePerTick = numberOfMoveBodyParts * 2;
+              if (c.pos) {
+                if (c.fatigue > fatigueRecoverablePerTick) {
+                  // creep isn't moving due to fatigue
+                  costs.set(c.pos.x, c.pos.y, 0xff);
+                } else if (c.memory) {
+                  let path = c.memory.path;
+
+                  if (path && path.length > 0) {
+                    // creep has a path and no fatigue
+                    costs.set(path[0].x, path[0].y, 0xff);
+                  } else {
+                    // creep has no path, likely not moving
+                    costs.set(c.pos.x, c.pos.y, 0xff);
+                  }
+                }
+              }
+            }
+          }
 
           // // Avoid creeps in the room
           // room.find(FIND_CREEPS).forEach(function (creep) {

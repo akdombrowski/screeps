@@ -169,7 +169,7 @@ function getEnergy(
     target = Game.rooms[targetRoomName]
       .find(FIND_SOURCES_ACTIVE, {
         filter: (source) => {
-          if (source.store && source.store[RESOURCE_ENERGY] > 0) {
+          if (source.energy > 0) {
             return source;
           }
         },
@@ -264,6 +264,7 @@ function getEnergy(
   //   isTargetStructure = target ? true : false;
   // }
 
+  // find the closest active source
   if (
     !target ||
     (target &&
@@ -275,6 +276,38 @@ function getEnergy(
     creep.memory.lastSourceId = null;
     creep.memory.path = null;
     target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
+  }
+
+  let isPickupResource = false;
+  // find dropped resources
+  if (
+    !target ||
+    (target &&
+      (target.energy <= 0 ||
+        (target.store &&
+          (!target.store[RESOURCE_ENERGY] ||
+            target.store[RESOURCE_ENERGY] < 50))))
+  ) {
+    creep.memory.lastSourceId = null;
+    creep.memory.path = null;
+    target = creep.room.find(FIND_DROPPED_RESOURCES).pop();
+    isPickupResource = true;
+  }
+
+
+  // find tombstones
+  if (
+    !target ||
+    (target &&
+      (target.energy <= 0 ||
+        (target.store &&
+          (!target.store[RESOURCE_ENERGY] ||
+            target.store[RESOURCE_ENERGY] < 50))))
+  ) {
+    creep.memory.lastSourceId = null;
+    creep.memory.path = null;
+    target = creep.room.find(FIND_TOMBSTONES).pop();
+    isTargetStructure = true;
   }
 
   if (target) {
@@ -297,6 +330,12 @@ function getEnergy(
       if (target.structureType) {
         isTargetStructure = true;
       }
+      if (target.resourceType === RESOURCE_ENERGY) {
+        isPickupResource = true;
+      }
+      if(target.deathTime) {
+        isTargetStructure = true;
+      }
     }
 
     // I'm right next to the target. Harvest.
@@ -307,6 +346,8 @@ function getEnergy(
           creep.say("v." + retval);
           creep.memory.lastSourceId = null;
         }
+      } else if (isPickupResource) {
+        retval = creep.pickup(target);
       } else {
         retval = creep.harvest(target);
       }

@@ -288,9 +288,10 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
 
   let eAttackerId = Memory.eAttackerId;
   let wAttackerId = Memory.wAttackerId;
-  let nAttackerId = Memory.nAttackerId;
+  let nAttackerId = Memory.invaderIDE59S47;
   let neAttackerId = Memory.neAttackerId;
-  let invaderId = Memory.invaderId;
+  let dSAttackerId = Memory.invaderIDE59S49;
+  let invaderId = Memory.invaderIDE59S48;
 
   let retval = -16;
 
@@ -522,6 +523,24 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
+    } else if (roadRepairersE59S49.length < 10) {
+      parts = simpleParts;
+      name = "rRdS" + t;
+      chosenRole = "roadRepairer";
+      direction = "deepSouth";
+      group = "roadRepairersE59S49";
+      creepsE59S49.push(name);
+      roadRepairersE59S49.push(name);
+      retval = deepSouthbirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
     }
 
     if (retval !== -16) {
@@ -583,7 +602,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairersE59S49.length < 10) {
+    } else {
       parts = simpleParts350;
       name = "rRdS" + t;
       chosenRole = "roadRepairer";

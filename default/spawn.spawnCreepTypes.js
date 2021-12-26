@@ -295,10 +295,10 @@ function spawnCreepTypes(enAvail, spawns) {
 
   let eAttackerId = Memory.eAttackerId;
   let wAttackerId = Memory.wAttackerId;
-  let nAttackerId = Memory.nAttackerId;
+  let nAttackerId = Memory.invaderIDE59S47;
   let neAttackerId = Memory.neAttackerId;
-  let dSAttackerId = Memory.dSAttackerId;
-  let invaderId = Memory.invaderId;
+  let dSAttackerId = Memory.invaderIDE59S49;
+  let invaderId = Memory.invaderIDE59S48;
 
   let retval = -16;
 

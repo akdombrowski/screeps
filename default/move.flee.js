@@ -1,9 +1,10 @@
 const profiler = require("./screeps-profiler");
 
-function flee(creep, maxOps, path, pathColor) {
+function flee(creep, fleeFromPos, distanceToFleePostion, maxOps, path, pathColor) {
+  distanceToFleePostion = distanceToFleePostion || 20;
   let ret = PathFinder.search(
     creep.pos,
-    { pos: new RoomPosition(25, 25, creep.room.name), range: 20 },
+    { pos: fleeFromPos, range: distanceToFleePostion },
     {
       flee: true,
       maxOps: maxOps,
@@ -26,3 +27,4 @@ function flee(creep, maxOps, path, pathColor) {
   return retval;
 }
 flee = profiler.registerFN(flee, "flee");
+module.exports = flee;

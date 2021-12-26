@@ -21,6 +21,7 @@ const profiler = require("./screeps-profiler");
 const roleViewer = require("./role.viewer");
 const roleRangedAttacker = require("./role.rangedAttacker");
 const roleRangedAttackerdS = require("./role.rangedAttackerdS");
+const flee = require("./move.flee");
 
 function runRoles() {
   let i = 0;
@@ -77,10 +78,28 @@ function runRoles() {
 
     if (creep.memory.direction === "south") {
       creepsE59S48.push(name);
+
+      let invader = Game.getObjectById(Memory.invaderIDE59S48);
+
+      if (invader) {
+        return flee(creep, invader.pos, 20);
+      }
     } else if (creep.memory.direction === "deepSouth") {
       creepsE59S49.push(name);
+
+      let invader = Game.getObjectById(Memory.invaderIDE59S49);
+
+      if (invader) {
+        return flee(creep, invader.pos, 20);
+      }
     } else if (creep.memory.direction === "north") {
       creepsE59S47.push(name);
+
+      let invader = Game.getObjectById(Memory.invaderIDE59S47);
+
+      if (invader) {
+        return flee(creep, invader.pos, 20);
+      }
     }
 
     if (roll === "h" || roll === "harvester" || roll.startsWith("h")) {

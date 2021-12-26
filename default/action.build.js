@@ -420,9 +420,11 @@ function build(creep) {
 
         retval = creep.build(target);
         creep.memory.b = targetId;
-        creep.say("b");
+        creep.say("b:" + target.pos.x + "," + target.pos.y);
       } else if (creep.fatigue > 0) {
-        creep.say("f." + creep.fatigue);
+        creep.say(
+          "f." + creep.fatigue + ":" + target.pos.x + "," + target.pos.y
+        );
       } else {
         retval = smartMove(creep, target, 3, false, null, null, 200, 1);
 
@@ -432,10 +434,10 @@ function build(creep) {
           target = null;
           creep.memory.b = null;
         } else if (retval === OK && target) {
-          creep.say(target.pos.x + "," + target.pos.y);
+          creep.say("b:" + target.pos.x + "," + target.pos.y);
           creep.memory.b = targetId;
         } else {
-          creep.say("m." + retval);
+          creep.say("m:" + target.pos.x + "," + target.pos.y + ":" + retval);
           target = null;
           creep.memory.b = null;
         }

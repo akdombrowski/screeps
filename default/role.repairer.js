@@ -129,11 +129,11 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
         creep.memory.path = null;
 
         if (retval == OK) {
-          creep.say("r");
+          creep.say("r:" + target.pos.x + "," + target.pos.y);
         } else if (retval == ERR_NOT_ENOUGH_ENERGY) {
           creep.memory.repair = false;
           retval = getEnergy(creep);
-          creep.say("r.En");
+          creep.say("r.En:" + retval);
         } else {
           creep.say("err." + retval);
         }
@@ -142,7 +142,9 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
         creep.memory.rx = target.pos.x;
         creep.memory.ry = target.pos.y;
         if (creep.fatigue > 0) {
-          creep.say("f." + creep.fatigue);
+          creep.say(
+            "f." + creep.fatigue + ":" + target.pos.x + "," + target.pos.y
+          );
         } else if (retval == ERR_INVALID_TARGET) {
           creep.say("invalTarg");
           target = null;
@@ -155,13 +157,11 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
       creep.memory.build = true;
       creep.memory.repair = false;
       retval = build(creep);
-      creep.say("b");
     }
   } else {
     creep.memory.build = true;
     creep.memory.repair = false;
     retval = build(creep);
-    creep.say("b");
   }
 
   return retval;
@@ -169,4 +169,3 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
 
 roleRepairer = profiler.registerFN(roleRepairer, "roleRepairer");
 module.exports = roleRepairer;
-

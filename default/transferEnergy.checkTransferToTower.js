@@ -17,7 +17,6 @@ function checkTransferToTower(
     console.log("minRoomEnergy: " + minRoomEnergy);
     console.log("maxTowerEnergy: " + maxTowerEnergy);
     console.log("minTowerEnergy: " + minTowerEnergy);
-    console.log();
   }
 
   if (
@@ -30,6 +29,7 @@ function checkTransferToTower(
     creep.memory.transferTargetId = target.id;
     if (creepRoom.name === Memory.deepSouthRoomName) {
       console.log("target: " + target);
+      console.log();
     }
   }
 

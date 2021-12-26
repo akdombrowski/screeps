@@ -73,6 +73,11 @@ function tran(
     return { retval: -19, extensions: extensions, spawns: spawns };
   }
 
+   if (creepRoom.name === Memory.deepSouthRoomName) {
+     console.log(creep.name);
+     console.log("target: " + target);
+   }
+
   if (!target) {
     if (creep.room.name === Memory.homeRoomName) {
       const minRoomEnergy = 300;
@@ -86,11 +91,11 @@ function tran(
         minRoomEnergy,
         maxTowerEnergy,
         minTowerEnergy
-        );
-      } else if (creep.room.name === Memory.deepSouthRoomName) {
-        const minRoomEnergy = 50;
-        const maxTowerEnergy = 950;
-        const minTowerEnergy = 300;
+      );
+    } else if (creep.room.name === Memory.deepSouthRoomName) {
+      const minRoomEnergy = 50;
+      const maxTowerEnergy = 950;
+      const minTowerEnergy = 300;
 
       target = checkTransferToTower(
         creepRoom,
@@ -103,8 +108,19 @@ function tran(
     }
   }
 
+   if (creepRoom.name === Memory.deepSouthRoomName) {
+     console.log(creep.name);
+     console.log("target2: " + target);
+   }
+
   // check if target needs energy transferred to it
   target = doesTargetNeedEnergy(target, creep, 50);
+
+
+   if (creepRoom.name === Memory.deepSouthRoomName) {
+     console.log(creep.name);
+     console.log("target3: " + target);
+   }
 
   // check if there's a structure at the flag given needing energy
   if (!target) {
@@ -163,8 +179,6 @@ function tran(
       return { retval: retval, extensions: extensions, spawns: spawns };
     }
   }
-
-  target = doesTargetNeedEnergy(target, creep, 50);
 
   if (!target) {
     let transferTargetsAndMemoryObjects = {};
@@ -280,6 +294,8 @@ function tran(
   //   target = null;
   //   return retval;
   // }
+
+
 
   if (target && creep.pos.inRangeTo(target, 1)) {
     creep.memory.path = null;

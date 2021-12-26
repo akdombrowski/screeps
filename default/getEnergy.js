@@ -114,8 +114,12 @@ function getEnergy(
       (name) => name === creep.name
     );
 
-    retval = droppedDuty(creep);
-  } else if(!creep.memory.droppedTargetId) {
+    return droppedDuty(creep);
+  }
+
+  console.log(name + " target: " + target);
+
+  if (!creep.memory.droppedTargetId) {
     Memory[creep.room.name + "droppedPickerUpperNames"] = _.without(
       Memory[creep.room.name + "droppedPickerUpperNames"],
       creep.name

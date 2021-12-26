@@ -148,9 +148,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
 
   // 400
   let rangedAttackerParts400 = [];
-  addPart(rangedAttackerParts400, 5, TOUGH);
-  addPart(rangedAttackerParts400, 4, MOVE);
-  addPart(rangedAttackerParts400, 1, RANGED_ATTACK);
+  addPart(rangedAttackerParts400, 2, MOVE);
+  addPart(rangedAttackerParts400, 2, RANGED_ATTACK);
 
   // 450
   let harvester450 = [];
@@ -177,9 +176,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
 
   // 550
   let rangedAttackerParts550 = [];
-  addPart(rangedAttackerParts550, 5, TOUGH);
-  addPart(rangedAttackerParts550, 7, MOVE);
-  addPart(rangedAttackerParts550, 1, RANGED_ATTACK);
+  addPart(rangedAttackerParts550, 2, MOVE);
+  addPart(rangedAttackerParts550, 3, RANGED_ATTACK);
 
   // 550
   let workerParts550 = [];
@@ -197,6 +195,12 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   let claimerParts650 = [];
   addPart(claimerParts650, 1, MOVE);
   addPart(claimerParts650, 1, CLAIM);
+
+  // 800
+  let rangedAttackerParts550 = [];
+  addPart(rangedAttackerParts550, 5, TOUGH);
+  addPart(rangedAttackerParts550, 6, MOVE);
+  addPart(rangedAttackerParts550, 3, RANGED_ATTACK);
 
   // 800
   let harvesterParts800 = [];

@@ -763,6 +763,45 @@ function spawnCreepTypes(enAvail, spawns) {
     }
   }
 
+  //   #####   #######    ###
+  //  #     #  #         #   #
+  //        #  #        #     #
+  //   #####   ######   #     #
+  //        #        #  #     #
+  //  #     #  #     #   #   #
+  //   #####    #####     ###
+  if (enAvail >= 350 && !invaderId) {
+    let name = "h" + t;
+    let chosenRole = "h";
+    let direction = "south";
+    let sourceId = Memory.source1;
+    let parts = simpleParts350;
+    let group = "harvesters";
+    let spawnDirection = [TOP];
+
+    if (harvesters.length < 10) {
+      harvesters.push(name);
+      creepsE59S48.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    }
+
+    if (retval !== -16) {
+      console.log("spawningS " + name + " " + retval);
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
+  }
+
   //
   //
   //

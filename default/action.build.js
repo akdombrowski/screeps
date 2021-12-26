@@ -23,6 +23,7 @@ function build(creep) {
   if (building) {
     if (creep.room.name === Memory.homeRoomName) {
       if (target && target.progress < target.progressTotal) {
+        target = Game.getObjectById("61c24d81d2a271ce7907bfc1");
         // good, keep target
         creep.memory.lastBuildID = target.id;
       } else {

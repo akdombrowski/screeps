@@ -82,8 +82,10 @@ function runRoles() {
       let invader = Game.getObjectById(Memory.invaderIDE59S48);
 
       if (invader) {
-        retval = flee(creep, invader.pos, 20);
-        continue;
+        if (roll != "rangedAttacker" && creep.pos.inRangeTo(invader, 5)) {
+          retval = flee(creep, invader.pos, 20);
+          continue;
+        }
       }
     } else if (creep.memory.direction === "deepSouth") {
       creepsE59S49.push(creep.name);
@@ -91,10 +93,10 @@ function runRoles() {
       let invader = Game.getObjectById(Memory.invaderIDE59S49);
 
       if (invader) {
-        // if(creep.pos.inRangeTo(invader, 5)) {
-        //   retval = flee(creep, invader.pos, 20);
-        //   continue;
-        // }
+        if (roll != "rangedAttacker" && creep.pos.inRangeTo(invader, 5)) {
+          retval = flee(creep, invader.pos, 20);
+          continue;
+        }
       }
     } else if (creep.memory.direction === "north") {
       creepsE59S47.push(creep.name);
@@ -102,13 +104,15 @@ function runRoles() {
       let invader = Game.getObjectById(Memory.invaderIDE59S47);
 
       if (invader) {
-        retval = flee(creep, invader.pos, 20);
-        continue;
+        if (roll != "rangedAttacker" && creep.pos.inRangeTo(invader, 5)) {
+          retval = flee(creep, invader.pos, 20);
+          continue;
+        }
       }
     }
 
     if (roll) {
-      if (roll === "h" || roll === "harvester" || roll.startsWith("h")) {
+      if (roll === "h" || roll === "harvester") {
         if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
           creep.memory.getEnergy = true;
         }

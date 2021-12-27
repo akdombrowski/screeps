@@ -25,7 +25,23 @@ function findInvaders(
       }
 
       if (enemyCreeps) {
-        let enemyCreep = enemyCreeps.pop();
+        let enemyCreep = null;
+        if (enemyCreeps.length > 1) {
+          enemyCreeps.sort((firstEl, secondEl) => {
+            if (
+              firstEl.getActiveBodyparts(HEAL) >
+              secondEl.getActiveBodyparts(HEAL)
+            ) {
+              return -1;
+            } else {
+              return 1;
+            }
+          });
+          enemyCreep = enemyCreeps.shift();
+        } else {
+          // will be undefined if array is empty
+          enemyCreep = enemyCreeps.pop();
+        }
 
         if (enemyCreep) {
           console.log(targetRoom.name + " enemyCreep spotted ");

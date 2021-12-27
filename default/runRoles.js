@@ -23,6 +23,54 @@ const roleRangedAttacker = require("./role.rangedAttacker");
 const roleRangedAttackerdS = require("./role.rangedAttackerdS");
 const flee = require("./move.flee");
 
+function setCreepRoomArrayAndAvoidInvaders(creep, creepsE59S48, creepsE59S49, creepsE59S47) {
+  const roll = creep.memory.role;
+  const direction = creep.memory.direction;
+  let retval = -16;
+  let shouldContinueToNextCreep = false;
+
+  if (direction === "south") {
+    creepsE59S48.push(creep.name);
+
+    let invader = Game.getObjectById(Memory.invaderIDE59S48);
+
+    if (invader) {
+      if (roll != "rangedAttacker" && creep.pos.inRangeTo(invader, 5)) {
+        retval = flee(creep, invader.pos, 20);
+        shouldContinueToNextCreep = true;
+      }
+    }
+  } else if (direction === "deepSouth") {
+    creepsE59S49.push(creep.name);
+
+    let invader = Game.getObjectById(Memory.invaderIDE59S49);
+
+    if (invader) {
+      if (roll != "rangedAttacker" && creep.pos.inRangeTo(invader, 5)) {
+        retval = flee(creep, invader.pos, 20);
+        shouldContinueToNextCreep = true;
+      }
+    }
+  } else if (direction === "north") {
+    creepsE59S47.push(creep.name);
+
+    let invader = Game.getObjectById(Memory.invaderIDE59S47);
+
+    if (invader) {
+      if (roll != "rangedAttacker" && creep.pos.inRangeTo(invader, 5)) {
+        retval = flee(creep, invader.pos, 20);
+        shouldContinueToNextCreep = true;
+      }
+    }
+  }
+  return {
+    retval: retval,
+    shouldContinueToNextCreep: shouldContinueToNextCreep,
+    creepsE59S48: creepsE59S48,
+    creepsE59S49: creepsE59S49,
+    creepsE59S47: creepsE59S47
+  };
+}
 function runRoles() {
   let i = 0;
   let crps = Game.creeps;
@@ -71,44 +119,17 @@ function runRoles() {
     let creep = crps[name];
     let roll = creep.memory.role;
     let ret = -16;
+    let shouldContinueToNextCreep = false;
 
     if (creep.spawning) {
       continue;
     }
 
-    if (creep.memory.direction === "south") {
-      creepsE59S48.push(creep.name);
+    ({ retval, shouldContinueToNextCreep, creepsE59S48, creepsE59S49, creepsE59S47 } =
+      setCreepRoomArrayAndAvoidInvaders(creep, creepsE59S48, creepsE59S49, creepsE59S47));
 
-      let invader = Game.getObjectById(Memory.invaderIDE59S48);
-
-      if (invader) {
-        if (roll != "rangedAttacker" && creep.pos.inRangeTo(invader, 5)) {
-          retval = flee(creep, invader.pos, 20);
-          continue;
-        }
-      }
-    } else if (creep.memory.direction === "deepSouth") {
-      creepsE59S49.push(creep.name);
-
-      let invader = Game.getObjectById(Memory.invaderIDE59S49);
-
-      if (invader) {
-        if (roll != "rangedAttacker" && creep.pos.inRangeTo(invader, 5)) {
-          retval = flee(creep, invader.pos, 20);
-          continue;
-        }
-      }
-    } else if (creep.memory.direction === "north") {
-      creepsE59S47.push(creep.name);
-
-      let invader = Game.getObjectById(Memory.invaderIDE59S47);
-
-      if (invader) {
-        if (roll != "rangedAttacker" && creep.pos.inRangeTo(invader, 5)) {
-          retval = flee(creep, invader.pos, 20);
-          continue;
-        }
-      }
+    if (shouldContinueToNextCreep) {
+      continue;
     }
 
     if (roll) {

@@ -238,6 +238,24 @@ function spawnCreepTypes(enAvail, spawns) {
   addPart(upContrParts800, 5, WORK);
   addPart(upContrParts800, 5, MOVE);
 
+  // 850
+  let harvesterParts850 = [];
+  addPart(harvesterParts850, 1, CARRY);
+  addPart(harvesterParts850, 5, WORK);
+  addPart(harvesterParts850, 6, MOVE);
+
+  // 850
+  let workerParts850 = [];
+  addPart(workerParts850, 1, CARRY);
+  addPart(workerParts850, 5, WORK);
+  addPart(workerParts850, 6, MOVE);
+
+  // 850
+  let upContrParts850 = [];
+  addPart(upContrParts850, 1, CARRY);
+  addPart(upContrParts850, 5, WORK);
+  addPart(upContrParts850, 6, MOVE);
+
   // 1100
   let medsouthHvParts1100 = [];
   addPart(medsouthHvParts1100, 1, CARRY);
@@ -482,7 +500,11 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 2 && !dSAttackerId && creepsE59S49.length < 10) {
+    } else if (
+      harvestersE59S49.length < 2 &&
+      !dSAttackerId &&
+      creepsE59S49.length < 10
+    ) {
       logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 2);
       name = "hdS" + t;
       direction = "deepSouth";

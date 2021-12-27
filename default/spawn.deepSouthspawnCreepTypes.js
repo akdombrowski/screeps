@@ -319,12 +319,12 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 400 && rangedAttackersE59S49.length < 1) {
+  if (enAvail >= 550 && rangedAttackersE59S49.length < 1) {
     let name = "aRdS" + t;
     let chosenRole = "rangedAttacker";
     let direction = "deepSouth";
     let sourceId = Memory.nSource2;
-    let parts = rangedAttackerParts400;
+    let parts = rangedAttackerParts550;
     let group = "rangedttackersE59S49";
     let spawnDirection = [TOP];
 
@@ -349,12 +349,12 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 400 && rangedAttackers.length < 0) {
+  if (enAvail >= 550 && rangedAttackers.length < 0) {
     let name = "aR" + t;
     let chosenRole = "rangedAttacker";
     let direction = "south";
     let sourceId = Memory.nSource2;
-    let parts = rangedAttackerParts400;
+    let parts = rangedAttackerParts550;
     let group = "rangedttackersE59S48";
     let spawnDirection = [TOP];
 

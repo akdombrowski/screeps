@@ -244,17 +244,14 @@ function runRoles() {
           creep.memory.up = true;
         }
         if (creep.memory.direction === "south") {
-          creepsE59S48.push(name);
           upControllers.push(name);
         } else if (creep.memory.direction === "deepSouth") {
-          creepsE59S49.push(name);
           upControllersE59S49.push(name);
         } else if (creep.memory.direction === "north") {
-          creepsE59S47.push(name);
           upControllersE59S47.push(name);
         } else {
           creep.memory.direction = "south";
-          creepsE59S48.push(name);
+
           upControllers.push(name);
         }
 
@@ -278,7 +275,6 @@ function runRoles() {
 
         if (creep.memory.direction === "north") {
           upControllersE59S47.push(name);
-          creepsE59S47.push(name);
           creep.memory.controllerID = "59bbc5d22052a716c3cea133";
           upController(
             creep,
@@ -300,7 +296,6 @@ function runRoles() {
             "59bbc5c12052a716c3ce9faa"
           );
         } else if (creep.memory.direction === "south") {
-          creepsE59S48.push(name);
           upControllersE59S48.push(name);
 
           creep.memory.controllerID = "59bbc5d22052a716c3cea133";
@@ -311,10 +306,9 @@ function runRoles() {
             Game.flags.northExit,
             TOP,
             "59bbc5d22052a716c3cea133"
-            );
-          } else {
+          );
+        } else {
           upControllersE59S48.push(name);
-          creepsE59S48.push(name);
           creep.memory.direction = "south";
           creep.memory.controllerID = "59bbc5d22052a716c3cea133";
           upController(
@@ -335,7 +329,6 @@ function runRoles() {
         if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
           creep.memory.up = true;
         }
-        creepsE59S49.push(name);
         upControllersE59S49.push(name);
 
         creep.memory.controllerID = "59bbc5d22052a716c3cea13a";

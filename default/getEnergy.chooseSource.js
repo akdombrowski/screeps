@@ -44,11 +44,11 @@ function chooseSource(creep, sources) {
     target = sources[0];
   }
 
-  if (!target && sources[0] && creep.pos.inRangeTo(sources[0], 2)) {
+  if (!target && sources[0] && creep.pos.inRangeTo(sources[0], 3)) {
     target = sources2[0];
   }
 
-  if (!target && sources[1] && creep.pos.inRangeTo(sources[1], 2)) {
+  if (!target && sources[1] && creep.pos.inRangeTo(sources[1], 3)) {
     target = sources[1];
   }
 

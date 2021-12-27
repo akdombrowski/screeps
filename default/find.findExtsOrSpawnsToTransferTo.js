@@ -11,42 +11,37 @@ function findExtsOrSpawnsToTransferTo(
   spawns
 ) {
   let exts;
+  let spwns;
+  let extsAndSpwns;
 
   extensions = checkForExtensions(targetRoomName, creep, extensions);
 
   exts = mapIDsToGameObjs(extensions);
 
+  spawns = checkForSpawns(targetRoomName, creep, spawns);
+
+  spwns = mapIDsToGameObjs(spawns);
+
+  extsAndSpwns = exts.concat(spwns);
 
   // find closest ext or spawn by path
-  let a = creep.pos.findClosestByRange(exts);
+  let a = creep.pos.findClosestByRange(extsAndSpwns);
   // let a = exts.pop();
 
   if (a) {
     target = a;
     creep.memory.transferTargetId = target.id;
 
-    // remove the target from list
-    _.pull(extensions, target.id);
-  } else {
-    // didn't find an extension that needed energy
-    // check for spawns
-    spawns = checkForSpawns(targetRoomName, creep, spawns);
-
-    exts = mapIDsToGameObjs(spawns);
-
-    // find closest ext or spawn by path
-    let a = creep.pos.findClosestByPath(exts);
-
-    if (a) {
-      target = a;
-      creep.memory.transferTargetId = target.id;
-
-      // remove the target from list
-      _.pull(spawns, target.id);
+    if (a.structureType === STRUCTURE_EXTENSION) {
+      // remove the target extension from the extensions list
+      _.pull(extensions, target.id);
     } else {
-      // found neither spawn nor extension that needs energy
-      // target still null
+      // remove the target spawn from the spawns list
+      _.pull(spawns, target.id);
     }
+  } else {
+    // found neither spawn nor extension that needs energy
+    // target still null or whatever was passed in
   }
 
   return { target: target, extensions: extensions, spawns: spawns };

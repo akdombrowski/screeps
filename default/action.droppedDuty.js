@@ -17,6 +17,7 @@ function droppedDuty(creep) {
   let droppedResourcesNorth = Memory.droppedResourcesNorth;
   let tombstonesNorth = Memory.tombstonesNorth;
   let amIOnDroppedDuty;
+  const minAmountOfResource = 50;
 
   if (droppedPickerUpperNames) {
     amIOnDroppedDuty = droppedPickerUpperNames.includes(creepName);
@@ -45,7 +46,7 @@ function droppedDuty(creep) {
           if (
             droppedResource.resourceType === RESOURCE_ENERGY &&
             droppedResource.room === creepRoom &&
-            droppedResource.amount >= 50
+            droppedResource.amount > minAmountOfResource
           ) {
             return droppedResource;
           }

@@ -527,7 +527,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairersE59S49.length < 10) {
+    } else if (roadRepairersE59S49.length < 8) {
       parts = simpleParts;
       name = "rRdS" + t;
       chosenRole = "roadRepairer";
@@ -606,7 +606,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else {
+    } else if (roadRepairersE59S49.length < 12) {
       parts = simpleParts350;
       name = "rRdS" + t;
       chosenRole = "roadRepairer";

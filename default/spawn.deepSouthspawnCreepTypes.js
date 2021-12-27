@@ -1226,8 +1226,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 8) {
-      logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 6);
+    } else if (harvestersE59S49.length < 12) {
+      logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 12);
       name = "hdS" + t;
       chosenRole = "h";
       directoin = "deepSouth";

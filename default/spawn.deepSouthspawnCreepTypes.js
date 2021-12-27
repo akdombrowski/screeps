@@ -1187,9 +1187,10 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     if (harvesters.length < 6) {
       logConditionPassedForSpawnCreep("harvesters", harvesters, 6);
       name = "h" + t;
-      harvesters.push(name);
       chosenRole = "h";
       direction = "south";
+      creepsE59S48.push(name);
+      harvesters.push(name);
       retval = deepSouthbirthCreep(
         spawns,
         parts,
@@ -1203,10 +1204,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     } else if (harvestersE59S49.length < 8) {
       logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 6);
       name = "hdS" + t;
-      harvestersE59S49.push(name);
       chosenRole = "h";
       directoin = "deepSouth";
       group = "harvestersE59S49";
+      creepsE59S49.push(name);
+      harvestersE59S49.push(name);
       retval = deepSouthbirthCreep(
         spawns,
         parts,
@@ -1224,11 +1226,12 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         2
       );
       name = "upCdS" + t;
-      upControllersE59S49.push(name);
       chosenRole = "upCdS";
       direction = "deepSouth";
       group = "upControllersE59S49";
       parts = upContrParts800;
+      creepsE59S49.push(name);
+      upControllersE59S49.push(name);
       retval = deepSouthbirthCreep(
         spawns,
         parts,
@@ -1243,10 +1246,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 2);
       parts = workerParts800;
       name = "rR" + t;
-      roadRepairers.push(name);
       chosenRole = "roadRepairer";
       direction = "south";
       group = "roadRepairers";
+      creepsE59S48.push(name);
+      roadRepairers.push(name);
       retval = deepSouthbirthCreep(
         spawns,
         parts,
@@ -1265,10 +1269,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       );
       parts = workerParts800;
       name = "rRdS" + t;
-      roadRepairersE59S49.push(name);
       chosenRole = "roadRepairer";
       direction = "deepSouth";
       group = "roadRepairersE59S49";
+      creepsE59S49.push(name);
+      roadRepairersE59S49.push(name);
       retval = deepSouthbirthCreep(
         spawns,
         parts,
@@ -1283,10 +1288,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 12);
       parts = workerParts800;
       name = "rR" + t;
-      roadRepairers.push(name);
       chosenRole = "roadRepairer";
       direction = "south";
       group = "roadRepairers";
+      creepsE59S48.push(name);
+      roadRepairers.push(name);
       retval = deepSouthbirthCreep(
         spawns,
         parts,
@@ -1300,11 +1306,12 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     } else if (upControllers.length < 4) {
       logConditionPassedForSpawnCreep("upControllers", upControllers, 4);
       name = "upC" + t;
-      upControllers.push(name);
       chosenRole = "upC";
       direction = "south";
       group = "upControllers";
       parts = upContrParts800;
+      creepsE59S48.push(name);
+      upControllers.push(name);
       retval = deepSouthbirthCreep(
         spawns,
         parts,
@@ -1323,10 +1330,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       );
       parts = workerParts800;
       name = "rRN" + t;
-      roadRepairersE59S47.push(name);
       chosenRole = "roadRepairer";
       direction = "north";
       group = "roadRepairersE59S47";
+      creepsE59S47.push(name);
+      roadRepairersE59S47.push(name);
       retval = deepSouthbirthCreep(
         spawns,
         parts,
@@ -1342,10 +1350,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       // south road repairer, roadRepairers
       parts = workerParts800;
       name = "rRdS" + t;
-      roadRepairersE59S49.push(name);
       chosenRole = "roadRepairer";
       direction = "north";
       group = "roadRepairersE59S49";
+      creepsE59S49.push(name);
+      roadRepairersE59S49.push(name);
       retval = deepSouthbirthCreep(
         spawns,
         parts,

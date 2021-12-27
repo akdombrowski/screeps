@@ -583,6 +583,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
 
     if (retval !== -16) {
       console.log("spawningdS " + name + " " + retval);
+      console.log("energy: 300");
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;
@@ -662,6 +663,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
 
   //   if (retval !== -16) {
   //     console.log("spawningdS " + name + " " + retval);
+  // console.log("energy: 350");
   //   }
   //   if (retval === OK || retval === ERR_BUSY) {
   //     return retval;

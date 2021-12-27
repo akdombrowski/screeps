@@ -71,6 +71,11 @@ function setCreepRoomArrayAndAvoidInvaders(creep, creepsE59S48, creepsE59S49, cr
     creepsE59S47: creepsE59S47
   };
 }
+setCreepRoomArrayAndAvoidInvaders = profiler.registerFN(
+  setCreepRoomArrayAndAvoidInvaders,
+  "setCreepRoomArrayAndAvoidInvaders"
+);
+
 function runRoles() {
   let i = 0;
   let crps = Game.creeps;

@@ -360,71 +360,12 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  // if (enAvail >= 500 && attackersE59S47.length < 3 && nAttackerId) {
-  //   let name = "att" + t;
-  //   let chosenRole = "attacker";
-  //   let direction = "north";
-  //   let sourceId = Memory.nSource2;
-  //   let parts = attackerParts500;
-  //   let group = "attackersE59S47";
-  //   let spawnDirection = [TOP];
-
-  //   attackersE59S47.push(name);
-  //   retval = birthCreep(
-  //     spawns,
-  //     parts,
-  //     name,
-  //     chosenRole,
-  //     direction,
-  //     sourceId,
-  //     spawnDirection,
-  //     group
-  //   );
-  // }
-
-  //     #     #######  #######     #      #####   #    #
-  //    # #       #        #       # #    #     #  #   #
-  //   #   #      #        #      #   #   #        #  #
-  //  #     #     #        #     #     #  #        ###
-  //  #######     #        #     #######  #        #  #
-  //  #     #     #        #     #     #  #     #  #   #
-  //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 350 && attackersE59S49.length < 0) {
+  if (enAvail >= 550 && attackersE59S49.length < 0) {
     let name = "aRdS" + t;
     let chosenRole = "rangedAttacker";
     let direction = "deepSouth";
     let sourceId = Memory.dSSource2;
-    let parts = rangedAttackerParts350;
-    let group = "rangedAttackersE59S49";
-    let spawnDirection = [TOP];
-
-    creepsE59S49.push(name);
-    rangedAttackersE59S49.push(name);
-    retval = birthCreep(
-      spawns,
-      parts,
-      name,
-      chosenRole,
-      direction,
-      sourceId,
-      spawnDirection,
-      group
-    );
-  }
-
-  //     #     #######  #######     #      #####   #    #
-  //    # #       #        #       # #    #     #  #   #
-  //   #   #      #        #      #   #   #        #  #
-  //  #     #     #        #     #     #  #        ###
-  //  #######     #        #     #######  #        #  #
-  //  #     #     #        #     #     #  #     #  #   #
-  //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 400 && attackersE59S49.length < 0) {
-    let name = "aRdS" + t;
-    let chosenRole = "rangedAttacker";
-    let direction = "deepSouth";
-    let sourceId = Memory.dSSource2;
-    let parts = rangedAttackerParts400;
+    let parts = rangedAttackerParts550;
     let group = "rangedAttackersE59S49";
     let spawnDirection = [TOP];
 

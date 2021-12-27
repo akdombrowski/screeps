@@ -196,9 +196,10 @@ module.exports.loop = function () {
 
   // Profiler stats
   let pTime = Memory.profilerTime;
-  let profilerDur = 15000;
+  let profilerDur = 1800;
   if (!pTime || Game.time - Memory.profilerTime > profilerDur * 1.1) {
     Memory.profilerTime = Game.time;
     Game.profiler.email(profilerDur);
+    Game.profiler.profile(profilerDur);
   }
 };

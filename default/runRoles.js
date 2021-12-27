@@ -82,7 +82,7 @@ function runRoles() {
       let invader = Game.getObjectById(Memory.invaderIDE59S48);
 
       if (invader) {
-        flee(creep, invader.pos, 20);
+        retval = flee(creep, invader.pos, 20);
         continue;
       }
     } else if (creep.memory.direction === "deepSouth") {
@@ -91,7 +91,7 @@ function runRoles() {
       let invader = Game.getObjectById(Memory.invaderIDE59S49);
 
       if (invader) {
-        flee(creep, invader.pos, 20);
+        retval = flee(creep, invader.pos, 20);
         continue;
       }
     } else if (creep.memory.direction === "north") {
@@ -100,7 +100,7 @@ function runRoles() {
       let invader = Game.getObjectById(Memory.invaderIDE59S47);
 
       if (invader) {
-        flee(creep, invader.pos, 20);
+        retval = flee(creep, invader.pos, 20);
         continue;
       }
     }
@@ -114,19 +114,24 @@ function runRoles() {
         if (creep.memory.direction === "south") {
           harvesters.push(name);
           ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
+          retval = ret.retval;
         } else if (creep.memory.direction === "north") {
           harvestersE59S47.push(name);
           ret = roleHarvester(creep, e59s47extensions, e59s47spawns);
+          retval = ret.retval;
         } else if (creep.memory.direction === "deepSouth") {
           harvestersE59S49.push(name);
           ret = roleHarvester(creep, e59s49extensions, e59s49spawns);
+          retval = ret.retval;
         } else if (creep.memory.direction === "e58s49") {
           harvestersE58S49.push(name);
           ret = roleHarvester(creep, e58s49extensions, e58s49spawns);
+          retval = ret.retval;
         } else {
           creep.memory.direction = "south";
           harvesters.push(name);
           ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
+          retval = ret.retval;
         }
       } else if (roll === "reserver") {
         reservers.push(name);

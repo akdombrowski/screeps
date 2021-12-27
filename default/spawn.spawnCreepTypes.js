@@ -1025,7 +1025,7 @@ function spawnCreepTypes(enAvail, spawns) {
         group
       );
     } else if (roadRepairers.length < 10) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 16);
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 10);
       parts = workerParts550;
       name = "rR" + t;
       chosenRole = "roadRepairer";
@@ -1051,7 +1051,7 @@ function spawnCreepTypes(enAvail, spawns) {
       logConditionPassedForSpawnCreep(
         "roadRepairersE59S47",
         roadRepairersE59S47,
-        16
+        10
       );
       parts = workerParts550;
       name = "rRN" + t;

@@ -91,8 +91,10 @@ function runRoles() {
       let invader = Game.getObjectById(Memory.invaderIDE59S49);
 
       if (invader) {
-        retval = flee(creep, invader.pos, 20);
-        continue;
+        // if(creep.pos.inRangeTo(invader, 5)) {
+        //   retval = flee(creep, invader.pos, 20);
+        //   continue;
+        // }
       }
     } else if (creep.memory.direction === "north") {
       creepsE59S47.push(creep.name);

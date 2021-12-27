@@ -185,20 +185,19 @@ function getEnergy(
 
   if (
     !target ||
-    (target &&
-      target.store &&
-      target.store[RESOURCE_ENERGY] <= 0 &&
-      Game.rooms[targetRoomName])
+    (target && target.store && target.store[RESOURCE_ENERGY] <= 0)
   ) {
-    target = Game.rooms[targetRoomName]
-      .find(FIND_SOURCES_ACTIVE, {
-        filter: (source) => {
-          if (source.energy > 0) {
-            return source;
-          }
-        },
-      })
-      .pop();
+    if (Game.rooms[targetRoomName]) {
+      target = Game.rooms[targetRoomName]
+        .find(FIND_SOURCES_ACTIVE, {
+          filter: (source) => {
+            if (source.energy > 0) {
+              return source;
+            }
+          },
+        })
+        .pop();
+    }
   }
 
   // // Do I need to pick up some dropped energy somewhere?

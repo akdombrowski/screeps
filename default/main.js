@@ -114,7 +114,7 @@ module.exports.loop = function () {
     towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S49), dSTowers);
 
     const timeToPassForRecheck = 100;
-    const minEnergyToKeepForInvaders = 300;
+    const minEnergyToKeepForInvaders = 400;
     const healInterval = 1;
     const repairInterval = 2;
     if (!Memory.invaderIDE59S48) {

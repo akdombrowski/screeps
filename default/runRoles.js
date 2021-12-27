@@ -250,7 +250,6 @@ function runRoles() {
         upControllersE59S47.push(name);
 
         if (creep.memory.direction === "north") {
-          creepsE59S47.push(name);
           creep.memory.controllerID = "59bbc5d22052a716c3cea133";
           upController(
             creep,
@@ -261,7 +260,6 @@ function runRoles() {
             "59bbc5d22052a716c3cea133"
           );
         } else if (creep.memory.direction === "e58s49") {
-          creepsE58S49.push(name);
           creep.memory.controllerID = "59bbc5c12052a716c3ce9faa";
           upController(
             creep,
@@ -272,7 +270,6 @@ function runRoles() {
             "59bbc5c12052a716c3ce9faa"
           );
         } else if (creep.memory.direction === "south") {
-          creepsE59S48.push(name);
           creep.memory.controllerID = "59bbc5d22052a716c3cea133";
           upController(
             creep,
@@ -283,7 +280,6 @@ function runRoles() {
             "59bbc5d22052a716c3cea133"
           );
         } else {
-          creepsE59S48.push(name);
           creep.memory.direction = "south";
           creep.memory.controllerID = "59bbc5d22052a716c3cea133";
           upController(
@@ -373,7 +369,6 @@ function runRoles() {
         }
 
         claimers.push(name);
-        creepsE59S47.push(name);
         claim(
           creep,
           Memory.northRoomName,

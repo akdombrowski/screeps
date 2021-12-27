@@ -6,52 +6,86 @@ function checkProgress(totalNumberOfCreeps, rooms, intervalInGameTime) {
 
     console.log("Total # of Creeps: " + totalNumberOfCreeps);
     rooms.forEach((room) => {
-      const rmController = room.controller;
-      const rmLvl = rmController.level;
-      const rmProg = rmController.progress;
-      const rmProgTotal = rmController.progressTotal;
-      const rmProgPerc = (rmProg / rmProgTotal) * 100;
-      const enAvail = room.energyAvailable;
-      const enCap = room.energyCapacityAvailable;
-
-      Memory[room.name + "Progess"] = rmProg;
-
-      console.log("Total # of " + room.name + " Creeps: " + Memory["creeps" + room.name].length);
+      const roomController = room.controller;
+      const roomLvl = roomController.level;
+      const roomProgress = roomController.progress;
+      const roomProgressTotal = roomController.progressTotal;
+      const roomProgressPercentage = (roomProgress / roomProgressTotal) * 100;
+      const roomEnergyAvailable = room.energyAvailable;
+      const roomEnergyCapacity = room.energyCapacityAvailable;
+      const lastRoomProgress = Memory[room.name + "Progress"] || roomProgress;
+      const progressMadeSinceLastCheck = roomProgress - lastRoomProgress;
+      const progressPercentageSinceLastCheck =
+        (progressMadeSinceLastCheck / lastRoomProgress) * 100;
+      Memory[room.name + "Progess"] = roomProgress;
 
       console.log(
-        room.name +
-          " Level " +
-          rmLvl +
-          ". progress:" +
-          rmProg / 1000 +
-          "/" +
-          rmProgTotal / 1000 +
+        "Total " + room.name + " Creeps: " + Memory["creeps" + room.name].length
+      );
+
+      console.log(
+        "---" +
+          room.name +
+          "---" +
           "\n" +
-          rmProgPerc +
+          "Level: " +
+          roomLvl +
+          "\n" +
+          "progress: " +
+          roomProgress / 1000 +
+          "k/" +
+          roomProgressTotal / 1000 +
+          "k" +
+          "\n" +
+          "percentageUntilNextLevel: " +
+          roomProgressPercentage +
+          "%" +
+          "\n" +
+          "progressMadeSinceLastCheck: " +
+          progressMadeSinceLastCheck +
+          "\n" +
+          "progressPercentageSinceLastCheck: " +
+          progressPercentageSinceLastCheck +
           "%"
       );
 
-      console.log(room.name + " energy: " + enAvail + "," + enCap);
+      console.log(
+        "Energy: " +
+          roomEnergyAvailable +
+          "/" +
+          roomEnergyCapacity +
+          "\n------------"
+      );
 
-      emailMessage =
-        emailMessage +
-        " \n" +
+      emailMessage +=
+        "---" +
         room.name +
-        " Level " +
-        rmLvl +
-        ". progress:" +
-        rmProg / 1000 +
-        "/" +
-        rmProgTotal / 1000 +
+        "---" +
         "\n" +
-        rmProgPerc +
-        "%. # of " +
-        room.name +
-        " creeps: " +
-        Memory.homeRoomCreeps;
+        "Level: " +
+        roomLvl +
+        "\n" +
+        "progress: " +
+        roomProgress / 1000 +
+        "k/" +
+        roomProgressTotal / 1000 +
+        "k" +
+        "\n" +
+        "percentageUntilNextLevel: " +
+        roomProgressPercentage +
+        "%" +
+        "\n" +
+        "progressMadeSinceLastCheck: " +
+        progressMadeSinceLastCheck +
+        "\n" +
+        "progressPercentageSinceLastCheck: " +
+        progressPercentageSinceLastCheck +
+        "%";
     });
 
     Game.profiler.email(100);
+
+    Game.notify(emailMessage);
   }
 }
 

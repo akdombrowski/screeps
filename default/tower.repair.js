@@ -12,53 +12,63 @@ function towerRepair(
     for (let i = 0; i < towers.length; i++) {
       let t = towers[i];
       let target = null;
-      if (t.room.name === Memory.homeRoomName && !Memory.invaderId) {
-        if (
-          !Memory.e59s48fixables ||
-          Memory.e59s48fixables.length <= 0 ||
-          Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
+
+      if (t.store[RESOURCE_ENERGY] >= minEnergyToKeepForInvaders) {
+        if (t.room.name === Memory.homeRoomName && !Memory.invaderId) {
+          if (
+            !Memory.e59s48fixables ||
+            Memory.e59s48fixables.length <= 0 ||
+            Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
+          ) {
+            Memory.e59s48fixables = findFixables(
+              Game.rooms[Memory.homeRoomName]
+            );
+            Memory.lastSouthCheckFixables = Game.time;
+          }
+        } else if (
+          t.room.name === Memory.northRoomName &&
+          !Memory.nAttackerId
         ) {
-          Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
-          Memory.lastSouthCheckFixables = Game.time;
-        }
-      } else if (t.room.name === Memory.northRoomName && !Memory.nAttackerId) {
-        if (
-          !Memory.e59s47fixables ||
-          Memory.e59s47fixables.length <= 0 ||
-          Memory.lastNorthCheckFixables - Game.time > timeToPassForRecheck
+          if (
+            !Memory.e59s47fixables ||
+            Memory.e59s47fixables.length <= 0 ||
+            Memory.lastNorthCheckFixables - Game.time > timeToPassForRecheck
+          ) {
+            Memory.e59s47fixables = findFixables(
+              Game.rooms[Memory.northRoomName]
+            );
+            Memory.lastNorthCheckFixables = Game.time;
+          }
+        } else if (
+          t.room.name === Memory.deepSouthRoomName &&
+          !Memory.dSAttackerId
         ) {
-          Memory.e59s47fixables = findFixables(
-            Game.rooms[Memory.northRoomName]
-          );
-          Memory.lastNorthCheckFixables = Game.time;
+          if (
+            !Memory.e59s49fixables ||
+            Memory.e59s49fixables.length <= 0 ||
+            Memory.lastDeepSouthCheckFixables - Game.time > timeToPassForRecheck
+          ) {
+            Memory.e59s49fixables = findFixables(
+              Game.rooms[Memory.deepSouthRoomName]
+            );
+            Memory.lastDeepSouthCheckFixables = Game.time;
+          }
+        } else {
+          if (
+            !Memory.e59s48fixables ||
+            Memory.e59s48fixables.length <= 0 ||
+            Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
+          ) {
+            Memory.e59s48fixables = findFixables(
+              Game.rooms[Memory.homeRoomName]
+            );
+            Memory.lastSouthCheckFixables = Game.time;
+          }
         }
-      } else if (
-        t.room.name === Memory.deepSouthRoomName &&
-        !Memory.dSAttackerId
-      ) {
-        if (
-          !Memory.e59s49fixables ||
-          Memory.e59s49fixables.length <= 0 ||
-          Memory.lastDeepSouthCheckFixables - Game.time > timeToPassForRecheck
-        ) {
-          Memory.e59s49fixables = findFixables(
-            Game.rooms[Memory.deepSouthRoomName]
-          );
-          Memory.lastDeepSouthCheckFixables = Game.time;
+        target = findRepairable(t);
+        if (target && t.store[RESOURCE_ENERGY] > minEnergyToKeepForInvaders) {
+          t.repair(target);
         }
-      } else {
-        if (
-          !Memory.e59s48fixables ||
-          Memory.e59s48fixables.length <= 0 ||
-          Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
-        ) {
-          Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
-          Memory.lastSouthCheckFixables = Game.time;
-        }
-      }
-      target = findRepairable(t);
-      if (target && t.store[RESOURCE_ENERGY] > minEnergyToKeepForInvaders) {
-        t.repair(target);
       }
     }
   }

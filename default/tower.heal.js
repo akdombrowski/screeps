@@ -17,59 +17,65 @@ function towerHeal(
       let t = towers[i];
       let target = null;
 
-      if (t.room.name === Memory.homeRoomName && !Memory.invaderId) {
-        if (
-          !Memory.e59s48healables ||
-          Memory.e59s48healables.length <= 0 ||
-          Memory.lastSouthCheckHealables - Game.time > timeToPassForRecheck
+      if (t.store[RESOURCE_ENERGY] >= minEnergyToKeepForInvaders) {
+        if (t.room.name === Memory.homeRoomName && !Memory.invaderId) {
+          if (
+            !Memory.e59s48healables ||
+            Memory.e59s48healables.length <= 0 ||
+            Memory.lastSouthCheckHealables - Game.time > timeToPassForRecheck
+          ) {
+            Memory.e59s48healables = findHealables(
+              Game.rooms[Memory.homeRoomName]
+            );
+            Memory.lastSouthCheckHealables = Game.time;
+          }
+        } else if (
+          t.room.name === Memory.northRoomName &&
+          !Memory.nAttackerId
         ) {
-          Memory.e59s48healables = findHealables(
-            Game.rooms[Memory.homeRoomName]
-          );
-          Memory.lastSouthCheckHealables = Game.time;
-        }
-      } else if (t.room.name === Memory.northRoomName && !Memory.nAttackerId) {
-        if (
-          !Memory.e59s47healables ||
-          Memory.e59s47healables.length <= 0 ||
-          Memory.lastNorthCheckHealables - Game.time > timeToPassForRecheck
+          if (
+            !Memory.e59s47healables ||
+            Memory.e59s47healables.length <= 0 ||
+            Memory.lastNorthCheckHealables - Game.time > timeToPassForRecheck
+          ) {
+            Memory.e59s47healables = findHealables(
+              Game.rooms[Memory.northRoomName]
+            );
+            Memory.lastNorthCheckHealables = Game.time;
+          }
+        } else if (
+          t.room.name === Memory.deepSouthRoomName &&
+          !Memory.dSAttackerId
         ) {
-          Memory.e59s47healables = findHealables(
-            Game.rooms[Memory.northRoomName]
-          );
-          Memory.lastNorthCheckHealables = Game.time;
+          if (
+            !Memory.e59s49healables ||
+            Memory.e59s49healables.length <= 0 ||
+            Memory.lastDeepSouthCheckHealables - Game.time >
+              timeToPassForRecheck
+          ) {
+            Memory.e59s49healables = findHealables(
+              Game.rooms[Memory.deepSouthRoomName]
+            );
+            Memory.lastDeepSouthCheckHealables = Game.time;
+          }
+        } else {
+          if (
+            !Memory.e59s48healables ||
+            Memory.e59s48healables.length <= 0 ||
+            Memory.lastSouthCheckHealables - Game.time > timeToPassForRecheck
+          ) {
+            Memory.e59s48healables = findHealables(
+              Game.rooms[Memory.homeRoomName]
+            );
+            Memory.lastSouthCheckHealables = Game.time;
+          }
         }
-      } else if (
-        t.room.name === Memory.deepSouthRoomName &&
-        !Memory.dSAttackerId
-      ) {
-        if (
-          !Memory.e59s49healables ||
-          Memory.e59s49healables.length <= 0 ||
-          Memory.lastDeepSouthCheckHealables - Game.time > timeToPassForRecheck
-        ) {
-          Memory.e59s49healables = findHealables(
-            Game.rooms[Memory.deepSouthRoomName]
-          );
-          Memory.lastDeepSouthCheckHealables = Game.time;
-        }
-      } else {
-        if (
-          !Memory.e59s48healables ||
-          Memory.e59s48healables.length <= 0 ||
-          Memory.lastSouthCheckHealables - Game.time > timeToPassForRecheck
-        ) {
-          Memory.e59s48healables = findHealables(
-            Game.rooms[Memory.homeRoomName]
-          );
-          Memory.lastSouthCheckHealables = Game.time;
-        }
-      }
 
-      target = findHealable(t);
+        target = findHealable(t);
 
-      if (target) {
-        retval = t.heal(target);
+        if (target) {
+          retval = t.heal(target);
+        }
       }
     }
   }

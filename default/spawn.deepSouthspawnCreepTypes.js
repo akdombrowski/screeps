@@ -202,8 +202,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   // 800
   let rangedAttackerParts800 = [];
   addPart(rangedAttackerParts800, 5, TOUGH);
-  addPart(rangedAttackerParts800, 6, MOVE);
-  addPart(rangedAttackerParts800, 3, RANGED_ATTACK);
+  addPart(rangedAttackerParts800, 9, MOVE);
+  addPart(rangedAttackerParts800, 2, RANGED_ATTACK);
 
   // 800
   let harvesterParts800 = [];
@@ -222,6 +222,24 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   addPart(upContrParts800, 1, CARRY);
   addPart(upContrParts800, 5, WORK);
   addPart(upContrParts800, 5, MOVE);
+
+  // 850
+  let harvesterParts850 = [];
+  addPart(harvesterParts850, 1, CARRY);
+  addPart(harvesterParts850, 5, WORK);
+  addPart(harvesterParts850, 6, MOVE);
+
+  // 850
+  let workerParts850 = [];
+  addPart(workerParts850, 1, CARRY);
+  addPart(workerParts850, 5, WORK);
+  addPart(workerParts850, 6, MOVE);
+
+  // 850
+  let upContrParts850 = [];
+  addPart(upContrParts850, 1, CARRY);
+  addPart(upContrParts850, 5, WORK);
+  addPart(upContrParts850, 6, MOVE);
 
   // 1100
   let medsouthHvParts1100 = [];
@@ -562,7 +580,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (creepsE59S49.length < 10) {
+    } else if (creepsE59S49.length < 12) {
       logConditionPassedForSpawnCreep("creepsE59S49", creepsE59S49, 10);
       parts = simpleParts300;
       direction = "deepSouth";
@@ -716,7 +734,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 5 && creepsE59S49.length < 12) {
+    } else if (harvestersE59S49.length < 8 && creepsE59S49.length < 14) {
       logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 5);
       logConditionPassedForSpawnCreep("creepsE59S49", creepsE59S49, 12);
       parts = simpleParts400;

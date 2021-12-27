@@ -355,6 +355,14 @@ function spawnCreepTypes(enAvail, spawns) {
       spawnDirection,
       group
     );
+
+    if (retval !== -16) {
+      console.log("spawningS " + name + " " + retval);
+      console.log("energy: 550");
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
   }
 
   //     #     #######  #######     #      #####   #    #
@@ -386,6 +394,14 @@ function spawnCreepTypes(enAvail, spawns) {
       spawnDirection,
       group
     );
+
+    if (retval !== -16) {
+      console.log("spawningS " + name + " " + retval);
+      console.log("energy: 550");
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
   }
 
   // // .########...#####..

@@ -76,7 +76,6 @@ function runRoles() {
       continue;
     }
 
-    console.log("runRoles");
     if (creep.memory.direction === "south") {
       creepsE59S48.push(creep.name);
 

@@ -330,42 +330,12 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 350 && rangedAttackers.length < 1) {
+  if (enAvail >= 550 && rangedAttackers.length < 2) {
     let name = "aR" + t;
     let chosenRole = "rangedAttacker";
     let direction = "south";
     let sourceId = Memory.source2;
-    let parts = rangedAttackerParts350;
-    let spawnDirection = [TOP];
-    let group = "rangedAttackers";
-
-    creepsE59S48.push(name);
-    rangedAttackers.push(name);
-    retval = birthCreep(
-      spawns,
-      parts,
-      name,
-      chosenRole,
-      direction,
-      sourceId,
-      spawnDirection,
-      group
-    );
-  }
-
-  //     #     #######  #######     #      #####   #    #
-  //    # #       #        #       # #    #     #  #   #
-  //   #   #      #        #      #   #   #        #  #
-  //  #     #     #        #     #     #  #        ###
-  //  #######     #        #     #######  #        #  #
-  //  #     #     #        #     #     #  #     #  #   #
-  //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 400 && rangedAttackers.length < 2) {
-    let name = "aR" + t;
-    let chosenRole = "rangedAttacker";
-    let direction = "south";
-    let sourceId = Memory.source2;
-    let parts = rangedAttackerParts400;
+    let parts = rangedAttackerParts550;
     let spawnDirection = [TOP];
     let group = "rangedAttackers";
 
@@ -677,7 +647,7 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (creepsE59S48.length < 20) {
+    } else if (creepsE59S48.length < 14) {
       console.log("creepsE59S48: " + creepsE59S48.length);
       name = "h" + t;
       group = "harvesters";
@@ -801,7 +771,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (creepsE59S48.length < 24) {
+    if (creepsE59S48.length < 16) {
       console.log("creepsE59S48: " + creepsE59S48.length);
       harvesters.push(name);
       creepsE59S48.push(name);
@@ -971,7 +941,7 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (creepsE59S48.length < 15) {
+    } else if (creepsE59S48.length < 14) {
       console.log("creepsE59S48: " + creepsE59S48.length);
       name = "h" + t;
       chosenRole = "h";

@@ -451,8 +451,12 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvestersE59S49.length < 4 && creepsE59S49.length < 6) {
-      logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 4);
+    if (creepsE59S49.length < 6) {
+      logConditionPassedForSpawnCreep(
+        "creepsE59S49",
+        harvescreepsE59S49tersE59S49,
+        6
+      );
       parts = simpleParts300;
       group = "harvestersE59S49";
       creepsE59S49.push(name);
@@ -467,8 +471,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvesters.length < 4 && creepsE59S48.length < 6) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
+    } else if (creepsE59S48.length < 6) {
+      logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 6);
       name = "h" + t;
       parts = simpleParts300;
       direction = "south";
@@ -558,8 +562,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 4 && creepsE59S49.length < 8) {
-      logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 4);
+    } else if (creepsE59S49.length < 8) {
+      logConditionPassedForSpawnCreep("creepsE59S49", creepsE59S49, 8);
       parts = simpleParts300;
       direction = "deepSouth";
       group = "harvestersE59S49";
@@ -710,8 +714,9 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 5 && creepsE59S49.length < 10) {
+    } else if (harvestersE59S49.length < 5 && creepsE59S49.length < 12) {
       logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 5);
+      logConditionPassedForSpawnCreep("creepsE59S49", creepsE59S49, 12);
       parts = simpleParts400;
       direction = "deepSouth";
       chosenRole = "h";
@@ -731,7 +736,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       logConditionPassedForSpawnCreep(
         "roadRepairersE59S49",
         roadRepairersE59S49,
-        12
+        2
       );
       parts = simpleParts400;
       name = "rRdS" + t;

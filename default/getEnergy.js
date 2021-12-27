@@ -108,19 +108,28 @@ function getEnergy(
     return retval;
   }
 
+  if (
+    !target ||
+    (target &&
+      target.store &&
+      (!target.store[RESOURCE_ENERGY] || target.store[RESOURCE_ENERGY] < 50)) ||
+    target.energy <= 0 ||
+    target.amount <= 0
+  ) {
+    creep.memory.lastSourceId = null;
+  }
+
   if (!target) {
     _.remove(
       Memory[creep.room.name + "droppedPickerUpperNames"],
       (name) => name === creep.name
     );
 
-
     retval = droppedDuty(creep);
 
-    if(retval === OK || retval === ERR_TIRED) {
+    if (retval === OK || retval === ERR_TIRED) {
       return retval;
     } else {
-
     }
   }
 

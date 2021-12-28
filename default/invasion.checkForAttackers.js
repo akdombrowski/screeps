@@ -1,4 +1,4 @@
-const { findInvaders } = require("./findInvaders");
+const { findInvaders } = require("./invasion.findInvaders");
 const profiler = require("./screeps-profiler");
 
 function checkForAttackers() {

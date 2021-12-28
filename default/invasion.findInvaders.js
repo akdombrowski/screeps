@@ -7,6 +7,7 @@ function findInvaders(
   attackerCheckWaitTime
 ) {
   let invaderId = null;
+  let targetRoomName = targetRoom.name;
 
   if (
     targetRoom &&
@@ -44,16 +45,20 @@ function findInvaders(
         }
 
         if (enemyCreep) {
-          console.log(targetRoom.name + " enemyCreep spotted ");
+          console.log(targetRoomName + " enemyCreep spotted ");
           invaderId = enemyCreep.id;
         }
       }
     }
 
-    Memory["invaderID" + targetRoom] = invaderId;
-    Memory["lastCheckForInvaderTime" + targetRoom.name] = Game.time;
+    Memory["invaderID" + targetRoomName] = invaderId;
+    Memory["lastCheckForInvaderTime" + targetRoomName] = Game.time;
     if (invaderId) {
-      console.log("invader" + targetRoom.name + ": " + invaderId);
+      const invader = Game.getObjectById(invaderId);
+
+      console.log("invader" + targetRoomName + ": " + invaderId);
+      console.log(invader.hits + "/" + invader.hitsMax);
+      console.log((invader.hits / invaderHitsMax) * 100 + "%");
     }
 
     return invaderId;

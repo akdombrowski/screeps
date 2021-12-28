@@ -2,6 +2,7 @@ const getEnergy = require("./getEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./move.smartMove");
 const profiler = require("./screeps-profiler");
+const { checkIfBlockingSource } = require("./utilities.checkIfBlockingSource");
 
 function upController(
   creep,
@@ -129,11 +130,13 @@ function upController(
     new RoomVisual(creep.room.name).text("💥", target.pos.x, target.pos.y, {
       color: "red",
       font: 1.8,
-      opacity: 0.5,
+      opacity: 0.99,
     });
 
     if (creep.memory.up) {
       if (creep.pos.inRangeTo(target, 3)) {
+        checkIfBlockingSource(creep, 1);
+
         retval = creep.upgradeController(target);
         if (retval == OK) {
           creep.say("uc");

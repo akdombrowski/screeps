@@ -740,7 +740,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
 
     if (retval !== -16) {
       console.log("spawningN " + name + " " + retval);
-      console.log("energy: 350");
+      console.log("energy: 400");
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;

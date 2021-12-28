@@ -99,6 +99,9 @@ function northSpawnCreepTypes(enAvail, spawns) {
   let towerHarvesters = Memory.towerHarvesters || [];
   let claimers = Memory.claimers || [];
   let attackers = Memory.attackers || [];
+  let rangedAttackers = Memory.rangedAttackers || [];
+  let rangedAttackersE59S47 = Memory.rangedAttackersE59S47 || [];
+  let rangedAttackersE59S49 = Memory.rangedAttackersE59S49 || [];
   let attackersE59S47 = Memory.attackersE59S47 || [];
   let attackersE59S49 = Memory.attackersE59S49 || [];
   let eAttackDurationSafeCheck = Memory.eAttackDurationSafeCheck;
@@ -110,11 +113,10 @@ function northSpawnCreepTypes(enAvail, spawns) {
   let creepsE59S48 = Memory.creepsE59S48;
   let creepsE59S47 = Memory.creepsE59S47;
   let creepsE59S49 = Memory.creepsE59S49;
+  let creepsE58S49 = Memory.creepsE58S49;
 
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
-
-  let s1 = Game.spawns.Spawn1;
 
   // 200
   let upContrParts200 = [];
@@ -130,8 +132,8 @@ function northSpawnCreepTypes(enAvail, spawns) {
   // 300
   let linkGetsParts300 = [];
   addPart(linkGetsParts300, 1, CARRY);
-  addPart(linkGetsParts300, 2, WORK);
-  addPart(linkGetsParts300, 1, MOVE);
+  addPart(linkGetsParts300, 1, WORK);
+  addPart(linkGetsParts300, 3, MOVE);
 
   // 500
   let attackerParts500 = [];
@@ -141,14 +143,14 @@ function northSpawnCreepTypes(enAvail, spawns) {
   // 500
   let workerParts500 = [];
   addPart(workerParts500, 1, CARRY);
-  addPart(workerParts500, 4, WORK);
-  addPart(workerParts500, 1, MOVE);
+  addPart(workerParts500, 2, WORK);
+  addPart(workerParts500, 5, MOVE);
 
   // 550
   let workerParts550 = [];
   addPart(workerParts550, 1, CARRY);
-  addPart(workerParts550, 4, WORK);
-  addPart(workerParts550, 2, MOVE);
+  addPart(workerParts550, 3, WORK);
+  addPart(workerParts550, 4, MOVE);
 
   // 550
   let harvesterParts550 = [];
@@ -374,6 +376,49 @@ function northSpawnCreepTypes(enAvail, spawns) {
   //     return retval;
   //   }
   // }
+
+  //     #     #######  #######     #      #####   #    #
+  //    # #       #        #       # #    #     #  #   #
+  //   #   #      #        #      #   #   #        #  #
+  //  #     #     #        #     #     #  #        ###
+  //  #######     #        #     #######  #        #  #
+  //  #     #     #        #     #     #  #     #  #   #
+  //  #     #     #        #     #     #   #####   #    #
+  if (enAvail >= 550 && rangedAttackersE59S47.length < 1) {
+    logConditionPassedForSpawnCreep(
+      "rangedAttackersE59S47",
+      rangedAttackersE59S47,
+      1
+    );
+    let name = "aRN" + t;
+    let chosenRole = "rangedAttacker";
+    let direction = "north";
+    let sourceId = Memory.nSource2;
+    let parts = rangedAttackerParts550;
+    let group = "rangedttackersE59S47";
+    let spawnDirection = [TOP];
+
+    creepsE59S47.push(name);
+    rangedAttackersE59S47.push(name);
+    retval = deepSouthbirthCreep(
+      spawns,
+      parts,
+      name,
+      chosenRole,
+      direction,
+      sourceId,
+      spawnDirection,
+      group
+    );
+
+    if (retval !== -16) {
+      console.log("spawningN " + name + " " + retval);
+      console.log("energy: 550");
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
+  }
 
   //   #####     ###      ###
   //  #     #   #   #    #   #
@@ -1414,6 +1459,9 @@ function northSpawnCreepTypes(enAvail, spawns) {
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersE59S47 = roadRepairersE59S47;
   Memory.roadRepairersE59S49 = roadRepairersE59S49;
+  Memory.rangedAttackers = rangedAttackers;
+  Memory.rangedAttackersE59S47 = rangedAttackersE59S47;
+  Memory.rangedAttackersE59S49 = rangedAttackersE59S49;
   Memory.attackers = attackers;
   Memory.attackersE59S47 = attackersE59S47;
   Memory.attackersE59S49 = attackersE59S49;
@@ -1423,6 +1471,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
   Memory.creepsE59S48 = creepsE59S48;
   Memory.creepsE59S47 = creepsE59S47;
   Memory.creepsE59S49 = creepsE59S49;
+  Memory.creepsE58S49 = creepsE58S49;
 }
 northSpawnCreepTypes = profiler.registerFN(
   northSpawnCreepTypes,

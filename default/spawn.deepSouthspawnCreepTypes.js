@@ -120,6 +120,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   let creepsE59S48 = Memory.creepsE59S48;
   let creepsE59S47 = Memory.creepsE59S47;
   let creepsE59S49 = Memory.creepsE59S49;
+  let creepsE58S49 = Memory.creepsE58S49;
 
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
@@ -1750,6 +1751,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   Memory.creepsE59S48 = creepsE59S48;
   Memory.creepsE59S47 = creepsE59S47;
   Memory.creepsE59S49 = creepsE59S49;
+  Memory.creepsE58S49 = creepsE58S49;
 }
 deepSouthspawnCreepTypes = profiler.registerFN(
   deepSouthspawnCreepTypes,

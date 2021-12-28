@@ -322,11 +322,12 @@ function spawnCreepTypes(enAvail, spawns) {
   addPart(southHvParts3750, 24, MOVE);
 
   let rezzyParts = [CLAIM, MOVE];
-  let basicCarry300 = [CARRY, WORK, WORK, MOVE];
+  let basicCarry300 = [CARRY, CARRY, CARRY, CARRY, CARRY, MOVE];
   let basicHv200 = [CARRY, WORK, MOVE];
-  let simpleParts300 = [CARRY, WORK, WORK, MOVE];
-  let simpleParts350 = [CARRY, WORK, WORK, MOVE, MOVE];
-  let simpleParts500 = [CARRY, WORK, WORK, WORK, MOVE, MOVE, MOVE];
+  let simpleParts300 = [CARRY, WORK, MOVE, MOVE, MOVE];
+  let simpleParts350 = [CARRY, WORK, MOVE, MOVE, MOVE, MOVE];
+  let simpleParts500 = [CARRY, WORK, WORK, MOVE, MOVE, MOVE, MOVE, MOVE];
+  let simpleParts550 = [CARRY, WORK, WORK, WORK, MOVE, MOVE, MOVE, MOVE];
 
   let eAttackerId = Memory.eAttackerId;
   let wAttackerId = Memory.wAttackerId;

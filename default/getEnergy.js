@@ -389,6 +389,7 @@ function getEnergy(
       // Still tired
       creep.say("😴." + creep.fatigue);
     } else if (target) {
+      // have target but not near it, move to it
       retval = smartMove(
         creep,
         target,
@@ -404,7 +405,9 @@ function getEnergy(
 
       if (retval === OK) {
         creep.memory.lastSourceId = target.id;
-        creep.say(target.pos.x + "," + target.pos.y + "💨");
+        creep.say("v." + target.pos.x + "," + target.pos.y + "🏃‍♂️");
+      } else if (retval === ERR_TIRED) {
+        creep.say("v.😴." + creep.fatigue)
       } else {
         creep.memory.lastSourceId = null;
         console.log(

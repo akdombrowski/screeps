@@ -64,9 +64,6 @@ module.exports = claimContr;
 function claimControlla(creep, ctrlr) {
   let retval = -16;
   if (creep.pos.isNearTo(ctrlr)) {
-    console.log("ctrlr: " + ctrlr);
-    console.log("reservation: " + JSON.stringify(ctrlr.reservation));
-    console.log("safeMode: " + ctrlr.safeMode);
     if (ctrlr.safeMode && ctrlr.safeMode > 0) {
       creep.say("att");
       retval = creep.attackController(ctrlr);

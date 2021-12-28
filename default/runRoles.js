@@ -27,7 +27,8 @@ function setCreepRoomArrayAndAvoidInvaders(
   creep,
   creepsE59S48,
   creepsE59S49,
-  creepsE59S47
+  creepsE59S47,
+  distanceToInvaderToTriggerFlee
 ) {
   const roll = creep.memory.role;
   const direction = creep.memory.direction;
@@ -40,7 +41,10 @@ function setCreepRoomArrayAndAvoidInvaders(
     let invader = Game.getObjectById(Memory.invaderIDE59S48);
 
     if (invader) {
-      if (roll != "rangedAttacker" && creep.pos.inRangeTo(invader, 5)) {
+      if (
+        roll != "rangedAttacker" &&
+        creep.pos.inRangeTo(invader, distanceToInvaderToTriggerFlee)
+      ) {
         retval = flee(creep, invader.pos, 20);
         shouldContinueToNextCreep = true;
       }
@@ -51,7 +55,10 @@ function setCreepRoomArrayAndAvoidInvaders(
     let invader = Game.getObjectById(Memory.invaderIDE59S49);
 
     if (invader) {
-      if (roll != "rangedAttacker" && creep.pos.inRangeTo(invader, 5)) {
+      if (
+        roll != "rangedAttacker" &&
+        creep.pos.inRangeTo(invader, distanceToInvaderToTriggerFlee)
+      ) {
         retval = flee(creep, invader.pos, 20);
         shouldContinueToNextCreep = true;
       }
@@ -62,7 +69,10 @@ function setCreepRoomArrayAndAvoidInvaders(
     let invader = Game.getObjectById(Memory.invaderIDE59S47);
 
     if (invader) {
-      if (roll != "rangedAttacker" && creep.pos.inRangeTo(invader, 5)) {
+      if (
+        roll != "rangedAttacker" &&
+        creep.pos.inRangeTo(invader, distanceToInvaderToTriggerFlee)
+      ) {
         retval = flee(creep, invader.pos, 20);
         shouldContinueToNextCreep = true;
       }

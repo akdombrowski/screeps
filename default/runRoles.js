@@ -102,11 +102,13 @@ function runRoles() {
       creepsE59S48,
       creepsE59S49,
       creepsE59S47,
+      creepsE58S49,
     } = setCreepRoomArrayAndAvoidInvaders(
       creep,
       creepsE59S48,
       creepsE59S49,
-      creepsE59S47
+      creepsE59S47,
+      creepsE58S49
     ));
 
     if (roll) {
@@ -164,6 +166,7 @@ function runRoles() {
             retval = ret.retval;
           }
         } else if (creep.memory.direction === "e58s49") {
+          creepsE58S49.push(name);
           harvestersE58S49.push(name);
           if (!shouldContinueToNextCreep) {
             ret = roleHarvester(

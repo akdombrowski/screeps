@@ -6,6 +6,7 @@ function setCreepRoomArrayAndAvoidInvaders(
   creepsE59S48,
   creepsE59S49,
   creepsE59S47,
+  creepsE58S49,
   distanceToInvaderToTriggerFlee
 ) {
   const roll = creep.memory.role;
@@ -19,8 +20,10 @@ function setCreepRoomArrayAndAvoidInvaders(
     let invader = Game.getObjectById(Memory.invaderIDE59S48);
 
     if (invader) {
-      if (roll != "rangedAttacker" &&
-        creep.pos.inRangeTo(invader, distanceToInvaderToTriggerFlee)) {
+      if (
+        roll != "rangedAttacker" &&
+        creep.pos.inRangeTo(invader, distanceToInvaderToTriggerFlee)
+      ) {
         retval = flee(creep, invader.pos, 20);
         shouldContinueToNextCreep = true;
       }
@@ -31,8 +34,10 @@ function setCreepRoomArrayAndAvoidInvaders(
     let invader = Game.getObjectById(Memory.invaderIDE59S49);
 
     if (invader) {
-      if (roll != "rangedAttacker" &&
-        creep.pos.inRangeTo(invader, distanceToInvaderToTriggerFlee)) {
+      if (
+        roll != "rangedAttacker" &&
+        creep.pos.inRangeTo(invader, distanceToInvaderToTriggerFlee)
+      ) {
         retval = flee(creep, invader.pos, 20);
         shouldContinueToNextCreep = true;
       }
@@ -43,8 +48,24 @@ function setCreepRoomArrayAndAvoidInvaders(
     let invader = Game.getObjectById(Memory.invaderIDE59S47);
 
     if (invader) {
-      if (roll != "rangedAttacker" &&
-        creep.pos.inRangeTo(invader, distanceToInvaderToTriggerFlee)) {
+      if (
+        roll != "rangedAttacker" &&
+        creep.pos.inRangeTo(invader, distanceToInvaderToTriggerFlee)
+      ) {
+        retval = flee(creep, invader.pos, 20);
+        shouldContinueToNextCreep = true;
+      }
+    }
+  } else if (direction === "e58s49") {
+    creepsE58S49.push(creep.name);
+
+    let invader = Game.getObjectById(Memory.invaderIDE58S49);
+
+    if (invader) {
+      if (
+        roll != "rangedAttacker" &&
+        creep.pos.inRangeTo(invader, distanceToInvaderToTriggerFlee)
+      ) {
         retval = flee(creep, invader.pos, 20);
         shouldContinueToNextCreep = true;
       }
@@ -56,6 +77,7 @@ function setCreepRoomArrayAndAvoidInvaders(
     creepsE59S48: creepsE59S48,
     creepsE59S49: creepsE59S49,
     creepsE59S47: creepsE59S47,
+    creepsE58S49: creepsE58S49,
   };
 }
 module.exports = setCreepRoomArrayAndAvoidInvaders;

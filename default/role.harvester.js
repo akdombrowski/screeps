@@ -103,7 +103,7 @@ function roleHarvester(
     // creep has a target room but isnt there
 
     if (creepRoomName === northRoomName) {
-      // if in the north room but target is not north, head south
+      // if in the north room but target is not north, head south, the other rooms are that way
       exitDirection = BOTTOM;
       exit = northEntrance;
     } else if (creepRoomName === deepSouthRoomName) {
@@ -128,7 +128,7 @@ function roleHarvester(
       creep.say("👋");
       retval = creep.move(exitDirection);
     } else {
-      creep.say(targetRoomName);
+      creep.say("🎯." + targetRoomName);
       retval = smartMove(
         creep,
         exit,

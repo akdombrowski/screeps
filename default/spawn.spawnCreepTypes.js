@@ -648,8 +648,8 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (creepsE59S48.length < 6) {
-      logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 6);
+    } else if (creepsE59S48.length < 8) {
+      logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 8);
       name = "h" + t;
       group = "harvesters";
       direction = "south";

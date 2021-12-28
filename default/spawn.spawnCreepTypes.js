@@ -1169,7 +1169,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "upControllersN";
     let spawnDirection = [TOP];
 
-    if (upControllersE59S47.length < 2) {
+    if (upControllersE59S47.length < 2 && creepsE59S48.length < 13) {
       // when north controller is controlled change this to upControllersN
       logConditionPassedForSpawnCreep(
         "upControllersE59S47",

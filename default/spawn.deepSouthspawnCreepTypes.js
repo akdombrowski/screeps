@@ -82,6 +82,10 @@ deepSouthbirthCreep = profiler.registerFN(
 );
 
 function deepSouthspawnCreepTypes(enAvail, spawns) {
+  if (Game.spawns.deepSouthSpawn1.spawning) {
+    return;
+  }
+
   let linkGets = Memory.linkGets || [];
   let workers = Memory.workers || [];
   let harvesters = Memory.harvesters || [];
@@ -319,10 +323,6 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   let invaderId = Memory.invaderIDE59S48;
 
   let retval = -16;
-
-  if (Game.spawns.Spawn1.spawning) {
-    return;
-  }
 
   const contrW = Game.getObjectById("5bbcaeeb9099fc012e639c4d");
   const contrNW = Game.getObjectById("5bbcaeeb9099fc012e639c4a");

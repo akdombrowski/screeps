@@ -79,6 +79,10 @@ function birthCreep(
 birthCreep = profiler.registerFN(birthCreep, "birthCreep");
 
 function northSpawnCreepTypes(enAvail, spawns) {
+  if (Game.spawns.e59s47Spawn1.spawning) {
+    return;
+  }
+
   let linkGets = Memory.linkGets || [];
   let workers = Memory.workers || [];
   let harvesters = Memory.harvesters || [];
@@ -253,10 +257,6 @@ function northSpawnCreepTypes(enAvail, spawns) {
 
   let retval = -16;
 
-  if (Game.spawns.Spawn1.spawning) {
-    return;
-  }
-
   const contrW = Game.getObjectById("5bbcaeeb9099fc012e639c4d");
   const contrNW = Game.getObjectById("5bbcaeeb9099fc012e639c4a");
   const contrNWW = Game.getObjectById("5bbcaedb9099fc012e639a93");
@@ -382,6 +382,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
   //        #  #     #  #     #
   //  #     #   #   #    #   #
   //   #####     ###      ###
+  console.log("north room enAvail: " + enAvail);
   if (enAvail >= 300 && !nAttackerId) {
     let name = "h" + t;
     let chosenRole = "h";
@@ -395,6 +396,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       logConditionPassedForSpawnCreep("harvestersE59S47", harvestersE59S47, 6);
       name = "hN" + t;
       direction = "north";
+      creepsE59S47.push(name);
       harvestersE59S47.push(name);
       group = "harvestersE59S47";
       parts = simpleParts;
@@ -419,6 +421,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       sourceId = Memory.nSource1;
       group = "upControllersE59S47";
       spawnDirection = [BOTTOM];
+      creepsE59S47.push(name);
       upControllersE59S47.push(name);
       retval = birthCreep(
         spawns,
@@ -458,11 +461,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [BOTTOM];
 
     if (upControllers.length < 1) {
-      logConditionPassedForSpawnCreep(
-        "upControllers",
-        upControllers,
-        1
-      );
+      logConditionPassedForSpawnCreep("upControllers", upControllers, 1);
       name = "upC" + t;
       chosenRole = "upC";
       upControllers.push(name);

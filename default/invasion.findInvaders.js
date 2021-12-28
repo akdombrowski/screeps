@@ -55,10 +55,12 @@ function findInvaders(
     Memory["lastCheckForInvaderTime" + targetRoomName] = Game.time;
     if (invaderId) {
       const invader = Game.getObjectById(invaderId);
+      const healthPercent = ((invader.hits / invader.hitsMax) * 100).toFixed(2);
 
       console.log("invader" + targetRoomName + ": " + invaderId);
-      console.log(invader.hits + "/" + invader.hitsMax);
-      console.log((invader.hits / invaderHitsMax) * 100 + "%");
+      console.log(
+        invader.hits + "/" + invader.hitsMax + " " + healthPercent + "%"
+      );
     }
 
     return invaderId;

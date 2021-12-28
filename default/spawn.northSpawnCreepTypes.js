@@ -11,7 +11,7 @@ function addPart(arr, count, part) {
 }
 addPart = profiler.registerFN(addPart, "addPart");
 
-function birthCreep(
+function northBirthCreep(
   spawns,
   parts,
   name,
@@ -76,7 +76,7 @@ function birthCreep(
   }
   return retval;
 }
-birthCreep = profiler.registerFN(birthCreep, "birthCreep");
+northBirthCreep = profiler.registerFN(northBirthCreep, "northBirthCreep");
 
 function northSpawnCreepTypes(enAvail, spawns) {
   if (Game.spawns.e59s47Spawn1.spawning || enAvail < 300) {
@@ -145,6 +145,12 @@ function northSpawnCreepTypes(enAvail, spawns) {
   addPart(workerParts500, 1, CARRY);
   addPart(workerParts500, 2, WORK);
   addPart(workerParts500, 5, MOVE);
+
+  // 550
+  let rangedAttackerParts550 = [];
+  addPart(rangedAttackerParts550, 5, TOUGH);
+  addPart(rangedAttackerParts550, 7, MOVE);
+  addPart(rangedAttackerParts550, 1, RANGED_ATTACK);
 
   // 550
   let workerParts550 = [];
@@ -402,7 +408,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
 
     creepsE59S47.push(name);
     rangedAttackersE59S47.push(name);
-    retval = deepSouthbirthCreep(
+    retval = northBirthCreep(
       spawns,
       parts,
       name,
@@ -447,7 +453,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       harvestersE59S47.push(name);
       group = "harvestersE59S47";
       parts = simpleParts300;
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -470,7 +476,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       spawnDirection = [BOTTOM];
       creepsE59S47.push(name);
       upControllersE59S47.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -515,7 +521,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       group = "upControllers";
       creepsE59S48.push(name);
       upControllers.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -533,7 +539,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       group = "roadRepairers";
       creepsE59S48.push(name);
       roadRepairers.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -584,7 +590,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       group = "upControllersN";
       creepsE59S47.push(name);
       upControllersE59S47.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -635,7 +641,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       creepsE59S49.push(name);
       upControllersE59S49.push(name);
 
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -676,7 +682,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 8);
       creepsE59S48.push(name);
       harvesters.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -723,7 +729,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       logConditionPassedForSpawnCreep("creepsE59S47", creepsE59S47, 11);
       creepsE59S47.push(name);
       roadRepairersE59S47.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -775,7 +781,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       parts = claimerParts650;
       creepsE59S49.push(name);
       claimers.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -818,7 +824,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       direction = "south";
       creepsE59S48.push(name);
       harvesters.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -841,7 +847,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       group = "roadRepairers";
       creepsE59S47.push(name);
       roadRepairersE59S47.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -859,7 +865,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       group = "harvestersE59S47";
       creepsE59S47.push(name);
       harvestersE59S47.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -883,7 +889,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       creepsE59S47.push(name);
       upControllersE59S47.push(name);
 
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -901,7 +907,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       chosenRole = "roadRepairer";
       direction = "south";
       group = "roadRepairers";
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -951,7 +957,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       direction = "south";
       creepsE59S48.push(name);
       harvesters.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -969,7 +975,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       group = "harvestersE59S47";
       creepsE59S47.push(name);
       harvestersE59S47.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -987,7 +993,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       group = "harvestersE59S49";
       creepsE59S49.push(name);
       harvestersE59S49.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -1010,7 +1016,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       parts = upContrParts800;
       creepsE59S49.push(name);
       upControllersE59S49.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -1029,7 +1035,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       group = "roadRepairers";
       creepsE59S48.push(name);
       roadRepairers.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -1052,7 +1058,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       group = "roadRepairersE59S47";
       creepsE59S47.push(name);
       roadRepairersE59S47.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -1075,7 +1081,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       group = "roadRepairersE59S49";
       creepsE59S49.push(name);
       roadRepairersE59S49.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -1094,7 +1100,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       group = "roadRepairers";
       creepsE59S48.push(name);
       roadRepairers.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -1113,7 +1119,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       parts = upContrParts800;
       creepsE59S48.push(name);
       upControllers.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -1136,7 +1142,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       group = "roadRepairersE59S47";
       creepsE59S47.push(name);
       roadRepairersE59S47.push(name);
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -1155,7 +1161,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       chosenRole = "roadRepairer";
       direction = "north";
       group = "roadRepairersE59S47";
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,
@@ -1477,7 +1483,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     }
 
     if (birth) {
-      retval = birthCreep(
+      retval = northBirthCreep(
         spawns,
         parts,
         name,

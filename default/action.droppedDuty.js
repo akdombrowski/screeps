@@ -4,6 +4,7 @@ function droppedDuty(creep) {
   let retval = -16;
   let creepName = creep.name;
   let creepRoom = creep.room;
+  let creepRoomName = creepRoom.name;
   let droppedTarget = Game.getObjectById(creep.memory.droppedTargetId);
   let droppedPickerUpperName = Memory[creep.room.name + "droppedPickerUpper"];
   let droppedPickerUpperNames =
@@ -26,10 +27,9 @@ function droppedDuty(creep) {
       (name) => Game.creeps[name]
     );
 
-    Memory[creepRoom.name + "droppedPickerUpperNames"] =
-      droppedPickerUpperNames;
+    Memory[creepRoomName + "droppedPickerUpperNames"] = droppedPickerUpperNames;
   } else {
-    Memory[creepRoom.name + "droppedPickerUpperNames"] = [];
+    Memory[creepRoomName + "droppedPickerUpperNames"] = [];
     droppedPickerUpperNames = [];
   }
 
@@ -40,8 +40,11 @@ function droppedDuty(creep) {
   ) {
     if (creep.memory.droppedTargetId) {
       droppedTarget = Game.getObjectById(creep.memory.droppedTargetId);
-    } else {
-      droppedTarget = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
+    }
+
+    // look for dropped energy
+    if (!target) {
+      droppedTarget = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES, {
         filter: (droppedResource) => {
           if (
             droppedResource.resourceType === RESOURCE_ENERGY &&
@@ -49,6 +52,20 @@ function droppedDuty(creep) {
             droppedResource.amount > minAmountOfResource
           ) {
             return droppedResource;
+          }
+        },
+      });
+    }
+
+    // look for tombstones with energy
+    if (!target) {
+      droppedTarget = creep.pos.findClosestByRange(FIND_TOMBSTONES, {
+        filter: (tombstone) => {
+          if (
+            tombstone.store[RESOURCE_ENERGY] > minAmountOfResource &&
+            tombstone.room.name === creepRoomName
+          ) {
+            return tombstone;
           }
         },
       });
@@ -97,7 +114,7 @@ function droppedDuty(creep) {
         }
       }
     } else {
-      creep.memory.droppedTargetId = null
+      creep.memory.droppedTargetId = null;
       creep.memory.lastSourceId = null;
       Memory[creep.room.name + "droppedPickerUpperNames"] = _.without(
         Memory[creep.room.name + "droppedPickerUpperNames"],

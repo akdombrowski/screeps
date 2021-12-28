@@ -52,7 +52,7 @@ function roleRangedAttacker(creep) {
       }
     } else {
       // no attacker in creepRoom
-      Memory.dSAttackerId = null;
+      Memory.invaderIDE59S48 = null;
       creep.say("patrol");
 
       //

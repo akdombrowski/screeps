@@ -120,10 +120,10 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   let wAttackDurationSafeCheck = Memory.wAttackDurationSafeCheck;
   let nwAttackDurationSafeCheck = Memory.nwAttackDurationSafeCheck;
   let nwwAttackDurationSafeCheck = Memory.nwwAttackDurationSafeCheck;
-  let creepsE59S48 = Memory.creepsE59S48;
-  let creepsE59S47 = Memory.creepsE59S47;
-  let creepsE59S49 = Memory.creepsE59S49;
-  let creepsE58S49 = Memory.creepsE58S49;
+  let creepsE59S48 = Memory.creepsE59S48 || [];
+  let creepsE59S47 = Memory.creepsE59S47 || [];
+  let creepsE59S49 = Memory.creepsE59S49 || [];
+  let creepsE58S49 = Memory.creepsE58S49 || [];
 
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;

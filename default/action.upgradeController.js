@@ -26,8 +26,10 @@ function upController(
       exit = Game.flags.northEntrance;
     } else if (creepRoomName === Memory.deepSouthRoomName) {
       // if in the deepSouth room but target room is not deepSouth, head north
-      exitDirection = TOP;
-      exit = Game.flags.southEntrance;
+      if (targetRoomName != Memory.e58s49RoomName || creep.memory.direction != "e58s49") {
+        exitDirection = TOP;
+        exit = Game.flags.southEntrance;
+      }
     }
 
     if (creep.pos.isNearTo(exit)) {
@@ -77,6 +79,16 @@ function upController(
         null,
         Game.flags.southExit,
         BOTTOM,
+        targetRoomName
+      );
+    } else if (creep.memory.direction === "e58s49") {
+      retval = getEnergy(
+        creep,
+        targetRoomName,
+        targetRoomName,
+        null,
+        Game.flags.e58s49Exit,
+        LEFT,
         targetRoomName
       );
     }

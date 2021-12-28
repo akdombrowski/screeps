@@ -140,7 +140,7 @@ function roleHarvester(
       creep.say("👋");
       retval = creep.move(exitDirection);
     } else {
-      creep.say("🎯." + targetRoomName);
+      creep.say("🎯." + targetRoomName + "🚀");
       retval = smartMove(
         creep,
         exit,

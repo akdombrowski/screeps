@@ -319,7 +319,7 @@ function tran(
 
     if (retval === OK) {
       creep.memory.transferTargetId = target.id;
-      creep.say("t." + target.pos.x + "," + target.pos.y + "🏃");
+      creep.say("t." + target.pos.x + "," + target.pos.y + ".🚀");
       return { retval: retval, extensions: extensions, spawns: spawns };
     } else if (retval === ERR_TIRED) {
       creep.memory.transferTargetId = target.id;

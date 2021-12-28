@@ -835,7 +835,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
         12
       );
       parts = workerParts550;
-      name = "rR" + t;
+      name = "rRN" + t;
       chosenRole = "roadRepairer";
       direction = "north";
       group = "roadRepairers";

@@ -296,15 +296,13 @@ function tran(
       creep.memory.transferTargetId = target.id;
       creep.memory.path = null;
       creep.say("t🤑");
-      return { retval: retval, extensions: extensions, spawns: spawns };
     } else if (retval === ERR_FULL) {
       retval = fleeFromTargetBecauseFull(creep, retval, target);
-      return { retval: retval, extensions: extensions, spawns: spawns };
     } else {
-      creep.say("ouch🤕");
-      let result = creep.move(BOTTOM);
-      return { retval: result, extensions: extensions, spawns: spawns };
+      creep.say("t.retval🤕");
+      retval = creep.move(BOTTOM);
     }
+    return { retval: retval, extensions: extensions, spawns: spawns };
   } else if (creep.fatigue > 0) {
     sayTired(creep);
     return { retval: ERR_TIRED, extensions: extensions, spawns: spawns };
@@ -323,7 +321,7 @@ function tran(
       return { retval: retval, extensions: extensions, spawns: spawns };
     } else if (retval === ERR_TIRED) {
       creep.memory.transferTargetId = target.id;
-      creep.say("t.😴." + creep.fatigue);
+      creep.say("t." + creep.fatigue + "😴");
     } else {
       creep.memory.path = null;
 
@@ -332,22 +330,22 @@ function tran(
       // console.log(" target.pos: " + target.pos);
       // console.log(" creep.pos: " + creep.pos);
 
-      creep.say("m.err." + retval + "🤐");
+      creep.say("t." + retval+ "." +  target.pos.x + "," + target.pos.y + "🚀" +  "🤪");
       return { retval: retval, extensions: extensions, spawns: spawns };
     }
   } else {
-    console.log(
-      name +
-        " transferEnergy no target: " +
-        target +
-        " creep.pos: " +
-        creep.pos +
-        " targetRoomName: " +
-        targetRoomName
-    );
+    // console.log(
+    //   name +
+    //     " transferEnergy no target: " +
+    //     target +
+    //     " creep.pos: " +
+    //     creep.pos +
+    //     " targetRoomName: " +
+    //     targetRoomName
+    // );
 
     creep.memory.path = null;
-    creep.say("t.err🤐");
+    creep.say("t.💩");
   }
 
   return { retval: retval, extensions: extensions, spawns: spawns };

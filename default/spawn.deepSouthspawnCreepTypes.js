@@ -983,9 +983,9 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       //     spawnDirection,
       //     group
       //   );
-    } else if (harvestersE58S49.length < 4 && creepsE59S48.length < 12) {
+    } else if (harvestersE58S49.length < 4 && creepsE58S49.length < 10) {
       logConditionPassedForSpawnCreep("harvestersE58S49", harvestersE58S49, 4);
-      logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 12);
+      logConditionPassedForSpawnCreep("creepsE59S48", creepsE58S49, 10);
       name = "hSW" + t;
       group = "harvesterse58S49";
       direction = "e58s49";

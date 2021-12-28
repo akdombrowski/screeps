@@ -151,7 +151,7 @@ function runRoles() {
   let retval = -16;
 
   for (let name in crps) {
-    if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 100) * 60) {
+    if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 100) * 50) {
       return;
     }
     let creep = crps[name];
@@ -186,31 +186,46 @@ function runRoles() {
           harvesters.push(name);
           if (!shouldContinueToNextCreep) {
             ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
+
+            e59s48extensions = ret.extensions;
+            e59s48spawns = ret.spawns;
             retval = ret.retval;
           }
         } else if (creep.memory.direction === "north") {
           harvestersE59S47.push(name);
           if (!shouldContinueToNextCreep) {
             ret = roleHarvester(creep, e59s47extensions, e59s47spawns);
+
+            e59s47extensions = ret.extensions;
+            e59s47spawns = ret.spawns;
             retval = ret.retval;
+
           }
         } else if (creep.memory.direction === "deepSouth") {
           harvestersE59S49.push(name);
           if (!shouldContinueToNextCreep) {
             ret = roleHarvester(creep, e59s49extensions, e59s49spawns);
+
+            e59s49extensions = ret.extensions;
+            e59s49spawns = ret.spawns;
             retval = ret.retval;
+
           }
         } else if (creep.memory.direction === "e58s49") {
           harvestersE58S49.push(name);
           if (!shouldContinueToNextCreep) {
             ret = roleHarvester(creep, e58s49extensions, e58s49spawns);
             retval = ret.retval;
+            e58s49extensions = ret.extensions;
+            e58s49spawns = ret.spawns;
           }
         } else {
           creep.memory.direction = "south";
           harvesters.push(name);
           if (!shouldContinueToNextCreep) {
             ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
+            e59s48extensions = ret.extensions;
+            e59s48spawns = ret.spawns;
             retval = ret.retval;
           }
         }
@@ -227,21 +242,27 @@ function runRoles() {
                 creep,
                 homeRoomName,
                 TOP,
-                southEntrance
+                southEntrance,
+                e59s48extensions,
+                e59s48spawns
               );
             } else if (creep.room.name === northRoomName) {
               retval = roleHarvesterPickerUpper(
                 creep,
                 homeRoomName,
                 BOTTOM,
-                northEntrance
+                northEntrance,
+                e59s48extensions,
+                e59s48spawns
               );
             } else {
               retval = roleHarvesterPickerUpper(
                 creep,
                 homeRoomName,
                 TOP,
-                southEntrance
+                southEntrance,
+                e59s48extensions,
+                e59s48spawns
               );
             }
           }
@@ -253,21 +274,27 @@ function runRoles() {
                 creep,
                 northRoomName,
                 TOP,
-                southEntrance
+                southEntrance,
+                e59s47extensions,
+                e59s47spawns
               );
             } else if (creep.room.name === southRoomName) {
               retval = roleHarvesterPickerUpper(
                 creep,
                 northRoomName,
                 TOP,
-                northExit
+                northExit,
+                e59s47extensions,
+                e59s47spawns
               );
             } else {
               retval = roleHarvesterPickerUpper(
                 creep,
                 northRoomName,
                 TOP,
-                northExit
+                northExit,
+                e59s47extensions,
+                e59s47spawns
               );
             }
           }
@@ -279,28 +306,36 @@ function runRoles() {
                 creep,
                 deepSouthRoomName,
                 TOP,
-                southEntrance
+                southEntrance,
+                e59s49extensions,
+                e59s49spawns
               );
             } else if (creep.room.name === homeRoomName) {
               retval = roleHarvesterPickerUpper(
                 creep,
                 deepSouthRoomName,
                 TOP,
-                northExit
+                northExit,
+                e59s49extensions,
+                e59s49spawns
               );
             } else if (creep.room.name === e58s49RoomName) {
               retval = roleHarvesterPickerUpper(
                 creep,
                 deepSouthRoomName,
                 RIGHT,
-                e58s49Entrance
+                e58s49Entrance,
+                e59s49extensions,
+                e59s49spawns
               );
             } else {
               retval = roleHarvesterPickerUpper(
                 creep,
                 deepSouthRoomName,
                 TOP,
-                southEntrance
+                southEntrance,
+                e59s49extensions,
+                e59s49spawns
               );
             }
           }
@@ -312,28 +347,36 @@ function runRoles() {
                 creep,
                 e58s49RoomName,
                 BOTTOM,
-                northEntrance
+                northEntrance,
+                extensions,
+                spawns
               );
             } else if (creep.room.name === homeRoomName) {
               retval = roleHarvesterPickerUpper(
                 creep,
                 e58s49RoomName,
                 BOTTOM,
-                southExit
+                southExit,
+                extensions,
+                spawns
               );
             } else if (creep.room.name === deepSouthRoomName) {
               retval = roleHarvesterPickerUpper(
                 creep,
                 e58s49RoomName,
                 BOTTOM,
-                southExit
+                southExit,
+                extensions,
+                spawns
               );
             } else {
               retval = roleHarvesterPickerUpper(
                 creep,
                 e58s49RoomName,
                 LEFT,
-                e58s49Exit
+                e58s49Exit,
+                extensions,
+                spawns
               );
             }
           }

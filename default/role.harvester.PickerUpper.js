@@ -6,8 +6,16 @@ const build = require("./action.build");
 const transEnTower = require("./action.transEnTower");
 const profiler = require("./screeps-profiler");
 const { droppedDuty } = require("./action.droppedDuty");
+const tran = require("./transferEnergy");
 
-function roleHarvesterPickerUpper(creep, targetRoomName, exit, exitDirection) {
+function roleHarvesterPickerUpper(
+  creep,
+  targetRoomName,
+  exit,
+  exitDirection,
+  extensions,
+  spawns
+) {
   const name = creep.name;
   const direction = creep.memory.direction;
   const sourceDir = creep.memory.sourceDir;
@@ -25,13 +33,37 @@ function roleHarvesterPickerUpper(creep, targetRoomName, exit, exitDirection) {
   const e58s49Exit = Game.flags.e58s49Exit;
   let retval = -16;
 
-  if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
+  if (
+    creep.memory.transfer ||
+    creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0
+  ) {
     creep.memory.lastSourceId = null;
     creep.memory.path = null;
-    creep.memory.getEnergy = false;
     creep.memory.getEnergyTargetId = null;
+    if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
+      creep.memory.transfer = false;
+      creep.memory.getEnergy = true;
+      return ERR_NOT_ENOUGH_RESOURCES;
+    }
+    creep.memory.getEnergy = false;
     creep.memory.transfer = true;
-    return ERR_FULL;
+
+    ret = tran(
+      creep,
+      null,
+      null,
+      targetRoomName,
+      exit,
+      exitDirection,
+      extensions,
+      spawns
+    );
+
+    extensions = ret.extensions;
+    spawns = ret.spawns;
+    retval = ret.retval;
+
+    return { retval: retval, extensions: extensions, spawns: spawns };
   }
 
   creep.memory.buildRoad = false;
@@ -112,7 +144,7 @@ function roleHarvesterPickerUpper(creep, targetRoomName, exit, exitDirection) {
     retval = droppedDuty(creep);
   }
 
-  return retval;
+  return { retval: retval, extensions: extensions, spawns: spawns };
 }
 
 roleHarvesterPickerUpper = profiler.registerFN(

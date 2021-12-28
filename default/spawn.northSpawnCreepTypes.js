@@ -246,9 +246,11 @@ function northSpawnCreepTypes(enAvail, spawns) {
   let rezzyParts = [CLAIM, MOVE];
   let basicCarry = [CARRY, CARRY, CARRY, WORK, MOVE];
   let basicHv = [CARRY, WORK, MOVE];
-  let simpleParts = [CARRY, WORK, MOVE, MOVE, MOVE];
+  let simpleParts300 = [CARRY, WORK, MOVE, MOVE, MOVE];
   let simpleParts350 = [CARRY, WORK, MOVE, MOVE, MOVE, MOVE];
+  let simpleParts400 = [CARRY, WORK, WORK, MOVE, MOVE, MOVE];
   let simpleParts500 = [CARRY, WORK, WORK, MOVE, MOVE, MOVE, MOVE, MOVE];
+  let simpleParts550 = [CARRY, WORK, WORK, WORK, MOVE, MOVE, MOVE, MOVE];
 
   let eAttackerId = Memory.eAttackerId;
   let wAttackerId = Memory.wAttackerId;
@@ -432,7 +434,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let chosenRole = "h";
     let direction = "south";
     let sourceId = Memory.source2;
-    let parts = simpleParts;
+    let parts = simpleParts300;
     let group = "harvesters";
     let spawnDirection = [BOTTOM];
 
@@ -443,7 +445,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       creepsE59S47.push(name);
       harvestersE59S47.push(name);
       group = "harvestersE59S47";
-      parts = simpleParts;
+      parts = simpleParts300;
       retval = birthCreep(
         spawns,
         parts,
@@ -500,7 +502,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let chosenRole = "h";
     let direction = "south";
     let sourceId = Memory.source2;
-    let parts = simpleParts;
+    let parts = simpleParts300;
     let group = "harvesters";
     let spawnDirection = [BOTTOM];
 
@@ -526,7 +528,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 1);
       name = "rR" + t;
       chosenRole = "roadRepairer";
-      parts = simpleParts;
+      parts = simpleParts300;
       group = "roadRepairers";
       creepsE59S48.push(name);
       roadRepairers.push(name);
@@ -563,7 +565,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let chosenRole = "h";
     let direction = "south";
     let sourceId = Memory.source2;
-    let parts = simpleParts;
+    let parts = simpleParts300;
     let group = "harvesters";
     let spawnDirection = [BOTTOM];
 
@@ -614,7 +616,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let chosenRole = "h";
     let direction = "deepSouth";
     let sourceId = Memory.source2;
-    let parts = simpleParts;
+    let parts = simpleParts300;
     let group = "harvesters";
     let spawnDirection = [BOTTOM];
 
@@ -673,6 +675,57 @@ function northSpawnCreepTypes(enAvail, spawns) {
       logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 10);
       creepsE59S48.push(name);
       harvesters.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    }
+
+    if (retval !== -16) {
+      console.log("spawningN " + name + " " + retval);
+      console.log("energy: 350");
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
+  }
+
+  //
+  //
+  //
+  // .##..........#####.....#####..
+  // .##....##...##...##...##...##.
+  // .##....##..##.....##.##.....##
+  // .##....##..##.....##.##.....##
+  // .#########.##.....##.##.....##
+  // .......##...##...##...##...##.
+  // .......##....#####.....#####..
+  //
+  //
+  //
+  if (enAvail >= 400 && !invaderId) {
+    let name = "rRN" + t;
+    let chosenRole = "roadRepairer";
+    let direction = "north";
+    let sourceId = Memory.source1;
+    let parts = simpleParts400;
+    let group = "roadRepairersE59S47";
+    let spawnDirection = [LEFT];
+
+    if (roadRepairersE59S47.length < 20) {
+      logConditionPassedForSpawnCreep(
+        "roadRepairersE59S47",
+        roadRepairersE59S47,
+        20
+      );
+      creepsE59S47.push(name);
+      roadRepairersE59S47.push(name);
       retval = birthCreep(
         spawns,
         parts,
@@ -778,7 +831,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairersE59S47.length < 2) {
+    } else if (roadRepairersE59S47.length < 12) {
       logConditionPassedForSpawnCreep(
         "roadRepairersE59S47",
         roadRepairersE59S47,

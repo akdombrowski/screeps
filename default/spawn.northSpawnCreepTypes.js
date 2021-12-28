@@ -79,7 +79,7 @@ function birthCreep(
 birthCreep = profiler.registerFN(birthCreep, "birthCreep");
 
 function northSpawnCreepTypes(enAvail, spawns) {
-  if (Game.spawns.e59s47Spawn1.spawning) {
+  if (Game.spawns.e59s47Spawn1.spawning || enAvail < 300) {
     return;
   }
 
@@ -252,10 +252,10 @@ function northSpawnCreepTypes(enAvail, spawns) {
 
   let eAttackerId = Memory.eAttackerId;
   let wAttackerId = Memory.wAttackerId;
-  let nAttackerId = Memory.nAttackerId;
-  let dSAttackerId = Memory.dSAttackerId;
+  let nAttackerId = Memory.invaderIDE59S47;
+  let dSAttackerId = Memory.invaderIDE59S49;
   let neAttackerId = Memory.neAttackerId;
-  let invaderId = Memory.invaderId;
+  let invaderId = Memory.invaderIDE59S48;
 
   let retval = -16;
 

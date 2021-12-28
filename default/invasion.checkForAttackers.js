@@ -37,7 +37,7 @@ function checkForAttackers() {
 
   Memory.invaderIDE59S47 = findInvaders(
     northRoom,
-    lastCheckForInvaderTimeE59S48,
+    lastCheckForInvaderTimeE59S47,
     attackerCheckWaitTime
   );
 }

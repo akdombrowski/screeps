@@ -82,7 +82,7 @@ deepSouthbirthCreep = profiler.registerFN(
 );
 
 function deepSouthspawnCreepTypes(enAvail, spawns) {
-  if (Game.spawns.deepSouthSpawn1.spawning) {
+  if (Game.spawns.deepSouthSpawn1.spawning || enAvail < 300) {
     return;
   }
 

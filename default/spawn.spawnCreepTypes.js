@@ -646,7 +646,7 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (creepsE59S48.length < 9) {
+    } else if (creepsE59S48.length < 8) {
       logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 9);
       name = "h" + t;
       group = "harvesters";
@@ -778,8 +778,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (creepsE59S48.length < 11) {
-      logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 11);
+    if (creepsE59S48.length < 9) {
+      logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 9);
       creepsE59S48.push(name);
       harvesters.push(name);
       retval = birthCreep(
@@ -953,8 +953,8 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (creepsE59S48.length < 12) {
-      logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 12);
+    } else if (creepsE59S48.length < 10) {
+      logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 10);
       name = "h" + t;
       chosenRole = "h";
       direction = "south";

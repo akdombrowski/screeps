@@ -358,7 +358,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
   if (enAvail >= 800 && rangedAttackers.length < 1) {
-    logConditionPassedForSpawnCreep("rangedAttackers", rangedAttackers, 2);
+    logConditionPassedForSpawnCreep("rangedAttackers", rangedAttackers, 1);
     let name = "aR" + t;
     let chosenRole = "rangedAttacker";
     let direction = "south";

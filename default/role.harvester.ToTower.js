@@ -1,5 +1,5 @@
 const getEnergy = require("./getEnergy");
-const transferEnergy = require("./transferEnergy.transferEnergy");
+const transferEnergy = require("./transferEnergy");
 const transferEnergyeRm = require("./action.transferEnergyeRm");
 const getEnergyNorth = require("./getEnergy");
 const getEnergyEast = require("./getEnergy");

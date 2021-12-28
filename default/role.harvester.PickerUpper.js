@@ -12,11 +12,14 @@ function roleHarvesterPickerUpper(creep, targetRoomName, exit, exitDirection) {
   const direction = creep.memory.direction;
   const sourceDir = creep.memory.sourceDir;
   const fatigue = creep.fatigue;
-  const rm = creep.room;
+  const creepRoom = creep.room;
+  const creepRoomName = creepRoom.name;
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
   const deepSouthRoomName = Memory.deepSouthRoomName;
   const e58s49RoomName = Memory.e58s49RoomName;
+  const southEntrance = Game.flags.southEntrance;
+  const northEntrance = Game.flags.northEntrance;
   const southExit = Game.flags.southExit;
   const northExit = Game.flags.northExit;
   const e58s49Exit = Game.flags.e58s49Exit;
@@ -38,22 +41,22 @@ function roleHarvesterPickerUpper(creep, targetRoomName, exit, exitDirection) {
   creep.memory.transferTargetId = null;
   creep.memory.getEnergy = true;
 
-  if (creep.room.name != targetRoomName) {
-    if (creep.room.name === Memory.northRoomName) {
+  if (creepRoomName != targetRoomName) {
+    if (creepRoomName === northRoomName) {
       // if in the north room but target is not north, head south
       exitDirection = BOTTOM;
-      exit = Game.flags.northEntrance;
-    } else if (creep.room.name === Memory.deepSouthRoomName) {
+      exit = northEntrance;
+    } else if (creepRoomName === deepSouthRoomName) {
       // if in the deepSouth room but target room is not deepSouth
-      if (targetRoomName != Memory.e58s49RoomName) {
+      if (targetRoomName != e58s49RoomName) {
         // if target name is not the SW room, then head north to home room
         exitDirection = TOP;
-        exit = Game.flags.southEntrance;
+        exit = southEntrance;
       }
-    } else if (creep.room.name === Memory.e58s49RoomName) {
+    } else if (creepRoomName === e58s49RoomName) {
       // if in the deepSouth room but target room is not deepSouth, head north
       exitDirection = RIGHT;
-      exit = Game.flags.e59s49Exit;
+      exit = e59s49Exit;
     }
 
     if (creep.pos.isNearTo(exit)) {
@@ -82,9 +85,12 @@ function roleHarvesterPickerUpper(creep, targetRoomName, exit, exitDirection) {
 
     retval = droppedDuty(creep);
 
-    if (retval != OK && retval != ERR_TIRED) {
-      Memory[creep.room.name + "droppedPickerUpperNames"] = _.without(
-        Memory[creep.room.name + "droppedPickerUpperNames"],
+    if (
+      (retval != OK && retval != ERR_TIRED) ||
+      creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0
+    ) {
+      Memory[creepRoomName + "droppedPickerUpperNames"] = _.without(
+        Memory[creepRoomName + "droppedPickerUpperNames"],
         creep.name
       );
       creep.memory.droppedTargetId = null;

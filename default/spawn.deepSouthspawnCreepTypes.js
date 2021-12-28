@@ -125,7 +125,6 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
 
-
   // 200
   let upContrParts200 = [];
   addPart(upContrParts200, 1, CARRY);
@@ -474,11 +473,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
 
     if (creepsE59S49.length < 6) {
-      logConditionPassedForSpawnCreep(
-        "creepsE59S49",
-        harvescreepsE59S49tersE59S49,
-        6
-      );
+      logConditionPassedForSpawnCreep("creepsE59S49", creepsE59S49, 6);
       parts = simpleParts300;
       group = "harvestersE59S49";
       creepsE59S49.push(name);

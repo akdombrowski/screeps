@@ -719,8 +719,8 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let group = "roadRepairersE59S47";
     let spawnDirection = [LEFT];
 
-    if (creepsE59S47.length < 12) {
-      logConditionPassedForSpawnCreep("creepsE59S47", creepsE59S47, 12);
+    if (creepsE59S47.length < 11) {
+      logConditionPassedForSpawnCreep("creepsE59S47", creepsE59S47, 11);
       creepsE59S47.push(name);
       roadRepairersE59S47.push(name);
       retval = birthCreep(

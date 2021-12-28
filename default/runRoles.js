@@ -148,10 +148,6 @@ function runRoles() {
       creepsE59S47
     ));
 
-    if (shouldContinueToNextCreep) {
-      continue;
-    }
-
     if (roll) {
       if (roll === "h" || roll === "harvester") {
         if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
@@ -160,56 +156,85 @@ function runRoles() {
 
         if (creep.memory.direction === "south") {
           harvesters.push(name);
-          ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
-          retval = ret.retval;
+          if (!shouldContinueToNextCreep) {
+            ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
+            retval = ret.retval;
+          }
         } else if (creep.memory.direction === "north") {
           harvestersE59S47.push(name);
-          ret = roleHarvester(creep, e59s47extensions, e59s47spawns);
-          retval = ret.retval;
+          if (!shouldContinueToNextCreep) {
+            ret = roleHarvester(creep, e59s47extensions, e59s47spawns);
+            retval = ret.retval;
+          }
         } else if (creep.memory.direction === "deepSouth") {
           harvestersE59S49.push(name);
-          ret = roleHarvester(creep, e59s49extensions, e59s49spawns);
-          retval = ret.retval;
+          if (!shouldContinueToNextCreep) {
+            ret = roleHarvester(creep, e59s49extensions, e59s49spawns);
+            retval = ret.retval;
+          }
         } else if (creep.memory.direction === "e58s49") {
           harvestersE58S49.push(name);
-          ret = roleHarvester(creep, e58s49extensions, e58s49spawns);
-          retval = ret.retval;
+          if (!shouldContinueToNextCreep) {
+            ret = roleHarvester(creep, e58s49extensions, e58s49spawns);
+            retval = ret.retval;
+          }
         } else {
           creep.memory.direction = "south";
           harvesters.push(name);
-          ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
-          retval = ret.retval;
+          if (!shouldContinueToNextCreep) {
+            ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
+            retval = ret.retval;
+          }
         }
       } else if (roll === "reserver") {
         reservers.push(name);
-        roleReserver(
-          creep,
-          Memory.northRoomName,
-          Game.flags.northExit,
-          TOP,
-          Game.flags.northController,
-          "59bbc5d22052a716c3cea133"
-        );
+        if (!shouldContinueToNextCreep) {
+          roleReserver(
+            creep,
+            Memory.northRoomName,
+            Game.flags.northExit,
+            TOP,
+            Game.flags.northController,
+            "59bbc5d22052a716c3cea133"
+          );
+        }
       } else if (roll && roll.startsWith("linkGet")) {
         linkGets.push(name);
-        roleLinkGet.run(creep);
+        if (!shouldContinueToNextCreep) {
+          roleLinkGet.run(creep);
+        }
       } else if (roll === "roadRepairer") {
         if (creep.memory.direction.startsWith("s")) {
           roadRepairers.push(name);
-          roleRepairer(creep, Memory.homeRoomName, null, null);
+
+          if (!shouldContinueToNextCreep) {
+            roleRepairer(creep, Memory.homeRoomName, null, null);
+          }
         } else if (creep.memory.direction.startsWith("n")) {
           roadRepairersE59S47.push(name);
-          roleRepairer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+
+          if (!shouldContinueToNextCreep) {
+            roleRepairer(
+              creep,
+              Memory.northRoomName,
+              Game.flags.northExit,
+              TOP
+            );
+          }
         } else if (creep.memory.direction.startsWith("deepSouth")) {
           roadRepairersE59S49.push(name);
-          roleRepairer(
-            creep,
-            Memory.deepSouthRoomName,
-            Game.flags.southExit,
-            BOTTOM
-          );
+          if (!shouldContinueToNextCreep) {
+            roleRepairer(
+              creep,
+              Memory.deepSouthRoomName,
+              Game.flags.southExit,
+              BOTTOM
+            );
+          }
         } else if (creep.memory.direction === "e58s49") {
           roadRepairersE59S49.push(name);
+          if (!shouldContinueToNextCreep) {
+          }
           roleRepairer(
             creep,
             Memory.e58s49RoomName,
@@ -218,21 +243,31 @@ function runRoles() {
           );
         } else {
           roadRepairers.push(name);
-          roleRepairer(creep, Memory.homeRoomName, null, null);
+          if (!shouldContinueToNextCreep) {
+            roleRepairer(creep, Memory.homeRoomName, null, null);
+          }
         }
       } else if (roll === "viewer") {
         if (creep.memory.direction.startsWith("s")) {
           viewersE59S48.push(name);
-          roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+          if (!shouldContinueToNextCreep) {
+            roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+          }
         } else if (creep.memory.direction.startsWith("n")) {
           viewersE59S47.push(name);
-          roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+          if (!shouldContinueToNextCreep) {
+            roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+          }
         } else if (creep.memory.direction.startsWith("deepSouth")) {
           viewersE59S49.push(name);
-          roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+          if (!shouldContinueToNextCreep) {
+            roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+          }
         } else {
           viewersE59S48.push(name);
-          roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+          if (!shouldContinueToNextCreep) {
+            roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+          }
         }
       } else if (
         roll === "uc" ||
@@ -255,14 +290,16 @@ function runRoles() {
           upControllers.push(name);
         }
 
-        upController(
-          creep,
-          Game.flags.e59s48controller,
-          Memory.homeRoomName,
-          null,
-          null,
-          "59bbc5d22052a716c3cea137"
-        );
+        if (!shouldContinueToNextCreep) {
+          upController(
+            creep,
+            Game.flags.e59s48controller,
+            Memory.homeRoomName,
+            null,
+            null,
+            "59bbc5d22052a716c3cea137"
+          );
+        }
       } else if (
         roll === "ucN" ||
         roll === "upControllerN" ||
@@ -276,49 +313,60 @@ function runRoles() {
         if (creep.memory.direction === "north") {
           upControllersE59S47.push(name);
           creep.memory.controllerID = "59bbc5d22052a716c3cea133";
-          upController(
-            creep,
-            Game.flags.northController,
-            Memory.northRoomName,
-            Game.flags.northExit,
-            TOP,
-            "59bbc5d22052a716c3cea133"
-          );
+
+          if (!shouldContinueToNextCreep) {
+            upController(
+              creep,
+              Game.flags.northController,
+              Memory.northRoomName,
+              Game.flags.northExit,
+              TOP,
+              "59bbc5d22052a716c3cea133"
+            );
+          }
         } else if (creep.memory.direction === "e58s49") {
           creep.memory.controllerID = "59bbc5c12052a716c3ce9faa";
 
-          upController(
-            creep,
-            Game.flags.e58s49Controller,
-            Memory.e58s49RoomName,
-            Game.flags.e58s49Exit,
-            LEFT,
-            "59bbc5c12052a716c3ce9faa"
-          );
+          if (!shouldContinueToNextCreep) {
+            upController(
+              creep,
+              Game.flags.e58s49Controller,
+              Memory.e58s49RoomName,
+              Game.flags.e58s49Exit,
+              LEFT,
+              "59bbc5c12052a716c3ce9faa"
+            );
+          }
         } else if (creep.memory.direction === "south") {
           upControllersE59S48.push(name);
 
           creep.memory.controllerID = "59bbc5d22052a716c3cea133";
-          upController(
-            creep,
-            Game.flags.northController,
-            Memory.northRoomName,
-            Game.flags.northExit,
-            TOP,
-            "59bbc5d22052a716c3cea133"
-          );
+
+          if (!shouldContinueToNextCreep) {
+            upController(
+              creep,
+              Game.flags.northController,
+              Memory.northRoomName,
+              Game.flags.northExit,
+              TOP,
+              "59bbc5d22052a716c3cea133"
+            );
+          }
         } else {
           upControllersE59S48.push(name);
           creep.memory.direction = "south";
           creep.memory.controllerID = "59bbc5d22052a716c3cea133";
-          upController(
-            creep,
-            Game.flags.northController,
-            Memory.northRoomName,
-            Game.flags.northExit,
-            TOP,
-            "59bbc5d22052a716c3cea133"
-          );
+
+          if (!shouldContinueToNextCreep) {
+            upController(
+              creep,
+              Game.flags.northController,
+              Memory.northRoomName,
+              Game.flags.northExit,
+              TOP,
+              "59bbc5d22052a716c3cea133"
+            );
+          }
         }
       } else if (
         roll === "ucdS" ||
@@ -332,56 +380,74 @@ function runRoles() {
         upControllersE59S49.push(name);
 
         creep.memory.controllerID = "59bbc5d22052a716c3cea13a";
-        retval = upController(
-          creep,
-          Game.flags.deepSouthController,
-          Memory.deepSouthRoomName,
-          Game.flags.southExit,
-          BOTTOM,
-          creep.memory.controllerID
-        );
+
+        if (!shouldContinueToNextCreep) {
+          retval = upController(
+            creep,
+            Game.flags.deepSouthController,
+            Memory.deepSouthRoomName,
+            Game.flags.southExit,
+            BOTTOM,
+            creep.memory.controllerID
+          );
+        }
       } else if (roll === "worker" || roll === "w") {
         workers.push(name);
 
         if (creep.memory.direction.startsWith("s")) {
-          roleWorker(creep, null, null, null, null, Memory.homeRoomName);
+          if (!shouldContinueToNextCreep) {
+            roleWorker(creep, null, null, null, null, Memory.homeRoomName);
+          }
         } else if (creep.memory.direction.startsWith("n")) {
-          roleWorker(
-            creep,
-            null,
-            null,
-            Game.flags.northExit,
-            TOP,
-            Memory.northRoomName
-          );
+          if (!shouldContinueToNextCreep) {
+            roleWorker(
+              creep,
+              null,
+              null,
+              Game.flags.northExit,
+              TOP,
+              Memory.northRoomName
+            );
+          }
         } else if (creep.memory.direction === "deepSouth") {
-          roleWorker(
-            creep,
-            null,
-            null,
-            Game.flags.southExit,
-            BOTTOM,
-            Memory.deepSouthRoomName
-          );
+          if (!shouldContinueToNextCreep) {
+            roleWorker(
+              creep,
+              null,
+              null,
+              Game.flags.southExit,
+              BOTTOM,
+              Memory.deepSouthRoomName
+            );
+          }
         } else {
-          roleWorker(creep, null, null, null, null, Memory.homeRoomName);
+          if (!shouldContinueToNextCreep) {
+            roleWorker(creep, null, null, null, null, Memory.homeRoomName);
+          }
         }
       } else if (roll === "healer") {
-        hele(creep);
+        if (!shouldContinueToNextCreep) {
+          hele(creep);
+        }
       } else if (roll === "controller") {
-        roleController.run(creep);
+        if (!shouldContinueToNextCreep) {
+          roleController.run(creep);
+        }
       } else if (roll === "upgrader") {
         roleUpgrader.run(creep);
       } else if (roll === "c" || roll === "claimer") {
         claimers.push(name);
-        claim(
-          creep,
-          Memory.northRoomName,
-          Game.flags.northExit,
-          TOP,
-          "",
-          Memory.northControllerID
-        );
+
+        if (!shouldContinueToNextCreep) {
+          claim(
+            creep,
+            Memory.northRoomName,
+            Game.flags.northExit,
+            TOP,
+            "",
+            Memory.northControllerID
+          );
+        }
       } else if (roll === "cN" || roll === "claimerN") {
         let northController = Game.getObjectById(Memory.northControllerID);
 
@@ -398,33 +464,45 @@ function runRoles() {
         }
 
         claimers.push(name);
-        claim(
-          creep,
-          Memory.northRoomName,
-          Game.flags.northExit,
-          TOP,
-          "",
-          Memory.northController,
-          Game.flags.northController
-        );
+
+        if (!shouldContinueToNextCreep) {
+          claim(
+            creep,
+            Memory.northRoomName,
+            Game.flags.northExit,
+            TOP,
+            "",
+            Memory.northController,
+            Game.flags.northController
+          );
+        }
       } else if (roll === "a" || roll === "attacker") {
         if (creep.memory.direction === "north") {
           attackersE59S47.push(name);
-          roleAttackerN(creep);
+
+          if (!shouldContinueToNextCreep) {
+            roleAttackerN(creep);
+          }
         } else if (creep.memory.direction === "deepSouth") {
           attackersE59S49.push(name);
-          roleAttackerdS(creep);
+
+          if (!shouldContinueToNextCreep) {
+            roleAttackerdS(creep);
+          }
         } else {
           let invader = Game.getObjectById(Memory.invaderId);
           attackers.push(name);
-          if (creep.pos.isNearTo(invader)) {
-            creep.attack(invader);
-          } else if (invader) {
-            creep.moveTo(invader, { range: 1 });
-          } else {
-            smartMove(creep, Game.spawns.Spawn1, 1);
-            if (Game.spawns.Spawn1.pos.isNearTo(creep)) {
-              Game.spawns.Spawn1.recycleCreep(creep);
+
+          if (!shouldContinueToNextCreep) {
+            if (creep.pos.isNearTo(invader)) {
+              creep.attack(invader);
+            } else if (invader) {
+              creep.moveTo(invader, { range: 1 });
+            } else {
+              smartMove(creep, Game.spawns.Spawn1, 1);
+              if (Game.spawns.Spawn1.pos.isNearTo(creep)) {
+                Game.spawns.Spawn1.recycleCreep(creep);
+              }
             }
           }
         }
@@ -435,13 +513,22 @@ function runRoles() {
       ) {
         if (creep.memory.direction === "north") {
           rangedAttackersE59S47.push(name);
-          roleRangedAttacker(creep);
+
+          if (!shouldContinueToNextCreep) {
+            roleRangedAttacker(creep);
+          }
         } else if (creep.memory.direction === "deepSouth") {
           rangedAttackersE59S49.push(name);
-          roleRangedAttackerdS(creep);
+
+          if (!shouldContinueToNextCreep) {
+            roleRangedAttackerdS(creep);
+          }
         } else {
           rangedAttackers.push(name);
-          roleRangedAttacker(creep);
+
+          if (!shouldContinueToNextCreep) {
+            roleRangedAttacker(creep);
+          }
         }
       } else if (roll == "hChain") {
       } else if (roll == "transferer") {

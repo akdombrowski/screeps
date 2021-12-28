@@ -15,6 +15,8 @@ function roleHarvester(
   exitDirection
 ) {
   const name = creep.name;
+  const creepRoom = creep.room;
+  const creepRoomName = creepRoom.name;
   const direction = creep.memory.direction;
   const sourceDir = creep.memory.sourceDir;
   const fatigue = creep.fatigue;
@@ -97,6 +99,50 @@ function roleHarvester(
     retval = ret.retval;
     extensions = ret.extensions;
     spawns = ret.spawns;
+  }
+
+  if (creepRoomName != targetRoomName) {
+    //
+    if (creepRoomName === northRoomName) {
+      // if in the north room but target is not north, head south
+      exitDirection = BOTTOM;
+      exit = northEntrance;
+    } else if (creepRoomName === deepSouthRoomName) {
+      // if in the deepSouth room but target room is not deepSouth
+      if (targetRoomName != e58s49RoomName) {
+        // if target name is not the SW room, then head north to home room
+        // because target room is either north or home room and you have to go the same way to get to either
+        exitDirection = TOP;
+        exit = southEntrance;
+      } else {
+        // in deep south room but target is west of here, head left
+        exitDirection = LEFT;
+        exit = e58s49Exit;
+      }
+    } else if (creepRoomName === e58s49RoomName) {
+      // if in the deepSouth room but target room is not deepSouth, head to dS
+      exitDirection = RIGHT;
+      exit = e59s49Exit;
+    }
+
+    if (creep.pos.isNearTo(exit)) {
+      creep.say("👋");
+      retval = creep.move(exitDirection);
+    } else {
+      creep.say(targetRoomName);
+      retval = smartMove(
+        creep,
+        exit,
+        1,
+        true,
+        null,
+        null,
+        null,
+        1,
+        false,
+        null
+      );
+    }
   }
 
   if (

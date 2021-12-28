@@ -317,26 +317,22 @@ function tran(
       return { retval: -17, extensions: extensions, spawns: spawns };
     }
 
-    if (retval !== OK) {
-      creep.memory.path = null;
-
-      console.log(
-        name +
-          " move to target failed in transferEnergy m.err." +
-          retval +
-          " target: " +
-          target +
-          " target.pos: " +
-          target.pos +
-          " creep.pos: " +
-          creep.pos
-      );
-
-      creep.say("m.err." + retval + "🤐");
-      return { retval: retval, extensions: extensions, spawns: spawns };
-    } else if (retval === OK) {
+    if (retval === OK) {
       creep.memory.transferTargetId = target.id;
       creep.say("t." + target.pos.x + "," + target.pos.y + "🏃");
+      return { retval: retval, extensions: extensions, spawns: spawns };
+    } else if (retval === ERR_TIRED) {
+      creep.memory.transferTargetId = target.id;
+      creep.say("t.😴." + creep.fatigue);
+    } else {
+      creep.memory.path = null;
+
+      // console.log(name + " move failed in transferEnergy m.err." + retval);
+      // console.log(" target: " + target);
+      // console.log(" target.pos: " + target.pos);
+      // console.log(" creep.pos: " + creep.pos);
+
+      creep.say("m.err." + retval + "🤐");
       return { retval: retval, extensions: extensions, spawns: spawns };
     }
   } else {

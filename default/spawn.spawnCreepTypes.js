@@ -1028,9 +1028,9 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 8 && creepsE59S48.length < 15) {
+    if (harvesters.length < 8 && creepsE59S48.length < 13) {
       logConditionPassedForSpawnCreep("harvesters", harvesters, 8);
-      logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 15);
+      logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 13);
       name = "h" + t;
       chosenRole = "h";
       direction = "south";

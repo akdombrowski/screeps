@@ -407,22 +407,22 @@ function getEnergy(
         creep.memory.lastSourceId = target.id;
         creep.say("v." + target.pos.x + "," + target.pos.y + "🏃‍♂️");
       } else if (retval === ERR_TIRED) {
-        creep.say("v.😴." + creep.fatigue)
+        creep.say("v.😴." + creep.fatigue);
       } else {
         creep.memory.lastSourceId = null;
-        console.log(
-          name +
-            " getEnergy smartmove crap " +
-            retval +
-            " target " +
-            target +
-            " target.pos: " +
-            target.pos +
-            " creep.pos: " +
-            creep.pos
-        );
+        // console.log(
+        //   name +
+        //     " getEnergy smartmove failed " +
+        //     retval +
+        //     " target " +
+        //     target +
+        //     " target.pos: " +
+        //     target.pos +
+        //     " creep.pos: " +
+        //     creep.pos
+        // );
 
-        creep.say("crap");
+        creep.say("💩");
       }
     } else {
       creep.memory.lastSourceId = null;

@@ -1178,7 +1178,29 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 6) {
+    if (pickerUppersE59S49.length < 1) {
+      logConditionPassedForSpawnCreep(
+        "pickerUppersE59S49",
+        pickerUppersE59S49,
+        1
+      );
+      name = "pUdS" + t;
+      chosenRole = "pickerUpper";
+      direction = "deepSouth";
+      parts = pickerUpper800;
+      creepsE59S49.push(name);
+      pickerUppersE59S49.push(name);
+      retval = deepSouthbirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (harvesters.length < 6) {
       logConditionPassedForSpawnCreep("harvesters", harvesters, 6);
       name = "h" + t;
       chosenRole = "h";
@@ -1195,7 +1217,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE58S49.length < 4) {
+    } else if (harvestersE58S49.length < 5) {
       logConditionPassedForSpawnCreep("harvestersE58S49", harvestersE58S49, 4);
       name = "hSW" + t;
       group = "harvestersE58S49";
@@ -1204,6 +1226,28 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       parts = longRangeHarvesterParts800;
       creepsE59S48.push(name);
       harvestersE58S49.push(name);
+      retval = deepSouthbirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (pickerUppersE59S49.length < 2) {
+      logConditionPassedForSpawnCreep(
+        "pickerUppersE59S49",
+        pickerUppersE59S49,
+        2
+      );
+      name = "pUdS" + t;
+      chosenRole = "pickerUpper";
+      direction = "deepSouth";
+      parts = pickerUpper800;
+      creepsE59S49.push(name);
+      pickerUppersE59S49.push(name);
       retval = deepSouthbirthCreep(
         spawns,
         parts,

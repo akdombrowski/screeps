@@ -220,9 +220,8 @@ function spawnCreepTypes(enAvail, spawns) {
 
   // 800
   let rangedAttackerParts800 = [];
-  addPart(rangedAttackerParts800, 5, TOUGH);
-  addPart(rangedAttackerParts800, 9, MOVE);
-  addPart(rangedAttackerParts800, 2, RANGED_ATTACK);
+  addPart(rangedAttackerParts800, 4, MOVE);
+  addPart(rangedAttackerParts800, 4, RANGED_ATTACK);
 
   // 800
   let harvesterParts800 = [];
@@ -357,13 +356,13 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 550 && rangedAttackers.length < 1) {
+  if (enAvail >= 800 && rangedAttackers.length < 1) {
     logConditionPassedForSpawnCreep("rangedAttackers", rangedAttackers, 2);
     let name = "aR" + t;
     let chosenRole = "rangedAttacker";
     let direction = "south";
     let sourceId = Memory.source2;
-    let parts = rangedAttackerParts550;
+    let parts = rangedAttackerParts800;
     let spawnDirection = [TOP];
     let group = "rangedAttackers";
 
@@ -382,7 +381,7 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (retval !== -16) {
       console.log("spawningS " + name + " " + retval);
-      console.log("energy: 550");
+      console.log("energy: 800");
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;

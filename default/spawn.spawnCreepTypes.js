@@ -79,6 +79,10 @@ function birthCreep(
 birthCreep = profiler.registerFN(birthCreep, "birthCreep");
 
 function spawnCreepTypes(enAvail, spawns) {
+  if (Game.spawns.Spawn1.spawning) {
+    return;
+  }
+
   let linkGets = Memory.linkGets || [];
   let workers = Memory.workers || [];
   let harvesters = Memory.harvesters || [];
@@ -333,10 +337,6 @@ function spawnCreepTypes(enAvail, spawns) {
   let invaderId = Memory.invaderIDE59S48;
 
   let retval = -16;
-
-  if (Game.spawns.Spawn1.spawning) {
-    return;
-  }
 
   let northController = Game.getObjectById("59bbc5d22052a716c3cea133");
   let deepSouthController = Game.getObjectById("59bbc5d22052a716c3cea13a");

@@ -6,7 +6,14 @@ const build = require("./action.build");
 const transEnTower = require("./action.transEnTower");
 const profiler = require("./screeps-profiler");
 
-function roleHarvester(creep, extensions, spawns) {
+function roleHarvester(
+  creep,
+  extensions,
+  spawns,
+  targetRoomName,
+  exit,
+  exitDirection
+) {
   const name = creep.name;
   const direction = creep.memory.direction;
   const sourceDir = creep.memory.sourceDir;

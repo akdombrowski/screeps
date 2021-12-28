@@ -29,6 +29,7 @@ function roleHarvesterPickerUpper(
   const e58s49RoomName = Memory.e58s49RoomName;
   const southEntrance = Game.flags.southEntrance;
   const northEntrance = Game.flags.northEntrance;
+  const e58s49Entrance = Game.flags.northEntrance;
   const southExit = Game.flags.southExit;
   const northExit = Game.flags.northExit;
   const e58s49Exit = Game.flags.e58s49Exit;
@@ -75,6 +76,7 @@ function roleHarvesterPickerUpper(
   creep.memory.getEnergy = true;
 
   if (creepRoomName != targetRoomName) {
+    //
     if (creepRoomName === northRoomName) {
       // if in the north room but target is not north, head south
       exitDirection = BOTTOM;
@@ -83,11 +85,16 @@ function roleHarvesterPickerUpper(
       // if in the deepSouth room but target room is not deepSouth
       if (targetRoomName != e58s49RoomName) {
         // if target name is not the SW room, then head north to home room
+        // because target room is either north or home room and you have to go the same way to get to either
         exitDirection = TOP;
         exit = southEntrance;
+      } else {
+        // in deep south room but target is west of here, head left
+        exitDirection = LEFT;
+        exit = e58s49Exit;
       }
     } else if (creepRoomName === e58s49RoomName) {
-      // if in the deepSouth room but target room is not deepSouth, head north
+      // if in the deepSouth room but target room is not deepSouth, head to dS
       exitDirection = RIGHT;
       exit = e59s49Exit;
     }

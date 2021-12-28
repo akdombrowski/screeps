@@ -299,7 +299,7 @@ function runRoles() {
             }
           }
         } else if (creep.memory.direction === "deepSouth") {
-          harvestersE59S49.push(name);
+          pickerUppersE59S49.push(name);
           if (!shouldContinueToNextCreep) {
             if (creep.room.name === northRoomName) {
               retval = roleHarvesterPickerUpper(

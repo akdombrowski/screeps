@@ -48,16 +48,16 @@ module.exports.loop = function () {
     let lastEnAvail = Memory.enAvail || 0;
 
     let s1 = Game.spawns.Spawn1;
-    // let northS1 = Game.spawns.e59s47Spawn1;
+    let northS1 = Game.spawns.e59s47Spawn1;
     let deepSouthS1 = Game.spawns.deepSouthSpawn1;
     Memory.s1 = s1.id;
-    // Memory.northS1 = northS1.id;
+    Memory.northS1 = northS1.id;
     Memory.deepSouthS1 = deepSouthS1.id;
 
     let rm = s1.room;
     Memory.rm = rm.id;
-    // let northRoom = northS1.room;
-    // Memory.northRoom = northRoom;
+    let northRoom = northS1.room;
+    Memory.northRoom = northRoom;
     let deepSouthRoom = deepSouthS1.room;
     Memory.deepSouthRoom = null;
     Memory.homeRoomName = "E59S48";
@@ -69,13 +69,14 @@ module.exports.loop = function () {
 
     let enAvail = rm.energyAvailable;
     let enCapRm = rm.energyCapacityAvailable;
-    // let northEnAvail = northRoom.energyAvailable;
-    // let northEnCapRm = northRoom.energyCapacityAvailable;
+    let northEnAvail = northRoom.energyAvailable;
+    let northEnCapRm = northRoom.energyCapacityAvailable;
     let deepSouthEnAvail = deepSouthRoom.energyAvailable;
     let deepSouthEnCapRm = deepSouthRoom.energyCapacityAvailable;
     Memory.enAvail = enAvail;
     Memory.enCapRm = enCapRm;
-    // Memory.northEnAvaioom = northEnCapRm;
+    Memory.northEnAvail = northEnAvail;
+    Memory.northEnCapRoom = northEnCapRm;
     Memory.deepSouthEnAvail = deepSouthEnAvail;
     Memory.deepSouthEnCapRm = deepSouthEnCapRm;
 
@@ -164,7 +165,7 @@ module.exports.loop = function () {
     runRoles();
 
     spawnCreepTypes(enAvail, [s1]);
-    // northSpawnCreepTypes(northEnAvail, [northS1]);
+    northSpawnCreepTypes(northEnAvail, [northS1]);
     deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);
 
     // if (Game.time % 20) {

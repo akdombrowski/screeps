@@ -100,6 +100,9 @@ function northSpawnCreepTypes(enAvail, spawns) {
   let wAttackDurationSafeCheck = Memory.wAttackDurationSafeCheck;
   let nwAttackDurationSafeCheck = Memory.nwAttackDurationSafeCheck;
   let nwwAttackDurationSafeCheck = Memory.nwwAttackDurationSafeCheck;
+  let creepsE59S48 = Memory.creepsE59S48;
+  let creepsE59S47 = Memory.creepsE59S47;
+  let creepsE59S49 = Memory.creepsE59S49;
 
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
@@ -234,9 +237,9 @@ function northSpawnCreepTypes(enAvail, spawns) {
   let rezzyParts = [CLAIM, MOVE];
   let basicCarry = [CARRY, CARRY, CARRY, WORK, MOVE];
   let basicHv = [CARRY, WORK, MOVE];
-  let simpleParts = [CARRY, WORK, WORK, MOVE];
-  let simpleParts350 = [CARRY, WORK, WORK, MOVE, MOVE];
-  let simpleParts500 = [CARRY, CARRY, CARRY, CARRY, WORK, WORK, MOVE, MOVE];
+  let simpleParts = [CARRY, WORK, MOVE, MOVE, MOVE];
+  let simpleParts350 = [CARRY, WORK, MOVE, MOVE, MOVE, MOVE];
+  let simpleParts500 = [CARRY, WORK, WORK, MOVE, MOVE, MOVE, MOVE, MOVE];
 
   let eAttackerId = Memory.eAttackerId;
   let wAttackerId = Memory.wAttackerId;
@@ -384,8 +387,11 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [BOTTOM];
 
-    if (numOfCreepsTotal < 6) {
-      harvesters.push(name);
+    if (harvestersE59S47.length < 6) {
+      name = "hN" + t;
+      direction = "north";
+      harvestersE59S47.push(name);
+      group = "harvestersE59S47";
       parts = simpleParts;
       retval = birthCreep(
         spawns,
@@ -1408,6 +1414,9 @@ function northSpawnCreepTypes(enAvail, spawns) {
   Memory.claimers = claimers;
   Memory.linkGets = linkGets;
   Memory.towerHarvesters = towerHarvesters;
+  Memory.creepsE59S48 = creepsE59S48;
+  Memory.creepsE59S47 = creepsE59S47;
+  Memory.creepsE59S49 = creepsE59S49;
 }
 northSpawnCreepTypes = profiler.registerFN(
   northSpawnCreepTypes,

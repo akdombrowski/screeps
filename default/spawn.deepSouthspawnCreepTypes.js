@@ -808,11 +808,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (roadRepairersE59S49.length < 8) {
+    if (roadRepairersE59S49.length < 6) {
       logConditionPassedForSpawnCreep(
         "roadRepairersE59S49",
         roadRepairersE59S49,
-        8
+        6
       );
       name = "rRdS" + t;
       chosenRole = "roadRepairer";

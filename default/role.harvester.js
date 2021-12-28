@@ -99,10 +99,9 @@ function roleHarvester(
     retval = ret.retval;
     extensions = ret.extensions;
     spawns = ret.spawns;
-  }
+  } else if (creepRoomName != targetRoomName) {
+    // creep has a target room but isnt there
 
-  if (creepRoomName != targetRoomName) {
-    //
     if (creepRoomName === northRoomName) {
       // if in the north room but target is not north, head south
       exitDirection = BOTTOM;
@@ -143,9 +142,7 @@ function roleHarvester(
         null
       );
     }
-  }
-
-  if (
+  } else if (
     creep.memory.getEnergy ||
     !creep.store[RESOURCE_ENERGY] ||
     creep.store[RESOURCE_ENERGY] <= 0

@@ -96,25 +96,10 @@ module.exports.loop = function () {
 
     let towers = [];
     towers.push(Game.getObjectById(Memory.tower1Id));
-    // let invader = Game.rooms[Memory.homeRoomName]
-    //   .find(FIND_HOSTILE_CREEPS)
-    //   .pop();
-    // if (invader) {
-    //   Memory.invaderId = invader.id;
-    //   console.log("invaderId:" + Memory.invaderId);
-    // }
-
     towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S48), towers);
+
     let dSTowers = [];
     dSTowers.push(Game.getObjectById(Memory.dSTower1Id));
-    // Memory.dSAttackerId = Game.rooms[Memory.deepSouthRoomName]
-    //   .find(FIND_HOSTILE_CREEPS)
-    //   .pop()
-    //   ? Game.rooms[Memory.deepSouthRoomName].find(FIND_HOSTILE_CREEPS).pop().id
-    //   : null;
-
-    console.log("Memory.invaderIDE59S49: " + Memory.invaderIDE59S49);
-
     towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S49), dSTowers);
 
     const timeToPassForRecheck = 100;

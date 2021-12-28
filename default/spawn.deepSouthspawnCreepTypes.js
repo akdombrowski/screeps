@@ -206,9 +206,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
 
   // 800
   let rangedAttackerParts800 = [];
-  addPart(rangedAttackerParts800, 5, TOUGH);
-  addPart(rangedAttackerParts800, 9, MOVE);
-  addPart(rangedAttackerParts800, 2, RANGED_ATTACK);
+  addPart(rangedAttackerParts800, 4, MOVE);
+  addPart(rangedAttackerParts800, 4, RANGED_ATTACK);
 
   // 800
   let harvesterParts800 = [];
@@ -341,7 +340,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 550 && rangedAttackersE59S49.length < 1) {
+  if (enAvail >= 800 && rangedAttackersE59S49.length < 1) {
     logConditionPassedForSpawnCreep(
       "rangedAttackersE59S49",
       rangedAttackersE59S49,
@@ -351,7 +350,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let chosenRole = "rangedAttacker";
     let direction = "deepSouth";
     let sourceId = Memory.nSource2;
-    let parts = rangedAttackerParts550;
+    let parts = rangedAttackerParts800;
     let group = "rangedttackersE59S49";
     let spawnDirection = [TOP];
 
@@ -370,7 +369,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
 
     if (retval !== -16) {
       console.log("spawningdS " + name + " " + retval);
-      console.log("energy: 550");
+      console.log("energy: 800");
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;

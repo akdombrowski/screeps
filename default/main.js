@@ -88,9 +88,9 @@ module.exports.loop = function () {
     Memory.tower1Id = "61bc38d236c34cfe01fad9cd";
     Memory.dSTower1Id = "61c492d3227d7cef1df2ce6e";
 
-    Memory.attackDurationSafeCheck = 10;
-    Memory.nattackDurationSafeCheck = 10;
-    Memory.dSAttackDurationSafeCheck = 10;
+    Memory.attackDurationSafeCheck = 5;
+    Memory.nAttackDurationSafeCheck = 10;
+    Memory.dSAttackDurationSafeCheck = 2;
 
     checkForAttackers();
 
@@ -112,6 +112,9 @@ module.exports.loop = function () {
     //   .pop()
     //   ? Game.rooms[Memory.deepSouthRoomName].find(FIND_HOSTILE_CREEPS).pop().id
     //   : null;
+
+    console.log("Memory.invaderIDE59S49: " + Memory.invaderIDE59S49);
+
     towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S49), dSTowers);
 
     const timeToPassForRecheck = 100;
@@ -190,7 +193,6 @@ module.exports.loop = function () {
     // } else {
     //   console.log("low cpu bucket: " + Game.cpu.bucket);
     // }
-
 
     if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 10) * 9) {
       return;

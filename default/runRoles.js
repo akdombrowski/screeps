@@ -136,7 +136,7 @@ function runRoles() {
   let retval = -16;
 
   for (let name in crps) {
-    if (Game.cpu.getUsed() >= Game.cpu.tickLimit / 100 * 70) {
+    if (Game.cpu.getUsed() >= Game.cpu.tickLimit / 100 * 60) {
       return;
     }
     let creep = crps[name];

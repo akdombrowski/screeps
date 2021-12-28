@@ -7,7 +7,7 @@ function findInvaders(
   attackerCheckWaitTime
 ) {
   let invaderId = null;
-  let targetRoomName = targetRoom.name;
+  const targetRoomName = targetRoom.name;
 
   if (
     targetRoom &&
@@ -71,7 +71,7 @@ function findInvaders(
     return invaderId;
   }
 
-  return Memory["invaderID" + targetRoom];
+  return Memory["invaderID" + targetRoomName];
 }
 exports.findInvaders = findInvaders;
 findInvaders = profiler.registerFN(findInvaders, "findInvaders");

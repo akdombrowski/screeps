@@ -126,6 +126,9 @@ function runRoles() {
   let retval = -16;
 
   for (let name in crps) {
+    if (Game.cpu.getUsed() >= Game.cpu.tickLimit / 10 * 9) {
+      return;
+    }
     let creep = crps[name];
     let roll = creep.memory.role;
     let ret = -16;

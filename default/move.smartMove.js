@@ -39,8 +39,8 @@ function smartMove(
   let lastCreepPos = creep.memory.lastCreepPos;
   let desPath;
   pathColor = pathColor || getRandomColor();
-  pathMem = pathMem || Math.floor(Math.random() * 100);
-  maxOps = maxOps || Math.floor(Math.random() * 500) + 1;
+  pathMem = pathMem || Math.floor(Math.random() * 100) + 100;
+  maxOps = maxOps || Math.floor(Math.random() * 100) + 1;
   maxRms = maxRms || 1;
   ignoreCreeps = ignoreCreeps || true;
   flee = flee || false;

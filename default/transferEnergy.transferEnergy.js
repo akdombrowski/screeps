@@ -68,9 +68,11 @@ function tran(
     creep.memory.path = null;
     creep.memory.transfer = false;
     creep.memory.transferTargetId = null;
-    creep.memory.lastSourceId = null;
     creep.memory.getEnergy = true;
     return { retval: -19, extensions: extensions, spawns: spawns };
+  } else {
+    creep.memory.getEnergy = false;
+    creep.memory.transfer = true;
   }
 
   if (!target) {
@@ -278,8 +280,6 @@ function tran(
   //   target = null;
   //   return retval;
   // }
-
-
 
   if (target && creep.pos.inRangeTo(target, 1)) {
     creep.memory.path = null;

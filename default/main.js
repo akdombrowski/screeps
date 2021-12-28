@@ -191,6 +191,11 @@ module.exports.loop = function () {
     //   console.log("low cpu bucket: " + Game.cpu.bucket);
     // }
 
+
+    if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 10) * 9) {
+      return;
+    }
+
     let rooms = [rm, deepSouthRoom];
     checkProgress(numCrps, rooms, 3600);
   });

@@ -203,9 +203,15 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   addPart(claimerParts650, 1, CLAIM);
 
   // 800
+  let pickerUpper800 = [];
+  addPart(pickerUpper800, 8, CARRY);
+  addPart(pickerUpper800, 8, MOVE);
+
+  // 800
   let rangedAttackerParts800 = [];
   addPart(rangedAttackerParts800, 4, MOVE);
   addPart(rangedAttackerParts800, 4, RANGED_ATTACK);
+
   // 800
   let harvesterParts800 = [];
   addPart(harvesterParts800, 1, CARRY);

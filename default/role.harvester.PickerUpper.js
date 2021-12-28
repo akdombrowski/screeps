@@ -28,8 +28,15 @@ function roleHarvesterPickerUpper(creep, targetRoomName, exit, exitDirection) {
     creep.memory.getEnergy = false;
     creep.memory.getEnergyTargetId = null;
     creep.memory.transfer = true;
-    return OK;
+    return ERR_FULL;
   }
+
+  creep.memory.buildRoad = false;
+  creep.memory.transferTower = false;
+  creep.memory.transfer = false;
+  creep.memory.path = null;
+  creep.memory.transferTargetId = null;
+  creep.memory.getEnergy = true;
 
   if (creep.room.name != targetRoomName) {
     if (creep.room.name === Memory.northRoomName) {
@@ -68,6 +75,20 @@ function roleHarvesterPickerUpper(creep, targetRoomName, exit, exitDirection) {
       );
     }
   } else {
+    _.remove(
+      Memory[creep.room.name + "droppedPickerUpperNames"],
+      (name) => name === creep.name
+    );
+
+    retval = droppedDuty(creep);
+
+    if (retval != OK && retval != ERR_TIRED) {
+      Memory[creep.room.name + "droppedPickerUpperNames"] = _.without(
+        Memory[creep.room.name + "droppedPickerUpperNames"],
+        creep.name
+      );
+      creep.memory.droppedTargetId = null;
+    }
   }
 
   if (

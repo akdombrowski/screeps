@@ -25,6 +25,13 @@ function roleHarvester(
   const northRoomName = Memory.northRoomName;
   const deepSouthRoomName = Memory.deepSouthRoomName;
   const e58s49RoomName = Memory.e58s49RoomName;
+  const northEntrance = Game.flags.northEntrance;
+  const southEntrance = Game.flags.southEntrance;
+  const e58s49Entrance = Game.flags.e58s49Entrance;
+  const northExit = Game.flags.northExit;
+  const southExit = Game.flags.southExit;
+  const e58s49Exit = Game.flags.e58s49Exit;
+
   let retval = -16;
 
   if (
@@ -102,6 +109,11 @@ function roleHarvester(
   } else if (creepRoomName != targetRoomName) {
     // creep has a target room but isnt there
 
+    creep.memory.buildRoad = false;
+    creep.memory.transferTower = false;
+    creep.memory.path = null;
+    creep.memory.transferTargetId = null;
+
     if (creepRoomName === northRoomName) {
       // if in the north room but target is not north, head south, the other rooms are that way
       exitDirection = BOTTOM;
@@ -119,7 +131,7 @@ function roleHarvester(
         exit = e58s49Exit;
       }
     } else if (creepRoomName === e58s49RoomName) {
-      // if in the deepSouth room but target room is not deepSouth, head to dS
+      // if in the deepSouthWest room but target room is not there, head to dS as a start
       exitDirection = RIGHT;
       exit = e59s49Exit;
     }

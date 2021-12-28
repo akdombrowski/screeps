@@ -76,7 +76,7 @@ function roleHarvesterPickerUpper(
   creep.memory.getEnergy = true;
 
   if (creepRoomName != targetRoomName) {
-    //
+    // creep is not in the target room
     if (creepRoomName === northRoomName) {
       // if in the north room but target is not north, head south
       exitDirection = BOTTOM;

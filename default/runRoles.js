@@ -142,10 +142,10 @@ function runRoles() {
   const deepSouthRoomName = Memory.deepSouthRoomName;
   const e58s49RoomName = Memory.e58s49RoomName;
   const southEntrance = Game.flags.southEntrance;
-  const southExit = Game.flags.southExit;
   const northEntrance = Game.flags.northEntrance;
-  const northExit = Game.flags.northExit;
   const e58s49Entrance = Game.flags.e58s49Entrance;
+  const northExit = Game.flags.northExit;
+  const southExit = Game.flags.southExit;
   const e58s49Exit = Game.flags.e58s49Exit;
 
   let retval = -16;
@@ -185,7 +185,14 @@ function runRoles() {
         if (creep.memory.direction === "south") {
           harvesters.push(name);
           if (!shouldContinueToNextCreep) {
-            ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
+            ret = roleHarvester(
+              creep,
+              e59s48extensions,
+              e59s48spawns,
+              "E59S48",
+              BOTTOM,
+              northEntrance
+            );
 
             e59s48extensions = ret.extensions;
             e59s48spawns = ret.spawns;
@@ -194,27 +201,46 @@ function runRoles() {
         } else if (creep.memory.direction === "north") {
           harvestersE59S47.push(name);
           if (!shouldContinueToNextCreep) {
-            ret = roleHarvester(creep, e59s47extensions, e59s47spawns);
+            ret = roleHarvester(
+              creep,
+              e59s47extensions,
+              e59s47spawns,
+              "E59S47",
+              TOP,
+              northExit
+            );
 
             e59s47extensions = ret.extensions;
             e59s47spawns = ret.spawns;
             retval = ret.retval;
-
           }
         } else if (creep.memory.direction === "deepSouth") {
           harvestersE59S49.push(name);
           if (!shouldContinueToNextCreep) {
-            ret = roleHarvester(creep, e59s49extensions, e59s49spawns);
+            ret = roleHarvester(
+              creep,
+              e59s49extensions,
+              e59s49spawns,
+              "E59S49",
+              BOTTOM,
+              southExit
+            );
 
             e59s49extensions = ret.extensions;
             e59s49spawns = ret.spawns;
             retval = ret.retval;
-
           }
         } else if (creep.memory.direction === "e58s49") {
           harvestersE58S49.push(name);
           if (!shouldContinueToNextCreep) {
-            ret = roleHarvester(creep, e58s49extensions, e58s49spawns);
+            ret = roleHarvester(
+              creep,
+              e58s49extensions,
+              e58s49spawns,
+              "E58S49",
+              LEFT,
+              e58s49Exit
+            );
             retval = ret.retval;
             e58s49extensions = ret.extensions;
             e58s49spawns = ret.spawns;
@@ -222,12 +248,6 @@ function runRoles() {
         } else {
           creep.memory.direction = "south";
           harvesters.push(name);
-          if (!shouldContinueToNextCreep) {
-            ret = roleHarvester(creep, e59s48extensions, e59s48spawns);
-            e59s48extensions = ret.extensions;
-            e59s48spawns = ret.spawns;
-            retval = ret.retval;
-          }
         }
       } else if (roll === "pickerUpper" || roll === "pU") {
         if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {

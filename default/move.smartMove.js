@@ -29,7 +29,7 @@ function smartMove(
   flee,
   fleeFromCreeps
 ) {
-if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 100) * 70) {
+if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 100) * 50) {
   return -17;
 }
 
@@ -45,8 +45,8 @@ if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 100) * 70) {
   let lastCreepPos = creep.memory.lastCreepPos;
   let desPath;
   pathColor = pathColor || getRandomColor();
-  pathMem = pathMem || Math.floor(Math.random() * 100) + 100;
-  maxOps = maxOps || Math.floor(Math.random() * 100) + 1;
+  pathMem = pathMem || Math.floor(Math.random() * 100) + 1;
+  maxOps = maxOps || Math.floor(Math.random() * 100) + 10;
   maxRms = maxRms || 1;
   ignoreCreeps = ignoreCreeps || true;
   flee = flee || false;

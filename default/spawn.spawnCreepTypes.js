@@ -1077,7 +1077,7 @@ function spawnCreepTypes(enAvail, spawns) {
       logConditionPassedForSpawnCreep(
         "roadRepairersE59S47",
         roadRepairersE59S47,
-        8
+        1
       );
       parts = workerParts550;
       name = "rRN" + t;

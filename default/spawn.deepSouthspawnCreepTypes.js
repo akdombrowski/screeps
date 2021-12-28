@@ -857,6 +857,9 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       );
     } else if (harvesters.length < 4 && creepsE59S48.length < 7) {
       logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
+      logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 7);
+      name = "h" + t;
+      direction = "south";
       creepsE59S48.push(name);
       harvesters.push(name);
       retval = deepSouthbirthCreep(

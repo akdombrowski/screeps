@@ -919,7 +919,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (creepsE59S48.length < 15 && roadRepairers.length < 6) {
+    if (creepsE59S48.length < 10 && roadRepairers.length < 6) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 6);
       logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 15);
       parts = workerParts550;

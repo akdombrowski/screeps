@@ -58,14 +58,7 @@ function chooseSource(creep, sources) {
     target = sources[0];
   }
 
-  // Ok, so at this point we know that we have more than 1
-  // source with energy. And since screeps docs say any room
-  // will only have at most 2 sources, we can know that we
-  // have 2 sources (if this function is only used to
-  // compare between sources in a single room, I can't
-  // imagine getting to the point in the game where I need
-  // to worry about comparing more than 2 sources from
-  // multiple rooms)
+  // Ok, so at this point, if we don't have a target, we know that we have more than 1 source with energy via the sources2 array. And since screeps docs say any room will only have at most 2 sources, we can know that we have 2 sources (if this function is only used to compare between sources in single room, I can't imagine getting to the point in the game where I need to worry about comparing more than 2 sources from multiple rooms)
 
   // Check how crowded each source is.
   if (!target) {
@@ -76,34 +69,45 @@ function chooseSource(creep, sources) {
       ? sources[1].pos.findInRange(FIND_CREEPS, 2).length
       : Infinity;
 
-    if (numCreepsBySource0 > numCreepsBySource1 + 1) {
+    if (numCreepsBySource0 > 5 && numCreepsBySource0 > numCreepsBySource1 + 1) {
+      // source0 has at least 5 creeps near it and is more
+      // crowded than source1
       target = sources[1];
-    } else if (numCreepsBySource1 > numCreepsBySource0 + 1) {
+    } else if (
+      numCreepsBySource1 > 5 &&
+      numCreepsBySource1 > numCreepsBySource0 + 1
+    ) {
       target = sources[0];
     }
   }
 
-  // Ok, so at this point we know that we have more than 1 source with energy and they're about equally crowded
+  // Ok, so at this point we know that we have more than 1
+  // source with energy and they're about equally crowded
 
   // if source0 exists and the creep is close to it,
   // just go to that one
-  if (!target && sources[0] && creep.pos.inRangeTo(sources[0], 3)) {
+  if (!target && creep.pos.inRangeTo(sources[0], 3)) {
     target = sources2[0];
   }
 
   // if not close to the first source, check if your close
   // to the second one
-  if (!target && sources[1] && creep.pos.inRangeTo(sources[1], 3)) {
+  if (!target && creep.pos.inRangeTo(sources[1], 3)) {
     target = sources[1];
   }
 
-  // Ok, so at this point we know that we have more than 1 source with energy and they're about equally crowded and you're not close to either one
+  // Ok, so at this point we know that we have more than 1
+  // source with energy and they're about equally crowded
+  // and you're not close to either one
 
-  // As a last ditch effort find the one closest by range (to save on cpu)
+  // As a last ditch effort find the one closest by range
+  // (to save on cpu)
   if (!target) {
     target = creep.pos.findClosestByRange(sources);
   }
 
+  // and finally, we have our chosen source 👑, or it might
+  // be null 🙃
   return target;
 }
 

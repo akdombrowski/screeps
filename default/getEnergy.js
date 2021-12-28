@@ -365,7 +365,7 @@ function getEnergy(
       if (isTargetStructure) {
         retval = creep.withdraw(target, RESOURCE_ENERGY);
         if (retval != OK) {
-          creep.say("v." + retval);
+          creep.say("v." + retval + "🤬");
           creep.memory.lastSourceId = null;
         }
       } else if (isPickupResource) {
@@ -378,7 +378,7 @@ function getEnergy(
         creep.say("🧀");
         creep.memory.lastSourceId = target.id;
       } else if (retval === ERR_TIRED) {
-        creep.say("😴." + creep.fatigue);
+        creep.say("v.😴." + creep.fatigue);
         creep.memory.lastSourceId = target.id;
       } else {
         creep.say(retval);
@@ -387,7 +387,7 @@ function getEnergy(
       }
     } else if (creep.fatigue > 0) {
       // Still tired
-      creep.say("😴." + creep.fatigue);
+      creep.say("v.😴." + creep.fatigue);
     } else if (target) {
       // have target but not near it, move to it
       retval = smartMove(
@@ -405,7 +405,7 @@ function getEnergy(
 
       if (retval === OK) {
         creep.memory.lastSourceId = target.id;
-        creep.say("v." + target.pos.x + "," + target.pos.y + "🏃‍♂️");
+        creep.say("v." + target.pos.x + "," + target.pos.y + ".🚀");
       } else if (retval === ERR_TIRED) {
         creep.say("v.😴." + creep.fatigue);
       } else {
@@ -422,21 +422,21 @@ function getEnergy(
         //     creep.pos
         // );
 
-        creep.say("💩");
+        creep.say("v.💩");
       }
     } else {
       creep.memory.lastSourceId = null;
       creep.memory.path = null;
 
       console.log(name + " getEnergy fart, no target");
-      creep.say("    💨    ");
+      creep.say("v.    💨  ");
     }
   } else {
     // Something went wrong;
     target = null;
     creep.memory.lastSourceId = target;
     // console.log(name + " getEnergy sad, no target");
-    creep.say("sad");
+    creep.say("v.😭");
   }
 
   return retval;

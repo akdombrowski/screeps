@@ -220,13 +220,13 @@ function getEnergy(
     target = creep.room.lookForAt(LOOK_SOURCES, flag).pop();
 
     // Can't find sources, probably in a different room. Just head that way.
-    creep.say("flag");
+    creep.say("🚩");
     if (!target) {
       retval = smartMove(creep, flag, 1, true, null, null, null, 1);
       return retval;
     }
   } else if (creep.memory.flag && !target) {
-    creep.say("flag");
+    creep.say("memory.🚩");
     creep.memory.lastSourceId = null;
     target = creep.room.lookForAt(LOOK_SOURCES, creep.memory.flag).pop();
   }
@@ -375,7 +375,10 @@ function getEnergy(
       }
 
       if (retval === OK) {
-        creep.say("v");
+        creep.say("🧀");
+        creep.memory.lastSourceId = target.id;
+      } else if (retval === ERR_TIRED) {
+        creep.say("😴." + creep.fatigue);
         creep.memory.lastSourceId = target.id;
       } else {
         creep.say(retval);
@@ -384,7 +387,7 @@ function getEnergy(
       }
     } else if (creep.fatigue > 0) {
       // Still tired
-      creep.say("f." + creep.fatigue);
+      creep.say("😴." + creep.fatigue);
     } else if (target) {
       retval = smartMove(
         creep,

@@ -22,54 +22,55 @@ function roleHarvesterPickerUpper(creep, targetRoomName, exit, exitDirection) {
   const e58s49Exit = Game.flags.e58s49Exit;
   let retval = -16;
 
-  if (
-    creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0 ||
-    creep.memory.transfer
-  ) {
+  if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
     creep.memory.lastSourceId = null;
+    creep.memory.path = null;
     creep.memory.getEnergy = false;
+    creep.memory.getEnergyTargetId = null;
     creep.memory.transfer = true;
+    return OK;
+  }
 
-    if (creep.room.name != targetRoomName) {
-      if (creep.room.name === Memory.northRoomName) {
-        // if in the north room but target is not north, head south
-        exitDirection = BOTTOM;
-        exit = Game.flags.northEntrance;
-      } else if (creep.room.name === Memory.deepSouthRoomName) {
-        // if in the deepSouth room but target room is not deepSouth
-        if (targetRoomName != Memory.e58s49RoomName) {
-          // if target name is not the SW room, then head north to home room
-          exitDirection = TOP;
-          exit = Game.flags.southEntrance;
-        }
-      } else if (creep.room.name === Memory.e58s49RoomName) {
-        // if in the deepSouth room but target room is not deepSouth, head north
-        exitDirection = RIGHT;
-        exit = Game.flags.e59s49Exit;
+  if (creep.room.name != targetRoomName) {
+    if (creep.room.name === Memory.northRoomName) {
+      // if in the north room but target is not north, head south
+      exitDirection = BOTTOM;
+      exit = Game.flags.northEntrance;
+    } else if (creep.room.name === Memory.deepSouthRoomName) {
+      // if in the deepSouth room but target room is not deepSouth
+      if (targetRoomName != Memory.e58s49RoomName) {
+        // if target name is not the SW room, then head north to home room
+        exitDirection = TOP;
+        exit = Game.flags.southEntrance;
       }
-
-      if (creep.pos.isNearTo(exit)) {
-        creep.say(exitDirection);
-        retval = creep.move(exitDirection);
-      } else {
-        creep.say(targetRoomName);
-        retval = smartMove(
-          creep,
-          exit,
-          1,
-          true,
-          null,
-          null,
-          null,
-          1,
-          false,
-          null
-        );
-      }
-    } else {
-      droppedDuty(creep);
+    } else if (creep.room.name === Memory.e58s49RoomName) {
+      // if in the deepSouth room but target room is not deepSouth, head north
+      exitDirection = RIGHT;
+      exit = Game.flags.e59s49Exit;
     }
-  } else if (
+
+    if (creep.pos.isNearTo(exit)) {
+      creep.say(exitDirection);
+      retval = creep.move(exitDirection);
+    } else {
+      creep.say(targetRoomName);
+      retval = smartMove(
+        creep,
+        exit,
+        1,
+        true,
+        null,
+        null,
+        null,
+        1,
+        false,
+        null
+      );
+    }
+  } else {
+  }
+
+  if (
     creep.memory.getEnergy ||
     !creep.store[RESOURCE_ENERGY] ||
     creep.store[RESOURCE_ENERGY] <= 0
@@ -81,64 +82,7 @@ function roleHarvesterPickerUpper(creep, targetRoomName, exit, exitDirection) {
     creep.memory.transferTargetId = null;
     creep.memory.getEnergy = true;
 
-    if (creep.memory.direction === "south") {
-      retval = getEnergy(
-        creep,
-        homeRoomName,
-        null,
-        null,
-        null,
-        null,
-        homeRoomName
-      );
-    } else if (creep.memory.direction === "north") {
-      retval = getEnergy(
-        creep,
-        northRoomName,
-        null,
-        null,
-        northExit,
-        TOP,
-        northRoomName
-      );
-    } else if (creep.memory.direction === "deepSouth") {
-      retval = getEnergy(
-        creep,
-        deepSouthRoomName,
-        null,
-        null,
-        southExit,
-        BOTTOM,
-        deepSouthRoomName
-      );
-    } else if (creep.memory.direction === "e58s49") {
-      retval = getEnergy(
-        creep,
-        e58s49RoomName,
-        null,
-        null,
-        e58s49Exit,
-        LEFT,
-        e58s49RoomName
-      );
-    } else {
-      creep.memory.direction = "south";
-      retval = getEnergy(
-        creep,
-        homeRoomName,
-        null,
-        null,
-        northExit,
-        TOP,
-        homeRoomName
-      );
-    }
-  } else if (creep.memory.transfer && creep.store[RESOURCE_ENERGY] > 0) {
-    creep.memory.transEnTower = false;
-    creep.memory.getEnergy = false;
-    retval = -16;
-
-
+    retval = droppedDuty(creep);
   }
 
   return retval;

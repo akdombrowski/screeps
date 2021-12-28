@@ -45,7 +45,6 @@ function findInvaders(
         }
 
         if (enemyCreep) {
-          console.log(targetRoomName + " enemyCreep spotted ");
           invaderId = enemyCreep.id;
         }
       }
@@ -59,7 +58,13 @@ function findInvaders(
 
       console.log("invader" + targetRoomName + ": " + invaderId);
       console.log(
-        invader.hits + "/" + invader.hitsMax + " " + healthPercent + "%"
+        "health: " +
+          invader.hits +
+          "/" +
+          invader.hitsMax +
+          " " +
+          healthPercent +
+          "%"
       );
     }
 

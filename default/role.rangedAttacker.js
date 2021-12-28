@@ -18,7 +18,7 @@ function roleRangedAttacker(creep) {
   const deepSouthRoomName = Memory.deepSouthRoomName;
 
   if (creep) {
-    let enemyCreep = Game.getObjectById(Memory.invaderId);
+    let enemyCreep = Game.getObjectById(Memory.invaderIDE59S48);
     if (enemyCreep) {
       invader = enemyCreep;
     } else {
@@ -37,6 +37,7 @@ function roleRangedAttacker(creep) {
 
     const distanceToInvader = 2;
     const distanceToFlagForPatrol = 10;
+    const maxAttackRange = 3;
     if (invader) {
       if (creep.pos.inRangeTo(invader, distanceToInvader)) {
         retval = creep.rangedAttack(invader);
@@ -45,7 +46,7 @@ function roleRangedAttacker(creep) {
         creep.memory.path = null;
         retval = smartMove(creep, invader, distanceToInvader);
         creep.say(invader.pos.x + "," + invader.pos.y + ":" + retval);
-        if (creep.pos.inRangeTo(invader, 3)) {
+        if (creep.pos.inRangeTo(invader, maxAttackRange)) {
           retval = creep.rangedAttack(invader);
           creep.say("a:" + retval);
         }
@@ -97,7 +98,7 @@ function roleRangedAttacker(creep) {
         }
       } else if (creepRoomName === deepSouthRoomName) {
         const deepSouthSpawn1 = Game.getObjectById(Memory.deepSouthS1);
-        if (!Memory.dSAttackerId) {
+        if (!Memory.invaderIDE59S49) {
           // no attacker in dS, go back home to guard it
           if (creep.pos.isNearTo(southEntrance)) {
             retval = creep.move(TOP);

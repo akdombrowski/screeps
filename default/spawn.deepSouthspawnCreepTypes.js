@@ -581,8 +581,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (creepsE59S49.length < 11) {
-      logConditionPassedForSpawnCreep("creepsE59S49", creepsE59S49, 11);
+    } else if (creepsE59S49.length < 8) {
+      logConditionPassedForSpawnCreep("creepsE59S49", creepsE59S49, 8);
       parts = simpleParts300;
       direction = "deepSouth";
       group = "harvestersE59S49";
@@ -689,103 +689,80 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   //   }
   // }
 
-  //
-  //
-  //
-  // .##..........#####.....#####..
-  // .##....##...##...##...##...##.
-  // .##....##..##.....##.##.....##
-  // .##....##..##.....##.##.....##
-  // .#########.##.....##.##.....##
-  // .......##...##...##...##...##.
-  // .......##....#####.....#####..
-  //
-  //
-  //
-  if (enAvail >= 400 && !Memory.dSAttackerId) {
-    let name = "h" + t;
-    let chosenRole = "h";
-    let direction = "south";
-    let sourceId = Memory.source1;
-    let parts = simpleParts400;
-    let group = "harvesters";
-    let spawnDirection = [TOP];
+  // //
+  // //
+  // //
+  // // .##..........#####.....#####..
+  // // .##....##...##...##...##...##.
+  // // .##....##..##.....##.##.....##
+  // // .##....##..##.....##.##.....##
+  // // .#########.##.....##.##.....##
+  // // .......##...##...##...##...##.
+  // // .......##....#####.....#####..
+  // //
+  // //
+  // //
+  // if (enAvail >= 400 && !Memory.dSAttackerId) {
+  //   let name = "h" + t;
+  //   let chosenRole = "h";
+  //   let direction = "south";
+  //   let sourceId = Memory.source1;
+  //   let parts = simpleParts400;
+  //   let group = "harvesters";
+  //   let spawnDirection = [TOP];
 
-    if (upControllersE59S49.length < 1) {
-      logConditionPassedForSpawnCreep(
-        "upControllersE59S49",
-        upControllersE59S49,
-        1
-      );
-      name = "upCdS" + t;
-      chosenRole = "upCdS";
-      direction = "deepSouth";
-      group = "upControllersE59S49";
-      parts = simpleParts400;
-      creepsE59S49.push(name);
-      upControllersE59S49.push(name);
+  //   if (upControllersE59S49.length < 1) {
+  //     logConditionPassedForSpawnCreep(
+  //       "upControllersE59S49",
+  //       upControllersE59S49,
+  //       1
+  //     );
+  //     name = "upCdS" + t;
+  //     chosenRole = "upCdS";
+  //     direction = "deepSouth";
+  //     group = "upControllersE59S49";
+  //     parts = simpleParts400;
+  //     creepsE59S49.push(name);
+  //     upControllersE59S49.push(name);
 
-      retval = deepSouthbirthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    } else if (harvestersE59S49.length < 7 && creepsE59S49.length < 13) {
-      logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 7);
-      logConditionPassedForSpawnCreep("creepsE59S49", creepsE59S49, 13);
-      parts = simpleParts400;
-      direction = "deepSouth";
-      chosenRole = "h";
-      creepsE59S49.push(name);
-      harvestersE59S49.push(name);
-      retval = deepSouthbirthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    } else if (roadRepairersE59S49.length < 1) {
-      logConditionPassedForSpawnCreep(
-        "roadRepairersE59S49",
-        roadRepairersE59S49,
-        2
-      );
-      parts = simpleParts400;
-      name = "rRdS" + t;
-      chosenRole = "roadRepairer";
-      direction = "deepSouth";
-      group = "roadRepairersE59S49";
-      creepsE59S49.push(name);
-      roadRepairersE59S49.push(name);
-      retval = deepSouthbirthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    }
+  //     retval = deepSouthbirthCreep(
+  //       spawns,
+  //       parts,
+  //       name,
+  //       chosenRole,
+  //       direction,
+  //       sourceId,
+  //       spawnDirection,
+  //       group
+  //     );
+  //   } else if (harvestersE59S49.length < 7 && creepsE59S49.length < 13) {
+  //     logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 7);
+  //     logConditionPassedForSpawnCreep("creepsE59S49", creepsE59S49, 13);
+  //     parts = simpleParts400;
+  //     direction = "deepSouth";
+  //     chosenRole = "h";
+  //     creepsE59S49.push(name);
+  //     harvestersE59S49.push(name);
+  //     retval = deepSouthbirthCreep(
+  //       spawns,
+  //       parts,
+  //       name,
+  //       chosenRole,
+  //       direction,
+  //       sourceId,
+  //       spawnDirection,
+  //       group
+  //     );
+  //   }
 
-    if (retval !== -16) {
-      console.log("spawningdS " + name + " " + retval);
-      console.log("energy: 400");
-    }
-    if (retval === OK || retval === ERR_BUSY) {
-      return retval;
-    }
-  }
+  //   if (retval !== -16) {
+  //     console.log("spawningdS " + name + " " + retval);
+  //     console.log("energy: 400");
+  //   }
+  //   if (retval === OK || retval === ERR_BUSY) {
+  //     return retval;
+  //   }
+  // }
 
   //
   //
@@ -809,11 +786,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (roadRepairersE59S49.length < 4) {
+    if (roadRepairersE59S49.length < 1) {
       logConditionPassedForSpawnCreep(
         "roadRepairersE59S49",
         roadRepairersE59S49,
-        6
+        1
       );
       name = "rRdS" + t;
       chosenRole = "roadRepairer";
@@ -831,8 +808,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 6) {
-      logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 6);
+    } else if (harvestersE59S49.length < 5) {
+      logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 5);
       direction = "deepSouth";
       chosenRole = "h";
       creepsE59S49.push(name);
@@ -943,8 +920,9 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (roadRepairers.length < 6) {
+    if (creepsE59S48.length < 15 && roadRepairers.length < 6) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 6);
+      logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 15);
       parts = workerParts550;
       name = "rR" + t;
       chosenRole = "roadRepairer";
@@ -962,7 +940,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 10) {
+    } else if (harvestersE59S49.length < 8) {
       logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 10);
       name = "hdS" + t;
       group = "harvestersE59S49";

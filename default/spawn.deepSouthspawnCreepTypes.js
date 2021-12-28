@@ -92,6 +92,9 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   let harvestersE59S47 = Memory.harvestersE59S47 || [];
   let harvestersE59S49 = Memory.harvestersE59S49 || [];
   let harvestersE58S49 = Memory.harvestersE58S49 || [];
+  let pickerUppersE59S47 = Memory.pickerUppersE59S47 || [];
+  let pickerUppersE59S49 = Memory.pickerUppersE59S49 || [];
+  let pickerUppersE58S49 = Memory.pickerUppersE58S49 || [];
   let upControllers = Memory.upControllers || [];
   let upControllersE59S47 = Memory.upControllersE59S47 || [];
   let upControllersE59S49 = Memory.upControllersE59S49 || [];
@@ -1713,6 +1716,9 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   Memory.harvestersE59S47 = harvestersE59S47;
   Memory.harvestersE59S49 = harvestersE59S49;
   Memory.harvestersE58S49 = harvestersE58S49;
+  Memory.pickerUppersE59S47 = pickerUppersE59S47;
+  Memory.pickerUppersE59S49 = pickerUppersE59S49;
+  Memory.pickerUppersE58S49 = pickerUppersE58S49;
   Memory.workers = workers;
   Memory.upControllers = upControllers;
   Memory.upControllersE59S47 = upControllersE59S47;

@@ -22,6 +22,7 @@ const roleViewer = require("./role.viewer");
 const roleRangedAttacker = require("./role.rangedAttacker");
 const roleRangedAttackerdS = require("./role.rangedAttackerdS");
 const flee = require("./move.flee");
+const roleHarvesterPickerUpper = require("./role.harvester.PickerUpper");
 
 function setCreepRoomArrayAndAvoidInvaders(
   creep,
@@ -98,6 +99,9 @@ function runRoles() {
   let harvestersE59S47 = [];
   let harvestersE59S49 = [];
   let harvestersE58S49 = [];
+  let pickerUppersE59S47 = [];
+  let pickerUppersE59S49 = [];
+  let pickerUppersE58S49 = [];
   let workers = [];
   let upControllers = [];
   let upControllersE59S47 = [];
@@ -133,10 +137,21 @@ function runRoles() {
   let e59s47spawns = Memory.e59s47spawns;
   let e59s49spawns = Memory.e59s49spawns;
   let e58s49spawns = Memory.e58s49spawns;
+  const homeRoomName = Memory.homeRoomName;
+  const northRoomName = Memory.northRoomName;
+  const deepSouthRoomName = Memory.deepSouthRoomName;
+  const e58s49RoomName = Memory.e58s49RoomName;
+  const southEntrance = Game.flags.southEntrance;
+  const southExit = Game.flags.southExit;
+  const northEntrance = Game.flags.northEntrance;
+  const northExit = Game.flags.northExit;
+  const e58s49Entrance = Game.flags.e58s49Entrance;
+  const e58s49Exit = Game.flags.e58s49Exit;
+
   let retval = -16;
 
   for (let name in crps) {
-    if (Game.cpu.getUsed() >= Game.cpu.tickLimit / 100 * 60) {
+    if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 100) * 60) {
       return;
     }
     let creep = crps[name];
@@ -199,17 +214,133 @@ function runRoles() {
             retval = ret.retval;
           }
         }
-      } else if (roll === "reserver") {
-        reservers.push(name);
-        if (!shouldContinueToNextCreep) {
-          roleReserver(
-            creep,
-            Memory.northRoomName,
-            Game.flags.northExit,
-            TOP,
-            Game.flags.northController,
-            "59bbc5d22052a716c3cea133"
-          );
+      } else if (roll === "pickerUpper" || roll === "pU") {
+        if (creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0) {
+          creep.memory.getEnergy = true;
+        }
+
+        if (creep.memory.direction === "south") {
+          pickerUppersE58S48.push(name);
+          if (!shouldContinueToNextCreep) {
+            if (creep.room.name === deepSouthRoomName) {
+              retval = roleHarvesterPickerUpper(
+                creep,
+                homeRoomName,
+                TOP,
+                southEntrance
+              );
+            } else if (creep.room.name === northRoomName) {
+              retval = roleHarvesterPickerUpper(
+                creep,
+                homeRoomName,
+                BOTTOM,
+                northEntrance
+              );
+            } else {
+              retval = roleHarvesterPickerUpper(
+                creep,
+                homeRoomName,
+                TOP,
+                southEntrance
+              );
+            }
+          }
+        } else if (creep.memory.direction === "north") {
+          pickerUppersE59S47.push(name);
+          if (!shouldContinueToNextCreep) {
+            if (creep.room.name === deepSouthRoomName) {
+              retval = roleHarvesterPickerUpper(
+                creep,
+                northRoomName,
+                TOP,
+                southEntrance
+              );
+            } else if (creep.room.name === southRoomName) {
+              retval = roleHarvesterPickerUpper(
+                creep,
+                northRoomName,
+                TOP,
+                northExit
+              );
+            } else {
+              retval = roleHarvesterPickerUpper(
+                creep,
+                northRoomName,
+                TOP,
+                northExit
+              );
+            }
+          }
+        } else if (creep.memory.direction === "deepSouth") {
+          harvestersE59S49.push(name);
+          if (!shouldContinueToNextCreep) {
+            if (creep.room.name === northRoomName) {
+              retval = roleHarvesterPickerUpper(
+                creep,
+                deepSouthRoomName,
+                TOP,
+                southEntrance
+              );
+            } else if (creep.room.name === homeRoomName) {
+              retval = roleHarvesterPickerUpper(
+                creep,
+                deepSouthRoomName,
+                TOP,
+                northExit
+              );
+            } else if (creep.room.name === e58s49RoomName) {
+              retval = roleHarvesterPickerUpper(
+                creep,
+                deepSouthRoomName,
+                RIGHT,
+                e58s49Entrance
+              );
+            } else {
+              retval = roleHarvesterPickerUpper(
+                creep,
+                deepSouthRoomName,
+                TOP,
+                southEntrance
+              );
+            }
+          }
+        } else if (creep.memory.direction === "e58s49") {
+          pickerUppersE58S49.push(name);
+          if (!shouldContinueToNextCreep) {
+            if (creep.room.name === northRoomName) {
+              retval = roleHarvesterPickerUpper(
+                creep,
+                e58s49RoomName,
+                BOTTOM,
+                northEntrance
+              );
+            } else if (creep.room.name === homeRoomName) {
+              retval = roleHarvesterPickerUpper(
+                creep,
+                e58s49RoomName,
+                BOTTOM,
+                southExit
+              );
+            } else if (creep.room.name === deepSouthRoomName) {
+              retval = roleHarvesterPickerUpper(
+                creep,
+                e58s49RoomName,
+                BOTTOM,
+                southExit
+              );
+            } else {
+              retval = roleHarvesterPickerUpper(
+                creep,
+                e58s49RoomName,
+                LEFT,
+                e58s49Exit
+              );
+            }
+          }
+        } else {
+          creep.memory.direction = "south";
+          pickerUppersE59S48.push(name);
+          retval = -16;
         }
       } else if (roll && roll.startsWith("linkGet")) {
         linkGets.push(name);
@@ -404,6 +535,18 @@ function runRoles() {
             creep.memory.controllerID
           );
         }
+      } else if (roll === "reserver") {
+        reservers.push(name);
+        if (!shouldContinueToNextCreep) {
+          roleReserver(
+            creep,
+            Memory.northRoomName,
+            Game.flags.northExit,
+            TOP,
+            Game.flags.northController,
+            "59bbc5d22052a716c3cea133"
+          );
+        }
       } else if (roll === "worker" || roll === "w") {
         workers.push(name);
 
@@ -556,6 +699,9 @@ function runRoles() {
   Memory.harvestersE59S47 = harvestersE59S47;
   Memory.harvestersE59S49 = harvestersE59S49;
   Memory.harvestersE58S49 = harvestersE58S49;
+  Memory.pickerUppersE59S47 = pickerUppersE59S47;
+  Memory.pickerUppersE59S49 = pickerUppersE59S49;
+  Memory.pickerUppersE58S49 = pickerUppersE58S49;
   Memory.workers = workers;
   Memory.upControllers = upControllers;
   Memory.upControllersE59S47 = upControllersE59S47;

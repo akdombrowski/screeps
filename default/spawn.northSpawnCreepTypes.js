@@ -438,8 +438,9 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [BOTTOM];
 
-    if (harvestersE59S47.length < 6) {
-      logConditionPassedForSpawnCreep("harvestersE59S47", harvestersE59S47, 6);
+    if (harvestersE59S47.length < 4 && creepsE59S47.length < 10) {
+      logConditionPassedForSpawnCreep("harvestersE59S47", harvestersE59S47, 4);
+      logConditionPassedForSpawnCreep("creepsE59S47", creepsE59S47, 10);
       name = "hN" + t;
       direction = "north";
       creepsE59S47.push(name);

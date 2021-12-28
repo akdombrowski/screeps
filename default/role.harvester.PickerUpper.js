@@ -7,6 +7,7 @@ const transEnTower = require("./action.transEnTower");
 const profiler = require("./screeps-profiler");
 const { droppedDuty } = require("./action.droppedDuty");
 const tran = require("./transferEnergy");
+const { pickupEnergy } = require("./action.pickUpEnergy");
 
 function roleHarvesterPickerUpper(
   creep,
@@ -33,11 +34,6 @@ function roleHarvesterPickerUpper(
   const e58s49Exit = Game.flags.e58s49Exit;
   let retval = -16;
 
-  console.log(name + " pickup duty getEnergy: " + creep.memory.getEnergy);
-  console.log(name + " pickup duty transfer: " + creep.memory.transfer);
-  console.log(
-    name + " free capacity: " + creep.store.getFreeCapacity(RESOURCE_ENERGY)
-  );
   if (
     creep.memory.transfer ||
     creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0
@@ -115,40 +111,22 @@ function roleHarvesterPickerUpper(
       );
     }
   } else {
-    console.log(name + " droppedDuty");
     _.remove(
       Memory[creep.room.name + "droppedPickerUpperNames"],
       (name) => name === creep.name
     );
 
-    retval = droppedDuty(creep);
+    retval = pickupEnergy(creep);
 
-    console.log("retval: " + retval);
     if (
       (retval != OK && retval != ERR_TIRED) ||
       creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0
     ) {
-      Memory[creepRoomName + "droppedPickerUpperNames"] = _.without(
-        Memory[creepRoomName + "droppedPickerUpperNames"],
-        creep.name
-      );
+      creep.memory.path = null;
+      creep.memory.transfer = true;
+      creep.memory.getEnergy = false;
       creep.memory.droppedTargetId = null;
     }
-  }
-
-  if (
-    creep.memory.getEnergy ||
-    !creep.store[RESOURCE_ENERGY] ||
-    creep.store[RESOURCE_ENERGY] <= 0
-  ) {
-    creep.memory.buildRoad = false;
-    creep.memory.transferTower = false;
-    creep.memory.transfer = false;
-    creep.memory.path = null;
-    creep.memory.transferTargetId = null;
-    creep.memory.getEnergy = true;
-
-    retval = droppedDuty(creep);
   }
 
   return { retval: retval, extensions: extensions, spawns: spawns };

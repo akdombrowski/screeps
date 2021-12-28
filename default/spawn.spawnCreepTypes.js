@@ -738,7 +738,8 @@ function spawnCreepTypes(enAvail, spawns) {
       chosenRole = "upCN";
       direction = "north";
       parts = upContrParts200;
-      group = "upControllersN";
+      group = "upControllersE59S47";
+      creepsE59S47.push(name);
       upControllersE59S47.push(name);
       retval = birthCreep(
         spawns,
@@ -779,8 +780,8 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (creepsE59S48.length < 12) {
       logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 12);
-      harvesters.push(name);
       creepsE59S48.push(name);
+      harvesters.push(name);
       retval = birthCreep(
         spawns,
         parts,

@@ -58,15 +58,22 @@ function chooseSource(creep, sources) {
     target = sources[0];
   }
 
-  // Ok, so at this point we know that we have more than 1 source with energy.
+  // Ok, so at this point we know that we have more than 1
+  // source with energy. And since screeps docs say any room
+  // will only have at most 2 sources, we can know that we
+  // have 2 sources (if this function is only used to
+  // compare between sources in a single room, I can't
+  // imagine getting to the point in the game where I need
+  // to worry about comparing more than 2 sources from
+  // multiple rooms)
 
   // Check how crowded each source is.
   if (!target) {
     const numCreepsBySource0 = sources[0]
-      ? sources[0].pos.findInRange(FIND_CREEPS, 3).length
+      ? sources[0].pos.findInRange(FIND_CREEPS, 2).length
       : Infinity;
     const numCreepsBySource1 = sources[1]
-      ? sources[1].pos.findInRange(FIND_CREEPS, 3).length
+      ? sources[1].pos.findInRange(FIND_CREEPS, 2).length
       : Infinity;
 
     if (numCreepsBySource0 > numCreepsBySource1 + 1) {
@@ -75,6 +82,8 @@ function chooseSource(creep, sources) {
       target = sources[0];
     }
   }
+
+  // Ok, so at this point we know that we have more than 1 source with energy and they're about equally crowded
 
   // if source0 exists and the creep is close to it,
   // just go to that one
@@ -88,7 +97,10 @@ function chooseSource(creep, sources) {
     target = sources[1];
   }
 
-  if (!target && sources.length > 0) {
+  // Ok, so at this point we know that we have more than 1 source with energy and they're about equally crowded and you're not close to either one
+
+  // As a last ditch effort find the one closest by range (to save on cpu)
+  if (!target) {
     target = creep.pos.findClosestByRange(sources);
   }
 

@@ -86,6 +86,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let linkGets = Memory.linkGets || [];
   let workers = Memory.workers || [];
   let harvesters = Memory.harvesters || [];
+  let harvestersSouth = Memory.harvestersSouth || [];
   let harvestersE59S47 = Memory.harvestersE59S47 || [];
   let harvestersE59S49 = Memory.harvestersE59S49 || [];
   let upControllers = Memory.upControllers || [];
@@ -118,6 +119,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let nwAttackDurationSafeCheck = Memory.nwAttackDurationSafeCheck;
   let nwwAttackDurationSafeCheck = Memory.nwwAttackDurationSafeCheck;
   let creepsHome = Memory.creepsHome || [];
+  let creepsSouth = Memory.creepsSouth || [];
   let creepsE59S49 = Memory.creepsE59S49 || [];
   let creepsE59S47 = Memory.creepsE59S47 || [];
   let creepsE58S48 = Memory.creepsE58S48 || [];
@@ -489,11 +491,11 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (harvesters.length < 4) {
       logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
-      name = "h" + t;
-      direction = "home";
-      group = "harvesters";
-      creepsHome.push(name);
-      harvesters.push(name);
+      name = "hS" + t;
+      direction = "south";
+      group = "harvestersSouth";
+      creepsSouth.push(name);
+      harvestersSouth.push(name);
       parts = simpleParts300;
       retval = birthCreep(
         spawns,
@@ -1936,6 +1938,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.roadBuilders = roadBuilders;
   Memory.reservers = reservers;
   Memory.harvesters = harvesters;
+  Memory.harvestersSouth = harvestersSouth;
   Memory.harvestersE59S47 = harvestersE59S47;
   Memory.harvestersE59S49 = harvestersE59S49;
   Memory.workers = workers;
@@ -1959,6 +1962,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.linkGets = linkGets;
   Memory.towerHarvesters = towerHarvesters;
   Memory.creepsHome = creepsHome;
+  Memory.creepsSouth = creepsSouth;
   Memory.creepsE59S49 = creepsE59S49;
   Memory.creepsE59S47 = creepsE59S47;
   Memory.creepsE58S49 = creepsE58S49;

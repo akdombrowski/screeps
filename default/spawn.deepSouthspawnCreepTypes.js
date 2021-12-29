@@ -332,6 +332,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   let nAttackerId = Memory.invaderIDE59S47;
   let neAttackerId = Memory.neAttackerId;
   let dSAttackerId = Memory.invaderIDE59S49;
+  let swAttackerId = Memory.invaderIDE58S49;
   let invaderId = Memory.invaderIDE59S48;
 
   let retval = -16;
@@ -565,7 +566,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (upControllersE58S49.length < 1) {
+    } else if (upControllersE58S49.length < 1 && !swAttackerId) {
       logConditionPassedForSpawnCreep(
         "upControllersE58S49",
         upControllersE58S49,
@@ -1011,7 +1012,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       //     spawnDirection,
       //     group
       //   );
-    } else if (harvestersE58S49.length < 2 && creepsE59S49.length < 9) {
+    } else if (harvestersE58S49.length < 2 && creepsE59S49.length < 9 && !swAttackerId) {
       // prioritize creeps in dS first
       logConditionPassedForSpawnCreep("harvestersE58S49", harvestersE58S49, 2);
       logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S49, 9);
@@ -1147,7 +1148,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     enAvail >= 650 &&
     !invaderId &&
     e58s49Controller &&
-    !e58s49Controller.my
+    !e58s49Controller.my && !swAttackerId
   ) {
     let name = "hSW" + t;
     let chosenRole = "h";
@@ -1210,7 +1211,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     if (
       upControllersE58S49.length < 2 &&
       e58s49Controller &&
-      e58s49Controller.my
+      e58s49Controller.my && !swAttackerId
     ) {
       logConditionPassedForSpawnCreep(
         "upControllersE58S49",
@@ -1251,7 +1252,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairersE58S49.length < 3) {
+    } else if (roadRepairersE58S49.length < 3 && !swAttackerId) {
       logConditionPassedForSpawnCreep(
         "roadRepairersE58S49",
         roadRepairersE58S49,
@@ -1313,7 +1314,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE58S49.length < 2) {
+    } else if (harvestersE58S49.length < 2 && !swAttackerId) {
       logConditionPassedForSpawnCreep("harvestersE58S49", harvestersE58S49, 2);
       name = "hSW" + t;
       group = "harvestersE58S49";

@@ -55,6 +55,9 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
     }
   }
 
+  console.log(name + " energy: " + creep.store[RESOURCE_ENERGY]);
+  console.log(name + " repair: " + creep.memory.repair);
+
   if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
     mem_repair = true;
     creep.memory.build = false;
@@ -183,7 +186,7 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
       creep.memory.repair = false;
       retval = build(creep);
     }
-  } else if(!creep.memory.getEnergy){
+  } else if (!creep.memory.getEnergy) {
     creep.memory.build = true;
     creep.memory.repair = false;
     retval = build(creep);

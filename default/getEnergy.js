@@ -7,14 +7,7 @@ const vestEE = require("./action.getEnergyEEast");
 const profiler = require("./screeps-profiler");
 const { chooseSource } = require("./getEnergy.chooseSource");
 
-function getEnergy(
-  creep,
-  targetRoomName,
-  taskRm,
-  flag,
-  exit,
-  exitDirection,
-) {
+function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
   let tower = Game.getObjectById(Memory.tower1Id);
   let retval = -16;
   let name = creep.name;
@@ -22,7 +15,8 @@ function getEnergy(
   let rm = creep.rm;
   let pos = creep ? creep.pos : null;
   let roll = creep.memory.role;
-  let s1RmEnAvail = Game.getObjectById(Memory.homeRoomSpawn1ID).room.energyAvailable;
+  let s1RmEnAvail = Game.getObjectById(Memory.homeRoomSpawn1ID).room
+    .energyAvailable;
   let range = 1;
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
@@ -37,7 +31,9 @@ function getEnergy(
   creep.memory.transfer = false;
   creep.memory.transferTargetId = null;
 
-  if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity(RESOURCE_ENERGY)) {
+  if (
+    creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity(RESOURCE_ENERGY)
+  ) {
     console.log(name + " resetting getEnergy");
 
     creep.memory.lastSourceId = null;
@@ -113,6 +109,8 @@ function getEnergy(
     return retval;
   }
 
+  console.log(name + " target: " + target);
+  console.log(name + " lastSourceId: " + creep.memory.lastSourceId);
   if (
     !target ||
     (target &&
@@ -319,7 +317,11 @@ function getEnergy(
   ) {
     creep.memory.lastSourceId = null;
     creep.memory.path = null;
-    target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
+    target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES, {
+      filter: (resource) => {
+        resource.resourceType === RESOURCE_ENERGY && resource.amount >= 50;
+      },
+    });
     isPickupResource = true;
   }
 

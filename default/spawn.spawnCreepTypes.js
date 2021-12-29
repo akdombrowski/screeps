@@ -511,7 +511,7 @@ function spawnCreepTypes(enAvail, spawns) {
       creepsE59S49.length < 8
     ) {
       logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 2);
-      logConditionPassedForSpawnCreep("creepsE59S49", creepsE59S49, 10);
+      logConditionPassedForSpawnCreep("creepsE59S49", creepsE59S49, 8);
       name = "hdS" + t;
       direction = "deepSouth";
       group = "harvestersE59S49";

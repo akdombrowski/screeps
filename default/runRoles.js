@@ -399,6 +399,9 @@ function runRoles() {
         if (creep.memory.direction === "home") {
           roadRepairers.push(name);
 
+          if (name.endsWith("46080")) {
+            console.log(name + " lastSourceId6: " + creep.memory.lastSourceId);
+          }
           if (!shouldContinueToNextCreep) {
             roleRepairer(creep, Memory.homeRoomName, null, null);
           }

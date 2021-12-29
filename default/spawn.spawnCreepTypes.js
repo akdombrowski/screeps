@@ -489,7 +489,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 4) {
+    if (harvestersSouth.length < 4) {
       logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
       name = "hS" + t;
       direction = "south";

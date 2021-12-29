@@ -481,8 +481,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (creepsE59S49.length < 6) {
-      logConditionPassedForSpawnCreep("creepsE59S49", creepsE59S49, 6);
+    if (creepsE59S49.length < 15) {
+      logConditionPassedForSpawnCreep("creepsE59S49", creepsE59S49, 15);
       parts = simpleParts300;
       group = "harvestersE59S49";
       creepsE59S49.push(name);

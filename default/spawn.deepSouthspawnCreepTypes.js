@@ -1012,7 +1012,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       //     spawnDirection,
       //     group
       //   );
-    } else if (harvestersE58S49.length < 2 && creepsE59S49.length < 9 && !swAttackerId) {
+    } else if (
+      harvestersE58S49.length < 2 &&
+      creepsE59S49.length < 9 &&
+      !swAttackerId
+    ) {
       // prioritize creeps in dS first
       logConditionPassedForSpawnCreep("harvestersE58S49", harvestersE58S49, 2);
       logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S49, 9);
@@ -1148,7 +1152,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     enAvail >= 650 &&
     !invaderId &&
     e58s49Controller &&
-    !e58s49Controller.my && !swAttackerId
+    !e58s49Controller.my &&
+    !swAttackerId
   ) {
     let name = "hSW" + t;
     let chosenRole = "h";
@@ -1211,7 +1216,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     if (
       upControllersE58S49.length < 2 &&
       e58s49Controller &&
-      e58s49Controller.my && !swAttackerId
+      e58s49Controller.my &&
+      !swAttackerId
     ) {
       logConditionPassedForSpawnCreep(
         "upControllersE58S49",
@@ -1478,18 +1484,40 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       //     spawnDirection,
       //     group
       //   );
+      // } else {
+      //   console.log("800 else condition");
+      //   name = "aRdS" + t;
+      //   chosenRole = "rangedAttacker";
+      //   direction = "deepSouth";
+      //   sourceId = Memory.nSource2;
+      //   parts = rangedAttackerParts800;
+      //   group = "rangedttackersE59S49";
+      //   spawnDirection = [TOP];
+
+      //   creepsE59S49.push(name);
+      //   rangedAttackersE59S49.push(name);
+      //   retval = deepSouthbirthCreep(
+      //     spawns,
+      //     parts,
+      //     name,
+      //     chosenRole,
+      //     direction,
+      //     sourceId,
+      //     spawnDirection,
+      //     group
+      //   );
     } else {
       console.log("800 else condition");
-      name = "aRdS" + t;
-      chosenRole = "rangedAttacker";
+      name = "upCdS" + t;
+      chosenRole = "upCdS";
       direction = "deepSouth";
       sourceId = Memory.nSource2;
-      parts = rangedAttackerParts800;
-      group = "rangedttackersE59S49";
+      parts = upContrParts800;
+      group = "upControllersE59S49";
       spawnDirection = [TOP];
 
       creepsE59S49.push(name);
-      rangedAttackersE59S49.push(name);
+      upControllersE59S49.push(name);
       retval = deepSouthbirthCreep(
         spawns,
         parts,

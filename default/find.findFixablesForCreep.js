@@ -5,36 +5,42 @@ const profiler = require("./screeps-profiler");
 function findFixablesForCreep(creep, target) {
   const timeToPassForRecheck = 50;
   if (creep.memory.direction.startsWith("s")) {
-    if (!Memory.e59s48fixables ||
-      Memory.e59s48fixables.length <= 0 ||
-      Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck) {
-      Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
-      Memory.lastSouthCheckFixables = Game.time;
+    if (
+      !Memory.homefixables ||
+      Memory.homefixables.length <= 0 ||
+      Memory.lastHomeCheckFixables - Game.time > timeToPassForRecheck
+    ) {
+      Memory.homefixables = findFixables(Game.rooms[Memory.homeRoomName]);
+      Memory.lastHomeCheckFixables = Game.time;
     }
   } else if (creep.memory.direction.startsWith("n")) {
-    if (!Memory.e59s47fixables ||
-      Memory.e59s47fixables.length <= 0 ||
-      Memory.lastNorthCheckFixables - Game.time > timeToPassForRecheck) {
-      Memory.e59s47fixables = findFixables(
-        Game.rooms[Memory.northRoomName]
-      );
+    if (
+      !Memory.northfixables ||
+      Memory.northfixables.length <= 0 ||
+      Memory.lastNorthCheckFixables - Game.time > timeToPassForRecheck
+    ) {
+      Memory.northfixables = findFixables(Game.rooms[Memory.northRoomName]);
       Memory.lastNorthCheckFixables = Game.time;
     }
-  } else if (creep.memory.direction.startsWith("deepSouth")) {
-    if (!Memory.e59s49fixables ||
-      Memory.e59s49fixables.length <= 0 ||
-      Memory.lastDeepSouthCheckFixables - Game.time > timeToPassForRecheck) {
-      Memory.e59s49fixables = findFixables(
-        Game.rooms[Memory.deepSouthRoomName]
+  } else if (creep.memory.direction == "south") {
+    if (
+      !Memory.southfixables ||
+      Memory.southfixables.length <= 0 ||
+      Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
+    ) {
+      Memory.southfixables = findFixables(
+        Game.rooms[Memory.southRoomName]
       );
-      Memory.lastDeepSouthCheckFixables = Game.time;
+      Memory.lastSouthCheckFixables = Game.time;
     }
   } else {
-    if (!Memory.e59s48fixables ||
-      Memory.e59s48fixables.length <= 0 ||
-      Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck) {
-      Memory.e59s48fixables = findFixables(Game.rooms[Memory.homeRoomName]);
-      Memory.lastSouthCheckFixables = Game.time;
+    if (
+      !Memory.homefixables ||
+      Memory.homefixables.length <= 0 ||
+      Memory.lastHomeCheckFixables - Game.time > timeToPassForRecheck
+    ) {
+      Memory.homefixables = findFixables(Game.rooms[Memory.homeRoomName]);
+      Memory.lastHomeCheckFixables = Game.time;
     }
   }
 

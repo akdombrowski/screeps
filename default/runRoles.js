@@ -71,10 +71,12 @@ function runRoles() {
   let e59s47extensions = Memory.e59s47extensions;
   let e59s49extensions = Memory.e59s49extensions;
   let e58s49extensions = Memory.e58s49extensions;
+  let e58s48extensions = Memory.e58s48extensions;
   let e59s48spawns = Memory.e59s48spawns;
   let e59s47spawns = Memory.e59s47spawns;
   let e59s49spawns = Memory.e59s49spawns;
   let e58s49spawns = Memory.e58s49spawns;
+  let e58s48spawns = Memory.e58s48spawns;
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
   const deepSouthRoomName = Memory.deepSouthRoomName;
@@ -83,9 +85,11 @@ function runRoles() {
   const southEntrance = Game.flags.southEntrance;
   const northEntrance = Game.flags.northEntrance;
   const e58s49Entrance = Game.flags.e58s49Entrance;
+  const e58s48Entrance = Game.flags.e58s48Entrance;
   const northExit = Game.flags.northExit;
   const southExit = Game.flags.southExit;
   const e58s49Exit = Game.flags.e58s49Exit;
+  const e58s48Exit = Game.flags.e58s48Exit;
 
   let retval = -16;
 
@@ -173,9 +177,7 @@ function runRoles() {
           }
         } else if (creep.memory.direction === "e58s49") {
           harvestersE58S49.push(name);
-          if (
-            Memory.creepsE59S49.length > 5
-          ) {
+          if (Memory.creepsE59S49.length > 5) {
             if (!shouldContinueToNextCreep) {
               ret = roleHarvester(
                 creep,
@@ -205,6 +207,21 @@ function runRoles() {
               e59s49spawns = ret.spawns;
               retval = ret.retval;
             }
+          }
+        } else if (creep.memory.direction === "e58s49") {
+          harvestersE58S48.push(name);
+          if (!shouldContinueToNextCreep) {
+            ret = roleHarvester(
+              creep,
+              e58s48extensions,
+              e58s48spawns,
+              "E58S48",
+              e58s48Exit,
+              LEFT
+            );
+            retval = ret.retval;
+            e58s48extensions = ret.extensions;
+            e58s48spawns = ret.spawns;
           }
         } else {
           creep.memory.direction = "south";
@@ -409,6 +426,16 @@ function runRoles() {
             Game.flags.e58s49Exit,
             LEFT
           );
+        } else if (creep.memory.direction === "e58s48") {
+          roadRepairersE58S48.push(name);
+          if (!shouldContinueToNextCreep) {
+          }
+          roleRepairer(
+            creep,
+            Memory.e58s48RoomName,
+            Game.flags.e58s48Exit,
+            LEFT
+          );
         } else {
           roadRepairers.push(name);
           if (!shouldContinueToNextCreep) {
@@ -584,6 +611,29 @@ function runRoles() {
             Memory.e58s49ControllerID
           );
         }
+      } else if (
+        roll === "ucW" ||
+        roll === "upControllerW" ||
+        roll === "upcW" ||
+        roll === "upCW"
+      ) {
+        if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
+          creep.memory.up = true;
+        }
+        upControllersE58S48.push(name);
+
+        creep.memory.controllerID = "59bbc5c12052a716c3ce9fa8";
+
+        if (!shouldContinueToNextCreep) {
+          retval = upController(
+            creep,
+            Game.flags.e58s48Controller,
+            e58s48RoomName,
+            Game.flags.e58s48Exit,
+            LEFT,
+            Memory.e58s48ControllerID
+          );
+        }
       } else if (roll === "reserver") {
         reservers.push(name);
         if (!shouldContinueToNextCreep) {
@@ -606,7 +656,20 @@ function runRoles() {
             Game.flags.e58s49Exit,
             LEFT,
             "59bbc5c12052a716c3ce9faa",
-            Memory.e58s49ControllerID
+            Memory.e58s49Controller
+          );
+        }
+      } else if (roll === "cW" || roll === "claimerW") {
+        claimersE58S48.push(name);
+
+        if (!shouldContinueToNextCreep) {
+          claim(
+            creep,
+            e58s48RoomName,
+            Game.flags.e58s48Exit,
+            LEFT,
+            "59bbc5c12052a716c3ce9fa8",
+            Memory.e58s48Controller
           );
         }
       } else if (roll === "cN" || roll === "claimerN") {

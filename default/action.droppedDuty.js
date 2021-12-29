@@ -20,10 +20,6 @@ function pickupDroppedEnergyOrWithdrawFromTombstone(
           droppedResource.resourceType === RESOURCE_ENERGY &&
           droppedResource.room === creepRoom
         ) {
-          console.log(
-            "dropped resource: " + droppedResource.amount > minAmountOfResource
-          );
-
           return droppedResource.amount > minAmountOfResource;
         }
 
@@ -37,8 +33,6 @@ function pickupDroppedEnergyOrWithdrawFromTombstone(
     droppedTarget = creep.pos.findClosestByRange(FIND_TOMBSTONES, {
       filter: (tombstone) => {
         if (tombstone.room.name === creepRoomName) {
-          console.log(tombstone.store[RESOURCE_ENERGY] > minAmountOfResource);
-
           return tombstone.store[RESOURCE_ENERGY] > minAmountOfResource;
         }
 

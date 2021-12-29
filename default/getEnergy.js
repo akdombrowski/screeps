@@ -132,7 +132,6 @@ function getEnergy(
 
     if (retval === OK || retval === ERR_TIRED) {
       return retval;
-    } else {
     }
   }
 

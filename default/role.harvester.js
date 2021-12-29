@@ -187,7 +187,6 @@ function roleHarvester(
         null,
         null,
         null,
-        homeRoomName
       );
     } else if (creep.memory.direction === "north") {
       retval = getEnergy(
@@ -197,7 +196,6 @@ function roleHarvester(
         null,
         homeToNorth,
         TOP,
-        northRoomName
       );
     } else if (creep.memory.direction === "south") {
       retval = getEnergy(
@@ -207,7 +205,6 @@ function roleHarvester(
         null,
         homeToSouth,
         BOTTOM,
-        southRoomName
       );
     } else if (creep.memory.direction === "e58s49") {
       if (Memory.creepsE59S49.length > 5) {
@@ -218,7 +215,6 @@ function roleHarvester(
           null,
           southToSouthwest,
           LEFT,
-          southwestRoomName
         );
       } else {
         // emergency switch to harvesting in dS room
@@ -229,7 +225,6 @@ function roleHarvester(
           null,
           homeToSouth,
           BOTTOM,
-          southRoomName
         );
       }
     } else if (creep.memory.direction === "e58s48") {
@@ -240,7 +235,6 @@ function roleHarvester(
         null,
         e58s48Exit,
         LEFT,
-        westRoomName
       );
     } else {
       creep.memory.direction = "home";
@@ -251,7 +245,6 @@ function roleHarvester(
         null,
         homeToNorth,
         TOP,
-        homeRoomName
       );
     }
   } else if (creep.memory.transfer && creep.store[RESOURCE_ENERGY] > 0) {

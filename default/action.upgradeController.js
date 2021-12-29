@@ -60,7 +60,6 @@ function upController(
         null,
         null,
         null,
-        targetRoomName
       );
     } else if (creep.memory.direction === "north") {
       retval = getEnergy(
@@ -70,7 +69,6 @@ function upController(
         null,
         Game.flags.northExit,
         TOP,
-        targetRoomName
       );
     } else if (creep.memory.direction === "deepSouth") {
       retval = getEnergy(
@@ -80,7 +78,6 @@ function upController(
         null,
         Game.flags.southExit,
         BOTTOM,
-        targetRoomName
       );
     } else if (creep.memory.direction === "e58s49") {
       retval = getEnergy(
@@ -90,7 +87,6 @@ function upController(
         null,
         Game.flags.e58s49Exit,
         LEFT,
-        targetRoomName
       );
     }
 

@@ -47,125 +47,125 @@ module.exports.loop = function () {
   profiler.wrap(function () {
     let lastEnAvail = Memory.enAvail || 0;
 
-    let s1 = Game.spawns.Spawn1;
-    let northS1 = Game.spawns.e59s47Spawn1;
-    let deepSouthS1 = Game.spawns.deepSouthSpawn1;
+    let s1 = Game.spawns.homeRoomSpawn1;
+    // let northS1 = Game.spawns.e59s47Spawn1;
+    // let deepSouthS1 = Game.spawns.deepSouthSpawn1;
     Memory.s1 = s1.id;
-    Memory.northS1 = northS1.id;
-    Memory.deepSouthS1 = deepSouthS1.id;
+    // Memory.northS1 = northS1.id;
+    // Memory.deepSouthS1 = deepSouthS1.id;
 
     let rm = s1.room;
     Memory.rm = rm.id;
-    let northRoom = northS1.room;
-    Memory.northRoom = northRoom;
-    let deepSouthRoom = deepSouthS1.room;
-    Memory.deepSouthRoom = null;
-    Memory.homeRoomName = "E59S48";
-    Memory.northRoomName = "E59S47";
-    Memory.deepSouthRoomName = "E59S49";
-    Memory.e58s49RoomName = "E58S49";
-    Memory.e58s48RoomName = "E58S48";
+    // let northRoom = northS1.room;
+    // Memory.northRoom = northRoom;
+    // let deepSouthRoom = deepSouthS1.room;
+    // Memory.deepSouthRoom = null;
+    // Memory.homeRoomName = "E59S48";
+    // Memory.northRoomName = "E59S47";
+    // Memory.deepSouthRoomName = "E59S49";
+    // Memory.e58s49RoomName = "E58S49";
+    // Memory.e58s48RoomName = "E58S48";
 
-    Memory.northControllerID = "59bbc5d22052a716c3cea133";
-    Memory.e58s49ControllerID = "59bbc5c12052a716c3ce9faa";
+    // Memory.northControllerID = "59bbc5d22052a716c3cea133";
+    // Memory.e58s49ControllerID = "59bbc5c12052a716c3ce9faa";
 
-    let enAvail = rm.energyAvailable;
-    let enCapRm = rm.energyCapacityAvailable;
-    let northEnAvail = northRoom.energyAvailable;
-    let northEnCapRm = northRoom.energyCapacityAvailable;
-    let deepSouthEnAvail = deepSouthRoom.energyAvailable;
-    let deepSouthEnCapRm = deepSouthRoom.energyCapacityAvailable;
-    Memory.enAvail = enAvail;
-    Memory.enCapRm = enCapRm;
-    Memory.northEnAvail = northEnAvail;
-    Memory.northEnCapRoom = northEnCapRm;
-    Memory.deepSouthEnAvail = deepSouthEnAvail;
-    Memory.deepSouthEnCapRm = deepSouthEnCapRm;
+    // // let enAvail = rm.energyAvailable;
+    // // let enCapRm = rm.energyCapacityAvailable;
+    // let northEnAvail = northRoom.energyAvailable;
+    // let northEnCapRm = northRoom.energyCapacityAvailable;
+    // let deepSouthEnAvail = deepSouthRoom.energyAvailable;
+    // let deepSouthEnCapRm = deepSouthRoom.energyCapacityAvailable;
+    // Memory.enAvail = enAvail;
+    // Memory.enCapRm = enCapRm;
+    // Memory.northEnAvail = northEnAvail;
+    // Memory.northEnCapRoom = northEnCapRm;
+    // Memory.deepSouthEnAvail = deepSouthEnAvail;
+    // Memory.deepSouthEnCapRm = deepSouthEnCapRm;
 
-    Memory.source1 = "59bbc5d22052a716c3cea136";
-    Memory.source2 = "59bbc5d22052a716c3cea135";
-    Memory.nSource1 = "59bbc5d22052a716c3cea131";
-    Memory.nSource2 = "59bbc5d22052a716c3cea132";
+    // Memory.source1 = "59bbc5d22052a716c3cea136";
+    // Memory.source2 = "59bbc5d22052a716c3cea135";
+    // Memory.nSource1 = "59bbc5d22052a716c3cea131";
+    // Memory.nSource2 = "59bbc5d22052a716c3cea132";
 
-    Memory.tower1Id = "61bc38d236c34cfe01fad9cd";
-    Memory.dSTower1Id = "61c492d3227d7cef1df2ce6e";
+    // Memory.tower1Id = "61bc38d236c34cfe01fad9cd";
+    // Memory.dSTower1Id = "61c492d3227d7cef1df2ce6e";
 
-    Memory.attackDurationSafeCheck = 5;
-    Memory.nAttackDurationSafeCheck = 10;
-    Memory.dSAttackDurationSafeCheck = 2;
-    Memory.swAttackDurationSafeCheck = 10;
-    Memory.wAttackDurationSafeCheck = 10;
+    // Memory.attackDurationSafeCheck = 5;
+    // Memory.nAttackDurationSafeCheck = 10;
+    // Memory.dSAttackDurationSafeCheck = 2;
+    // Memory.swAttackDurationSafeCheck = 10;
+    // Memory.wAttackDurationSafeCheck = 10;
 
     checkForAttackers();
 
-    let towers = [];
-    towers.push(Game.getObjectById(Memory.tower1Id));
-    let priorityA = "";
-    let priorityB = "";
-    if (Game.getObjectById(priorityA)) {
-      towersAttackInvader(Game.getObjectById(priorityA), towers);
-    } else if (Game.getObjectById(priorityB)) {
-      towersAttackInvader(Game.getObjectById(priorityB), towers);
-    } else {
-      towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S48), towers);
-    }
+    // let towers = [];
+    // towers.push(Game.getObjectById(Memory.tower1Id));
+    // let priorityA = "";
+    // let priorityB = "";
+    // if (Game.getObjectById(priorityA)) {
+    //   towersAttackInvader(Game.getObjectById(priorityA), towers);
+    // } else if (Game.getObjectById(priorityB)) {
+    //   towersAttackInvader(Game.getObjectById(priorityB), towers);
+    // } else {
+    //   towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S48), towers);
+    // }
 
-    let dSTowers = [];
-    dSTowers.push(Game.getObjectById(Memory.dSTower1Id));
-    priorityA = "";
-    priorityB = "";
-    if (Game.getObjectById(priorityA)) {
-      towersAttackInvader(Game.getObjectById(priorityA), dSTowers);
-    } else if (Game.getObjectById(priorityB)) {
-      towersAttackInvader(Game.getObjectById(priorityB), dSTowers);
-    } else {
-      towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S49), dSTowers);
-    }
+    // let dSTowers = [];
+    // dSTowers.push(Game.getObjectById(Memory.dSTower1Id));
+    // priorityA = "";
+    // priorityB = "";
+    // if (Game.getObjectById(priorityA)) {
+    //   towersAttackInvader(Game.getObjectById(priorityA), dSTowers);
+    // } else if (Game.getObjectById(priorityB)) {
+    //   towersAttackInvader(Game.getObjectById(priorityB), dSTowers);
+    // } else {
+    //   towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S49), dSTowers);
+    // }
 
-    // towersAttackInvader(
-    //   Game.getObjectById("61cbe200304e0f5fc28feab1"),
-    //   dSTowers
-    // );
+    // // towersAttackInvader(
+    // //   Game.getObjectById("61cbe200304e0f5fc28feab1"),
+    // //   dSTowers
+    // // );
 
     const timeToPassForRecheck = 100;
     const minEnergyToKeepForInvaders = 400;
     const healInterval = 1;
     const repairInterval = 2;
-    if (!Memory.invaderIDE59S48) {
-      retval = towerHeal(
-        towers,
-        timeToPassForRecheck,
-        minEnergyToKeepForInvaders,
-        healInterval
-      );
+    // if (!Memory.invaderIDE59S48) {
+    //   retval = towerHeal(
+    //     towers,
+    //     timeToPassForRecheck,
+    //     minEnergyToKeepForInvaders,
+    //     healInterval
+    //   );
 
-      if (retval != OK) {
-        towerRepair(
-          towers,
-          timeToPassForRecheck,
-          minEnergyToKeepForInvaders,
-          repairInterval
-        );
-      }
-    }
+    //   if (retval != OK) {
+    //     towerRepair(
+    //       towers,
+    //       timeToPassForRecheck,
+    //       minEnergyToKeepForInvaders,
+    //       repairInterval
+    //     );
+    //   }
+    // }
 
-    if (!Memory.invaderIDE59S49) {
-      retval = towerHeal(
-        dSTowers,
-        timeToPassForRecheck,
-        minEnergyToKeepForInvaders,
-        healInterval
-      );
+    // if (!Memory.invaderIDE59S49) {
+    //   retval = towerHeal(
+    //     dSTowers,
+    //     timeToPassForRecheck,
+    //     minEnergyToKeepForInvaders,
+    //     healInterval
+    //   );
 
-      if (retval != OK) {
-        towerRepair(
-          dSTowers,
-          timeToPassForRecheck,
-          minEnergyToKeepForInvaders,
-          repairInterval
-        );
-      }
-    }
+    //   if (retval != OK) {
+    //     towerRepair(
+    //       dSTowers,
+    //       timeToPassForRecheck,
+    //       minEnergyToKeepForInvaders,
+    //       repairInterval
+    //     );
+    //   }
+    // }
 
     let crps = Memory.creeps || [];
     Memory.creeps = crps;
@@ -178,38 +178,38 @@ module.exports.loop = function () {
     runRoles();
 
     spawnCreepTypes(enAvail, [s1]);
-    northSpawnCreepTypes(northEnAvail, [northS1]);
-    deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);
+    // northSpawnCreepTypes(northEnAvail, [northS1]);
+    // deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);
 
-    // if (Game.time % 20) {
-    //   memoryE59S48ExtensionsRefresh();
+    // // if (Game.time % 20) {
+    // //   memoryE59S48ExtensionsRefresh();
 
-    //   memoryE59S47ExtensionsRefresh();
+    // //   memoryE59S47ExtensionsRefresh();
 
-    //   memoryE59S49ExtensionsRefresh();
+    // //   memoryE59S49ExtensionsRefresh();
+    // // }
+
+    // // if (Game.time % 20) {
+    // //   memoryE59S48SpawnsRefresh();
+
+    // //   memoryE59S47SpawnsRefresh();
+
+    // //   memoryE59S49SpawnsRefresh();
+    // // }
+
+    // // if (Game.cpu.bucket > 30) {
+    // //   linkTransfer(linkSpawn, slinkMiddle);
+    // //   linkTransfer(linkSpawn, slinkMiddle2);
+    // // } else {
+    // //   console.log("low cpu bucket: " + Game.cpu.bucket);
+    // // }
+
+    // if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 10) * 9) {
+    //   return;
     // }
 
-    // if (Game.time % 20) {
-    //   memoryE59S48SpawnsRefresh();
-
-    //   memoryE59S47SpawnsRefresh();
-
-    //   memoryE59S49SpawnsRefresh();
-    // }
-
-    // if (Game.cpu.bucket > 30) {
-    //   linkTransfer(linkSpawn, slinkMiddle);
-    //   linkTransfer(linkSpawn, slinkMiddle2);
-    // } else {
-    //   console.log("low cpu bucket: " + Game.cpu.bucket);
-    // }
-
-    if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 10) * 9) {
-      return;
-    }
-
-    let rooms = [rm, deepSouthRoom];
-    checkProgress(numCrps, rooms, 3600);
+    // let rooms = [rm, deepSouthRoom];
+    // checkProgress(numCrps, rooms, 3600);
   });
 
   // Profiler stats

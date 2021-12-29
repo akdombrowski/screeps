@@ -9,12 +9,11 @@ const { chooseSource } = require("./getEnergy.chooseSource");
 
 function getEnergy(
   creep,
-  sourceRmTargetedName,
+  targetRoomName,
   taskRm,
   flag,
   exit,
   exitDirection,
-  targetRoomName
 ) {
   let tower = Game.getObjectById(Memory.tower1Id);
   let retval = -16;
@@ -32,7 +31,6 @@ function getEnergy(
   const e58s48RoomName = Memory.e58s48RoomName;
   let lastSourceId = creep.memory.lastSourceId;
   let target = Game.getObjectById(lastSourceId);
-  let targetedRmName = sourceRmTargetedName;
   let isTargetStructure = false;
 
   creep.memory.getEnergy = true;
@@ -147,10 +145,10 @@ function getEnergy(
   }
 
   if (
-    (!target && Game.rooms[targetedRmName]) ||
+    (!target && Game.rooms[targetRoomName]) ||
     (target && target.room.name != creep.room.name)
   ) {
-    let sources = Game.rooms[targetedRmName].find(FIND_SOURCES);
+    let sources = Game.rooms[targetRoomName].find(FIND_SOURCES);
     let chosenSource = null;
 
     if (sources.length > 0) {

@@ -12,6 +12,16 @@ function pickupDroppedEnergyOrWithdrawFromTombstone(
     droppedTarget = Game.getObjectById(creep.memory.droppedTargetId);
   }
 
+  if(droppedTarget) {
+    if(droppedTarget.amount && droppedTarget.amount < minAmountOfResource) {
+      droppedTarget = null;
+    }
+
+    if(droppedTarget.store && droppedTarget.store[RESOURCE_ENERGY] < minAmountOfResource) {
+      droppedTarget = null;
+    }
+  }
+
   // look for dropped energy
   if (!droppedTarget) {
     droppedTarget = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES, {

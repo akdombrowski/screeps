@@ -330,8 +330,18 @@ function getEnergy(
   ) {
     creep.memory.lastSourceId = null;
     creep.memory.path = null;
-    target = creep.pos.findClosestByRange(FIND_TOMBSTONES);
-    isTargetStructure = true;
+    target = creep.pos.findClosestByRange(FIND_TOMBSTONES, {
+      filter: (tombstone) => {
+        if (tombstone.room.name === creepRoomName) {
+          return tombstone.store[RESOURCE_ENERGY] > minAmountOfResource;
+        }
+
+        return false;
+      },
+    });
+    if (target) {
+      isTargetStructure = true;
+    }
   }
 
   if (target) {

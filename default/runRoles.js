@@ -126,7 +126,7 @@ function runRoles() {
               e59s48spawns,
               "E59S48",
               northEntrance,
-              BOTTOM,
+              BOTTOM
             );
 
             e59s48extensions = ret.extensions;
@@ -167,18 +167,39 @@ function runRoles() {
           }
         } else if (creep.memory.direction === "e58s49") {
           harvestersE58S49.push(name);
-          if (!shouldContinueToNextCreep) {
-            ret = roleHarvester(
-              creep,
-              e58s49extensions,
-              e58s49spawns,
-              "E58S49",
-              e58s49Exit,
-              LEFT,
-            );
-            retval = ret.retval;
-            e58s49extensions = ret.extensions;
-            e58s49spawns = ret.spawns;
+          if (
+            Memory.creepsE59S49.length < 3 &&
+            Game.rooms[Memory.deepSouthRoomName].energyAvailable > 800
+          ) {
+            if (!shouldContinueToNextCreep) {
+              ret = roleHarvester(
+                creep,
+                e58s49extensions,
+                e58s49spawns,
+                "E58S49",
+                e58s49Exit,
+                LEFT
+              );
+              retval = ret.retval;
+              e58s49extensions = ret.extensions;
+              e58s49spawns = ret.spawns;
+            }
+          } else {
+            // emergency switch to harvesting and transferring staying in dS room
+            if (!shouldContinueToNextCreep) {
+              ret = roleHarvester(
+                creep,
+                e59s49extensions,
+                e59s49spawns,
+                "E59S49",
+                southExit,
+                BOTTOM
+              );
+
+              e59s49extensions = ret.extensions;
+              e59s49spawns = ret.spawns;
+              retval = ret.retval;
+            }
           }
         } else {
           creep.memory.direction = "south";

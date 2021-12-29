@@ -97,11 +97,32 @@ module.exports.loop = function () {
 
     let towers = [];
     towers.push(Game.getObjectById(Memory.tower1Id));
-    towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S48), towers);
+    let priorityA = "";
+    let priorityB = "";
+    if (Game.getObjectById(priorityA)) {
+      towersAttackInvader(Game.getObjectById(priorityA), towers);
+    } else if (Game.getObjectById(priorityB)) {
+      towersAttackInvader(Game.getObjectById(priorityB), towers);
+    } else {
+      towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S48), towers);
+    }
 
     let dSTowers = [];
     dSTowers.push(Game.getObjectById(Memory.dSTower1Id));
-    towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S49), dSTowers);
+    priorityA = "";
+    priorityB = "";
+    if (Game.getObjectById(priorityA)) {
+      towersAttackInvader(Game.getObjectById(priorityA), dSTowers);
+    } else if (Game.getObjectById(priorityB)) {
+      towersAttackInvader(Game.getObjectById(priorityB), dSTowers);
+    } else {
+      towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S49), dSTowers);
+    }
+
+    // towersAttackInvader(
+    //   Game.getObjectById("61cbe200304e0f5fc28feab1"),
+    //   dSTowers
+    // );
 
     const timeToPassForRecheck = 100;
     const minEnergyToKeepForInvaders = 400;

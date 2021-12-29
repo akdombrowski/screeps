@@ -59,7 +59,7 @@ function getEnergy(
       creepRoomName === deepSouthRoomName &&
       targetRoomName != e58s49RoomName
     ) {
-      // if in the deepSouth room but target room is not deepSouth, head north
+      // if in the deepSouth room but target room is not deepSouth, head north for either home room or north room
       exitDirection = TOP;
       exit = Game.flags.southEntrance;
     } else if (
@@ -74,13 +74,16 @@ function getEnergy(
       creepRoomName === homeRoomName
     ) {
       if (targetRoomName === e58s49RoomName) {
+        // in home room but need to get to SW, go south first
         exitDirection = BOTTOM;
         exit = Game.flags.southExit;
       } else if (targetRoomName === northRoomName) {
-        // if in the room but target room is not SW nor in homeroom, head south
+        // if in the home room but target room is north
         exitDirection = TOP;
         exit = Game.flags.northExit;
       } else {
+        // in home room but target is not in north nor in SW,
+        // must be dS
         exitDirection = BOTTOM;
         exit = Game.flags.southExit;
       }

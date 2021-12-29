@@ -133,7 +133,7 @@ function roleHarvester(
     } else if (creepRoomName === e58s49RoomName) {
       // if in the deepSouthWest room but target room is not there, head to dS as a start
       exitDirection = RIGHT;
-      exit = e59s49Exit;
+      exit = e58s49Entrance;
     }
 
     if (creep.pos.isNearTo(exit)) {
@@ -197,15 +197,31 @@ function roleHarvester(
         deepSouthRoomName
       );
     } else if (creep.memory.direction === "e58s49") {
-      retval = getEnergy(
-        creep,
-        e58s49RoomName,
-        null,
-        null,
-        Game.flags.e58s49Exit,
-        LEFT,
-        e58s49RoomName
-      );
+      if (
+        Memory.creepsE59S49.length < 3 &&
+        Game.rooms[Memory.deepSouthRoomName].energyAvailable > 800
+      ) {
+        retval = getEnergy(
+          creep,
+          e58s49RoomName,
+          null,
+          null,
+          Game.flags.e58s49Exit,
+          LEFT,
+          e58s49RoomName
+        );
+      } else {
+        // emergency switch to harvesting in dS room
+        retval = getEnergy(
+          creep,
+          deepSouthRoomName,
+          null,
+          null,
+          Game.flags.southExit,
+          BOTTOM,
+          deepSouthRoomName
+        );
+      }
     } else {
       creep.memory.direction = "south";
       retval = getEnergy(

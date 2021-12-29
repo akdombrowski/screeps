@@ -25,9 +25,16 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
         exitDirection = BOTTOM;
         exit = Game.flags.northEntrance;
       } else if (creepRoomName === Memory.deepSouthRoomName) {
-        // if in the deepSouth room but target room is not deepSouth, head north
-        exitDirection = TOP;
-        exit = Game.flags.southEntrance;
+        // if in the deepSouth room but target room is not deepSouth and not in SW, head north
+        if (targetRoomName != Memory.e58s49RoomName) {
+          exitDirection = TOP;
+          exit = Game.flags.southEntrance;
+        }
+      } else if (creepRoomName === Memory.homeRoomName) {
+        if (targetRoomName != Memory.northRoomName) {
+          exitDirection = BOTTOM;
+          exit = Game.flags.southExit;
+        }
       }
 
       if (creep.pos.isNearTo(exit)) {
@@ -84,6 +91,16 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
         null,
         Game.flags.southExit,
         BOTTOM,
+        targetRoomName
+      );
+    } else if (creep.memory.direction === "e58s49") {
+      retval = getEnergy(
+        creep,
+        targetRoomName,
+        targetRoomName,
+        null,
+        Game.flags.e58s49Exit,
+        LEFT,
         targetRoomName
       );
     }

@@ -28,6 +28,7 @@ function runRoles() {
   let i = 0;
   let crps = Game.creeps;
   let harvesters = [];
+  let harvestersSouth = [];
   let harvestersE59S47 = [];
   let harvestersE59S49 = [];
   let harvestersE58S49 = [];
@@ -64,16 +65,19 @@ function runRoles() {
   let viewersE59S47 = [];
   let viewersE59S49 = [];
   let creepsHome = [];
+  let creepsSouth = [];
   let creepsE59S49 = [];
   let creepsE59S47 = [];
   let creepsE58S49 = [];
   let creepsE58S48 = [];
   let homeExtensions = Memory.homeExtensions;
+  let southExtensions = Memory.southExtensions;
   let e59s47extensions = Memory.e59s47extensions;
   let e59s49extensions = Memory.e59s49extensions;
   let e58s49extensions = Memory.e58s49extensions;
   let e58s48extensions = Memory.e58s48extensions;
   let homeSpawns = Memory.homeSpawns;
+  let southSpawns = Memory.southSpawns;
   let e59s47spawns = Memory.e59s47spawns;
   let e59s49spawns = Memory.e59s49spawns;
   let e58s49spawns = Memory.e58s49spawns;
@@ -128,22 +132,6 @@ function runRoles() {
           creep.memory.getEnergy = true;
         }
 
-        harvesters.push(name);
-        if (!shouldContinueToNextCreep) {
-          ret = roleHarvester(
-            creep,
-            homeExtensions,
-            homeSpawns,
-            Memory.homeRoomName,
-            northEntrance,
-            BOTTOM
-          );
-
-          homeExtensions = ret.extensions;
-          homeSpawns = ret.spawns;
-          retval = ret.retval;
-        }
-        continue;
 
         if (creep.memory.direction === "home") {
           harvesters.push(name);
@@ -152,7 +140,7 @@ function runRoles() {
               creep,
               homeExtensions,
               homeSpawns,
-              "E59S48",
+              homeRoomName,
               northEntrance,
               BOTTOM
             );
@@ -177,20 +165,20 @@ function runRoles() {
             e59s47spawns = ret.spawns;
             retval = ret.retval;
           }
-        } else if (creep.memory.direction === "deepSouth") {
-          harvestersE59S49.push(name);
+        } else if (creep.memory.direction === "south") {
+          harvestersSouth.push(name);
           if (!shouldContinueToNextCreep) {
             ret = roleHarvester(
               creep,
-              e59s49extensions,
-              e59s49spawns,
-              "E59S49",
-              southExit,
+              southExtensions,
+             southSpawns,
+              southRoomName,
+              southToHome,
               BOTTOM
             );
 
-            e59s49extensions = ret.extensions;
-            e59s49spawns = ret.spawns;
+            southExtensions = ret.extensions;
+            southSpawns = ret.spawns;
             retval = ret.retval;
           }
         } else if (creep.memory.direction === "e58s49") {
@@ -826,6 +814,7 @@ function runRoles() {
   }
 
   Memory.harvesters = harvesters;
+  Memory.harvestersSouth = harvestersSouth;
   Memory.harvestersE59S47 = harvestersE59S47;
   Memory.harvestersE59S49 = harvestersE59S49;
   Memory.harvestersE58S49 = harvestersE58S49;
@@ -861,6 +850,7 @@ function runRoles() {
   Memory.viewersE59S47 = viewersE59S47;
   Memory.viewersE59S49 = viewersE59S49;
   Memory.creepsHome = creepsHome;
+  Memory.creepsSouth = creepsSouth;
   Memory.creepsE59S49 = creepsE59S49;
   Memory.creepsE59S47 = creepsE59S47;
   Memory.creepsE58S49 = creepsE58S49;

@@ -48,7 +48,7 @@ function roleHarvester(
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
 
-    if (creep.memory.direction.startsWith("n")) {
+    if (creep.memory.direction === "north") {
       ret = transferEnergy(
         creep,
         null,
@@ -59,28 +59,25 @@ function roleHarvester(
         extensions,
         spawns
       );
-    } else if (
-      creep.memory.direction.startsWith("dS") ||
-      creep.memory.direction === "deepSouth"
-    ) {
+    } else if (creep.memory.direction === "south") {
       ret = transferEnergy(
         creep,
         null,
         null,
-        southRoomName,
-        Game.flags.southEntrance,
+        homeRoomName,
+        southToHome,
         TOP,
         extensions,
         spawns
       );
-    } else if (creep.memory.direction === "e58s49") {
+    } else if (creep.memory.direction === "southwest") {
       ret = transferEnergy(
         creep,
         null,
         null,
-        southRoomName, // bring energy back to dS room
-        Game.flags.e59s49Entrance,
-        RIGHT,
+        southwestRoomName,
+        southToSouthwest,
+        LEFT,
         extensions,
         spawns
       );

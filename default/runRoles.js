@@ -125,8 +125,8 @@ function runRoles() {
               e59s48extensions,
               e59s48spawns,
               "E59S48",
+              northEntrance,
               BOTTOM,
-              northEntrance
             );
 
             e59s48extensions = ret.extensions;
@@ -141,8 +141,8 @@ function runRoles() {
               e59s47extensions,
               e59s47spawns,
               "E59S47",
-              TOP,
-              northExit
+              northExit,
+              TOP
             );
 
             e59s47extensions = ret.extensions;
@@ -157,8 +157,8 @@ function runRoles() {
               e59s49extensions,
               e59s49spawns,
               "E59S49",
-              BOTTOM,
-              southExit
+              southExit,
+              BOTTOM
             );
 
             e59s49extensions = ret.extensions;
@@ -173,8 +173,8 @@ function runRoles() {
               e58s49extensions,
               e58s49spawns,
               "E58S49",
+              e58s49Exit,
               LEFT,
-              e58s49Exit
             );
             retval = ret.retval;
             e58s49extensions = ret.extensions;

@@ -748,8 +748,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (creepsE59S48.length < 7) {
-      logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 7);
+    if (creepsE59S48.length < 8) {
+      logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 8);
       creepsE59S48.push(name);
       harvesters.push(name);
       retval = birthCreep(

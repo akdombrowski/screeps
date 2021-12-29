@@ -565,6 +565,30 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
+    } else if (upControllersE58S49.length < 1) {
+      logConditionPassedForSpawnCreep(
+        "upControllersE58S49",
+        upControllersE58S49,
+        1
+      );
+      name = "upCSW" + t;
+      chosenRole = "upCSW";
+      direction = "e58s49";
+      group = "upControllersE58S49";
+      parts = simpleParts300;
+      creepsE58S49.push(name);
+      upControllersE58S49.push(name);
+
+      retval = deepSouthbirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
     } else if (roadRepairersE59S49.length < 1) {
       logConditionPassedForSpawnCreep(
         "roadRepairersE59S49",

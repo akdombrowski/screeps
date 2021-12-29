@@ -166,7 +166,6 @@ function runRoles() {
             retval = ret.retval;
           }
         } else if (creep.memory.direction === "e58s49") {
-          creepsE58S49.push(name);
           harvestersE58S49.push(name);
           if (!shouldContinueToNextCreep) {
             ret = roleHarvester(
@@ -191,7 +190,6 @@ function runRoles() {
         }
 
         if (creep.memory.direction === "south") {
-          creepsE59S48.push(name);
           pickerUppersE59S48.push(name);
           if (!shouldContinueToNextCreep) {
             if (creep.room.name === deepSouthRoomName) {
@@ -224,7 +222,6 @@ function runRoles() {
             }
           }
         } else if (creep.memory.direction === "north") {
-          creepsE59S47.push(name);
           pickerUppersE59S47.push(name);
           if (!shouldContinueToNextCreep) {
             if (creep.room.name === deepSouthRoomName) {
@@ -257,7 +254,6 @@ function runRoles() {
             }
           }
         } else if (creep.memory.direction === "deepSouth") {
-          creepsE59S49.push(name);
           pickerUppersE59S49.push(name);
           if (!shouldContinueToNextCreep) {
             if (creep.room.name === northRoomName) {
@@ -299,7 +295,6 @@ function runRoles() {
             }
           }
         } else if (creep.memory.direction === "e58s49") {
-          creepsE58S49.push(name);
           pickerUppersE58S49.push(name);
           if (!shouldContinueToNextCreep) {
             if (creep.room.name === northRoomName) {
@@ -342,7 +337,6 @@ function runRoles() {
           }
         } else {
           creep.memory.direction = "south";
-          creepsE59S48.push(name);
           pickerUppersE59S48.push(name);
           retval = -16;
         }
@@ -353,14 +347,12 @@ function runRoles() {
         }
       } else if (roll === "roadRepairer") {
         if (creep.memory.direction.startsWith("s")) {
-          creepsE59S48.push(name);
           roadRepairers.push(name);
 
           if (!shouldContinueToNextCreep) {
             roleRepairer(creep, Memory.homeRoomName, null, null);
           }
         } else if (creep.memory.direction.startsWith("n")) {
-          creepsE59S47.push(name);
           roadRepairersE59S47.push(name);
 
           if (!shouldContinueToNextCreep) {
@@ -372,7 +364,6 @@ function runRoles() {
             );
           }
         } else if (creep.memory.direction.startsWith("deepSouth")) {
-          creepsE59S49.push(name);
           roadRepairersE59S49.push(name);
           if (!shouldContinueToNextCreep) {
             roleRepairer(
@@ -383,7 +374,6 @@ function runRoles() {
             );
           }
         } else if (creep.memory.direction === "e58s49") {
-          creepsE58S49.push(name);
           roadRepairersE58S49.push(name);
           if (!shouldContinueToNextCreep) {
           }
@@ -394,7 +384,6 @@ function runRoles() {
             LEFT
           );
         } else {
-          creepsE59S48.push(name);
           roadRepairers.push(name);
           if (!shouldContinueToNextCreep) {
             roleRepairer(creep, Memory.homeRoomName, null, null);
@@ -402,25 +391,21 @@ function runRoles() {
         }
       } else if (roll === "viewer") {
         if (creep.memory.direction.startsWith("s")) {
-          creepsE59S48.push(name);
           viewersE59S48.push(name);
           if (!shouldContinueToNextCreep) {
             roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
           }
         } else if (creep.memory.direction.startsWith("n")) {
-          creepsE59S47.push(name);
           viewersE59S47.push(name);
           if (!shouldContinueToNextCreep) {
             roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
           }
         } else if (creep.memory.direction.startsWith("deepSouth")) {
-          creepsE59S49.push(name);
           viewersE59S49.push(name);
           if (!shouldContinueToNextCreep) {
             roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
           }
         } else {
-          creepsE59S48.push(name);
           viewersE59S48.push(name);
           if (!shouldContinueToNextCreep) {
             roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
@@ -436,17 +421,13 @@ function runRoles() {
           creep.memory.up = true;
         }
         if (creep.memory.direction === "south") {
-          creepsE59S48.push(name);
           upControllers.push(name);
         } else if (creep.memory.direction === "deepSouth") {
-          creepsE59S49.push(name);
           upControllersE59S49.push(name);
         } else if (creep.memory.direction === "north") {
-          creepsE59S47.push(name);
           upControllersE59S47.push(name);
         } else {
           creep.memory.direction = "south";
-          creepsE59S48.push(name);
 
           upControllers.push(name);
         }
@@ -472,7 +453,6 @@ function runRoles() {
         }
 
         if (creep.memory.direction === "north") {
-          creepsE59S47.push(name);
           upControllersE59S47.push(name);
           creep.memory.controllerID = "59bbc5d22052a716c3cea133";
 
@@ -487,7 +467,6 @@ function runRoles() {
             );
           }
         } else if (creep.memory.direction === "e58s49") {
-          creepsE58S49.push(name);
           upControllersE58S49.push(name);
 
           creep.memory.controllerID = "59bbc5c12052a716c3ce9faa";
@@ -503,7 +482,6 @@ function runRoles() {
             );
           }
         } else if (creep.memory.direction === "south") {
-          creepsE59S48.push(name);
           upControllersE59S48.push(name);
 
           creep.memory.controllerID = "59bbc5d22052a716c3cea133";
@@ -519,7 +497,6 @@ function runRoles() {
             );
           }
         } else {
-          creepsE59S48.push(name);
           upControllersE59S48.push(name);
           creep.memory.direction = "south";
           creep.memory.controllerID = "59bbc5d22052a716c3cea133";
@@ -544,7 +521,6 @@ function runRoles() {
         if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
           creep.memory.up = true;
         }
-        creepsE59S49.push(name);
         upControllersE59S49.push(name);
 
         creep.memory.controllerID = "59bbc5d22052a716c3cea13a";
@@ -568,7 +544,6 @@ function runRoles() {
         if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
           creep.memory.up = true;
         }
-        creepsE58S49.push(name);
         upControllersE58S49.push(name);
 
         creep.memory.controllerID = "59bbc5d22052a716c3cea13a";
@@ -598,7 +573,6 @@ function runRoles() {
       } else if (roll === "c" || roll === "claimer") {
         claimers.push(name);
 
-        creepsE58S49.push(name);
         if (!shouldContinueToNextCreep) {
           claim(
             creep,

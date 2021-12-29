@@ -112,6 +112,8 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
 
   if (creep.memory.build) {
     creep.memory.repair = false;
+    creep.memory.getEnergy = false;
+    creep.memory.transfer = false;
     mem_repair = false;
     retval = build(creep);
   }

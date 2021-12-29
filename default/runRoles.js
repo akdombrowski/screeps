@@ -134,7 +134,7 @@ function runRoles() {
         }
 
 
-        if (creep.memory.direction === "shome") {
+        if (creep.memory.direction === "home") {
           harvesters.push(name);
           if (!shouldContinueToNextCreep) {
             ret = roleHarvester(
@@ -231,7 +231,7 @@ function runRoles() {
             e58s48spawns = ret.spawns;
           }
         } else {
-          creep.memory.direction = "south";
+          creep.memory.direction = "home";
           harvesters.push(name);
         }
       } else if (roll === "pickerUpper" || roll === "pU") {

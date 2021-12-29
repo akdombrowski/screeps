@@ -22,7 +22,7 @@ function getEnergy(
   let rm = creep.rm;
   let pos = creep ? creep.pos : null;
   let roll = creep.memory.role;
-  let s1RmEnAvail = Game.getObjectById(Memory.s1).room.energyAvailable;
+  let s1RmEnAvail = Game.getObjectById(Memory.homeRoomSpawn1ID).room.energyAvailable;
   let range = 1;
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
@@ -37,7 +37,7 @@ function getEnergy(
   creep.memory.transfer = false;
   creep.memory.transferTargetId = null;
 
-  if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
+  if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity(RESOURCE_ENERGY)) {
     console.log(name + " resetting getEnergy");
 
     creep.memory.lastSourceId = null;
@@ -122,6 +122,7 @@ function getEnergy(
     target.amount <= 0
   ) {
     creep.memory.lastSourceId = null;
+    target = null;
   }
 
   if (!target) {

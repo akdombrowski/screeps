@@ -50,7 +50,7 @@ module.exports.loop = function () {
     let homeRoomSpawn1 = Game.spawns.homeRoomSpawn1;
     // let northS1 = Game.spawns.e59s47Spawn1;
     // let deepSouthS1 = Game.spawns.deepSouthSpawn1;
-    Memory.homeRoomSpawn1 = homeRoomSpawn1.id;
+    Memory.homeRoomSpawn1ID = homeRoomSpawn1.id;
     // Memory.northS1 = northS1.id;
     // Memory.deepSouthS1 = deepSouthS1.id;
 

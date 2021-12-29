@@ -79,6 +79,7 @@ function runRoles() {
   const northRoomName = Memory.northRoomName;
   const deepSouthRoomName = Memory.deepSouthRoomName;
   const e58s49RoomName = Memory.e58s49RoomName;
+  const e58s48RoomName = Memory.e58s48RoomName;
   const southEntrance = Game.flags.southEntrance;
   const northEntrance = Game.flags.northEntrance;
   const e58s49Entrance = Game.flags.e58s49Entrance;

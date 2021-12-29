@@ -70,7 +70,7 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
     creep.memory.getEnergy = true;
     creep.say("h");
 
-    if (creep.memory.direction === "south") {
+    if (creep.memory.direction === "home") {
       retval = getEnergy(
         creep,
         targetRoomName,
@@ -90,13 +90,13 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
         TOP,
         targetRoomName
       );
-    } else if (creep.memory.direction === "deepSouth") {
+    } else if (creep.memory.direction === "south") {
       retval = getEnergy(
         creep,
         targetRoomName,
         targetRoomName,
         null,
-        Game.flags.southExit,
+        Game.flags.homeToSouth,
         BOTTOM,
         targetRoomName
       );

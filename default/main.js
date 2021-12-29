@@ -47,36 +47,44 @@ module.exports.loop = function () {
   profiler.wrap(function () {
     let lastEnAvail = Memory.enAvail || 0;
 
-    let s1 = Game.spawns.homeRoomSpawn1;
+    let homeRoomSpawn1 = Game.spawns.homeRoomSpawn1;
     // let northS1 = Game.spawns.e59s47Spawn1;
     // let deepSouthS1 = Game.spawns.deepSouthSpawn1;
-    Memory.s1 = s1.id;
+    Memory.homeRoomSpawn1 = homeRoomSpawn1.id;
     // Memory.northS1 = northS1.id;
     // Memory.deepSouthS1 = deepSouthS1.id;
 
-    let rm = s1.room;
-    Memory.rm = rm.id;
+    let homeRoom = homeRoomSpawn1.room;
+    // Memory.homeRoomID = homeRoom.id;
     // let northRoom = northS1.room;
     // Memory.northRoom = northRoom;
     // let deepSouthRoom = deepSouthS1.room;
     // Memory.deepSouthRoom = null;
-    Memory.homeRoomName = "W33N29";
-    // Memory.northRoomName = "E59S47";
-    // Memory.deepSouthRoomName = "E59S49";
+    Memory.homeRoomName = homeRoom.name;
+    Memory.northRoomName = "W33N30";
+    Memory.southRoomName = "W33N28";
+    Memory.westRoomName = "W34N29";
+    Memory.southwestRoomName = "W34N28";
+    Memory.southeastRoomName = "W32N28";
+    Memory.eastRoomName = "W32N29";
+    Memory.easteastRoomName = "W31N29";
+    Memory.northeastRoomName = "W31N29";
+    Memory.northeasteastRoomName = "W31N30";
+
     // Memory.e58s49RoomName = "E58S49";
     // Memory.e58s48RoomName = "E58S48";
 
     // Memory.northControllerID = "59bbc5d22052a716c3cea133";
     // Memory.e58s49ControllerID = "59bbc5c12052a716c3ce9faa";
 
-    let enAvail = rm.energyAvailable;
-    let enCapRm = rm.energyCapacityAvailable;
+    let enAvailHomeRoom = homeRoom.energyAvailable;
+    let enCapHomeRoom = homeRoom.energyCapacityAvailable;
     // let northEnAvail = northRoom.energyAvailable;
     // let northEnCapRm = northRoom.energyCapacityAvailable;
     // let deepSouthEnAvail = deepSouthRoom.energyAvailable;
     // let deepSouthEnCapRm = deepSouthRoom.energyCapacityAvailable;
-    Memory.enAvail = enAvail;
-    Memory.enCapRm = enCapRm;
+    Memory.enAvail = enAvailHomeRoom;
+    Memory.enCapRm = enCapHomeRoom;
     // Memory.northEnAvail = northEnAvail;
     // Memory.northEnCapRoom = northEnCapRm;
     // Memory.deepSouthEnAvail = deepSouthEnAvail;
@@ -90,7 +98,7 @@ module.exports.loop = function () {
     // Memory.tower1Id = "61bc38d236c34cfe01fad9cd";
     // Memory.dSTower1Id = "61c492d3227d7cef1df2ce6e";
 
-    // Memory.attackDurationSafeCheck = 5;
+    Memory.attackDurationSafeCheck = 5;
     // Memory.nAttackDurationSafeCheck = 10;
     // Memory.dSAttackDurationSafeCheck = 2;
     // Memory.swAttackDurationSafeCheck = 10;
@@ -177,7 +185,7 @@ module.exports.loop = function () {
 
     runRoles();
 
-    spawnCreepTypes(enAvail, [s1]);
+    spawnCreepTypes(enAvailHomeRoom, [homeRoomSpawn1]);
     // northSpawnCreepTypes(northEnAvail, [northS1]);
     // deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);
 
@@ -208,7 +216,7 @@ module.exports.loop = function () {
       return;
     }
 
-    let rooms = [rm];
+    let rooms = [homeRoom];
     checkProgress(numCrps, rooms, 3600);
   });
 

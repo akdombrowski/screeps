@@ -407,7 +407,7 @@ function runRoles() {
           roleLinkGet.run(creep);
         }
       } else if (roll === "roadRepairer") {
-        if (creep.memory.direction.startsWith("s")) {
+        if (creep.memory.direction === "home") {
           roadRepairers.push(name);
 
           if (!shouldContinueToNextCreep) {

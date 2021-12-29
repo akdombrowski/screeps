@@ -52,7 +52,7 @@ function upController(
   } else if (creep.store[RESOURCE_ENERGY] <= 0 || creep.memory.getEnergy) {
     creep.memory.up = false;
     creep.memory.getEnergy = true;
-    if (creep.memory.direction === "south") {
+    if (creep.memory.direction === "home") {
       retval = getEnergy(
         creep,
         targetRoomName,

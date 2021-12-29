@@ -27,7 +27,7 @@ function getEnergy(
   let range = 1;
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
-  const deepSouthRoomName = Memory.deepSouthRoomName;
+  const southRoomName = Memory.southRoomName;
   const e58s49RoomName = Memory.e58s49RoomName;
   const e58s48RoomName = Memory.e58s48RoomName;
   let lastSourceId = creep.memory.lastSourceId;
@@ -56,13 +56,12 @@ function getEnergy(
       exitDirection = BOTTOM;
       exit = Game.flags.northEntrance;
     } else if (
-      targetRoomName != deepSouthRoomName &&
-      creepRoomName === deepSouthRoomName &&
-      targetRoomName != e58s49RoomName
+      targetRoomName != southRoomName &&
+      creepRoomName === southRoomName
     ) {
-      // if in the deepSouth room but target room is not deepSouth, head north for either home room or north room
+      // if in the south room but target room is not deepSouth, head north for either home room or north room
       exitDirection = TOP;
-      exit = Game.flags.southEntrance;
+      exit = Game.flags.homeToSouth;
     } else if (
       targetRoomName != e58s49RoomName &&
       creepRoomName === e58s49RoomName
@@ -153,6 +152,7 @@ function getEnergy(
   ) {
     let sources = Game.rooms[targetedRmName].find(FIND_SOURCES);
     let chosenSource = null;
+
     if (sources.length > 0) {
       chosenSource = chooseSource(creep, sources);
     }

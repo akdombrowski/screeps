@@ -71,8 +71,8 @@ function build(creep) {
       let arr = [];
       let arrIDs = [];
       if (creep.room.name === Memory.homeRoomName) {
-        if (!Memory.e59s48sites || Memory.e59s48sites.length <= 0) {
-          arr = Game.rooms.E59S48.find(FIND_CONSTRUCTION_SITES, {
+        if (!Memory.homeSites || Memory.homeSites.length <= 0) {
+          arr = Game.rooms[Memory.homeRoomName].find(FIND_CONSTRUCTION_SITES, {
             filter: (site) => {
               let prog = site.progress;
               let progTot = site.progressTotal;
@@ -94,28 +94,28 @@ function build(creep) {
           });
 
           if (arr && arr.length > 0) {
-            Memory.e59s48sites = arr.map((site) => site.id);
+            Memory.homeSites = arr.map((site) => site.id);
           } else {
-            Memory.e59s48sites = null;
+            Memory.homeSites = null;
           }
 
           if (!target) {
             target = arr.shift();
             creep.memory.lastBuildID = target.id;
-            Memory.e59s48sites.shift();
+            Memory.homeSites.shift();
           }
         }
 
         let sites = [];
         if (!target) {
-          _.forEach(Memory.e59s48sites, (id) => {
+          _.forEach(Memory.homeSites, (id) => {
             const siteObj = Game.getObjectById(id);
             if (siteObj && siteObj.progress < siteObj.progressTotal) {
               sites.push(siteObj);
             }
           });
 
-          Memory.e59s48sites = Memory.e59s48sites.filter((id) => {
+          Memory.homeSites = Memory.homeSites.filter((id) => {
             let site = Game.getObjectById(id);
             if (!site) {
               return false;
@@ -139,7 +139,7 @@ function build(creep) {
               if (target && !target.id) {
                 target = null;
                 creep.memory.buildTarget = null;
-                Memory.e59s48sites = null;
+                Memory.homeSites = null;
                 return retval;
               } else if (t) {
                 target = t;
@@ -152,13 +152,13 @@ function build(creep) {
                 targetId = target ? target.id : null;
               }
             } catch (e) {
-              Memory.e59s48sites = null;
+              Memory.homeSites = null;
             }
           }
         }
-      } else if (creep.room.name === Memory.northRoomName) {
-        if (Memory.e59s47sites || Memory.e59s47sites.length <= 0) {
-          arr = Game.rooms.E59S47.find(FIND_CONSTRUCTION_SITES, {
+      } else if (creep.room.name === Memory.southRoomName) {
+        if (Memory.southSites || Memory.southSites.length <= 0) {
+          arr = Game.rooms[Memory.southRoomName].find(FIND_CONSTRUCTION_SITES, {
             filter: (site) => {
               let prog = site.progress;
               let progTot = site.progressTotal;
@@ -180,28 +180,28 @@ function build(creep) {
           });
 
           if (arr && arr.length > 0) {
-            Memory.e59s47sites = arr.map((site) => site.id);
+            Memory.southSites = arr.map((site) => site.id);
           } else {
-            Memory.e59s47sites = null;
+            Memory.southSites = null;
           }
 
           if (!target) {
             target = arr.shift();
             creep.memory.lastBuildID = target.id;
-            Memory.e59s47sites.shift();
+            Memory.southSites.shift();
           }
         }
 
         let sites = [];
         if (!target) {
-          _.forEach(Memory.e59s47sites, (id) => {
+          _.forEach(Memory.southSites, (id) => {
             const siteObj = Game.getObjectById(id);
             if (siteObj && siteObj.progress < siteObj.progressTotal) {
               sites.push(siteObj);
             }
           });
 
-          Memory.e59s47sites = Memory.e59s47sites.filter((id) => {
+          Memory.southSites = Memory.southSites.filter((id) => {
             let site = Game.getObjectById(id);
             if (!site) {
               return false;
@@ -225,7 +225,7 @@ function build(creep) {
               if (target && !target.id) {
                 target = null;
                 creep.memory.buildTarget = null;
-                Memory.e59s47sites = null;
+                Memory.southSites = null;
                 return retval;
               } else if (t) {
                 target = t;
@@ -238,7 +238,7 @@ function build(creep) {
                 targetId = target ? target.id : null;
               }
             } catch (e) {
-              Memory.e59s47sites = null;
+              Memory.southSites = null;
             }
           }
         }

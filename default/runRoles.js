@@ -31,6 +31,7 @@ function runRoles() {
   let harvestersE59S47 = [];
   let harvestersE59S49 = [];
   let harvestersE58S49 = [];
+  let harvestersE58S48 = [];
   let pickerUppersE59S47 = [];
   let pickerUppersE59S49 = [];
   let pickerUppersE58S49 = [];
@@ -39,10 +40,12 @@ function runRoles() {
   let upControllersE59S47 = [];
   let upControllersE59S49 = [];
   let upControllersE58S49 = [];
+  let upControllersE58S48 = [];
   let roadRepairers = [];
   let roadRepairersE59S47 = [];
   let roadRepairersE59S49 = [];
   let roadRepairersE58S49 = [];
+  let roadRepairersE58S48 = [];
   let roadBuilders = [];
   let rangedAttackers = [];
   let rangedAttackersE59S47 = [];
@@ -52,6 +55,7 @@ function runRoles() {
   let attackersE59S49 = [];
   let claimers = [];
   let claimersE58S49 = [];
+  let claimersE58S48 = [];
   let linkGets = [];
   let towerHarvesters = [];
   let reservers = [];
@@ -62,6 +66,7 @@ function runRoles() {
   let creepsE59S49 = [];
   let creepsE59S47 = [];
   let creepsE58S49 = [];
+  let creepsE58S48 = [];
   let e59s48extensions = Memory.e59s48extensions;
   let e59s47extensions = Memory.e59s47extensions;
   let e59s49extensions = Memory.e59s49extensions;
@@ -743,6 +748,7 @@ function runRoles() {
   Memory.harvestersE59S47 = harvestersE59S47;
   Memory.harvestersE59S49 = harvestersE59S49;
   Memory.harvestersE58S49 = harvestersE58S49;
+  Memory.harvestersE58S48 = harvestersE58S48;
   Memory.pickerUppersE59S47 = pickerUppersE59S47;
   Memory.pickerUppersE59S49 = pickerUppersE59S49;
   Memory.pickerUppersE58S49 = pickerUppersE58S49;
@@ -751,10 +757,12 @@ function runRoles() {
   Memory.upControllersE59S47 = upControllersE59S47;
   Memory.upControllersE59S49 = upControllersE59S49;
   Memory.upControllersE58S49 = upControllersE58S49;
+  Memory.upControllersE58S48 = upControllersE58S48;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersE59S47 = roadRepairersE59S47;
   Memory.roadRepairersE59S49 = roadRepairersE59S49;
   Memory.roadRepairersE58S49 = roadRepairersE58S49;
+  Memory.roadRepairersE58S48 = roadRepairersE58S48;
   Memory.roadBuilders = roadBuilders;
   Memory.rangedAttackers = rangedAttackers;
   Memory.rangedAttackersE59S47 = rangedAttackersE59S47;
@@ -764,6 +772,7 @@ function runRoles() {
   Memory.attackersE59S49 = attackersE59S49;
   Memory.claimers = claimers;
   Memory.claimersE58S49 = claimersE58S49;
+  Memory.claimersE58S48 = claimersE58S48;
   Memory.linkGets = linkGets;
   Memory.towerHarvesters = towerHarvesters;
   Memory.viewers = viewers;
@@ -773,6 +782,7 @@ function runRoles() {
   Memory.creepsE59S49 = creepsE59S49;
   Memory.creepsE59S47 = creepsE59S47;
   Memory.creepsE58S49 = creepsE58S49;
+  Memory.creepsE58S48 = creepsE58S48;
 }
 
 runRoles = profiler.registerFN(runRoles, "runRoles");

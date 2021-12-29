@@ -91,6 +91,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let upControllers = Memory.upControllers || [];
   let upControllersE59S47 = Memory.upControllersE59S47 || [];
   let upControllersE59S49 = Memory.upControllersE59S49 || [];
+  let upControllersE58S48 = Memory.upControllersE58S48 || [];
   let roadRepairers = Memory.roadRepairers || [];
   let roadRepairersE59S47 = Memory.roadRepairersE59S47 || [];
   let roadRepairersE59S49 = Memory.roadRepairersE59S49 || [];
@@ -100,6 +101,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let claimers = Memory.claimers || [];
   let claimersE59S47 = Memory.claimersE59S47 || [];
   let claimersE59S49 = Memory.claimersE59S49 || [];
+  let claimersE58S48 = Memory.claimersE58S48 || [];
   let viewers = Memory.viewers || [];
   let viewersE59S47 = Memory.viewersE59S47 || [];
   let viewersE59S49 = Memory.viewersE59S49 || [];
@@ -118,6 +120,8 @@ function spawnCreepTypes(enAvail, spawns) {
   let creepsE59S48 = Memory.creepsE59S48 || [];
   let creepsE59S49 = Memory.creepsE59S49 || [];
   let creepsE59S47 = Memory.creepsE59S47 || [];
+  let creepsE58S48 = Memory.creepsE58S48 || [];
+  let creepsE58S49 = Memory.creepsE58S49 || [];
 
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
@@ -1871,6 +1875,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.upControllers = upControllers;
   Memory.upControllersE59S47 = upControllersE59S47;
   Memory.upControllersE59S49 = upControllersE59S49;
+  Memory.upControllersE58S48 = upControllersE58S48;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersE59S47 = roadRepairersE59S47;
   Memory.roadRepairersE59S49 = roadRepairersE59S49;
@@ -1883,11 +1888,14 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.claimers = claimers;
   Memory.claimersE59S47 = claimersE59S47;
   Memory.claimersE59S49 = claimersE59S49;
+  Memory.claimersE58S48 = claimersE58S48;
   Memory.linkGets = linkGets;
   Memory.towerHarvesters = towerHarvesters;
   Memory.creepsE59S48 = creepsE59S48;
   Memory.creepsE59S49 = creepsE59S49;
   Memory.creepsE59S47 = creepsE59S47;
+  Memory.creepsE58S49 = creepsE58S49;
+  Memory.creepsE58S48 = creepsE58S48;
 }
 spawnCreepTypes = profiler.registerFN(spawnCreepTypes, "spawnCreepTypes");
 

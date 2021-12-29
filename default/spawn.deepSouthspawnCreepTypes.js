@@ -1236,7 +1236,24 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (
+     if (harvesters.length < 12) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 12);
+      name = "h" + t;
+      chosenRole = "h";
+      direction = "south";
+      creepsE59S48.push(name);
+      harvesters.push(name);
+      retval = deepSouthbirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (
       upControllersE58S49.length < 2 &&
       e58s49Controller &&
       e58s49Controller.my // &&
@@ -1316,23 +1333,6 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       parts = pickerUpper800;
       creepsE59S49.push(name);
       pickerUppersE59S49.push(name);
-      retval = deepSouthbirthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    } else if (harvesters.length < 4) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
-      name = "h" + t;
-      chosenRole = "h";
-      direction = "south";
-      creepsE59S48.push(name);
-      harvesters.push(name);
       retval = deepSouthbirthCreep(
         spawns,
         parts,

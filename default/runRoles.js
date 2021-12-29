@@ -84,15 +84,16 @@ function runRoles() {
   let e58s48spawns = Memory.e58s48spawns;
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
-  const deepSouthRoomName = Memory.deepSouthRoomName;
+  const southRoomName = Memory.southRoomName;
   const e58s49RoomName = Memory.e58s49RoomName;
   const e58s48RoomName = Memory.e58s48RoomName;
-  const southEntrance = Game.flags.southEntrance;
+  const southToHome = Game.flags.southToHome;
   const northEntrance = Game.flags.northEntrance;
   const e58s49Entrance = Game.flags.e58s49Entrance;
   const e58s48Entrance = Game.flags.e58s48Entrance;
   const northExit = Game.flags.northExit;
   const southExit = Game.flags.southExit;
+  const homeToSouth = Game.flags.homeToSouth;
   const e58s49Exit = Game.flags.e58s49Exit;
   const e58s48Exit = Game.flags.e58s48Exit;
 
@@ -133,7 +134,7 @@ function runRoles() {
         }
 
 
-        if (creep.memory.direction === "home") {
+        if (creep.memory.direction === "shome") {
           harvesters.push(name);
           if (!shouldContinueToNextCreep) {
             ret = roleHarvester(
@@ -173,7 +174,7 @@ function runRoles() {
               southExtensions,
              southSpawns,
               southRoomName,
-              southToHome,
+              homeToSouth,
               BOTTOM
             );
 
@@ -230,7 +231,7 @@ function runRoles() {
             e58s48spawns = ret.spawns;
           }
         } else {
-          creep.memory.direction = "home";
+          creep.memory.direction = "south";
           harvesters.push(name);
         }
       } else if (roll === "pickerUpper" || roll === "pU") {

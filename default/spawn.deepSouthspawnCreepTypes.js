@@ -1216,8 +1216,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     if (
       upControllersE58S49.length < 2 &&
       e58s49Controller &&
-      e58s49Controller.my &&
-      !swAttackerId
+      e58s49Controller.my// &&
+      // !swAttackerId
     ) {
       logConditionPassedForSpawnCreep(
         "upControllersE58S49",
@@ -1240,8 +1240,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 6) {
-      logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 6);
+    } else if (harvestersE59S49.length < 8) {
+      logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 8);
       name = "hdS" + t;
       chosenRole = "h";
       directoin = "deepSouth";

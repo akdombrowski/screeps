@@ -77,7 +77,7 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
         targetRoomName,
         null,
         null,
-        null,
+        null
       );
     } else if (creep.memory.direction === "north") {
       retval = getEnergy(
@@ -86,7 +86,7 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
         targetRoomName,
         null,
         Game.flags.homeToNorth,
-        TOP,
+        TOP
       );
     } else if (creep.memory.direction === "south") {
       retval = getEnergy(
@@ -95,16 +95,16 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
         targetRoomName,
         null,
         Game.flags.homeToSouth,
-        BOTTOM,
+        BOTTOM
       );
-    } else if (creep.memory.direction === "e58s49") {
+    } else if (creep.memory.direction === "southwest") {
       retval = getEnergy(
         creep,
         targetRoomName,
         targetRoomName,
         null,
-        Game.flags.e58s49Exit,
-        LEFT,
+        Game.flags.southToSouthwest,
+        LEFT
       );
     }
     return retval;
@@ -181,7 +181,7 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
       creep.memory.repair = false;
       retval = build(creep);
     }
-  } else {
+  } else if(!creep.memory.getEnergy){
     creep.memory.build = true;
     creep.memory.repair = false;
     retval = build(creep);

@@ -29,6 +29,7 @@ function getEnergy(
   const northRoomName = Memory.northRoomName;
   const deepSouthRoomName = Memory.deepSouthRoomName;
   const e58s49RoomName = Memory.e58s49RoomName;
+  const e58s48RoomName = Memory.e58s48RoomName;
   let lastSourceId = creep.memory.lastSourceId;
   let target = Game.getObjectById(lastSourceId);
   let targetedRmName = sourceRmTargetedName;
@@ -81,8 +82,12 @@ function getEnergy(
         // if in the home room but target room is north
         exitDirection = TOP;
         exit = Game.flags.northExit;
+      } else if (targetRoomName === e58s48RoomName) {
+        // if in the home room but target room is W
+        exitDirection = LEFT;
+        exit = Game.flags.e58s48Exit;
       } else {
-        // in home room but target is not in north nor in SW,
+        // in home room but target is not in north nor SW nor W,
         // must be dS
         exitDirection = BOTTOM;
         exit = Game.flags.southExit;

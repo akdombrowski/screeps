@@ -23,17 +23,19 @@ function roleHarvester(
   const rm = creep.room;
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
-  const deepSouthRoomName = Memory.deepSouthRoomName;
-  const e58s49RoomName = Memory.e58s49RoomName;
-  const e58s48RoomName = Memory.e58s48RoomName;
-  const northEntrance = Game.flags.northEntrance;
-  const southEntrance = Game.flags.southEntrance;
-  const e58s49Entrance = Game.flags.e58s49Entrance;
+  const southRoomName = Memory.southRoomName;
+  const southwestRoomName = Memory.southwestRoomName;
+  const southeastRoomName = Memory.southeastRoomName;
+  const northeastRoomName = Memory.northeastRoomName;
+  const northeasteastRoomName = Memory.northeasteastRoomName;
+  const westRoomName = Memory.westRoomName;
+  const northToHome = Game.flags.northToHome;
+  const southToHome = Game.flags.southToHome;
+  const southwestToSouth = Game.flags.southwestToSouth;
   const e58s48Entrance = Game.flags.e58s48Entrance;
-  const northExit = Game.flags.northExit;
-  const southExit = Game.flags.southExit;
-  const e58s49Exit = Game.flags.e58s49Exit;
-  const e58s48Exit = Game.flags.e58s48Exit;
+  const homeToNorth = Game.flags.homeToNorth;
+  const homeToSouth = Game.flags.homeToSouth;
+  const southToSouthwest = Game.flags.southToSouthwest;
 
   let retval = -16;
 
@@ -65,7 +67,7 @@ function roleHarvester(
         creep,
         null,
         null,
-        deepSouthRoomName,
+        southRoomName,
         Game.flags.southEntrance,
         TOP,
         extensions,
@@ -76,7 +78,7 @@ function roleHarvester(
         creep,
         null,
         null,
-        deepSouthRoomName, // bring energy back to dS room
+        southRoomName, // bring energy back to dS room
         Game.flags.e59s49Entrance,
         RIGHT,
         extensions,
@@ -87,7 +89,7 @@ function roleHarvester(
         creep,
         null,
         null,
-        e58s48RoomName,
+        westRoomName,
         e58s48Entrance,
         RIGHT,
         extensions,
@@ -131,23 +133,23 @@ function roleHarvester(
     if (creepRoomName === northRoomName) {
       // if in the north room but target is not north, head home, the other rooms are that way
       exitDirection = BOTTOM;
-      exit = northEntrance;
-    } else if (creepRoomName === deepSouthRoomName) {
+      exit = northToHome;
+    } else if (creepRoomName === southRoomName) {
       // if in the deepSouth room but target room is not deepSouth
-      if (targetRoomName != e58s49RoomName) {
+      if (targetRoomName != southwestRoomName) {
         // if target name is not the SW room, then head north to home room
         // because target room is either north or home room and you have to go the same way to get to either
         exitDirection = TOP;
-        exit = southEntrance;
+        exit = southToHome;
       } else {
         // in deep home room but target is west of here, head left
         exitDirection = LEFT;
-        exit = e58s49Exit;
+        exit = southToSouthwest;
       }
-    } else if (creepRoomName === e58s49RoomName) {
+    } else if (creepRoomName === southwestRoomName) {
       // if in the deepSouthWest room but target room is not there, head to dS as a start
       exitDirection = RIGHT;
-      exit = e58s49Entrance;
+      exit = southwestToSouth;
     }
 
     if (creep.pos.isNearTo(exit)) {
@@ -196,52 +198,52 @@ function roleHarvester(
         northRoomName,
         null,
         null,
-        northExit,
+        homeToNorth,
         TOP,
         northRoomName
       );
-    } else if (creep.memory.direction === "deepSouth") {
+    } else if (creep.memory.direction === "south") {
       retval = getEnergy(
         creep,
-        deepSouthRoomName,
+        southRoomName,
         null,
         null,
-        southExit,
+        homeToSouth,
         BOTTOM,
-        deepSouthRoomName
+        southRoomName
       );
     } else if (creep.memory.direction === "e58s49") {
       if (Memory.creepsE59S49.length > 5) {
         retval = getEnergy(
           creep,
-          e58s49RoomName,
+          southwestRoomName,
           null,
           null,
-          e58s49Exit,
+          southToSouthwest,
           LEFT,
-          e58s49RoomName
+          southwestRoomName
         );
       } else {
         // emergency switch to harvesting in dS room
         retval = getEnergy(
           creep,
-          deepSouthRoomName,
+          southRoomName,
           null,
           null,
-          southExit,
+          homeToSouth,
           BOTTOM,
-          deepSouthRoomName
+          southRoomName
         );
       }
     } else if (creep.memory.direction === "e58s48") {
       retval = getEnergy(
         creep,
-        e58s48RoomName,
+        westRoomName,
         null,
         null,
         e58s48Exit,
         LEFT,
-        e58s48RoomName
+        westRoomName
       );
     } else {
       creep.memory.direction = "home";
@@ -250,7 +252,7 @@ function roleHarvester(
         homeRoomName,
         null,
         null,
-        northExit,
+        homeToNorth,
         TOP,
         homeRoomName
       );
@@ -267,7 +269,7 @@ function roleHarvester(
         null,
         null,
         northRoomName,
-        Game.flags.northEntrance,
+        northToHome,
         BOTTOM,
         extensions,
         spawns
@@ -280,8 +282,8 @@ function roleHarvester(
         creep,
         null,
         null,
-        deepSouthRoomName,
-        Game.flags.southEntrance,
+        southRoomName,
+        southToHome,
         TOP,
         extensions,
         spawns
@@ -291,8 +293,8 @@ function roleHarvester(
         creep,
         null,
         null,
-        deepSouthRoomName,
-        Game.flags.e59s49Entrance,
+        southRoomName,
+        e59s49Entrance,
         RIGHT,
         extensions,
         spawns
@@ -302,7 +304,7 @@ function roleHarvester(
         creep,
         null,
         null,
-        Memory.homeRoomName,
+        homeRoomName,
         null,
         null,
         extensions,

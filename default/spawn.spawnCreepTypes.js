@@ -338,7 +338,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let nAttackerId = Memory.invaderIDE59S47;
   let neAttackerId = Memory.neAttackerId;
   let dSAttackerId = Memory.invaderIDE59S49;
-  let invaderId = Memory.invaderIDE59S48;
+  let invaderId = Memory.invaderIDHome;
 
   let retval = -16;
 
@@ -489,7 +489,7 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (harvesters.length < 8) {
       logConditionPassedForSpawnCreep("harvesters", harvesters, 8);
-      logConditionPassedForSpawnCreep("creepsE59S48", creepsHome, 8);
+      logConditionPassedForSpawnCreep("creepsHome", creepsHome, 8);
       name = "h" + t;
       direction = "home";
       group = "harvesters";
@@ -571,8 +571,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (upControllers.length < 1) {
-      logConditionPassedForSpawnCreep("upControllers", upControllers, 1);
+    if (upControllers.length < 2) {
+      logConditionPassedForSpawnCreep("upControllers", upControllers, 2);
       name = "upC" + t;
       chosenRole = "upC";
       group = "upControllers";
@@ -636,7 +636,7 @@ function spawnCreepTypes(enAvail, spawns) {
       //     group
       //   );
     } else if (creepsHome.length < 12) {
-      logConditionPassedForSpawnCreep("creepsE59S48", creepsHome, 12);
+      logConditionPassedForSpawnCreep("creepsHome", creepsHome, 12);
       name = "h" + t;
       group = "harvesters";
       direction = "home";
@@ -749,9 +749,9 @@ function spawnCreepTypes(enAvail, spawns) {
   //   let group = "harvesters";
   //   let spawnDirection = [TOP];
 
-  //   if (creepsE59S48.length < 8) {
-  //     logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 8);
-  //     creepsE59S48.push(name);
+  //   if (creepshome.length < 8) {
+  //     logConditionPassedForSpawnCreep("creepshome", creepshome, 8);
+  //     creepshome.push(name);
   //     harvesters.push(name);
   //     retval = birthCreep(
   //       spawns,
@@ -806,9 +806,9 @@ function spawnCreepTypes(enAvail, spawns) {
   //       spawnDirection,
   //       group
   //     );
-  //   } else if (creepsE59S48.length < 10) {
+  //   } else if (creepshome.length < 10) {
   //     harvesters.push(name);
-  //     creepsE59S48.push(name);
+  //     creepshome.push(name);
   //     retval = birthCreep(
   //       spawns,
   //       parts,
@@ -856,7 +856,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //     name = "h" + t;
   //     chosenRole = "h";
   //     direction = "home";
-  //     creepsE59S48.push(name);
+  //     creepshome.push(name);
   //     harvesters.push(name);
   //     retval = birthCreep(
   //       spawns,
@@ -890,7 +890,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //     chosenRole = "roadRepairer";
   //     direction = "home";
   //     group = "roadRepairers";
-  //     creepsE59S48.push(name);
+  //     creepshome.push(name);
   //     roadRepairers.push(name);
   //     retval = birthCreep(
   //       spawns,
@@ -924,12 +924,12 @@ function spawnCreepTypes(enAvail, spawns) {
   //       spawnDirection,
   //       group
   //     );
-  //   } else if (creepsE59S48.length < 8) {
-  //     logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 8);
+  //   } else if (creepshome.length < 8) {
+  //     logConditionPassedForSpawnCreep("creepshome", creepshome, 8);
   //     name = "h" + t;
   //     chosenRole = "h";
   //     direction = "home";
-  //     creepsE59S48.push(name);
+  //     creepshome.push(name);
   //     harvesters.push(name);
   //     retval = birthCreep(
   //       spawns,
@@ -1001,13 +1001,13 @@ function spawnCreepTypes(enAvail, spawns) {
   //   let group = "harvesters";
   //   let spawnDirection = [TOP];
 
-  //   if (harvesters.length < 8 && creepsE59S48.length < 12) {
+  //   if (harvesters.length < 8 && creepshome.length < 12) {
   //     logConditionPassedForSpawnCreep("harvesters", harvesters, 8);
-  //     logConditionPassedForSpawnCreep("creepsE59S48", creepsE59S48, 12);
+  //     logConditionPassedForSpawnCreep("creepshome", creepshome, 12);
   //     name = "h" + t;
   //     chosenRole = "h";
   //     direction = "home";
-  //     creepsE59S48.push(name);
+  //     creepshome.push(name);
   //     harvesters.push(name);
   //     retval = birthCreep(
   //       spawns,
@@ -1026,7 +1026,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //     chosenRole = "roadRepairer";
   //     direction = "home";
   //     group = "roadRepairers";
-  //     creepsE59S48.push(name);
+  //     creepshome.push(name);
   //     roadRepairers.push(name);
   //     retval = birthCreep(
   //       spawns,
@@ -1092,7 +1092,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //   let group = "upControllersN";
   //   let spawnDirection = [TOP];
 
-  //   if (upControllersE59S47.length < 1 && creepsE59S48.length < 13) {
+  //   if (upControllersE59S47.length < 1 && creepshome.length < 13) {
   //     // when north controller is controlled change this to upControllersN
   //     logConditionPassedForSpawnCreep(
   //       "upControllersE59S47",
@@ -1348,7 +1348,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //     name = "h" + t;
   //     chosenRole = "h";
   //     direction = "home";
-  //     creepsE59S48.push(name);
+  //     creepshome.push(name);
   //     harvesters.push(name);
   //     retval = birthCreep(
   //       spawns,
@@ -1382,7 +1382,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //     chosenRole = "h";
   //     direction = "deepSouth";
   //     group = "harvestersE59S49";
-  //     creepsE59S48.push(name);
+  //     creepshome.push(name);
   //     harvestersE59S49.push(name);
   //     retval = birthCreep(
   //       spawns,
@@ -1422,7 +1422,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //     chosenRole = "roadRepairer";
   //     direction = "home";
   //     group = "roadRepairers";
-  //     creepsE59S48.push(name);
+  //     creepshome.push(name);
   //     roadRepairers.push(name);
   //     retval = birthCreep(
   //       spawns,
@@ -1461,7 +1461,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //     chosenRole = "roadRepairer";
   //     direction = "deepSouth";
   //     group = "roadRepairersE59S49";
-  //     creepsE59S48.push(name);
+  //     creepshome.push(name);
   //     roadRepairersE59S49.push(name);
   //     retval = birthCreep(
   //       spawns,

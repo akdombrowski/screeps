@@ -93,7 +93,7 @@ function roleHarvester(
         extensions,
         spawns
       );
-    } else if (creep.memory.direction === "south") {
+    } else if (creep.memory.direction === "home") {
       ret = transferEnergy(
         creep,
         null,
@@ -105,7 +105,7 @@ function roleHarvester(
         spawns
       );
     } else {
-      creep.memory.direction = "south";
+      creep.memory.direction = "home";
       ret = transferEnergy(
         creep,
         null,
@@ -129,7 +129,7 @@ function roleHarvester(
     creep.memory.transferTargetId = null;
 
     if (creepRoomName === northRoomName) {
-      // if in the north room but target is not north, head south, the other rooms are that way
+      // if in the north room but target is not north, head home, the other rooms are that way
       exitDirection = BOTTOM;
       exit = northEntrance;
     } else if (creepRoomName === deepSouthRoomName) {
@@ -140,7 +140,7 @@ function roleHarvester(
         exitDirection = TOP;
         exit = southEntrance;
       } else {
-        // in deep south room but target is west of here, head left
+        // in deep home room but target is west of here, head left
         exitDirection = LEFT;
         exit = e58s49Exit;
       }
@@ -180,7 +180,7 @@ function roleHarvester(
     creep.memory.transferTargetId = null;
     creep.memory.getEnergy = true;
 
-    if (creep.memory.direction === "south") {
+    if (creep.memory.direction === "home") {
       retval = getEnergy(
         creep,
         homeRoomName,
@@ -244,7 +244,7 @@ function roleHarvester(
         e58s48RoomName
       );
     } else {
-      creep.memory.direction = "south";
+      creep.memory.direction = "home";
       retval = getEnergy(
         creep,
         homeRoomName,
@@ -328,7 +328,7 @@ function roleHarvester(
       return { retval: retval, extensions: extensions, spawns: spawns };
     }
 
-    // if (retval !== OK && direction === "south") {
+    // if (retval !== OK && direction === "home") {
     //   creep.memory.transferTower = true;
     //   creep.memory.buildRoad = false;
 

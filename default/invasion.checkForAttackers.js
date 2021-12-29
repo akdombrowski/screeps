@@ -12,15 +12,15 @@ function checkForAttackers() {
   let nAttackDurationSafeCheck = Memory.nAttackDurationSafeCheck;
   let swAttackDurationSafeCheck = Memory.swAttackDurationSafeCheck;
   let wAttackDurationSafeCheck = Memory.wAttackDurationSafeCheck;
-  let lastCheckForInvaderTimeE59S48 = Memory.lastCheckForInvaderTimeE59S48 || 2;
+  let lastCheckForInvaderTimeHome = Memory.lastCheckForInvaderTimeHome || 2;
   let lastCheckForInvaderTimeE59S47 = Memory.lastCheckForInvaderTimeE59S47 || 2;
   let lastCheckForInvaderTimeE59S49 = Memory.lastCheckForInvaderTimeE59S49 || 2;
   let lastCheckForInvaderTimeE58S49 = Memory.lastCheckForInvaderTimeE58S49 || 2;
   let lastCheckForInvaderTimeE58S48 = Memory.lastCheckForInvaderTimeE58S48 || 2;
 
-  Memory.invaderIDE59S48 = findInvaders(
+  Memory.invaderIDHome = findInvaders(
     homeRoom,
-    lastCheckForInvaderTimeE59S48,
+    lastCheckForInvaderTimeHome,
     attackDurationSafeCheck
   );
 

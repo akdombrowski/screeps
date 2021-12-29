@@ -563,7 +563,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //        #  #     #  #     #
   //  #     #   #   #    #   #
   //   #####     ###      ###
-  if (enAvail >= 300 && !invaderId && creepsHome.length < 30) {
+  if (enAvail >= 300 && !invaderId && creepsHome.length < 20) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "home";
@@ -574,7 +574,7 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (upControllers.length < 2) {
       logConditionPassedForSpawnCreep("upControllers", upControllers, 2);
-      logConditionPassedForSpawnCreep("creepsHome", creepsHome, 30);
+      logConditionPassedForSpawnCreep("creepsHome", creepsHome, 20);
       name = "upC" + t;
       chosenRole = "upC";
       group = "upControllers";
@@ -639,7 +639,7 @@ function spawnCreepTypes(enAvail, spawns) {
       //   );
     } else {
       console.log("300 else condition");
-      logConditionPassedForSpawnCreep("creepsHome", creepsHome, 30);
+      logConditionPassedForSpawnCreep("creepsHome", creepsHome, 20);
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";

@@ -726,7 +726,7 @@ function northSpawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [LEFT];
 
     if (creepsE59S47.length < 9) {
-      logConditionPassedForSpawnCreep("creepsE59S47", creepsE59S47, 11);
+      logConditionPassedForSpawnCreep("creepsE59S47", creepsE59S47, 9);
       creepsE59S47.push(name);
       roadRepairersE59S47.push(name);
       retval = northBirthCreep(
@@ -824,6 +824,24 @@ function northSpawnCreepTypes(enAvail, spawns) {
       direction = "south";
       creepsE59S48.push(name);
       harvesters.push(name);
+      retval = northBirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (harvestersE59S47.length < 8) {
+      logConditionPassedForSpawnCreep("harvestersE59S47", harvestersE59S47, 8);
+      name = "hN" + t;
+      chosenRole = "h";
+      direction = "north";
+      group = "harvestersE59S47";
+      creepsE59S47.push(name);
+      harvestersE59S47.push(name);
       retval = northBirthCreep(
         spawns,
         parts,

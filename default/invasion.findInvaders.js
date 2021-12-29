@@ -6,72 +6,73 @@ function findInvaders(
   lastCheckForInvaderTime,
   attackerCheckWaitTime
 ) {
-  let invaderId = null;
-  const targetRoomName = targetRoom.name;
+  if (targetRoom) {
+    let invaderId = null;
+    const targetRoomName = targetRoom.name;
 
-  if (
-    targetRoom &&
-    Game.time >= lastCheckForInvaderTime + attackerCheckWaitTime
-  ) {
-    invaderId = getAttackEvents(targetRoom);
-    if (!invaderId) {
-      let enemyCreeps = targetRoom.find(FIND_HOSTILE_CREEPS);
+    if (Game.time >= lastCheckForInvaderTime + attackerCheckWaitTime) {
+      invaderId = getAttackEvents(targetRoom);
+      if (!invaderId) {
+        let enemyCreeps = targetRoom.find(FIND_HOSTILE_CREEPS);
 
-      if (enemyCreeps.length <= 0) {
-        enemyCreeps = targetRoom.find(FIND_HOSTILE_STRUCTURES);
-      }
-
-      if (enemyCreeps.length <= 0) {
-        enemyCreeps = targetRoom.find(FIND_HOSTILE_SPAWNS);
-      }
-
-      if (enemyCreeps) {
-        let enemyCreep = null;
-        if (enemyCreeps.length > 1) {
-          enemyCreeps.sort((firstEl, secondEl) => {
-            if (
-              firstEl.getActiveBodyparts(HEAL) >
-              secondEl.getActiveBodyparts(HEAL)
-            ) {
-              return -1;
-            } else {
-              return 1;
-            }
-          });
-          enemyCreep = enemyCreeps.shift();
-        } else {
-          // will be undefined if array is empty
-          enemyCreep = enemyCreeps.pop();
+        if (enemyCreeps.length <= 0) {
+          enemyCreeps = targetRoom.find(FIND_HOSTILE_STRUCTURES);
         }
 
-        if (enemyCreep) {
-          invaderId = enemyCreep.id;
+        if (enemyCreeps.length <= 0) {
+          enemyCreeps = targetRoom.find(FIND_HOSTILE_SPAWNS);
+        }
+
+        if (enemyCreeps) {
+          let enemyCreep = null;
+          if (enemyCreeps.length > 1) {
+            enemyCreeps.sort((firstEl, secondEl) => {
+              if (
+                firstEl.getActiveBodyparts(HEAL) >
+                secondEl.getActiveBodyparts(HEAL)
+              ) {
+                return -1;
+              } else {
+                return 1;
+              }
+            });
+            enemyCreep = enemyCreeps.shift();
+          } else {
+            // will be undefined if array is empty
+            enemyCreep = enemyCreeps.pop();
+          }
+
+          if (enemyCreep) {
+            invaderId = enemyCreep.id;
+          }
         }
       }
+
+      Memory["invaderID" + targetRoomName] = invaderId;
+      Memory["lastCheckForInvaderTime" + targetRoomName] = Game.time;
+      if (invaderId) {
+        const invader = Game.getObjectById(invaderId);
+        const healthPercent = ((invader.hits / invader.hitsMax) * 100).toFixed(
+          2
+        );
+
+        console.log("invader" + targetRoomName + ": " + invaderId);
+        console.log(
+          "health: " +
+            invader.hits +
+            "/" +
+            invader.hitsMax +
+            " " +
+            healthPercent +
+            "%"
+        );
+        return invaderId;
+      }
     }
-
-    Memory["invaderID" + targetRoomName] = invaderId;
-    Memory["lastCheckForInvaderTime" + targetRoomName] = Game.time;
-    if (invaderId) {
-      const invader = Game.getObjectById(invaderId);
-      const healthPercent = ((invader.hits / invader.hitsMax) * 100).toFixed(2);
-
-      console.log("invader" + targetRoomName + ": " + invaderId);
-      console.log(
-        "health: " +
-          invader.hits +
-          "/" +
-          invader.hitsMax +
-          " " +
-          healthPercent +
-          "%"
-      );
-    }
-
-    return invaderId;
+    return Memory["invaderID" + targetRoomName];
   }
 
-  return Memory["invaderID" + targetRoomName];
+  return null;
 }
 exports.findInvaders = findInvaders;
 findInvaders = profiler.registerFN(findInvaders, "findInvaders");

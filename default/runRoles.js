@@ -174,8 +174,7 @@ function runRoles() {
         } else if (creep.memory.direction === "e58s49") {
           harvestersE58S49.push(name);
           if (
-            Memory.creepsE59S49.length < 3 &&
-            Game.rooms[Memory.deepSouthRoomName].energyAvailable > 800
+            Memory.creepsE59S49.length > 5
           ) {
             if (!shouldContinueToNextCreep) {
               ret = roleHarvester(

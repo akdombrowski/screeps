@@ -198,8 +198,7 @@ function roleHarvester(
       );
     } else if (creep.memory.direction === "e58s49") {
       if (
-        Memory.creepsE59S49.length < 3 &&
-        Game.rooms[Memory.deepSouthRoomName].energyAvailable > 800
+        Memory.creepsE59S49.length > 5
       ) {
         retval = getEnergy(
           creep,

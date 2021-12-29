@@ -1183,7 +1183,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (upControllersE58S49.length < 2 && e58s49Controller && e58s49Controller.my) {
+    if (
+      upControllersE58S49.length < 2 &&
+      e58s49Controller &&
+      e58s49Controller.my
+    ) {
       logConditionPassedForSpawnCreep(
         "upControllersE58S49",
         upControllersE58S49,
@@ -1195,6 +1199,29 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       parts = upContrParts800;
       creepsE58S49.push(name);
       upControllersE58S49.push(name);
+      retval = deepSouthbirthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (roadRepairersE58S49.length < 3) {
+      logConditionPassedForSpawnCreep(
+        "roadRepairersE58S49",
+        roadRepairersE58S49,
+        3
+      );
+      parts = workerParts800;
+      name = "rRSW" + t;
+      chosenRole = "roadRepairer";
+      direction = "e58s49";
+      group = "roadRepairersE58S49";
+      creepsE58S49.push(name);
+      roadRepairersE58S49.push(name);
       retval = deepSouthbirthCreep(
         spawns,
         parts,

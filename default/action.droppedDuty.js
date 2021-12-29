@@ -17,7 +17,7 @@ function pickupDroppedEnergyOrWithdrawFromTombstone(
       droppedTarget = null;
     }
 
-    if(droppedTarget.store && droppedTarget.store[RESOURCE_ENERGY] < minAmountOfResource) {
+    if(droppedTarget && droppedTarget.store && droppedTarget.store[RESOURCE_ENERGY] < minAmountOfResource) {
       droppedTarget = null;
     }
   }

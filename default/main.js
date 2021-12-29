@@ -92,6 +92,7 @@ module.exports.loop = function () {
     Memory.attackDurationSafeCheck = 5;
     Memory.nAttackDurationSafeCheck = 10;
     Memory.dSAttackDurationSafeCheck = 2;
+    Memory.swAttackDurationSafeCheck = 10;
 
     checkForAttackers();
 

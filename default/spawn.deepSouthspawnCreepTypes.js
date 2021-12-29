@@ -1333,11 +1333,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (pickerUppersE59S49.length < 2) {
+    } else if (pickerUppersE59S49.length < 1) {
       logConditionPassedForSpawnCreep(
         "pickerUppersE59S49",
         pickerUppersE59S49,
-        2
+        1
       );
       name = "pUdS" + t;
       chosenRole = "pickerUpper";

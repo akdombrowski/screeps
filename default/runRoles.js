@@ -32,6 +32,7 @@ function runRoles() {
   let harvestersE59S49 = [];
   let harvestersE58S49 = [];
   let harvestersE58S48 = [];
+  let pickerUppersHome = [];
   let pickerUppersE59S47 = [];
   let pickerUppersE59S49 = [];
   let pickerUppersE58S49 = [];
@@ -62,17 +63,17 @@ function runRoles() {
   let viewers = [];
   let viewersE59S47 = [];
   let viewersE59S49 = [];
-  let creepsE59S48 = [];
+  let creepsHome = [];
   let creepsE59S49 = [];
   let creepsE59S47 = [];
   let creepsE58S49 = [];
   let creepsE58S48 = [];
-  let e59s48extensions = Memory.e59s48extensions;
+  let homeExtensions = Memory.homeExtensions;
   let e59s47extensions = Memory.e59s47extensions;
   let e59s49extensions = Memory.e59s49extensions;
   let e58s49extensions = Memory.e58s49extensions;
   let e58s48extensions = Memory.e58s48extensions;
-  let e59s48spawns = Memory.e59s48spawns;
+  let homeSpawns = Memory.homeSpawns;
   let e59s47spawns = Memory.e59s47spawns;
   let e59s49spawns = Memory.e59s49spawns;
   let e58s49spawns = Memory.e58s49spawns;
@@ -109,13 +110,13 @@ function runRoles() {
     ({
       retval,
       shouldContinueToNextCreep,
-      creepsE59S48,
+      creepsE59S48: creepsHome,
       creepsE59S49,
       creepsE59S47,
       creepsE58S49,
     } = setCreepRoomArrayAndAvoidInvaders(
       creep,
-      creepsE59S48,
+      creepsHome,
       creepsE59S49,
       creepsE59S47,
       creepsE58S49
@@ -127,20 +128,37 @@ function runRoles() {
           creep.memory.getEnergy = true;
         }
 
-        if (creep.memory.direction === "south") {
+        harvesters.push(name);
+        if (!shouldContinueToNextCreep) {
+          ret = roleHarvester(
+            creep,
+            homeExtensions,
+            homeSpawns,
+            Memory.homeRoomName,
+            northEntrance,
+            BOTTOM
+          );
+
+          homeExtensions = ret.extensions;
+          homeSpawns = ret.spawns;
+          retval = ret.retval;
+        }
+        continue;
+
+        if (creep.memory.direction === "home") {
           harvesters.push(name);
           if (!shouldContinueToNextCreep) {
             ret = roleHarvester(
               creep,
-              e59s48extensions,
-              e59s48spawns,
+              homeExtensions,
+              homeSpawns,
               "E59S48",
               northEntrance,
               BOTTOM
             );
 
-            e59s48extensions = ret.extensions;
-            e59s48spawns = ret.spawns;
+            homeExtensions = ret.extensions;
+            homeSpawns = ret.spawns;
             retval = ret.retval;
           }
         } else if (creep.memory.direction === "north") {
@@ -224,7 +242,7 @@ function runRoles() {
             e58s48spawns = ret.spawns;
           }
         } else {
-          creep.memory.direction = "south";
+          creep.memory.direction = "home";
           harvesters.push(name);
         }
       } else if (roll === "pickerUpper" || roll === "pU") {
@@ -232,8 +250,8 @@ function runRoles() {
           creep.memory.getEnergy = true;
         }
 
-        if (creep.memory.direction === "south") {
-          pickerUppersE59S48.push(name);
+        if (creep.memory.direction === "home") {
+          pickerUppersHome.push(name);
           if (!shouldContinueToNextCreep) {
             if (creep.room.name === deepSouthRoomName) {
               retval = roleHarvesterPickerUpper(
@@ -241,8 +259,8 @@ function runRoles() {
                 homeRoomName,
                 TOP,
                 southEntrance,
-                e59s48extensions,
-                e59s48spawns
+                homeExtensions,
+                homeSpawns
               );
             } else if (creep.room.name === northRoomName) {
               retval = roleHarvesterPickerUpper(
@@ -250,8 +268,8 @@ function runRoles() {
                 homeRoomName,
                 BOTTOM,
                 northEntrance,
-                e59s48extensions,
-                e59s48spawns
+                homeExtensions,
+                homeSpawns
               );
             } else {
               retval = roleHarvesterPickerUpper(
@@ -259,8 +277,8 @@ function runRoles() {
                 homeRoomName,
                 TOP,
                 southEntrance,
-                e59s48extensions,
-                e59s48spawns
+                homeExtensions,
+                homeSpawns
               );
             }
           }
@@ -379,8 +397,8 @@ function runRoles() {
             }
           }
         } else {
-          creep.memory.direction = "south";
-          pickerUppersE59S48.push(name);
+          creep.memory.direction = "home";
+          pickerUppersHome.push(name);
           retval = -16;
         }
       } else if (roll && roll.startsWith("linkGet")) {
@@ -443,7 +461,7 @@ function runRoles() {
           }
         }
       } else if (roll === "viewer") {
-        if (creep.memory.direction.startsWith("s")) {
+        if (creep.memory.direction === "home") {
           viewersE59S48.push(name);
           if (!shouldContinueToNextCreep) {
             roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
@@ -473,14 +491,14 @@ function runRoles() {
         if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
           creep.memory.up = true;
         }
-        if (creep.memory.direction === "south") {
+        if (creep.memory.direction === "home") {
           upControllers.push(name);
         } else if (creep.memory.direction === "deepSouth") {
           upControllersE59S49.push(name);
         } else if (creep.memory.direction === "north") {
           upControllersE59S47.push(name);
         } else {
-          creep.memory.direction = "south";
+          creep.memory.direction = "home";
 
           upControllers.push(name);
         }
@@ -488,11 +506,11 @@ function runRoles() {
         if (!shouldContinueToNextCreep) {
           upController(
             creep,
-            Game.flags.e59s48controller,
+            Game.flags.homeRoomController,
             Memory.homeRoomName,
             null,
             null,
-            "59bbc5d22052a716c3cea137"
+            "5982fc8cb097071b4adbdb39"
           );
         }
       } else if (
@@ -534,7 +552,7 @@ function runRoles() {
               "59bbc5c12052a716c3ce9faa"
             );
           }
-        } else if (creep.memory.direction === "south") {
+        } else if (creep.memory.direction === "home") {
           upControllersE59S48.push(name);
 
           creep.memory.controllerID = "59bbc5d22052a716c3cea133";
@@ -551,7 +569,7 @@ function runRoles() {
           }
         } else {
           upControllersE59S48.push(name);
-          creep.memory.direction = "south";
+          creep.memory.direction = "home";
           creep.memory.controllerID = "59bbc5d22052a716c3cea133";
 
           if (!shouldContinueToNextCreep) {
@@ -812,6 +830,7 @@ function runRoles() {
   Memory.harvestersE59S49 = harvestersE59S49;
   Memory.harvestersE58S49 = harvestersE58S49;
   Memory.harvestersE58S48 = harvestersE58S48;
+  Memory.pickerUppersHome = pickerUppersHome;
   Memory.pickerUppersE59S47 = pickerUppersE59S47;
   Memory.pickerUppersE59S49 = pickerUppersE59S49;
   Memory.pickerUppersE58S49 = pickerUppersE58S49;
@@ -841,7 +860,7 @@ function runRoles() {
   Memory.viewers = viewers;
   Memory.viewersE59S47 = viewersE59S47;
   Memory.viewersE59S49 = viewersE59S49;
-  Memory.creepsE59S48 = creepsE59S48;
+  Memory.creepsHome = creepsHome;
   Memory.creepsE59S49 = creepsE59S49;
   Memory.creepsE59S47 = creepsE59S47;
   Memory.creepsE58S49 = creepsE58S49;

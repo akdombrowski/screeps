@@ -6,8 +6,8 @@ const {
   memoryE59S47ExtensionsRefresh,
 } = require("./getEnergy.memoryE59S47ExtensionsRefresh");
 const {
-  memoryE59S48ExtensionsRefresh,
-} = require("./getEnergy.memoryE59S48ExtensionsRefresh");
+  memoryHomeExtensionsRefresh,
+} = require("./getEnergy.memoryHomeExtensionsRefresh");
 const {
   memoryE58S49ExtensionsRefresh,
 } = require("./getEnergy.memoryE58S49ExtensionsRefresh");
@@ -17,7 +17,7 @@ function checkForExtensions(targetRoomName, creep, extensions) {
 
   switch (targetRoomName) {
     case Memory.homeRoomName:
-      exts = memoryE59S48ExtensionsRefresh(creep, extensions);
+      exts = memoryHomeExtensionsRefresh(creep, extensions);
       break;
     case Memory.northRoomName:
       exts = memoryE59S47ExtensionsRefresh(creep, extensions);
@@ -29,7 +29,7 @@ function checkForExtensions(targetRoomName, creep, extensions) {
       exts = memoryE58S49ExtensionsRefresh(creep, extensions);
       break;
     default:
-      exts = memoryE59S48ExtensionsRefresh(creep, extensions);
+      exts = memoryHomeExtensionsRefresh(creep, extensions);
       break;
   }
   return exts;

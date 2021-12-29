@@ -78,7 +78,7 @@ function roleHarvesterPickerUpper(
   if (creepRoomName != targetRoomName) {
     // creep is not in the target room
     if (creepRoomName === northRoomName) {
-      // if in the north room but target is not north, head south
+      // if in the north room but target is not north, head home
       exitDirection = BOTTOM;
       exit = northEntrance;
     } else if (creepRoomName === deepSouthRoomName) {
@@ -92,7 +92,7 @@ function roleHarvesterPickerUpper(
         exitDirection = TOP;
         exit = southEntrance;
       } else if (targetRoomName === e58s49RoomName) {
-        // in deep south room but target is west of here, head left
+        // in deep home room but target is west of here, head left
         exitDirection = LEFT;
         exit = e58s49Exit;
       }

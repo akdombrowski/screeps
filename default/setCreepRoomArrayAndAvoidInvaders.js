@@ -3,7 +3,7 @@ const flee = require("./move.flee");
 
 function setCreepRoomArrayAndAvoidInvaders(
   creep,
-  creepsE59S48,
+  creepsHome,
   creepsE59S49,
   creepsE59S47,
   creepsE58S49,
@@ -14,8 +14,8 @@ function setCreepRoomArrayAndAvoidInvaders(
   let retval = -16;
   let shouldContinueToNextCreep = false;
 
-  if (direction === "south") {
-    creepsE59S48.push(creep.name);
+  if (direction === "home") {
+    creepsHome.push(creep.name);
 
     let invader = Game.getObjectById(Memory.invaderIDE59S48);
 
@@ -74,7 +74,7 @@ function setCreepRoomArrayAndAvoidInvaders(
   return {
     retval: retval,
     shouldContinueToNextCreep: shouldContinueToNextCreep,
-    creepsE59S48: creepsE59S48,
+    creepsE59S48: creepsHome,
     creepsE59S49: creepsE59S49,
     creepsE59S47: creepsE59S47,
     creepsE58S49: creepsE58S49,

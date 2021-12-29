@@ -52,7 +52,7 @@ function getEnergy(
 
   if (!target && creepRoomName != targetRoomName) {
     if (targetRoomName != northRoomName && creepRoomName === northRoomName) {
-      // if in the north room but target is not north, head south
+      // if in the north room but target is not north, head home
       exitDirection = BOTTOM;
       exit = Game.flags.northEntrance;
     } else if (
@@ -75,7 +75,7 @@ function getEnergy(
       creepRoomName === homeRoomName
     ) {
       if (targetRoomName === e58s49RoomName) {
-        // in home room but need to get to SW, go south first
+        // in home room but need to get to SW, go home first
         exitDirection = BOTTOM;
         exit = Game.flags.southExit;
       } else if (targetRoomName === northRoomName) {

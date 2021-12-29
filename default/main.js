@@ -22,8 +22,8 @@ const { towersAttackInvader } = require("./tower.attackInvader");
 const { reCheckNumOfCreeps } = require("./utilities.reCheckNumOfCreeps");
 const { towerRepair } = require("./tower.repair");
 const {
-  memoryE59S48ExtensionsRefresh,
-} = require("./getEnergy.memoryE59S48ExtensionsRefresh");
+  memoryHomeExtensionsRefresh,
+} = require("./getEnergy.memoryHomeExtensionsRefresh");
 const {
   memoryE59S47ExtensionsRefresh,
 } = require("./getEnergy.memoryE59S47ExtensionsRefresh");
@@ -60,7 +60,7 @@ module.exports.loop = function () {
     // Memory.northRoom = northRoom;
     // let deepSouthRoom = deepSouthS1.room;
     // Memory.deepSouthRoom = null;
-    // Memory.homeRoomName = "E59S48";
+    Memory.homeRoomName = "W33N29";
     // Memory.northRoomName = "E59S47";
     // Memory.deepSouthRoomName = "E59S49";
     // Memory.e58s49RoomName = "E58S49";
@@ -69,14 +69,14 @@ module.exports.loop = function () {
     // Memory.northControllerID = "59bbc5d22052a716c3cea133";
     // Memory.e58s49ControllerID = "59bbc5c12052a716c3ce9faa";
 
-    // // let enAvail = rm.energyAvailable;
-    // // let enCapRm = rm.energyCapacityAvailable;
+    let enAvail = rm.energyAvailable;
+    let enCapRm = rm.energyCapacityAvailable;
     // let northEnAvail = northRoom.energyAvailable;
     // let northEnCapRm = northRoom.energyCapacityAvailable;
     // let deepSouthEnAvail = deepSouthRoom.energyAvailable;
     // let deepSouthEnCapRm = deepSouthRoom.energyCapacityAvailable;
-    // Memory.enAvail = enAvail;
-    // Memory.enCapRm = enCapRm;
+    Memory.enAvail = enAvail;
+    Memory.enCapRm = enCapRm;
     // Memory.northEnAvail = northEnAvail;
     // Memory.northEnCapRoom = northEnCapRm;
     // Memory.deepSouthEnAvail = deepSouthEnAvail;
@@ -181,21 +181,21 @@ module.exports.loop = function () {
     // northSpawnCreepTypes(northEnAvail, [northS1]);
     // deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);
 
-    // // if (Game.time % 20) {
-    // //   memoryE59S48ExtensionsRefresh();
+    if (Game.time % 20) {
+      Memory.homeExtensions = memoryHomeExtensionsRefresh();
 
     // //   memoryE59S47ExtensionsRefresh();
 
     // //   memoryE59S49ExtensionsRefresh();
-    // // }
+    }
 
-    // // if (Game.time % 20) {
-    // //   memoryE59S48SpawnsRefresh();
+    if (Game.time % 20) {
+      memoryE59S48SpawnsRefresh();
 
     // //   memoryE59S47SpawnsRefresh();
 
     // //   memoryE59S49SpawnsRefresh();
-    // // }
+    }
 
     // // if (Game.cpu.bucket > 30) {
     // //   linkTransfer(linkSpawn, slinkMiddle);
@@ -204,12 +204,12 @@ module.exports.loop = function () {
     // //   console.log("low cpu bucket: " + Game.cpu.bucket);
     // // }
 
-    // if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 10) * 9) {
-    //   return;
-    // }
+    if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 10) * 9) {
+      return;
+    }
 
-    // let rooms = [rm, deepSouthRoom];
-    // checkProgress(numCrps, rooms, 3600);
+    let rooms = [rm];
+    checkProgress(numCrps, rooms, 3600);
   });
 
   // Profiler stats

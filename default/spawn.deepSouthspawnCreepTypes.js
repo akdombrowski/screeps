@@ -1263,8 +1263,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE59S49.length < 8) {
-      logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 8);
+    } else if (harvestersE59S49.length < 9) {
+      logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 9);
       name = "hdS" + t;
       chosenRole = "h";
       directoin = "deepSouth";
@@ -1281,11 +1281,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairersE58S49.length < 3 && !swAttackerId) {
+    } else if (roadRepairersE58S49.length < 5 && !swAttackerId) {
       logConditionPassedForSpawnCreep(
         "roadRepairersE58S49",
         roadRepairersE58S49,
-        3
+        5
       );
       parts = workerParts800;
       name = "rRSW" + t;
@@ -1304,11 +1304,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (pickerUppersE59S49.length < 1) {
+    } else if (pickerUppersE59S49.length < 2) {
       logConditionPassedForSpawnCreep(
         "pickerUppersE59S49",
         pickerUppersE59S49,
-        1
+        2
       );
       name = "pUdS" + t;
       chosenRole = "pickerUpper";
@@ -1343,8 +1343,8 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersE58S49.length < 2 && !swAttackerId) {
-      logConditionPassedForSpawnCreep("harvestersE58S49", harvestersE58S49, 2);
+    } else if (harvestersE58S49.length < 4 && !swAttackerId) {
+      logConditionPassedForSpawnCreep("harvestersE58S49", harvestersE58S49, 4);
       name = "hSW" + t;
       group = "harvestersE58S49";
       direction = "e58s49";
@@ -1384,11 +1384,11 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (upControllersE59S49.length < 2) {
+    } else if (upControllersE59S49.length < 5) {
       logConditionPassedForSpawnCreep(
         "upControllersE59S49",
         upControllersE59S49,
-        2
+        5
       );
       name = "upCdS" + t;
       chosenRole = "upCdS";

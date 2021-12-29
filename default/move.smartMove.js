@@ -29,9 +29,9 @@ function smartMove(
   flee,
   fleeFromCreeps
 ) {
-if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 100) * 50) {
-  return -17;
-}
+  if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 100) * 50) {
+    return -17;
+  }
 
   let s;
   let retval = -16;
@@ -251,5 +251,3 @@ if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 100) * 50) {
 
 smartMove = profiler.registerFN(smartMove, "smartMove");
 module.exports = smartMove;
-
-

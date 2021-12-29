@@ -434,7 +434,7 @@ function getEnergy(
         //     creep.pos
         // );
 
-        creep.say("v💩");
+        creep.say("v." + retval + "💩");
       }
     } else {
       creep.memory.lastSourceId = null;

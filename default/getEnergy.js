@@ -108,10 +108,7 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
 
     return retval;
   }
-  if (name.endsWith("46080")) {
-    console.log(name + " target: " + target);
-    console.log(name + " lastSourceId: " + creep.memory.lastSourceId);
-  }
+
   if (
     !target ||
     (target &&
@@ -351,10 +348,6 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
     }
   }
 
-  if (target && name.endsWith("46080")) {
-    console.log(name + " target2: " + target);
-  }
-
   if (target) {
     if (target instanceof String || target instanceof Number) {
       target = Game.getObjectById(target);
@@ -371,9 +364,6 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
     if (target) {
       // If I have a target, go harvest it.
       creep.memory.lastSourceId = target.id;
-      if (target && name.endsWith("46080")) {
-        console.log(name + " lastSourceId: " + creep.memory.lastSourceId);
-      }
 
       if (target.structureType) {
         isTargetStructure = true;
@@ -464,9 +454,7 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
     // console.log(name + " getEnergy sad, no target");
     creep.say("v😭");
   }
-if (name.endsWith("46080")) {
-  console.log(name + " lastSourceId2: " + creep.memory.lastSourceId);
-}
+
   return retval;
 }
 

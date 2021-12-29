@@ -18,17 +18,10 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
   let mem_getEnergy = creep.memory.getEnergy;
   let target = Game.getObjectById(lastRepairableStructId);
 
-  if (name.endsWith("46080")) {
-    console.log(name + " lastSourceId7: " + creep.memory.lastSourceId);
-  }
   if (target) {
     if (!target.progress || target.progress >= target.progressTotal) {
       target = null;
     }
-  }
-
-  if (name.endsWith("46080")) {
-    console.log(name + " lastSourceId8: " + creep.memory.lastSourceId);
   }
 
   if (!target) {
@@ -61,11 +54,6 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
     }
   }
 
-  if (name.endsWith("46080")) {
-    console.log(name + " energy: " + creep.store[RESOURCE_ENERGY]);
-    console.log(name + " repair: " + creep.memory.repair);
-  }
-
   if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
     mem_repair = true;
     creep.memory.build = false;
@@ -82,9 +70,6 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
     creep.say("v");
 
     if (creep.memory.direction === "home") {
-      if (name.endsWith("46080")) {
-        console.log(name + " lastSourceId0: " + creep.memory.lastSourceId);
-      }
       retval = getEnergy(
         creep,
         targetRoomName,
@@ -93,9 +78,6 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
         null,
         null
       );
-      if (name.endsWith("46080")) {
-        console.log(name + " lastSourceId3: " + creep.memory.lastSourceId);
-      }
     } else if (creep.memory.direction === "north") {
       retval = getEnergy(
         creep,
@@ -123,10 +105,6 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
         Game.flags.southToSouthwest,
         LEFT
       );
-    }
-
-    if (name.endsWith("46080")) {
-      console.log(name + " lastSourceId4: " + creep.memory.lastSourceId);
     }
 
     return retval;
@@ -211,9 +189,6 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
     retval = build(creep);
   }
 
-  if (name.endsWith("46080")) {
-    console.log(name + " lastSourceId5: " + creep.memory.lastSourceId);
-  }
   return retval;
 }
 

@@ -1230,7 +1230,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
   if (enAvail >= 800 && !Memory.dSAttackerId) {
     let name = "h" + t;
     let chosenRole = "h";
-    let direction = "north";
+    let direction = "deepSouth";
     let sourceId = Memory.source2;
     let parts = harvesterParts800;
     let group = "harvesters";
@@ -1240,7 +1240,7 @@ function deepSouthspawnCreepTypes(enAvail, spawns) {
       logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 8);
       name = "hdS" + t;
       chosenRole = "h";
-      directoin = "deepSouth";
+      direction = "deepSouth";
       group = "harvestersE59S49";
       creepsE59S49.push(name);
       harvestersE59S49.push(name);

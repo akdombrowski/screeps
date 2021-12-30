@@ -31,8 +31,8 @@ const {
   memoryE59S49ExtensionsRefresh,
 } = require("./getEnergy.memoryE59S49ExtensionsRefresh");
 const {
-  memoryE59S48SpawnsRefresh,
-} = require("./getEnergy.memoryE59S48SpawnsRefresh");
+  memoryHomeSpawnsRefresh,
+} = require("./getEnergy.memoryHomeSpawnsRefresh");
 const {
   memoryE59S47SpawnsRefresh,
 } = require("./getEnergy.memoryE59S47SpawnsRefresh");
@@ -195,17 +195,17 @@ module.exports.loop = function () {
         Memory.homeExtensions
       );
 
-    // //   memoryE59S47ExtensionsRefresh();
+      // //   memoryE59S47ExtensionsRefresh();
 
-    // //   memoryE59S49ExtensionsRefresh();
+      // //   memoryE59S49ExtensionsRefresh();
     }
 
     if (Game.time % 20) {
-      memoryE59S48SpawnsRefresh();
+      memoryHomeSpawnsRefresh(null, Memory.homeSpawns);
 
-    // //   memoryE59S47SpawnsRefresh();
+      // //   memoryE59S47SpawnsRefresh();
 
-    // //   memoryE59S49SpawnsRefresh();
+      // //   memoryE59S49SpawnsRefresh();
     }
 
     // // if (Game.cpu.bucket > 30) {

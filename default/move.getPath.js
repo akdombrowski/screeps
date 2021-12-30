@@ -72,20 +72,22 @@ function getPath(
       if (!room) return;
       let costs = new PathFinder.CostMatrix();
 
-      room.find(FIND_STRUCTURES).forEach(function (struct) {
-        if (struct.structureType === STRUCTURE_ROAD) {
-          // Favor roads over plain tiles
-          costs.set(struct.pos.x, struct.pos.y, 1);
-        } else if (
-          struct.structureType !== STRUCTURE_CONTAINER &&
-          (struct.structureType !== STRUCTURE_RAMPART || !struct.my)
-        ) {
-          // Can't walk through non-walkable buildings
-          costs.set(struct.pos.x, struct.pos.y, 0xff);
-        }
+      room.find(FIND_STRUCTURES, {
+        filter: (struct) => {
+          if (struct.structureType === STRUCTURE_ROAD) {
+            // Favor roads over plain tiles
+            costs.set(struct.pos.x, struct.pos.y, 0);
+          } else if (
+            struct.structureType !== STRUCTURE_CONTAINER &&
+            !(struct.structureType === STRUCTURE_RAMPART && struct.my)
+          ) {
+            // Can't walk through non-walkable buildings
+            costs.set(struct.pos.x, struct.pos.y, 0xff);
+          }
+        },
       });
 
-      if (ignoreCreeps) {
+      if (!ignoreCreeps) {
         let creepArr = creepPos.findInRange(FIND_CREEPS, 3);
         // Avoid creeps in the room
         for (const c of creepArr) {

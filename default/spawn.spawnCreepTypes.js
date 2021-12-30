@@ -107,6 +107,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let claimersE59S49 = Memory.claimersE59S49 || [];
   let claimersE58S48 = Memory.claimersE58S48 || [];
   let viewers = Memory.viewers || [];
+  let viewersSouth = Memory.viewersSouth || [];
   let viewersE59S47 = Memory.viewersE59S47 || [];
   let viewersE59S49 = Memory.viewersE59S49 || [];
   let rangedAttackers = Memory.rangedAttackers || [];
@@ -1993,6 +1994,7 @@ function spawnCreepTypes(enAvail, spawns) {
   // }
 
   Memory.viewers = viewers;
+  Memory.viewersSouth = viewersSouth;
   Memory.viewersE59S47 = viewersE59S47;
   Memory.viewersE59S49 = viewersE59S49;
   Memory.roadBuilders = roadBuilders;

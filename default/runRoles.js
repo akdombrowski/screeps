@@ -409,15 +409,15 @@ function runRoles() {
           if (!shouldContinueToNextCreep) {
             roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
           }
-        } else if (creep.memory.direction.startsWith("deepSouth")) {
-          viewersE59S49.push(name);
+        } else if (creep.memory.direction === ("south")) {
+          viewersSouth.push(name);
           if (!shouldContinueToNextCreep) {
             roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
           }
         } else {
-          viewersE59S48.push(name);
+          viewersSouth.push(name);
           if (!shouldContinueToNextCreep) {
-            roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+            roleViewer(creep, southRoomName, homeToSouth, BOTTOM);
           }
         }
       } else if (

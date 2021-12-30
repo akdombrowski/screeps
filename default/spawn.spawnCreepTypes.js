@@ -643,9 +643,8 @@ function spawnCreepTypes(enAvail, spawns) {
       //     spawnDirection,
       //     group
       //   );
-    } else {
-      console.log("300 else condition");
-      logConditionPassedForSpawnCreep("creepsHome", creepsHome, 20);
+    } else if (roadRepairers.length < 8) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 8);
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";

@@ -102,6 +102,7 @@ module.exports.loop = function () {
     // Memory.nAttackDurationSafeCheck = 10;
     // Memory.dSAttackDurationSafeCheck = 2;
     // Memory.swAttackDurationSafeCheck = 10;
+    Memory.sAttackDurationSafeCheck = 10;
     // Memory.wAttackDurationSafeCheck = 10;
 
     checkForAttackers();
@@ -221,6 +222,8 @@ module.exports.loop = function () {
 
     let rooms = [homeRoom];
     checkProgress(numCrps, rooms, 3600);
+
+    console.log(Memory.invaderIDSouth)
   });
 
   // Profiler stats

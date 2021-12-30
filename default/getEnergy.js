@@ -83,7 +83,7 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
         // in home room but target is not in north nor SW nor W,
         // must be dS
         exitDirection = BOTTOM;
-        exit = Game.flags.southExit;
+        exit = Game.flags.homeToSouth;
       }
     }
 

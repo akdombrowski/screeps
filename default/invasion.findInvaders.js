@@ -7,7 +7,6 @@ function findInvaders(
   attackerCheckWaitTime,
   direction
 ) {
-  console.log(targetRoom)
   if (targetRoom) {
     let invaderId = null;
     const targetRoomName = targetRoom.name;
@@ -50,8 +49,11 @@ function findInvaders(
         }
       }
 
+
       Memory["invaderID" + direction] = invaderId;
-      Memory["lastCheckForInvaderTime" + direction] = Game.time;
+      lastCheckForInvaderTime = Game.time;
+      Memory["lastCheckForInvaderTime" + direction] = lastCheckForInvaderTime;
+
       if (invaderId) {
         const invader = Game.getObjectById(invaderId);
         const healthPercent = ((invader.hits / invader.hitsMax) * 100).toFixed(
@@ -68,13 +70,24 @@ function findInvaders(
             healthPercent +
             "%"
         );
-        return invaderId;
+
+        return {
+          invaderId: invaderId,
+          lastCheckForInvaderTime: lastCheckForInvaderTime,
+        };
       }
     }
-    return Memory["invaderID" + targetRoomName];
+
+    return {
+      invaderId: Memory["invaderID" + direction],
+      lastCheckForInvaderTime: lastCheckForInvaderTime,
+    };
   }
 
-  return null;
+  return {
+    invaderId: null,
+    lastCheckForInvaderTime: lastCheckForInvaderTime,
+  };
 }
 exports.findInvaders = findInvaders;
 findInvaders = profiler.registerFN(findInvaders, "findInvaders");

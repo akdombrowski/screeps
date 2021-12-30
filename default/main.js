@@ -75,6 +75,7 @@ module.exports.loop = function () {
     // Memory.e58s48RoomName = "E58S48";
 
     // Memory.northControllerID = "59bbc5d22052a716c3cea133";
+    Memory.southControllerID = "5982fc8cb097071b4adbdb3c";
     // Memory.e58s49ControllerID = "59bbc5c12052a716c3ce9faa";
 
     let enAvailHomeRoom = homeRoom.energyAvailable;

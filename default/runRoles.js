@@ -107,6 +107,7 @@ function runRoles() {
   const homeToSouth = Game.flags.homeToSouth;
   const e58s49Exit = Game.flags.e58s49Exit;
   const e58s48Exit = Game.flags.e58s48Exit;
+  const southControllerFlag = Game.flags.southController;
 
   let retval = -16;
 
@@ -409,7 +410,7 @@ function runRoles() {
           if (!shouldContinueToNextCreep) {
             roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
           }
-        } else if (creep.memory.direction === ("south")) {
+        } else if (creep.memory.direction === "south") {
           viewersSouth.push(name);
           if (!shouldContinueToNextCreep) {
             roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
@@ -431,8 +432,8 @@ function runRoles() {
         }
         if (creep.memory.direction === "home") {
           upControllers.push(name);
-        } else if (creep.memory.direction === "deepSouth") {
-          upControllersE59S49.push(name);
+        } else if (creep.memory.direction === "south") {
+          upControllersSouth.push(name);
         } else if (creep.memory.direction === "north") {
           upControllersE59S47.push(name);
         } else {
@@ -461,65 +462,18 @@ function runRoles() {
           creep.memory.up = true;
         }
 
-        if (creep.memory.direction === "north") {
-          upControllersE59S47.push(name);
-          creep.memory.controllerID = "59bbc5d22052a716c3cea133";
+        upControllersE59S47.push(name);
+        creep.memory.controllerID = "59bbc5d22052a716c3cea133";
 
-          if (!shouldContinueToNextCreep) {
-            upController(
-              creep,
-              Game.flags.northController,
-              Memory.northRoomName,
-              Game.flags.northExit,
-              TOP,
-              "59bbc5d22052a716c3cea133"
-            );
-          }
-        } else if (creep.memory.direction === "e58s49") {
-          upControllersE58S49.push(name);
-
-          creep.memory.controllerID = "59bbc5c12052a716c3ce9faa";
-
-          if (!shouldContinueToNextCreep) {
-            upController(
-              creep,
-              Game.flags.e58s49Controller,
-              Memory.e58s49RoomName,
-              Game.flags.e58s49Exit,
-              LEFT,
-              "59bbc5c12052a716c3ce9faa"
-            );
-          }
-        } else if (creep.memory.direction === "home") {
-          upControllersE59S48.push(name);
-
-          creep.memory.controllerID = "59bbc5d22052a716c3cea133";
-
-          if (!shouldContinueToNextCreep) {
-            upController(
-              creep,
-              Game.flags.northController,
-              Memory.northRoomName,
-              Game.flags.northExit,
-              TOP,
-              "59bbc5d22052a716c3cea133"
-            );
-          }
-        } else {
-          upControllersE59S48.push(name);
-          creep.memory.direction = "home";
-          creep.memory.controllerID = "59bbc5d22052a716c3cea133";
-
-          if (!shouldContinueToNextCreep) {
-            upController(
-              creep,
-              Game.flags.northController,
-              Memory.northRoomName,
-              Game.flags.northExit,
-              TOP,
-              "59bbc5d22052a716c3cea133"
-            );
-          }
+        if (!shouldContinueToNextCreep) {
+          upController(
+            creep,
+            Game.flags.northController,
+            Memory.northRoomName,
+            Game.flags.northExit,
+            TOP,
+            "59bbc5d22052a716c3cea133"
+          );
         }
       } else if (
         roll === "ucdS" ||
@@ -628,6 +582,19 @@ function runRoles() {
             Memory.e58s48Controller
           );
         }
+      } else if (roll === "cS" || roll === "claimerS") {
+        claimersSouth.push(name);
+
+        if (!shouldContinueToNextCreep) {
+          claim(
+            creep,
+            southRoomName,
+            homeToSouth,
+            LEFT,
+            "5982fc8cb097071b4adbdb3c",
+            southControllerFlag
+          );
+        }
       } else if (roll === "cN" || roll === "claimerN") {
         let northController = Game.getObjectById(Memory.northControllerID);
 
@@ -694,12 +661,6 @@ function runRoles() {
         if (!shouldContinueToNextCreep) {
           hele(creep);
         }
-      } else if (roll === "controller") {
-        if (!shouldContinueToNextCreep) {
-          roleController.run(creep);
-        }
-      } else if (roll === "upgrader") {
-        roleUpgrader.run(creep);
       } else if (roll === "a" || roll === "attacker") {
         if (creep.memory.direction === "north") {
           attackersE59S47.push(name);
@@ -741,8 +702,8 @@ function runRoles() {
           if (!shouldContinueToNextCreep) {
             roleRangedAttacker(creep);
           }
-        } else if (creep.memory.direction === "deepSouth") {
-          rangedAttackersE59S49.push(name);
+        } else if (creep.memory.direction === "south") {
+          rangedAttackersSouth.push(name);
 
           if (!shouldContinueToNextCreep) {
             roleRangedAttackerdS(creep);

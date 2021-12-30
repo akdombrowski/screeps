@@ -317,7 +317,7 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
     creep.memory.path = null;
     target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES, {
       filter: (resource) => {
-        resource.resourceType === RESOURCE_ENERGY && resource.amount >= 50;
+        resource.resourceType === RESOURCE_ENERGY && resource.amount > 50;
       },
     });
     isPickupResource = true;
@@ -337,7 +337,7 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
     target = creep.pos.findClosestByRange(FIND_TOMBSTONES, {
       filter: (tombstone) => {
         if (tombstone.room.name === creepRoomName) {
-          return tombstone.store[RESOURCE_ENERGY] > minAmountOfResource;
+          return tombstone.store[RESOURCE_ENERGY] > 50;
         }
 
         return false;

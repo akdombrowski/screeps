@@ -382,36 +382,16 @@ function runRoles() {
               TOP
             );
           }
-        } else if (creep.memory.direction.startsWith("deepSouth")) {
+        } else if (creep.memory.direction === "south") {
           roadRepairersE59S49.push(name);
           if (!shouldContinueToNextCreep) {
             roleRepairer(
               creep,
-              Memory.deepSouthRoomName,
-              Game.flags.southExit,
+              Memory.southRoomName,
+              Game.flags.homeToSouth,
               BOTTOM
             );
           }
-        } else if (creep.memory.direction === "e58s49") {
-          roadRepairersE58S49.push(name);
-          if (!shouldContinueToNextCreep) {
-          }
-          roleRepairer(
-            creep,
-            Memory.e58s49RoomName,
-            Game.flags.e58s49Exit,
-            LEFT
-          );
-        } else if (creep.memory.direction === "e58s48") {
-          roadRepairersE58S48.push(name);
-          if (!shouldContinueToNextCreep) {
-          }
-          roleRepairer(
-            creep,
-            Memory.e58s48RoomName,
-            Game.flags.e58s48Exit,
-            LEFT
-          );
         } else {
           roadRepairers.push(name);
           if (!shouldContinueToNextCreep) {

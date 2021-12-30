@@ -156,6 +156,12 @@ function spawnCreepTypes(enAvail, spawns) {
   addPart(linkGetsParts300, 1, WORK);
   addPart(linkGetsParts300, 3, MOVE);
 
+  // 300
+  let slowMoverParts300 = [];
+  addPart(slowMoverParts300, 1, CARRY);
+  addPart(slowMoverParts300, 2, WORK);
+  addPart(slowMoverParts300, 1, MOVE);
+
   // 350
   let rangedAttackerParts350 = [];
   addPart(rangedAttackerParts350, 1, MOVE);
@@ -578,7 +584,7 @@ function spawnCreepTypes(enAvail, spawns) {
       name = "upC" + t;
       chosenRole = "upC";
       group = "upControllers";
-      parts = upContrParts200;
+      parts = slowMoverParts300;
       upControllers.push(name);
       creepsHome.push(name);
       retval = birthCreep(
@@ -644,6 +650,7 @@ function spawnCreepTypes(enAvail, spawns) {
       chosenRole = "roadRepairer";
       direction = "home";
       group = "roadRepairers";
+      part = slowMoverParts300;
       creepsHome.push(name);
       roadRepairers.push(name);
       retval = birthCreep(

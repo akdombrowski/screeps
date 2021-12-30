@@ -75,6 +75,8 @@ function smartMove(
 
   path = tryDeserializingPath(path);
 
+
+  // Is the creep stuck? Keep track of last position and compare it to the current creep position
   if (lastCreepPos && lastCreepPos.x) {
     lastCreepPos = new RoomPosition(
       lastCreepPos.x,
@@ -82,6 +84,8 @@ function smartMove(
       lastCreepPos.roomName
     );
     if (lastCreepPos.isEqualTo(creepPos.x, creepPos.y)) {
+      // stuck means they were at the same position the previous two ticks
+      // since the current tick is equal to their last position, that means if they're also stuck, the've been in the same spot for 3 ticks. Try using moveTo with ignore creeps set to false to get out of stuck position
       if (stuck) {
         creep.memory.path = null;
         retval = creep.moveTo(dest, {

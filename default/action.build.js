@@ -22,37 +22,35 @@ function build(creep) {
 
   if (building) {
     if (creep.room.name === Memory.homeRoomName) {
-      target = Game.getObjectById("61cd0adb3762ce833d12da7a");
-      if (
-        !target ||
-        !target.progress ||
-        target.progress >= target.progressTotal
-      ) {
-        target = Game.getObjectById("61cd0adc3f190b6a34cf7676");
-      }
+      target = Game.getObjectById("61cd0adc3f190b6a34cf7676");
 
       if (
         !target ||
-        !target.progress ||
-        target.progress >= target.progressTotal
+        (target.progress &&
+        target.progress >= target.progressTotal)
       ) {
         target = Game.getObjectById("61cd0add3762ce01fe12da7b");
       }
 
       if (
         !target ||
-        !target.progress ||
-        target.progress >= target.progressTotal
+        (target.progress && target.progress >= target.progressTotal)
       ) {
         target = Game.getObjectById("61cd0adf3762ce0cea12da7c");
       }
 
       if (
         !target ||
-        !target.progress ||
-        target.progress >= target.progressTotal
+        (target.progress && target.progress >= target.progressTotal)
       ) {
-        target = Game.getObjectById("61cd0ae0be69f679910e6ebc");
+        target = Game.getObjectById("61cc8f423762ce709812d466");
+      }
+
+      if (
+        !target ||
+        (target.progress && target.progress >= target.progressTotal)
+      ) {
+        target = Game.getObjectById("61cc8f43be69f676890e69f3");
       }
 
       if (target && target.progress < target.progressTotal) {

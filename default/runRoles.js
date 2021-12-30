@@ -126,8 +126,8 @@ function runRoles() {
     ({
       retval,
       shouldContinueToNextCreep,
-      creepsE59S48: creepsHome,
-      creepsE59S49,
+      creepsHome,
+      creepsSouth,
       creepsE59S47,
       creepsE58S49,
     } = setCreepRoomArrayAndAvoidInvaders(

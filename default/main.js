@@ -222,8 +222,6 @@ module.exports.loop = function () {
 
     let rooms = [homeRoom];
     checkProgress(numCrps, rooms, 3600);
-
-    console.log(Memory.invaderIDSouth)
   });
 
   // Profiler stats

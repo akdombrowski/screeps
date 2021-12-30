@@ -4,7 +4,7 @@ const flee = require("./move.flee");
 function setCreepRoomArrayAndAvoidInvaders(
   creep,
   creepsHome,
-  creepsE59S49,
+  creepsSouth,
   creepsE59S47,
   creepsE58S49,
   distanceToInvaderToTriggerFlee
@@ -28,10 +28,10 @@ function setCreepRoomArrayAndAvoidInvaders(
         shouldContinueToNextCreep = true;
       }
     }
-  } else if (direction === "deepSouth") {
-    creepsE59S49.push(creep.name);
+  } else if (direction === "south") {
+    creepsSouth.push(creep.name);
 
-    let invader = Game.getObjectById(Memory.invaderIDE59S49);
+    let invader = Game.getObjectById(Memory.invaderIDSouth);
 
     if (invader) {
       if (
@@ -74,8 +74,8 @@ function setCreepRoomArrayAndAvoidInvaders(
   return {
     retval: retval,
     shouldContinueToNextCreep: shouldContinueToNextCreep,
-    creepsE59S48: creepsHome,
-    creepsE59S49: creepsE59S49,
+    creepsHome,
+    creepsSouth,
     creepsE59S47: creepsE59S47,
     creepsE58S49: creepsE58S49,
   };

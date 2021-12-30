@@ -514,7 +514,7 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersSouth.length < 6) {
+    } else if (harvestersSouth.length < 6 && !sAttackerId) {
       logConditionPassedForSpawnCreep("harvestersSouth", harvestersSouth, 6);
       name = "hS" + t;
       direction = "south";

@@ -24,21 +24,22 @@ function checkForAttackers() {
     Memory.lastCheckForInvaderTimeE58S49 || 10;
   let lastCheckForInvaderTimeE58S48 =
     Memory.lastCheckForInvaderTimeE58S48 || 10;
-  let ret = null;
+  let retHome = null;
+  let retSouth = null;
 
-  ret = findInvaders(
+  retHome = findInvaders(
     homeRoom,
     lastCheckForInvaderTimeHome,
     attackDurationSafeCheck,
     "Home"
   );
 
-  ({ invaderId, lastCheckForInvaderTimeSouth } = findInvaders(
+  retSouth = findInvaders(
     southRoom,
     lastCheckForInvaderTimeSouth,
     sAttackDurationSafeCheck,
     "South"
-  ));
+  );
 
   // Memory.invaderIDE59S47 = findInvaders(
   //   northRoom,

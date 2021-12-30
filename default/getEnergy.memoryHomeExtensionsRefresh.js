@@ -23,7 +23,7 @@ function memoryHomeExtensionsRefresh(creep, extensions) {
   }
 
   Memory.homeExtensions = extensions;
-  // console.log("Memory.e59s48extensions: " + Memory.e59s48extensions);
+
   return extensions;
 }
 exports.memoryHomeExtensionsRefresh = memoryHomeExtensionsRefresh;

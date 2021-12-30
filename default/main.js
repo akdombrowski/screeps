@@ -190,7 +190,10 @@ module.exports.loop = function () {
     // deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);
 
     if (Game.time % 20) {
-      Memory.homeExtensions = memoryHomeExtensionsRefresh();
+      Memory.homeExtensions = memoryHomeExtensionsRefresh(
+        null,
+        Memory.homeExtensions
+      );
 
     // //   memoryE59S47ExtensionsRefresh();
 

@@ -148,7 +148,7 @@ function smartMove(
 
   // no path in memory.path. get one.
   if (!path || path.length <= 0 || pathMem < 1) {
-    getPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps);
+    getPath(creep, dest, range, ignoreCreeps, pathColor, pathMem, maxOps, 1);
     path = creep.memory.path;
 
     // if(creep.name.startsWith("hdS")) {

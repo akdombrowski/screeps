@@ -23,11 +23,19 @@ function build(creep) {
   if (building) {
     if (creep.room.name === Memory.homeRoomName) {
       target = Game.getObjectById("61cd0adb3762ce833d12da7a");
-      if(!target || !target.progress || target.progress >= target.progressTotal) {
+      if (
+        !target ||
+        !target.progress ||
+        target.progress >= target.progressTotal
+      ) {
         target = Game.getObjectById("61cd0adc3f190b6a34cf7676");
       }
 
-      if(!target || !target.progress || target.progress >= target.progressTotal) {
+      if (
+        !target ||
+        !target.progress ||
+        target.progress >= target.progressTotal
+      ) {
         target = Game.getObjectById("61cd0add3762ce01fe12da7b");
       }
 

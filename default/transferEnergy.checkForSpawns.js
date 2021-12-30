@@ -19,7 +19,7 @@ function checkForSpawns(targetRoomName, creep, spawns) {
       spawns = memoryE58S49SpawnsRefresh(creep, spawns);
       break;
     default:
-      spawns = memoryE59S48SpawnsRefresh(creep, spawns);
+      spawns = memoryHomeSpawnsRefresh(creep, spawns);
       break;
   }
 

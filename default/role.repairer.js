@@ -168,7 +168,7 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
         creep.memory.ry = target.pos.y;
         if (creep.fatigue > 0) {
           creep.say(
-            "f." + creep.fatigue + ":" + target.pos.x + "," + target.pos.y
+            "r." + creep.fatigue + "😴" + target.pos.x + "," + target.pos.y
           );
         } else if (retval == ERR_INVALID_TARGET) {
           creep.say("invalTarg");

@@ -1038,11 +1038,11 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (roadRepairersSouth.length < 1 && !sAttackerId) {
+    if (roadRepairersSouth.length < 6 && !sAttackerId) {
       logConditionPassedForSpawnCreep(
         "roadRepairersSouth",
         roadRepairersSouth,
-        1
+        6
       );
       parts = workerParts550;
       name = "rRS" + t;

@@ -85,8 +85,8 @@ function getPath(
         }
       });
 
-      let creepArr = creepPos.findInRange(FIND_CREEPS, 3);
-      if (!ignoreCreeps || creepArr.length > 1) {
+      if (ignoreCreeps) {
+        let creepArr = creepPos.findInRange(FIND_CREEPS, 3);
         // Avoid creeps in the room
         for (const c of creepArr) {
           // body parts array of creep

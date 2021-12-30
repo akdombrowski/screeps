@@ -30,7 +30,7 @@ function smartMove(
   fleeFromCreeps
 ) {
   if (Game.cpu.getUsed() >= (Game.cpu.tickLimit / 100) * 50) {
-    return -17;
+    return -99;
   }
 
   let s;

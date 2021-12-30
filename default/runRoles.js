@@ -22,24 +22,28 @@ function runRoles() {
   let crps = Game.creeps;
   let harvesters = [];
   let harvestersSouth = [];
+  let harvestersSouthwest = [];
   let harvestersE59S47 = [];
   let harvestersE59S49 = [];
   let harvestersE58S49 = [];
   let harvestersE58S48 = [];
   let pickerUppersHome = [];
   let pickerUppersSouth = [];
+  let pickerUppersSouthwest = [];
   let pickerUppersE59S47 = [];
   let pickerUppersE59S49 = [];
   let pickerUppersE58S49 = [];
   let workers = [];
   let upControllers = [];
   let upControllersSouth = [];
+  let upControllersSouthwest = [];
   let upControllersE59S47 = [];
   let upControllersE59S49 = [];
   let upControllersE58S49 = [];
   let upControllersE58S48 = [];
   let roadRepairers = [];
   let roadRepairersSouth = [];
+  let roadRepairersSouthwest = [];
   let roadRepairersE59S47 = [];
   let roadRepairersE59S49 = [];
   let roadRepairersE58S49 = [];
@@ -47,6 +51,7 @@ function runRoles() {
   let roadBuilders = [];
   let rangedAttackers = [];
   let rangedAttackersSouth = [];
+  let rangedAttackersSouthwest = [];
   let rangedAttackersE59S47 = [];
   let rangedAttackersE59S49 = [];
   let attackers = [];
@@ -54,30 +59,36 @@ function runRoles() {
   let attackersE59S49 = [];
   let claimers = [];
   let claimersSouth = [];
+  let claimersSouthwest = [];
   let claimersE58S49 = [];
   let claimersE58S48 = [];
   let linkGets = [];
   let towerHarvesters = [];
   let reservers = [];
   let reserversSouth = [];
+  let reserversSouthwest = [];
   let viewers = [];
   let viewersSouth = [];
+  let viewersSouthwest = [];
   let viewersE59S47 = [];
   let viewersE59S49 = [];
   let creepsHome = [];
   let creepsSouth = [];
+  let creepsSouthwest = [];
   let creepsE59S49 = [];
   let creepsE59S47 = [];
   let creepsE58S49 = [];
   let creepsE58S48 = [];
   let homeExtensions = Memory.homeExtensions;
   let southExtensions = Memory.southExtensions;
+  let southwestExtensions = Memory.southwestExtensions;
   let e59s47extensions = Memory.e59s47extensions;
   let e59s49extensions = Memory.e59s49extensions;
   let e58s49extensions = Memory.e58s49extensions;
   let e58s48extensions = Memory.e58s48extensions;
   let homeSpawns = Memory.homeSpawns;
   let southSpawns = Memory.southSpawns;
+  let southwestSpawns = Memory.southwestSpawns;
   let e59s47spawns = Memory.e59s47spawns;
   let e59s49spawns = Memory.e59s49spawns;
   let e58s49spawns = Memory.e58s49spawns;
@@ -133,7 +144,6 @@ function runRoles() {
           creep.memory.getEnergy = true;
         }
 
-
         if (creep.memory.direction === "home") {
           harvesters.push(name);
           if (!shouldContinueToNextCreep) {
@@ -172,7 +182,7 @@ function runRoles() {
             ret = roleHarvester(
               creep,
               southExtensions,
-             southSpawns,
+              southSpawns,
               southRoomName,
               homeToSouth,
               BOTTOM
@@ -264,65 +274,24 @@ function runRoles() {
               retval = roleHarvesterPickerUpper(
                 creep,
                 homeRoomName,
-                TOP,
-                southEntrance,
+                null,
+                null,
                 homeExtensions,
                 homeSpawns
               );
             }
           }
-        } else if (creep.memory.direction === "north") {
-          pickerUppersE59S47.push(name);
-          if (!shouldContinueToNextCreep) {
-            if (creep.room.name === deepSouthRoomName) {
-              retval = roleHarvesterPickerUpper(
-                creep,
-                northRoomName,
-                TOP,
-                southEntrance,
-                e59s47extensions,
-                e59s47spawns
-              );
-            } else if (creep.room.name === southRoomName) {
-              retval = roleHarvesterPickerUpper(
-                creep,
-                northRoomName,
-                TOP,
-                northExit,
-                e59s47extensions,
-                e59s47spawns
-              );
-            } else {
-              retval = roleHarvesterPickerUpper(
-                creep,
-                northRoomName,
-                TOP,
-                northExit,
-                e59s47extensions,
-                e59s47spawns
-              );
-            }
-          }
-        } else if (creep.memory.direction === "deepSouth") {
+        } else if (creep.memory.direction === "south") {
           pickerUppersE59S49.push(name);
           if (!shouldContinueToNextCreep) {
-            if (creep.room.name === northRoomName) {
+            if (creep.room.name === homeRoomName) {
               retval = roleHarvesterPickerUpper(
                 creep,
-                deepSouthRoomName,
-                TOP,
-                southEntrance,
-                e59s49extensions,
-                e59s49spawns
-              );
-            } else if (creep.room.name === homeRoomName) {
-              retval = roleHarvesterPickerUpper(
-                creep,
-                deepSouthRoomName,
-                TOP,
-                northExit,
-                e59s49extensions,
-                e59s49spawns
+                southRoomName,
+                BOTTOM,
+                homeToSouth,
+                southExtensions,
+                southSpawns
               );
             } else if (creep.room.name === e58s49RoomName) {
               retval = roleHarvesterPickerUpper(
@@ -344,17 +313,17 @@ function runRoles() {
               );
             }
           }
-        } else if (creep.memory.direction === "e58s49") {
-          pickerUppersE58S49.push(name);
+        } else if (creep.memory.direction === "southwest") {
+          pickerUppersSouthwest.push(name);
           if (!shouldContinueToNextCreep) {
             if (creep.room.name === northRoomName) {
               retval = roleHarvesterPickerUpper(
                 creep,
-                e58s49RoomName,
-                BOTTOM,
-                northEntrance,
-                extensions,
-                spawns
+                southwestRoomName,
+                LEFT,
+                southToSouthwest,
+                southwestExtensions,
+                southwestSpawns
               );
             } else if (creep.room.name === homeRoomName) {
               retval = roleHarvesterPickerUpper(

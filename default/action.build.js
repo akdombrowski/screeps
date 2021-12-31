@@ -22,35 +22,35 @@ function build(creep) {
 
   if (building) {
     if (creep.room.name === Memory.homeRoomName) {
-      target = Game.getObjectById("61cd0adc3f190b6a34cf7676");
+      target = Game.getObjectById("61cefdb73f190b8135cf8ce6");
 
       if (
         !target ||
         (target.progress &&
         target.progress >= target.progressTotal)
       ) {
-        target = Game.getObjectById("61cd0add3762ce01fe12da7b");
+        target = Game.getObjectById("61cefdb53f190b0774cf8ce5");
       }
 
       if (
         !target ||
         (target.progress && target.progress >= target.progressTotal)
       ) {
-        target = Game.getObjectById("61cd0adf3762ce0cea12da7c");
+        target = Game.getObjectById("61cefdc63f190b2c48cf8ce9");
       }
 
       if (
         !target ||
         (target.progress && target.progress >= target.progressTotal)
       ) {
-        target = Game.getObjectById("61cc8f423762ce709812d466");
+        target = Game.getObjectById("61cefdb83f190b9e47cf8ce7");
       }
 
       if (
         !target ||
         (target.progress && target.progress >= target.progressTotal)
       ) {
-        target = Game.getObjectById("61cc8f43be69f676890e69f3");
+        target = Game.getObjectById("61cefdb9be69f6497b0e8671");
       }
 
       if (target && target.progress < target.progressTotal) {

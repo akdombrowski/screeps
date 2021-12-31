@@ -37,7 +37,7 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
           exit = Game.flags.southToHome;
         }
       } else if (creepRoomName === Memory.homeRoomName) {
-        if (targetRoomName != Memory.northRoomName) {
+        if (targetRoomName === Memory.southRoomName) {
           exitDirection = BOTTOM;
           exit = Game.flags.homeToSouth;
         }

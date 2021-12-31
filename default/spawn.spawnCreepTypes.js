@@ -602,7 +602,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //        #  #     #  #     #
   //  #     #   #   #    #   #
   //   #####     ###      ###
-  if (enAvail >= 300 && !invaderId) {
+  if (enAvail >= 300 && !invaderId && numOfCreepsTotal < 20) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "home";

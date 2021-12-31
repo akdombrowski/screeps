@@ -50,74 +50,7 @@ function roleHarvester(
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
 
-    if (creep.memory.direction === "north") {
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        northRoomName,
-        Game.flags.northEntrance,
-        BOTTOM,
-        extensions,
-        spawns
-      );
-    } else if (creep.memory.direction === "south") {
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        homeRoomName,
-        southToHome,
-        TOP,
-        extensions,
-        spawns
-      );
-    } else if (creep.memory.direction === "southwest") {
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        homeRoomName,
-        southToHome,
-        TOP,
-        extensions,
-        spawns
-      );
-    } else if (creep.memory.direction === "west") {
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        homeRoomName,
-        westToHome,
-        RIGHT,
-        extensions,
-        spawns
-      );
-    } else if (creep.memory.direction === "home") {
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        homeRoomName,
-        null,
-        null,
-        extensions,
-        spawns
-      );
-    } else {
-      creep.memory.direction = "home";
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        homeRoomName,
-        null,
-        null,
-        extensions,
-        spawns
-      );
-    }
+    ret = transferEnergyBasedOnDirection(creep, extensions, spawns);
     retval = ret.retval;
     extensions = ret.extensions;
     spawns = ret.spawns;
@@ -339,3 +272,85 @@ function roleHarvester(
 
 roleHarvester = profiler.registerFN(roleHarvester, "roleHarvester");
 module.exports = roleHarvester;
+function transferEnergyBasedOnDirection(creep, extensions, spawns) {
+  const northRoomName = Memory.northRoomName;
+  const homeRoomName = Memory.homeRoomName;
+  const southRoomName = Memory.southRoomName;
+  const southwestRoomName = Memory.southwestRoomName;
+  const westRoomName = Memory.westRoomName;
+  const southToHome = Game.flags.southToHome;
+  const westToHome = Game.flags.westToHome;
+  let ret = { retval: -16, extensions: extensions, spawns: spawns };
+
+  if (creep) {
+    if (creep.memory.direction === "north") {
+      ret = transferEnergy(
+        creep,
+        null,
+        null,
+        northRoomName,
+        Game.flags.northEntrance,
+        BOTTOM,
+        extensions,
+        spawns
+      );
+    } else if (creep.memory.direction === "south") {
+      ret = transferEnergy(
+        creep,
+        null,
+        null,
+        homeRoomName,
+        southToHome,
+        TOP,
+        extensions,
+        spawns
+      );
+    } else if (creep.memory.direction === "southwest") {
+      ret = transferEnergy(
+        creep,
+        null,
+        null,
+        homeRoomName,
+        southToHome,
+        TOP,
+        extensions,
+        spawns
+      );
+    } else if (creep.memory.direction === "west") {
+      ret = transferEnergy(
+        creep,
+        null,
+        null,
+        homeRoomName,
+        westToHome,
+        RIGHT,
+        extensions,
+        spawns
+      );
+    } else if (creep.memory.direction === "home") {
+      ret = transferEnergy(
+        creep,
+        null,
+        null,
+        homeRoomName,
+        null,
+        null,
+        extensions,
+        spawns
+      );
+    } else {
+      creep.memory.direction = "home";
+      ret = transferEnergy(
+        creep,
+        null,
+        null,
+        homeRoomName,
+        null,
+        null,
+        extensions,
+        spawns
+      );
+    }
+  }
+  return ret;
+}

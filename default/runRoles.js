@@ -77,6 +77,7 @@ function runRoles() {
   let creepsSouth = [];
   let creepsSouthwest = [];
   let creepsWest = [];
+  let creepsNorth = [];
   let creepsE59S49 = [];
   let creepsE59S47 = [];
   let creepsE58S49 = [];
@@ -758,6 +759,7 @@ function runRoles() {
   Memory.creepsSouth = creepsSouth;
   Memory.creepsSouthwest = creepsSouthwest;
   Memory.creepsWest = creepsWest;
+  Memory.creepsNorth = creepsNorth;
   Memory.creepsE59S49 = creepsE59S49;
   Memory.creepsE59S47 = creepsE59S47;
   Memory.creepsE58S49 = creepsE58S49;

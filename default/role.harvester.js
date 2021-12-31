@@ -354,3 +354,8 @@ function transferEnergyBasedOnDirection(creep, extensions, spawns) {
   }
   return ret;
 }
+
+transferEnergyBasedOnDirection = profiler.registerFN(
+  transferEnergyBasedOnDirection,
+  "transferEnergyBasedOnDirection"
+);

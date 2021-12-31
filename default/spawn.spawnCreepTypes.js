@@ -87,15 +87,18 @@ function spawnCreepTypes(enAvail, spawns) {
   let workers = Memory.workers || [];
   let harvesters = Memory.harvesters || [];
   let harvestersSouth = Memory.harvestersSouth || [];
+  let harvestersSouthwest = Memory.harvestersSouthwest || [];
   let harvestersE59S47 = Memory.harvestersE59S47 || [];
   let harvestersE59S49 = Memory.harvestersE59S49 || [];
   let upControllers = Memory.upControllers || [];
   let upControllersSouth = Memory.upControllersSouth || [];
+  let upControllersSouthwest = Memory.upControllersSouthwest || [];
   let upControllersE59S47 = Memory.upControllersE59S47 || [];
   let upControllersE59S49 = Memory.upControllersE59S49 || [];
   let upControllersE58S48 = Memory.upControllersE58S48 || [];
   let roadRepairers = Memory.roadRepairers || [];
   let roadRepairersSouth = Memory.roadRepairersSouth || [];
+  let roadRepairersSouthwest = Memory.roadRepairersSouthwest || [];
   let roadRepairersE59S47 = Memory.roadRepairersE59S47 || [];
   let roadRepairersE59S49 = Memory.roadRepairersE59S49 || [];
   let roadBuilders = Memory.roadBuilders || [];
@@ -103,6 +106,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let towerHarvesters = Memory.towerHarvesters || [];
   let claimers = Memory.claimers || [];
   let claimersSouth = Memory.claimersSouth || [];
+  let claimersSouthwest = Memory.claimersSouthwest || [];
   let claimersE59S47 = Memory.claimersE59S47 || [];
   let claimersE59S49 = Memory.claimersE59S49 || [];
   let claimersE58S48 = Memory.claimersE58S48 || [];
@@ -112,6 +116,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let viewersE59S49 = Memory.viewersE59S49 || [];
   let rangedAttackers = Memory.rangedAttackers || [];
   let rangedAttackersSouth = Memory.rangedAttackersSouth || [];
+  let rangedAttackersSouthwest = Memory.rangedAttackersSouthwest || [];
   let rangedAttackersE59S47 = Memory.rangedAttackersE59S47 || [];
   let rangedAttackersE59S49 = Memory.rangedAttackersE59S49 || [];
   let attackers = Memory.attackers || [];
@@ -125,6 +130,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let nwwAttackDurationSafeCheck = Memory.nwwAttackDurationSafeCheck;
   let creepsHome = Memory.creepsHome || [];
   let creepsSouth = Memory.creepsSouth || [];
+  let creepsSouthwest = Memory.creepsSouthwest || [];
   let creepsE59S49 = Memory.creepsE59S49 || [];
   let creepsE59S47 = Memory.creepsE59S47 || [];
   let creepsE58S48 = Memory.creepsE58S48 || [];
@@ -213,16 +219,16 @@ function spawnCreepTypes(enAvail, spawns) {
   addPart(upContrParts550, 4, MOVE);
 
   // 550
-  let workerParts550 = [];
-  addPart(workerParts550, 1, CARRY);
-  addPart(workerParts550, 4, WORK);
-  addPart(workerParts550, 2, MOVE);
+  let slowMoverParts550 = [];
+  addPart(slowMoverParts550, 1, CARRY);
+  addPart(slowMoverParts550, 4, WORK);
+  addPart(slowMoverParts550, 2, MOVE);
 
   // 550
-  let harvesterParts550 = [];
-  addPart(harvesterParts550, 1, CARRY);
-  addPart(harvesterParts550, 4, WORK);
-  addPart(harvesterParts550, 2, MOVE);
+  let fastMoverParts550 = [];
+  addPart(fastMoverParts550, 1, CARRY);
+  addPart(fastMoverParts550, 2, WORK);
+  addPart(fastMoverParts550, 6, MOVE);
 
   // 650
   let claimerParts650 = [];
@@ -1034,7 +1040,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let chosenRole = "h";
     let direction = "home";
     let sourceId = Memory.source2;
-    let parts = harvesterParts550;
+    let parts = fastMoverParts550;
     let group = "harvesters";
     let spawnDirection = [TOP];
 
@@ -1044,7 +1050,7 @@ function spawnCreepTypes(enAvail, spawns) {
         roadRepairersSouth,
         4
       );
-      parts = workerParts550;
+      parts = slowMoverParts550;
       name = "rRS" + t;
       chosenRole = "roadRepairer";
       direction = "south";
@@ -1061,11 +1067,12 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersSouth.length < 6 && !sAttackerId) {
-      logConditionPassedForSpawnCreep("harvestersSouth", harvesters, 6);
+    } else if (harvestersSouth.length < 4 && !sAttackerId) {
+      logConditionPassedForSpawnCreep("harvestersSouth", harvesters, 4);
       name = "hS" + t;
       chosenRole = "h";
       direction = "south";
+      parts = slowMoverParts550;
       creepsSouth.push(name);
       harvestersSouth.push(name);
       retval = birthCreep(
@@ -1078,9 +1085,31 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairers.length < 8) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 8);
-      parts = workerParts550;
+    } else if (harvestersSouthwest.length < 6 && !sAttackerId) {
+      logConditionPassedForSpawnCreep(
+        "harvestersSouthwest",
+        harvestersSouthwest,
+        6
+      );
+      name = "hSW" + t;
+      chosenRole = "h";
+      direction = "southwest";
+      parts = slowMoverParts550;
+      creepsSouthwest.push(name);
+      harvestersSouthwest.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (roadRepairers.length < 4) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 4);
+      parts = slowMoverParts550;
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";
@@ -1097,12 +1126,12 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (upControllers.length < 8) {
-      logConditionPassedForSpawnCreep("upControllers", upControllers, 8);
+    } else if (upControllers.length < 4) {
+      logConditionPassedForSpawnCreep("upControllers", upControllers, 4);
       name = "upC" + t;
       chosenRole = "upC";
       group = "upControllers";
-      parts = workerParts300;
+      parts = slowMoverParts550;
       upControllers.push(name);
       creepsHome.push(name);
       retval = birthCreep(
@@ -2003,20 +2032,24 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.reservers = reservers;
   Memory.harvesters = harvesters;
   Memory.harvestersSouth = harvestersSouth;
+  Memory.harvestersSouthwest = harvestersSouthwest;
   Memory.harvestersE59S47 = harvestersE59S47;
   Memory.harvestersE59S49 = harvestersE59S49;
   Memory.workers = workers;
   Memory.upControllers = upControllers;
   Memory.upControllersSouth = upControllersSouth;
+  Memory.upControllersSouthwest = upControllersSouthwest;
   Memory.upControllersE59S47 = upControllersE59S47;
   Memory.upControllersE59S49 = upControllersE59S49;
   Memory.upControllersE58S48 = upControllersE58S48;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersSouth = roadRepairersSouth;
+  Memory.roadRepairersSouthwest = roadRepairersSouthwest;
   Memory.roadRepairersE59S47 = roadRepairersE59S47;
   Memory.roadRepairersE59S49 = roadRepairersE59S49;
   Memory.rangedAttackers = rangedAttackers;
   Memory.rangedAttackersSouth = rangedAttackersSouth;
+  Memory.rangedAttackersSouthwest = rangedAttackersSouthwest;
   Memory.rangedAttackersE59S47 = rangedAttackersE59S47;
   Memory.rangedAttackersE59S49 = rangedAttackersE59S49;
   Memory.attackers = attackers;
@@ -2024,6 +2057,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.attackersE59S49 = attackersE59S49;
   Memory.claimers = claimers;
   Memory.claimersSouth = claimersSouth;
+  Memory.claimersSouthwest = claimersSouthwest;
   Memory.claimersE59S47 = claimersE59S47;
   Memory.claimersE59S49 = claimersE59S49;
   Memory.claimersE58S48 = claimersE58S48;
@@ -2031,6 +2065,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.towerHarvesters = towerHarvesters;
   Memory.creepsHome = creepsHome;
   Memory.creepsSouth = creepsSouth;
+  Memory.creepsSouthwest = creepsSouthwest;
   Memory.creepsE59S49 = creepsE59S49;
   Memory.creepsE59S47 = creepsE59S47;
   Memory.creepsE58S49 = creepsE58S49;

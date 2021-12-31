@@ -74,8 +74,8 @@ function setCreepRoomArrayAndAvoidInvaders(
   return {
     retval: retval,
     shouldContinueToNextCreep: shouldContinueToNextCreep,
-    creepsHome,
-    creepsSouth,
+    creepsHome: creepsHome,
+    creepsSouth: creepsSouth,
     creepsE59S47: creepsE59S47,
     creepsE58S49: creepsE58S49,
   };

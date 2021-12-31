@@ -88,6 +88,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let harvesters = Memory.harvesters || [];
   let harvestersSouth = Memory.harvestersSouth || [];
   let harvestersSouthwest = Memory.harvestersSouthwest || [];
+  let harvestersWest = Memory.harvestersWest || [];
   let harvestersE59S47 = Memory.harvestersE59S47 || [];
   let harvestersE59S49 = Memory.harvestersE59S49 || [];
   let upControllers = Memory.upControllers || [];
@@ -601,7 +602,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //        #  #     #  #     #
   //  #     #   #   #    #   #
   //   #####     ###      ###
-  if (enAvail >= 300 && !invaderId && creepsHome.length < 15) {
+  if (enAvail >= 300 && !invaderId) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "home";
@@ -612,7 +613,6 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (upControllers.length < 1) {
       logConditionPassedForSpawnCreep("upControllers", upControllers, 1);
-      logConditionPassedForSpawnCreep("creepsHome", creepsHome, 15);
       name = "upC" + t;
       chosenRole = "upC";
       group = "upControllers";
@@ -677,7 +677,6 @@ function spawnCreepTypes(enAvail, spawns) {
       //   );
     } else if (roadRepairers.length < 6) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 6);
-      logConditionPassedForSpawnCreep("creepsHome", creepsHome, 15);
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";
@@ -714,6 +713,24 @@ function spawnCreepTypes(enAvail, spawns) {
       //     spawnDirection,
       //     group
       //   );
+    } else if (harvestersWest.length < 6) {
+      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 6);
+      name = "hW" + t;
+      direction = "west";
+      group = "harvestersWest";
+      creepsWest.push(name);
+      harvestersWest.push(name);
+      parts = simpleParts300;
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
     }
 
     if (retval !== -16) {
@@ -2033,6 +2050,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.harvesters = harvesters;
   Memory.harvestersSouth = harvestersSouth;
   Memory.harvestersSouthwest = harvestersSouthwest;
+  Memory.harvestersWest = harvestersWest;
   Memory.harvestersE59S47 = harvestersE59S47;
   Memory.harvestersE59S49 = harvestersE59S49;
   Memory.workers = workers;

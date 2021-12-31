@@ -5,7 +5,7 @@ function setCreepRoomArrayAndAvoidInvaders(
   creep,
   creepsHome,
   creepsSouth,
-  creepsE59S47,
+  creepsWest,
   creepsE58S49,
   distanceToInvaderToTriggerFlee
 ) {
@@ -43,7 +43,7 @@ function setCreepRoomArrayAndAvoidInvaders(
       }
     }
   } else if (direction === "north") {
-    creepsE59S47.push(creep.name);
+    creepsWest.push(creep.name);
 
     let invader = Game.getObjectById(Memory.invaderIDE59S47);
 
@@ -76,7 +76,7 @@ function setCreepRoomArrayAndAvoidInvaders(
     shouldContinueToNextCreep: shouldContinueToNextCreep,
     creepsHome: creepsHome,
     creepsSouth: creepsSouth,
-    creepsE59S47: creepsE59S47,
+    creepsWest: creepsWest,
     creepsE58S49: creepsE58S49,
   };
 }

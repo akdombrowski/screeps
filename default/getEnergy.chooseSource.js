@@ -69,12 +69,12 @@ function chooseSource(creep, sources) {
       ? sources[1].pos.findInRange(FIND_CREEPS, 2).length
       : Infinity;
 
-    if (numCreepsBySource0 > 3 && numCreepsBySource0 > numCreepsBySource1 + 1) {
+    if (numCreepsBySource0 > 1 && numCreepsBySource0 > numCreepsBySource1 + 1) {
       // source0 has at least 5 creeps near it and is more
       // crowded than source1
       target = sources[1];
     } else if (
-      numCreepsBySource1 > 3 &&
+      numCreepsBySource1 > 1 &&
       numCreepsBySource1 > numCreepsBySource0 + 1
     ) {
       target = sources[0];

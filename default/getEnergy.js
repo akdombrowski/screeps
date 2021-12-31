@@ -75,7 +75,7 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
         // if in the home room but target room is north
         exitDirection = TOP;
         exit = Game.flags.homeToNorth;
-      } else {
+      } else if (targetRoomName === southRoomName) {
         // in home room but target is not north
         exitDirection = BOTTOM;
         exit = Game.flags.homeToSouth;

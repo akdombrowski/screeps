@@ -613,6 +613,7 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (upControllers.length < 1) {
       logConditionPassedForSpawnCreep("upControllers", upControllers, 1);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 20);
       name = "upC" + t;
       chosenRole = "upC";
       group = "upControllers";
@@ -677,6 +678,7 @@ function spawnCreepTypes(enAvail, spawns) {
       //   );
     } else if (roadRepairers.length < 6) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 6);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 20);
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";
@@ -715,6 +717,7 @@ function spawnCreepTypes(enAvail, spawns) {
       //   );
     } else if (harvestersWest.length < 8) {
       logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 8);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 20);
       name = "hW" + t;
       direction = "west";
       group = "harvestersWest";
@@ -733,6 +736,7 @@ function spawnCreepTypes(enAvail, spawns) {
       );
     } else {
       console.log("300 else condition");
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 20);
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";

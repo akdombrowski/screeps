@@ -499,7 +499,7 @@ function spawnCreepTypes(enAvail, spawns) {
   // ........##.##.....##.##.....##
   // .##.....##..##...##...##...##.
   // ..#######....#####.....#####..
-  if (enAvail >= 300 && !invaderId && numOfCreepsTotal < 12) {
+  if (enAvail >= 300 && !invaderId && numOfCreepsTotal < 10) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "home";
@@ -510,7 +510,7 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (harvesters.length < 4) {
       logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 12);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 10);
       name = "h" + t;
       direction = "home";
       group = "harvesters";

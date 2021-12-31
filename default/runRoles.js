@@ -384,12 +384,12 @@ function runRoles() {
             );
           }
         } else if (creep.memory.direction === "south") {
-          roadRepairersE59S49.push(name);
+          roadRepairersSouth.push(name);
           if (!shouldContinueToNextCreep) {
             roleRepairer(
               creep,
-              Memory.southRoomName,
-              Game.flags.homeToSouth,
+              southRoomName,
+              homeToSouth,
               BOTTOM
             );
           }

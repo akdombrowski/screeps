@@ -88,7 +88,7 @@ function roleHarvester(
         creep,
         null,
         null,
-        westRoomName,
+        homeRoomName,
         westToHome,
         RIGHT,
         extensions,

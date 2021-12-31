@@ -603,7 +603,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //        #  #     #  #     #
   //  #     #   #   #    #   #
   //   #####     ###      ###
-  if (enAvail >= 300 && !invaderId && numOfCreepsTotal < 20) {
+  if (enAvail >= 300 && !invaderId && numOfCreepsTotal < 15) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "home";
@@ -614,7 +614,7 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (upControllers.length < 1) {
       logConditionPassedForSpawnCreep("upControllers", upControllers, 1);
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 20);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 15);
       name = "upC" + t;
       chosenRole = "upC";
       group = "upControllers";
@@ -679,7 +679,7 @@ function spawnCreepTypes(enAvail, spawns) {
       //   );
     } else if (roadRepairers.length < 6) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 6);
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 20);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 15);
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";
@@ -718,7 +718,7 @@ function spawnCreepTypes(enAvail, spawns) {
       //   );
     } else if (harvestersWest.length < 8) {
       logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 8);
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 20);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 15);
       name = "hW" + t;
       direction = "west";
       group = "harvestersWest";
@@ -737,7 +737,7 @@ function spawnCreepTypes(enAvail, spawns) {
       );
     } else {
       console.log("300 else condition");
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 20);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 15);
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";
@@ -1085,8 +1085,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (roadRepairers.length < 8) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 8);
+    if (roadRepairers.length < 4) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 4);
       parts = slowMoverParts550;
       name = "rRS" + t;
       chosenRole = "roadRepairer";
@@ -1104,8 +1104,8 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersWest.length < 8) {
-      logConditionPassedForSpawnCreep("harvestersSouth", harvesters, 8);
+    } else if (harvestersWest.length < 6) {
+      logConditionPassedForSpawnCreep("harvestersSouth", harvesters, 6);
       name = "hW" + t;
       chosenRole = "h";
       direction = "west";

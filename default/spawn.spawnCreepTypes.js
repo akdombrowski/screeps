@@ -1085,73 +1085,10 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (roadRepairersSouth.length < 4 && !sAttackerId) {
-      logConditionPassedForSpawnCreep(
-        "roadRepairersSouth",
-        roadRepairersSouth,
-        4
-      );
+    if (roadRepairers.length < 8) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 8);
       parts = slowMoverParts550;
       name = "rRS" + t;
-      chosenRole = "roadRepairer";
-      direction = "south";
-      group = "roadRepairersSouth";
-      creepsSouth.push(name);
-      roadRepairersSouth.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    } else if (harvestersSouth.length < 4 && !sAttackerId) {
-      logConditionPassedForSpawnCreep("harvestersSouth", harvesters, 4);
-      name = "hS" + t;
-      chosenRole = "h";
-      direction = "south";
-      parts = slowMoverParts550;
-      creepsSouth.push(name);
-      harvestersSouth.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    } else if (harvestersSouthwest.length < 6 && !sAttackerId) {
-      logConditionPassedForSpawnCreep(
-        "harvestersSouthwest",
-        harvestersSouthwest,
-        6
-      );
-      name = "hSW" + t;
-      chosenRole = "h";
-      direction = "southwest";
-      parts = slowMoverParts550;
-      creepsSouthwest.push(name);
-      harvestersSouthwest.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
-    } else if (roadRepairers.length < 4) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 4);
-      parts = slowMoverParts550;
-      name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";
       group = "roadRepairers";
@@ -1167,10 +1104,29 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
+    } else if (harvestersWest.length < 8) {
+      logConditionPassedForSpawnCreep("harvestersSouth", harvesters, 8);
+      name = "hW" + t;
+      chosenRole = "h";
+      direction = "west";
+      parts = fastMoverParts550;
+      creepsWest.push(name);
+      harvestersWest.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
     } else if (upControllers.length < 4) {
       logConditionPassedForSpawnCreep("upControllers", upControllers, 4);
       name = "upC" + t;
       chosenRole = "upC";
+      direction = "home";
       group = "upControllers";
       parts = slowMoverParts550;
       upControllers.push(name);
@@ -1187,11 +1143,12 @@ function spawnCreepTypes(enAvail, spawns) {
       );
     } else if (!sAttackerId) {
       console.log("550 else");
-      name = "hS" + t;
+      name = "hW" + t;
       chosenRole = "h";
-      direction = "south";
-      creepsSouth.push(name);
-      harvestersSouth.push(name);
+      direction = "west";
+      parts = fastMoverParts550;
+      creepsWest.push(name);
+      harvestersWest.push(name);
       retval = birthCreep(
         spawns,
         parts,

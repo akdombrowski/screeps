@@ -160,7 +160,7 @@ function tran(
           exit = Game.flags.southwestToSouth;
         } else {
           exitDirection = TOP;
-          exit = Game.flags.southToHome;
+          exit = Game.flags.southwestToWest;
         }
       }
 

@@ -76,12 +76,17 @@ function convertToMoveByPathFriendlyPath(creep) {
 
   // moveTo prints a path that uses the current position and the change in x and y axes to show the next position the creep is going to be at. We want to convert an array of those into an array of room positions that correspond to that next position in the path.
   path.forEach((step) => {
-    // console.log(JSON.stringify(step));
     let px = step.x + step.dx;
     let py = step.y + step.dy;
     let roomName = creep.room.name;
-    let pos = new RoomPosition(px, py, roomName);
-    newPathArray.push(pos);
+    try {
+      let pos = new RoomPosition(px, py, roomName);
+      newPathArray.push(pos);
+    } catch (e) {
+      console.log(e);
+      console.log(px + " " + py + " " + roomName);
+      console.log(JSON.stringify(step));
+    }
   });
 
   // save the moveByPath-friendly path in creep's memory

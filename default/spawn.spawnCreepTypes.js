@@ -1083,6 +1083,24 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
+    } else if (harvestersSouth.length < 4) {
+      logConditionPassedForSpawnCreep("harvestersSouth", harvestersSouth, 4);
+      name = "hS" + t;
+      chosenRole = "h";
+      direction = "south";
+      parts = fastMoverParts550;
+      creepsSouth.push(name);
+      harvestersSouth.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
     } else if (harvesters.length < 2) {
       logConditionPassedForSpawnCreep("harvesters", harvesters, 2);
       name = "h" + t;

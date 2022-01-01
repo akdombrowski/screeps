@@ -161,14 +161,13 @@ function roleHarvester(
         spawns
       );
     } else if (
-      creep.memory.direction.startsWith("deepSouth") ||
-      creep.memory.direction.startsWith("dS")
+      creep.memory.direction.startsWith("south")
     ) {
       ret = transferEnergy(
         creep,
         null,
         null,
-        southRoomName,
+        homeRoomName,
         southToHome,
         TOP,
         extensions,

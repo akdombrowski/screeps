@@ -9,8 +9,8 @@ const {
   memoryHomeExtensionsRefresh,
 } = require("./getEnergy.memoryHomeExtensionsRefresh");
 const {
-  memoryE58S49ExtensionsRefresh,
-} = require("./getEnergy.memoryE58S49ExtensionsRefresh");
+  memoryWestRoomExtensionsRefresh,
+} = require("./getEnergy.memoryWestRoomExtensionsRefresh");
 
 function checkForExtensions(targetRoomName, creep, extensions) {
   let exts = [];
@@ -20,13 +20,13 @@ function checkForExtensions(targetRoomName, creep, extensions) {
       exts = memoryHomeExtensionsRefresh(creep, extensions);
       break;
     case Memory.northRoomName:
-      exts = memoryE59S47ExtensionsRefresh(creep, extensions);
+      exts = memoryNorthRoomExtensionsRefresh(creep, extensions);
       break;
-    case Memory.deepSouthRoomName:
-      exts = memoryE59S49ExtensionsRefresh(creep, extensions);
+    case Memory.southRoomName:
+      exts = memorySouthRoomExtensionsRefresh(creep, extensions);
       break;
-    case Memory.e58s49RoomName:
-      exts = memoryE58S49ExtensionsRefresh(creep, extensions);
+    case Memory.westRoomName:
+      exts = memoryWestRoomExtensionsRefresh(creep, extensions);
       break;
     default:
       exts = memoryHomeExtensionsRefresh(creep, extensions);

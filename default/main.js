@@ -34,11 +34,11 @@ const {
   memoryHomeSpawnsRefresh,
 } = require("./getEnergy.memoryHomeSpawnsRefresh");
 const {
-  memoryE59S47SpawnsRefresh,
-} = require("./getEnergy.memoryE59S47SpawnsRefresh");
+  memoryNorthRoomSpawnsRefresh,
+} = require("./getEnergy.memoryNorthRoomSpawnsRefresh");
 const {
-  memoryE59S49SpawnsRefresh,
-} = require("./getEnergy.memoryE59S49SpawnsRefresh");
+  memorySouthRoomSpawnsRefresh,
+} = require("./getEnergy.memorySouthRoomSpawnsRefresh");
 const { towerHeal } = require("./tower.heal");
 
 // This line monkey patches the global prototypes.

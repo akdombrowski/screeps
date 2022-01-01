@@ -1,7 +1,7 @@
 const profiler = require("./screeps-profiler");
 const { findMyStructs } = require("./find.findMyStructs");
 
-function memoryE58S49SpawnsRefresh(creep, spawns) {
+function memoryWestRoomSpawnsRefresh(creep, spawns) {
   if (spawns && spawns.length > 0) {
     spawns = spawns.filter(
       (struct) =>
@@ -10,15 +10,15 @@ function memoryE58S49SpawnsRefresh(creep, spawns) {
   }
 
   if (!spawns || spawns.length <= 0) {
-    spawns = findMyStructs([STRUCTURE_SPAWN], Memory.deepSouthRoomName);
+    spawns = findMyStructs([STRUCTURE_SPAWN], Memory.westRoomName);
   }
 
-  Memory.e59s49spawns = spawns;
+  Memory.westSpawns = spawns;
 
   return spawns;
 }
-exports.memoryE58S49SpawnsRefresh = memoryE58S49SpawnsRefresh;
-memoryE58S49SpawnsRefresh = profiler.registerFN(
-  memoryE58S49SpawnsRefresh,
-  "memoryE58S49SpawnsRefresh"
+exports.memoryWestRoomSpawnsRefresh = memoryWestRoomSpawnsRefresh;
+memoryWestRoomSpawnsRefresh = profiler.registerFN(
+  memoryWestRoomSpawnsRefresh,
+  "memoryWestRoomSpawnsRefresh"
 );

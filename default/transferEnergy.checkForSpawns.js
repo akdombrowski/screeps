@@ -1,8 +1,14 @@
 const profiler = require("./screeps-profiler");
 const { memoryHomeSpawnsRefresh } = require("./getEnergy.memoryHomeSpawnsRefresh");
-const { memoryE59S47SpawnsRefresh } = require("./getEnergy.memoryE59S47SpawnsRefresh");
-const { memoryE59S49SpawnsRefresh } = require("./getEnergy.memoryE59S49SpawnsRefresh");
-const { memoryE58S49SpawnsRefresh } = require("./getEnergy.memoryE58S49SpawnsRefresh");
+const {
+  memoryNorthRoomSpawnsRefresh,
+} = require("./getEnergy.memoryNorthRoomSpawnsRefresh");
+const {
+  memorySouthRoomSpawnsRefresh,
+} = require("./getEnergy.memorySouthRoomSpawnsRefresh");
+const {
+  memoryWestRoomSpawnsRefresh,
+} = require("./getEnergy.memoryWestRoomSpawnsRefresh");
 
 function checkForSpawns(targetRoomName, creep, spawns) {
   switch (targetRoomName) {
@@ -10,13 +16,13 @@ function checkForSpawns(targetRoomName, creep, spawns) {
       spawns = memoryHomeSpawnsRefresh(creep, spawns);
       break;
     case Memory.northRoomName:
-      spawns = memoryE59S47SpawnsRefresh(creep, spawns);
+      spawns = memoryNorthRoomSpawnsRefresh(creep, spawns);
       break;
-    case Memory.deepSouthRoomName:
-      spawns = memoryE59S49SpawnsRefresh(creep, spawns);
+    case Memory.southRoomName:
+      spawns = memorySouthRoomSpawnsRefresh(creep, spawns);
       break;
-    case Memory.e58s49RoomName:
-      spawns = memoryE58S49SpawnsRefresh(creep, spawns);
+    case Memory.westRoomName:
+      spawns = memoryWestRoomSpawnsRefresh(creep, spawns);
       break;
     default:
       spawns = memoryHomeSpawnsRefresh(creep, spawns);

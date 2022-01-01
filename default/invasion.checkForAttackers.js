@@ -5,8 +5,8 @@ function checkForAttackers() {
   let northRoom = Game.rooms[Memory.northRoomName];
   let homeRoom = Game.rooms[Memory.homeRoomName];
   let southRoom = Game.rooms[Memory.southRoomName];
-  let e58s49Room = Game.rooms[Memory.e58s49RoomName];
-  let e58s48Room = Game.rooms[Memory.e58s48RoomName];
+  let westRoom = Game.rooms[Memory.westoomName];
+  let southwestRoom = Game.rooms[Memory.southwestRoomName];
   let invaderId = null;
   let attackDurationSafeCheck = Memory.attackDurationSafeCheck;
   let dSAttackDurationSafeCheck = Memory.dSAttackDurationSafeCheck;
@@ -16,14 +16,9 @@ function checkForAttackers() {
   let wAttackDurationSafeCheck = Memory.wAttackDurationSafeCheck;
   let lastCheckForInvaderTimeHome = Memory.lastCheckForInvaderTimeHome || 2;
   let lastCheckForInvaderTimeSouth = Memory.lastCheckForInvaderTimeSouth || 10;
-  let lastCheckForInvaderTimeE59S47 =
-    Memory.lastCheckForInvaderTimeE59S47 || 10;
-  let lastCheckForInvaderTimeE59S49 =
-    Memory.lastCheckForInvaderTimeE59S49 || 10;
-  let lastCheckForInvaderTimeE58S49 =
-    Memory.lastCheckForInvaderTimeE58S49 || 10;
-  let lastCheckForInvaderTimeE58S48 =
-    Memory.lastCheckForInvaderTimeE58S48 || 10;
+  let lastCheckForInvaderTimeNorth = Memory.lastCheckForInvaderTimeNorth || 10;
+  let lastCheckForInvaderTimeWest = Memory.lastCheckForInvaderTimeWest || 10;
+  let lastCheckForInvaderTimeSouthwest = Memory.lastCheckForInvaderTimeSouthwest || 10;
   let retHome = null;
   let retSouth = null;
 
@@ -40,6 +35,22 @@ function checkForAttackers() {
     sAttackDurationSafeCheck,
     "South"
   );
+
+  retNorth = findInvaders(
+    northRoom,
+    lastCheckForInvaderTimeNorth,
+    nAttackDurationSafeCheck,
+    "North"
+  );
+
+  retWest = findInvaders(
+    westRoom,
+    lastCheckForInvaderTimeWest,
+    wAttackDurationSafeCheck,
+    "West"
+  );
+
+
 
   // Memory.invaderIDE59S47 = findInvaders(
   //   northRoom,

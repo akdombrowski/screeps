@@ -131,6 +131,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let nwwAttackDurationSafeCheck = Memory.nwwAttackDurationSafeCheck;
   let creepsHome = Memory.creepsHome || [];
   let creepsSouth = Memory.creepsSouth || [];
+  let creepsNorth = Memory.creepsNorth || [];
   let creepsSouthwest = Memory.creepsSouthwest || [];
   let creepsWest = Memory.creepsWest || [];
   let creepsE59S49 = Memory.creepsE59S49 || [];
@@ -2098,6 +2099,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.towerHarvesters = towerHarvesters;
   Memory.creepsHome = creepsHome;
   Memory.creepsSouth = creepsSouth;
+  Memory.creepsNorth = creepsNorth;
   Memory.creepsSouthwest = creepsSouthwest;
   Memory.creepsWest = creepsWest;
   Memory.creepsE59S49 = creepsE59S49;

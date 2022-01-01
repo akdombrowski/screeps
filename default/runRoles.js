@@ -47,6 +47,8 @@ function runRoles() {
   let upControllersE58S48 = [];
   let roadRepairers = [];
   let roadRepairersSouth = [];
+  let roadRepairersNorth = [];
+  let roadRepairersWest = [];
   let roadRepairersSouthwest = [];
   let roadRepairersE59S47 = [];
   let roadRepairersE59S49 = [];
@@ -55,6 +57,8 @@ function runRoles() {
   let roadBuilders = [];
   let rangedAttackers = [];
   let rangedAttackersSouth = [];
+  let rangedAttackersNorth = [];
+  let rangedAttackersWest = [];
   let rangedAttackersSouthwest = [];
   let rangedAttackersE59S47 = [];
   let rangedAttackersE59S49 = [];
@@ -359,14 +363,25 @@ function runRoles() {
           if (!shouldContinueToNextCreep) {
             roleRepairer(creep, Memory.homeRoomName, null, null);
           }
-        } else if (creep.memory.direction.startsWith("n")) {
-          roadRepairersE59S47.push(name);
+        } else if (creep.memory.direction === "north") {
+          roadRepairersNorth.push(name);
 
           if (!shouldContinueToNextCreep) {
             roleRepairer(
               creep,
-              Memory.northRoomName,
+              northRoomName,
               Game.flags.northExit,
+              TOP
+            );
+          }
+        } else if (creep.memory.direction === "west") {
+          roadRepairersWest.push(name);
+
+          if (!shouldContinueToNextCreep) {
+            roleRepairer(
+              creep,
+              westRoomName,
+              Game.flags.homeToWest,
               TOP
             );
           }
@@ -732,6 +747,9 @@ function runRoles() {
   Memory.upControllersE58S48 = upControllersE58S48;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersSouth = roadRepairersSouth;
+  Memory.roadRepairersNorth = roadRepairersNorth;
+  Memory.roadRepairersWest = roadRepairersWest;
+  Memory.roadRepairersSouthwest = roadRepairersSouthwest;
   Memory.roadRepairersE59S47 = roadRepairersE59S47;
   Memory.roadRepairersE59S49 = roadRepairersE59S49;
   Memory.roadRepairersE58S49 = roadRepairersE58S49;
@@ -739,6 +757,8 @@ function runRoles() {
   Memory.roadBuilders = roadBuilders;
   Memory.rangedAttackers = rangedAttackers;
   Memory.rangedAttackersSouth = rangedAttackersSouth;
+  Memory.rangedAttackersNorth = rangedAttackersNorth;
+  Memory.rangedAttackersWest = rangedAttackersWest;
   Memory.rangedAttackersE59S47 = rangedAttackersE59S47;
   Memory.rangedAttackersE59S49 = rangedAttackersE59S49;
   Memory.attackers = attackers;

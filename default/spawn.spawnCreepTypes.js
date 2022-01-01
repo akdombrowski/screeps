@@ -99,6 +99,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let upControllersE58S48 = Memory.upControllersE58S48 || [];
   let roadRepairers = Memory.roadRepairers || [];
   let roadRepairersSouth = Memory.roadRepairersSouth || [];
+  let roadRepairersWest = Memory.roadRepairersWest || [];
   let roadRepairersSouthwest = Memory.roadRepairersSouthwest || [];
   let roadRepairersE59S47 = Memory.roadRepairersE59S47 || [];
   let roadRepairersE59S49 = Memory.roadRepairersE59S49 || [];
@@ -117,6 +118,8 @@ function spawnCreepTypes(enAvail, spawns) {
   let viewersE59S49 = Memory.viewersE59S49 || [];
   let rangedAttackers = Memory.rangedAttackers || [];
   let rangedAttackersSouth = Memory.rangedAttackersSouth || [];
+  let rangedAttackersNorth = Memory.rangedAttackersNorth || [];
+  let rangedAttackersWest = Memory.rangedAttackersWest || [];
   let rangedAttackersSouthwest = Memory.rangedAttackersSouthwest || [];
   let rangedAttackersE59S47 = Memory.rangedAttackersE59S47 || [];
   let rangedAttackersE59S49 = Memory.rangedAttackersE59S49 || [];
@@ -1172,6 +1175,29 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
+    } else if (roadRepairersWest.length < 4) {
+      logConditionPassedForSpawnCreep(
+        "roadRepairersWest",
+        roadRepairersWest,
+        4
+      );
+      parts = slowMoverParts550;
+      name = "rRW" + t;
+      chosenRole = "roadRepairer";
+      direction = "west";
+      group = "roadRepairersWest";
+      creepsWest.push(name);
+      roadRepairersWest.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
     } else if (!sAttackerId) {
       console.log("550 else");
       name = "hW" + t;
@@ -2074,11 +2100,14 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.upControllersE58S48 = upControllersE58S48;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersSouth = roadRepairersSouth;
+  Memory.roadRepairersWest = roadRepairersWest;
   Memory.roadRepairersSouthwest = roadRepairersSouthwest;
   Memory.roadRepairersE59S47 = roadRepairersE59S47;
   Memory.roadRepairersE59S49 = roadRepairersE59S49;
   Memory.rangedAttackers = rangedAttackers;
   Memory.rangedAttackersSouth = rangedAttackersSouth;
+  Memory.rangedAttackersNorth = rangedAttackersNorth;
+  Memory.rangedAttackersWest = rangedAttackersWest;
   Memory.rangedAttackersSouthwest = rangedAttackersSouthwest;
   Memory.rangedAttackersE59S47 = rangedAttackersE59S47;
   Memory.rangedAttackersE59S49 = rangedAttackersE59S49;

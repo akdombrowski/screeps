@@ -19,9 +19,33 @@ function checkProgress(totalNumberOfCreeps, rooms, intervalInGameTime) {
         (progressMadeSinceLastCheck / lastRoomProgress) * 100;
       Memory[room.name + "Progess"] = roomProgress;
 
-      console.log(
-        "Total " + room.name + " Creeps: " + Memory["creeps" + room.name].length
-      );
+      let crps = -1;
+
+      switch (room.name) {
+        case Memory.homeRoomName:
+          crps = Memory.creepsHome.length;
+          break;
+
+        case Memory.westRoomName:
+          crps = Memory.creepsWest.length;
+          break;
+
+        case Memory.southRoomName:
+          crps = Memory.creepsSouth.length;
+          break;
+
+        case Memory.eastRoomName:
+          crps = Memory.creepsEast.length;
+          break;
+
+        case Memory.northRoomName:
+          crps = Memory.creepsNorth.length;
+          break;
+
+        default:
+          break;
+      }
+      console.log("Total " + room.name + " Creeps: " + crps);
 
       console.log(
         "---" +
@@ -80,7 +104,7 @@ function checkProgress(totalNumberOfCreeps, rooms, intervalInGameTime) {
         "\n" +
         "progressPercentageSinceLastCheck: " +
         progressPercentageSinceLastCheck +
-        "%";
+        "%\n";
     });
 
     Game.profiler.email(100);

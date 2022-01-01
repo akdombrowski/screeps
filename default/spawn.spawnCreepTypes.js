@@ -1089,7 +1089,7 @@ function spawnCreepTypes(enAvail, spawns) {
       chosenRole = "h";
       direction = "home";
       parts = fastMoverParts550;
-      creeps.push(name);
+      creepsHome.push(name);
       harvesters.push(name);
       retval = birthCreep(
         spawns,

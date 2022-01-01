@@ -16,6 +16,7 @@ const { checkIfValidPath } = require("./move.checkIfValidPath");
 const { smartMoveReaction } = require("./move.smartMoveReaction");
 const { convertPathToRoomPositions } = require("./convertPathToRoomPositions");
 const { tryDeserializingPath } = require("./tryDeserializingPath");
+const { stuckCreepMovement } = require("./stuckCreepMovement");
 
 function smartMove(
   creep,
@@ -75,70 +76,73 @@ function smartMove(
 
   path = tryDeserializingPath(path);
 
-
   // Is the creep stuck? Keep track of last position and compare it to the current creep position
-  if (lastCreepPos && lastCreepPos.x) {
-    lastCreepPos = new RoomPosition(
-      lastCreepPos.x,
-      lastCreepPos.y,
-      lastCreepPos.roomName
-    );
-    if (lastCreepPos.isEqualTo(creepPos.x, creepPos.y)) {
-      // stuck means they were at the same position the previous two ticks
-      // since the current tick is equal to their last position, that means if they're also stuck, the've been in the same spot for 3 ticks. Try using moveTo with ignore creeps set to false to get out of stuck position
-      if (stuck) {
-        creep.memory.path = null;
-        retval = creep.moveTo(dest, {
-          reusePath: 0,
-          serializeMemory: false,
-          ignoreCreeps: false,
-          maxRooms: 1,
-          maxOps: 100,
-          range: range,
-          visualizePathStyle: {
-            fill: "transparent",
-            stroke: pathColor,
-            lineStyle: "dashed",
-            strokeWidth: 0.25,
-            opacity: 0.2,
-          },
-        });
-
-        // if (creep.name.startsWith("hdS")) {
-        //   console.log("retval0: " + retval);
-        // }
-
-        if (retval === OK) {
-          let newPathArray = [];
-          creep.memory.stuck = false;
-
-          if (creep.memory._move) {
-            path = creep.memory._move.path;
-
-            path.forEach((step) => {
-              // console.log(JSON.stringify(step));
-              let px = step.x + step.dx;
-              let py = step.y + step.dy;
-              let roomName = creep.room.name;
-              let pos = new RoomPosition(px, py, roomName);
-              newPathArray.push(pos);
-            });
-
-            creep.memory.path = newPathArray;
-          }
-        }
-
-        return retval;
-      }
-
-      creep.memory.stuck = true;
-      path = null;
-      creep.memory.path = null;
-      ignoreCreeps = false;
-    } else {
-      creep.memory.stuck = false;
-    }
+  let retval2 = stuckCreepMovement(creep, lastCreepPos, dest, range, pathColor);
+  if (retval2 >= 0 || retval2 === -16) {
+    return retval2;
   }
+  // if (lastCreepPos && lastCreepPos.x) {
+  //   lastCreepPos = new RoomPosition(
+  //     lastCreepPos.x,
+  //     lastCreepPos.y,
+  //     lastCreepPos.roomName
+  //   );
+  //   if (lastCreepPos.isEqualTo(creepPos.x, creepPos.y)) {
+  //     // stuck means they were at the same position the previous two ticks
+  //     // since the current tick is equal to their last position, that means if they're also stuck, the've been in the same spot for 3 ticks. Try using moveTo with ignore creeps set to false to get out of stuck position
+  //     if (stuck) {
+  //       creep.memory.path = null;
+  //       retval = creep.moveTo(dest, {
+  //         reusePath: 0,
+  //         serializeMemory: false,
+  //         ignoreCreeps: false,
+  //         maxRooms: 1,
+  //         maxOps: 100,
+  //         range: range,
+  //         visualizePathStyle: {
+  //           fill: "transparent",
+  //           stroke: pathColor,
+  //           lineStyle: "dashed",
+  //           strokeWidth: 0.25,
+  //           opacity: 0.2,
+  //         },
+  //       });
+
+  //       // if (creep.name.startsWith("hdS")) {
+  //       //   console.log("retval0: " + retval);
+  //       // }
+
+  //       if (retval === OK) {
+  //         let newPathArray = [];
+  //         creep.memory.stuck = false;
+
+  //         if (creep.memory._move) {
+  //           path = creep.memory._move.path;
+
+  //           path.forEach((step) => {
+  //             // console.log(JSON.stringify(step));
+  //             let px = step.x + step.dx;
+  //             let py = step.y + step.dy;
+  //             let roomName = creep.room.name;
+  //             let pos = new RoomPosition(px, py, roomName);
+  //             newPathArray.push(pos);
+  //           });
+
+  //           creep.memory.path = newPathArray;
+  //         }
+  //       }
+
+  //       return retval;
+  //     }
+
+  //     creep.memory.stuck = true;
+  //     path = null;
+  //     creep.memory.path = null;
+  //     ignoreCreeps = false;
+  //   } else {
+  //     creep.memory.stuck = false;
+  //   }
+  // }
 
   path = convertPathToRoomPositions(path);
 

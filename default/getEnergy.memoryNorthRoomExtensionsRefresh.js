@@ -16,7 +16,7 @@ function memoryNorthRoomExtensionsRefresh(creep, extensions) {
     );
   }
 
-  Memory.e59s47extensions = extensions;
+  Memory.northExtensions = extensions;
   return extensions;
 }
 exports.memoryNorthRoomExtensionsRefresh = memoryNorthRoomExtensionsRefresh;

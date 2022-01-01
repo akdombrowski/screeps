@@ -46,7 +46,7 @@ function smartMove(
   let desPath;
   pathColor = pathColor || getRandomColor();
   pathMem = pathMem || Math.floor(Math.random() * 100) + 1;
-  maxOps = maxOps || Math.floor(Math.random() * 200) + 10;
+  maxOps = maxOps || Math.floor(Math.random() * 200) + 50;
   maxRms = maxRms || 1;
   ignoreCreeps = ignoreCreeps || true;
   flee = flee || false;

@@ -69,6 +69,7 @@ stuckCreepMovement = profiler.registerFN(
   stuckCreepMovement,
   "stuckCreepMovement"
 );
+
 function convertToMoveByPathFriendlyPath(creep) {
   let newPathArray = [];
   path = creep.memory._move.path;

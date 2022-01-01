@@ -13,7 +13,7 @@ function checkProgress(totalNumberOfCreeps, rooms, intervalInGameTime) {
       const roomProgressPercentage = (roomProgress / roomProgressTotal) * 100;
       const roomEnergyAvailable = room.energyAvailable;
       const roomEnergyCapacity = room.energyCapacityAvailable;
-      const lastRoomProgress = Memory[room.name + "Progress"] || roomProgress;
+      const lastRoomProgress = Memory[room.name + "Progress"];
       const progressMadeSinceLastCheck = roomProgress - lastRoomProgress;
       const progressPercentageSinceLastCheck =
         (progressMadeSinceLastCheck / lastRoomProgress) * 100;
@@ -61,7 +61,7 @@ function checkProgress(totalNumberOfCreeps, rooms, intervalInGameTime) {
           roomProgressTotal / 1000 +
           "k" +
           "\n" +
-          "percentageUntilNextLevel: " +
+          "percentageOfNextLevel: " +
           roomProgressPercentage +
           "%" +
           "\n" +
@@ -95,7 +95,7 @@ function checkProgress(totalNumberOfCreeps, rooms, intervalInGameTime) {
         roomProgressTotal / 1000 +
         "k" +
         "\n" +
-        "percentageUntilNextLevel: " +
+        "percentageOfNextLevel: " +
         roomProgressPercentage +
         "%" +
         "\n" +

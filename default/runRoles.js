@@ -24,6 +24,7 @@ function runRoles() {
   let harvestersSouth = [];
   let harvestersSouthwest = [];
   let harvestersWest = [];
+  let harvestersNorth = [];
   let harvestersE59S47 = [];
   let harvestersE59S49 = [];
   let harvestersE58S49 = [];
@@ -37,6 +38,8 @@ function runRoles() {
   let workers = [];
   let upControllers = [];
   let upControllersSouth = [];
+  let upControllersNorth = [];
+  let upControllersWest = [];
   let upControllersSouthwest = [];
   let upControllersE59S47 = [];
   let upControllersE59S49 = [];
@@ -78,26 +81,16 @@ function runRoles() {
   let creepsSouthwest = [];
   let creepsWest = [];
   let creepsNorth = [];
-  let creepsE59S49 = [];
-  let creepsE59S47 = [];
-  let creepsE58S49 = [];
-  let creepsE58S48 = [];
   let homeExtensions = Memory.homeExtensions;
   let southExtensions = Memory.southExtensions;
   let southwestExtensions = Memory.southwestExtensions;
   let westExtensions = Memory.westExtensions;
-  let e59s47extensions = Memory.e59s47extensions;
-  let e59s49extensions = Memory.e59s49extensions;
-  let e58s49extensions = Memory.e58s49extensions;
-  let e58s48extensions = Memory.e58s48extensions;
+  let northExtensions = Memory.northExtensions;
   let homeSpawns = Memory.homeSpawns;
   let southSpawns = Memory.southSpawns;
   let southwestSpawns = Memory.southwestSpawns;
   let westSpawns = Memory.westSpawns;
-  let e59s47spawns = Memory.e59s47spawns;
-  let e59s49spawns = Memory.e59s49spawns;
-  let e58s49spawns = Memory.e58s49spawns;
-  let e58s48spawns = Memory.e58s48spawns;
+  let northSpawns = Memory.northSpawns;
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
   const southRoomName = Memory.southRoomName;
@@ -113,6 +106,7 @@ function runRoles() {
   const southExit = Game.flags.southExit;
   const homeToSouth = Game.flags.homeToSouth;
   const homeToWest = Game.flags.homeToWest;
+  const homeToNorth = Game.flags.homeToNorth;
   const southToSouthwest = Game.flags.southToSouthwest;
   const e58s49Exit = Game.flags.e58s49Exit;
   const e58s48Exit = Game.flags.e58s48Exit;
@@ -139,13 +133,14 @@ function runRoles() {
       creepsHome,
       creepsSouth,
       creepsWest,
-      creepsE58S49,
+      creepsNorth,
     } = setCreepRoomArrayAndAvoidInvaders(
       creep,
       creepsHome,
-      creepsE59S49,
-      creepsE59S47,
-      creepsE58S49
+      creepsSouth,
+      creepsWest,
+      creepsNorth,
+      6
     ));
 
     if (roll) {
@@ -171,19 +166,19 @@ function runRoles() {
             retval = ret.retval;
           }
         } else if (creep.memory.direction === "north") {
-          harvestersE59S47.push(name);
+          harvestersNorth.push(name);
           if (!shouldContinueToNextCreep) {
             ret = roleHarvester(
               creep,
-              e59s47extensions,
-              e59s47spawns,
-              "E59S47",
-              northExit,
+              northExtensions,
+              northSpawns,
+              northRoomName,
+              homeToNorth,
               TOP
             );
 
-            e59s47extensions = ret.extensions;
-            e59s47spawns = ret.spawns;
+            northExtensions = ret.extensions;
+            northSpawns = ret.spawns;
             retval = ret.retval;
           }
         } else if (creep.memory.direction === "south") {
@@ -230,8 +225,8 @@ function runRoles() {
               LEFT
             );
             retval = ret.retval;
-            e58s48extensions = ret.extensions;
-            e58s48spawns = ret.spawns;
+            westExtensions = ret.extensions;
+            westSpawns = ret.spawns;
           }
         } else {
           creep.memory.direction = "home";
@@ -714,6 +709,7 @@ function runRoles() {
   Memory.harvesters = harvesters;
   Memory.harvestersSouth = harvestersSouth;
   Memory.harvestersWest = harvestersWest;
+  Memory.harvestersNorth = harvestersNorth;
   Memory.harvestersSouthwest = harvestersSouthwest;
   Memory.harvestersE59S47 = harvestersE59S47;
   Memory.harvestersE59S49 = harvestersE59S49;
@@ -727,6 +723,9 @@ function runRoles() {
   Memory.workers = workers;
   Memory.upControllers = upControllers;
   Memory.upControllersSouth = upControllersSouth;
+  Memory.upControllersNorth = upControllersNorth;
+  Memory.upControllersWest = upControllersWest;
+  Memory.upControllersSouthwest = upControllersSouthwest;
   Memory.upControllersE59S47 = upControllersE59S47;
   Memory.upControllersE59S49 = upControllersE59S49;
   Memory.upControllersE58S49 = upControllersE58S49;
@@ -760,10 +759,6 @@ function runRoles() {
   Memory.creepsSouthwest = creepsSouthwest;
   Memory.creepsWest = creepsWest;
   Memory.creepsNorth = creepsNorth;
-  Memory.creepsE59S49 = creepsE59S49;
-  Memory.creepsE59S47 = creepsE59S47;
-  Memory.creepsE58S49 = creepsE58S49;
-  Memory.creepsE58S48 = creepsE58S48;
 }
 
 runRoles = profiler.registerFN(runRoles, "runRoles");

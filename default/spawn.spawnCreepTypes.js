@@ -134,10 +134,6 @@ function spawnCreepTypes(enAvail, spawns) {
   let creepsNorth = Memory.creepsNorth || [];
   let creepsSouthwest = Memory.creepsSouthwest || [];
   let creepsWest = Memory.creepsWest || [];
-  let creepsE59S49 = Memory.creepsE59S49 || [];
-  let creepsE59S47 = Memory.creepsE59S47 || [];
-  let creepsE58S48 = Memory.creepsE58S48 || [];
-  let creepsE58S49 = Memory.creepsE58S49 || [];
 
   let crps = Game.creeps;
   let numCrps = Object.keys(crps).length;
@@ -2102,10 +2098,6 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.creepsNorth = creepsNorth;
   Memory.creepsSouthwest = creepsSouthwest;
   Memory.creepsWest = creepsWest;
-  Memory.creepsE59S49 = creepsE59S49;
-  Memory.creepsE59S47 = creepsE59S47;
-  Memory.creepsE58S49 = creepsE58S49;
-  Memory.creepsE58S48 = creepsE58S48;
 }
 spawnCreepTypes = profiler.registerFN(spawnCreepTypes, "spawnCreepTypes");
 

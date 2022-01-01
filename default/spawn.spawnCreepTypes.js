@@ -677,8 +677,8 @@ function spawnCreepTypes(enAvail, spawns) {
       //     spawnDirection,
       //     group
       //   );
-    } else if (roadRepairers.length < 6) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 6);
+    } else if (roadRepairers.length < 1) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 1);
       logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 15);
       name = "rR" + t;
       chosenRole = "roadRepairer";

@@ -149,20 +149,18 @@ function roleHarvester(
     creep.memory.getEnergy = false;
     retval = -16;
 
-    if (creep.memory.direction.startsWith("n")) {
+    if (creep.memory.direction === "north") {
       ret = transferEnergy(
         creep,
         null,
         null,
-        northRoomName,
+        homeRoomName,
         northToHome,
         BOTTOM,
         extensions,
         spawns
       );
-    } else if (
-      creep.memory.direction.startsWith("south")
-    ) {
+    } else if (creep.memory.direction.startsWith("south")) {
       ret = transferEnergy(
         creep,
         null,

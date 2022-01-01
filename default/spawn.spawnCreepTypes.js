@@ -603,7 +603,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //        #  #     #  #     #
   //  #     #   #   #    #   #
   //   #####     ###      ###
-  if (enAvail >= 300 && !invaderId && numOfCreepsTotal < 12) {
+  if (enAvail >= 300 && !invaderId && numOfCreepsTotal < 11) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "home";
@@ -614,7 +614,7 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (upControllers.length < 1) {
       logConditionPassedForSpawnCreep("upControllers", upControllers, 1);
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 12);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 11);
       name = "upC" + t;
       chosenRole = "upC";
       group = "upControllers";
@@ -679,7 +679,7 @@ function spawnCreepTypes(enAvail, spawns) {
       //   );
     } else if (roadRepairers.length < 1) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 1);
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 12);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 11);
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";
@@ -718,7 +718,7 @@ function spawnCreepTypes(enAvail, spawns) {
       //   );
     } else if (harvestersWest.length < 8) {
       logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 8);
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 12);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 11);
       name = "hW" + t;
       direction = "west";
       group = "harvestersWest";
@@ -737,7 +737,7 @@ function spawnCreepTypes(enAvail, spawns) {
       );
     } else {
       console.log("300 else condition");
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 12);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 11);
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";

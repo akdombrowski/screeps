@@ -138,11 +138,6 @@ function spawnCreepTypes(enAvail, spawns) {
   let creepsSouthwest = Memory.creepsSouthwest || [];
   let creepsWest = Memory.creepsWest || [];
 
-  let crps = Game.creeps;
-  let numCrps = Object.keys(crps).length;
-
-  let s1 = Game.spawns.deepSouthSpawn1;
-
   // 200
   let viewRoom50 = [];
   addPart(viewRoom50, 1, MOVE);

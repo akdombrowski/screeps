@@ -759,6 +759,7 @@ function runRoles() {
   Memory.rangedAttackersSouth = rangedAttackersSouth;
   Memory.rangedAttackersNorth = rangedAttackersNorth;
   Memory.rangedAttackersWest = rangedAttackersWest;
+  Memory.rangedAttackersSouthwest = rangedAttackersSouthwest;
   Memory.rangedAttackersE59S47 = rangedAttackersE59S47;
   Memory.rangedAttackersE59S49 = rangedAttackersE59S49;
   Memory.attackers = attackers;

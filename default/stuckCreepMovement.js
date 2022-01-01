@@ -84,9 +84,9 @@ function convertToMoveByPathFriendlyPath(creep) {
       newPathArray.push(pos);
     } catch (e) {
       // likely because creep was on the edge of the room and my formula doesn't take into account for transforming into a RoomPosition in the next room
-      console.log(e);
-      console.log(px + " " + py + " " + roomName);
-      console.log(JSON.stringify(step));
+    //   console.log(e);
+    //   console.log(px + " " + py + " " + roomName);
+    //   console.log(JSON.stringify(step));
     }
   });
 

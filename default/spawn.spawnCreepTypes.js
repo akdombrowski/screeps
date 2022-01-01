@@ -735,26 +735,6 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else {
-      console.log("300 else condition");
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 13);
-      name = "rR" + t;
-      chosenRole = "roadRepairer";
-      direction = "home";
-      group = "roadRepairers";
-      parts = slowMoverParts300;
-      creepsHome.push(name);
-      roadRepairers.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group
-      );
     }
 
     if (retval !== -16) {

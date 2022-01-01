@@ -45,7 +45,7 @@ function checkProgress(totalNumberOfCreeps, rooms, intervalInGameTime) {
         default:
           break;
       }
-      console.log("Total " + room.name + " Creeps: " + crps);
+      console.log(crps + " creeps in " + room.name);
 
       console.log(
         "---" +

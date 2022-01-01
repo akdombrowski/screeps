@@ -1,10 +1,10 @@
 const profiler = require("./screeps-profiler");
 const {
-  memoryE59S49ExtensionsRefresh,
-} = require("./getEnergy.memoryE59S49ExtensionsRefresh");
+  memorySouthRoomExtensionsRefresh,
+} = require("./getEnergy.memorySouthRoomExtensionsRefresh");
 const {
-  memoryE59S47ExtensionsRefresh,
-} = require("./getEnergy.memoryE59S47ExtensionsRefresh");
+  memoryNorthRoomExtensionsRefresh,
+} = require("./getEnergy.memoryNorthRoomExtensionsRefresh");
 const {
   memoryHomeExtensionsRefresh,
 } = require("./getEnergy.memoryHomeExtensionsRefresh");

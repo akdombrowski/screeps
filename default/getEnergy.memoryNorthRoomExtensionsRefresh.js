@@ -1,7 +1,7 @@
 const profiler = require("./screeps-profiler");
 const { findMyStructs } = require("./find.findMyStructs");
 
-function memoryE59S47ExtensionsRefresh(creep, extensions) {
+function memoryNorthRoomExtensionsRefresh(creep, extensions) {
   if (extensions && extensions.length > 0) {
     extensions = extensions.filter(
       (struct) =>
@@ -19,8 +19,8 @@ function memoryE59S47ExtensionsRefresh(creep, extensions) {
   Memory.e59s47extensions = extensions;
   return extensions;
 }
-exports.memoryE59S47ExtensionsRefresh = memoryE59S47ExtensionsRefresh;
-memoryE59S47ExtensionsRefresh = profiler.registerFN(
-  memoryE59S47ExtensionsRefresh,
-  "memoryE59S47ExtensionsRefresh"
+exports.memoryNorthRoomExtensionsRefresh = memoryNorthRoomExtensionsRefresh;
+memoryNorthRoomExtensionsRefresh = profiler.registerFN(
+  memoryNorthRoomExtensionsRefresh,
+  "memoryNorthRoomExtensionsRefresh"
 );

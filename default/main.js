@@ -25,11 +25,11 @@ const {
   memoryHomeExtensionsRefresh,
 } = require("./getEnergy.memoryHomeExtensionsRefresh");
 const {
-  memoryE59S47ExtensionsRefresh,
-} = require("./getEnergy.memoryE59S47ExtensionsRefresh");
+  memoryNorthRoomExtensionsRefresh,
+} = require("./getEnergy.memoryNorthRoomExtensionsRefresh");
 const {
-  memoryE59S49ExtensionsRefresh,
-} = require("./getEnergy.memoryE59S49ExtensionsRefresh");
+  memorySouthRoomExtensionsRefresh,
+} = require("./getEnergy.memorySouthRoomExtensionsRefresh");
 const {
   memoryHomeSpawnsRefresh,
 } = require("./getEnergy.memoryHomeSpawnsRefresh");

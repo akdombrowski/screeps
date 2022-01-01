@@ -1083,6 +1083,24 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
+    } else if (harvesters.length < 2) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 2);
+      name = "h" + t;
+      chosenRole = "h";
+      direction = "home";
+      parts = fastMoverParts550;
+      creeps.push(name);
+      harvesters.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
     } else if (roadRepairers.length < 4) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 4);
       parts = slowMoverParts550;

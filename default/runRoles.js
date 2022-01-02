@@ -357,7 +357,7 @@ function runRoles() {
             roleRepairer(
               creep,
               northRoomName,
-              Game.flags.northExit,
+              Game.flags.homeToNorth,
               TOP
             );
           }
@@ -369,7 +369,7 @@ function runRoles() {
               creep,
               westRoomName,
               Game.flags.homeToWest,
-              TOP
+              LEFT
             );
           }
         } else if (creep.memory.direction === "south") {

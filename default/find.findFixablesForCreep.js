@@ -28,10 +28,17 @@ function findFixablesForCreep(creep, target) {
       Memory.southfixables.length <= 0 ||
       Memory.lastSouthCheckFixables - Game.time > timeToPassForRecheck
     ) {
-      Memory.southfixables = findFixables(
-        Game.rooms[Memory.southRoomName]
-      );
+      Memory.southfixables = findFixables(Game.rooms[Memory.southRoomName]);
       Memory.lastSouthCheckFixables = Game.time;
+    }
+  } else if (creep.memory.direction == "west") {
+    if (
+      !Memory.westfixables ||
+      Memory.westfixables.length <= 0 ||
+      Memory.lastWestCheckFixables - Game.time > timeToPassForRecheck
+    ) {
+      Memory.westfixables = findFixables(Game.rooms[Memory.westRoomName]);
+      Memory.lastWestCheckFixables = Game.time;
     }
   } else {
     if (

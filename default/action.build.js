@@ -78,9 +78,9 @@ function build(creep) {
         creep.memory.lastBuildID = null;
         target = null;
       }
-    } else if (creep.room.name === Memory.e58s49RoomName) {
+    } else if (creep.room.name === Memory.westRoomName) {
       // tower construction site
-      target = Game.getObjectById("61cbfc033762cee58312cf62");
+      // target = Game.getObjectById("61cbfc033762cee58312cf62");
       if (target && target.progress < target.progressTotal) {
         // good, keep target
         creep.memory.lastBuildID = target.id;
@@ -271,9 +271,9 @@ function build(creep) {
             }
           }
         }
-      } else if (creep.room.name === Memory.deepSouthRoomName) {
-        if (!Memory.e59s49sites || Memory.e59s49sites.length <= 0) {
-          arr = Game.rooms.E59S49.find(FIND_CONSTRUCTION_SITES, {
+      } else if (creep.room.name === Memory.westRoomName) {
+        if (!Memory.westSites || Memory.westSites.length <= 0) {
+          arr = Game.rooms[Memory.westRoomName].find(FIND_CONSTRUCTION_SITES, {
             filter: (site) => {
               let prog = site.progress;
               let progTot = site.progressTotal;
@@ -295,28 +295,28 @@ function build(creep) {
           });
 
           if (arr && arr.length > 0) {
-            Memory.e59s49sites = arr.map((site) => site.id);
+            Memory.westSites = arr.map((site) => site.id);
 
             if (!target) {
               target = arr.shift();
               creep.memory.lastBuildID = target.id;
-              Memory.e59s49sites.shift();
+              Memory.westSites.shift();
             }
           } else {
-            Memory.e59s49sites = null;
+            Memory.westSites = null;
           }
         }
 
         let sites = [];
         if (!target) {
-          _.forEach(Memory.e59s49sites, (id) => {
+          _.forEach(Memory.westSites, (id) => {
             const siteObj = Game.getObjectById(id);
             if (siteObj && siteObj.progress < siteObj.progressTotal) {
               sites.push(siteObj);
             }
           });
 
-          Memory.e59s49sites = Memory.e59s49sites.filter((id) => {
+          Memory.westSites = Memory.westSites.filter((id) => {
             let site = Game.getObjectById(id);
             if (!site) {
               return false;
@@ -328,6 +328,7 @@ function build(creep) {
 
             return false;
           });
+
           if (sites) {
             try {
               target = creep.pos.findClosestByPath(sites);
@@ -336,7 +337,7 @@ function build(creep) {
               if (target && !target.id) {
                 target = null;
                 creep.memory.buildTarget = null;
-                Memory.e59s49sites = null;
+                Memory.westSites = null;
                 return retval;
               } else if (t) {
                 target = t;
@@ -349,7 +350,7 @@ function build(creep) {
                 targetId = target ? target.id : null;
               }
             } catch (e) {
-              Memory.e59s49sites = null;
+              Memory.westSites = null;
             }
           }
         }

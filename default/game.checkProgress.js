@@ -100,14 +100,14 @@ function checkProgress(totalNumberOfCreeps, rooms, intervalInGameTime) {
         "k" +
         "\n" +
         "percentageOfNextLevel: " +
-        roomProgressPercentage +
+        roomProgressPercentage.toFixed(2) +
         "%" +
         "\n" +
         "progressMadeSinceLastCheck: " +
         progressMadeSinceLastCheck +
         "\n" +
         "progressPercentageSinceLastCheck: " +
-        progressPercentageSinceLastCheck +
+        progressPercentageSinceLastCheck.toFixed(2) +
         "%\n";
     });
 

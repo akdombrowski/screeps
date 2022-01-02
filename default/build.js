@@ -2,7 +2,7 @@ const smartMove = require("./move.smartMove");
 const getEnergy = require("./getEnergy");
 const { checkIfBlockingSource } = require("./utilities.checkIfBlockingSource");
 const profiler = require("./screeps-profiler");
-const { roomBuildTargetPriorities } = require("./roomBuildTargetPriorities");
+const { roomBuildTargetPriorities } = require("./build.roomBuildTargetPriorities");
 
 function build(creep) {
   const name = creep.name;

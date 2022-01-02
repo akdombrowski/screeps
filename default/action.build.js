@@ -1,10 +1,13 @@
 const smartMove = require("./move.smartMove");
 const getEnergy = require("./getEnergy");
-const yucreepin = require("./action.checkForAnotherCreepNearMe");
 const { checkIfBlockingSource } = require("./utilities.checkIfBlockingSource");
 const profiler = require("./screeps-profiler");
+const { roomBuildTargetPriorities } = require("./roomBuildTargetPriorities");
 
 function build(creep) {
+  const name = creep.name;
+  const creepRoom = creep.room;
+  const creepRoomName = creepRoom.name;
   let targetId = creep.memory.lastBuildID;
   let target = targetId ? Game.getObjectById(targetId) : null;
   let building = creep.memory.building || true;
@@ -21,109 +24,42 @@ function build(creep) {
   }
 
   if (building) {
-    if (creep.room.name === Memory.homeRoomName) {
-      target = Game.getObjectById("61d1b4f83f190b3501cfacaa");
+    if (target && target.progress < target.progressTotal) {
+      // good, keep target
+      creep.memory.lastBuildID = target.id;
+    } else {
+      // bad get rid of target
+      creep.memory.lastBuildID = null;
+      target = null;
+    }
 
-      if (
-        !target ||
-        (target.progress && target.progress >= target.progressTotal)
-      ) {
-        target = Game.getObjectById("61d1b4d9be69f624fc0ea3fd");
+    if (!target) {
+      if (creepRoomName === Memory.homeRoomName) {
+        target = roomBuildTargetPriorities(creep, Memory.homeRoomName, [
+          "61d1b4f83f190b3501cfacaa",
+          "61d1b4d9be69f624fc0ea3fd",
+          "61d1b4db3762ce06c1131076",
+          "61d1b4dc3762ceb4bc131077",
+          "61d1b4de3762ce627713107a",
+          "61d1b4d03f190b4b4bcfaca3",
+        ]);
+      } else if (creepRoomName === Memory.westRoomName) {
+        target = roomBuildTargetPriorities(creep, Memory.westRoomName, [
+          "61d0a0f13762ce69a21300f0",
+          "61d0a0efbe69f60a360e946b",
+          "61d0a0efbe69f681e80e946a",
+          "61d0a0fa3f190b59e1cf9bd5",
+          "61d0a0fb3762ce4df21300f5",
+        ]);
+      } else if (creepRoomName === Memory.southRoomName) {
+        target = roomBuildTargetPriorities(creep, Memory.southRoomName, []);
+      } else if (creepRoomName === Memory.northRoomName) {
+        target = roomBuildTargetPriorities(creep, Memory.northRoomName, []);
       }
+    }
 
-      if (
-        !target ||
-        (target.progress && target.progress >= target.progressTotal)
-      ) {
-        target = Game.getObjectById("61d1b4db3762ce06c1131076");
-      }
-
-      if (
-        !target ||
-        (target.progress && target.progress >= target.progressTotal)
-      ) {
-        target = Game.getObjectById("61d1b4dc3762ceb4bc131077");
-      }
-
-      if (
-        !target ||
-        (target.progress && target.progress >= target.progressTotal)
-      ) {
-        target = Game.getObjectById("61d1b4de3762ce627713107a");
-      }
-
-      if (
-        !target ||
-        (target.progress && target.progress >= target.progressTotal)
-      ) {
-        target = Game.getObjectById("61d1b4d03f190b4b4bcfaca3");
-      }
-
-      if (target && target.progress < target.progressTotal) {
-        // good, keep target
-        creep.memory.lastBuildID = target.id;
-      } else {
-        creep.memory.lastBuildID = null;
-        target = null;
-      }
-    } else if (creep.room.name === Memory.northRoomName) {
-      target = Game.getObjectById("61ca56f3be69f684c60e542f");
-      if (target && target.progress < target.progressTotal) {
-        // good, keep target
-        creep.memory.lastBuildID = target.id;
-      } else {
-        creep.memory.lastBuildID = null;
-        target = null;
-      }
-    } else if (creep.room.name === Memory.southRoomName) {
-      // tower construction site
-      target = Game.getObjectById("61cd727f3762ce4b2612deaa");
-      if (target && target.progress < target.progressTotal) {
-        // good, keep target
-        creep.memory.lastBuildID = target.id;
-      } else {
-        creep.memory.lastBuildID = null;
-        target = null;
-      }
-    } else if (creep.room.name === Memory.westRoomName) {
-      // tower construction site
-      target = Game.getObjectById("61d0a0f13762ce69a21300f0");
-
-      if (
-        !target ||
-        (target.progress && target.progress >= target.progressTotal)
-      ) {
-        target = Game.getObjectById("61d0a0efbe69f60a360e946b");
-      }
-
-      if (
-        !target ||
-        (target.progress && target.progress >= target.progressTotal)
-      ) {
-        target = Game.getObjectById("61d0a0efbe69f681e80e946a");
-      }
-
-      if (
-        !target ||
-        (target.progress && target.progress >= target.progressTotal)
-      ) {
-        target = Game.getObjectById("61d0a0fa3f190b59e1cf9bd5");
-      }
-
-      if (
-        !target ||
-        (target.progress && target.progress >= target.progressTotal)
-      ) {
-        target = Game.getObjectById("61d0a0fb3762ce4df21300f5");
-      }
-
-      if (target && target.progress < target.progressTotal) {
-        // good, keep target
-        creep.memory.lastBuildID = target.id;
-      } else {
-        creep.memory.lastBuildID = null;
-        target = null;
-      }
+    if (target) {
+      creep.memory.lastBuildID = target.id;
     }
 
     if (
@@ -523,3 +459,4 @@ function build(creep) {
 
 build = profiler.registerFN(build, "build");
 module.exports = build;
+

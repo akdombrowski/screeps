@@ -439,6 +439,7 @@ function build(creep) {
           creep.say("b:" + target.pos.x + "," + target.pos.y);
           creep.memory.b = targetId;
         } else {
+          console.log(target);
           creep.say("m:" + target.pos.x + "," + target.pos.y + ":" + retval);
           target = null;
           creep.memory.b = null;
@@ -459,4 +460,3 @@ function build(creep) {
 
 build = profiler.registerFN(build, "build");
 module.exports = build;
-

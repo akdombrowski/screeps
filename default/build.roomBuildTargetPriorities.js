@@ -6,9 +6,9 @@ function roomBuildTargetPriorities(creep, targetRoomName, targets) {
   if (creep.room.name === targetRoomName) {
     target = targets.find((targetID) => {
       let constructionSite = Game.getObjectById(targetID);
+
       return (
         constructionSite &&
-        constructionSite.progress &&
         constructionSite.progress < constructionSite.progressTotal
       );
     });

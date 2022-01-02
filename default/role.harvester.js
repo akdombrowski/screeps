@@ -277,6 +277,7 @@ function transferEnergyBasedOnDirection(creep, extensions, spawns) {
   const westRoomName = Memory.westRoomName;
   const southToHome = Game.flags.southToHome;
   const westToHome = Game.flags.westToHome;
+  const northToHome = Game.flags.northToHome;
   let ret = { retval: -16, extensions: extensions, spawns: spawns };
 
   if (creep) {
@@ -285,8 +286,8 @@ function transferEnergyBasedOnDirection(creep, extensions, spawns) {
         creep,
         null,
         null,
-        northRoomName,
-        Game.flags.northEntrance,
+        homeRoomName,
+        northToHome,
         BOTTOM,
         extensions,
         spawns

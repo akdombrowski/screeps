@@ -19,6 +19,7 @@ function roleViewer(creep, targetRoomName, exit, exitDirection) {
   let mem_getEnergy = creep.memory.getEnergy;
   let target = Game.getObjectById(creep.memory.lastSourceId);
 
+  if (creep.hits >= creep.hitsMax) {
     if (targetRoomName && creepRoomName != targetRoomName) {
       if (creepRoomName === Memory.northRoomName) {
         // if in the north room but target is not north, head south
@@ -27,7 +28,7 @@ function roleViewer(creep, targetRoomName, exit, exitDirection) {
       } else if (creepRoomName === Memory.southRoomName) {
         // if in the South room but target room is not deepSouth, head north
         exitDirection = TOP;
-        exit = Game.flags.southToHome
+        exit = Game.flags.southToHome;
       }
 
       if (creep.pos.isNearTo(exit)) {
@@ -39,6 +40,19 @@ function roleViewer(creep, targetRoomName, exit, exitDirection) {
       }
       return retval;
     }
+    // in target room. good.
+  } else {
+    retval = creep.heal(creep);
+    if (creepRoomName === Memory.northRoomName) {
+      creep.move(BOTTOM);
+    } else if (creepRoomName === Memory.southRoomName) {
+      creep.move(TOP);
+    } else if (creepRoomName === Memory.westRoomName) {
+      creep.move(RIGHT);
+    }
+
+    return retval;
+  }
 }
 
 roleViewer = profiler.registerFN(roleViewer, "roleRepairer");

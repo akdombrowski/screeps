@@ -172,6 +172,11 @@ function spawnCreepTypes(enAvail, spawns) {
   addPart(slowMoverParts300, 2, WORK);
   addPart(slowMoverParts300, 1, MOVE);
 
+  // 300
+  let viewRoom300 = [];
+  addPart(viewRoom300, 1, MOVE);
+  addPart(viewRoom300, 1, HEAL);
+
   // 350
   let rangedAttackerParts350 = [];
   addPart(rangedAttackerParts350, 1, MOVE);
@@ -452,23 +457,24 @@ function spawnCreepTypes(enAvail, spawns) {
     }
   }
 
-  // .########...#####..
-  // .##........##...##.
-  // .##.......##.....##
-  // .#######..##.....##
-  // .......##.##.....##
-  // .##....##..##...##.
-  // ..######....#####..
-  if (enAvail >= 50) {
+  // ..#######....#####.....#####..
+  // .##.....##..##...##...##...##.
+  // ........##.##.....##.##.....##
+  // ..#######..##.....##.##.....##
+  // ........##.##.....##.##.....##
+  // .##.....##..##...##...##...##.
+  // ..#######....#####.....#####..
+  if (enAvail >= 300) {
     let name = "vW" + t;
     let chosenRole = "viewer";
     let direction = "west";
     let sourceId = Memory.nsource2;
-    let parts = viewRoom50;
+    let parts = viewRoom300;
     let group = "viewersWest";
-    let spawnDirection = [TOP];
+    let spawnDirection = [LEFT];
 
     if (viewersWest.length < 1) {
+      logConditionPassedForSpawnCreep("viewersWest", viewersWest, 1);
       viewersWest.push(name);
       retval = birthCreep(
         spawns,
@@ -484,6 +490,7 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (retval !== -16) {
       console.log("spawningS " + name + " " + retval);
+      console.log("energy: 300  parts: " + parts);
     }
     if (retval === OK || retval === ERR_BUSY) {
       return retval;

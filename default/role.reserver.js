@@ -1,7 +1,7 @@
 const getEnergy = require("./getEnergy");
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./move.smartMove");
-const build = require("./action.build");
+const build = require("./build");
 const findRepairable = require("./action.findRepairableStruct");
 const profiler = require("./screeps-profiler");
 

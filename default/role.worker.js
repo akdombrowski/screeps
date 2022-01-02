@@ -1,7 +1,7 @@
 const getEnergy = require("./getEnergy");
 const smartMove = require("./move.smartMove");
 const yucreepin = require("./action.checkForAnotherCreepNearMe");
-const build = require("./action.build");
+const build = require("./build");
 const profiler = require("./screeps-profiler");
 
 function roleWorker(

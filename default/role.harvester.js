@@ -2,7 +2,7 @@ const getEnergy = require("./getEnergy");
 const transferEnergy = require("./transferEnergy");
 const buildRoad = require("./action.buildRoad");
 const smartMove = require("./move.smartMove");
-const build = require("./action.build");
+const build = require("./build");
 const transEnTower = require("./action.transEnTower");
 const profiler = require("./screeps-profiler");
 

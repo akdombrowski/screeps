@@ -7,7 +7,7 @@ const getEnergyEE = require("./action.getEnergyEEast");
 const getEnergyWest = require("./getEnergy");
 const buildRoad = require("./action.buildRoad");
 const smartMove = require("./move.smartMove");
-const build = require("./action.build");
+const build = require("./build");
 const transEnTower = require("./action.transEnTower");
 
 const roleHarvesterToTower = {

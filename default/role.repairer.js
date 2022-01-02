@@ -19,8 +19,17 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
   let target = Game.getObjectById(lastRepairableStructId);
 
   if (target) {
-    if (!target.progress || target.progress >= target.progressTotal) {
+    if (target.progress && target.progress >= target.progressTotal) {
       target = null;
+      creep.memory.lastBuildID = null;
+    } else if (target.progress) {
+      creep.memory.lastBuildID = target;
+      creep.memory.build = true;
+    }
+
+    if (target.hits && target.hits >= target.hitsMax) {
+      target = null;
+      creep.memory.lastRepairableStructId = target;
     }
   }
 
@@ -180,7 +189,13 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
         creep.memory.ry = target.pos.y;
         if (creep.fatigue > 0) {
           creep.say(
-            "r." + creep.fatigue + "." + target.pos.x + "," + target.pos.y + "😴"
+            "r." +
+              creep.fatigue +
+              "." +
+              target.pos.x +
+              "," +
+              target.pos.y +
+              "😴"
           );
         } else if (retval == ERR_INVALID_TARGET) {
           creep.say("invalTarg");

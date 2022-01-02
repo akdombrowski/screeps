@@ -64,6 +64,7 @@ function runRoles() {
   let reserversSouth = [];
   let reserversSouthwest = [];
   let viewers = [];
+  let viewersWest = [];
   let viewersSouth = [];
   let viewersSouthwest = [];
   let viewersE59S47 = [];
@@ -398,6 +399,11 @@ function runRoles() {
           viewersSouth.push(name);
           if (!shouldContinueToNextCreep) {
             roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP);
+          }
+        } else if (creep.memory.direction === "west") {
+          viewersWest.push(name);
+          if (!shouldContinueToNextCreep) {
+            roleViewer(creep, Memory.westRoomName, Game.flags.homeToWest, LEFT);
           }
         } else {
           viewersSouth.push(name);
@@ -740,6 +746,7 @@ function runRoles() {
   Memory.linkGets = linkGets;
   Memory.towerHarvesters = towerHarvesters;
   Memory.viewers = viewers;
+  Memory.viewersWest = viewersWest;
   Memory.viewersSouth = viewersSouth;
   Memory.creepsHome = creepsHome;
   Memory.creepsSouth = creepsSouth;

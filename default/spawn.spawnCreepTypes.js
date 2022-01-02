@@ -1136,7 +1136,7 @@ function spawnCreepTypes(enAvail, spawns) {
     } else if (roadRepairers.length < 4) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 4);
       parts = slowMoverParts550;
-      name = "rRS" + t;
+      name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";
       group = "roadRepairers";

@@ -215,7 +215,7 @@ module.exports.loop = function () {
     }
 
     let rooms = [homeRoom];
-    checkProgress(numCrps, rooms, 3600);
+    checkProgress(numCrps, rooms, 5);
   });
 
   // Profiler stats

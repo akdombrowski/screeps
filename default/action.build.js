@@ -22,34 +22,34 @@ function build(creep) {
 
   if (building) {
     if (creep.room.name === Memory.homeRoomName) {
-      target = Game.getObjectById("61cefdb83f190b9e47cf8ce7");
+      target = Game.getObjectById("61d1b4f83f190b3501cfacaa");
 
       if (
         !target ||
         (target.progress && target.progress >= target.progressTotal)
       ) {
-        target = Game.getObjectById("61cefdb9be69f6497b0e8671");
+        target = Game.getObjectById("61d1b4d9be69f624fc0ea3fd");
       }
 
       if (
         !target ||
         (target.progress && target.progress >= target.progressTotal)
       ) {
-        target = Game.getObjectById("61cefdc63f190b2c48cf8ce9");
+        target = Game.getObjectById("61d1b4db3762ce06c1131076");
       }
 
       if (
         !target ||
         (target.progress && target.progress >= target.progressTotal)
       ) {
-        target = Game.getObjectById("61cefdc53f190b20ddcf8ce8");
+        target = Game.getObjectById("61d1b4dc3762ceb4bc131077");
       }
 
       if (
         !target ||
         (target.progress && target.progress >= target.progressTotal)
       ) {
-        target = Game.getObjectById("61cefdc8be69f696130e8672");
+        target = Game.getObjectById("61d1b4de3762ce627713107a");
       }
 
       if (target && target.progress < target.progressTotal) {
@@ -80,7 +80,36 @@ function build(creep) {
       }
     } else if (creep.room.name === Memory.westRoomName) {
       // tower construction site
-      // target = Game.getObjectById("61cbfc033762cee58312cf62");
+      target = Game.getObjectById("61d0a0f13762ce69a21300f0");
+
+      if (
+        !target ||
+        (target.progress && target.progress >= target.progressTotal)
+      ) {
+        target = Game.getObjectById("61d0a0efbe69f60a360e946b");
+      }
+
+      if (
+        !target ||
+        (target.progress && target.progress >= target.progressTotal)
+      ) {
+        target = Game.getObjectById("61d0a0efbe69f681e80e946a");
+      }
+
+      if (
+        !target ||
+        (target.progress && target.progress >= target.progressTotal)
+      ) {
+        target = Game.getObjectById("61d0a0fa3f190b59e1cf9bd5");
+      }
+
+      if (
+        !target ||
+        (target.progress && target.progress >= target.progressTotal)
+      ) {
+        target = Game.getObjectById("61d0a0fb3762ce4df21300f5");
+      }
+
       if (target && target.progress < target.progressTotal) {
         // good, keep target
         creep.memory.lastBuildID = target.id;

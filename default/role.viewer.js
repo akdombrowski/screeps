@@ -7,7 +7,7 @@ const { findFixables } = require("./find.findFixables");
 const { checkIfBlockingSource } = require("./utilities.checkIfBlockingSource");
 const profiler = require("./screeps-profiler");
 
-function roleViewer(creep, targetRoomName, exit, exitDirection) {
+function roleViewer(creep, targetRoomName, exit, exitDirection, retreatDirection) {
   let mem_repair = creep.memory.repair;
   let retval = -16;
   const lastRepairableStructId = creep.memory.lastRepairableStructId;
@@ -42,14 +42,9 @@ function roleViewer(creep, targetRoomName, exit, exitDirection) {
     }
     // in target room. good.
   } else {
+    creep.move(retreatDirection);
+
     retval = creep.heal(creep);
-    if (creepRoomName === Memory.northRoomName) {
-      creep.move(BOTTOM);
-    } else if (creepRoomName === Memory.southRoomName) {
-      creep.move(TOP);
-    } else if (creepRoomName === Memory.westRoomName) {
-      creep.move(RIGHT);
-    }
 
     return retval;
   }

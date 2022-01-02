@@ -464,7 +464,7 @@ function spawnCreepTypes(enAvail, spawns) {
   // ........##.##.....##.##.....##
   // .##.....##..##...##...##...##.
   // ..#######....#####.....#####..
-  if (enAvail >= 300) {
+  if (enAvail >= 300 && wAttackerId) {
     let name = "vW" + t;
     let chosenRole = "viewer";
     let direction = "west";
@@ -513,8 +513,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 4) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
+    if (harvesters.length < 8) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 8);
       logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 10);
       name = "h" + t;
       direction = "home";
@@ -532,63 +532,6 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-      // } else if (harvestersSouth.length < 6 && !sAttackerId) {
-      //   logConditionPassedForSpawnCreep("harvestersSouth", harvestersSouth, 6);
-      //   logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 12);
-      //   name = "hS" + t;
-      //   direction = "south";
-      //   group = "harvestersSouth";
-      //   creepsSouth.push(name);
-      //   harvestersSouth.push(name);
-      //   parts = simpleParts300;
-      //   retval = birthCreep(
-      //     spawns,
-      //     parts,
-      //     name,
-      //     chosenRole,
-      //     direction,
-      //     sourceId,
-      //     spawnDirection,
-      //     group
-      //   );
-      // } else if (
-      //   harvestersE59S49.length < 2 &&
-      //   !dSAttackerId &&
-      //   creepsE59S49.length < 6
-      // ) {
-      //   logConditionPassedForSpawnCreep("harvestersE59S49", harvestersE59S49, 2);
-      //   logConditionPassedForSpawnCreep("creepsE59S49", creepsE59S49, 6);
-      //   name = "hdS" + t;
-      //   direction = "deepSouth";
-      //   group = "harvestersE59S49";
-      //   creepsE59S49.push(name);
-      //   harvestersE59S49.push(name);
-      //   parts = simpleParts300;
-      //   retval = birthCreep(
-      //     spawns,
-      //     parts,
-      //     name,
-      //     chosenRole,
-      //     direction,
-      //     sourceId,
-      //     spawnDirection,
-      //     group
-      //   );
-      // } //else if (numOfCreepsTotal < 10) {
-      //   logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 10);
-      //   creepsHome.push(name);
-      //   harvesters.push(name);
-      //   parts = simpleParts300;
-      //   retval = birthCreep(
-      //     spawns,
-      //     parts,
-      //     name,
-      //     chosenRole,
-      //     direction,
-      //     sourceId,
-      //     spawnDirection,
-      //     group
-      //   );
     }
 
     if (retval !== -16) {

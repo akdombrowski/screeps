@@ -52,6 +52,13 @@ function build(creep) {
         target = Game.getObjectById("61d1b4de3762ce627713107a");
       }
 
+      if (
+        !target ||
+        (target.progress && target.progress >= target.progressTotal)
+      ) {
+        target = Game.getObjectById("61d1b4d03f190b4b4bcfaca3");
+      }
+
       if (target && target.progress < target.progressTotal) {
         // good, keep target
         creep.memory.lastBuildID = target.id;

@@ -1122,6 +1122,25 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
+    } else if (upControllers.length < 4) {
+      logConditionPassedForSpawnCreep("upControllers", upControllers, 4);
+      name = "upC" + t;
+      chosenRole = "upC";
+      direction = "home";
+      group = "upControllers";
+      parts = slowMoverParts550;
+      upControllers.push(name);
+      creepsHome.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
     } else if (!wAttackerId) {
       console.log("550 no wAttacker");
       logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, -1);

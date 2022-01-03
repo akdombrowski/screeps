@@ -56,7 +56,7 @@ module.exports = claimContr;
 
 function claimControlla(creep, ctrlr) {
   let retval = -16;
-  if (creep.pos.isNearTo(ctrlr)) {
+  if (creep.pos.inRangeTo(ctrlr, 1)) {
     if (ctrlr.safeMode && ctrlr.safeMode > 0) {
       creep.say("att");
       retval = creep.attackController(ctrlr);

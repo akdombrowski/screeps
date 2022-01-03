@@ -541,7 +541,7 @@ function runRoles() {
         }
         upControllersWest.push(name);
 
-        creep.memory.controllerID = "59bbc5c12052a716c3ce9fa8";
+        creep.memory.controllerID = "59f1a13882100e1594f37ed5";
 
         if (!shouldContinueToNextCreep) {
           retval = upController(

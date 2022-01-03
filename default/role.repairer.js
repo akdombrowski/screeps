@@ -24,7 +24,7 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
       creep.memory.lastBuildID = null;
     } else if (target.progress >= 0) {
       creep.memory.lastBuildID = target;
-      creep.memory.build = true;
+      // creep.memory.build = true;
     }
 
     if (target.hits >= target.hitsMax) {

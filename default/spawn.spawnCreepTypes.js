@@ -254,22 +254,16 @@ function spawnCreepTypes(enAvail, spawns) {
   addPart(upContrParts800, 5, MOVE);
 
   // 850
+  let fastMoverParts850 = [];
+  addPart(fastMoverParts850, 1, CARRY);
+  addPart(fastMoverParts850, 5, WORK);
+  addPart(fastMoverParts850, 6, MOVE);
+
+  // 850
   let harvesterParts850 = [];
   addPart(harvesterParts850, 1, CARRY);
   addPart(harvesterParts850, 5, WORK);
   addPart(harvesterParts850, 6, MOVE);
-
-  // 850
-  let workerParts850 = [];
-  addPart(workerParts850, 1, CARRY);
-  addPart(workerParts850, 5, WORK);
-  addPart(workerParts850, 6, MOVE);
-
-  // 850
-  let upContrParts850 = [];
-  addPart(upContrParts850, 1, CARRY);
-  addPart(upContrParts850, 5, WORK);
-  addPart(upContrParts850, 6, MOVE);
 
   // 1100
   let medsouthHvParts1100 = [];
@@ -976,8 +970,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 8 && numOfCreepsTotal < 25) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 8);
+    if (harvesters.length < 7 && numOfCreepsTotal < 23) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 7);
       name = "h" + t;
       chosenRole = "h";
       direction = "home";
@@ -1125,7 +1119,7 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvesters.length < 10 && numOfCreepsTotal < 25) {
+    } else if (harvesters.length < 10 && numOfCreepsTotal < 24) {
       logConditionPassedForSpawnCreep("harvesters", harvesters, 10);
       name = "h" + t;
       chosenRole = "h";
@@ -1628,8 +1622,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 4) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
+    if (harvesters.length < 8) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 8);
       name = "h" + t;
       chosenRole = "h";
       direction = "home";

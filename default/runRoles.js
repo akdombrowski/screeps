@@ -569,11 +569,11 @@ function runRoles() {
         if (!shouldContinueToNextCreep) {
           claim(
             creep,
-            northEastRoomName,
-            Game.flags.e58s49Exit,
-            LEFT,
+            northRoomName,
+            homeToNorth,
+            TOP,
             Memory.northControllerID,
-            Memory.e58s49Controller
+            Memory.northRoomController
           );
         }
       } else if (roll === "cW" || roll === "claimerW") {
@@ -583,7 +583,7 @@ function runRoles() {
           claim(
             creep,
             westRoomName,
-            Game.flags.homeToWest,
+            homeToWest,
             LEFT,
             Memory.westControllerID,
             Game.flags.westRoomController

@@ -993,8 +993,8 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvesters.length < 1) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 1);
+    } else if (harvesters.length < 4 && numOfCreepsTotal < 25) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
       name = "h" + t;
       chosenRole = "h";
       direction = "home";

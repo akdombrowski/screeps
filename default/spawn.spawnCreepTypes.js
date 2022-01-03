@@ -399,49 +399,49 @@ function spawnCreepTypes(enAvail, spawns) {
     }
   }
 
-  //     #     #######  #######     #      #####   #    #
-  //    # #       #        #       # #    #     #  #   #
-  //   #   #      #        #      #   #   #        #  #
-  //  #     #     #        #     #     #  #        ###
-  //  #######     #        #     #######  #        #  #
-  //  #     #     #        #     #     #  #     #  #   #
-  //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 800 && rangedAttackersEast.length < 1) {
-    logConditionPassedForSpawnCreep(
-      "rangedAttackersEast",
-      rangedAttackersEast,
-      1
-    );
+  // //     #     #######  #######     #      #####   #    #
+  // //    # #       #        #       # #    #     #  #   #
+  // //   #   #      #        #      #   #   #        #  #
+  // //  #     #     #        #     #     #  #        ###
+  // //  #######     #        #     #######  #        #  #
+  // //  #     #     #        #     #     #  #     #  #   #
+  // //  #     #     #        #     #     #   #####   #    #
+  // if (enAvail >= 800 && rangedAttackersEast.length < 1) {
+  //   logConditionPassedForSpawnCreep(
+  //     "rangedAttackersEast",
+  //     rangedAttackersEast,
+  //     1
+  //   );
 
-    let name = "aRE" + t;
-    let chosenRole = "rangedAttacker";
-    let direction = "east";
-    let sourceId = Memory.dSSource2;
-    let parts = rangedAttackerParts800;
-    let group = "rangedAttackersEast";
-    let spawnDirection = [RIGHT];
+  //   let name = "aRE" + t;
+  //   let chosenRole = "rangedAttacker";
+  //   let direction = "east";
+  //   let sourceId = Memory.dSSource2;
+  //   let parts = rangedAttackerParts800;
+  //   let group = "rangedAttackersEast";
+  //   let spawnDirection = [RIGHT];
 
-    creepsEast.push(name);
-    rangedAttackersEast.push(name);
-    retval = birthCreep(
-      spawns,
-      parts,
-      name,
-      chosenRole,
-      direction,
-      sourceId,
-      spawnDirection,
-      group
-    );
+  //   creepsEast.push(name);
+  //   rangedAttackersEast.push(name);
+  //   retval = birthCreep(
+  //     spawns,
+  //     parts,
+  //     name,
+  //     chosenRole,
+  //     direction,
+  //     sourceId,
+  //     spawnDirection,
+  //     group
+  //   );
 
-    if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
-      console.log("energy: 550");
-    }
-    if (retval === OK || retval === ERR_BUSY) {
-      return retval;
-    }
-  }
+  //   if (retval !== -16) {
+  //     console.log("spawningS " + name + " " + retval);
+  //     console.log("energy: 550");
+  //   }
+  //   if (retval === OK || retval === ERR_BUSY) {
+  //     return retval;
+  //   }
+  // }
 
   // ..#######....#####.....#####..
   // .##.....##..##...##...##...##.

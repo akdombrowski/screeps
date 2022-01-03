@@ -373,7 +373,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let direction = "home";
     let sourceId = Memory.source2;
     let parts = rangedAttackerParts800;
-    let spawnDirection = [TOP];
+    let spawnDirection = [BOTTOM];
     let group = "rangedAttackers";
 
     creepsHome.push(name);
@@ -405,19 +405,20 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 800 && rangedAttackersEast.length < 0) {
+  if (enAvail >= 800 && rangedAttackersEast.length < 1) {
     logConditionPassedForSpawnCreep(
       "rangedAttackersEast",
       rangedAttackersEast,
-      0
+      1
     );
+
     let name = "aRE" + t;
     let chosenRole = "rangedAttacker";
     let direction = "east";
     let sourceId = Memory.dSSource2;
     let parts = rangedAttackerParts800;
     let group = "rangedAttackersEast";
-    let spawnDirection = [TOP];
+    let spawnDirection = [RIGHT];
 
     creepsEast.push(name);
     rangedAttackersEast.push(name);
@@ -1009,7 +1010,11 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersSouth.length < 2 && !sAttackerId && numOfCreepsTotal < 25) {
+    } else if (
+      harvestersSouth.length < 2 &&
+      !sAttackerId &&
+      numOfCreepsTotal < 25
+    ) {
       logConditionPassedForSpawnCreep("harvestersSouth", harvestersSouth, 2);
       name = "hS" + t;
       chosenRole = "h";
@@ -1027,7 +1032,11 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersNorth.length < 2 && !nAttackerId && numOfCreepsTotal < 25) {
+    } else if (
+      harvestersNorth.length < 2 &&
+      !nAttackerId &&
+      numOfCreepsTotal < 25
+    ) {
       logConditionPassedForSpawnCreep("harvestersNorth", harvestersNorth, 2);
       name = "hN" + t;
       chosenRole = "h";
@@ -1083,7 +1092,11 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairersWest.length < 4 && !wAttackerId && numOfCreepsTotal < 25) {
+    } else if (
+      roadRepairersWest.length < 4 &&
+      !wAttackerId &&
+      numOfCreepsTotal < 25
+    ) {
       logConditionPassedForSpawnCreep(
         "roadRepairersWest",
         roadRepairersWest,

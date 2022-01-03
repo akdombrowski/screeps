@@ -94,17 +94,17 @@ function runRoles() {
   const northEastRoomName = Memory.northEastRoomName;
   const e58s48RoomName = Memory.e58s48RoomName;
   const southToHome = Game.flags.southToHome;
+  const eastToHome = Game.flags.eastToHome;
+  const homeToEast = Game.flags.homeToEast;
   const northEntrance = Game.flags.northEntrance;
   const e58s49Entrance = Game.flags.e58s49Entrance;
-  const e58s48Entrance = Game.flags.e58s48Entrance;
-  const northExit = Game.flags.northExit;
   const southExit = Game.flags.southExit;
   const homeToSouth = Game.flags.homeToSouth;
   const homeToWest = Game.flags.homeToWest;
   const homeToNorth = Game.flags.homeToNorth;
+  const northToHome = Game.flags.northToHome;
   const southToSouthwest = Game.flags.southToSouthwest;
   const e58s49Exit = Game.flags.e58s49Exit;
-  const e58s48Exit = Game.flags.e58s48Exit;
   const southControllerFlag = Game.flags.southController;
 
   let retval = -16;
@@ -690,28 +690,68 @@ function runRoles() {
         name.startsWith("aR")
       ) {
         if (creep.memory.direction === "north") {
-          rangedAttackersE59S47.push(name);
+          rangedAttackersNorth.push(name);
 
           if (!shouldContinueToNextCreep) {
-            roleRangedAttacker(creep);
+            roleRangedAttacker(
+              creep,
+              homeToNorth,
+              northToHome,
+              northRoomName,
+              TOP,
+              homeRoomName,
+              BOTTOM,
+              Memory.invaderIDNorth,
+              Memory.invaderIDHome
+            );
           }
         } else if (creep.memory.direction === "south") {
           rangedAttackersSouth.push(name);
 
           if (!shouldContinueToNextCreep) {
-            roleRangedAttackerS(creep);
+            roleRangedAttacker(
+              creep,
+              homeToSouth,
+              southToHome,
+              southRoomName,
+              BOTTOM,
+              homeRoomName,
+              TOP,
+              Memory.invaderIDSouth,
+              Memory.invaderIDHome
+            );
           }
         } else if (creep.memory.direction === "east") {
           rangedAttackersEast.push(name);
 
           if (!shouldContinueToNextCreep) {
-            roleRangedAttackerE(creep);
+            roleRangedAttacker(
+              creep,
+              homeToEast,
+              eastToHome,
+              eastRoomName,
+              RIGHT,
+              homeRoomName,
+              LEFT,
+              Memory.invaderIDEast,
+              Memory.invaderIDHome
+            );
           }
         } else {
           rangedAttackers.push(name);
 
           if (!shouldContinueToNextCreep) {
-            roleRangedAttacker(creep);
+            roleRangedAttacker(
+              creep,
+              homeToNorth,
+              northToHome,
+              homeRoomName,
+              BOTTOM,
+              homeRoomName,
+              TOP,
+              Memory.invaderIDHome,
+              Memory.invaderIDHome
+            );
           }
         }
       } else if (roll == "hChain") {
@@ -719,6 +759,7 @@ function runRoles() {
       } else if (roll == "mover") {
       }
     } else {
+      harvesters.push(name);
       creep.memory.role = "h";
     }
   }

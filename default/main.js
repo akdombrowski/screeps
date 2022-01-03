@@ -183,7 +183,7 @@ module.exports.loop = function () {
     // northSpawnCreepTypes(northEnAvail, [northS1]);
     // deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);
 
-    if (Game.time % 20) {
+    if (Game.time % 25) {
       Memory.homeExtensions = memoryHomeExtensionsRefresh(
         null,
         Memory.homeExtensions

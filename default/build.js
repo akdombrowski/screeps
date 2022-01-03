@@ -45,11 +45,11 @@ function build(creep) {
         ]);
       } else if (creepRoomName === Memory.westRoomName) {
         target = roomBuildTargetPriorities(creep, Memory.westRoomName, [
-          "61d0a0f13762ce69a21300f0",
-          "61d0a0efbe69f60a360e946b",
-          "61d0a0efbe69f681e80e946a",
-          "61d0a0fa3f190b59e1cf9bd5",
-          "61d0a0fb3762ce4df21300f5",
+          "61d34e9e3f190b81d0cfbec5",
+          "61d3059d3762ceb370131f14",
+          "61d0a1033762ce29b41300f8",
+          "61d0a1043f190b5020cf9bd9",
+          "61d0a104be69f615d00e9470",
         ]);
       } else if (creepRoomName === Memory.southRoomName) {
         target = roomBuildTargetPriorities(creep, Memory.southRoomName, []);

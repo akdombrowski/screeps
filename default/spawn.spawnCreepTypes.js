@@ -92,6 +92,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let harvestersWest = Memory.harvestersWest || [];
   let upControllers = Memory.upControllers || [];
   let upControllersSouth = Memory.upControllersSouth || [];
+  let upControllersWest = Memory.upControllersWest || [];
   let upControllersSouthwest = Memory.upControllersSouthwest || [];
   let roadRepairers = Memory.roadRepairers || [];
   let roadRepairersSouth = Memory.roadRepairersSouth || [];
@@ -1930,6 +1931,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.upControllers = upControllers;
   Memory.upControllersSouth = upControllersSouth;
   Memory.upControllersSouthwest = upControllersSouthwest;
+  Memory.upControllersWest = upControllersWest;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersSouth = roadRepairersSouth;
   Memory.roadRepairersWest = roadRepairersWest;

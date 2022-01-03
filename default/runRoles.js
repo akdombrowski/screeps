@@ -36,7 +36,6 @@ function runRoles() {
   let upControllersE59S47 = [];
   let upControllersE59S49 = [];
   let upControllersE58S49 = [];
-  let upControllersE58S48 = [];
   let roadRepairers = [];
   let roadRepairersSouth = [];
   let roadRepairersNorth = [];

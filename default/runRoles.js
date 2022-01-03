@@ -84,13 +84,15 @@ function runRoles() {
   let southwestSpawns = Memory.southwestSpawns;
   let westSpawns = Memory.westSpawns;
   let northSpawns = Memory.northSpawns;
+  // room names
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
   const southRoomName = Memory.southRoomName;
   const southwestRoomName = Memory.southwestRoomName;
   const westRoomName = Memory.westRoomName;
   const northEastRoomName = Memory.northEastRoomName;
-  const e58s48RoomName = Memory.e58s48RoomName;
+  const eastRoomName = Memory.eastRoomName;
+  // flags
   const southToHome = Game.flags.southToHome;
   const eastToHome = Game.flags.eastToHome;
   const homeToEast = Game.flags.homeToEast;
@@ -570,7 +572,7 @@ function runRoles() {
             northEastRoomName,
             Game.flags.e58s49Exit,
             LEFT,
-            "59bbc5c12052a716c3ce9faa",
+            Memory.northControllerID,
             Memory.e58s49Controller
           );
         }
@@ -583,7 +585,7 @@ function runRoles() {
             westRoomName,
             Game.flags.homeToWest,
             LEFT,
-            Memory.westControllerId,
+            Memory.westControllerID,
             Game.flags.westRoomController
           );
         }

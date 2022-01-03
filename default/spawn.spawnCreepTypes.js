@@ -975,14 +975,14 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvestersWest.length < 1 && !wAttackerId) {
-      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 1);
-      name = "hW" + t;
+    if (harvesters.length < 4 && numOfCreepsTotal < 25) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
+      name = "h" + t;
       chosenRole = "h";
-      direction = "west";
+      direction = "home";
       parts = fastMoverParts550;
-      creepsWest.push(name);
-      harvestersWest.push(name);
+      creepsHome.push(name);
+      harvesters.push(name);
       retval = birthCreep(
         spawns,
         parts,
@@ -993,14 +993,18 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvesters.length < 4 && numOfCreepsTotal < 25) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
-      name = "h" + t;
+    } else if (
+      harvestersWest.length < 1 &&
+      !wAttackerId &&
+      numOfCreepsTotal < 20
+    ) {
+      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 1);
+      name = "hW" + t;
       chosenRole = "h";
-      direction = "home";
+      direction = "west";
       parts = fastMoverParts550;
-      creepsHome.push(name);
-      harvesters.push(name);
+      creepsWest.push(name);
+      harvestersWest.push(name);
       retval = birthCreep(
         spawns,
         parts,

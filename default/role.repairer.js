@@ -18,20 +18,6 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
   let mem_getEnergy = creep.memory.getEnergy;
   let target = Game.getObjectById(lastRepairableStructId);
 
-  if (target) {
-    if (target.progress >= target.progressTotal) {
-      target = null;
-      creep.memory.lastBuildID = null;
-    } else if (target.progress >= 0) {
-      creep.memory.lastBuildID = target;
-      // creep.memory.build = true;
-    }
-
-    if (target.hits >= target.hitsMax) {
-      target = null;
-      creep.memory.lastRepairableStructId = target;
-    }
-  }
 
   if (!target) {
     if (targetRoomName && creepRoomName != targetRoomName) {

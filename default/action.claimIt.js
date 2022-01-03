@@ -11,14 +11,7 @@ function claimContr(
   controllerFlag
 ) {
   /** creep controller reserve**/
-  let contrID = "5bbcaefa9099fc012e639e90";
   let ctrlr = Game.getObjectById(controllerID);
-  let eContr = "5bbcaf0c9099fc012e63a0be";
-  let eeContr = "5bbcaf1b9099fc012e63a2dd";
-  let wContr = "5bbcaeeb9099fc012e639c4d";
-  let nContrID = "59bbc5d22052a716c3cea133";
-  let nContr = Game.getObjectById("59bbc5d22052a716c3cea133");
-  let neContr = "5bbcaf0c9099fc012e63a0b9";
   let target = null;
 
   const direction = creep.memory.direction;

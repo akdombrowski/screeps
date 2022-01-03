@@ -55,7 +55,9 @@ function runRoles() {
   let attackersE59S49 = [];
   let claimers = [];
   let claimersSouth = [];
+  let claimersNorth = [];
   let claimersWest = [];
+  let claimersEast = [];
   let claimersSouthwest = [];
   let claimersE58S48 = [];
   let linkGets = [];
@@ -103,6 +105,7 @@ function runRoles() {
   const homeToWest = Game.flags.homeToWest;
   const homeToNorth = Game.flags.homeToNorth;
   const northToHome = Game.flags.northToHome;
+  const westToHome = Game.flags.westToHome;
   const southToSouthwest = Game.flags.southToSouthwest;
   const e58s49Exit = Game.flags.e58s49Exit;
   const southControllerFlag = Game.flags.southController;
@@ -585,6 +588,7 @@ function runRoles() {
             westRoomName,
             homeToWest,
             LEFT,
+            westToHome,
             Memory.westControllerID,
             Game.flags.westRoomController
           );
@@ -790,10 +794,10 @@ function runRoles() {
   Memory.rangedAttackersEast = rangedAttackersEast;
   Memory.rangedAttackersSouthwest = rangedAttackersSouthwest;
   Memory.attackers = attackers;
-  Memory.attackersE59S47 = attackersE59S47;
-  Memory.attackersE59S49 = attackersE59S49;
   Memory.claimers = claimers;
   Memory.claimersWest = claimersWest;
+  Memory.claimersEast = claimersEast;
+  Memory.claimersNorth = claimersNorth;
   Memory.claimersSouth = claimersSouth;
   Memory.linkGets = linkGets;
   Memory.towerHarvesters = towerHarvesters;

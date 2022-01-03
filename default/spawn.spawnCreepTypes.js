@@ -1609,8 +1609,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvesters";
     let spawnDirection = [TOP];
 
-    if (harvesters.length < 10) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 10);
+    if (harvesters.length < 4) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
       name = "h" + t;
       chosenRole = "h";
       direction = "home";
@@ -1627,7 +1627,7 @@ function spawnCreepTypes(enAvail, spawns) {
         group
       );
     } else if (roadRepairers.length < 4) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 20);
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 4);
       parts = workerParts800;
       name = "rR" + t;
       chosenRole = "roadRepairer";
@@ -1645,8 +1645,44 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (roadRepairers.length < 8) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 8);
+    } else if (roadRepairersWest.length < 4) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 4);
+      parts = workerParts800;
+      name = "rR" + t;
+      chosenRole = "roadRepairer";
+      direction = "home";
+      group = "roadRepairers";
+      creepsHome.push(name);
+      roadRepairers.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (harvesters.length < 5) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 5);
+      name = "h" + t;
+      chosenRole = "h";
+      direction = "home";
+      creepsHome.push(name);
+      harvesters.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    } else if (roadRepairers.length < 5) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 5);
       parts = workerParts800;
       name = "rR" + t;
       chosenRole = "roadRepairer";

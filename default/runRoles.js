@@ -1,4 +1,3 @@
-const roleController = require("role.controller");
 const roleWorker = require("role.worker");
 const roleRepairer = require("role.repairer");
 const roleHarvester = require("./role.harvester");
@@ -14,6 +13,8 @@ const profiler = require("./screeps-profiler");
 const roleViewer = require("./role.viewer");
 const roleRangedAttacker = require("./role.rangedAttacker");
 const roleRangedAttackerdS = require("./role.rangedAttackerdS");
+const roleRangedAttackerS = require("./role.rangedAttackerS");
+const roleRangedAttackerE = require("./role.rangedAttackerE");
 const roleHarvesterPickerUpper = require("./role.harvester.PickerUpper");
 const setCreepRoomArrayAndAvoidInvaders = require("./setCreepRoomArrayAndAvoidInvaders");
 
@@ -49,6 +50,7 @@ function runRoles() {
   let rangedAttackersSouth = [];
   let rangedAttackersNorth = [];
   let rangedAttackersWest = [];
+  let rangedAttackersEast = [];
   let rangedAttackersSouthwest = [];
   let rangedAttackersE59S47 = [];
   let attackers = [];
@@ -56,6 +58,7 @@ function runRoles() {
   let attackersE59S49 = [];
   let claimers = [];
   let claimersSouth = [];
+  let claimersWest = [];
   let claimersSouthwest = [];
   let claimersE58S48 = [];
   let linkGets = [];
@@ -696,7 +699,13 @@ function runRoles() {
           rangedAttackersSouth.push(name);
 
           if (!shouldContinueToNextCreep) {
-            roleRangedAttackerdS(creep);
+            roleRangedAttackerS(creep);
+          }
+        } else if (creep.memory.direction === "east") {
+          rangedAttackersEast.push(name);
+
+          if (!shouldContinueToNextCreep) {
+            roleRangedAttackerE(creep);
           }
         } else {
           rangedAttackers.push(name);
@@ -737,11 +746,13 @@ function runRoles() {
   Memory.rangedAttackersSouth = rangedAttackersSouth;
   Memory.rangedAttackersNorth = rangedAttackersNorth;
   Memory.rangedAttackersWest = rangedAttackersWest;
+  Memory.rangedAttackersEast = rangedAttackersEast;
   Memory.rangedAttackersSouthwest = rangedAttackersSouthwest;
   Memory.attackers = attackers;
   Memory.attackersE59S47 = attackersE59S47;
   Memory.attackersE59S49 = attackersE59S49;
   Memory.claimers = claimers;
+  Memory.claimersWest = claimersWest;
   Memory.claimersSouth = claimersSouth;
   Memory.linkGets = linkGets;
   Memory.towerHarvesters = towerHarvesters;

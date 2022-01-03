@@ -88,7 +88,7 @@ function runRoles() {
   const southRoomName = Memory.southRoomName;
   const southwestRoomName = Memory.southwestRoomName;
   const westRoomName = Memory.westRoomName;
-  const e58s49RoomName = Memory.e58s49RoomName;
+  const northEastRoomName = Memory.northEastRoomName;
   const e58s48RoomName = Memory.e58s48RoomName;
   const southToHome = Game.flags.southToHome;
   const northEntrance = Game.flags.northEntrance;
@@ -273,7 +273,7 @@ function runRoles() {
                 southExtensions,
                 southSpawns
               );
-            } else if (creep.room.name === e58s49RoomName) {
+            } else if (creep.room.name === northEastRoomName) {
               retval = roleHarvesterPickerUpper(
                 creep,
                 deepSouthRoomName,
@@ -308,7 +308,7 @@ function runRoles() {
             } else if (creep.room.name === homeRoomName) {
               retval = roleHarvesterPickerUpper(
                 creep,
-                e58s49RoomName,
+                northEastRoomName,
                 BOTTOM,
                 southExit,
                 extensions,
@@ -317,7 +317,7 @@ function runRoles() {
             } else if (creep.room.name === deepSouthRoomName) {
               retval = roleHarvesterPickerUpper(
                 creep,
-                e58s49RoomName,
+                northEastRoomName,
                 BOTTOM,
                 southExit,
                 extensions,
@@ -326,7 +326,7 @@ function runRoles() {
             } else {
               retval = roleHarvesterPickerUpper(
                 creep,
-                e58s49RoomName,
+                northEastRoomName,
                 LEFT,
                 e58s49Exit,
                 extensions,
@@ -355,23 +355,13 @@ function runRoles() {
           roadRepairersNorth.push(name);
 
           if (!shouldContinueToNextCreep) {
-            roleRepairer(
-              creep,
-              northRoomName,
-              Game.flags.homeToNorth,
-              TOP
-            );
+            roleRepairer(creep, northRoomName, Game.flags.homeToNorth, TOP);
           }
         } else if (creep.memory.direction === "west") {
           roadRepairersWest.push(name);
 
           if (!shouldContinueToNextCreep) {
-            roleRepairer(
-              creep,
-              westRoomName,
-              Game.flags.homeToWest,
-              LEFT
-            );
+            roleRepairer(creep, westRoomName, Game.flags.homeToWest, LEFT);
           }
         } else if (creep.memory.direction === "south") {
           roadRepairersSouth.push(name);
@@ -388,22 +378,46 @@ function runRoles() {
         if (creep.memory.direction === "home") {
           viewersE59S48.push(name);
           if (!shouldContinueToNextCreep) {
-            roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP, RIGHT);
+            roleViewer(
+              creep,
+              Memory.northRoomName,
+              Game.flags.homeToNorth,
+              TOP,
+              RIGHT
+            );
           }
         } else if (creep.memory.direction.startsWith("n")) {
           viewersE59S47.push(name);
           if (!shouldContinueToNextCreep) {
-            roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP, BOTTOM);
+            roleViewer(
+              creep,
+              Memory.northRoomName,
+              Game.flags.homeToNorth,
+              TOP,
+              BOTTOM
+            );
           }
         } else if (creep.memory.direction === "south") {
           viewersSouth.push(name);
           if (!shouldContinueToNextCreep) {
-            roleViewer(creep, Memory.northRoomName, Game.flags.northExit, TOP, TOP);
+            roleViewer(
+              creep,
+              Memory.northRoomName,
+              Game.flags.homeToSouth,
+              TOP,
+              TOP
+            );
           }
         } else if (creep.memory.direction === "west") {
           viewersWest.push(name);
           if (!shouldContinueToNextCreep) {
-            roleViewer(creep, Memory.westRoomName, Game.flags.homeToWest, LEFT, RIGHT);
+            roleViewer(
+              creep,
+              Memory.westRoomName,
+              Game.flags.homeToWest,
+              LEFT,
+              RIGHT
+            );
           }
         } else {
           viewersSouth.push(name);
@@ -499,16 +513,16 @@ function runRoles() {
         }
         upControllersE58S49.push(name);
 
-        creep.memory.controllerID = "59bbc5d22052a716c3cea13a";
+        creep.memory.controllerID = Memory.southwestControllerId;
 
         if (!shouldContinueToNextCreep) {
           retval = upController(
             creep,
-            Game.flags.e58s49Controller,
-            e58s49RoomName,
-            Game.flags.e58s49Exit,
+            Game.flags.southwestRoomController,
+            southwestRoomName,
+            Game.flags.southToSouthwest,
             LEFT,
-            Memory.e58s49ControllerID
+            Memory.southwestControllerID
           );
         }
       } else if (
@@ -520,18 +534,18 @@ function runRoles() {
         if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
           creep.memory.up = true;
         }
-        upControllersE58S48.push(name);
+        upControllersWest.push(name);
 
         creep.memory.controllerID = "59bbc5c12052a716c3ce9fa8";
 
         if (!shouldContinueToNextCreep) {
           retval = upController(
             creep,
-            Game.flags.e58s48Controller,
-            e58s48RoomName,
-            Game.flags.e58s48Exit,
+            Game.flags.westRoomController,
+            westRoomName,
+            Game.flags.homeToWest,
             LEFT,
-            Memory.e58s48ControllerID
+            Memory.westRoomControllerID
           );
         }
       } else if (roll === "reserver") {
@@ -539,7 +553,7 @@ function runRoles() {
         if (!shouldContinueToNextCreep) {
           roleReserver(
             creep,
-            e58s49RoomName,
+            northEastRoomName,
             e58s49Exit,
             LEFT,
             Game.flags.e58s49Controller,
@@ -552,7 +566,7 @@ function runRoles() {
         if (!shouldContinueToNextCreep) {
           claim(
             creep,
-            e58s49RoomName,
+            northEastRoomName,
             Game.flags.e58s49Exit,
             LEFT,
             "59bbc5c12052a716c3ce9faa",
@@ -560,16 +574,16 @@ function runRoles() {
           );
         }
       } else if (roll === "cW" || roll === "claimerW") {
-        claimersE58S48.push(name);
+        claimersWest.push(name);
 
         if (!shouldContinueToNextCreep) {
           claim(
             creep,
-            e58s48RoomName,
-            Game.flags.e58s48Exit,
+            westRoomName,
+            Game.flags.homeToWest,
             LEFT,
-            "59bbc5c12052a716c3ce9fa8",
-            Memory.e58s48Controller
+            Memory.westControllerId,
+            Game.flags.westRoomController
           );
         }
       } else if (roll === "cS" || roll === "claimerS") {
@@ -586,21 +600,7 @@ function runRoles() {
           );
         }
       } else if (roll === "cN" || roll === "claimerN") {
-        let northController = Game.getObjectById(Memory.northControllerID);
-
-        if (northController && northController.safeModeCooldown < 100) {
-          console.log("safeModeCooldown: " + northController.safeModeCooldown);
-        } else if (
-          northController &&
-          northController.reservation &&
-          northController.reservation.ticksToEnd < 100
-        ) {
-          console.log("ticksToEnd: " + northController.reservation.ticksToEnd);
-        } else {
-          // console.log("no ctrlr");
-        }
-
-        claimers.push(name);
+        claimersNorth.push(name);
 
         if (!shouldContinueToNextCreep) {
           claim(
@@ -609,8 +609,8 @@ function runRoles() {
             Game.flags.northExit,
             TOP,
             "",
-            Memory.northController,
-            Game.flags.northController
+            Memory.northControllerId,
+            Game.flags.northRoomController
           );
         }
       } else if (roll === "worker" || roll === "w") {

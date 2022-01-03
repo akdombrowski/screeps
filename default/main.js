@@ -64,12 +64,11 @@ module.exports.loop = function () {
     Memory.northeastRoomName = "W26S53";
     Memory.northeasteastRoomName = "W31N30";
 
-    // Memory.e58s49RoomName = "E58S49";
-    // Memory.e58s48RoomName = "E58S48";
-
-    // Memory.northControllerID = "59bbc5d22052a716c3cea133";
-    Memory.southControllerID = "5982fc8cb097071b4adbdb3c";
-    // Memory.e58s49ControllerID = "59bbc5c12052a716c3ce9faa";
+    Memory.northControllerID = "59f1a14c82100e1594f38058";
+    Memory.northEastControllerID = "59f1a15b82100e1594f38290";
+    Memory.southControllerID = "59f1a14d82100e1594f3805f";
+    Memory.southwestControllerID = "59f1a13882100e1594f37ed7";
+    Memory.westControllerID = "59f1a13882100e1594f37ed5";
 
     let enAvailHomeRoom = homeRoom.energyAvailable;
     let enCapHomeRoom = homeRoom.energyCapacityAvailable;

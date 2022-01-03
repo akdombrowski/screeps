@@ -85,7 +85,7 @@ function roleRangedAttacker(
       // or
       // go to the other room to help with their invader
       if (creep.room.name === returnRoomName) {
-        if (!Game.gertObjectById(returnRoomInvaderID)) {
+        if (!Game.getObjectById(returnRoomInvaderID)) {
           // no attacker in home room, go back to S room
           if (creep.pos.isNearTo(exitFlag)) {
             retval = creep.move(returnRoomExitDirection);

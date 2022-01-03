@@ -12,9 +12,6 @@ const roleReserver = require("./role.reserver");
 const profiler = require("./screeps-profiler");
 const roleViewer = require("./role.viewer");
 const roleRangedAttacker = require("./role.rangedAttacker");
-const roleRangedAttackerdS = require("./role.rangedAttackerdS");
-const roleRangedAttackerS = require("./role.rangedAttackerS");
-const roleRangedAttackerE = require("./role.rangedAttackerE");
 const roleHarvesterPickerUpper = require("./role.harvester.PickerUpper");
 const setCreepRoomArrayAndAvoidInvaders = require("./setCreepRoomArrayAndAvoidInvaders");
 
@@ -76,6 +73,7 @@ function runRoles() {
   let creepsSouthwest = [];
   let creepsWest = [];
   let creepsNorth = [];
+  let creepsEast = [];
   let homeExtensions = Memory.homeExtensions;
   let southExtensions = Memory.southExtensions;
   let southwestExtensions = Memory.southwestExtensions;
@@ -804,6 +802,7 @@ function runRoles() {
   Memory.creepsSouth = creepsSouth;
   Memory.creepsSouthwest = creepsSouthwest;
   Memory.creepsWest = creepsWest;
+  Memory.creepsEast = creepsEast;
   Memory.creepsNorth = creepsNorth;
 }
 

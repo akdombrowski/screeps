@@ -120,6 +120,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let creepsHome = Memory.creepsHome || [];
   let creepsSouth = Memory.creepsSouth || [];
   let creepsNorth = Memory.creepsNorth || [];
+  let creepsEast = Memory.creepsEast || [];
   let creepsSouthwest = Memory.creepsSouthwest || [];
   let creepsWest = Memory.creepsWest || [];
 
@@ -1897,6 +1898,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.creepsNorth = creepsNorth;
   Memory.creepsSouthwest = creepsSouthwest;
   Memory.creepsWest = creepsWest;
+  Memory.creepsEast = creepsEast;
 }
 spawnCreepTypes = profiler.registerFN(spawnCreepTypes, "spawnCreepTypes");
 

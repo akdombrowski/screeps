@@ -194,7 +194,7 @@ module.exports.loop = function () {
       // //   memoryE59S49ExtensionsRefresh();
     }
 
-    if (Game.time % 20) {
+    if (Game.time % 100) {
       memoryHomeSpawnsRefresh(null, Memory.homeSpawns);
 
       // //   memoryE59S47SpawnsRefresh();

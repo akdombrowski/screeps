@@ -740,6 +740,22 @@ function runRoles() {
               Memory.invaderIDHome
             );
           }
+        } else if (creep.memory.direction === "west") {
+          rangedAttackersWest.push(name);
+
+          if (!shouldContinueToNextCreep) {
+            roleRangedAttacker(
+              creep,
+              homeToWest,
+              westToHome,
+              westRoomName,
+              LEFT,
+              homeRoomName,
+              RIGHT,
+              Memory.invaderIDWest,
+              Memory.invaderIDHome
+            );
+          }
         } else {
           rangedAttackers.push(name);
 

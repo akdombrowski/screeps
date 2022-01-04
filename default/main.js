@@ -93,9 +93,9 @@ module.exports.loop = function () {
     Memory.tower1Id = "61d28c2e9b0714de59e8475c";
     // Memory.dSTower1Id = "61c492d3227d7cef1df2ce6e";
 
-    Memory.attackDurationSafeCheck = 5;
+    Memory.attackDurationSafeCheck = 1;
     Memory.nAttackDurationSafeCheck = 10;
-    Memory.dSAttackDurationSafeCheck = 2;
+    Memory.dSAttackDurationSafeCheck = 10000;
     // Memory.swAttackDurationSafeCheck = 10;
     Memory.sAttackDurationSafeCheck = 10;
     Memory.wAttackDurationSafeCheck = 10;
@@ -111,7 +111,7 @@ module.exports.loop = function () {
     } else if (Game.getObjectById(priorityB)) {
       towersAttackInvader(Game.getObjectById(priorityB), towers);
     } else {
-      towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S48), towers);
+      towersAttackInvader(Game.getObjectById(Memory.invaderIDHome), towers);
     }
 
     // let dSTowers = [];

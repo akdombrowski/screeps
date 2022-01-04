@@ -1103,14 +1103,14 @@ function spawnCreepTypes(enAvail, spawns) {
         group
       );
     } else if (
-      roadRepairersWest.length < 1 &&
+      roadRepairersWest.length < 2 &&
       !wAttackerId &&
       numOfCreepsTotal < 28
     ) {
       logConditionPassedForSpawnCreep(
         "roadRepairersWest",
         roadRepairersWest,
-        1
+        2
       );
       logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 28);
       parts = fastMoverParts550;

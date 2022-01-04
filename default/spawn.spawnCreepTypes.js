@@ -1645,8 +1645,8 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-    } else if (harvestersWest.length < 3) {
-      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 3);
+    } else if (harvestersWest.length < 6) {
+      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 6);
       name = "hW" + t;
       chosenRole = "h";
       direction = "west";

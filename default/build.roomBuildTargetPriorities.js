@@ -7,7 +7,6 @@ function roomBuildTargetPriorities(creep, targetRoomName, targets) {
     target = targets.find((targetID) => {
       let constructionSite = Game.getObjectById(targetID);
 
-      console.log("constructionSite: " + constructionSite);
       return (
         constructionSite &&
         constructionSite.progress < constructionSite.progressTotal

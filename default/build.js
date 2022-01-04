@@ -42,10 +42,6 @@ function build(creep) {
           "61d3f13b3f190bbfe2cfc5ac",
           "61d3f1393762ce9d771329b2",
         ]);
-        console.log("target: " + target);
-        if(target) {
-          console.log("targetID: " + target.id);
-        }
       } else if (creepRoomName === Memory.westRoomName) {
         target = roomBuildTargetPriorities(creep, Memory.westRoomName, [
           "61d34e9e3f190b81d0cfbec5",

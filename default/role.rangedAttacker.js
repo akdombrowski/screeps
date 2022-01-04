@@ -27,6 +27,7 @@ function roleRangedAttacker(
 
   if (creep) {
     let enemyCreep = Game.getObjectById(targetRoomInvaderID);
+
     if (enemyCreep) {
       invader = enemyCreep;
     } else {
@@ -58,23 +59,6 @@ function roleRangedAttacker(
           creep.say("a:" + retval);
         }
       }
-    } else if (invader && creep.room.name != invader.room.name) {
-      if (creep.pos.isNearTo(exitFlag)) {
-        retval = creep.move(BOTTOM);
-      } else {
-        retval = smartMove(
-          creep,
-          exitFlag,
-          1,
-          true,
-          null,
-          null,
-          null,
-          1,
-          false,
-          null
-        );
-      }
     } else {
       creep.say("patrol");
 
@@ -86,9 +70,9 @@ function roleRangedAttacker(
       // go to the other room to help with their invader
       if (creep.room.name === returnRoomName) {
         if (!Game.getObjectById(returnRoomInvaderID)) {
-          // no attacker in home room, go back to S room
+          // no attacker in return room, go back to target room
           if (creep.pos.isNearTo(exitFlag)) {
-            retval = creep.move(returnRoomExitDirection);
+            retval = creep.move(targetRoomExitDirection);
           } else {
             retval = smartMove(
               creep,
@@ -102,28 +86,14 @@ function roleRangedAttacker(
               false,
               null
             );
-            creep.say(returnFlag.pos.x + "," + returnFlag.pos.y + "🏃‍♂️");
+            creep.say(exitFlag.pos.x + "," + exitFlag.pos.y + "🏃‍♂️");
           }
-        } else if (!creep.pos.inRangeTo(exitFlag, distanceToFlagForPatrol)) {
-          // no attacker in home room, move near southExit to guard it
-          retval = smartMove(
-            creep,
-            exitFlag,
-            distanceToFlagForPatrol,
-            false,
-            null,
-            null,
-            null,
-            1,
-            false,
-            null
-          );
         }
       } else if (creep.room.name === targetRoomName) {
         if (Game.getObjectById(returnRoomInvaderID)) {
-          // no attacker in S but there's one in home room, go help out
+          // there an invader in return room, go help out
           if (creep.pos.isNearTo(returnFlag)) {
-            retval = creep.move(targetRoomExitDirection);
+            retval = creep.move(returnRoomExitDirection);
           } else {
             retval = smartMove(
               creep,

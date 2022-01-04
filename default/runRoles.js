@@ -750,7 +750,7 @@ function runRoles() {
               northToHome,
               homeRoomName,
               BOTTOM,
-              homeRoomName,
+              null,
               TOP,
               Memory.invaderIDHome,
               Memory.invaderIDHome

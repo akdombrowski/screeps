@@ -43,7 +43,7 @@ function findBuildSite(creepRoomName, roomSites) {
       roomSites = null;
 
       return { target: null, roomSites: null };
-
+    }
   }
 
   let sites = [];

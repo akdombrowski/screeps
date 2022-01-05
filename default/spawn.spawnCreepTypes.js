@@ -361,44 +361,44 @@ function spawnCreepTypes(enAvail, spawns) {
 
   const numOfCreepsTotal = Object.keys(Game.creeps).length;
 
-  // //     #     #######  #######     #      #####   #    #
-  // //    # #       #        #       # #    #     #  #   #
-  // //   #   #      #        #      #   #   #        #  #
-  // //  #     #     #        #     #     #  #        ###
-  // //  #######     #        #     #######  #        #  #
-  // //  #     #     #        #     #     #  #     #  #   #
-  // //  #     #     #        #     #     #   #####   #    #
-  // if (enAvail >= 800 && rangedAttackers.length < 1) {
-  //   logConditionPassedForSpawnCreep("rangedAttackers", rangedAttackers, 1);
-  //   let name = "aR" + t;
-  //   let chosenRole = "rangedAttacker";
-  //   let direction = "home";
-  //   let sourceId = Memory.source2;
-  //   let parts = rangedAttackerParts800;
-  //   let spawnDirection = [BOTTOM];
-  //   let group = "rangedAttackers";
+  //     #     #######  #######     #      #####   #    #
+  //    # #       #        #       # #    #     #  #   #
+  //   #   #      #        #      #   #   #        #  #
+  //  #     #     #        #     #     #  #        ###
+  //  #######     #        #     #######  #        #  #
+  //  #     #     #        #     #     #  #     #  #   #
+  //  #     #     #        #     #     #   #####   #    #
+  if (enAvail >= 800 && rangedAttackers.length < 1) {
+    logConditionPassedForSpawnCreep("rangedAttackers", rangedAttackers, 1);
+    let name = "aR" + t;
+    let chosenRole = "rangedAttacker";
+    let direction = "home";
+    let sourceId = Memory.source2;
+    let parts = rangedAttackerParts800;
+    let spawnDirection = [BOTTOM];
+    let group = "rangedAttackers";
 
-  //   creepsHome.push(name);
-  //   rangedAttackers.push(name);
-  //   retval = birthCreep(
-  //     spawns,
-  //     parts,
-  //     name,
-  //     chosenRole,
-  //     direction,
-  //     sourceId,
-  //     spawnDirection,
-  //     group
-  //   );
+    creepsHome.push(name);
+    rangedAttackers.push(name);
+    retval = birthCreep(
+      spawns,
+      parts,
+      name,
+      chosenRole,
+      direction,
+      sourceId,
+      spawnDirection,
+      group
+    );
 
-  //   if (retval !== -16) {
-  //     console.log("spawningS " + name + " " + retval);
-  //     console.log("energy: 800");
-  //   }
-  //   if (retval === OK || retval === ERR_BUSY) {
-  //     return retval;
-  //   }
-  // }
+    if (retval !== -16) {
+      console.log("spawningS " + name + " " + retval);
+      console.log("energy: 800");
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
+  }
 
   //     #     #######  #######     #      #####   #    #
   //    # #       #        #       # #    #     #  #   #

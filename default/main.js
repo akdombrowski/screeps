@@ -103,6 +103,7 @@ module.exports.loop = function () {
     // Memory.nSource2 = "59bbc5d22052a716c3cea132";
 
     Memory.tower1Id = "61d28c2e9b0714de59e8475c";
+    Memory.westTower1Id = "61d57e6d3f190ba128cfe0f0"; // double check this id doens't change after construction site is built, currently using construction site id.
     // Memory.dSTower1Id = "61c492d3227d7cef1df2ce6e";
 
     Memory.attackDurationSafeCheck = 1;
@@ -138,10 +139,17 @@ module.exports.loop = function () {
     //   towersAttackInvader(Game.getObjectById(Memory.invaderIDE59S49), dSTowers);
     // }
 
-    // // towersAttackInvader(
-    // //   Game.getObjectById("61cbe200304e0f5fc28feab1"),
-    // //   dSTowers
-    // // );
+    // let westTowers = [];
+    // westTowers.push(Game.getObjectById(Memory.westTower1Id));
+    // priorityA = "";
+    // priorityB = "";
+    // if (Game.getObjectById(priorityA)) {
+    //   towersAttackInvader(Game.getObjectById(priorityA), dSTowers);
+    // } else if (Game.getObjectById(priorityB)) {
+    //   towersAttackInvader(Game.getObjectById(priorityB), dSTowers);
+    // } else {
+    //   towersAttackInvader(Game.getObjectById(Memory.invaderIDWest), westTowers);
+    // }
 
     const timeToPassForRecheck = 100;
     const minEnergyToKeepForInvaders = 400;

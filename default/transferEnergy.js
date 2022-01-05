@@ -54,6 +54,7 @@ function tran(
   let tower4 = Game.getObjectById(Memory.tower4Id);
   let tower5 = Game.getObjectById(Memory.tower5Id);
   let tower6 = Game.getObjectById(Memory.tower6Id);
+  let westTower1 = Game.getObjectById(Memory.westTower1Id);
   let dSTower1 = Game.getObjectById(Memory.dSTower1Id);
   let towers = [tower1, tower2, tower3, tower4, tower5, tower6];
   let enAvail = creepRoom.energyAvailable;
@@ -89,19 +90,19 @@ function tran(
         maxTowerEnergy,
         minTowerEnergy
       );
-    } else if (creep.room.name === Memory.deepSouthRoomName) {
+    } else if (creep.room.name === Memory.westRoomName) {
       const minRoomEnergy = 50;
       const maxTowerEnergy = 950;
       const minTowerEnergy = 300;
 
-      target = checkTransferToTower(
-        creepRoom,
-        dSTower1,
-        creep,
-        minRoomEnergy,
-        maxTowerEnergy,
-        minTowerEnergy
-      );
+      // target = checkTransferToTower(
+      //   creepRoom,
+      //   westTower1,
+      //   creep,
+      //   minRoomEnergy,
+      //   maxTowerEnergy,
+      //   minTowerEnergy
+      // );
     }
   }
 

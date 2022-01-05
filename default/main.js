@@ -103,7 +103,7 @@ module.exports.loop = function () {
     // Memory.nSource2 = "59bbc5d22052a716c3cea132";
 
     Memory.tower1Id = "61d28c2e9b0714de59e8475c";
-    Memory.westTower1Id = "61d57e6d3f190ba128cfe0f0"; // double check this id doens't change after construction site is built, currently using construction site id.
+    Memory.westTower1Id = "61d5a2551053fefa678b4e6b";
     // Memory.dSTower1Id = "61c492d3227d7cef1df2ce6e";
 
     Memory.attackDurationSafeCheck = 1;

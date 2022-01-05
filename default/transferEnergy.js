@@ -95,14 +95,14 @@ function tran(
       const maxTowerEnergy = 950;
       const minTowerEnergy = 300;
 
-      // target = checkTransferToTower(
-      //   creepRoom,
-      //   westTower1,
-      //   creep,
-      //   minRoomEnergy,
-      //   maxTowerEnergy,
-      //   minTowerEnergy
-      // );
+      target = checkTransferToTower(
+        creepRoom,
+        westTower1,
+        creep,
+        minRoomEnergy,
+        maxTowerEnergy,
+        minTowerEnergy
+      );
     }
   }
 

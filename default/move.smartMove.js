@@ -160,7 +160,7 @@ function smartMove(
     // }
   }
 
-  retval = checkIfValidPath(path, name);
+  path = checkIfValidPath(path, name);
 
   creep.memory.lastCreepPos = creepPos;
   if (path) {

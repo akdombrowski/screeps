@@ -4,7 +4,6 @@ function retryMoveByPathAfterERR_NOT_FOUND(creep, path, pathColor, creepPos) {
   let retval = -16;
   try {
     retval = creep.moveByPath(path);
-    console.log("moveByPath after shifting path: "+ retval);
 
     if (retval === OK) {
       creep.room.visual.poly(path, {

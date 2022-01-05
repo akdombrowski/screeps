@@ -24,6 +24,9 @@ const {
   memorySouthRoomExtensionsRefresh,
 } = require("./getEnergy.memorySouthRoomExtensionsRefresh");
 const {
+  memoryWestRoomExtensionsRefresh,
+} = require("./getEnergy.memoryWestRoomExtensionsRefresh");
+const {
   memoryHomeSpawnsRefresh,
 } = require("./getEnergy.memoryHomeSpawnsRefresh");
 const {
@@ -32,6 +35,9 @@ const {
 const {
   memorySouthRoomSpawnsRefresh,
 } = require("./getEnergy.memorySouthRoomSpawnsRefresh");
+const {
+  memoryWestRoomSpawnsRefresh,
+} = require("./getEnergy.memoryWestRoomSpawnsRefresh");
 const { towerHeal } = require("./tower.heal");
 
 // This line monkey patches the global prototypes.
@@ -197,6 +203,10 @@ module.exports.loop = function () {
         null,
         Memory.homeExtensions
       );
+      Memory.westExtensions = memoryWestRoomExtensionsRefresh(
+        null,
+        Memory.westExtensions
+      );
 
       // //   memoryE59S47ExtensionsRefresh();
 
@@ -204,7 +214,12 @@ module.exports.loop = function () {
     }
 
     if (Game.time % 100) {
-      memoryHomeSpawnsRefresh(null, Memory.homeSpawns);
+      Memory.homeSpawns = memoryHomeSpawnsRefresh(null, Memory.homeSpawns);
+      Memory.westSpawns =
+      memoryWestRoomExtensionsRefresh(
+        null,
+        Memory.westSpawns
+      );
 
       // //   memoryE59S47SpawnsRefresh();
 

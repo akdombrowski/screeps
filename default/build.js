@@ -5,6 +5,7 @@ const profiler = require("./screeps-profiler");
 const {
   roomBuildTargetPriorities,
 } = require("./build.roomBuildTargetPriorities");
+const { findBuildSite } = require("./findBuildSite");
 
 function build(creep) {
   const name = creep.name;
@@ -76,354 +77,29 @@ function build(creep) {
       !CONSTRUCTION_COST[target.structureType] ||
       target.progress >= target.progressTotal
     ) {
-      let extFound = false;
-      let t;
-      let arr = [];
-      let arrIDs = [];
+      let ret = {};
       if (creep.room.name === Memory.homeRoomName) {
-        if (!Memory.homeSites || Memory.homeSites.length <= 0) {
-          arr = Game.rooms[Memory.homeRoomName].find(FIND_CONSTRUCTION_SITES, {
-            filter: (site) => {
-              let prog = site.progress;
-              let progTot = site.progressTotal;
-              let progLeft = progTot - prog;
-              let type = site.structureType;
-              if (progLeft <= 0) {
-                return false;
-              } else if (type === STRUCTURE_EXTENSION) {
-                extFound = true;
-                target = site;
-                return true;
-              } else if (type === STRUCTURE_SPAWN) {
-                target = site;
-                return true;
-              } else {
-                return true;
-              }
-            },
-          });
-
-          if (arr && arr.length > 0) {
-            Memory.homeSites = arr.map((site) => site.id);
-          } else {
-            Memory.homeSites = null;
-          }
-
-          if (!target) {
-            target = arr.shift();
-            creep.memory.lastBuildID = target.id;
-            Memory.homeSites.shift();
-          }
-        }
-
-        let sites = [];
-        if (!target) {
-          _.forEach(Memory.homeSites, (id) => {
-            const siteObj = Game.getObjectById(id);
-            if (siteObj && siteObj.progress < siteObj.progressTotal) {
-              sites.push(siteObj);
-            }
-          });
-
-          Memory.homeSites = Memory.homeSites.filter((id) => {
-            let site = Game.getObjectById(id);
-            if (!site) {
-              return false;
-            }
-
-            if (site.progress < site.progressTotal) {
-              return true;
-            }
-
-            return false;
-          });
-          if (sites) {
-            try {
-              target = creep.pos.findClosestByPath(sites, {
-                filter: (site) => {
-                  return site.progress < site.progressTotal;
-                },
-              });
-              // target = creep.pos.findClosestByPath(arr);
-
-              if (target && !target.id) {
-                target = null;
-                creep.memory.buildTarget = null;
-                Memory.homeSites = null;
-                return retval;
-              } else if (t) {
-                target = t;
-                targetId = target.id;
-                if (targetId === null) {
-                  target = null;
-                }
-              } else {
-                target = t || target;
-                targetId = target ? target.id : null;
-              }
-            } catch (e) {
-              Memory.homeSites = null;
-            }
-          }
-        }
+        ret = findBuildSite(target, creep.room.name, Memory.homeSites);
+        Memory.homeSites = ret.roomSites;
       } else if (creep.room.name === Memory.southRoomName) {
-        if (Memory.southSites || Memory.southSites.length <= 0) {
-          arr = Game.rooms[Memory.southRoomName].find(FIND_CONSTRUCTION_SITES, {
-            filter: (site) => {
-              let prog = site.progress;
-              let progTot = site.progressTotal;
-              let progLeft = progTot - prog;
-              let type = site.structureType;
-              if (progLeft <= 0) {
-                return false;
-              } else if (type === STRUCTURE_EXTENSION) {
-                extFound = true;
-                target = site;
-                return true;
-              } else if (type === STRUCTURE_SPAWN) {
-                target = site;
-                return true;
-              } else {
-                return true;
-              }
-            },
-          });
-
-          if (arr && arr.length > 0) {
-            Memory.southSites = arr.map((site) => site.id);
-          } else {
-            Memory.southSites = null;
-          }
-
-          if (!target) {
-            target = arr.shift();
-            creep.memory.lastBuildID = target.id;
-            Memory.southSites.shift();
-          }
-        }
-
-        let sites = [];
-        if (!target) {
-          _.forEach(Memory.southSites, (id) => {
-            const siteObj = Game.getObjectById(id);
-            if (siteObj && siteObj.progress < siteObj.progressTotal) {
-              sites.push(siteObj);
-            }
-          });
-
-          Memory.southSites = Memory.southSites.filter((id) => {
-            let site = Game.getObjectById(id);
-            if (!site) {
-              return false;
-            }
-
-            if (site.progress < site.progressTotal) {
-              return true;
-            }
-
-            return false;
-          });
-          if (sites) {
-            try {
-              target = creep.pos.findClosestByPath(sites, {
-                filter: (site) => {
-                  return site.progress < site.progressTotal;
-                },
-              });
-              // target = creep.pos.findClosestByPath(arr);
-
-              if (target && !target.id) {
-                target = null;
-                creep.memory.buildTarget = null;
-                Memory.southSites = null;
-                return retval;
-              } else if (t) {
-                target = t;
-                targetId = target.id;
-                if (targetId === null) {
-                  target = null;
-                }
-              } else {
-                target = t || target;
-                targetId = target ? target.id : null;
-              }
-            } catch (e) {
-              Memory.southSites = null;
-            }
-          }
-        }
+        ret = findBuildSite(target, creep.room.name, Memory.southSites);
+        Memory.southSites = ret.roomSites;
       } else if (creep.room.name === Memory.westRoomName) {
-        if (!Memory.westSites || Memory.westSites.length <= 0) {
-          arr = Game.rooms[Memory.westRoomName].find(FIND_CONSTRUCTION_SITES, {
-            filter: (site) => {
-              let prog = site.progress;
-              let progTot = site.progressTotal;
-              let progLeft = progTot - prog;
-              let type = site.structureType;
-              if (progLeft <= 0) {
-                return false;
-              } else if (type === STRUCTURE_EXTENSION) {
-                extFound = true;
-                target = site;
-                return true;
-              } else if (type === STRUCTURE_SPAWN) {
-                target = site;
-                return true;
-              } else {
-                return true;
-              }
-            },
-          });
-
-          if (arr && arr.length > 0) {
-            Memory.westSites = arr.map((site) => site.id);
-
-            if (!target) {
-              target = arr.shift();
-              creep.memory.lastBuildID = target.id;
-              Memory.westSites.shift();
-            }
-          } else {
-            Memory.westSites = null;
-          }
-        }
-
-        let sites = [];
-        if (!target) {
-          _.forEach(Memory.westSites, (id) => {
-            const siteObj = Game.getObjectById(id);
-            if (siteObj && siteObj.progress < siteObj.progressTotal) {
-              sites.push(siteObj);
-            }
-          });
-
-          Memory.westSites = Memory.westSites.filter((id) => {
-            let site = Game.getObjectById(id);
-            if (!site) {
-              return false;
-            }
-
-            if (site.progress < site.progressTotal) {
-              return true;
-            }
-
-            return false;
-          });
-
-          if (sites) {
-            try {
-              target = creep.pos.findClosestByPath(sites);
-              // target = creep.pos.findClosestByPath(arr);
-
-              if (target && !target.id) {
-                target = null;
-                creep.memory.buildTarget = null;
-                Memory.westSites = null;
-                return retval;
-              } else if (t) {
-                target = t;
-                targetId = target.id;
-                if (targetId === null) {
-                  target = null;
-                }
-              } else {
-                target = t || target;
-                targetId = target ? target.id : null;
-              }
-            } catch (e) {
-              Memory.westSites = null;
-            }
-          }
-        }
-      } else if (creep.room.name === Memory.e58s49RoomName) {
-        if (!Memory.e58s49sites || Memory.e58s49sites.length <= 0) {
-          arr = Game.rooms.E58S49.find(FIND_CONSTRUCTION_SITES, {
-            filter: (site) => {
-              let prog = site.progress;
-              let progTot = site.progressTotal;
-              let progLeft = progTot - prog;
-              let type = site.structureType;
-              if (progLeft <= 0) {
-                return false;
-              } else if (type === STRUCTURE_EXTENSION) {
-                extFound = true;
-                target = site;
-                return true;
-              } else if (type === STRUCTURE_SPAWN) {
-                target = site;
-                return true;
-              } else {
-                return true;
-              }
-            },
-          });
-
-          if (arr && arr.length > 0) {
-            Memory.e58s49sites = arr.map((site) => site.id);
-
-            if (!target) {
-              target = arr.shift();
-              creep.memory.lastBuildID = target.id;
-              Memory.e58s49sites.shift();
-            }
-          } else {
-            Memory.e58s49sites = null;
-          }
-        }
-
-        let sites = [];
-        if (!target) {
-          _.forEach(Memory.e58s49sites, (id) => {
-            const siteObj = Game.getObjectById(id);
-            if (siteObj && siteObj.progress < siteObj.progressTotal) {
-              sites.push(siteObj);
-            }
-          });
-
-          if (Memory.e58s49sites) {
-            Memory.e58s49sites = Memory.e58s49sites.filter((id) => {
-              let site = Game.getObjectById(id);
-              if (!site) {
-                return false;
-              }
-
-              if (site.progress < site.progressTotal) {
-                return true;
-              }
-
-              return false;
-            });
-          }
-
-          if (sites) {
-            try {
-              target = creep.pos.findClosestByPath(sites);
-              // target = creep.pos.findClosestByPath(arr);
-
-              if (target && !target.id) {
-                target = null;
-                creep.memory.buildTarget = null;
-                Memory.e58s49sites = null;
-                return retval;
-              } else if (t) {
-                target = t;
-                targetId = target.id;
-                if (targetId === null) {
-                  target = null;
-                }
-              } else {
-                target = t || target;
-                targetId = target ? target.id : null;
-              }
-            } catch (e) {
-              Memory.e58s49sites = null;
-            }
-          }
-        }
+        ret = findBuildSite(target, creep.room.name, Memory.westSites);
+        Memory.westSites = ret.roomSites;
+      } else if (creep.room.name === Memory.northRoomName) {
+        ret = findBuildSite(target, creep.room.name, Memory.northSites);
+        Memory.northSites = ret.roomSites;
+      } else {
+        ret = findBuildSite(target, creep.room.name, Memory.homeSites);
+        Memory.homeSites = ret.roomSites;
       }
+      target = ret.target;
     }
 
     if (target) {
+      targetId = target.id;
+
       if (creep.pos.inRangeTo(target, 3)) {
         creep.memory.path = null;
 
@@ -433,9 +109,7 @@ function build(creep) {
         creep.memory.b = targetId;
         creep.say("b:" + target.pos.x + "," + target.pos.y + "🏗️");
       } else if (creep.fatigue > 0) {
-        creep.say(
-          "b." + creep.fatigue + "😪"
-        );
+        creep.say("b." + creep.fatigue + "😪");
       } else {
         retval = smartMove(creep, target, 3, false, null, null, 200, 1);
 

@@ -5,7 +5,7 @@ function checkForAttackers() {
   let northRoom = Game.rooms[Memory.northRoomName];
   let homeRoom = Game.rooms[Memory.homeRoomName];
   let southRoom = Game.rooms[Memory.southRoomName];
-  let westRoom = Game.rooms[Memory.westoomName];
+  let westRoom = Game.rooms[Memory.westRoomName];
   let southwestRoom = Game.rooms[Memory.southwestRoomName];
   let invaderId = null;
   let attackDurationSafeCheck = Memory.attackDurationSafeCheck;

@@ -237,7 +237,7 @@ module.exports.loop = function () {
       return;
     }
 
-    let rooms = [homeRoom];
+    let rooms = [homeRoom, westRoom];
     checkProgress(numCrps, rooms, 3600);
   });
 

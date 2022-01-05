@@ -17,7 +17,7 @@ function setCreepRoomArrayAndAvoidInvaders(
   if (direction === "home") {
     creepsHome.push(creep.name);
 
-    let invader = Game.getObjectById(Memory.invaderIDE59S48);
+    let invader = Game.getObjectById(Memory.invaderIDHome);
 
     if (invader) {
       if (
@@ -43,9 +43,9 @@ function setCreepRoomArrayAndAvoidInvaders(
       }
     }
   } else if (direction === "north") {
-    creepsWest.push(creep.name);
+    creepsNorth.push(creep.name);
 
-    let invader = Game.getObjectById(Memory.invaderIDE59S47);
+    let invader = Game.getObjectById(Memory.invaderIDNorth);
 
     if (invader) {
       if (
@@ -56,10 +56,10 @@ function setCreepRoomArrayAndAvoidInvaders(
         shouldContinueToNextCreep = true;
       }
     }
-  } else if (direction === "e58s49") {
-    creepsNorth.push(creep.name);
+  } else if (direction === "west") {
+    creepsWest.push(creep.name);
 
-    let invader = Game.getObjectById(Memory.invaderIDE58S49);
+    let invader = Game.getObjectById(Memory.invaderIDWest);
 
     if (invader) {
       if (

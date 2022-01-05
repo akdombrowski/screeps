@@ -319,7 +319,7 @@ function transferEnergyBasedOnDirection(creep, extensions, spawns) {
         creep,
         null,
         null,
-        homeRoomName,
+        westRoomName,
         westToHome,
         RIGHT,
         extensions,

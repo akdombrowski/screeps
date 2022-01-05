@@ -1,8 +1,9 @@
 const profiler = require("./screeps-profiler");
 
-function findBuildSite(target, creepRoomName, roomSites) {
+function findBuildSite(creepRoomName, roomSites) {
   let extFound = false;
   let arr = [];
+  let target = null;
 
   if (!roomSites || roomSites.length <= 0) {
     arr = Game.rooms[creepRoomName].find(FIND_CONSTRUCTION_SITES, {
@@ -32,15 +33,17 @@ function findBuildSite(target, creepRoomName, roomSites) {
 
     if (arr && arr.length > 0) {
       roomSites = arr.map((site) => site.id);
-    } else {
-      roomSites = null;
-    }
 
-    if (!target) {
       target = arr.shift();
       creep.memory.lastBuildID = target.id;
       roomSites.shift();
-    }
+
+      return { target: target, roomSites: roomSites };
+    } else {
+      roomSites = null;
+
+      return { target: null, roomSites: null };
+
   }
 
   let sites = [];

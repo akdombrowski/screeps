@@ -48,9 +48,6 @@ function build(creep) {
         ]);
       } else if (creepRoomName === Memory.westRoomName) {
         target = roomBuildTargetPriorities(creep, Memory.westRoomName, [
-          "61d0a1083762ce5afe1300fa",
-          "61d0a1093f190b9eb8cf9bdc",
-          "61d0a109be69f670b60e9473",
           "61d0a10b3762cef8fb1300fc",
           "61d0a10a3f190b79aacf9bdd",
           "61d0a10c3f190b4f69cf9bde",
@@ -73,21 +70,23 @@ function build(creep) {
       !CONSTRUCTION_COST[target.structureType] ||
       target.progress >= target.progressTotal
     ) {
+      // no target or invalid target
+      target = null;
       let ret = {};
       if (creep.room.name === Memory.homeRoomName) {
-        ret = findBuildSite(target, creep.room.name, Memory.homeSites);
+        ret = findBuildSite(creep.room.name, Memory.homeSites);
         Memory.homeSites = ret.roomSites;
       } else if (creep.room.name === Memory.southRoomName) {
-        ret = findBuildSite(target, creep.room.name, Memory.southSites);
+        ret = findBuildSite(creep.room.name, Memory.southSites);
         Memory.southSites = ret.roomSites;
       } else if (creep.room.name === Memory.westRoomName) {
-        ret = findBuildSite(target, creep.room.name, Memory.westSites);
+        ret = findBuildSite(creep.room.name, Memory.westSites);
         Memory.westSites = ret.roomSites;
       } else if (creep.room.name === Memory.northRoomName) {
-        ret = findBuildSite(target, creep.room.name, Memory.northSites);
+        ret = findBuildSite(creep.room.name, Memory.northSites);
         Memory.northSites = ret.roomSites;
       } else {
-        ret = findBuildSite(target, creep.room.name, Memory.homeSites);
+        ret = findBuildSite(creep.room.name, Memory.homeSites);
         Memory.homeSites = ret.roomSites;
       }
       target = ret.target;

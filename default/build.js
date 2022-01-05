@@ -39,7 +39,6 @@ function build(creep) {
     if (!target) {
       if (creepRoomName === Memory.homeRoomName) {
         target = roomBuildTargetPriorities(creep, Memory.homeRoomName, [
-          "61d3f131be69f6109b0ebba9",
           "61d3f1323f190bc2fccfc5aa",
           "61d3f1333762cee3d81329b1",
           "61d58231be69f6ecd50ed578",

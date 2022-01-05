@@ -434,14 +434,14 @@ function build(creep) {
 
         // Couldn't move towards construction target
         if (retval === ERR_INVALID_TARGET || retval === ERR_INVALID_TARGET) {
-          creep.say("m.inval");
+          creep.say("m." + retval + "😕");
           target = null;
           creep.memory.b = null;
-        } else if (retval === OK && target) {
-          creep.say("b:" + target.pos.x + "," + target.pos.y);
+        } else if (retval === OK) {
+          creep.say("b:" + target.pos.x + "," + target.pos.y + "🏗️");
           creep.memory.b = targetId;
         } else {
-          creep.say("m:" + target.pos.x + "," + target.pos.y + ":" + retval);
+          creep.say("b:" + target.pos.x + "," + target.pos.y + "🚀");
           target = null;
           creep.memory.b = null;
         }

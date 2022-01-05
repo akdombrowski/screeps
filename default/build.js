@@ -2,7 +2,9 @@ const smartMove = require("./move.smartMove");
 const getEnergy = require("./getEnergy");
 const { checkIfBlockingSource } = require("./utilities.checkIfBlockingSource");
 const profiler = require("./screeps-profiler");
-const { roomBuildTargetPriorities } = require("./build.roomBuildTargetPriorities");
+const {
+  roomBuildTargetPriorities,
+} = require("./build.roomBuildTargetPriorities");
 
 function build(creep) {
   const name = creep.name;
@@ -52,7 +54,6 @@ function build(creep) {
           "61d0a104be69f615d00e9470",
           "61d0a1053762ce977f1300f9",
         ]);
-
       } else if (creepRoomName === Memory.southRoomName) {
         target = roomBuildTargetPriorities(creep, Memory.southRoomName, []);
       } else if (creepRoomName === Memory.northRoomName) {
@@ -424,10 +425,10 @@ function build(creep) {
 
         retval = creep.build(target);
         creep.memory.b = targetId;
-        creep.say("b:" + target.pos.x + "," + target.pos.y);
+        creep.say("b:" + target.pos.x + "," + target.pos.y + "🏗️");
       } else if (creep.fatigue > 0) {
         creep.say(
-          "f." + creep.fatigue + ":" + target.pos.x + "," + target.pos.y
+          "b." + creep.fatigue + "." + target.pos.x + "," + target.pos.y + "😪"
         );
       } else {
         retval = smartMove(creep, target, 3, false, null, null, 200, 1);
@@ -438,10 +439,12 @@ function build(creep) {
           target = null;
           creep.memory.b = null;
         } else if (retval === OK) {
-          creep.say("b:" + target.pos.x + "," + target.pos.y + "🏗️");
+          creep.say("b:" + target.pos.x + "," + target.pos.y + "🚀");
           creep.memory.b = targetId;
         } else {
-          creep.say("b:" + target.pos.x + "," + target.pos.y + "🚀");
+          creep.say(
+            "b:" + target.pos.x + "," + target.pos.y + "." + retval + "🚀"
+          );
           target = null;
           creep.memory.b = null;
         }

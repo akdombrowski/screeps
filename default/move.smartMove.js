@@ -174,20 +174,22 @@ function smartMove(
       creep.memory.lastCreepPos = creep.pos;
       setVisualAndPathInMemory(creep, path, pathColor);
     } else if (retval === ERR_NOT_FOUND) {
-      shiftPathIfNecessary(path, creepPos);
+      //   shiftPathIfNecessary(path, creepPos);
 
-      retval = retryMoveByPathAfterERR_NOT_FOUND(
-        creep,
-        path,
-        pathColor,
-        creepPos
-      );
+      //   retval = retryMoveByPathAfterERR_NOT_FOUND(
+      //     creep,
+      //     path,
+      //     pathColor,
+      //     creepPos
+      //   );
 
-      if (retval != OK) {
-        retval = retryMoveByPathAfterShiftingPath(creep, path, pathColor);
-      } else {
-        creep.memory.path = null;
-      }
+      //   if (retval != OK) {
+      //     retval = retryMoveByPathAfterShiftingPath(creep, path, pathColor);
+      //   } else {
+      //     creep.memory.path = null;
+      //   }
+      // }
+      creep.memory.path = null;
     }
   }
 

@@ -428,7 +428,7 @@ function build(creep) {
         creep.say("b:" + target.pos.x + "," + target.pos.y + "🏗️");
       } else if (creep.fatigue > 0) {
         creep.say(
-          "b." + creep.fatigue + "." + target.pos.x + "," + target.pos.y + "😪"
+          "b." + creep.fatigue + "😪"
         );
       } else {
         retval = smartMove(creep, target, 3, false, null, null, 200, 1);

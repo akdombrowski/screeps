@@ -1,6 +1,7 @@
 const checkForAttackers = require("./invasion.checkForAttackers");
 const roleTower = require("role.tower");
 const spawnCreepTypes = require("./spawn.spawnCreepTypes");
+const westSpawnCreepTypes = require("./spawn.westSpawnCreepTypes");
 const northSpawnCreepTypes = require("./spawn.northSpawnCreepTypes");
 const deepSouthspawnCreepTypes = require("./spawn.deepSouthspawnCreepTypes");
 const runRoles = require("./runRoles");
@@ -187,6 +188,7 @@ module.exports.loop = function () {
     runRoles();
 
     spawnCreepTypes(enAvailHomeRoom, [homeRoomSpawn1]);
+    westSpawnCreepTypes(westEnAvail, [westRoomSpawn1]);
     // northSpawnCreepTypes(northEnAvail, [northS1]);
     // deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);
 

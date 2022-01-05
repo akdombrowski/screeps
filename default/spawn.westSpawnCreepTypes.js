@@ -569,29 +569,6 @@ function spawnCreepTypes(enAvail, spawns) {
         spawnDirection,
         group
       );
-      // } else if (
-      //   northController &&
-      //   northController.my &&
-      //   !nAttackerId &&
-      //   upControllersE59S47.length < 1
-      // ) {
-      //   // when north controller is controlled change this to upControllersN
-      //   name = "upCN" + t;
-      //   chosenRole = "upCN";
-      //   upControllersE59S47.push(name);
-      //   direction = "north";
-      //   parts = upContrParts200;
-      //   group = "upControllersN";
-      //   retval = birthCreep(
-      //     spawns,
-      //     parts,
-      //     name,
-      //     chosenRole,
-      //     direction,
-      //     sourceId,
-      //     spawnDirection,
-      //     group
-      //   );
     } else if (roadRepairersWest.length < 10) {
       logConditionPassedForSpawnCreep(
         "roadRepairersWest",

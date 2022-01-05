@@ -74,22 +74,22 @@ module.exports.loop = function () {
     Memory.southwestControllerID = "59f1a13882100e1594f37ed7";
     Memory.westControllerID = "59f1a13882100e1594f37ed5";
 
-    let enAvailHomeRoom = homeRoom.energyAvailable;
-    let enCapHomeRoom = homeRoom.energyCapacityAvailable;
+    let homeEnAvail = homeRoom.energyAvailable;
+    let homeEnCap = homeRoom.energyCapacityAvailable;
     // let northEnAvail = northRoom.energyAvailable;
     // let northEnCapRm = northRoom.energyCapacityAvailable;
     // let deepSouthEnAvail = deepSouthRoom.energyAvailable;
     // let deepSouthEnCapRm = deepSouthRoom.energyCapacityAvailable;
     let westEnAvail = westRoom.energyAvailable;
-    let westEnCapRm = westRoom.energyCapacityAvailable;
-    Memory.enAvail = enAvailHomeRoom;
-    Memory.enCapRm = enCapHomeRoom;
+    let westEnCap = westRoom.energyCapacityAvailable;
+    Memory.homeEnAvail = homeEnAvail;
+    Memory.homeEnCap = homeEnCap;
     // Memory.northEnAvail = northEnAvail;
     // Memory.northEnCapRoom = northEnCapRm;
     // Memory.deepSouthEnAvail = deepSouthEnAvail;
     // Memory.deepSouthEnCapRm = deepSouthEnCapRm;
     Memory.westEnAvail = westEnAvail;
-    Memory.westEnCapRm = westEnCapRm;
+    Memory.westEnCap = westEnCap;
 
     // Memory.source1 = "59bbc5d22052a716c3cea136";
     // Memory.source2 = "59bbc5d22052a716c3cea135";
@@ -187,7 +187,7 @@ module.exports.loop = function () {
 
     runRoles();
 
-    spawnCreepTypes(enAvailHomeRoom, [homeRoomSpawn1]);
+    spawnCreepTypes(homeEnAvail, [homeRoomSpawn1]);
     westSpawnCreepTypes(westEnAvail, [westRoomSpawn1]);
     // northSpawnCreepTypes(northEnAvail, [northS1]);
     // deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);

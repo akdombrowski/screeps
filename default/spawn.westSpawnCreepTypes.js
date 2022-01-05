@@ -50,6 +50,7 @@ function birthCreep(
             role: chosenRole,
             direction: direction,
             sourceId: sourceId,
+            group: group,
           },
         });
       }
@@ -156,6 +157,12 @@ function spawnCreepTypes(enAvail, spawns) {
   addPart(slowMoverParts300, 1, CARRY);
   addPart(slowMoverParts300, 2, WORK);
   addPart(slowMoverParts300, 1, MOVE);
+
+  // 300
+  let fastMoverParts300 = [];
+  addPart(fastMoverParts300, 1, CARRY);
+  addPart(fastMoverParts300, 1, WORK);
+  addPart(fastMoverParts300, 3, MOVE);
 
   // 300
   let viewRoom300 = [];
@@ -530,6 +537,9 @@ function spawnCreepTypes(enAvail, spawns) {
     }
   }
 
+  //
+  //
+  //
   //   #####     ###      ###
   //  #     #   #   #    #   #
   //        #  #     #  #     #
@@ -537,7 +547,10 @@ function spawnCreepTypes(enAvail, spawns) {
   //        #  #     #  #     #
   //  #     #   #   #    #   #
   //   #####     ###      ###
-  if (enAvail >= 300 && !wAttackerId && numOfCreepsTotal < 15) {
+  //
+  //
+  //
+  if (enAvail >= 300 && !wAttackerId && numOfCreepsTotal < 30) {
     let name = "hW" + t;
     let chosenRole = "h";
     let direction = "west";
@@ -552,7 +565,7 @@ function spawnCreepTypes(enAvail, spawns) {
         upControllersWest,
         1
       );
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 15);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 30);
       name = "upCW" + t;
       chosenRole = "upCW";
       group = "upControllersWest";
@@ -575,7 +588,7 @@ function spawnCreepTypes(enAvail, spawns) {
         roadRepairersWest,
         10
       );
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 15);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 30);
       name = "rRW" + t;
       chosenRole = "roadRepairer";
       direction = "west";
@@ -595,7 +608,7 @@ function spawnCreepTypes(enAvail, spawns) {
       );
     } else if (harvestersWest.length < 8) {
       logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 8);
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 15);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 30);
       name = "hW" + t;
       direction = "west";
       group = "harvestersWest";

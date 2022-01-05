@@ -4,7 +4,12 @@ function checkProgress(totalNumberOfCreeps, rooms, intervalInGameTime) {
   if (Game.time % intervalInGameTime == 0) {
     let emailMessage = "";
 
-    console.log("Total # of Creeps: " + totalNumberOfCreeps);
+    console.log(
+      "------------\n" +
+        "Total # of Creeps: " +
+        totalNumberOfCreeps +
+        "\n----------"
+    );
     rooms.forEach((room) => {
       const roomController = room.controller;
       const roomLvl = roomController.level;

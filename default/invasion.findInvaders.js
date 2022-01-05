@@ -13,6 +13,7 @@ function findInvaders(
 
     if (Game.time >= lastCheckForInvaderTime + attackerCheckWaitTime) {
       invaderId = getAttackEvents(targetRoom);
+
       if (!invaderId) {
         let enemyCreeps = targetRoom.find(FIND_HOSTILE_CREEPS);
 
@@ -48,7 +49,6 @@ function findInvaders(
           }
         }
       }
-
 
       Memory["invaderID" + direction] = invaderId;
       lastCheckForInvaderTime = Game.time;

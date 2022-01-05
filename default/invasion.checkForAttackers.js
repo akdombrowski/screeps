@@ -17,7 +17,7 @@ function checkForAttackers() {
   let lastCheckForInvaderTimeHome = Memory.lastCheckForInvaderTimeHome || 2;
   let lastCheckForInvaderTimeSouth = Memory.lastCheckForInvaderTimeSouth || 10;
   let lastCheckForInvaderTimeNorth = Memory.lastCheckForInvaderTimeNorth || 10;
-  let lastCheckForInvaderTimeWest = Memory.lastCheckForInvaderTimeWest || 10;
+  let lastCheckForInvaderTimeWest = Memory.lastCheckForInvaderTimeWest || 2;
   let lastCheckForInvaderTimeSouthwest = Memory.lastCheckForInvaderTimeSouthwest || 10;
   let retHome = null;
   let retSouth = null;

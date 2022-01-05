@@ -38,21 +38,27 @@ function build(creep) {
     if (!target) {
       if (creepRoomName === Memory.homeRoomName) {
         target = roomBuildTargetPriorities(creep, Memory.homeRoomName, [
-          "61d3f12f3f190b0226cfc5a9",
           "61d3f131be69f6109b0ebba9",
           "61d3f1323f190bc2fccfc5aa",
           "61d3f1333762cee3d81329b1",
           "61d58231be69f6ecd50ed578",
           "61d3f13ebe69f68b8f0ebbab",
+          "61d3f13f3f190b2640cfc5ad",
         ]);
       } else if (creepRoomName === Memory.westRoomName) {
         target = roomBuildTargetPriorities(creep, Memory.westRoomName, [
-          "61d57e6d3f190ba128cfe0f0",
-          "61d3059d3762ceb370131f14",
-          "61d0a1033762ce29b41300f8",
-          "61d0a1043f190b5020cf9bd9",
-          "61d0a104be69f615d00e9470",
-          "61d0a1053762ce977f1300f9",
+          "61d0a106be69f692260e9471",
+          "61d0a1063f190b5fd4cf9bda",
+          "61d0a107be69f640980e9472",
+          "61d0a1083f190b7d08cf9bdb",
+          "61d0a1083762ce5afe1300fa",
+          "61d0a1093f190b9eb8cf9bdc",
+          "61d0a109be69f670b60e9473",
+          "61d0a10b3762cef8fb1300fc",
+          "61d0a10a3f190b79aacf9bdd",
+          "61d0a10c3f190b4f69cf9bde",
+          "61d0a10d3f190ba392cf9bdf",
+          "61d0a10f3762cea19d1300fd",
         ]);
       } else if (creepRoomName === Memory.southRoomName) {
         target = roomBuildTargetPriorities(creep, Memory.southRoomName, []);

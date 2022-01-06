@@ -46,13 +46,7 @@ function build(creep) {
           "61d3f13f3f190b2640cfc5ad",
         ]);
       } else if (creepRoomName === Memory.westRoomName) {
-        target = roomBuildTargetPriorities(creep, Memory.westRoomName, [
-          "61d0a10b3762cef8fb1300fc",
-          "61d0a10a3f190b79aacf9bdd",
-          "61d0a10c3f190b4f69cf9bde",
-          "61d0a10d3f190ba392cf9bdf",
-          "61d0a10f3762cea19d1300fd",
-        ]);
+        target = roomBuildTargetPriorities(creep, Memory.westRoomName, []);
       } else if (creepRoomName === Memory.southRoomName) {
         target = roomBuildTargetPriorities(creep, Memory.southRoomName, []);
       } else if (creepRoomName === Memory.northRoomName) {

@@ -76,35 +76,35 @@ function tran(
     creep.memory.transfer = true;
   }
 
-  if (!target) {
-    if (creep.room.name === Memory.homeRoomName) {
-      const minRoomEnergy = 300;
-      const maxTowerEnergy = 950;
-      const minTowerEnergy = 299;
+  // if (!target) {
+  //   if (creep.room.name === Memory.homeRoomName) {
+  //     const minRoomEnergy = 300;
+  //     const maxTowerEnergy = 950;
+  //     const minTowerEnergy = 299;
 
-      target = checkTransferToTower(
-        creepRoom,
-        tower1,
-        creep,
-        minRoomEnergy,
-        maxTowerEnergy,
-        minTowerEnergy
-      );
-    } else if (creep.room.name === Memory.westRoomName) {
-      const minRoomEnergy = 50;
-      const maxTowerEnergy = 950;
-      const minTowerEnergy = 300;
+  //     target = checkTransferToTower(
+  //       creepRoom,
+  //       tower1,
+  //       creep,
+  //       minRoomEnergy,
+  //       maxTowerEnergy,
+  //       minTowerEnergy
+  //     );
+  //   } else if (creep.room.name === Memory.westRoomName) {
+  //     const minRoomEnergy = 50;
+  //     const maxTowerEnergy = 950;
+  //     const minTowerEnergy = 300;
 
-      target = checkTransferToTower(
-        creepRoom,
-        westTower1,
-        creep,
-        minRoomEnergy,
-        maxTowerEnergy,
-        minTowerEnergy
-      );
-    }
-  }
+  //     target = checkTransferToTower(
+  //       creepRoom,
+  //       westTower1,
+  //       creep,
+  //       minRoomEnergy,
+  //       maxTowerEnergy,
+  //       minTowerEnergy
+  //     );
+  //   }
+  // }
 
   // check if target needs energy transferred to it
   target = doesTargetNeedEnergy(target, creep, 50);

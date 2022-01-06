@@ -551,7 +551,7 @@ function spawnCreepTypes(enAvail, spawns) {
   // ........##.##.....##.##.....##
   // .##.....##..##...##...##...##.
   // ..#######....#####.....#####..
-  if (enAvail >= 300 && !wAttackerId && creepsWest.length < 15) {
+  if (enAvail >= 300 && !wAttackerId) {
     let name = "hW" + t;
     let chosenRole = "h";
     let direction = "west";
@@ -563,7 +563,6 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (harvestersWest.length < 10) {
       logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 10);
-      logConditionPassedForSpawnCreep("creepsWest", creepsWest, 15);
       name = "hW" + t;
       direction = "west";
       group = "harvestersWest";

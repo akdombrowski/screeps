@@ -60,6 +60,8 @@ function birthCreep(
         console.log(
           "wSpawn1ed." +
             name +
+            "_" +
+            cost +
             " " +
             chosenRole +
             " " +
@@ -446,7 +448,7 @@ function spawnCreepTypes(enAvail, spawns) {
     );
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningS " + name + "_" + cost + " " + retval);
       console.log("energy: 800");
     }
     if (retval === OK || retval === ERR_BUSY) {
@@ -534,7 +536,7 @@ function spawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningW " + name + " " + retval);
+      console.log("spawningW " + name + "_" + cost + " " + retval);
       console.log("energy: 300  parts: " + parts);
     }
     if (retval === OK || retval === ERR_BUSY) {
@@ -582,7 +584,7 @@ function spawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningW " + name + " " + retval);
+      console.log("spawningW " + name + "_" + cost + " " + retval);
       console.log("energy: 300  parts: " + parts);
     }
     if (retval === OK || retval === ERR_BUSY) {
@@ -665,7 +667,7 @@ function spawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningW " + name + " " + retval);
+      console.log("spawningW " + name + "_" + cost + " " + retval);
       console.log("energy: 300  parts: " + parts);
     }
     if (retval === OK || retval === ERR_BUSY) {
@@ -1215,7 +1217,7 @@ function spawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningS " + name + "_" + cost + " " + retval);
       console.log("energy: 550");
     }
     if (retval === OK || retval === ERR_BUSY) {
@@ -1412,7 +1414,7 @@ function spawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningS " + name + "_" + cost + " " + retval);
       console.log("energy: 650");
     }
     if (retval === OK || retval === ERR_BUSY) {
@@ -1633,7 +1635,7 @@ function spawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningS " + name + "_" + cost + " " + retval);
       console.log("energy: 800");
     }
     if (retval === OK || retval === ERR_BUSY) {
@@ -1863,7 +1865,7 @@ function spawnCreepTypes(enAvail, spawns) {
     }
 
     if (retval !== -16) {
-      console.log("spawningS " + name + " " + retval);
+      console.log("spawningS " + name + "_" + cost + " " + retval);
       console.log("energy: 800");
     }
     if (retval === OK || retval === ERR_BUSY) {

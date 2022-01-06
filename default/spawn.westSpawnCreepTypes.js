@@ -498,7 +498,7 @@ function spawnCreepTypes(enAvail, spawns) {
   // ........##.##.....##.##.....##
   // .##.....##..##...##...##...##.
   // ..#######....#####.....#####..
-  if (enAvail >= 300 && !wAttackerId && creepsWest.length < 10) {
+  if (enAvail >= 300 && !wAttackerId) {
     let name = "hW" + t;
     let chosenRole = "h";
     let direction = "west";
@@ -507,9 +507,55 @@ function spawnCreepTypes(enAvail, spawns) {
     let group = "harvestersWest";
     let spawnDirection = [TOP];
 
-    if (harvestersWest.length < 8) {
-      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 8);
-      logConditionPassedForSpawnCreep("creepsWest", creepsWest, 10);
+    if (harvestersWest.length < 2) {
+      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 2);
+      // logConditionPassedForSpawnCreep("creepsWest", creepsWest, 10);
+      name = "hW" + t;
+      direction = "west";
+      group = "harvestersWest";
+      creepsWest.push(name);
+      harvestersWest.push(name);
+      parts = simpleParts300;
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group
+      );
+    }
+
+    if (retval !== -16) {
+      console.log("spawningW " + name + " " + retval);
+      console.log("energy: 300  parts: " + parts);
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
+  }
+
+  // ..#######....#####.....#####..
+  // .##.....##..##...##...##...##.
+  // ........##.##.....##.##.....##
+  // ..#######..##.....##.##.....##
+  // ........##.##.....##.##.....##
+  // .##.....##..##...##...##...##.
+  // ..#######....#####.....#####..
+  if (enAvail >= 300 && !wAttackerId && creepsWest.length < 15) {
+    let name = "hW" + t;
+    let chosenRole = "h";
+    let direction = "west";
+    let sourceId = Memory.source2;
+    let parts = simpleParts300;
+    let group = "harvestersWest";
+    let spawnDirection = [TOP];
+
+    if (harvestersWest.length < 10) {
+      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 10);
+      logConditionPassedForSpawnCreep("creepsWest", creepsWest, 15);
       name = "hW" + t;
       direction = "west";
       group = "harvestersWest";

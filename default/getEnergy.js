@@ -21,8 +21,6 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
   const southRoomName = Memory.southRoomName;
-  const e58s49RoomName = Memory.e58s49RoomName;
-  const e58s48RoomName = Memory.e58s48RoomName;
   let lastSourceId = creep.memory.lastSourceId;
   let target = Game.getObjectById(lastSourceId);
   let isTargetStructure = false;

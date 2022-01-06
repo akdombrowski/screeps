@@ -8,7 +8,7 @@ function memoryWestRoomExtensionsRefresh(creep, extensions) {
     Memory.lastWestRoomExtCheckTime = Game.time;
   }
 
-  const timeElapsedSinceLastCheck = Game.time - Memory.laste58s48ExtCheckTime;
+  const timeElapsedSinceLastCheck = Game.time - Memory.lastWestRoomExtCheckTime;
 
   if (extensions && extensions.length > 0) {
     extensions = extensions.filter(
@@ -18,7 +18,7 @@ function memoryWestRoomExtensionsRefresh(creep, extensions) {
   }
 
   if (!extensions || extensions.length <= 0) {
-    extensions = findMyStructs([STRUCTURE_EXTENSION], Memory.homeRoomName);
+    extensions = findMyStructs([STRUCTURE_EXTENSION], Memory.westRoomName);
     Memory.lastWestRoomExtCheckTime = Game.time;
   }
 

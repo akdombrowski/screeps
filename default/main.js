@@ -215,22 +215,11 @@ module.exports.loop = function () {
         null,
         Memory.westExtensions
       );
-
-      // //   memoryE59S47ExtensionsRefresh();
-
-      // //   memoryE59S49ExtensionsRefresh();
     }
 
     if (Game.time % 100) {
       Memory.homeSpawns = memoryHomeSpawnsRefresh(null, Memory.homeSpawns);
-      Memory.westSpawns = memoryWestRoomExtensionsRefresh(
-        null,
-        Memory.westSpawns
-      );
-
-      // //   memoryE59S47SpawnsRefresh();
-
-      // //   memoryE59S49SpawnsRefresh();
+      Memory.westSpawns = memoryWestRoomSpawnsRefresh(null, Memory.westSpawns);
     }
 
     // // if (Game.cpu.bucket > 30) {

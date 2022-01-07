@@ -60,7 +60,7 @@ function findInvaders(
           2
         );
 
-        console.log("invader" + targetRoomName + ": " + invaderId);
+        console.log("invaderID" + direction + ": " + invaderId);
         console.log(
           "health: " +
             invader.hits +

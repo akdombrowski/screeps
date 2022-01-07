@@ -155,12 +155,20 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
 
       // need to define ids in main when ready to use this
       if (target.id === Memory.homeSource1ID) {
+        if (!Memory.homeSource1Creeps) {
+          Memory.homeSource1Creeps = [];
+        }
+
         if (!Memory.homeSource1Creeps.find((name) => name === creep.name)) {
           homeSource1Creeps.push(creep.name);
-
-          Memory.homeSource1Creeps = homeSource1Creeps;
         }
+
+        Memory.homeSource1Creeps = homeSource1Creeps;
       } else if (target.id === Memory.homeSource2ID) {
+        if (!Memory.homeSource2Creeps) {
+          Memory.homeSource2Creeps = [];
+        }
+
         if (!Memory.homeSource2Creeps.find((name) => name === creep.name)) {
           homeSource2Creeps.push(creep.name);
           Memory.homeSource2Creeps = homeSource2Creeps;

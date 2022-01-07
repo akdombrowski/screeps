@@ -34,6 +34,57 @@ function stuckCreepMovement(creep, lastCreepPos, dest, range, pathColor) {
             strokeWidth: 0.45,
             opacity: 0.2,
           },
+          costCallback: function (roomName) {
+            let room = Game.rooms[roomName];
+            // In this example `room` will always exist, but since
+            // PathFinder supports searches which span multiple rooms
+            // you should be careful!
+            if (!room) return;
+            let costs = new PathFinder.CostMatrix();
+
+            room.find(FIND_STRUCTURES, {
+              filter: (struct) => {
+                if (struct.structureType === STRUCTURE_ROAD) {
+                  // Favor roads over plain tiles
+                  costs.set(struct.pos.x, struct.pos.y, 1);
+                } else if (
+                  struct.structureType !== STRUCTURE_CONTAINER &&
+                  !(struct.structureType === STRUCTURE_RAMPART && struct.my)
+                ) {
+                  // Can't walk through non-walkable buildings
+                  costs.set(struct.pos.x, struct.pos.y, 0xff);
+                }
+              },
+            });
+
+            let creepArr = creepPos.findInRange(FIND_CREEPS, 3);
+            // Avoid creeps in the room
+            for (const c of creepArr) {
+              // body parts array of creep
+              let bodyParts = c.body;
+              // new array with just the MOVE body parts
+              let moveBodyParts = bodyParts.filter((part) => part === MOVE);
+              let numberOfMoveBodyParts = moveBodyParts.length;
+              // how much fatigue this creep can recover from in a game tick
+              let fatigueRecoverablePerTick = numberOfMoveBodyParts * 2;
+              if (c.pos) {
+                if (c.fatigue > fatigueRecoverablePerTick) {
+                  // creep isn't moving due to fatigue
+                  costs.set(c.pos.x, c.pos.y, 0xff);
+                } else if (c.memory) {
+                  let path = c.memory.path;
+
+                  if (path && path.length > 0) {
+                    // creep has a path and no fatigue
+                    costs.set(path[0].x, path[0].y, 0xff);
+                  } else {
+                    // creep has no path, likely not moving
+                    costs.set(c.pos.x, c.pos.y, 0xff);
+                  }
+                }
+              }
+            }
+          },
         });
 
         // if we successfully used moveTo, capture the path by converting it to something moveByPath can use
@@ -84,9 +135,9 @@ function convertToMoveByPathFriendlyPath(creep) {
       newPathArray.push(pos);
     } catch (e) {
       // likely because creep was on the edge of the room and my formula doesn't take into account for transforming into a RoomPosition in the next room
-    //   console.log(e);
-    //   console.log(px + " " + py + " " + roomName);
-    //   console.log(JSON.stringify(step));
+      //   console.log(e);
+      //   console.log(px + " " + py + " " + roomName);
+      //   console.log(JSON.stringify(step));
     }
   });
 

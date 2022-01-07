@@ -470,7 +470,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 300 && Memory.invaderIDWest) {
+  if (enAvail >= 300 && Game.getObjectById(Memory.invaderIDWest)) {
     logConditionPassedForSpawnCreep(
       "rangedAttackersWest",
       rangedAttackersWest,

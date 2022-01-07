@@ -49,6 +49,8 @@ function roleHarvester(
     creep.memory.lastSourceId = null;
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
+    _.pull(Memory.homeSource1Creeps, creep.name);
+    _.pull(Memory.homeSource2Creeps, creep.name);
 
     ret = transferEnergyBasedOnDirection(creep, extensions, spawns);
     retval = ret.retval;

@@ -97,8 +97,8 @@ module.exports.loop = function () {
     // Memory.westEnAvail = westEnAvail;
     // Memory.westEnCap = westEnCap;
 
-    // Memory.source1 = "59bbc5d22052a716c3cea136";
-    // Memory.source2 = "59bbc5d22052a716c3cea135";
+    Memory.homeSource1ID = "5982fc5eb097071b4adbd46a";
+    Memory.homeSource2ID = "5982fc5eb097071b4adbd468";
     // Memory.nSource1 = "59bbc5d22052a716c3cea131";
     // Memory.nSource2 = "59bbc5d22052a716c3cea132";
 

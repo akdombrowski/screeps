@@ -24,6 +24,8 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
   let lastSourceId = creep.memory.lastSourceId;
   let target = Game.getObjectById(lastSourceId);
   let isTargetStructure = false;
+  let homeSource1Creeps = Memory.homeSource1Creeps || [];
+  let homeSource2Creeps = Memory.homeSource2Creeps || [];
 
   creep.memory.getEnergy = true;
   creep.memory.transfer = false;
@@ -148,6 +150,17 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
     if (chosenSource) {
       target = chosenSource;
       creep.memory.lastSourceId = target.id;
+
+
+      // need to define ids in main when ready to use this
+      if (target.id === Memory.homeSource1ID) {
+        homeSource1Creeps.push(creep.name);
+        Memory.homeSource1Creeps = homeSource1Creeps;
+      } else if (target.id === Memory.homeSource2ID) {
+        homeSource2Creeps.push(creep.name);
+        Memory.homeSource2Creeps = homeSource2Creeps;
+      }
+
     }
   }
 
@@ -458,3 +471,7 @@ getRandomInt = profiler.registerFN(getRandomInt, "getRandomInt");
 
 getEnergy = profiler.registerFN(getEnergy, "getEnergy");
 module.exports = getEnergy;
+
+function addMeToSourceList(creep, targetSource){
+
+}

@@ -86,7 +86,11 @@ function roleRangedAttacker(
               false,
               null
             );
-            creep.say(exitFlag.pos.x + "," + exitFlag.pos.y + "🏃‍♂️");
+            if (retval === OK) {
+              creep.say("a." + exitFlag.pos.x + "," + exitFlag.pos.y + "🏃‍♂️");
+            } else if (retval === ERR_TIRED) {
+              creep.say("a." + creep.fatigue + "😴");
+            }
           }
         }
       } else if (creep.room.name === targetRoomName) {

@@ -16,7 +16,7 @@ const { checkIfValidPath } = require("./move.checkIfValidPath");
 const { smartMoveReaction } = require("./move.smartMoveReaction");
 const { convertPathToRoomPositions } = require("./convertPathToRoomPositions");
 const { tryDeserializingPath } = require("./tryDeserializingPath");
-const { stuckCreepMovement } = require("./stuckCreepMovement");
+const { stuckCreepMovement } = require("./move.stuckCreepMovement");
 
 function smartMove(
   creep,

@@ -21,6 +21,7 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
   const homeRoomName = Memory.homeRoomName;
   const northRoomName = Memory.northRoomName;
   const southRoomName = Memory.southRoomName;
+  const westRoomName = Memory.westRoomName;
   let lastSourceId = creep.memory.lastSourceId;
   let target = Game.getObjectById(lastSourceId);
   let isTargetStructure = false;
@@ -46,7 +47,14 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
     return OK;
   }
 
-  if (!target && creepRoomName != targetRoomName) {
+let invader = null;
+switch(targetRoomName) {
+    case westRoomName:
+        invader = Memory.invaderIDWest;
+        break;
+}
+
+  if (!target && creepRoomName != targetRoomName && !invader) {
     if (targetRoomName != northRoomName && creepRoomName === northRoomName) {
       // if in the north room but target is not north, head home
       exitDirection = BOTTOM;
@@ -74,6 +82,10 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
         // in home room but target is not north
         exitDirection = BOTTOM;
         exit = Game.flags.homeToSouth;
+      } else if (targetRoomName === westRoomName) {
+        // in home room but target is not north
+        exitDirection = LEFT;
+        exit = Game.flags.homeToWest;
       }
     }
 

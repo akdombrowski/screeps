@@ -81,8 +81,8 @@ function roleRepairer(
         targetRoomName,
         targetRoomName,
         null,
-        null,
-        null
+        exit,
+        exitDirection
       );
     } else if (creep.memory.direction === "north") {
       retval = getEnergy(

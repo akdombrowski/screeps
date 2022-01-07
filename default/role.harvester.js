@@ -120,7 +120,6 @@ function roleHarvester(
     creep.memory.buildRoad = false;
     creep.memory.transferTower = false;
     creep.memory.transfer = false;
-    creep.memory.path = null;
     creep.memory.transferTargetId = null;
     creep.memory.getEnergy = true;
 

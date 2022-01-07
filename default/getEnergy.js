@@ -36,6 +36,8 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
   ) {
     console.log(name + " resetting getEnergy");
 
+    _.pull(Memory.homeSource1Creeps, creep.name);
+    _.pull(Memory.homeSource2Creeps, creep.name);
     creep.memory.lastSourceId = null;
     creep.memory.path = null;
     creep.memory.getEnergy = false;
@@ -151,7 +153,6 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
       target = chosenSource;
       creep.memory.lastSourceId = target.id;
 
-
       // need to define ids in main when ready to use this
       if (target.id === Memory.homeSource1ID) {
         homeSource1Creeps.push(creep.name);
@@ -160,7 +161,6 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
         homeSource2Creeps.push(creep.name);
         Memory.homeSource2Creeps = homeSource2Creeps;
       }
-
     }
   }
 
@@ -399,6 +399,11 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
       if (retval === OK) {
         creep.say("🧀");
         creep.memory.lastSourceId = target.id;
+
+        if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
+          _.pull(Memory.homeSource1Creeps, creep.name);
+          _.pull(Memory.homeSource2Creeps, creep.name);
+        }
       } else if (retval === ERR_TIRED) {
         creep.say("v." + creep.fatigue + "😴");
         creep.memory.lastSourceId = target.id;
@@ -472,6 +477,4 @@ getRandomInt = profiler.registerFN(getRandomInt, "getRandomInt");
 getEnergy = profiler.registerFN(getEnergy, "getEnergy");
 module.exports = getEnergy;
 
-function addMeToSourceList(creep, targetSource){
-
-}
+function addMeToSourceList(creep, targetSource) {}

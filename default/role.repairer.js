@@ -26,40 +26,6 @@ function roleRepairer(
   let mem_getEnergy = creep.memory.getEnergy;
   let target = Game.getObjectById(lastRepairableStructId);
 
-  if (!target && !creep.memory.build) {
-    // console.log(name + " " + creep.memory.build);
-    if (targetRoomName && creepRoomName != targetRoomName) {
-      if (creepRoomName === Memory.northRoomName) {
-        // if in the north room but target is not north, head south
-        exitDirection = BOTTOM;
-        exit = Game.flags.northEntrance;
-      } else if (creepRoomName === Memory.southRoomName) {
-        // if in the south room but target room is not south and not in SW, head north
-        if (targetRoomName != Memory.southwestRoomName) {
-          exitDirection = TOP;
-          exit = Game.flags.southToHome;
-        }
-      } else if (creepRoomName === Memory.homeRoomName) {
-        if (targetRoomName === Memory.southRoomName) {
-          exitDirection = BOTTOM;
-          exit = Game.flags.homeToSouth;
-        } else if (targetRoomName === Memory.westRoomName) {
-          exitDirection = LEFT;
-          exit = Game.flags.homeToWest;
-        }
-      }
-
-      if (creep.pos.isNearTo(exit)) {
-        creep.say(exitDirection);
-        retval = creep.move(exitDirection);
-      } else {
-        creep.say(targetRoomName);
-        retval = smartMove(creep, exit, 0, true, null, null, null, 1);
-      }
-      return retval;
-    }
-  }
-
   if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
     mem_repair = true;
     creep.memory.build = false;

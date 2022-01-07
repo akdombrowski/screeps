@@ -457,6 +457,52 @@ function spawnCreepTypes(enAvail, spawns) {
     }
   }
 
+  //     #     #######  #######     #      #####   #    #
+  //    # #       #        #       # #    #     #  #   #
+  //   #   #      #        #      #   #   #        #  #
+  //  #     #     #        #     #     #  #        ###
+  //  #######     #        #     #######  #        #  #
+  //  #     #     #        #     #     #  #     #  #   #
+  //  #     #     #        #     #     #   #####   #    #
+  if (enAvail >= 200 && Memory.invaderIDWest) {
+    logConditionPassedForSpawnCreep(
+      "rangedAttackersWest",
+      rangedAttackersWest,
+      -1
+    );
+
+    let name = "aRW" + t;
+    let chosenRole = "rangedAttacker";
+    let direction = "west";
+    let sourceId = Memory.dSSource2;
+    let parts = rangedAttackerParts200;
+    let group = "rangedAttackersWest";
+    let spawnDirection = [LEFT];
+    let cost = "200";
+
+    creepsWest.push(name);
+    rangedAttackersWest.push(name);
+    retval = birthCreep(
+      spawns,
+      parts,
+      name,
+      chosenRole,
+      direction,
+      sourceId,
+      spawnDirection,
+      group,
+      cost
+    );
+
+    if (retval !== -16) {
+      console.log("spawningS " + name + "_" + cost + " " + retval);
+      console.log("energy: 200  parts: " + parts);
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
+  }
+
   // // ..#######....#####.....#####..
   // // .##.....##..##...##...##...##.
   // // ........##.##.....##.##.....##

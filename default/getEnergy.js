@@ -63,13 +63,6 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
         exit = Game.flags.southToHome;
       }
     } else if (
-      targetRoomName != e58s49RoomName &&
-      creepRoomName === e58s49RoomName
-    ) {
-      // if in the SW room but target room is not SW, head to deepSouth
-      exitDirection = RIGHT;
-      exit = Game.flags.e59s49Entrance;
-    } else if (
       targetRoomName != homeRoomName &&
       creepRoomName === homeRoomName
     ) {

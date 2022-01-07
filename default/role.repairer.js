@@ -6,7 +6,15 @@ const { checkIfBlockingSource } = require("./utilities.checkIfBlockingSource");
 const profiler = require("./screeps-profiler");
 const { findFixablesForCreep } = require("./find.findFixablesForCreep");
 
-function roleRepairer(creep, targetRoomName, exit, exitDirection) {
+function roleRepairer(
+  creep,
+  targetRoomName,
+  exit,
+  exitDirection,
+  targetBuildRoomName,
+  buildExit,
+  buildExitDirection
+) {
   let mem_repair = creep.memory.repair;
   let retval = -16;
   const lastRepairableStructId = creep.memory.lastRepairableStructId;
@@ -18,8 +26,8 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
   let mem_getEnergy = creep.memory.getEnergy;
   let target = Game.getObjectById(lastRepairableStructId);
 
-
-  if (!target) {
+  if (!target && !creep.memory.build) {
+    // console.log(name + " " + creep.memory.build);
     if (targetRoomName && creepRoomName != targetRoomName) {
       if (creepRoomName === Memory.northRoomName) {
         // if in the north room but target is not north, head south
@@ -122,7 +130,11 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
     creep.memory.getEnergy = false;
     creep.memory.transfer = false;
     mem_repair = false;
-    retval = build(creep);
+    if (targetBuildRoomName) {
+      retval = build(creep, targetBuildRoomName, buildExitDirection, buildExit);
+    } else {
+      retval = build(creep, Memory.homeRoomName, RIGHT, Game.flags.westToHome);
+    }
   }
 
   if (mem_repair) {
@@ -194,12 +206,30 @@ function roleRepairer(creep, targetRoomName, exit, exitDirection) {
     } else {
       creep.memory.build = true;
       creep.memory.repair = false;
-      retval = build(creep);
+      if (targetBuildRoomName) {
+        retval = build(
+          creep,
+          targetBuildRoomName,
+          buildExitDirection,
+          buildExit
+        );
+      } else {
+        retval = build(
+          creep,
+          Memory.homeRoomName,
+          RIGHT,
+          Game.flags.westToHome
+        );
+      }
     }
   } else if (!creep.memory.getEnergy) {
     creep.memory.build = true;
     creep.memory.repair = false;
-    retval = build(creep);
+    if (targetBuildRoomName) {
+      retval = build(creep, targetBuildRoomName, buildExitDirection, buildExit);
+    } else {
+      retval = build(creep, Memory.homeRoomName, RIGHT, Game.flags.westToHome);
+    }
   }
 
   return retval;

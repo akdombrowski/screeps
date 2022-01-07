@@ -7,7 +7,7 @@ const {
 } = require("./build.roomBuildTargetPriorities");
 const { findBuildSite } = require("./findBuildSite");
 
-function build(creep) {
+function build(creep, targetRoomName, exitDirection, exit) {
   const name = creep.name;
   const creepRoom = creep.room;
   const creepRoomName = creepRoom.name;
@@ -37,10 +37,42 @@ function build(creep) {
     }
 
     if (!target) {
+      if (targetRoomName && creepRoomName != targetRoomName) {
+        if (creepRoomName === Memory.northRoomName) {
+          // if in the north room but target is not north, head south
+          exitDirection = BOTTOM;
+          exit = Game.flags.northEntrance;
+        } else if (creepRoomName === Memory.southRoomName) {
+          // if in the south room but target room is not south and not in SW, head north
+          if (targetRoomName != Memory.southwestRoomName) {
+            exitDirection = TOP;
+            exit = Game.flags.southToHome;
+          }
+        } else if (creepRoomName === Memory.homeRoomName) {
+          if (targetRoomName === Memory.southRoomName) {
+            exitDirection = BOTTOM;
+            exit = Game.flags.homeToSouth;
+          } else if (targetRoomName === Memory.westRoomName) {
+            exitDirection = LEFT;
+            exit = Game.flags.homeToWest;
+          }
+        }
+
+        if (creep.pos.isNearTo(exit)) {
+          creep.say(exitDirection);
+          retval = creep.move(exitDirection);
+        } else {
+          creep.say(targetRoomName);
+          retval = smartMove(creep, exit, 0, true, null, null, null, 1);
+        }
+        return retval;
+      }
+    }
+
+    if (!target) {
       if (creepRoomName === Memory.homeRoomName) {
         target = roomBuildTargetPriorities(creep, Memory.homeRoomName, [
           "61d6a62d3f190bec7dcfec06",
-
         ]);
       } else if (creepRoomName === Memory.westRoomName) {
         target = roomBuildTargetPriorities(creep, Memory.westRoomName, []);

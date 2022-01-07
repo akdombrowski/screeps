@@ -644,7 +644,7 @@ function spawnCreepTypes(enAvail, spawns) {
       chosenRole = "roadRepairer";
       direction = "home";
       group = "roadRepairers";
-      parts = slowMoverParts300;
+      parts = fastMoverParts300;
       creepsHome.push(name);
       roadRepairers.push(name);
       retval = birthCreep(

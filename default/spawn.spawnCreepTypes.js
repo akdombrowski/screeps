@@ -148,10 +148,10 @@ function spawnCreepTypes(enAvail, spawns) {
   addPart(attackerParts290, 1, MOVE);
   addPart(attackerParts290, 3, ATTACK);
 
-  // 200
+  // 300
   let rangedAttackerParts300 = [];
-  addPart(rangedAttackerParts300, 10, TOUGH);
-  addPart(rangedAttackerParts300, 1, MOVE);
+  addPart(rangedAttackerParts300, 5, TOUGH);
+  addPart(rangedAttackerParts300, 2, MOVE);
   addPart(rangedAttackerParts300, 1, RANGED_ATTACK);
 
   // 300

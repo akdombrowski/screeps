@@ -71,6 +71,20 @@ function getPath(
       // you should be careful!
       if (!room) return;
       let costs = new PathFinder.CostMatrix();
+      const terrain = room.getTerrain();
+
+      for (let y = 0; y < 50; y++) {
+        for (let x = 0; x < 50; x++) {
+          const tile = terrain.get(x, y);
+          const weight =
+            tile === TERRAIN_MASK_WALL
+              ? 0xff // wall  => unwalkable
+              : tile === TERRAIN_MASK_SWAMP
+              ? 5 // swamp => weight:  5
+              : 1; // plain => weight:  1
+          costs.set(x, y, weight);
+        }
+      }
 
       room.find(FIND_STRUCTURES, {
         filter: (struct) => {

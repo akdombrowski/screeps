@@ -161,6 +161,12 @@ function spawnCreepTypes(enAvail, spawns) {
   addPart(slowMoverParts300, 1, MOVE);
 
   // 300
+  let fastMoverParts300 = [];
+  addPart(fastMoverParts300, 1, CARRY);
+  addPart(fastMoverParts300, 1, WORK);
+  addPart(fastMoverParts300, 3, MOVE);
+
+  // 300
   let viewRoom300 = [];
   addPart(viewRoom300, 1, MOVE);
   addPart(viewRoom300, 1, HEAL);
@@ -596,9 +602,28 @@ function spawnCreepTypes(enAvail, spawns) {
       chosenRole = "roadRepairer";
       direction = "home";
       group = "roadRepairers";
-      parts = slowMoverParts300;
+      parts = fastMoverParts300;
       creepsHome.push(name);
       roadRepairers.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group,
+        cost
+      );
+    } else if (harvesters.length < 4) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
+      name = "h" + t;
+      direction = "home";
+      group = "harvesters";
+      creepsHome.push(name);
+      harvesters.push(name);
+      parts = fastMoverParts300;
       retval = birthCreep(
         spawns,
         parts,

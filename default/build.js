@@ -36,37 +36,35 @@ function build(creep, targetRoomName, exitDirection, exit) {
       target = null;
     }
 
-    if (!target) {
-      if (targetRoomName && creepRoomName != targetRoomName) {
-        if (creepRoomName === Memory.northRoomName) {
-          // if in the north room but target is not north, head south
+    if (targetRoomName && creepRoomName != targetRoomName) {
+      if (creepRoomName === Memory.northRoomName) {
+        // if in the north room but target is not north, head south
+        exitDirection = BOTTOM;
+        exit = Game.flags.northEntrance;
+      } else if (creepRoomName === Memory.southRoomName) {
+        // if in the south room but target room is not south and not in SW, head north
+        if (targetRoomName != Memory.southwestRoomName) {
+          exitDirection = TOP;
+          exit = Game.flags.southToHome;
+        }
+      } else if (creepRoomName === Memory.homeRoomName) {
+        if (targetRoomName === Memory.southRoomName) {
           exitDirection = BOTTOM;
-          exit = Game.flags.northEntrance;
-        } else if (creepRoomName === Memory.southRoomName) {
-          // if in the south room but target room is not south and not in SW, head north
-          if (targetRoomName != Memory.southwestRoomName) {
-            exitDirection = TOP;
-            exit = Game.flags.southToHome;
-          }
-        } else if (creepRoomName === Memory.homeRoomName) {
-          if (targetRoomName === Memory.southRoomName) {
-            exitDirection = BOTTOM;
-            exit = Game.flags.homeToSouth;
-          } else if (targetRoomName === Memory.westRoomName) {
-            exitDirection = LEFT;
-            exit = Game.flags.homeToWest;
-          }
+          exit = Game.flags.homeToSouth;
+        } else if (targetRoomName === Memory.westRoomName) {
+          exitDirection = RIGHT;
+          exit = Game.flags.homeToWest;
         }
-
-        if (creep.pos.isNearTo(exit)) {
-          creep.say(exitDirection);
-          retval = creep.move(exitDirection);
-        } else {
-          creep.say(targetRoomName);
-          retval = smartMove(creep, exit, 0, true, null, null, null, 1);
-        }
-        return retval;
       }
+
+      if (creep.pos.isNearTo(exit)) {
+        creep.say(exitDirection);
+        retval = creep.move(exitDirection);
+      } else {
+        creep.say(targetRoomName);
+        retval = smartMove(creep, exit, 0, true, null, null, null, 1);
+      }
+      return retval;
     }
 
     if (!target) {

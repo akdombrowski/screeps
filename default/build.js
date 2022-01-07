@@ -40,11 +40,7 @@ function build(creep) {
       if (creepRoomName === Memory.homeRoomName) {
         target = roomBuildTargetPriorities(creep, Memory.homeRoomName, [
           "61d6a62d3f190bec7dcfec06",
-          "61d6a0403762ce4fd2134d7a",
-          "61d6a04cbe69f668ba0ee0b1",
-          "61d6a0513762ce75e7134d7c",
-          "61d6a5533762cef782134da1",
-          "61d6a551be69f625540ee0d9",
+
         ]);
       } else if (creepRoomName === Memory.westRoomName) {
         target = roomBuildTargetPriorities(creep, Memory.westRoomName, []);

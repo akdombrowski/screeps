@@ -386,10 +386,11 @@ function runRoles() {
           roadRepairersWest.push(name);
 
           if (!shouldContinueToNextCreep) {
-            roleRepairer(creep, westRoomName, Game.flags.homeToWest, LEFT);
+            roleRepairer(creep, westRoomName, homeToWest, LEFT, homeRoomName, westToHome, RIGHT);
           }
         } else if (creep.memory.direction === "south") {
           roadRepairersSouth.push(name);
+
           if (!shouldContinueToNextCreep) {
             roleRepairer(creep, southRoomName, homeToSouth, BOTTOM);
           }

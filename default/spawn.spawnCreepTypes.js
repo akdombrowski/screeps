@@ -476,7 +476,53 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 300 && Game.getObjectById(Memory.invaderIDWest)) {
+  if (enAvail >= 550 && Game.getObjectById(Memory.invaderIDHome)) {
+    logConditionPassedForSpawnCreep(
+      "rangedAttackers",
+      rangedAttackers,
+      -1
+    );
+
+    let name = "aRW" + t;
+    let chosenRole = "rangedAttacker";
+    let direction = "home";
+    let sourceId = Memory.dSSource2;
+    let parts = rangedAttackerParts550;
+    let group = "rangedAttackers";
+    let spawnDirection = [LEFT];
+    let cost = "550";
+
+    creepsHome.push(name);
+    rangedAttackers.push(name);
+    retval = birthCreep(
+      spawns,
+      parts,
+      name,
+      chosenRole,
+      direction,
+      sourceId,
+      spawnDirection,
+      group,
+      cost
+    );
+
+    if (retval !== -16) {
+      console.log("spawningS " + name + "_" + cost + " " + retval);
+      console.log("energy: " + cost + "  parts: " + parts);
+    }
+    if (retval === OK || retval === ERR_BUSY) {
+      return retval;
+    }
+  }
+
+  //     #     #######  #######     #      #####   #    #
+  //    # #       #        #       # #    #     #  #   #
+  //   #   #      #        #      #   #   #        #  #
+  //  #     #     #        #     #     #  #        ###
+  //  #######     #        #     #######  #        #  #
+  //  #     #     #        #     #     #  #     #  #   #
+  //  #     #     #        #     #     #   #####   #    #
+  if (enAvail >= 550 && Game.getObjectById(Memory.invaderIDWest)) {
     logConditionPassedForSpawnCreep(
       "rangedAttackersWest",
       rangedAttackersWest,
@@ -487,10 +533,10 @@ function spawnCreepTypes(enAvail, spawns) {
     let chosenRole = "rangedAttacker";
     let direction = "west";
     let sourceId = Memory.dSSource2;
-    let parts = rangedAttackerParts300;
+    let parts = rangedAttackerParts550;
     let group = "rangedAttackersWest";
     let spawnDirection = [LEFT];
-    let cost = "300";
+    let cost = "550";
 
     creepsWest.push(name);
     rangedAttackersWest.push(name);

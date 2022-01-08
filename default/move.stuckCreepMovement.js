@@ -1,6 +1,17 @@
+const getRoomTerrainCosts = require("./move.getRoomTerrainCosts");
+const getPath = require("./move.getPath");
 const profiler = require("./screeps-profiler");
 
-function stuckCreepMovement(creep, lastCreepPos, dest, range, pathColor) {
+function stuckCreepMovement(
+  creep,
+  lastCreepPos,
+  dest,
+  range,
+  pathColor,
+  pathMem,
+  maxOps,
+  maxRms
+) {
   const creepPos = creep.pos;
   const stuck = creep.memory.stuck;
   let retval = -16;
@@ -20,6 +31,7 @@ function stuckCreepMovement(creep, lastCreepPos, dest, range, pathColor) {
       // since the current tick is equal to their last position, that means if they're also stuck, the've been in the same spot for 3 ticks. Try using moveTo with ignore creeps set to false to get out of stuck position
       if (stuck) {
         creep.memory.path = null;
+
         retval = creep.moveTo(dest, {
           reusePath: 2,
           serializeMemory: false,
@@ -40,21 +52,22 @@ function stuckCreepMovement(creep, lastCreepPos, dest, range, pathColor) {
             // PathFinder supports searches which span multiple rooms
             // you should be careful!
             if (!room) return;
-            let costs = new PathFinder.CostMatrix();
-            const terrain = room.getTerrain();
+            // let costs = new PathFinder.CostMatrix();
+            // const terrain = room.getTerrain();
 
-            for (let y = 0; y < 50; y++) {
-              for (let x = 0; x < 50; x++) {
-                const tile = terrain.get(x, y);
-                const weight =
-                  tile === TERRAIN_MASK_WALL
-                    ? 0xff // wall  => unwalkable
-                    : tile === TERRAIN_MASK_SWAMP
-                    ? 5 // swamp => weight:  5
-                    : 1; // plain => weight:  1
-                costs.set(x, y, weight);
-              }
-            }
+            // for (let y = 0; y < 50; y++) {
+            //   for (let x = 0; x < 50; x++) {
+            //     const tile = terrain.get(x, y);
+            //     const weight =
+            //       tile === TERRAIN_MASK_WALL
+            //         ? 0xff // wall  => unwalkable
+            //         : tile === TERRAIN_MASK_SWAMP
+            //         ? 5 // swamp => weight:  5
+            //         : 1; // plain => weight:  1
+            //     costs.set(x, y, weight);
+            //   }
+            // }
+            let costs = getRoomTerrainCosts(roomName, creep.memory.direction);
 
             room.find(FIND_STRUCTURES, {
               filter: (struct) => {
@@ -111,6 +124,8 @@ function stuckCreepMovement(creep, lastCreepPos, dest, range, pathColor) {
             convertToMoveByPathFriendlyPath(creep);
           }
         }
+
+        // retval = getPath(creep, dest, range, false, pathColor, pathMem, maxOps, maxRms)
 
         // we want to return from smartMove overall too, and not do any more pathfinding and use moveByPath
         return retval;

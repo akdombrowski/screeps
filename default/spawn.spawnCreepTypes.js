@@ -799,7 +799,6 @@ function spawnCreepTypes(enAvail, spawns) {
       );
     } else if (roadRepairers.length < 20) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 20);
-      cc;
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";

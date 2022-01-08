@@ -1,5 +1,6 @@
 const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const getRandomColor = require("./utilities.getRandomColor");
+const getRoomTerrainCosts = require("./move.getRoomTerrainCosts");
 const profiler = require("./screeps-profiler");
 
 function getPath(
@@ -59,10 +60,10 @@ function getPath(
   let goals = { pos: destPos, range: range };
 
   let ret = PathFinder.search(creepPos, goals, {
-    // We need to set the defaults costs higher so that we
-    // can set the road cost lower in `roomCallback`
-    plainCost: 2,
-    swampCost: 10,
+    // // We need to set the defaults costs higher so that we
+    // // can set the road cost lower in `roomCallback`
+    // plainCost: 3,
+    // swampCost: 10,
 
     roomCallback: function (roomName) {
       let room = Game.rooms[roomName];
@@ -70,21 +71,23 @@ function getPath(
       // PathFinder supports searches which span multiple rooms
       // you should be careful!
       if (!room) return;
-      let costs = new PathFinder.CostMatrix();
-      const terrain = room.getTerrain();
+      // let costs = new PathFinder.CostMatrix();
+      // const terrain = room.getTerrain();
 
-      for (let y = 0; y < 50; y++) {
-        for (let x = 0; x < 50; x++) {
-          const tile = terrain.get(x, y);
-          const weight =
-            tile === TERRAIN_MASK_WALL
-              ? 0xff // wall  => unwalkable
-              : tile === TERRAIN_MASK_SWAMP
-              ? 5 // swamp => weight:  5
-              : 1; // plain => weight:  1
-          costs.set(x, y, weight);
-        }
-      }
+      // for (let y = 0; y < 50; y++) {
+      //   for (let x = 0; x < 50; x++) {
+      //     const tile = terrain.get(x, y);
+      //     const weight =
+      //       tile === TERRAIN_MASK_WALL
+      //         ? 0xff // wall  => unwalkable
+      //         : tile === TERRAIN_MASK_SWAMP
+      //         ? 10 // swamp => weight:  5
+      //         : 3; // plain => weight:  1
+      //     costs.set(x, y, weight);
+      //   }
+      // }
+
+      let costs = getRoomTerrainCosts(roomName, creep.memory.direction);
 
       room.find(FIND_STRUCTURES, {
         filter: (struct) => {

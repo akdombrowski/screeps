@@ -74,10 +74,11 @@ function smartMove(
     return OK;
   }
 
+  // will try to deserialize if path is a string and return the output, otherwise it just returns the variable path back
   path = tryDeserializingPath(path);
 
   // Is the creep stuck? Keep track of last position and compare it to the current creep position
-  let retval2 = stuckCreepMovement(creep, lastCreepPos, dest, range, pathColor);
+  let retval2 = stuckCreepMovement(creep, lastCreepPos, dest, range, pathColor, pathMem, maxOps, maxRms);
   if (retval2 >= 0 || retval2 === -16) {
     return retval2;
   }

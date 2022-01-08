@@ -41,8 +41,9 @@ function roleHarvester(
   let retval = -16;
 
   if (
-    creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0 ||
-    creep.memory.transfer
+    (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0 ||
+      creep.memory.transfer) &&
+    creep.store[RESOURCE_ENERGY] > 0
   ) {
     let ret = null;
     creep.memory.lastSourceId = null;
@@ -168,17 +169,6 @@ function roleHarvester(
         homeRoomName,
         southToHome,
         TOP,
-        extensions,
-        spawns
-      );
-    } else if (creep.memory.direction === "e58s49") {
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        southRoomName,
-        e59s49Entrance,
-        RIGHT,
         extensions,
         spawns
       );

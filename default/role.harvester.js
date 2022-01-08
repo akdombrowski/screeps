@@ -32,7 +32,6 @@ function roleHarvester(
   const northToHome = Game.flags.northToHome;
   const southToHome = Game.flags.southToHome;
   const southwestToSouth = Game.flags.southwestToSouth;
-  const e58s48Entrance = Game.flags.e58s48Entrance;
   const homeToNorth = Game.flags.homeToNorth;
   const homeToSouth = Game.flags.homeToSouth;
   const homeToWest = Game.flags.homeToWest;

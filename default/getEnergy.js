@@ -47,12 +47,12 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
     return OK;
   }
 
-let invader = null;
-switch(targetRoomName) {
+  let invader = null;
+  switch (targetRoomName) {
     case westRoomName:
-        invader = Memory.invaderIDWest;
-        break;
-}
+      invader = Memory.invaderIDWest;
+      break;
+  }
 
   if (!target && creepRoomName != targetRoomName && !invader) {
     if (targetRoomName != northRoomName && creepRoomName === northRoomName) {
@@ -166,9 +166,8 @@ switch(targetRoomName) {
 
         if (!Memory.homeSource1Creeps.find((name) => name === creep.name)) {
           homeSource1Creeps.push(creep.name);
+          Memory.homeSource1Creeps = homeSource1Creeps;
         }
-
-        Memory.homeSource1Creeps = homeSource1Creeps;
       } else if (target.id === Memory.homeSource2ID) {
         if (!Memory.homeSource2Creeps) {
           Memory.homeSource2Creeps = [];

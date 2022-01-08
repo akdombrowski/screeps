@@ -31,6 +31,9 @@ function roleRepairer(
     creep.memory.build = false;
     creep.memory.repair = mem_repair;
     creep.memory.getEnergy = false;
+
+    _.pull(Memory.homeSource1Creeps, creep.name);
+    _.pull(Memory.homeSource2Creeps, creep.name);
   } else if (
     !mem_repair &&
     (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] <= 0)

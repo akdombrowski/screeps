@@ -1048,7 +1048,7 @@ function spawnCreepTypes(enAvail, spawns) {
         cost
       );
     } else if (roadRepairers.length < 20) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 2);
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 20);
       parts = fastMoverParts550;
       name = "rR" + t;
       chosenRole = "roadRepairer";

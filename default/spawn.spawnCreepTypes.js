@@ -647,7 +647,7 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (roadRepairers.length < 4) {
+    } else if (roadRepairers.length < 1) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 4);
       logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 15);
       name = "rR" + t;
@@ -776,6 +776,7 @@ function spawnCreepTypes(enAvail, spawns) {
     let parts = harvesterParts400;
     let group = "harvestersWest";
     let spawnDirection = [TOP];
+    let cost = "400";
 
     if (harvesters.length < 6) {
       logConditionPassedForSpawnCreep("harvesters", harvesters, 6);
@@ -797,7 +798,8 @@ function spawnCreepTypes(enAvail, spawns) {
         cost
       );
     } else if (roadRepairers.length < 20) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 20);cc
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 20);
+      cc;
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";

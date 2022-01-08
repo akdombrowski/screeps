@@ -92,6 +92,12 @@ function pickupDroppedEnergyOrWithdrawFromTombstone(
     return retval;
   }
 }
+
+pickupDroppedEnergyOrWithdrawFromTombstone = profiler.registerFN(
+  pickupDroppedEnergyOrWithdrawFromTombstone,
+  "pickupDroppedEnergyOrWithdrawFromTombstone"
+);
+
 function droppedDuty(creep) {
   let retval = -16;
   let creepName = creep.name;

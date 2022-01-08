@@ -354,27 +354,15 @@ function runRoles() {
           roadRepairers.push(name);
 
           if (!shouldContinueToNextCreep) {
-            if (name.startsWith("rR6721")) {
-              roleRepairer(
-                creep,
-                homeRoomName,
-                westToHome,
-                RIGHT,
-                homeRoomName,
-                null,
-                null
-              );
-            } else {
-              roleRepairer(
-                creep,
-                westRoomName,
-                homeToWest,
-                LEFT,
-                homeRoomName,
-                westToHome,
-                RIGHT
-              );
-            }
+            roleRepairer(
+              creep,
+              westRoomName,
+              homeToWest,
+              LEFT,
+              homeRoomName,
+              westToHome,
+              RIGHT
+            );
           }
         } else if (creep.memory.direction === "north") {
           roadRepairersNorth.push(name);
@@ -386,7 +374,15 @@ function runRoles() {
           roadRepairersWest.push(name);
 
           if (!shouldContinueToNextCreep) {
-            roleRepairer(creep, westRoomName, homeToWest, LEFT, homeRoomName, westToHome, RIGHT);
+            roleRepairer(
+              creep,
+              westRoomName,
+              homeToWest,
+              LEFT,
+              homeRoomName,
+              westToHome,
+              RIGHT
+            );
           }
         } else if (creep.memory.direction === "south") {
           roadRepairersSouth.push(name);

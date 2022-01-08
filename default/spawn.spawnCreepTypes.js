@@ -1027,26 +1027,26 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (upControllers.length < 6) {
-      logConditionPassedForSpawnCreep("upControllers", upControllers, 6);
-      name = "upC" + t;
-      chosenRole = "upC";
-      direction = "home";
-      group = "upControllers";
-      parts = fastMoverParts550;
-      upControllers.push(name);
-      creepsHome.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group,
-        cost
-      );
+    // } else if (upControllers.length < 6) {
+    //   logConditionPassedForSpawnCreep("upControllers", upControllers, 6);
+    //   name = "upC" + t;
+    //   chosenRole = "upC";
+    //   direction = "home";
+    //   group = "upControllers";
+    //   parts = fastMoverParts550;
+    //   upControllers.push(name);
+    //   creepsHome.push(name);
+    //   retval = birthCreep(
+    //     spawns,
+    //     parts,
+    //     name,
+    //     chosenRole,
+    //     direction,
+    //     sourceId,
+    //     spawnDirection,
+    //     group,
+    //     cost
+    //   );
     } else if (roadRepairers.length < 20) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 20);
       parts = fastMoverParts550;

@@ -63,11 +63,24 @@ function stuckCreepMovement(
             //         ? 0xff // wall  => unwalkable
             //         : tile === TERRAIN_MASK_SWAMP
             //         ? 5 // swamp => weight:  5
-            //         : 1; // plain => weight:  1
+            //         : 1; // plain => weight:
             //     costs.set(x, y, weight);
             //   }
             // }
-            let costs = getRoomTerrainCosts(roomName, creep.memory.direction);
+            let direction = "home";
+            switch (creep.room.name) {
+              case Memory.homeRoomName:
+                direction = "home";
+                break;
+              case Memory.westRoomName:
+                direction = "west";
+                break;
+              default:
+                direction = "home";
+                break;
+            }
+
+            let costs = getRoomTerrainCosts(roomName, direction);
 
             room.find(FIND_STRUCTURES, {
               filter: (struct) => {

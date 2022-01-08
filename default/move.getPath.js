@@ -86,8 +86,20 @@ function getPath(
       //     costs.set(x, y, weight);
       //   }
       // }
+      let direction = "home";
+      switch (creep.room.name) {
+        case Memory.homeRoomName:
+          direction = "home";
+          break;
+        case Memory.westRoomName:
+          direction = "west";
+          break;
+        default:
+          direction = "home";
+          break;
+      }
 
-      let costs = getRoomTerrainCosts(roomName, creep.memory.direction);
+      let costs = getRoomTerrainCosts(roomName, direction);
 
       room.find(FIND_STRUCTURES, {
         filter: (struct) => {

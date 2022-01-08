@@ -1,6 +1,6 @@
 const profiler = require("./screeps-profiler");
 
-function findBuildSite(creepRoomName, roomSites) {
+function findBuildSite(creepRoomName, roomSites, creep) {
   let extFound = false;
   let arr = [];
   let target = null;

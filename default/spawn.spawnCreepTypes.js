@@ -1036,8 +1036,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (upControllers.length < 4) {
-      logConditionPassedForSpawnCreep("upControllers", upControllers, 4);
+    } else if (upControllers.length < 1) {
+      logConditionPassedForSpawnCreep("upControllers", upControllers, 1);
       name = "upC" + t;
       chosenRole = "upC";
       direction = "home";

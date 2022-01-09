@@ -5,7 +5,7 @@ const profiler = require("./screeps-profiler");
 const {
   roomBuildTargetPriorities,
 } = require("./build.roomBuildTargetPriorities");
-const { findBuildSite } = require("./findBuildSite");
+const { findBuildSite } = require("./find.findBuildSite");
 
 function build(creep, targetRoomName, exitDirection, exit) {
   const name = creep.name;

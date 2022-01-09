@@ -12,7 +12,8 @@ function roleHarvester(
   spawns,
   targetRoomName,
   exit,
-  exitDirection
+  exitDirection,
+  targetBuildRoomName
 ) {
   const name = creep.name;
   const creepRoom = creep.room;
@@ -144,107 +145,16 @@ function roleHarvester(
       creep.memory.direction = "home";
       retval = getEnergy(creep, homeRoomName, null, null, homeToNorth, TOP);
     }
-  } else if (creep.memory.transfer && creep.store[RESOURCE_ENERGY] > 0) {
-    let ret = null;
-    creep.memory.transEnTower = false;
-    creep.memory.getEnergy = false;
-    retval = -16;
-
-    if (creep.memory.direction === "north") {
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        homeRoomName,
-        northToHome,
-        BOTTOM,
-        extensions,
-        spawns
-      );
-    } else if (creep.memory.direction.startsWith("south")) {
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        homeRoomName,
-        southToHome,
-        TOP,
-        extensions,
-        spawns
-      );
-    } else {
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        homeRoomName,
-        null,
-        null,
-        extensions,
-        spawns
-      );
-    }
-
-    retval = ret.retval;
-    extensions = ret.extensions;
-    spawns = ret.spawns;
-
-    if (retval === ERR_TIRED) {
-      creep.say("f." + fatigue);
-      return { retval: retval, extensions: extensions, spawns: spawns };
-    }
-
-    if (retval === -17) {
-      return { retval: retval, extensions: extensions, spawns: spawns };
-    }
-
-    if (retval === -5 || retval === -2) {
-      creep.memory.path = null;
-      return { retval: retval, extensions: extensions, spawns: spawns };
-    }
-
-    // if (retval !== OK && direction === "home") {
-    //   creep.memory.transferTower = true;
-    //   creep.memory.buildRoad = false;
-
-    //   retval = transEnTower(creep, 2000);
-    //   // return retval;
-    //   if (retval === OK || retval === ERR_TIRED) {
-    //     return retval;
-    //   }
-    // }
-
-    // didn't give energy to tower. build road.
-    if (
-      retval != OK ||
-      (!creep.memory.transfer &&
-        !creep.memory.transferTower &&
-        !creep.memory.getEnergy)
-    ) {
-      retval = build(creep);
-      if (retval === OK) {
-        creep.memory.buildRoad = true;
-      }
-    } else if (retval === OK && creep.memory.transferTower) {
-      creep.memory.buildRoad = false;
-      creep.memory.getEnergy = false;
-      creep.memory.transfer = true;
-      creep.say("tower");
-    }
-
-    if (retval === ERR_TIRED) {
-      creep.say("f." + fatigue);
-    }
-
-    // didn't build road and didn't transto tower
-    if (retval != OK) {
-      creep.say("sad." + retval);
-    }
   } else if (creep.memory.buildRoad) {
     creep.memory.transfer = false;
     creep.memory.getEnergy = false;
 
-    retval = build(creep);
+    if (targetBuildRoomName) {
+      retval = build(creep, targetBuildRoomName, buildExitDirection, buildExit);
+    } else {
+      retval = build(creep, Memory.homeRoomName, RIGHT, Game.flags.westToHome);
+    }
+
     if (retval === OK) {
       creep.memory.buildRoad = true;
     }

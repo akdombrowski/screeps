@@ -1,10 +1,9 @@
 const getEnergy = require("./getEnergy");
-const transferEnergy = require("./transferEnergy");
 const buildRoad = require("./action.buildRoad");
 const smartMove = require("./move.smartMove");
 const build = require("./build");
-const transEnTower = require("./action.transEnTower");
 const profiler = require("./screeps-profiler");
+const { transferEnergyBasedOnDirection } = require("./transferEnergy.transferEnergyBasedOnDirection");
 
 function roleHarvester(
   creep,
@@ -169,91 +168,4 @@ function roleHarvester(
 
 roleHarvester = profiler.registerFN(roleHarvester, "roleHarvester");
 module.exports = roleHarvester;
-function transferEnergyBasedOnDirection(creep, extensions, spawns) {
-  const northRoomName = Memory.northRoomName;
-  const homeRoomName = Memory.homeRoomName;
-  const southRoomName = Memory.southRoomName;
-  const southwestRoomName = Memory.southwestRoomName;
-  const westRoomName = Memory.westRoomName;
-  const southToHome = Game.flags.southToHome;
-  const westToHome = Game.flags.westToHome;
-  const northToHome = Game.flags.northToHome;
-  let ret = { retval: -16, extensions: extensions, spawns: spawns };
 
-  if (creep) {
-    if (creep.memory.direction === "north") {
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        homeRoomName,
-        northToHome,
-        BOTTOM,
-        extensions,
-        spawns
-      );
-    } else if (creep.memory.direction === "south") {
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        homeRoomName,
-        southToHome,
-        TOP,
-        extensions,
-        spawns
-      );
-    } else if (creep.memory.direction === "southwest") {
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        homeRoomName,
-        southToHome,
-        TOP,
-        extensions,
-        spawns
-      );
-    } else if (creep.memory.direction === "west") {
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        westRoomName,
-        westToHome,
-        RIGHT,
-        extensions,
-        spawns
-      );
-    } else if (creep.memory.direction === "home") {
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        homeRoomName,
-        null,
-        null,
-        extensions,
-        spawns
-      );
-    } else {
-      creep.memory.direction = "home";
-      ret = transferEnergy(
-        creep,
-        null,
-        null,
-        homeRoomName,
-        null,
-        null,
-        extensions,
-        spawns
-      );
-    }
-  }
-  return ret;
-}
-
-transferEnergyBasedOnDirection = profiler.registerFN(
-  transferEnergyBasedOnDirection,
-  "transferEnergyBasedOnDirection"
-);

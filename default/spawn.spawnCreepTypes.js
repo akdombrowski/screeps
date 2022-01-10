@@ -362,13 +362,13 @@ function spawnCreepTypes(enAvail, spawns) {
   let simpleParts500 = [CARRY, WORK, WORK, MOVE, MOVE, MOVE, MOVE, MOVE];
   let simpleParts550 = [CARRY, WORK, WORK, WORK, MOVE, MOVE, MOVE, MOVE];
 
-  let eAttackerId = Memory.eAttackerId;
-  let wAttackerId = Memory.invaderIDWest;
-  let nAttackerId = Memory.invaderIDNorth;
-  let neAttackerId = Memory.neAttackerId;
-  let dSAttackerId = Memory.invaderIDE59S49;
-  let sAttackerId = Memory.invaderIDSouth;
-  let invaderId = Memory.invaderIDHome;
+  let eAttackerId = Game.getObjectById(Memory.eAttackerId);
+  let wAttackerId = Game.getObjectById(Memory.invaderIDWest);
+  let nAttackerId = Game.getObjectById(Memory.invaderIDNorth);
+  let neAttackerId = Game.getObjectById(Memory.neAttackerId);
+  let dSAttackerId = Game.getObjectById(Memory.invaderIDE59S49);
+  let sAttackerId = Game.getObjectById(Memory.invaderIDSouth);
+  let invaderId = Game.getObjectById(Memory.invaderIDHome);
 
   let retval = -16;
 
@@ -389,7 +389,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 800 && rangedAttackers.length < 1) {
+  if (enAvail >= 800 && rangedAttackers.length < 0) {
     logConditionPassedForSpawnCreep("rangedAttackers", rangedAttackers, 1);
     let name = "aR" + t;
     let chosenRole = "rangedAttacker";
@@ -430,7 +430,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 800 && rangedAttackersWest.length < 2) {
+  if (enAvail >= 800 && rangedAttackersWest.length < 1) {
     logConditionPassedForSpawnCreep(
       "rangedAttackersWest",
       rangedAttackersWest,
@@ -519,7 +519,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
   // console.log(Game.getObjectById(Memory.invaderIDWest));
-  if (enAvail >= 550 && rangedAttackersWest.length < 1) {
+  if (enAvail >= 550 && rangedAttackersWest.length < 0) {
     logConditionPassedForSpawnCreep(
       "rangedAttackersWest",
       rangedAttackersWest,
@@ -1014,8 +1014,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (roadRepairers.length < 4) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 4);
+    } else if (roadRepairers.length < 1) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 1);
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";
@@ -1091,8 +1091,8 @@ function spawnCreepTypes(enAvail, spawns) {
       //     group,
       //     cost
       //   );
-    } else if (roadRepairers.length < 5) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 5);
+    } else if (roadRepairers.length < 1) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 1);
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";
@@ -1110,8 +1110,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (harvesters.length < 8) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 8);
+    } else if (harvesters.length < 6) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 6);
       name = "h" + t;
       chosenRole = "h";
       direction = "home";
@@ -1129,8 +1129,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (roadRepairers.length < 20) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 20);
+    } else if (roadRepairers.length < 1) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 1);
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";
@@ -1600,8 +1600,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
     let cost = "800";
 
-    if (harvesters.length < 9) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 9);
+    if (harvesters.length < 7) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 7);
       name = "h" + t;
       chosenRole = "h";
       direction = "home";
@@ -1618,8 +1618,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (roadRepairers.length < 15) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 15);
+    } else if (roadRepairers.length < 4) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 4);
       parts = workerParts800;
       name = "rR" + t;
       chosenRole = "roadRepairer";
@@ -1638,8 +1638,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (harvesters.length < 10) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 10);
+    } else if (harvesters.length < 8) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 8);
       name = "h" + t;
       chosenRole = "h";
       direction = "home";
@@ -1676,8 +1676,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (upControllers.length < 4) {
-      logConditionPassedForSpawnCreep("upControllers", upControllers, 4);
+    } else if (upControllers.length < 2) {
+      logConditionPassedForSpawnCreep("upControllers", upControllers, 2);
       name = "upC" + t;
       chosenRole = "upC";
       direction = "home";

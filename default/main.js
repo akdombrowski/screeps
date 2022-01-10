@@ -47,7 +47,7 @@ module.exports.loop = function () {
     let lastEnAvail = Memory.enAvail || 0;
 
     let homeRoomSpawn1 = Game.spawns.homeRoomSpawn1;
-    // let westRoomSpawn1 = Game.spawns.westRoomController; // silly me, named it wrong...
+    let westRoomSpawn1 = Game.spawns.westRoomSpawn1;
     // let northS1 = Game.spawns.e59s47Spawn1;
     // let deepSouthS1 = Game.spawns.deepSouthSpawn1;
     Memory.homeRoomSpawn1ID = homeRoomSpawn1.id;

@@ -78,7 +78,7 @@ module.exports.loop = function () {
     Memory.northEastControllerID = "59f1a15b82100e1594f38290";
     Memory.southControllerID = "59f1a14d82100e1594f3805f";
     Memory.southwestControllerID = "59f1a13882100e1594f37ed7";
-    Memory.westControllerID = "59f1a13882100e1594f37ed5";
+    Memory.westControllerID = "5982fc52b097071b4adbd31bs";
 
     let homeEnAvail = homeRoom.energyAvailable;
     let homeEnCap = homeRoom.energyCapacityAvailable;

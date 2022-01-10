@@ -92,6 +92,7 @@ function runRoles() {
   const southwestRoomName = Memory.southwestRoomName;
   const westRoomName = Memory.westRoomName;
   const northEastRoomName = Memory.northEastRoomName;
+  const northWestRoomName = Memory.northWestRoomName;
   const eastRoomName = Memory.eastRoomName;
   // flags
   const southToHome = Game.flags.southToHome;
@@ -105,6 +106,7 @@ function runRoles() {
   const homeToNorth = Game.flags.homeToNorth;
   const northToHome = Game.flags.northToHome;
   const westToHome = Game.flags.westToHome;
+  const westToNorthwest = Game.flags.westToNorthwest;
   const southToSouthwest = Game.flags.southToSouthwest;
   const e58s49Exit = Game.flags.e58s49Exit;
   const southControllerFlag = Game.flags.southController;
@@ -379,7 +381,7 @@ function runRoles() {
               westRoomName,
               homeToWest,
               LEFT,
-              homeRoomName,
+              westRoomName,
               westToHome,
               RIGHT
             );

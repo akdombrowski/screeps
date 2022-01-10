@@ -102,7 +102,7 @@ module.exports.loop = function () {
     // Memory.nSource1 = "59bbc5d22052a716c3cea131";
     // Memory.nSource2 = "59bbc5d22052a716c3cea132";
 
-    Memory.tower1Id = "61d28c2e9b0714de59e8475c";
+    Memory.tower1Id = "61dc1041f191ab6e5ccbc707";
     Memory.westTower1Id = "61d5a2551053fefa678b4e6b";
     // Memory.dSTower1Id = "61c492d3227d7cef1df2ce6e";
 
@@ -115,17 +115,17 @@ module.exports.loop = function () {
 
     checkForAttackers();
 
-    // let towers = [];
-    // towers.push(Game.getObjectById(Memory.tower1Id));
-    // let priorityA = "";
-    // let priorityB = "";
-    // if (Game.getObjectById(priorityA)) {
-    //   towersAttackInvader(Game.getObjectById(priorityA), towers);
-    // } else if (Game.getObjectById(priorityB)) {
-    //   towersAttackInvader(Game.getObjectById(priorityB), towers);
-    // } else {
-    //   towersAttackInvader(Game.getObjectById(Memory.invaderIDHome), towers);
-    // }
+    let towers = [];
+    towers.push(Game.getObjectById(Memory.tower1Id));
+    let priorityA = "";
+    let priorityB = "";
+    if (Game.getObjectById(priorityA)) {
+      towersAttackInvader(Game.getObjectById(priorityA), towers);
+    } else if (Game.getObjectById(priorityB)) {
+      towersAttackInvader(Game.getObjectById(priorityB), towers);
+    } else {
+      towersAttackInvader(Game.getObjectById(Memory.invaderIDHome), towers);
+    }
 
     // // let dSTowers = [];
     // // dSTowers.push(Game.getObjectById(Memory.dSTower1Id));
@@ -151,27 +151,27 @@ module.exports.loop = function () {
     //   towersAttackInvader(Game.getObjectById(Memory.invaderIDWest), westTowers);
     // }
 
-    // const timeToPassForRecheck = 100;
-    // const minEnergyToKeepForInvaders = 400;
-    // const healInterval = 1;
-    // const repairInterval = 2;
-    // if (!Memory.invaderIDHome) {
-    //   retval = towerHeal(
-    //     towers,
-    //     timeToPassForRecheck,
-    //     minEnergyToKeepForInvaders,
-    //     healInterval
-    //   );
+    const timeToPassForRecheck = 100;
+    const minEnergyToKeepForInvaders = 400;
+    const healInterval = 1;
+    const repairInterval = 2;
+    if (!Memory.invaderIDHome) {
+      retval = towerHeal(
+        towers,
+        timeToPassForRecheck,
+        minEnergyToKeepForInvaders,
+        healInterval
+      );
 
-    //   if (retval != OK) {
-    //     towerRepair(
-    //       towers,
-    //       timeToPassForRecheck,
-    //       minEnergyToKeepForInvaders,
-    //       repairInterval
-    //     );
-    //   }
-    // }
+      if (retval != OK) {
+        towerRepair(
+          towers,
+          timeToPassForRecheck,
+          minEnergyToKeepForInvaders,
+          repairInterval
+        );
+      }
+    }
 
     // if (!Memory.invaderIDWest) {
     //   retval = towerHeal(

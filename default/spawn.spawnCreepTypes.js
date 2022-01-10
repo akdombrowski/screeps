@@ -363,12 +363,12 @@ function spawnCreepTypes(enAvail, spawns) {
   let simpleParts550 = [CARRY, WORK, WORK, WORK, MOVE, MOVE, MOVE, MOVE];
 
   let eAttackerId = Game.getObjectById(Memory.eAttackerId);
-  let wAttackerId = Game.getObjectById(Memory.invaderIDWest);
+  let wAttacker = Game.getObjectById(Memory.invaderIDWest);
   let nAttackerId = Game.getObjectById(Memory.invaderIDNorth);
   let neAttackerId = Game.getObjectById(Memory.neAttackerId);
   let dSAttackerId = Game.getObjectById(Memory.invaderIDE59S49);
   let sAttackerId = Game.getObjectById(Memory.invaderIDSouth);
-  let invaderId = Game.getObjectById(Memory.invaderIDHome);
+  let invader = Game.getObjectById(Memory.invaderIDHome);
 
   let retval = -16;
 
@@ -613,7 +613,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //
   //
   //
-  if (enAvail >= 300 && !invaderId) {
+  if (enAvail >= 300 && !invader) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "home";
@@ -666,7 +666,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //
   //
   //
-  if (enAvail >= 300 && !invaderId) {
+  if (enAvail >= 300 && !invader) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "home";
@@ -986,7 +986,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //
   //
   //
-  if (enAvail >= 550 && !invaderId) {
+  if (enAvail >= 550 && !invader) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "home";
@@ -1313,8 +1313,8 @@ function spawnCreepTypes(enAvail, spawns) {
   //   #####   #######  #     #  ###  #     #
   if (
     enAvail >= 650 &&
-    !invaderId &&
-    !wAttackerId &&
+    !invader &&
+    !wAttacker &&
     westController &&
     !westController.my
   ) {
@@ -1532,7 +1532,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //
   //
   //
-  if (enAvail >= 800 && !wAttackerId && westController && westController.my) {
+  if (enAvail >= 800 && !wAttacker && westController && westController.my) {
     let name = "upCN" + t;
     let chosenRole = "upCN";
     let direction = "north";

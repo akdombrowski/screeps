@@ -477,13 +477,9 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
   if (enAvail >= 550 && Game.getObjectById(Memory.invaderIDHome)) {
-    logConditionPassedForSpawnCreep(
-      "rangedAttackers",
-      rangedAttackers,
-      -1
-    );
+    logConditionPassedForSpawnCreep("rangedAttackers", rangedAttackers, -1);
 
-    let name = "aRW" + t;
+    let name = "aR" + t;
     let chosenRole = "rangedAttacker";
     let direction = "home";
     let sourceId = Memory.dSSource2;
@@ -522,11 +518,12 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 550 && Game.getObjectById(Memory.invaderIDWest)) {
+  // console.log(Game.getObjectById(Memory.invaderIDWest));
+  if (enAvail >= 550 && rangedAttackersWest.length < 1) {
     logConditionPassedForSpawnCreep(
       "rangedAttackersWest",
       rangedAttackersWest,
-      -1
+      1
     );
 
     let name = "aRW" + t;

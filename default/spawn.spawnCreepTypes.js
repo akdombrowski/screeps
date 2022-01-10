@@ -1618,6 +1618,30 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
+    } else if (roadRepairersWest.length < 1) {
+      logConditionPassedForSpawnCreep(
+        "roadRepairersWest",
+        roadRepairersWest,
+        1
+      );
+      parts = workerParts800;
+      name = "rRW" + t;
+      chosenRole = "roadRepairer";
+      direction = "west";
+      group = "roadRepairersWest";
+      creepsWest.push(name);
+      roadRepairersWest.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group,
+        cost
+      );
     } else if (roadRepairers.length < 4) {
       logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 4);
       parts = workerParts800;

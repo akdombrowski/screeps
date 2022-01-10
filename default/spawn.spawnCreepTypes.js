@@ -1600,8 +1600,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
     let cost = "800";
 
-    if (harvesters.length < 10) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 10);
+    if (harvesters.length < 9) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 9);
       name = "h" + t;
       chosenRole = "h";
       direction = "home";
@@ -1618,27 +1618,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (harvestersSouth.length < 3) {
-      logConditionPassedForSpawnCreep("harvestersSouth", harvestersSouth, 3);
-      name = "hS" + t;
-      chosenRole = "h";
-      direction = "south";
-      parts = fastMoverParts800;
-      creepsSouth.push(name);
-      harvestersSouth.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group,
-        cost
-      );
-    } else if (roadRepairers.length < 4) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 4);
+    } else if (roadRepairers.length < 15) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 15);
       parts = workerParts800;
       name = "rR" + t;
       chosenRole = "roadRepairer";
@@ -1657,8 +1638,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (harvesters.length < 9) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 5);
+    } else if (harvesters.length < 10) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 10);
       name = "h" + t;
       chosenRole = "h";
       direction = "home";

@@ -21,6 +21,7 @@ function runRoles() {
   let harvesters = [];
   let harvestersSouth = [];
   let harvestersSouthwest = [];
+  let harvestersNorthwest = [];
   let harvestersWest = [];
   let harvestersNorth = [];
   let pickerUppersHome = [];
@@ -72,17 +73,20 @@ function runRoles() {
   let creepsHome = [];
   let creepsSouth = [];
   let creepsSouthwest = [];
+  let creepsNorthwest = [];
   let creepsWest = [];
   let creepsNorth = [];
   let creepsEast = [];
   let homeExtensions = Memory.homeExtensions;
   let southExtensions = Memory.southExtensions;
   let southwestExtensions = Memory.southwestExtensions;
+  let northwestExtensions = Memory.northwestExtensions;
   let westExtensions = Memory.westExtensions;
   let northExtensions = Memory.northExtensions;
   let homeSpawns = Memory.homeSpawns;
   let southSpawns = Memory.southSpawns;
   let southwestSpawns = Memory.southwestSpawns;
+  let northwestSpawns = Memory.northwestSpawns;
   let westSpawns = Memory.westSpawns;
   let northSpawns = Memory.northSpawns;
   // room names
@@ -92,7 +96,7 @@ function runRoles() {
   const southwestRoomName = Memory.southwestRoomName;
   const westRoomName = Memory.westRoomName;
   const northEastRoomName = Memory.northEastRoomName;
-  const northWestRoomName = Memory.northWestRoomName;
+  const northwestRoomName = Memory.northWestRoomName;
   const eastRoomName = Memory.eastRoomName;
   // flags
   const southToHome = Game.flags.southToHome;
@@ -226,6 +230,21 @@ function runRoles() {
             retval = ret.retval;
             westExtensions = ret.extensions;
             westSpawns = ret.spawns;
+          }
+        } else if (creep.memory.direction === "northwest") {
+          harvestersNorthwest.push(name);
+          if (!shouldContinueToNextCreep) {
+            ret = roleHarvester(
+              creep,
+              northwestExtensions,
+              northwestSpawns,
+              northwestRoomName,
+              westToNorthwest,
+              TOP
+            );
+            retval = ret.retval;
+            northwestExtensions = ret.extensions;
+            northwestSpawns = ret.spawns;
           }
         } else {
           creep.memory.direction = "home";
@@ -807,6 +826,7 @@ function runRoles() {
   Memory.harvestersWest = harvestersWest;
   Memory.harvestersNorth = harvestersNorth;
   Memory.harvestersSouthwest = harvestersSouthwest;
+  Memory.harvestersNorthwest = harvestersNorthwest;
   Memory.pickerUppersHome = pickerUppersHome;
   Memory.pickerUppersSouth = pickerUppersSouth;
   Memory.workers = workers;
@@ -841,6 +861,7 @@ function runRoles() {
   Memory.creepsHome = creepsHome;
   Memory.creepsSouth = creepsSouth;
   Memory.creepsSouthwest = creepsSouthwest;
+  Memory.creepsNorthwest = creepsNorthwest;
   Memory.creepsWest = creepsWest;
   Memory.creepsEast = creepsEast;
   Memory.creepsNorth = creepsNorth;

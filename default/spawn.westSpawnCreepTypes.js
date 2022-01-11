@@ -93,6 +93,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let harvestersSouth = Memory.harvestersSouth || [];
   let harvestersNorth = Memory.harvestersNorth || [];
   let harvestersSouthwest = Memory.harvestersSouthwest || [];
+  let harvestersNorthwest = Memory.harvestersNorthwest || [];
   let harvestersWest = Memory.harvestersWest || [];
   let upControllers = Memory.upControllers || [];
   let upControllersSouth = Memory.upControllersSouth || [];
@@ -127,6 +128,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let creepsNorth = Memory.creepsNorth || [];
   let creepsEast = Memory.creepsEast || [];
   let creepsSouthwest = Memory.creepsSouthwest || [];
+  let creepsNorthwest = Memory.creepsNorthwest || [];
   let creepsWest = Memory.creepsWest || [];
 
   // 200
@@ -417,7 +419,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //  #######     #        #     #######  #        #  #
   //  #     #     #        #     #     #  #     #  #   #
   //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 800 && rangedAttackersWest.length < 2) {
+  if (enAvail >= 800 && rangedAttackersWest.length < 0) {
     logConditionPassedForSpawnCreep(
       "rangedAttackersWest",
       rangedAttackersWest,
@@ -513,14 +515,18 @@ function spawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
     let cost = "300";
 
-    if (harvestersWest.length < 2) {
-      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 2);
+    if (harvestersNorthwest.length < 8) {
+      logConditionPassedForSpawnCreep(
+        "harvestersNorthwest",
+        harvestersNorthwest,
+        8
+      );
       // logConditionPassedForSpawnCreep("creepsWest", creepsWest, 10);
-      name = "hW" + t;
-      direction = "west";
-      group = "harvestersWest";
-      creepsWest.push(name);
-      harvestersWest.push(name);
+      name = "hNW" + t;
+      direction = "northwest";
+      group = "harvestersNorthwest";
+      creepsNorthwest.push(name);
+      harvestersNorthwest.push(name);
       parts = simpleParts300;
       retval = birthCreep(
         spawns,
@@ -561,8 +567,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
     let cost = "300";
 
-    if (harvestersWest.length < 10) {
-      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 10);
+    if (harvestersWest.length < 0) {
+      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 0);
       name = "hW" + t;
       direction = "west";
       group = "harvestersWest";
@@ -614,13 +620,13 @@ function spawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
     let cost = "300";
 
-    if (upControllersWest.length < 1) {
+    if (upControllersWest.length < 4) {
       logConditionPassedForSpawnCreep(
         "upControllersWest",
         upControllersWest,
-        1
+        4
       );
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 60);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, -1);
       name = "upCW" + t;
       chosenRole = "upCW";
       group = "upControllersWest";
@@ -644,7 +650,7 @@ function spawnCreepTypes(enAvail, spawns) {
         roadRepairersWest,
         10
       );
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 60);
+      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, -1);
       name = "rRW" + t;
       chosenRole = "roadRepairer";
       direction = "west";
@@ -1978,6 +1984,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.harvestersSouth = harvestersSouth;
   Memory.harvestersNorth = harvestersNorth;
   Memory.harvestersSouthwest = harvestersSouthwest;
+  Memory.harvestersNorthwest = harvestersNorthwest;
   Memory.harvestersWest = harvestersWest;
   Memory.workers = workers;
   Memory.upControllers = upControllers;
@@ -2006,6 +2013,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.creepsSouth = creepsSouth;
   Memory.creepsNorth = creepsNorth;
   Memory.creepsSouthwest = creepsSouthwest;
+  Memory.creepsNorthwest = creepsNorthwest;
   Memory.creepsWest = creepsWest;
   Memory.creepsEast = creepsEast;
 }

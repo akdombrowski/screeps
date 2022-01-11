@@ -51,7 +51,7 @@ module.exports.loop = function () {
     // let northS1 = Game.spawns.e59s47Spawn1;
     // let deepSouthS1 = Game.spawns.deepSouthSpawn1;
     Memory.homeRoomSpawn1ID = homeRoomSpawn1.id;
-    // Memory.westRoomSpawn1ID = westRoomSpawn1.id;
+    Memory.westRoomSpawn1ID = westRoomSpawn1.id;
     // Memory.northS1 = northS1.id;
     // Memory.deepSouthS1 = deepSouthS1.id;
 
@@ -61,7 +61,7 @@ module.exports.loop = function () {
     // Memory.northRoom = northRoom;
     // let deepSouthRoom = deepSouthS1.room;
     // Memory.deepSouthRoom = null;
-    // let westRoom = westRoomSpawn1.room;
+    let westRoom = westRoomSpawn1.room;
     Memory.homeRoomName = homeRoom.name;
     Memory.northRoomName = "W37N25";
     Memory.southRoomName = "W37N23";
@@ -86,16 +86,16 @@ module.exports.loop = function () {
     // let northEnCapRm = northRoom.energyCapacityAvailable;
     // let deepSouthEnAvail = deepSouthRoom.energyAvailable;
     // let deepSouthEnCapRm = deepSouthRoom.energyCapacityAvailable;
-    // let westEnAvail = westRoom.energyAvailable;
-    // let westEnCap = westRoom.energyCapacityAvailable;
+    let westEnAvail = westRoom.energyAvailable;
+    let westEnCap = westRoom.energyCapacityAvailable;
     Memory.homeEnAvail = homeEnAvail;
     Memory.homeEnCap = homeEnCap;
     // Memory.northEnAvail = northEnAvail;
     // Memory.northEnCapRoom = northEnCapRm;
     // Memory.deepSouthEnAvail = deepSouthEnAvail;
     // Memory.deepSouthEnCapRm = deepSouthEnCapRm;
-    // Memory.westEnAvail = westEnAvail;
-    // Memory.westEnCap = westEnCap;
+    Memory.westEnAvail = westEnAvail;
+    Memory.westEnCap = westEnCap;
 
     Memory.homeSource1ID = "5982fc5eb097071b4adbd46a";
     Memory.homeSource2ID = "5982fc5eb097071b4adbd468";
@@ -202,7 +202,7 @@ module.exports.loop = function () {
     runRoles();
 
     spawnCreepTypes(homeEnAvail, [homeRoomSpawn1]);
-    // westSpawnCreepTypes(westEnAvail, [westRoomSpawn1]);
+    westSpawnCreepTypes(westEnAvail, [westRoomSpawn1]);
     // northSpawnCreepTypes(northEnAvail, [northS1]);
     // deepSouthspawnCreepTypes(deepSouthEnAvail, [deepSouthS1]);
 

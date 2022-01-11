@@ -96,7 +96,7 @@ function runRoles() {
   const southwestRoomName = Memory.southwestRoomName;
   const westRoomName = Memory.westRoomName;
   const northEastRoomName = Memory.northEastRoomName;
-  const northwestRoomName = Memory.northWestRoomName;
+  const northwestRoomName = Memory.northwestRoomName;
   const eastRoomName = Memory.eastRoomName;
   // flags
   const southToHome = Game.flags.southToHome;

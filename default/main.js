@@ -67,6 +67,7 @@ module.exports.loop = function () {
     Memory.southRoomName = "W37N23";
     Memory.westRoomName = "W38N24";
     Memory.southwestRoomName = "W38N23";
+    Memory.northwestRoomName = "W38N25";
     Memory.southeastRoomName = "W36N23";
     Memory.eastRoomName = "W36N24";
     Memory.easteastRoomName = "W31N29";

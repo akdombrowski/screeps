@@ -3,7 +3,9 @@ const buildRoad = require("./action.buildRoad");
 const smartMove = require("./move.smartMove");
 const build = require("./build");
 const profiler = require("./screeps-profiler");
-const { transferEnergyBasedOnDirection } = require("./transferEnergy.transferEnergyBasedOnDirection");
+const {
+  transferEnergyBasedOnDirection,
+} = require("./transferEnergy.transferEnergyBasedOnDirection");
 
 function roleHarvester(
   creep,
@@ -25,6 +27,7 @@ function roleHarvester(
   const northRoomName = Memory.northRoomName;
   const southRoomName = Memory.southRoomName;
   const southwestRoomName = Memory.southwestRoomName;
+  const northwestRoomName = Memory.northwestRoomName;
   const southeastRoomName = Memory.southeastRoomName;
   const northeastRoomName = Memory.northeastRoomName;
   const northeasteastRoomName = Memory.northeasteastRoomName;
@@ -37,6 +40,7 @@ function roleHarvester(
   const homeToWest = Game.flags.homeToWest;
   const westToHome = Game.flags.westToHome;
   const southToSouthwest = Game.flags.southToSouthwest;
+  const westToNorthwest = Game.flags.westToNorthwest;
 
   let retval = -16;
 
@@ -140,6 +144,15 @@ function roleHarvester(
       );
     } else if (creep.memory.direction === "west") {
       retval = getEnergy(creep, westRoomName, null, null, homeToWest, LEFT);
+    } else if (creep.memory.direction === "northwest") {
+      retval = getEnergy(
+        creep,
+        northwestRoomName,
+        null,
+        null,
+        westToNorthwest,
+        TOP
+      );
     } else {
       creep.memory.direction = "home";
       retval = getEnergy(creep, homeRoomName, null, null, homeToNorth, TOP);
@@ -168,4 +181,3 @@ function roleHarvester(
 
 roleHarvester = profiler.registerFN(roleHarvester, "roleHarvester");
 module.exports = roleHarvester;
-

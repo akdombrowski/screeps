@@ -66,7 +66,7 @@ function tran(
     !creep.store[RESOURCE_ENERGY] ||
     creep.store.getUsedCapacity(RESOURCE_ENERGY) <= 0
   ) {
-    creep.memory.path = null;
+    // creep.memory.path = null;
     creep.memory.transfer = false;
     creep.memory.transferTargetId = null;
     creep.memory.getEnergy = true;
@@ -127,7 +127,14 @@ function tran(
 
     // check if we got a target for an ext or spawn
     if (!target) {
-      if (
+      if (creep.room.name === Memory.northwestRoomName) {
+        if (creep.pos.isNearTo(Game.flags.northwestToWest)) {
+          retvl = creep.move(BOTTOM);
+        } else {
+          retval = creep.moveTo(32, 49);
+        }
+        return { retval: retval, extensions: extensions, spawns: spawns };
+      } else if (
         targetRoomName != Memory.northRoomName &&
         creep.room.name === Memory.northRoomName
       ) {
@@ -336,6 +343,10 @@ function tran(
 
     retval = smartMove(creep, target, 1);
 
+    if (creep.name === "hNW750820_300") {
+      console.log("roleharvester: " + creep.memory.path);
+    }
+
     if (creep.pos.isNearTo(target)) {
       return { retval: -17, extensions: extensions, spawns: spawns };
     }
@@ -349,6 +360,10 @@ function tran(
       creep.say("t." + creep.fatigue + "😴");
     } else {
       creep.memory.path = null;
+
+      if (creep.name === "hNW750820_300") {
+        console.log("rharvester: " + creep.memory.path);
+      }
 
       // console.log(name + " move failed in transferEnergy m.err." + retval);
       // console.log(" target: " + target);
@@ -371,7 +386,7 @@ function tran(
     //     targetRoomName
     // );
 
-    creep.memory.path = null;
+    // creep.memory.path = null;
     creep.say("t.💩");
   }
 

@@ -30,7 +30,7 @@ function stuckCreepMovement(
       // stuck means they were at the same position the previous two ticks
       // since the current tick is equal to their last position, that means if they're also stuck, the've been in the same spot for 3 ticks. Try using moveTo with ignore creeps set to false to get out of stuck position
       if (stuck) {
-        creep.memory.path = null;
+        // creep.memory.path = null;
 
         retval = creep.moveTo(dest, {
           reusePath: 2,
@@ -52,42 +52,26 @@ function stuckCreepMovement(
             // PathFinder supports searches which span multiple rooms
             // you should be careful!
             if (!room) return;
-            // let costs = new PathFinder.CostMatrix();
-            // const terrain = room.getTerrain();
+            let costs = new PathFinder.CostMatrix();
 
-            // for (let y = 0; y < 50; y++) {
-            //   for (let x = 0; x < 50; x++) {
-            //     const tile = terrain.get(x, y);
-            //     const weight =
-            //       tile === TERRAIN_MASK_WALL
-            //         ? 0xff // wall  => unwalkable
-            //         : tile === TERRAIN_MASK_SWAMP
-            //         ? 5 // swamp => weight:  5
-            //         : 1; // plain => weight:
-            //     costs.set(x, y, weight);
-            //   }
+            // let direction = "home";
+            // switch (creep.room.name) {
+            //   case Memory.homeRoomName:
+            //     direction = "home";
+            //     break;
+            //   case Memory.westRoomName:
+            //     direction = "west";
+            //     break;
+            //   default:
+            //     direction = "home";
+            //     break;
             // }
-            let direction = "home";
-            switch (creep.room.name) {
-              case Memory.homeRoomName:
-                direction = "home";
-                break;
-              case Memory.westRoomName:
-                direction = "west";
-                break;
-              default:
-                direction = "home";
-                break;
-            }
 
-            let costs = getRoomTerrainCosts(roomName, direction);
+            // let costs = getRoomTerrainCosts(roomName, direction);
 
             room.find(FIND_STRUCTURES, {
               filter: (struct) => {
-                if (struct.structureType === STRUCTURE_ROAD) {
-                  // Favor roads over plain tiles
-                  costs.set(struct.pos.x, struct.pos.y, 1);
-                } else if (
+                 if (
                   struct.structureType !== STRUCTURE_CONTAINER &&
                   !(struct.structureType === STRUCTURE_RAMPART && struct.my)
                 ) {
@@ -134,7 +118,7 @@ function stuckCreepMovement(
           // path used by moveTo is stored in creep memory's _move object
           if (creep.memory._move) {
             // stores new path in creep's memory
-            convertToMoveByPathFriendlyPath(creep);
+            creep.memory.path = convertToMoveByPathFriendlyPath(creep);
           }
         }
 
@@ -185,6 +169,7 @@ function convertToMoveByPathFriendlyPath(creep) {
 
   // save the moveByPath-friendly path in creep's memory
   creep.memory.path = newPathArray;
+  return newPathArray;
 }
 convertToMoveByPathFriendlyPath = profiler.registerFN(
   convertToMoveByPathFriendlyPath,

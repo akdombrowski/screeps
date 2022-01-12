@@ -71,42 +71,26 @@ function getPath(
       // PathFinder supports searches which span multiple rooms
       // you should be careful!
       if (!room) return;
-      // let costs = new PathFinder.CostMatrix();
-      // const terrain = room.getTerrain();
-
-      // for (let y = 0; y < 50; y++) {
-      //   for (let x = 0; x < 50; x++) {
-      //     const tile = terrain.get(x, y);
-      //     const weight =
-      //       tile === TERRAIN_MASK_WALL
-      //         ? 0xff // wall  => unwalkable
-      //         : tile === TERRAIN_MASK_SWAMP
-      //         ? 10 // swamp => weight:  5
-      //         : 3; // plain => weight:  1
-      //     costs.set(x, y, weight);
-      //   }
+      let costs = new PathFinder.CostMatrix();
+      // let direction = "home";
+      // switch (creep.room.name) {
+      //   case Memory.homeRoomName:
+      //     direction = "home";
+      //     break;
+      //   case Memory.westRoomName:
+      //     direction = "west";
+      //     break;
+      //   default:
+      //     direction = "home";
+      //     break;
       // }
-      let direction = "home";
-      switch (creep.room.name) {
-        case Memory.homeRoomName:
-          direction = "home";
-          break;
-        case Memory.westRoomName:
-          direction = "west";
-          break;
-        default:
-          direction = "home";
-          break;
-      }
 
-      let costs = getRoomTerrainCosts(roomName, direction);
+      // by default values with a value of 0 uses the default terrain value
+      // let costs = getRoomTerrainCosts(roomName, direction);
 
       room.find(FIND_STRUCTURES, {
         filter: (struct) => {
-          if (struct.structureType === STRUCTURE_ROAD) {
-            // Favor roads over plain tiles
-            costs.set(struct.pos.x, struct.pos.y, 1);
-          } else if (
+           if (
             struct.structureType !== STRUCTURE_CONTAINER &&
             !(struct.structureType === STRUCTURE_RAMPART && struct.my)
           ) {
@@ -151,6 +135,8 @@ function getPath(
     flee: false,
     maxOps: maxOps,
     maxRooms: 1,
+    plainCost: 1,
+    swampCost: 5,
   });
 
   // if (ret.incomplete) {

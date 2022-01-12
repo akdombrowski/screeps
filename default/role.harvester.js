@@ -57,6 +57,7 @@ function roleHarvester(
     _.pull(Memory.homeSource2Creeps, creep.name);
 
     ret = transferEnergyBasedOnDirection(creep, extensions, spawns);
+
     retval = ret.retval;
     extensions = ret.extensions;
     spawns = ret.spawns;
@@ -65,7 +66,7 @@ function roleHarvester(
 
     creep.memory.buildRoad = false;
     creep.memory.transferTower = false;
-    creep.memory.path = null;
+    // creep.memory.path = null;
     creep.memory.transferTargetId = null;
 
     if (creepRoomName === northRoomName) {

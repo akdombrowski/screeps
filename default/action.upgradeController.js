@@ -25,6 +25,10 @@ function upController(
       // if in the north room but target is not north, head south
       exitDirection = BOTTOM;
       exit = Game.flags.northToHome;
+    } else if (creepRoomName === Memory.westRoomName) {
+      // if in the north room but target is not north, head south
+      exitDirection = RIGHT;
+      exit = Game.flags.westToHome;
     }
 
     if (creep.pos.isNearTo(exit)) {

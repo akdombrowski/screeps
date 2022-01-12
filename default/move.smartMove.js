@@ -47,7 +47,7 @@ function smartMove(
   let desPath;
   pathColor = pathColor || getRandomColor();
   pathMem = pathMem || Math.floor(Math.random() * 100) + 1;
-  maxOps = maxOps || Math.floor(Math.random() * 200) + 50;
+  maxOps = maxOps || Math.floor(Math.random() * 300) + 200;
   maxRms = maxRms || 1;
   ignoreCreeps = ignoreCreeps || true;
   flee = flee || false;
@@ -78,7 +78,16 @@ function smartMove(
   path = tryDeserializingPath(path);
 
   // Is the creep stuck? Keep track of last position and compare it to the current creep position
-  let retval2 = stuckCreepMovement(creep, lastCreepPos, dest, range, pathColor, pathMem, maxOps, maxRms);
+  let retval2 = stuckCreepMovement(
+    creep,
+    lastCreepPos,
+    dest,
+    range,
+    pathColor,
+    pathMem,
+    maxOps,
+    maxRms
+  );
   if (retval2 >= 0 || retval2 === -16) {
     return retval2;
   }

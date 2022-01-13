@@ -37,7 +37,7 @@ function stuckCreepMovement(
           serializeMemory: false,
           ignoreCreeps: false,
           maxRooms: 1,
-          maxOps: 100,
+          maxOps: 1000,
           range: range,
           visualizePathStyle: {
             fill: "transparent",

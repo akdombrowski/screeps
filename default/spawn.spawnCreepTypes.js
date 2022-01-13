@@ -996,8 +996,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
     let cost = "550";
 
-    if (harvesters.length < 4) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
+    if (harvesters.length < 5) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 5);
       name = "h" + t;
       chosenRole = "h";
       direction = "home";
@@ -1052,8 +1052,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (harvesters.length < 4) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
+    } else if (harvesters.length < 6) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 6);
       name = "h" + t;
       chosenRole = "h";
       direction = "home";
@@ -1532,50 +1532,50 @@ function spawnCreepTypes(enAvail, spawns) {
   //
   //
   //
-  if (enAvail >= 800 && !wAttacker && westController && westController.my) {
-    let name = "upCN" + t;
-    let chosenRole = "upCN";
-    let direction = "north";
-    let sourceId = Memory.source2;
-    let parts = fastMoverParts800;
-    let group = "upControllersN";
-    let spawnDirection = [TOP];
-    let cost = "800";
+  // if (enAvail >= 800 && !wAttacker && westController && westController.my) {
+  //   let name = "upCN" + t;
+  //   let chosenRole = "upCN";
+  //   let direction = "north";
+  //   let sourceId = Memory.source2;
+  //   let parts = fastMoverParts800;
+  //   let group = "upControllersN";
+  //   let spawnDirection = [TOP];
+  //   let cost = "800";
 
-    if (upControllersWest.length < 1) {
-      // when north controller is controlled change this to upControllersN
-      logConditionPassedForSpawnCreep(
-        "upControllersWest",
-        upControllersWest,
-        1
-      );
-      name = "upCW" + t;
-      chosenRole = "upCW";
-      direction = "west";
-      group = "upControllersW";
-      creepsWest.push(name);
-      upControllersWest.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group,
-        cost
-      );
-    }
+  //   if (upControllersWest.length < 1) {
+  //     // when north controller is controlled change this to upControllersN
+  //     logConditionPassedForSpawnCreep(
+  //       "upControllersWest",
+  //       upControllersWest,
+  //       1
+  //     );
+  //     name = "upCW" + t;
+  //     chosenRole = "upCW";
+  //     direction = "west";
+  //     group = "upControllersW";
+  //     creepsWest.push(name);
+  //     upControllersWest.push(name);
+  //     retval = birthCreep(
+  //       spawns,
+  //       parts,
+  //       name,
+  //       chosenRole,
+  //       direction,
+  //       sourceId,
+  //       spawnDirection,
+  //       group,
+  //       cost
+  //     );
+  //   }
 
-    if (retval !== -16) {
-      console.log("spawningS " + name + "_" + cost + " " + retval);
-      console.log("energy: " + cost + "  parts: " + parts);
-    }
-    if (retval === OK || retval === ERR_BUSY) {
-      return retval;
-    }
-  }
+  //   if (retval !== -16) {
+  //     console.log("spawningS " + name + "_" + cost + " " + retval);
+  //     console.log("energy: " + cost + "  parts: " + parts);
+  //   }
+  //   if (retval === OK || retval === ERR_BUSY) {
+  //     return retval;
+  //   }
+  // }
 
   //
   //

@@ -26,7 +26,7 @@ function getPath(
   const direction = creep.memory.direction;
   pathColor = pathColor || getRandomColor();
   pathMem = pathMem || Math.floor(Math.random() * 100) + 100;
-  maxOps = maxOps || Math.floor(Math.random() * 50) + 1;
+  maxOps = maxOps || Math.floor(Math.random() * 2000) + 1000;
   maxRms = maxRms || 1;
   ignoreCreeps = ignoreCreeps || false;
 
@@ -90,7 +90,9 @@ function getPath(
 
       room.find(FIND_STRUCTURES, {
         filter: (struct) => {
-           if (
+          if (struct.structureType === STRUCTURE_ROAD) {
+            costs.set(struct.pos.x, struct.pos.y, 0);
+          } else if (
             struct.structureType !== STRUCTURE_CONTAINER &&
             !(struct.structureType === STRUCTURE_RAMPART && struct.my)
           ) {

@@ -33,11 +33,11 @@ function stuckCreepMovement(
         // creep.memory.path = null;
 
         retval = creep.moveTo(dest, {
-          reusePath: 0,
+          reusePath: 10,
           serializeMemory: false,
           ignoreCreeps: false,
           maxRooms: 1,
-          maxOps: 1000,
+          maxOps: maxOps,
           range: range,
           visualizePathStyle: {
             fill: "transparent",

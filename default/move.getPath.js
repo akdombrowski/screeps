@@ -167,13 +167,13 @@ function getPath(
         }
       }
 
-      let x = 9;
-      let y = 34;
-      let rName = Memory.homeRoomName;
+      // let x = 9;
+      // let y = 34;
+      // let rName = Memory.homeRoomName;
 
-      if (room.name === rName) {
-        // console.log(rName + " (" + x + "," + y + "): " + costs.get(x, y));
-      }
+      // if (room.name === rName) {
+      // console.log(rName + " (" + x + "," + y + "): " + costs.get(x, y));
+      // }
 
       return costs;
     },

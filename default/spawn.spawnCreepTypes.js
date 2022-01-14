@@ -434,7 +434,7 @@ function spawnCreepTypes(enAvail, spawns) {
     logConditionPassedForSpawnCreep(
       "rangedAttackersWest",
       rangedAttackersWest,
-      2
+      1
     );
 
     let name = "aRW" + t;
@@ -696,7 +696,7 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    }  else if (harvesters.length < 6) {
+    } else if (harvesters.length < 6) {
       logConditionPassedForSpawnCreep("harvesters", harvesters, 6);
       name = "h" + t;
       direction = "home";
@@ -993,8 +993,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (roadRepairers.length < 1) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 1);
+    } else if (roadRepairers.length < 0) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 0);
       name = "rR" + t;
       chosenRole = "roadRepairer";
       direction = "home";
@@ -1012,8 +1012,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (upControllers.length < 1) {
-      logConditionPassedForSpawnCreep("upControllers", upControllers, 1);
+    } else if (upControllers.length < 0) {
+      logConditionPassedForSpawnCreep("upControllers", upControllers, 0);
       name = "upC" + t;
       chosenRole = "upC";
       direction = "home";
@@ -1070,25 +1070,25 @@ function spawnCreepTypes(enAvail, spawns) {
       //     group,
       //     cost
       //   );
-    } else if (roadRepairers.length < 1) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 1);
-      name = "rR" + t;
-      chosenRole = "roadRepairer";
-      direction = "home";
-      group = "roadRepairers";
-      creepsHome.push(name);
-      roadRepairers.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group,
-        cost
-      );
+      // } else if (roadRepairers.length < 1) {
+      //   logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 1);
+      //   name = "rR" + t;
+      //   chosenRole = "roadRepairer";
+      //   direction = "home";
+      //   group = "roadRepairers";
+      //   creepsHome.push(name);
+      //   roadRepairers.push(name);
+      //   retval = birthCreep(
+      //     spawns,
+      //     parts,
+      //     name,
+      //     chosenRole,
+      //     direction,
+      //     sourceId,
+      //     spawnDirection,
+      //     group,
+      //     cost
+      //   );
     } else if (harvesters.length < 6) {
       logConditionPassedForSpawnCreep("harvesters", harvesters, 6);
       name = "h" + t;
@@ -1108,25 +1108,25 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (roadRepairers.length < 1) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 1);
-      name = "rR" + t;
-      chosenRole = "roadRepairer";
-      direction = "home";
-      group = "roadRepairers";
-      creepsHome.push(name);
-      roadRepairers.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group,
-        cost
-      );
+      // } else if (roadRepairers.length < 1) {
+      //   logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 1);
+      //   name = "rR" + t;
+      //   chosenRole = "roadRepairer";
+      //   direction = "home";
+      //   group = "roadRepairers";
+      //   creepsHome.push(name);
+      //   roadRepairers.push(name);
+      //   retval = birthCreep(
+      //     spawns,
+      //     parts,
+      //     name,
+      //     chosenRole,
+      //     direction,
+      //     sourceId,
+      //     spawnDirection,
+      //     group,
+      //     cost
+      //   );
     }
 
     if (retval !== -16) {
@@ -1597,32 +1597,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (roadRepairersWest.length < 1) {
-      logConditionPassedForSpawnCreep(
-        "roadRepairersWest",
-        roadRepairersWest,
-        1
-      );
-      parts = workerParts800;
-      name = "rRW" + t;
-      chosenRole = "roadRepairer";
-      direction = "west";
-      group = "roadRepairersWest";
-      creepsWest.push(name);
-      roadRepairersWest.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group,
-        cost
-      );
-    } else if (roadRepairers.length < 4) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 4);
+    } else if (roadRepairers.length < 1) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 1);
       parts = workerParts800;
       name = "rR" + t;
       chosenRole = "roadRepairer";
@@ -1659,26 +1635,26 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (roadRepairers.length < 5) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 5);
-      parts = workerParts800;
-      name = "rR" + t;
-      chosenRole = "roadRepairer";
-      direction = "home";
-      group = "roadRepairers";
-      creepsHome.push(name);
-      roadRepairers.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group,
-        cost
-      );
+      // } else if (roadRepairers.length < 5) {
+      //   logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 5);
+      //   parts = workerParts800;
+      //   name = "rR" + t;
+      //   chosenRole = "roadRepairer";
+      //   direction = "home";
+      //   group = "roadRepairers";
+      //   creepsHome.push(name);
+      //   roadRepairers.push(name);
+      //   retval = birthCreep(
+      //     spawns,
+      //     parts,
+      //     name,
+      //     chosenRole,
+      //     direction,
+      //     sourceId,
+      //     spawnDirection,
+      //     group,
+      //     cost
+      //   );
     } else if (upControllers.length < 2) {
       logConditionPassedForSpawnCreep("upControllers", upControllers, 2);
       name = "upC" + t;

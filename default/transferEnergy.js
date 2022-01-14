@@ -127,14 +127,7 @@ function tran(
 
     // check if we got a target for an ext or spawn
     if (!target) {
-      if (creep.room.name === Memory.northwestRoomName) {
-        if (creep.pos.isNearTo(Game.flags.northwestToWest)) {
-          retvl = creep.move(BOTTOM);
-        } else {
-          retval = creep.moveTo(32, 49);
-        }
-        return { retval: retval, extensions: extensions, spawns: spawns };
-      } else if (
+      if (
         targetRoomName != Memory.northRoomName &&
         creep.room.name === Memory.northRoomName
       ) {

@@ -81,6 +81,15 @@ function getPath(
         case Memory.westRoomName:
           direction = "west";
           break;
+        case Memory.northwestRoomName:
+          direction = "northwest";
+          break;
+        case Memory.southRoomName:
+          direction = "south";
+          break;
+        case Memory.northRoomName:
+          direction = "north";
+          break;
         default:
           direction = "home";
           break;

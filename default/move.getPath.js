@@ -136,7 +136,7 @@ function getPath(
           if (c.pos) {
             if (c.fatigue > fatigueRecoverablePerTick) {
               // creep isn't moving due to fatigue
-              visual.circle(struct.pos, {
+              visual.circle(c.pos, {
                 fill: "transparent",
                 radius: 0.15,
                 stroke: "green",
@@ -147,7 +147,7 @@ function getPath(
 
               if (path && path.length > 0) {
                 // creep has a path and no fatigue
-                visual.circle(struct.pos, {
+                visual.circle(path[0], {
                   fill: "transparent",
                   radius: 0.15,
                   stroke: "green",
@@ -155,7 +155,7 @@ function getPath(
                 costs.set(path[0].x, path[0].y, 0xff);
               } else {
                 // creep has no path, likely not moving
-                visual.circle(struct.pos, {
+                visual.circle(c.pos, {
                   fill: "transparent",
                   radius: 0.15,
                   stroke: "green",
@@ -167,9 +167,13 @@ function getPath(
         }
       }
 
-      // if (room.name === Memory.homeRoomName) {
-      //   console.log(costs.get(30, 16));
-      // }
+      let x = 9;
+      let y = 34;
+      let rName = Memory.homeRoomName;
+
+      if (room.name === rName) {
+        // console.log(rName + " (" + x + "," + y + "): " + costs.get(x, y));
+      }
 
       return costs;
     },

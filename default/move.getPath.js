@@ -71,32 +71,43 @@ function getPath(
       // PathFinder supports searches which span multiple rooms
       // you should be careful!
       if (!room) return;
-      let costs = new PathFinder.CostMatrix();
-      // let direction = "home";
-      // switch (creep.room.name) {
-      //   case Memory.homeRoomName:
-      //     direction = "home";
-      //     break;
-      //   case Memory.westRoomName:
-      //     direction = "west";
-      //     break;
-      //   default:
-      //     direction = "home";
-      //     break;
-      // }
+      let visual = room.visual;
+      // let costs = new PathFinder.CostMatrix();
+      let direction = "home";
+      switch (creep.room.name) {
+        case Memory.homeRoomName:
+          direction = "home";
+          break;
+        case Memory.westRoomName:
+          direction = "west";
+          break;
+        default:
+          direction = "home";
+          break;
+      }
 
       // by default values with a value of 0 uses the default terrain value
-      // let costs = getRoomTerrainCosts(roomName, direction);
+      let costs = getRoomTerrainCosts(roomName, direction);
 
       room.find(FIND_STRUCTURES, {
         filter: (struct) => {
           if (struct.structureType === STRUCTURE_ROAD) {
+            // visual.circle(struct.pos, {
+            //   fill: "transparent",
+            //   radius: 0.15,
+            //   stroke: "red",
+            // });
             costs.set(struct.pos.x, struct.pos.y, 0);
           } else if (
             struct.structureType !== STRUCTURE_CONTAINER &&
             !(struct.structureType === STRUCTURE_RAMPART && struct.my)
           ) {
             // Can't walk through non-walkable buildings
+            // visual.circle(struct.pos, {
+            //   fill: "transparent",
+            //   radius: 0.15,
+            //   stroke: "blue",
+            // });
             costs.set(struct.pos.x, struct.pos.y, 0xff);
           }
         },
@@ -116,21 +127,40 @@ function getPath(
           if (c.pos) {
             if (c.fatigue > fatigueRecoverablePerTick) {
               // creep isn't moving due to fatigue
+              visual.circle(struct.pos, {
+                fill: "transparent",
+                radius: 0.15,
+                stroke: "green",
+              });
               costs.set(c.pos.x, c.pos.y, 0xff);
             } else if (c.memory) {
               let path = c.memory.path;
 
               if (path && path.length > 0) {
                 // creep has a path and no fatigue
+                visual.circle(struct.pos, {
+                  fill: "transparent",
+                  radius: 0.15,
+                  stroke: "green",
+                });
                 costs.set(path[0].x, path[0].y, 0xff);
               } else {
                 // creep has no path, likely not moving
+                visual.circle(struct.pos, {
+                  fill: "transparent",
+                  radius: 0.15,
+                  stroke: "green",
+                });
                 costs.set(c.pos.x, c.pos.y, 0xff);
               }
             }
           }
         }
       }
+
+      // if (room.name === Memory.homeRoomName) {
+      //   console.log(costs.get(30, 16));
+      // }
 
       return costs;
     },

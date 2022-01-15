@@ -39,6 +39,8 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
 
     _.pull(Memory.homeSource1Creeps, creep.name);
     _.pull(Memory.homeSource2Creeps, creep.name);
+    _.pull(Memory.northwestSource1Creeps, creep.name);
+    _.pull(Memory.northwestSource2Creeps, creep.name);
     creep.memory.lastSourceId = null;
     creep.memory.path = null;
     creep.memory.getEnergy = false;
@@ -149,8 +151,22 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
   ) {
     let sources = Game.rooms[targetRoomName].find(FIND_SOURCES);
     let chosenSource = null;
+    let roomDirection = creep.memory.direction;
 
-    if (sources.length > 0) {
+    if (sources.length > 1) {
+      if (!Memory[roomDirection + "Source1Creeps"]) {
+        chosenSource = Game.getObjectById(Memory[roomDirection + "Source1ID"]);
+      } else if (!Memory[roomDirection + "Source2Creeps"]) {
+        chosenSource = Game.getObjectById(Memory[roomDirection + "Source2ID"]);
+      } else if (
+        Memory[roomDirection + "Source1Creeps"].length >
+        Memory[roomDirection + "Source2Creeps"].length
+      ) {
+        chosenSource = Game.getObjectById(Memory[roomDirection + "Source2ID"]);
+      } else {
+        chosenSource = Game.getObjectById(Memory[roomDirection + "Source1ID"]);
+      }
+    } else {
       chosenSource = chooseSource(creep, sources);
     }
 
@@ -158,32 +174,7 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
       target = chosenSource;
       creep.memory.lastSourceId = target.id;
 
-      if (target.id === Memory.homeSource1ID) {
-        if (!Memory.homeSource1Creeps) {
-          Memory.homeSource1Creeps = [];
-        }
-
-        if (!Memory.homeSource1Creeps.find((name) => name === creep.name)) {
-          homeSource1Creeps.push(creep.name);
-          if (homeSource2Creeps.find((name) => name === creep.name)) {
-            _.pull(Memory.homeSource2Creeps, creep.name);
-          }
-        }
-      } else if (target.id === Memory.homeSource2ID) {
-        if (!Memory.homeSource2Creeps) {
-          Memory.homeSource2Creeps = [];
-        }
-
-        if (!Memory.homeSource2Creeps.find((name) => name === creep.name)) {
-          homeSource2Creeps.push(creep.name);
-          if (homeSource1Creeps.find((name) => name === creep.name)) {
-            _.pull(Memory.homeSource1Creeps, creep.name);
-          }
-        }
-      }
-
-      Memory.homeSource1Creeps = homeSource1Creeps;
-      Memory.homeSource2Creeps = homeSource2Creeps;
+      sourceCreepArrays(target, creep, roomDirection);
     }
   }
 
@@ -426,6 +417,8 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
         if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
           _.pull(Memory.homeSource1Creeps, creep.name);
           _.pull(Memory.homeSource2Creeps, creep.name);
+          _.pull(Memory.northwestSource1Creeps, creep.name);
+          _.pull(Memory.northwestSource2Creeps, creep.name);
         }
       } else if (retval === ERR_TIRED) {
         creep.say("v." + creep.fatigue + "😴");
@@ -490,6 +483,34 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
   }
 
   return retval;
+}
+
+function sourceCreepArrays(target, creep, roomDirection) {
+  if (!Memory[roomDirection + "Source1Creeps"]) {
+    Memory[roomDirection + "Source1Creeps"] = [];
+  }
+
+  if (!Memory[roomDirection + "Source2Creeps"]) {
+    Memory[roomDirection + "Source2Creeps"] = [];
+  }
+
+  let source1Creeps = Memory[roomDirection + "Source1Creeps"] || [];
+  let source2Creeps = Memory[roomDirection + "Source2Creeps"] || [];
+
+  if (target.id === Memory[roomDirection + "Source1ID"]) {
+    if (!source1Creeps.find((name) => name === creep.name)) {
+      source1Creeps.push(creep.name);
+    }
+    _.pull(source2Creeps, creep.name);
+  } else if (target.id === Memory[roomDirection + "Source2ID"]) {
+    if (!source2Creeps.find((name) => name === creep.name)) {
+      source2Creeps.push(creep.name);
+    }
+    _.pull(source1Creeps, creep.name);
+  }
+
+  Memory[roomDirection + "Source1Creeps"] = source1Creeps;
+  Memory[roomDirection + "Source2Creeps"] = source2Creeps;
 }
 
 function getRandomInt(max) {

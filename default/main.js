@@ -100,8 +100,8 @@ module.exports.loop = function () {
 
     Memory.homeSource1ID = "5982fc5eb097071b4adbd46a";
     Memory.homeSource2ID = "5982fc5eb097071b4adbd468";
-    // Memory.nSource1 = "59bbc5d22052a716c3cea131";
-    // Memory.nSource2 = "59bbc5d22052a716c3cea132";
+    Memory.northwestSource1ID = "5982fc52b097071b4adbd318";
+    Memory.northwestSource2ID = "5982fc52b097071b4adbd316";
 
     Memory.tower1Id = "61dc1041f191ab6e5ccbc707";
     Memory.westTower1Id = "61d5a2551053fefa678b4e6b";

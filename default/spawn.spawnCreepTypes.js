@@ -1679,12 +1679,12 @@ function spawnCreepTypes(enAvail, spawns) {
       // home road repairer, roadRepairers
       console.log("800 else condition");
       parts = workerParts800;
-      name = "rR" + t;
+      name = "rRW" + t;
       chosenRole = "roadRepairer";
-      direction = "home";
-      group = "roadRepairers";
-      creepsHome.push(name);
-      roadRepairers.push(name);
+      direction = "west";
+      group = "roadRepairersWest";
+      creepsWest.push(name);
+      roadRepairersWest.push(name);
       retval = birthCreep(
         spawns,
         parts,

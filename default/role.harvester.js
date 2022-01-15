@@ -99,6 +99,11 @@ function roleHarvester(
         exitDirection = TOP;
         exit = homeToNorth;
       }
+    } else if (creepRoomName === westRoomName) {
+      if (targetRoomName === homeRoomName) {
+        exitDirection = RIGHT;
+        exit = westToHome;
+      }
     }
 
     if (creep.pos.isNearTo(exit)) {

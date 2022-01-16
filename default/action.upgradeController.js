@@ -58,6 +58,8 @@ function upController(
 
     _.pull(Memory.homeSource1Creeps, creep.name);
     _.pull(Memory.homeSource2Creeps, creep.name);
+    _.pull(Memory.northwestSource1Creeps, creep.name);
+    _.pull(Memory.northwestSource2Creeps, creep.name);
   } else if (creep.store[RESOURCE_ENERGY] <= 0 || creep.memory.getEnergy) {
     creep.memory.up = false;
     creep.memory.getEnergy = true;
@@ -127,7 +129,7 @@ function upController(
     if (target) {
       creep.memory.controllerID = target.id;
     } else {
-      console.log(name + " upgrade Controller target " + target);
+      console.log(name + " upgrade Controller null target " + target);
     }
   }
 
@@ -160,7 +162,7 @@ function upController(
       } else if (creep.fatigue > 0) {
         creep.say("f." + creep.fatigue);
       } else {
-        retval = smartMove(creep, target, 3, true, "#ffff80", 100, 10000, 1);
+        retval = smartMove(creep, target, 3, true, "#ffff80", null, null, 1, false, null);
 
         if (retval != OK) {
           creep.say("err." + retval);

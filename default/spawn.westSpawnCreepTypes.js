@@ -996,8 +996,27 @@ function spawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
     let cost = "550";
 
-    if (harvestersWest.length < 6) {
-      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 6);
+    if (harvesters.length < 6) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 6);
+      name = "h" + t;
+      chosenRole = "h";
+      direction = "home";
+      group = "harvesters";
+      harvesters.push(name);
+      creepsHome.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group,
+        cost
+      );
+    } else if (harvestersWest.length < 5) {
+      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 5);
       name = "hW" + t;
       direction = "west";
       group = "harvestersWest";
@@ -1102,25 +1121,7 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (harvesters.length < 6) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 6);
-      name = "h" + t;
-      chosenRole = "h";
-      direction = "home";
-      group = "harvesters";
-      harvesters.push(name);
-      creepsHome.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group,
-        cost
-      );
+
       // } else if (!wAttackerId) {
       //   console.log("550 no wAttacker");
       //   logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, -1);

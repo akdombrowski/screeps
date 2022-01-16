@@ -26,9 +26,17 @@ function upController(
       exitDirection = BOTTOM;
       exit = Game.flags.northToHome;
     } else if (creepRoomName === Memory.westRoomName) {
-      // if in the north room but target is not north, head south
-      exitDirection = RIGHT;
-      exit = Game.flags.westToHome;
+      if (targetRoomName === Memory.homeRoomName) {
+        // if in the west room but target is home, head right to home
+        exitDirection = RIGHT;
+        exit = Game.flags.westToHome;
+      }
+    } else if (creepRoomName === Memory.homeRoomName) {
+      if (targetRoomName === Memory.northwestRoomName) {
+        // if in the home room but target is northwest, head west first
+        exitDirection = LEFT;
+        exit = Game.flags.homeToWest;
+      }
     }
 
     if (creep.pos.isNearTo(exit)) {
@@ -47,7 +55,6 @@ function upController(
   ) {
     creep.memory.up = true;
     creep.memory.getEnergy = false;
-
 
     _.pull(Memory.homeSource1Creeps, creep.name);
     _.pull(Memory.homeSource2Creeps, creep.name);

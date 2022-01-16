@@ -591,6 +591,29 @@ function runRoles() {
             Memory.westRoomControllerID
           );
         }
+      } else if (
+        roll === "ucNW" ||
+        roll === "upControllerNW" ||
+        roll === "upcNW" ||
+        roll === "upCNW"
+      ) {
+        if (creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()) {
+          creep.memory.up = true;
+        }
+        upControllersNorthwest.push(name);
+
+        creep.memory.controllerID = "5982fc52b097071b4adbd317";
+
+        if (!shouldContinueToNextCreep) {
+          retval = upController(
+            creep,
+            Game.flags.northwestRoomController,
+            northwestRoomName,
+            Game.flags.westToNorthwest,
+            TOP,
+            Memory.northwestRoomControllerID
+          );
+        }
       } else if (roll === "reserver") {
         reservers.push(name);
         if (!shouldContinueToNextCreep) {
@@ -655,6 +678,20 @@ function runRoles() {
             "",
             Memory.northControllerId,
             Game.flags.northRoomController
+          );
+        }
+      } else if (roll === "cNW" || roll === "claimerNW") {
+        claimersNorth.push(name);
+
+        if (!shouldContinueToNextCreep) {
+          claim(
+            creep,
+            Memory.northwestRoomName,
+            Game.flags.westToNorthwest,
+            TOP,
+            "",
+            Memory.northwestControllerId,
+            Game.flags.northwestRoomController
           );
         }
       } else if (roll === "worker" || roll === "w") {

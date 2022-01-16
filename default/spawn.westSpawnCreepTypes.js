@@ -99,6 +99,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let upControllersSouth = Memory.upControllersSouth || [];
   let upControllersWest = Memory.upControllersWest || [];
   let upControllersSouthwest = Memory.upControllersSouthwest || [];
+  let upControllersNorthwest = Memory.upControllersNorthwest || [];
   let roadRepairers = Memory.roadRepairers || [];
   let roadRepairersSouth = Memory.roadRepairersSouth || [];
   let roadRepairersWest = Memory.roadRepairersWest || [];
@@ -110,6 +111,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let claimersSouth = Memory.claimersSouth || [];
   let claimersWest = Memory.claimersWest || [];
   let claimersNorth = Memory.claimersNorth || [];
+  let claimersNorthwest = Memory.claimersNorthwest || [];
   let claimersSouthwest = Memory.claimersSouthwest || [];
   let viewers = Memory.viewers || [];
   let viewersWest = Memory.viewersWest || [];
@@ -353,13 +355,13 @@ function spawnCreepTypes(enAvail, spawns) {
   let simpleParts500 = [CARRY, WORK, WORK, MOVE, MOVE, MOVE, MOVE, MOVE];
   let simpleParts550 = [CARRY, WORK, WORK, WORK, MOVE, MOVE, MOVE, MOVE];
 
-  let eAttackerId = Memory.eAttackerId;
-  let wAttackerId = Memory.invaderIDWest;
-  let nAttackerId = Memory.invaderIDNorth;
-  let neAttackerId = Memory.neAttackerId;
-  let dSAttackerId = Memory.invaderIDE59S49;
-  let sAttackerId = Memory.invaderIDSouth;
-  let invaderId = Memory.invaderIDHome;
+  let eAttacker = Game.getObjectById(Memory.eAttackerId);
+  let wAttacker = Game.getObjectById(Memory.invaderIDWest);
+  let nwAttacker = Game.getObjectById(Memory.invaderIDNorthwest);
+  let nAttacker = Game.getObjectById(Memory.invaderIDNorth);
+  let neAttacker = Game.getObjectById(Memory.neAttackerId);
+  let sAttacker = Game.getObjectById(Memory.invaderIDSouth);
+  let invader = Game.getObjectById(Memory.invaderIDHome);
 
   let retval = -16;
 
@@ -506,7 +508,7 @@ function spawnCreepTypes(enAvail, spawns) {
   // ........##.##.....##.##.....##
   // .##.....##..##...##...##...##.
   // ..#######....#####.....#####..
-  if (enAvail >= 300 && !wAttackerId) {
+  if (enAvail >= 300 && !wAttacker) {
     let name = "hW" + t;
     let chosenRole = "h";
     let direction = "west";
@@ -558,7 +560,7 @@ function spawnCreepTypes(enAvail, spawns) {
   // ........##.##.....##.##.....##
   // .##.....##..##...##...##...##.
   // ..#######....#####.....#####..
-  if (enAvail >= 300 && !wAttackerId) {
+  if (enAvail >= 300 && !wAttacker) {
     let name = "hW" + t;
     let chosenRole = "h";
     let direction = "west";
@@ -611,7 +613,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //
   //
   //
-  if (enAvail >= 300 && !wAttackerId && numOfCreepsTotal < 60) {
+  if (enAvail >= 300 && !wAttacker && numOfCreepsTotal < 60) {
     let name = "hW" + t;
     let chosenRole = "h";
     let direction = "west";
@@ -966,7 +968,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //        #        #  #     #
   //  #     #  #     #   #   #
   //   #####    #####     ###
-  if (enAvail >= 550 && !invaderId) {
+  if (enAvail >= 550 && !invader) {
     let name = "h" + t;
     let chosenRole = "h";
     let direction = "home";
@@ -1285,27 +1287,27 @@ function spawnCreepTypes(enAvail, spawns) {
   //   #####   #######  #     #  ###  #     #
   if (
     enAvail >= 650 &&
-    !invaderId &&
-    !wAttackerId &&
-    westController &&
-    !westController.my
+    !wAttacker &&
+    !nwAttacker &&
+    northwestController &&
+    !northwestController.my
   ) {
-    let name = "hW" + t;
+    let name = "hNW" + t;
     let chosenRole = "h";
-    let direction = "west";
+    let direction = "northwest";
     let sourceId = Memory.nSource2;
     let parts = claimerParts650;
-    let group = "claimersW";
+    let group = "claimersNW";
     let spawnDirection = [LEFT];
     let cost = "650";
 
-    if (claimersWest.length < 1) {
-      logConditionPassedForSpawnCreep("claimersWest", claimersWest, 1);
+    if (claimersNorthwest.length < 1) {
+      logConditionPassedForSpawnCreep("claimersNorthwest", claimersNorthwest, 1);
       name = "cW" + t;
       chosenRole = "claimerW";
       parts = claimerParts650;
-      creepsWest.push(name);
-      claimersWest.push(name);
+      creepsNorthwest.push(name);
+      claimersNorthwest.push(name);
       retval = birthCreep(
         spawns,
         parts,
@@ -1504,29 +1506,29 @@ function spawnCreepTypes(enAvail, spawns) {
   //
   //
   //
-  if (enAvail >= 800 && !wAttackerId && westController && westController.my) {
-    let name = "upCN" + t;
-    let chosenRole = "upCN";
-    let direction = "north";
+  if (enAvail >= 800 && !wAttacker && westController && westController.my) {
+    let name = "upCNW" + t;
+    let chosenRole = "upCNW";
+    let direction = "northwest";
     let sourceId = Memory.source2;
     let parts = fastMoverParts800;
-    let group = "upControllersN";
+    let group = "upControllersNW";
     let spawnDirection = [TOP];
     let cost = "800";
 
-    if (upControllersWest.length < 1) {
+    if (upControllersNorthwest.length < 1) {
       // when north controller is controlled change this to upControllersN
       logConditionPassedForSpawnCreep(
         "upControllersWest",
         upControllersWest,
         1
       );
-      name = "upCW" + t;
-      chosenRole = "upCW";
+      name = "upCNW" + t;
+      chosenRole = "upCNW";
       direction = "west";
-      group = "upControllersW";
-      creepsWest.push(name);
-      upControllersWest.push(name);
+      group = "upControllersNW";
+      creepsNorthwest.push(name);
+      upControllersNorthwest.push(name);
       retval = birthCreep(
         spawns,
         parts,
@@ -1917,6 +1919,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.upControllers = upControllers;
   Memory.upControllersSouth = upControllersSouth;
   Memory.upControllersSouthwest = upControllersSouthwest;
+  Memory.upControllersNorthwest = upControllersNorthwest;
   Memory.upControllersWest = upControllersWest;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersSouth = roadRepairersSouth;
@@ -1933,6 +1936,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.claimersSouth = claimersSouth;
   Memory.claimersWest = claimersWest;
   Memory.claimersNorth = claimersNorth;
+  Memory.claimersNorthwest = claimersNorthwest;
   Memory.claimersSouthwest = claimersSouthwest;
   Memory.linkGets = linkGets;
   Memory.towerHarvesters = towerHarvesters;

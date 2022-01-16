@@ -1000,8 +1000,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (roadRepairers.length < 1) {
-      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 1);
+    } else if (roadRepairers.length < 0) {
+      logConditionPassedForSpawnCreep("roadRepairers", roadRepairers, 0);
       parts = fastMoverParts550;
       name = "rR" + t;
       chosenRole = "roadRepairer";
@@ -1043,11 +1043,11 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (roadRepairersWest.length < 4) {
+    } else if (roadRepairersWest.length < 0) {
       logConditionPassedForSpawnCreep(
         "roadRepairersWest",
         roadRepairersWest,
-        4
+        0
       );
       name = "rRW" + t;
       chosenRole = "roadRepairer";
@@ -1066,8 +1066,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (harvesters.length < 7) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 7);
+    } else if (harvesters.length < 6) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 6);
       name = "h" + t;
       chosenRole = "h";
       direction = "home";
@@ -1302,7 +1302,11 @@ function spawnCreepTypes(enAvail, spawns) {
     let cost = "650";
 
     if (claimersNorthwest.length < 1) {
-      logConditionPassedForSpawnCreep("claimersNorthwest", claimersNorthwest, 1);
+      logConditionPassedForSpawnCreep(
+        "claimersNorthwest",
+        claimersNorthwest,
+        1
+      );
       name = "cW" + t;
       chosenRole = "claimerW";
       parts = claimerParts650;

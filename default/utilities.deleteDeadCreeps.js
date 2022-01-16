@@ -5,8 +5,10 @@ function deleteDeadCreeps() {
     if (!Game.creeps[name]) {
       delete Memory.creeps[name];
 
-      _.pull(Memory.homeSource1Creeps, name);
-      _.pull(Memory.homeSource2Creeps, name);
+      _.pull(Memory.homeSource1Creeps, creep.name);
+      _.pull(Memory.homeSource2Creeps, creep.name);
+      _.pull(Memory.northwestSource1Creeps, creep.name);
+      _.pull(Memory.northwestSource2Creeps, creep.name);
 
       Memory.droppedPickerUpperName = null;
       console.log("del.", name);

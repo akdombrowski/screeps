@@ -679,11 +679,10 @@ function spawnCreepTypes(enAvail, spawns) {
 
     if (upControllers.length < 1) {
       logConditionPassedForSpawnCreep("upControllers", upControllers, 1);
-      logConditionPassedForSpawnCreep("numOfCreepsTotal", numOfCreepsTotal, 15);
+      logConditionPassedForSpawnCreep("creepsHome", creepsHome, -1);
       name = "upC" + t;
       chosenRole = "upC";
       group = "upControllers";
-      parts = slowMoverParts300;
       upControllers.push(name);
       creepsHome.push(name);
       retval = birthCreep(
@@ -699,6 +698,7 @@ function spawnCreepTypes(enAvail, spawns) {
       );
     } else if (harvesters.length < 4) {
       logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
+      logConditionPassedForSpawnCreep("creepsHome", creepsHome, -1);
       name = "h" + t;
       direction = "home";
       group = "harvesters";

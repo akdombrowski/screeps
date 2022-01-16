@@ -99,9 +99,13 @@ function getPath(
       // by default values with a value of 0 uses the default terrain value
       let costs = getRoomTerrainCosts(roomName, direction);
 
-      if (roomName === "W37N24") {
-        console.log(costs.get(14, 32));
-      }
+      // let x = 14;
+      // let y = 32;
+      // let rName = Memory.homeRoomName;
+
+      // if (room.name === rName) {
+      //   console.log(rName + " (" + x + "," + y + "): " + costs.get(x, y));
+      // }
 
       room.find(FIND_STRUCTURES, {
         filter: (struct) => {
@@ -172,13 +176,13 @@ function getPath(
         }
       }
 
-      let x = 14;
-      let y = 32;
-      let rName = Memory.homeRoomName;
+      // x = 14;
+      // y = 32;
+      // rName = Memory.homeRoomName;
 
-      if (room.name === rName) {
-        console.log(rName + " (" + x + "," + y + "): " + costs.get(x, y));
-      }
+      // if (room.name === rName) {
+      //   console.log(rName + " (" + x + "," + y + "): " + costs.get(x, y));
+      // }
 
       return costs;
     },

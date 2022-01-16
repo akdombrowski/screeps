@@ -37,11 +37,9 @@ function sourceCreepArrays(target, creep, roomDirection) {
 
   if (Game.time - lastSourceArraysCleanupTime > cleanupTimeInterval) {
     _.remove(Memory[roomDirection + "Source1Creeps"], (name) => {
-      console.log(name + " " + Game.creeps[name]);
       return !Game.creeps[name];
     });
     _.remove(Memory[roomDirection + "Source2Creeps"], (name) => {
-      console.log(name + " source2 " + Game.creeps[name]);
       return !Game.creeps[name];
     });
 

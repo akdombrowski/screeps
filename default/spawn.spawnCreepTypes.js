@@ -696,8 +696,8 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
-    } else if (harvesters.length < 4) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 4);
+    } else if (harvesters.length < 2) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 2);
       name = "h" + t;
       direction = "home";
       group = "harvesters";

@@ -1,12 +1,12 @@
 const getEnergy = require("./getEnergy");
 const buildRoad = require("./action.buildRoad");
-const smartMove = require("./move.smartMove");
 const build = require("./build");
 const profiler = require("./screeps-profiler");
 const {
   transferEnergyBasedOnDirection,
 } = require("./transferEnergy.transferEnergyBasedOnDirection");
 const { pullFromSourceArrays } = require("./getEnergy.pullFromSourceArrays");
+const { moveToDifferentRoom } = require("./move.moveToDifferentRoom");
 
 function roleHarvester(
   creep,
@@ -71,59 +71,14 @@ function roleHarvester(
     // creep.memory.path = null;
     creep.memory.transferTargetId = null;
 
-    if (creepRoomName === northRoomName) {
-      // if in the north room but target is not north, head home, the other rooms are that way
-      exitDirection = BOTTOM;
-      exit = northToHome;
-    } else if (creepRoomName === southRoomName) {
-      // if in the deepSouth room but target room is not deepSouth
-      if (targetRoomName != southwestRoomName) {
-        // if target name is not the SW room, then head north to home room
-        // because target room is either north or home room and you have to go the same way to get to either
-        exitDirection = TOP;
-        exit = southToHome;
-      } else {
-        // in deep home room but target is west of here, head left
-        exitDirection = LEFT;
-        exit = southToSouthwest;
-      }
-    } else if (creepRoomName === southwestRoomName) {
-      // if in the deepSouthWest room but target room is not there, head to dS as a start
-      exitDirection = RIGHT;
-      exit = southwestToSouth;
-    } else if (creepRoomName === homeRoomName) {
-      if (targetRoomName === southRoomName) {
-        exitDirection = BOTTOM;
-        exit = homeToSouth;
-      } else if (targetRoomName === northRoomName) {
-        exitDirection = TOP;
-        exit = homeToNorth;
-      }
-    } else if (creepRoomName === westRoomName) {
-      if (targetRoomName === homeRoomName) {
-        exitDirection = RIGHT;
-        exit = westToHome;
-      }
-    }
-
-    if (creep.pos.isNearTo(exit)) {
-      creep.say("👋");
-      retval = creep.move(exitDirection);
-    } else {
-      creep.say("🎯" + targetRoomName + "🚀");
-      retval = smartMove(
-        creep,
-        exit,
-        1,
-        true,
-        null,
-        null,
-        null,
-        1,
-        false,
-        null
-      );
-    }
+    retval = moveToDifferentRoom(
+      creepRoomName,
+      exitDirection,
+      exit,
+      targetRoomName,
+      creep,
+      retval
+    );
   } else if (
     creep.memory.getEnergy ||
     !creep.store[RESOURCE_ENERGY] ||
@@ -189,3 +144,4 @@ function roleHarvester(
 
 roleHarvester = profiler.registerFN(roleHarvester, "roleHarvester");
 module.exports = roleHarvester;
+

@@ -77,7 +77,7 @@ function tran(
   }
 
   if (!target) {
-    if (creep.room.name === Memory.homeRoomName) {
+    if (creepRoomName === Memory.homeRoomName) {
       const minRoomEnergy = 300;
       const maxTowerEnergy = 950;
       const minTowerEnergy = 299;
@@ -90,19 +90,19 @@ function tran(
         maxTowerEnergy,
         minTowerEnergy
       );
-      } else if (creep.room.name === Memory.westRoomName) {
-        const minRoomEnergy = 50;
-        const maxTowerEnergy = 950;
-        const minTowerEnergy = 299;
+    } else if (creepRoomName === Memory.westRoomName) {
+      const minRoomEnergy = 50;
+      const maxTowerEnergy = 950;
+      const minTowerEnergy = 299;
 
-        target = checkTransferToTower(
-          creepRoom,
-          westTower1,
-          creep,
-          minRoomEnergy,
-          maxTowerEnergy,
-          minTowerEnergy
-        );
+      target = checkTransferToTower(
+        creepRoom,
+        westTower1,
+        creep,
+        minRoomEnergy,
+        maxTowerEnergy,
+        minTowerEnergy
+      );
     }
   }
 
@@ -146,11 +146,16 @@ function tran(
         }
       } else if (creep.room.name === Memory.homeRoomName) {
         // if in the homeroom but target room is not homeroom,
-        if (targetRoomName != Memory.northRoomName) {
+        if (targetRoomName === Memory.southRoomName) {
           // we're not heading north, so head south
           // east and west are blocked in this spawn area
           exitDirection = BOTTOM;
           exit = Game.flags.homeToSouth;
+        } else  if (targetRoomName === Memory.northwestRoomName) {
+          // we're not heading north, so head south
+          // east and west are blocked in this spawn area
+          exitDirection = LEFT;
+          exit = Game.flags.homeToWest;
         } else {
           // we're heading north
           exitDirection = TOP;

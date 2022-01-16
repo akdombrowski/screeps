@@ -365,6 +365,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let eAttackerId = Game.getObjectById(Memory.eAttackerId);
   let wAttacker = Game.getObjectById(Memory.invaderIDWest);
   let nAttackerId = Game.getObjectById(Memory.invaderIDNorth);
+  let nwAttackerId = Game.getObjectById(Memory.invaderIDNorthwest);
   let neAttackerId = Game.getObjectById(Memory.neAttackerId);
   let dSAttackerId = Game.getObjectById(Memory.invaderIDE59S49);
   let sAttackerId = Game.getObjectById(Memory.invaderIDSouth);
@@ -1294,7 +1295,7 @@ function spawnCreepTypes(enAvail, spawns) {
     enAvail >= 650 &&
     !invader &&
     !wAttacker &&
-    westController &&
+    northwestController &&
     !westController.my
   ) {
     let name = "hW" + t;

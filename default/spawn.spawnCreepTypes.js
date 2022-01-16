@@ -1091,8 +1091,8 @@ function spawnCreepTypes(enAvail, spawns) {
       //     group,
       //     cost
       //   );
-    } else if (harvesters.length < 6) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 6);
+    } else if (harvesters.length < 8) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 8);
       name = "h" + t;
       chosenRole = "h";
       direction = "home";
@@ -1581,8 +1581,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
     let cost = "800";
 
-    if (harvesters.length < 8) {
-      logConditionPassedForSpawnCreep("harvesters", harvesters, 8);
+    if (harvesters.length < 9) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 9);
       name = "h" + t;
       chosenRole = "h";
       direction = "home";

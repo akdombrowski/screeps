@@ -13,8 +13,8 @@ function getRoomTerrainCosts(roomName, roomDirection) {
           tile === TERRAIN_MASK_WALL
             ? 0xff // wall  => unwalkable
             : tile === TERRAIN_MASK_SWAMP
-            ? 5 // swamp => weight:  5
-            : 1; // plain => weight:  1
+            ? 11 // swamp => weight:  11
+            : 2; // plain => weight:  2
         costs.set(x, y, weight);
       }
     }

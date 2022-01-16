@@ -62,8 +62,9 @@ function getPath(
   let ret = PathFinder.search(creepPos, goals, {
     // // We need to set the defaults costs higher so that we
     // // can set the road cost lower in `roomCallback`
-    // plainCost: 3,
-    // swampCost: 10,
+    // plainCost: 2,
+    // swampCost: 11,
+    // roadCost: 0, // not an actual parameter
 
     roomCallback: function (roomName) {
       let room = Game.rooms[roomName];
@@ -97,6 +98,10 @@ function getPath(
 
       // by default values with a value of 0 uses the default terrain value
       let costs = getRoomTerrainCosts(roomName, direction);
+
+      if (roomName === "W37N24") {
+        console.log(costs.get(14, 32));
+      }
 
       room.find(FIND_STRUCTURES, {
         filter: (struct) => {
@@ -167,21 +172,19 @@ function getPath(
         }
       }
 
-      // let x = 9;
-      // let y = 34;
-      // let rName = Memory.homeRoomName;
+      let x = 14;
+      let y = 32;
+      let rName = Memory.homeRoomName;
 
-      // if (room.name === rName) {
-      // console.log(rName + " (" + x + "," + y + "): " + costs.get(x, y));
-      // }
+      if (room.name === rName) {
+        console.log(rName + " (" + x + "," + y + "): " + costs.get(x, y));
+      }
 
       return costs;
     },
     flee: false,
     maxOps: maxOps,
     maxRooms: 1,
-    plainCost: 1,
-    swampCost: 5,
   });
 
   // if (ret.incomplete) {

@@ -1,6 +1,13 @@
 const profiler = require("./screeps-profiler");
 
 function sourceCreepArrays(target, creep, roomDirection) {
+  let lastSourceArraysCleanupTime = Memory.lastSourceArraysCleanupTime;
+
+  if (!lastSourceArraysCleanupTime) {
+    Memory.lastSourceArraysCleanupTime = 0;
+    lastSourceArraysCleanupTime = Memory.lastSourceArraysCleanupTime;
+  }
+
   if (!Memory[roomDirection + "Source1Creeps"]) {
     Memory[roomDirection + "Source1Creeps"] = [];
   }
@@ -26,6 +33,19 @@ function sourceCreepArrays(target, creep, roomDirection) {
 
   Memory[roomDirection + "Source1Creeps"] = source1Creeps;
   Memory[roomDirection + "Source2Creeps"] = source2Creeps;
+
+  if (Game.time - lastSourceArraysCleanupTime > 1) {
+    _.remove(Memory[roomDirection + "Source1Creeps"], (name) => {
+      console.log(name + " " + Game.creeps[name]);
+      return !Game.creeps[name];
+    });
+    _.remove(Memory[roomDirection + "Source2Creeps"], (name) => {
+      console.log(name + " source2 " + Game.creeps[name]);
+      return !Game.creeps[name];
+    });
+
+    Memory.lastSourceArraysCleanupTime = Game.time;
+  }
 }
 exports.sourceCreepArrays = sourceCreepArrays;
 sourceCreepArrays = profiler.registerFN(sourceCreepArrays, "sourceCreepArrays");

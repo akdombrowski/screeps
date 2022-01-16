@@ -105,7 +105,7 @@ function tran(
         minTowerEnergy
       );
     } else if (creepRoomName === Memory.westRoomName) {
-      const minRoomEnergy = 50;
+      const minRoomEnergy = 300;
       const maxTowerEnergy = 950;
       const minTowerEnergy = 299;
 

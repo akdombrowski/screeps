@@ -90,19 +90,19 @@ function tran(
         maxTowerEnergy,
         minTowerEnergy
       );
-      // } else if (creep.room.name === Memory.westRoomName) {
-      //   const minRoomEnergy = 50;
-      //   const maxTowerEnergy = 950;
-      //   const minTowerEnergy = 300;
+      } else if (creep.room.name === Memory.westRoomName) {
+        const minRoomEnergy = 50;
+        const maxTowerEnergy = 950;
+        const minTowerEnergy = 299;
 
-      //   target = checkTransferToTower(
-      //     creepRoom,
-      //     westTower1,
-      //     creep,
-      //     minRoomEnergy,
-      //     maxTowerEnergy,
-      //     minTowerEnergy
-      //   );
+        target = checkTransferToTower(
+          creepRoom,
+          westTower1,
+          creep,
+          minRoomEnergy,
+          maxTowerEnergy,
+          minTowerEnergy
+        );
     }
   }
 

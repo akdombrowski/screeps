@@ -367,6 +367,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let northEastController = Game.getObjectById(Memory.northEastControllerID);
   let southController = Game.getObjectById(Memory.southControllerID);
   let westController = Game.getObjectById(Memory.westControllerID);
+  let northwestController = Game.getObjectById(Memory.northwestControllerID);
 
   const timeDigitsSlice = 2;
   const t = Game.time.toString().slice(timeDigitsSlice);

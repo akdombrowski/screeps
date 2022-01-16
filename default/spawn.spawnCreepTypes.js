@@ -377,6 +377,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let northEastController = Game.getObjectById(Memory.northEastControllerID);
   let southController = Game.getObjectById(Memory.southControllerID);
   let westController = Game.getObjectById(Memory.westControllerID);
+  let northwestController = Game.getObjectById(Memory.northwestControllerID);
 
   const timeDigitsSlice = 2;
   const t = Game.time.toString().slice(timeDigitsSlice);
@@ -1284,57 +1285,57 @@ function spawnCreepTypes(enAvail, spawns) {
   //   }
   // }
 
-  //   #####   #           #     ###  #     #
-  //  #     #  #          # #     #   ##   ##
-  //  #        #         #   #    #   # # # #
-  //  #        #        #     #   #   #  #  #
-  //  #        #        #######   #   #     #
-  //  #     #  #        #     #   #   #     #
-  //   #####   #######  #     #  ###  #     #
-  if (
-    enAvail >= 650 &&
-    !invader &&
-    !wAttacker &&
-    northwestController &&
-    !westController.my
-  ) {
-    let name = "hW" + t;
-    let chosenRole = "h";
-    let direction = "west";
-    let sourceId = Memory.nSource2;
-    let parts = claimerParts650;
-    let group = "claimersW";
-    let spawnDirection = [LEFT];
-    let cost = "650";
+  // //   #####   #           #     ###  #     #
+  // //  #     #  #          # #     #   ##   ##
+  // //  #        #         #   #    #   # # # #
+  // //  #        #        #     #   #   #  #  #
+  // //  #        #        #######   #   #     #
+  // //  #     #  #        #     #   #   #     #
+  // //   #####   #######  #     #  ###  #     #
+  // if (
+  //   enAvail >= 650 &&
+  //   !invader &&
+  //   !nwAttacker &&
+  //   northwestController &&
+  //   !northwestController.my
+  // ) {
+  //   let name = "hW" + t;
+  //   let chosenRole = "h";
+  //   let direction = "west";
+  //   let sourceId = Memory.nSource2;
+  //   let parts = claimerParts650;
+  //   let group = "claimersW";
+  //   let spawnDirection = [LEFT];
+  //   let cost = "650";
 
-    if (claimersWest.length < 1) {
-      logConditionPassedForSpawnCreep("claimersWest", claimersWest, 1);
-      name = "cW" + t;
-      chosenRole = "claimerW";
-      parts = claimerParts650;
-      creepsWest.push(name);
-      claimersWest.push(name);
-      retval = birthCreep(
-        spawns,
-        parts,
-        name,
-        chosenRole,
-        direction,
-        sourceId,
-        spawnDirection,
-        group,
-        cost
-      );
-    }
+  //   if (claimersWest.length < 1) {
+  //     logConditionPassedForSpawnCreep("claimersWest", claimersWest, 1);
+  //     name = "cW" + t;
+  //     chosenRole = "claimerW";
+  //     parts = claimerParts650;
+  //     creepsWest.push(name);
+  //     claimersWest.push(name);
+  //     retval = birthCreep(
+  //       spawns,
+  //       parts,
+  //       name,
+  //       chosenRole,
+  //       direction,
+  //       sourceId,
+  //       spawnDirection,
+  //       group,
+  //       cost
+  //     );
+  //   }
 
-    if (retval !== -16) {
-      console.log("spawningS " + name + "_" + cost + " " + retval);
-      console.log("energy: " + cost + "  parts: " + parts);
-    }
-    if (retval === OK || retval === ERR_BUSY) {
-      return retval;
-    }
-  }
+  //   if (retval !== -16) {
+  //     console.log("spawningS " + name + "_" + cost + " " + retval);
+  //     console.log("energy: " + cost + "  parts: " + parts);
+  //   }
+  //   if (retval === OK || retval === ERR_BUSY) {
+  //     return retval;
+  //   }
+  // }
 
   // //
   // //

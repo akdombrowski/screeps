@@ -996,8 +996,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
     let cost = "550";
 
-    if (harvestersWest.length < 2) {
-      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 2);
+    if (harvestersWest.length < 6) {
+      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 6);
       name = "hW" + t;
       direction = "west";
       group = "harvestersWest";

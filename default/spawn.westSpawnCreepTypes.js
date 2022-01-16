@@ -518,8 +518,8 @@ function spawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
     let cost = "300";
 
-    if (harvestersWest.length < 1) {
-      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 1);
+    if (harvestersWest.length < 4) {
+      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 4);
       name = "hW" + t;
       direction = "west";
       group = "harvestersWest";
@@ -588,13 +588,13 @@ function spawnCreepTypes(enAvail, spawns) {
     let spawnDirection = [TOP];
     let cost = "300";
 
-    if (harvestersWest.length < 0) {
-      logConditionPassedForSpawnCreep("harvestersWest", harvestersWest, 0);
-      name = "hW" + t;
-      direction = "west";
-      group = "harvestersWest";
-      creepsWest.push(name);
-      harvestersWest.push(name);
+    if (harvesters.length < 1) {
+      logConditionPassedForSpawnCreep("harvesters", harvesters, 1);
+      name = "h" + t;
+      direction = "home";
+      group = "harvesters";
+      creepsHome.push(name);
+      harvesters.push(name);
       parts = simpleParts300;
       retval = birthCreep(
         spawns,

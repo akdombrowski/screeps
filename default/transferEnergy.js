@@ -26,6 +26,7 @@ const {
   checkTransferToTower,
 } = require("./transferEnergy.checkTransferToTower");
 const { doesTargetNeedEnergy } = require("./doesTargetNeedEnergy");
+const { moveToDifferentRoom } = require("./move.moveToDifferentRoom");
 
 function tran(
   creep,
@@ -61,6 +62,19 @@ function tran(
   let retval = -16;
 
   creep.memory.lastSourceId = null;
+
+  if (creepRoomName != targetRoomName) {
+    retval = moveToDifferentRoom(
+      creepRoomName,
+      exitDirection,
+      exit,
+      targetRoomName,
+      creep,
+      retval
+    );
+
+    return { retval: retval, extensions: extensions, spawns: spawns };
+  }
 
   if (
     !creep.store[RESOURCE_ENERGY] ||
@@ -125,75 +139,9 @@ function tran(
       spawns = spa;
     }
 
+    console.log("target: " + target + " current room: " + creep.room.name);
+
     // check if we got a target for an ext or spawn
-    if (!target) {
-      if (
-        targetRoomName != Memory.northRoomName &&
-        creep.room.name === Memory.northRoomName
-      ) {
-        // if in the north room but target is not north, head south
-        exitDirection = BOTTOM;
-        exit = Game.flags.northToHome;
-      } else if (creep.room.name === Memory.southRoomName) {
-        // if in the deepSouth room but target room is not deepSouth
-        if (targetRoomName != Memory.southwestRoomName) {
-          // if target name is not the SW room, then head north to home room
-          exitDirection = TOP;
-          exit = Game.flags.southToHome;
-        } else {
-          exitDirection = LEFT;
-          exit = Game.flags.southToSouthwest;
-        }
-      } else if (creep.room.name === Memory.homeRoomName) {
-        // if in the homeroom but target room is not homeroom,
-        if (targetRoomName === Memory.southRoomName) {
-          // we're not heading north, so head south
-          // east and west are blocked in this spawn area
-          exitDirection = BOTTOM;
-          exit = Game.flags.homeToSouth;
-        } else  if (targetRoomName === Memory.northwestRoomName) {
-          // we're not heading north, so head south
-          // east and west are blocked in this spawn area
-          exitDirection = LEFT;
-          exit = Game.flags.homeToWest;
-        } else {
-          // we're heading north
-          exitDirection = TOP;
-          exit = Game.flags.homeToNorth;
-        }
-      } else if (creep.room.name === Memory.southwestRoomName) {
-        // if in the deepSouth room but target room is not deepSouth
-        if (targetRoomName != Memory.westRoomName) {
-          // if target name is not the SW room, then head north to home room
-          exitDirection = RIGHT;
-          exit = Game.flags.southwestToSouth;
-        } else {
-          exitDirection = TOP;
-          exit = Game.flags.southwestToWest;
-        }
-      }
-
-      if (creep.pos.isNearTo(exit)) {
-        creep.say(exitDirection);
-        retval = creep.move(exitDirection);
-      } else {
-        creep.say(targetRoomName);
-        retval = smartMove(
-          creep,
-          exit,
-          1,
-          true,
-          null,
-          null,
-          null,
-          1,
-          false,
-          null
-        );
-      }
-
-      return { retval: retval, extensions: extensions, spawns: spawns };
-    }
   }
 
   if (!target) {

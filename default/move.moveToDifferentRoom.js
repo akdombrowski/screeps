@@ -20,10 +20,30 @@ function moveToDifferentRoom(
   const homeToNorth = Game.flags.homeToNorth;
   const southToHome = Game.flags.southToHome;
   const westToHome = Game.flags.westToHome;
+  const westToNorthwest = Game.flags.westToNorthwest;
+  const northwestToWest = Game.flags.northwestToWest;
   const southToSouthwest = Game.flags.southToSouthwest;
   const southwestToSouth = Game.flags.southwestToSouth;
 
-  if (creepRoomName === northRoomName) {
+  if (creepRoomName === homeRoomName) {
+    if (targetRoomName === southRoomName) {
+      exitDirection = BOTTOM;
+      exit = homeToSouth;
+    } else if (targetRoomName === northRoomName) {
+      exitDirection = TOP;
+      exit = homeToNorth;
+    } else if (targetRoomName === westRoomName) {
+      exitDirection = LEFT;
+      exit = homeToWest;
+    } else if (targetRoomName === northwestRoomName) {
+      exitDirection = LEFT;
+      exit = homeToWest;
+    }
+  } else if (creepRoomName === southwestRoomName) {
+    // if in the SouthWest room but target room is not there, head to S as a start
+    exitDirection = RIGHT;
+    exit = southwestToSouth;
+  } else if (creepRoomName === northRoomName) {
     // if in the north room but target is not north, head home, the other rooms are that way
     exitDirection = BOTTOM;
     exit = northToHome;
@@ -39,22 +59,21 @@ function moveToDifferentRoom(
       exitDirection = LEFT;
       exit = southToSouthwest;
     }
-  } else if (creepRoomName === southwestRoomName) {
-    // if in the deepSouthWest room but target room is not there, head to dS as a start
-    exitDirection = RIGHT;
-    exit = southwestToSouth;
-  } else if (creepRoomName === homeRoomName) {
-    if (targetRoomName === southRoomName) {
-      exitDirection = BOTTOM;
-      exit = homeToSouth;
-    } else if (targetRoomName === northRoomName) {
-      exitDirection = TOP;
-      exit = homeToNorth;
-    }
   } else if (creepRoomName === westRoomName) {
     if (targetRoomName === homeRoomName) {
       exitDirection = RIGHT;
       exit = westToHome;
+    } else if (targetRoomName === northwestRoomName) {
+      exitDirection = TOP;
+      exit = westToNorthwest;
+    }
+  } else if (creepRoomName === northwestRoomName) {
+    if (targetRoomName === homeRoomName) {
+      exitDirection = BOTTOM;
+      exit = northwestToWest;
+    } else if (targetRoomName === westRoomName) {
+      exitDirection = BOTTOM;
+      exit = northwestToWest;
     }
   }
 

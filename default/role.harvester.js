@@ -6,6 +6,7 @@ const profiler = require("./screeps-profiler");
 const {
   transferEnergyBasedOnDirection,
 } = require("./transferEnergy.transferEnergyBasedOnDirection");
+const { pullFromSourceArrays } = require("./getEnergy.pullFromSourceArrays");
 
 function roleHarvester(
   creep,
@@ -53,10 +54,9 @@ function roleHarvester(
     creep.memory.lastSourceId = null;
     creep.memory.getEnergy = false;
     creep.memory.transfer = true;
-    _.pull(Memory.homeSource1Creeps, creep.name);
-    _.pull(Memory.homeSource2Creeps, creep.name);
-    _.pull(Memory.northwestSource1Creeps, creep.name);
-    _.pull(Memory.northwestSource2Creeps, creep.name);
+
+    // done getting energy, remove from source arrays
+    pullFromSourceArrays(name);
 
     ret = transferEnergyBasedOnDirection(creep, extensions, spawns);
 

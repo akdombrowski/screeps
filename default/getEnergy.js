@@ -6,6 +6,8 @@ const smartMove = require("./move.smartMove");
 const vestEE = require("./action.getEnergyEEast");
 const profiler = require("./screeps-profiler");
 const { chooseSource } = require("./getEnergy.chooseSource");
+const { pullFromSourceArrays } = require("./getEnergy.pullFromSourceArrays");
+const { sourceCreepArrays } = require("./getEnergy.sourceCreepArrays");
 
 function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
   let tower = Game.getObjectById(Memory.tower1Id);
@@ -37,15 +39,15 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
   ) {
     console.log(name + " resetting getEnergy");
 
-    _.pull(Memory.homeSource1Creeps, creep.name);
-    _.pull(Memory.homeSource2Creeps, creep.name);
-    _.pull(Memory.northwestSource1Creeps, creep.name);
-    _.pull(Memory.northwestSource2Creeps, creep.name);
     creep.memory.lastSourceId = null;
     creep.memory.path = null;
     creep.memory.getEnergy = false;
     creep.memory.getEnergyTargetId = null;
     creep.memory.transfer = true;
+
+    // not getting energy, remove from source arrays
+    pullFromSourceArrays(name);
+
     return OK;
   }
 
@@ -415,10 +417,8 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
         creep.memory.lastSourceId = target.id;
 
         if (creep.store.getFreeCapacity(RESOURCE_ENERGY) <= 0) {
-          _.pull(Memory.homeSource1Creeps, creep.name);
-          _.pull(Memory.homeSource2Creeps, creep.name);
-          _.pull(Memory.northwestSource1Creeps, creep.name);
-          _.pull(Memory.northwestSource2Creeps, creep.name);
+          // not getting energy, remove from source arrays
+          pullFromSourceArrays(name);
         }
       } else if (retval === ERR_TIRED) {
         creep.say("v." + creep.fatigue + "😴");
@@ -484,39 +484,6 @@ function getEnergy(creep, targetRoomName, taskRm, flag, exit, exitDirection) {
 
   return retval;
 }
-
-function sourceCreepArrays(target, creep, roomDirection) {
-  if (!Memory[roomDirection + "Source1Creeps"]) {
-    Memory[roomDirection + "Source1Creeps"] = [];
-  }
-
-  if (!Memory[roomDirection + "Source2Creeps"]) {
-    Memory[roomDirection + "Source2Creeps"] = [];
-  }
-
-  let source1Creeps = Memory[roomDirection + "Source1Creeps"] || [];
-  let source2Creeps = Memory[roomDirection + "Source2Creeps"] || [];
-
-  if (target.id === Memory[roomDirection + "Source1ID"]) {
-    if (!source1Creeps.find((name) => name === creep.name)) {
-      source1Creeps.push(creep.name);
-    }
-    _.pull(source2Creeps, creep.name);
-  } else if (target.id === Memory[roomDirection + "Source2ID"]) {
-    if (!source2Creeps.find((name) => name === creep.name)) {
-      source2Creeps.push(creep.name);
-    }
-    _.pull(source1Creeps, creep.name);
-  }
-
-  Memory[roomDirection + "Source1Creeps"] = source1Creeps;
-  Memory[roomDirection + "Source2Creeps"] = source2Creeps;
-}
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
-getRandomInt = profiler.registerFN(getRandomInt, "getRandomInt");
 
 getEnergy = profiler.registerFN(getEnergy, "getEnergy");
 module.exports = getEnergy;

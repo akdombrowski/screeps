@@ -1,3 +1,4 @@
+const { pullFromSourceArrays } = require("./getEnergy.pullFromSourceArrays");
 const profiler = require("./screeps-profiler");
 
 function deleteDeadCreeps() {
@@ -5,10 +6,7 @@ function deleteDeadCreeps() {
     if (!Game.creeps[name]) {
       delete Memory.creeps[name];
 
-      _.pull(Memory.homeSource1Creeps, creep.name);
-      _.pull(Memory.homeSource2Creeps, creep.name);
-      _.pull(Memory.northwestSource1Creeps, creep.name);
-      _.pull(Memory.northwestSource2Creeps, creep.name);
+      pullFromSourceArrays(name);
 
       Memory.droppedPickerUpperName = null;
       console.log("del.", name);
@@ -18,3 +16,4 @@ function deleteDeadCreeps() {
 
 deleteDeadCreeps = profiler.registerFN(deleteDeadCreeps, "deleteDeadCreeps");
 exports.deleteDeadCreeps = deleteDeadCreeps;
+

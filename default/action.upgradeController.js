@@ -3,6 +3,7 @@ const moveAwayFromCreep = require("./action.moveAwayFromCreep");
 const smartMove = require("./move.smartMove");
 const profiler = require("./screeps-profiler");
 const { checkIfBlockingSource } = require("./utilities.checkIfBlockingSource");
+const { pullFromSourceArrays } = require("./getEnergy.pullFromSourceArrays");
 
 function upController(
   creep,
@@ -56,10 +57,8 @@ function upController(
     creep.memory.up = true;
     creep.memory.getEnergy = false;
 
-    _.pull(Memory.homeSource1Creeps, creep.name);
-    _.pull(Memory.homeSource2Creeps, creep.name);
-    _.pull(Memory.northwestSource1Creeps, creep.name);
-    _.pull(Memory.northwestSource2Creeps, creep.name);
+    // done getting energy so remove from source arrays
+    pullFromSourceArrays(name);
   } else if (creep.store[RESOURCE_ENERGY] <= 0 || creep.memory.getEnergy) {
     creep.memory.up = false;
     creep.memory.getEnergy = true;
@@ -162,7 +161,18 @@ function upController(
       } else if (creep.fatigue > 0) {
         creep.say("f." + creep.fatigue);
       } else {
-        retval = smartMove(creep, target, 3, true, "#ffff80", null, null, 1, false, null);
+        retval = smartMove(
+          creep,
+          target,
+          3,
+          true,
+          "#ffff80",
+          null,
+          null,
+          1,
+          false,
+          null
+        );
 
         if (retval != OK) {
           creep.say("err." + retval);

@@ -1656,11 +1656,35 @@ function spawnCreepTypes(enAvail, spawns) {
         group,
         cost
       );
+    } else if (roadRepairersNorthwest.length < 2) {
+      logConditionPassedForSpawnCreep(
+        "roadRepairersNorthwest",
+        roadRepairersNorthwest,
+        2
+      );
+      parts = fastMoverParts800;
+      name = "rRNW" + t;
+      chosenRole = "roadRepairer";
+      direction = "northwest";
+      group = "roadRepairersNorthwest";
+      creepsNorthwest.push(name);
+      roadRepairersNorthwest.push(name);
+      retval = birthCreep(
+        spawns,
+        parts,
+        name,
+        chosenRole,
+        direction,
+        sourceId,
+        spawnDirection,
+        group,
+        cost
+      );
     } else if (roadRepairersWest.length < 2) {
       logConditionPassedForSpawnCreep(
         "roadRepairersWest",
         roadRepairersWest,
-        8
+        2
       );
       parts = fastMoverParts800;
       name = "rRW" + t;
@@ -1967,13 +1991,13 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.roadRepairersSouth = roadRepairersSouth;
   Memory.roadRepairersWest = roadRepairersWest;
   Memory.roadRepairersSouthwest = roadRepairersSouthwest;
+  Memory.roadRepairersNorthwest = roadRepairersNorthwest;
   Memory.rangedAttackers = rangedAttackers;
   Memory.rangedAttackersSouth = rangedAttackersSouth;
   Memory.rangedAttackersNorth = rangedAttackersNorth;
   Memory.rangedAttackersWest = rangedAttackersWest;
   Memory.rangedAttackersEast = rangedAttackersEast;
   Memory.rangedAttackersSouthwest = rangedAttackersSouthwest;
-  Memory.rangedAttackersNorthwest = rangedAttackersNorthwest;
   Memory.attackers = attackers;
   Memory.claimers = claimers;
   Memory.claimersSouth = claimersSouth;

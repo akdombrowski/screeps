@@ -5,6 +5,7 @@ const build = require("./build");
 const { checkIfBlockingSource } = require("./utilities.checkIfBlockingSource");
 const profiler = require("./screeps-profiler");
 const { findFixablesForCreep } = require("./find.findFixablesForCreep");
+const { pullFromSourceArrays } = require("./getEnergy.pullFromSourceArrays");
 
 function roleRepairer(
   creep,
@@ -32,8 +33,7 @@ function roleRepairer(
     creep.memory.repair = mem_repair;
     creep.memory.getEnergy = false;
 
-    _.pull(Memory.homeSource1Creeps, creep.name);
-    _.pull(Memory.homeSource2Creeps, creep.name);
+    pullFromSourceArrays(name);
   } else if (
     !mem_repair &&
     (creep.memory.getEnergy || creep.store[RESOURCE_ENERGY] <= 0)

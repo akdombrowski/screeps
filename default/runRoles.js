@@ -378,7 +378,7 @@ function runRoles() {
           if (!shouldContinueToNextCreep) {
             roleRepairer(
               creep,
-              westRoomName,
+              homeRoomName,
               homeToWest,
               LEFT,
               homeRoomName,

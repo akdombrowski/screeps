@@ -104,6 +104,7 @@ function spawnCreepTypes(enAvail, spawns) {
   let roadRepairersSouth = Memory.roadRepairersSouth || [];
   let roadRepairersWest = Memory.roadRepairersWest || [];
   let roadRepairersSouthwest = Memory.roadRepairersSouthwest || [];
+  let roadRepairersNorthwest = Memory.roadRepairersNorthwest || [];
   let roadBuilders = Memory.roadBuilders || [];
   let reservers = Memory.reservers || [];
   let towerHarvesters = Memory.towerHarvesters || [];
@@ -1972,6 +1973,7 @@ function spawnCreepTypes(enAvail, spawns) {
   Memory.rangedAttackersWest = rangedAttackersWest;
   Memory.rangedAttackersEast = rangedAttackersEast;
   Memory.rangedAttackersSouthwest = rangedAttackersSouthwest;
+  Memory.rangedAttackersNorthwest = rangedAttackersNorthwest;
   Memory.attackers = attackers;
   Memory.claimers = claimers;
   Memory.claimersSouth = claimersSouth;

@@ -43,6 +43,7 @@ function runRoles() {
   let roadRepairersNorth = [];
   let roadRepairersWest = [];
   let roadRepairersSouthwest = [];
+  let roadRepairersNorthwest = [];
   let roadBuilders = [];
   let rangedAttackers = [];
   let rangedAttackersSouth = [];
@@ -404,6 +405,20 @@ function runRoles() {
               westRoomName,
               westToHome,
               RIGHT
+            );
+          }
+        } else if (creep.memory.direction === "northwest") {
+          roadRepairersNorthwest.push(name);
+
+          if (!shouldContinueToNextCreep) {
+            roleRepairer(
+              creep,
+              northwestRoomName,
+              westToNorthwest,
+              TOP,
+              northwestRoomName,
+              northwestToWest,
+              BOTTOM
             );
           }
         } else if (creep.memory.direction === "south") {
@@ -879,6 +894,7 @@ function runRoles() {
   Memory.roadRepairersNorth = roadRepairersNorth;
   Memory.roadRepairersWest = roadRepairersWest;
   Memory.roadRepairersSouthwest = roadRepairersSouthwest;
+  Memory.roadRepairersNorthwest = roadRepairersNorthwest;
   Memory.roadBuilders = roadBuilders;
   Memory.rangedAttackers = rangedAttackers;
   Memory.rangedAttackersSouth = rangedAttackersSouth;

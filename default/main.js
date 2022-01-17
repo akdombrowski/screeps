@@ -156,7 +156,7 @@ module.exports.loop = function () {
     const timeToPassForRecheck = 100;
     const minEnergyToKeepForInvaders = 400;
     const healInterval = 1;
-    const repairInterval = 2;
+    const repairInterval = 1;
     if (!Game.getObjectById(Memory.invaderIDHome)) {
       retval = towerHeal(
         towers,

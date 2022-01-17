@@ -34,6 +34,7 @@ function runRoles() {
   let upControllersNorth = [];
   let upControllersWest = [];
   let upControllersSouthwest = [];
+  let upControllersNorthwest = [];
   let upControllersE59S47 = [];
   let upControllersE59S49 = [];
   let upControllersE58S49 = [];
@@ -872,6 +873,7 @@ function runRoles() {
   Memory.upControllersNorth = upControllersNorth;
   Memory.upControllersWest = upControllersWest;
   Memory.upControllersSouthwest = upControllersSouthwest;
+  Memory.upControllersNorthwest = upControllersNorthwest;
   Memory.roadRepairers = roadRepairers;
   Memory.roadRepairersSouth = roadRepairersSouth;
   Memory.roadRepairersNorth = roadRepairersNorth;

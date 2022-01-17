@@ -12,12 +12,16 @@ function pickupDroppedEnergyOrWithdrawFromTombstone(
     droppedTarget = Game.getObjectById(creep.memory.droppedTargetId);
   }
 
-  if(droppedTarget) {
-    if(droppedTarget.amount && droppedTarget.amount < minAmountOfResource) {
+  if (droppedTarget) {
+    if (droppedTarget.amount && droppedTarget.amount < minAmountOfResource) {
       droppedTarget = null;
     }
 
-    if(droppedTarget && droppedTarget.store && droppedTarget.store[RESOURCE_ENERGY] < minAmountOfResource) {
+    if (
+      droppedTarget &&
+      droppedTarget.store &&
+      droppedTarget.store[RESOURCE_ENERGY] < minAmountOfResource
+    ) {
       droppedTarget = null;
     }
   }
@@ -136,7 +140,10 @@ function droppedDuty(creep) {
     amIOnDroppedDuty ||
     droppedPickerUpperNames.length < 3
   ) {
-    pickupDroppedEnergyOrWithdrawFromTombstone(creep, minAmountOfResource);
+    retval = pickupDroppedEnergyOrWithdrawFromTombstone(
+      creep,
+      minAmountOfResource
+    );
   } else {
     creep.memory.droppedTargetId = null;
     creep.memory.lastSourceId = null;

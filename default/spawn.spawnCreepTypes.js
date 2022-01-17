@@ -472,94 +472,94 @@ function spawnCreepTypes(enAvail, spawns) {
     }
   }
 
-  //     #     #######  #######     #      #####   #    #
-  //    # #       #        #       # #    #     #  #   #
-  //   #   #      #        #      #   #   #        #  #
-  //  #     #     #        #     #     #  #        ###
-  //  #######     #        #     #######  #        #  #
-  //  #     #     #        #     #     #  #     #  #   #
-  //  #     #     #        #     #     #   #####   #    #
-  if (enAvail >= 550 && Game.getObjectById(Memory.invaderIDHome)) {
-    logConditionPassedForSpawnCreep("rangedAttackers", rangedAttackers, -1);
+  // //     #     #######  #######     #      #####   #    #
+  // //    # #       #        #       # #    #     #  #   #
+  // //   #   #      #        #      #   #   #        #  #
+  // //  #     #     #        #     #     #  #        ###
+  // //  #######     #        #     #######  #        #  #
+  // //  #     #     #        #     #     #  #     #  #   #
+  // //  #     #     #        #     #     #   #####   #    #
+  // if (enAvail >= 550 && Game.getObjectById(Memory.invaderIDHome)) {
+  //   logConditionPassedForSpawnCreep("rangedAttackers", rangedAttackers, -1);
 
-    let name = "aR" + t;
-    let chosenRole = "rangedAttacker";
-    let direction = "home";
-    let sourceId = Memory.dSSource2;
-    let parts = rangedAttackerParts550;
-    let group = "rangedAttackers";
-    let spawnDirection = [LEFT];
-    let cost = "550";
+  //   let name = "aR" + t;
+  //   let chosenRole = "rangedAttacker";
+  //   let direction = "home";
+  //   let sourceId = Memory.dSSource2;
+  //   let parts = rangedAttackerParts550;
+  //   let group = "rangedAttackers";
+  //   let spawnDirection = [LEFT];
+  //   let cost = "550";
 
-    creepsHome.push(name);
-    rangedAttackers.push(name);
-    retval = birthCreep(
-      spawns,
-      parts,
-      name,
-      chosenRole,
-      direction,
-      sourceId,
-      spawnDirection,
-      group,
-      cost
-    );
+  //   creepsHome.push(name);
+  //   rangedAttackers.push(name);
+  //   retval = birthCreep(
+  //     spawns,
+  //     parts,
+  //     name,
+  //     chosenRole,
+  //     direction,
+  //     sourceId,
+  //     spawnDirection,
+  //     group,
+  //     cost
+  //   );
 
-    if (retval !== -16) {
-      console.log("spawningS " + name + "_" + cost + " " + retval);
-      console.log("energy: " + cost + "  parts: " + parts);
-    }
-    if (retval === OK || retval === ERR_BUSY) {
-      return retval;
-    }
-  }
+  //   if (retval !== -16) {
+  //     console.log("spawningS " + name + "_" + cost + " " + retval);
+  //     console.log("energy: " + cost + "  parts: " + parts);
+  //   }
+  //   if (retval === OK || retval === ERR_BUSY) {
+  //     return retval;
+  //   }
+  // }
 
-  //     #     #######  #######     #      #####   #    #
-  //    # #       #        #       # #    #     #  #   #
-  //   #   #      #        #      #   #   #        #  #
-  //  #     #     #        #     #     #  #        ###
-  //  #######     #        #     #######  #        #  #
-  //  #     #     #        #     #     #  #     #  #   #
-  //  #     #     #        #     #     #   #####   #    #
-  // console.log(Game.getObjectById(Memory.invaderIDWest));
-  if (enAvail >= 550 && rangedAttackersWest.length < 0) {
-    logConditionPassedForSpawnCreep(
-      "rangedAttackersWest",
-      rangedAttackersWest,
-      1
-    );
+  // //     #     #######  #######     #      #####   #    #
+  // //    # #       #        #       # #    #     #  #   #
+  // //   #   #      #        #      #   #   #        #  #
+  // //  #     #     #        #     #     #  #        ###
+  // //  #######     #        #     #######  #        #  #
+  // //  #     #     #        #     #     #  #     #  #   #
+  // //  #     #     #        #     #     #   #####   #    #
+  // // console.log(Game.getObjectById(Memory.invaderIDWest));
+  // if (enAvail >= 550 && rangedAttackersWest.length < 0) {
+  //   logConditionPassedForSpawnCreep(
+  //     "rangedAttackersWest",
+  //     rangedAttackersWest,
+  //     1
+  //   );
 
-    let name = "aRW" + t;
-    let chosenRole = "rangedAttacker";
-    let direction = "west";
-    let sourceId = Memory.dSSource2;
-    let parts = rangedAttackerParts550;
-    let group = "rangedAttackersWest";
-    let spawnDirection = [LEFT];
-    let cost = "550";
+  //   let name = "aRW" + t;
+  //   let chosenRole = "rangedAttacker";
+  //   let direction = "west";
+  //   let sourceId = Memory.dSSource2;
+  //   let parts = rangedAttackerParts550;
+  //   let group = "rangedAttackersWest";
+  //   let spawnDirection = [LEFT];
+  //   let cost = "550";
 
-    creepsWest.push(name);
-    rangedAttackersWest.push(name);
-    retval = birthCreep(
-      spawns,
-      parts,
-      name,
-      chosenRole,
-      direction,
-      sourceId,
-      spawnDirection,
-      group,
-      cost
-    );
+  //   creepsWest.push(name);
+  //   rangedAttackersWest.push(name);
+  //   retval = birthCreep(
+  //     spawns,
+  //     parts,
+  //     name,
+  //     chosenRole,
+  //     direction,
+  //     sourceId,
+  //     spawnDirection,
+  //     group,
+  //     cost
+  //   );
 
-    if (retval !== -16) {
-      console.log("spawningS " + name + "_" + cost + " " + retval);
-      console.log("energy: " + cost + "  parts: " + parts);
-    }
-    if (retval === OK || retval === ERR_BUSY) {
-      return retval;
-    }
-  }
+  //   if (retval !== -16) {
+  //     console.log("spawningS " + name + "_" + cost + " " + retval);
+  //     console.log("energy: " + cost + "  parts: " + parts);
+  //   }
+  //   if (retval === OK || retval === ERR_BUSY) {
+  //     return retval;
+  //   }
+  // }
 
   // // ..#######....#####.....#####..
   // // .##.....##..##...##...##...##.

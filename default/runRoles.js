@@ -425,7 +425,15 @@ function runRoles() {
           roadRepairersSouth.push(name);
 
           if (!shouldContinueToNextCreep) {
-            roleRepairer(creep, southRoomName, homeToSouth, BOTTOM);
+            roleRepairer(
+              creep,
+              southRoomName,
+              homeToSouth,
+              BOTTOM,
+              southRoomName,
+              homeToSouth,
+              BOTTOM
+            );
           }
         } else {
           roadRepairers.push(name);

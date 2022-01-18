@@ -1548,7 +1548,7 @@ function spawnCreepTypes(enAvail, spawns) {
   //
   //
   //
-  if (enAvail >= 800 && !wAttacker && westController && westController.my) {
+  if (enAvail >= 800 && !wAttacker && northwestController && northwestController.my) {
     let name = "upCNW" + t;
     let chosenRole = "upCNW";
     let direction = "northwest";
